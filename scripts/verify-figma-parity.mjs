@@ -3648,6 +3648,15 @@ const COMPONENT_CONTRACTS = [
       State: { options: ["Default", "Hover"], reason: "Hover 는 CSS 상태다(빈 칸의 점선 · 글리프가 한 단 진해진다). Figma 에 CSS 상태가 없어 변형으로 둔다." },
       RemoveButton: { type: "BOOLEAN", reason: "지우기 버튼 레이어의 가시성. 코드에서는 칸 안 `__remove` 버튼의 렌더 조건이다." },
     },
+    geometry: {
+      measuredId: "media-slot",
+      sizeKeys: ["md/base/Default", "video/base/Default", "attachment/base/Default"],
+      fields: { width: "width", height: "height", cornerRadius: "radius" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+      $comment: "고정 상자 셋만 건다 — fill 네 키(fill/base/Default · fill/empty/Default · fill/empty/Hover · fill/base/Default/2:3)는 폭이 열 폭(표본 96)이라 width · height 를 걸 수 없고, 계약 fields 가 키마다 갈리지 않아 그 키를 sizeKeys 에 넣으면 「근거 값이 없습니다」로 빨갛다. 그 키의 반경 · 비율은 시험이 잰다. strokeWeight 는 fields 에 넣지 않는다 — 기록 borderWidth 1 이 허용 두께 집합을 정하고, 지금 Figma 에는 stroke 가 없다(figmaMismatches).",
+    },
   },
   {
     id: "floating-shell",
@@ -3662,6 +3671,14 @@ const COMPONENT_CONTRACTS = [
       Glyph: { type: "INSTANCE_SWAP", reason: "툴 글리프 20." },
       Spotlight: { type: "BOOLEAN", reason: "`data-spotlight` 의 바깥 2px 강조 링 레이어 가시성." },
     },
+    geometry: {
+      measuredId: "floating-shell-item",
+      sizeKeys: ["md/Default", "md/Hover", "md/Pressed", "md/Disabled", "lg/Default", "lg/Hover", "lg/Pressed", "lg/Disabled"],
+      fields: { width: "size", height: "size", cornerRadius: "radius" },
+      slots: { Glyph: "glyphSize" },
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "floating-shell",
@@ -3671,6 +3688,14 @@ const COMPONENT_CONTRACTS = [
     strokes: {},
     effects: {},
     figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "floating-shell-divider",
+      sizeKeys: ["divider"],
+      fields: { width: "width", height: "height" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "app-shell-parts",
@@ -3683,6 +3708,19 @@ const COMPONENT_CONTRACTS = [
       State: { options: ["Default", "Hover", "Active", "Focus"], reason: "Hover · Active 는 CSS 상태, Focus 는 편집 입력(`__title-input`)으로 바뀐 자리다." },
       Title: { type: "TEXT", reason: "프로젝트 제목. 한 줄 말줄임이다." },
     },
+    geometry: {
+      measuredId: "top-bar-title",
+      sizeKeys: ["Default", "Hover", "Active", "Focus"],
+      fields: {
+        height: "height",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "app-shell-parts",
@@ -3694,6 +3732,20 @@ const COMPONENT_CONTRACTS = [
     figmaOnlyProperties: {
       State: { options: ["Default", "Hover", "Active"], reason: "Hover · Active 는 CSS 상태다." },
       Mark: { type: "INSTANCE_SWAP", reason: "브랜드 심볼 20." },
+    },
+    geometry: {
+      measuredId: "top-bar-home",
+      sizeKeys: ["Default", "Hover", "Active"],
+      fields: {
+        height: "height",
+        minWidth: "minWidth",
+        paddingInline: "paddingInlineStart",
+        paddingInlineEnd: "paddingInlineEnd",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3746,6 +3798,20 @@ const COMPONENT_CONTRACTS = [
       Label: { type: "TEXT", reason: "column 의 본문 라벨." },
       Action: { type: "TEXT", reason: "column 의 사용 버튼 글." },
     },
+    geometry: {
+      measuredId: "prompt-variant",
+      sizeKeys: ["card", "column"],
+      fields: {
+        paddingBlock: "padding",
+        paddingInline: "padding",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "segment-track",
@@ -3757,6 +3823,21 @@ const COMPONENT_CONTRACTS = [
     figmaOnlyProperties: {
       Layout: { options: ["regular", "compact"], reason: "코드의 루트 `data-layout` 이다(compact = 소비처가 좁은 화면에서 단다). 줄 머리 · 여백 · 칸 크기가 다시 쓰인다." },
       State: { options: ["Filled", "Empty"], reason: "구간이 있는가 — 빈 상태는 지도 · 구간 줄 대신 점선 빈 줄(`__lane`)이 선다. Filled 의 칸 · 막대는 시드 예시다." },
+    },
+    geometry: {
+      measuredId: "segment-track",
+      sizeKeys: ["regular/Filled", "compact/Filled", "regular/Empty", "compact/Empty"],
+      fields: {
+        height: { atLeast: "minHeight" },
+        paddingBlock: "paddingBlock",
+        paddingInline: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3773,6 +3854,19 @@ const COMPONENT_CONTRACTS = [
       Title: { type: "TEXT", reason: "구간 제목." },
       Playhead: { type: "BOOLEAN", reason: "칸 안 재생헤드 레이어 가시성." },
     },
+    geometry: {
+      measuredId: "segment-track-block",
+      sizeKeys: ["clip/false", "candidate/false", "selected/false", "short/false", "clip/true", "candidate/true", "selected/true", "short/true"],
+      fields: {
+        height: "height",
+        paddingInline: ["paddingInline", "borderWidth"],
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "segment-track",
@@ -3784,6 +3878,14 @@ const COMPONENT_CONTRACTS = [
     figmaOnlyProperties: {
       Look: { options: ["clip", "candidate", "accent"], reason: "지도 막대의 `data-look` 이다(short 는 accent 로 그린다)." },
       Emphasis: { options: ["rest", "current", "hover"], reason: "`data-current` · `data-hover` — 막대가 높이 8 로 커지고 고리 1.5 가 선다(무대는 전경색, 가리킴은 강조색)." },
+    },
+    geometry: {
+      measuredId: "segment-track-map-bar",
+      sizeKeys: ["clip/rest", "clip/current", "clip/hover", "candidate/rest", "candidate/current", "candidate/hover", "accent/rest", "accent/current", "accent/hover"],
+      fields: { height: "height", cornerRadius: "radius" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3798,6 +3900,21 @@ const COMPONENT_CONTRACTS = [
       Error: { type: "BOOLEAN", reason: "실패 줄(`__error`, fg-danger-on-surface) 가시성." },
       Progress: { type: "BOOLEAN", reason: "진행 묶음(`__progress` — 퍼센트 · 진행 막대) 가시성." },
     },
+    geometry: {
+      measuredId: "stage-bar",
+      sizeKeys: ["board", "waiting", "stopped"],
+      fields: {
+        height: { atLeast: "minHeight" },
+        paddingBlock: "padding",
+        paddingInline: "padding",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "video-player",
@@ -3811,6 +3928,14 @@ const COMPONENT_CONTRACTS = [
       Standalone: { options: ["false", "true"], reason: "코드의 `data-standalone` — 플레이어 밖에 홀로 선 칩. 겉모습은 같고 값을 누가 갖는지만 다르다(세트 설명)." },
       Glyph: { type: "INSTANCE_SWAP", reason: "칩 글리프(확대 · 볼륨 · 내려받기)." },
     },
+    geometry: {
+      measuredId: "video-player-chip",
+      sizeKeys: ["Default", "Hover", "Active"],
+      fields: { width: "size", height: "size", cornerRadius: "radius" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "video-player",
@@ -3821,6 +3946,14 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     figmaOnlyProperties: {
       State: { options: ["Closed", "Open", "Muted"], reason: "코드의 `data-open` · 음소거 — 패널(64 ~ 112, 칩 위 8)이 열리고 글리프가 바뀐다." },
+    },
+    geometry: {
+      measuredId: "video-player-volume",
+      sizeKeys: ["Closed", "Open", "Muted"],
+      fields: { width: "size", height: "size" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3834,6 +3967,20 @@ const COMPONENT_CONTRACTS = [
       State: { options: ["Default", "Hover", "Active"], reason: "CSS 상태 — 호버 면 08 · 선 강조색 48%, 누름 0.97(Active 는 Hover 와 같은 겉모습, 축소는 그리지 않는다)." },
       Label: { type: "TEXT", reason: "에셋 이름." },
       Media: { type: "INSTANCE_SWAP", reason: "우물 안 그림(소비처의 에셋)." },
+    },
+    geometry: {
+      measuredId: "asset-tile",
+      sizeKeys: ["Default", "Hover", "Active"],
+      fields: {
+        paddingBlock: ["padding", "borderWidth"],
+        paddingInline: ["padding", "borderWidth"],
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { enum: "direction", table: { column: "VERTICAL", row: "HORIZONTAL" } },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3851,6 +3998,17 @@ const COMPONENT_CONTRACTS = [
       Label: { type: "TEXT", reason: "속성 이름." },
       Value: { type: "TEXT", reason: "sm 의 값 글자(헥스)." },
     },
+    geometry: {
+      measuredId: "color-swatch",
+      sizeKeys: ["row/md/filled", "row/md/empty", "row/sm/filled", "stack/md/filled", "stack/md/empty"],
+      fields: {
+        itemSpacing: "gap",
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "logo-tile",
@@ -3863,6 +4021,14 @@ const COMPONENT_CONTRACTS = [
       Size: { options: ["sm", "md", "lg"], reason: "코드의 `data-size` — 48 · 56 · 72(md 는 719 이하 48)." },
       Content: { options: ["glyph", "fallback"], reason: "로고 그림이 있는가 — 없으면 이름 첫 글자(body-md semibold)로 담기는 것이 바뀐다." },
       Initial: { type: "TEXT", reason: "대체 글자." },
+    },
+    geometry: {
+      measuredId: "logo-tile",
+      sizeKeys: ["sm/glyph", "sm/fallback", "md/glyph", "md/fallback", "lg/glyph", "lg/fallback"],
+      fields: { width: "size", height: "size", cornerRadius: "radius" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3878,6 +4044,19 @@ const COMPONENT_CONTRACTS = [
       Logo: { type: "BOOLEAN", reason: "앞 로고(높이 16) 가시성." },
       Text: { type: "TEXT", reason: "공지 문구. 한 줄 말줄임." },
     },
+    geometry: {
+      measuredId: "notice-pill",
+      sizeKeys: ["false/Default", "true/Default", "true/Hover"],
+      fields: {
+        height: "height",
+        paddingInline: "paddingInline",
+        cornerRadius: "radius",
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "canvas-guide",
@@ -3888,6 +4067,14 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     figmaOnlyProperties: {
       Orientation: { options: ["vertical", "horizontal"], reason: "스냅 선의 방향. 길이는 소비처가 늘린다." },
+    },
+    geometry: {
+      measuredId: "canvas-guide",
+      sizeKeys: ["vertical", "horizontal"],
+      fields: { width: { atLeast: "thickness" }, height: { atLeast: "thickness" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3902,6 +4089,23 @@ const COMPONENT_CONTRACTS = [
       Current: { type: "TEXT", reason: "시간 줄의 현재 시각." },
       Duration: { type: "TEXT", reason: "시간 줄의 전체 길이." },
     },
+    geometry: {
+      measuredId: "audio-cell",
+      sizeKeys: ["Ready", "Playing", "Pending"],
+      fields: {
+        height: "height",
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+      $comment: "폭은 담지 않는다 — `inline-size: 100%` 라 노드 카드 폭을 받고 Figma 의 380 은 표본 폭이다.",
+    },
   },
   {
     id: "node-shell",
@@ -3912,6 +4116,14 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     figmaOnlyProperties: {
       Count: { type: "TEXT", reason: "글자 수 표기(「312자」)." },
+    },
+    geometry: {
+      measuredId: "node-count-row",
+      sizeKeys: ["row"],
+      fields: { height: "height", itemSpacing: "gap", layoutMode: { literal: "HORIZONTAL" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3927,6 +4139,14 @@ const COMPONENT_CONTRACTS = [
       Message: { type: "TEXT", reason: "빈 칸 안내 · 오류 문구." },
       Result: { type: "TEXT", reason: "채움 상태의 결과 글." },
     },
+    geometry: {
+      measuredId: "node-response",
+      sizeKeys: ["empty", "generating", "filled", "error"],
+      fields: { width: "width", height: "height", layoutMode: { literal: "VERTICAL" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "node-shell",
@@ -3939,6 +4159,14 @@ const COMPONENT_CONTRACTS = [
       State: { options: ["Empty", "Result"], reason: "코드의 `data-empty` 다. 빈 칸은 글리프 · 안내 글 묶음, 결과는 미디어 칠 자리로 담기는 것이 바뀐다." },
       Glyph: { type: "INSTANCE_SWAP", reason: "빈 칸 글리프(이미지 · 영상)." },
       Label: { type: "TEXT", reason: "빈 칸 안내 글." },
+    },
+    geometry: {
+      measuredId: "node-media",
+      sizeKeys: ["Empty", "Result"],
+      fields: { width: "width", layoutMode: { literal: "HORIZONTAL" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3954,6 +4182,22 @@ const COMPONENT_CONTRACTS = [
       HasImage: { type: "BOOLEAN", reason: "아바타 그림이 있는가. 없으면 글리프가 보인다." },
       Glyph: { type: "INSTANCE_SWAP", reason: "아바타 자리의 채널 글리프. 기본은 `icon/youtube-logo`(md)이고, sm 변형은 속성에 묶지 않은 `icon/instagram-logo` 다 — INSTANCE_SWAP 기본값은 세트에 하나뿐이라 두 크기가 다른 로고를 보이려면 한쪽을 떼야 한다(DS-D-0085)." },
     },
+    geometry: {
+      measuredId: "node-channel",
+      sizeKeys: ["md", "sm"],
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlockStart",
+        paddingBlockEnd: "paddingBlockEnd",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
   },
   {
     id: "node-shell",
@@ -3965,6 +4209,19 @@ const COMPONENT_CONTRACTS = [
     figmaOnlyProperties: {
       State: { options: ["Rest", "Hover"], reason: "Hover 는 CSS 상태다(그립이 진해지고 안내 글이 보인다). Figma 에 CSS 상태가 없어 변형으로 둔다." },
       Label: { type: "TEXT", reason: "안내 글(「드래그하여 크기 조절」). 그립 폭이 이 글자 폭에 묶인다." },
+    },
+    geometry: {
+      measuredId: "node-resize-handle",
+      sizeKeys: ["Rest", "Hover"],
+      fields: {
+        height: "height",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {

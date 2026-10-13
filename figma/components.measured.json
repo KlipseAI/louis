@@ -5106,6 +5106,901 @@
           "$pitch": "18. `--louis-chart-card-dot-pitch: 18px` — 제품 `bg-[length:18px_18px]`."
         }
       }
+    },
+    "floating-shell-item": {
+      "$doc": "design/components/floating-shell.md",
+      "$source": "packages/css/src/component/floating-shell.css 의 .louis-floating-shell__item · [data-variant=\"ghost\"] · __glyph · [data-size=\"compact\"] 규칙 — 2026-10-13 DS-D-0084. 제품 통합 판 54b62a8a 의 node-canvas-v2/components/Toolbar.tsx:49-97 · ProjectHeader.tsx:225-282 가 같은 버튼을 따로 든다.",
+      "$note": "툴 버튼 한 칸. 키는 Figma 의 Size × State(여덟 칸)이고 상태는 상자를 바꾸지 않는다 — 상태마다 갈리는 것은 면 · 잉크(색)뿐이라 이 기록이 담지 않는다. 불투명도는 CSS 가 선언하지 않아(비활성도 잉크로 물러선다) 계약에 걸지 않는다. Spotlight 의 바깥 2 링은 box-shadow 라 상자 크기가 아니다.",
+      "sizes": {
+        "md/Default": {
+          "size": 32,
+          "$size": "32. `.louis-floating-shell__item { inline-size · block-size: var(--louis-layout-control-height-md) }` (--louis-layout-control-height-md = 32px). 정사각이라 폭 · 높이가 같은 토큰을 읽는다. 출처 제품 툴바 버튼 `w-16 h-16` · `[flex:0_0_32px]`(Toolbar.tsx:49-97, 제품 `--spacing` 2px). 쉼. 마크업 `<button class=\"louis-floating-shell__item\" data-variant=\"ghost\">`.",
+          "radius": 12,
+          "$radius": "12. `border-radius: var(--louis-radius-control)` — 제품 버튼의 `rounded-[var(--button-radius)]` 를 제품 globals.css:58 이 `--louis-radius-control` 로 곧장 가리킨다. 조각이 40 으로 커져도 곡률은 그대로다.",
+          "glyphSize": 20,
+          "$glyphSize": "20. `.louis-floating-shell__glyph { inline-size · block-size: var(--louis-icon-size-md) }` — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. 두 크기 모두 20 이다(compact 는 상자만 키운다)."
+        },
+        "md/Hover": {
+          "size": 32,
+          "$size": "32. `.louis-floating-shell__item { inline-size · block-size: var(--louis-layout-control-height-md) }` (--louis-layout-control-height-md = 32px). 정사각이라 폭 · 높이가 같은 토큰을 읽는다. 출처 제품 툴바 버튼 `w-16 h-16` · `[flex:0_0_32px]`(Toolbar.tsx:49-97, 제품 `--spacing` 2px). 호버는 면(`accent-ghost-hover`)과 잉크만 바꾸고 상자는 그대로다 — `@media (hover: hover)` 규칙에 크기 선언이 없다.",
+          "radius": 12,
+          "$radius": "12. `border-radius: var(--louis-radius-control)` — 제품 버튼의 `rounded-[var(--button-radius)]` 를 제품 globals.css:58 이 `--louis-radius-control` 로 곧장 가리킨다. 조각이 40 으로 커져도 곡률은 그대로다.",
+          "glyphSize": 20,
+          "$glyphSize": "20. `.louis-floating-shell__glyph { inline-size · block-size: var(--louis-icon-size-md) }` — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. 두 크기 모두 20 이다(compact 는 상자만 키운다)."
+        },
+        "md/Pressed": {
+          "size": 32,
+          "$size": "32. `.louis-floating-shell__item { inline-size · block-size: var(--louis-layout-control-height-md) }` (--louis-layout-control-height-md = 32px). 정사각이라 폭 · 높이가 같은 토큰을 읽는다. 출처 제품 툴바 버튼 `w-16 h-16` · `[flex:0_0_32px]`(Toolbar.tsx:49-97, 제품 `--spacing` 2px). Figma 의 Pressed 는 켜짐(`aria-pressed` · `aria-expanded` = true)이다. 켜짐 규칙은 면(`floating-item-selected`)과 잉크만 바꾼다. 누름 축소 0.95(`:active` 의 `scale`)는 그리는 방식이라 상자 크기가 아니고 변형도 아니다.",
+          "radius": 12,
+          "$radius": "12. `border-radius: var(--louis-radius-control)` — 제품 버튼의 `rounded-[var(--button-radius)]` 를 제품 globals.css:58 이 `--louis-radius-control` 로 곧장 가리킨다. 조각이 40 으로 커져도 곡률은 그대로다.",
+          "glyphSize": 20,
+          "$glyphSize": "20. `.louis-floating-shell__glyph { inline-size · block-size: var(--louis-icon-size-md) }` — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. 두 크기 모두 20 이다(compact 는 상자만 키운다)."
+        },
+        "md/Disabled": {
+          "size": 32,
+          "$size": "32. `.louis-floating-shell__item { inline-size · block-size: var(--louis-layout-control-height-md) }` (--louis-layout-control-height-md = 32px). 정사각이라 폭 · 높이가 같은 토큰을 읽는다. 출처 제품 툴바 버튼 `w-16 h-16` · `[flex:0_0_32px]`(Toolbar.tsx:49-97, 제품 `--spacing` 2px). 비활성은 잉크 `fg-disabled` 로만 물러선다 — 불투명도도 크기도 바꾸지 않는다(제품 상단 바의 불투명도 0.56 을 역할 잉크로 접었다, ProjectHeader.tsx:231).",
+          "radius": 12,
+          "$radius": "12. `border-radius: var(--louis-radius-control)` — 제품 버튼의 `rounded-[var(--button-radius)]` 를 제품 globals.css:58 이 `--louis-radius-control` 로 곧장 가리킨다. 조각이 40 으로 커져도 곡률은 그대로다.",
+          "glyphSize": 20,
+          "$glyphSize": "20. `.louis-floating-shell__glyph { inline-size · block-size: var(--louis-icon-size-md) }` — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. 두 크기 모두 20 이다(compact 는 상자만 키운다)."
+        },
+        "lg/Default": {
+          "size": 40,
+          "$size": "40. `.louis-floating-shell[data-size=\"compact\"] .louis-floating-shell__item { inline-size · block-size: var(--louis-layout-control-height-lg) }` — Figma Size=lg 는 셸의 compact 칸이다 (--louis-layout-control-height-lg = 40px). 정사각이라 폭 · 높이가 같은 토큰을 읽는다. 출처 제품 `[@media(max-width:719px)]:w-[var(--louis-layout-control-height-lg)]`(feat/canvas-mobile-ux Toolbar.tsx@3923caf7:203). 쉼. 마크업 `<button class=\"louis-floating-shell__item\" data-variant=\"ghost\">`.",
+          "radius": 12,
+          "$radius": "12. `border-radius: var(--louis-radius-control)` — 제품 버튼의 `rounded-[var(--button-radius)]` 를 제품 globals.css:58 이 `--louis-radius-control` 로 곧장 가리킨다. 조각이 40 으로 커져도 곡률은 그대로다.",
+          "glyphSize": 20,
+          "$glyphSize": "20. `.louis-floating-shell__glyph { inline-size · block-size: var(--louis-icon-size-md) }` — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. 두 크기 모두 20 이다(compact 는 상자만 키운다)."
+        },
+        "lg/Hover": {
+          "size": 40,
+          "$size": "40. `.louis-floating-shell[data-size=\"compact\"] .louis-floating-shell__item { inline-size · block-size: var(--louis-layout-control-height-lg) }` — Figma Size=lg 는 셸의 compact 칸이다 (--louis-layout-control-height-lg = 40px). 정사각이라 폭 · 높이가 같은 토큰을 읽는다. 출처 제품 `[@media(max-width:719px)]:w-[var(--louis-layout-control-height-lg)]`(feat/canvas-mobile-ux Toolbar.tsx@3923caf7:203). 호버는 면(`accent-ghost-hover`)과 잉크만 바꾸고 상자는 그대로다 — `@media (hover: hover)` 규칙에 크기 선언이 없다.",
+          "radius": 12,
+          "$radius": "12. `border-radius: var(--louis-radius-control)` — 제품 버튼의 `rounded-[var(--button-radius)]` 를 제품 globals.css:58 이 `--louis-radius-control` 로 곧장 가리킨다. 조각이 40 으로 커져도 곡률은 그대로다.",
+          "glyphSize": 20,
+          "$glyphSize": "20. `.louis-floating-shell__glyph { inline-size · block-size: var(--louis-icon-size-md) }` — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. 두 크기 모두 20 이다(compact 는 상자만 키운다)."
+        },
+        "lg/Pressed": {
+          "size": 40,
+          "$size": "40. `.louis-floating-shell[data-size=\"compact\"] .louis-floating-shell__item { inline-size · block-size: var(--louis-layout-control-height-lg) }` — Figma Size=lg 는 셸의 compact 칸이다 (--louis-layout-control-height-lg = 40px). 정사각이라 폭 · 높이가 같은 토큰을 읽는다. 출처 제품 `[@media(max-width:719px)]:w-[var(--louis-layout-control-height-lg)]`(feat/canvas-mobile-ux Toolbar.tsx@3923caf7:203). Figma 의 Pressed 는 켜짐(`aria-pressed` · `aria-expanded` = true)이다. 켜짐 규칙은 면(`floating-item-selected`)과 잉크만 바꾼다. 누름 축소 0.95(`:active` 의 `scale`)는 그리는 방식이라 상자 크기가 아니고 변형도 아니다.",
+          "radius": 12,
+          "$radius": "12. `border-radius: var(--louis-radius-control)` — 제품 버튼의 `rounded-[var(--button-radius)]` 를 제품 globals.css:58 이 `--louis-radius-control` 로 곧장 가리킨다. 조각이 40 으로 커져도 곡률은 그대로다.",
+          "glyphSize": 20,
+          "$glyphSize": "20. `.louis-floating-shell__glyph { inline-size · block-size: var(--louis-icon-size-md) }` — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. 두 크기 모두 20 이다(compact 는 상자만 키운다)."
+        },
+        "lg/Disabled": {
+          "size": 40,
+          "$size": "40. `.louis-floating-shell[data-size=\"compact\"] .louis-floating-shell__item { inline-size · block-size: var(--louis-layout-control-height-lg) }` — Figma Size=lg 는 셸의 compact 칸이다 (--louis-layout-control-height-lg = 40px). 정사각이라 폭 · 높이가 같은 토큰을 읽는다. 출처 제품 `[@media(max-width:719px)]:w-[var(--louis-layout-control-height-lg)]`(feat/canvas-mobile-ux Toolbar.tsx@3923caf7:203). 비활성은 잉크 `fg-disabled` 로만 물러선다 — 불투명도도 크기도 바꾸지 않는다(제품 상단 바의 불투명도 0.56 을 역할 잉크로 접었다, ProjectHeader.tsx:231).",
+          "radius": 12,
+          "$radius": "12. `border-radius: var(--louis-radius-control)` — 제품 버튼의 `rounded-[var(--button-radius)]` 를 제품 globals.css:58 이 `--louis-radius-control` 로 곧장 가리킨다. 조각이 40 으로 커져도 곡률은 그대로다.",
+          "glyphSize": 20,
+          "$glyphSize": "20. `.louis-floating-shell__glyph { inline-size · block-size: var(--louis-icon-size-md) }` — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. 두 크기 모두 20 이다(compact 는 상자만 키운다)."
+        }
+      }
+    },
+    "floating-shell-divider": {
+      "$doc": "design/components/floating-shell.md",
+      "$source": "packages/css/src/component/floating-shell.css 의 .louis-floating-shell__divider — 2026-10-13 DS-D-0084. 제품 Toolbar.tsx:99-103 · ProjectHeader.tsx:174-180 이 같은 칠을 두 번 든다.",
+      "$note": "조각 묶음 사이의 세로 구분선. 셸 안의 좌우 여백 2(`mx-1`)는 셸 쪽 규칙(`.louis-floating-shell > __divider`)이고 Figma 에서는 셸의 배치가 나르므로 이 칸에 담지 않는다.",
+      "sizes": {
+        "divider": {
+          "width": 1,
+          "$width": "1. `inline-size: var(--louis-border-width-default)`(1px) — 제품 `w-px`(Toolbar.tsx:100).",
+          "height": 22,
+          "$height": "22. `block-size: 22px` — 제품 `h-11`(Toolbar.tsx:100, `--spacing` 2px). 토큰이 없는 리터럴이고 조각 32 의 위아래 5 를 비운다."
+        }
+      }
+    },
+    "media-slot": {
+      "$doc": "design/components/media-slot.md",
+      "$source": "packages/css/src/component/media-slot.css — 2026-10-13 DS-D-0084",
+      "$note": "첨부 · 참조 미디어 칸. 값은 레시피 선언이고 packages/react/test/media-audio-geometry.browser.test.tsx 가 실브라우저로 잰다. 키는 Figma MediaSlot 되읽기 키(Size/Layout/State[/Ratio])와 같다. 고정 상자 셋(md · video · attachment)만 Figma 계약(sizeKeys)에 건다 — fill 칸은 줄의 열 폭을 받는 정사각(또는 2:3)이라 Figma 의 96 · 144 는 표본 폭이고, 계약 fields 가 키마다 갈리지 않아 fill 네 키는 반경 · 비율을 시험만 잰다. Hover 는 CSS 상태라 기하가 Default 와 같다(빈 칸의 점선 · 글리프 색만 바뀐다).",
+      "sizes": {
+        "md/base/Default": {
+          "width": 32,
+          "$width": "32. `.louis-media-slot { inline-size: 32px }` 리터럴 — 제품 `w-16 h-16`(PromptLinkedImageStrip.tsx:25). 같은 수의 layout-control-height-md 는 컨트롤 높이라 읽지 않는다.",
+          "height": 32,
+          "$height": "32. `.louis-media-slot { block-size: 32px }` 리터럴 — 제품 `w-16 h-16`.",
+          "radius": 12,
+          "$radius": "radius-card 12. `--louis-media-slot-radius: var(--louis-radius-card)` — 제품 `rounded-12`(PromptLinkedImageStrip.tsx:25).",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `border: var(--louis-border-width-default) solid var(--louis-color-media-slot-stroke)` — 테두리 1 실선. box-sizing border-box 라 32 안에 든다."
+        },
+        "video/base/Default": {
+          "width": 76,
+          "$width": "76. `[data-size=\"video\"] { inline-size: 76px }` 리터럴 — 제품 `w-38`(VideoNode.tsx:818). 간격 사다리에 없어 쓰임새 이름이다.",
+          "height": 52,
+          "$height": "52. `[data-size=\"video\"] { block-size: 52px }` 리터럴 — 제품 `h-26`(VideoNode.tsx:818).",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `[data-size=\"video\"] { --louis-media-slot-radius: var(--louis-radius-control-sm) }` — 제품 `rounded-8`.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 기본 칸의 테두리를 그대로 받는다."
+        },
+        "attachment/base/Default": {
+          "width": 72,
+          "$width": "72. `[data-size=\"attachment\"] { inline-size: 72px }` 리터럴 — 제품 `w-36`(InquiryClient.tsx:189).",
+          "height": 72,
+          "$height": "72. `[data-size=\"attachment\"] { block-size: 72px }` 리터럴 — 제품 `h-36`.",
+          "radius": 12,
+          "$radius": "radius-control 12. `[data-size=\"attachment\"] { --louis-media-slot-radius: var(--louis-radius-control) }`.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 기본 칸의 테두리를 그대로 받는다."
+        },
+        "fill/base/Default": {
+          "$width": "채움 칸 — `[data-size=\"fill\"] { inline-size: 100% }` 로 줄의 열 폭을 받는다(PhotoGrid.tsx:85). 수를 두지 않는다 — Figma 의 96 은 표본 폭이다.",
+          "heightPerWidth": 1,
+          "$heightPerWidth": "1. `[data-size=\"fill\"] { block-size: auto; aspect-ratio: 1 }` — 정사각.",
+          "radius": 12,
+          "$radius": "radius-card 12. 기본 칸의 `--louis-media-slot-radius` 를 그대로 받는다 — 제품 14(기본) · 12(compact) 중 사다리에 있는 값(소유자 판정).",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 기본 칸의 테두리를 그대로 받는다."
+        },
+        "fill/empty/Default": {
+          "$width": "채움 칸 — 줄의 열 폭을 받는다. 수를 두지 않는다.",
+          "heightPerWidth": 1,
+          "$heightPerWidth": "1. fill 의 `aspect-ratio: 1`. `[data-empty=\"true\"]` 는 `display: grid` 로 바꿀 뿐 상자 크기를 바꾸지 않는다.",
+          "radius": 12,
+          "$radius": "radius-card 12. 기본 칸의 반경.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `[data-empty=\"true\"] { border-style: dashed }` — 두께는 그대로, 점선으로만 바뀐다."
+        },
+        "fill/empty/Hover": {
+          "$width": "채움 칸 — 줄의 열 폭을 받는다. 수를 두지 않는다.",
+          "heightPerWidth": 1,
+          "$heightPerWidth": "1. Hover 는 `border-color` · `color` 만 바꾼다(@media (hover: hover)) — 기하는 Default 와 같다.",
+          "radius": 12,
+          "$radius": "radius-card 12. 기본 칸의 반경.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 점선 두께 그대로."
+        },
+        "fill/base/Default/2:3": {
+          "$width": "채움 칸 — 줄의 열 폭을 받는다(ExampleGallery.tsx:43-47). 수를 두지 않는다 — Figma 의 96 은 표본 폭이다.",
+          "heightPerWidth": 1.5,
+          "$heightPerWidth": "1.5. `[data-size=\"fill\"][data-ratio=\"2:3\"] { aspect-ratio: 2 / 3 }` — 세로가 폭의 1.5 배다.",
+          "radius": 12,
+          "$radius": "radius-card 12. 제품 반경 8 은 fill 칸 값으로 접는다(레시피 주석).",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 제품 잉크 10% 테두리를 media-slot-stroke 로 접는다 — 두께는 1."
+        }
+      }
+    },
+    "audio-cell": {
+      "$doc": "design/components/audio-cell.md",
+      "$source": "packages/css/src/component/audio-cell.css — 2026-10-13 DS-D-0084, DS-D-0083 2d-1",
+      "$note": "노드 결과의 오디오 칸. 값은 레시피 선언이고 packages/react/test/media-audio-geometry.browser.test.tsx 가 실브라우저로 잰다. 키는 Figma AudioCell 되읽기 키(State)와 같다 — Ready · Playing 은 같은 마크업(재생 글리프만 다르다), Pending 은 `data-state=\"pending\"`. 폭은 담지 않는다 — `inline-size: 100%` 로 노드 카드 폭을 받고 Figma 의 380 은 표본 폭이다.",
+      "sizes": {
+        "Ready": {
+          "height": 48,
+          "$height": "48 = 재생 원 layout-control-height-md 32 + 위아래 여백 space-control-sm 8 · 8. 높이를 선언하지 않고 내용이 정하지만 내용의 가장 큰 자식이 고정 32 원이다(막대 묶음 26 = 막대 4 + 위아래 4 · 4 + 사이 2 + 시간 줄 12 × 줄 높이 1).",
+          "padding": 8,
+          "$padding": "space-control-sm 8. `.louis-audio-cell { padding: var(--louis-space-control-sm) }` — 제품 `p-[var(--node-inner-padding,8px)]`. 테두리가 없어(헤어라인은 inset 그림자) Figma 패딩과 같은 수다.",
+          "radius": 16,
+          "$radius": "radius-overlay 16. `border-radius: var(--louis-radius-overlay)` — 제품 `rounded-16`."
+        },
+        "Playing": {
+          "height": 48,
+          "$height": "48. Ready 와 같은 마크업 — 재생 원 32 + 위아래 space-control-sm 8 · 8. 재생 · 일시정지는 글리프만 갈린다.",
+          "padding": 8,
+          "$padding": "space-control-sm 8. Ready 와 같다.",
+          "radius": 16,
+          "$radius": "radius-overlay 16. Ready 와 같다."
+        },
+        "Pending": {
+          "height": 48,
+          "$height": "48. `[data-state=\"pending\"] { min-block-size: calc(layout-control-height-md + space-control-sm + space-control-sm) }` = 32 + 8 + 8 — 자식이 절대 배치 게이지뿐이라 접히는 높이를 완료 상태와 같게 지킨다.",
+          "padding": 8,
+          "$padding": "space-control-sm 8. 칸의 여백을 그대로 받는다.",
+          "radius": 16,
+          "$radius": "radius-overlay 16. 칸의 반경을 그대로 받는다."
+        }
+      }
+    },
+    "node-count-row": {
+      "$doc": "design/components/node-shell.md",
+      "$source": "packages/css/src/component/node-shell.css 의 .louis-node-shell__count-row — 2026-10-13 DS-D-0084",
+      "$note": "복사 · 글자 수 줄. 값은 레시피 선언이다 — React 표면이 없어 packages/react/test/node-parts-geometry.browser.test.tsx 가 클래스 마크업을 렌더해 되잰다. 축이 없어 키는 `row` 하나다. 폭(`inline-size: 100%`, 놓이는 자리가 정한다)과 글자 수 폭은 담지 않는다.",
+      "sizes": {
+        "row": {
+          "height": 28,
+          "$height": "node-chrome-btn-h-sm 28. `.louis-node-shell__count-row { flex: 0 0 var(--louis-node-chrome-btn-h-sm); min-block-size: var(--louis-node-chrome-btn-h-sm) }` — 높이는 복사 버튼(Node Chrome Button sm)이 정한다. 제품 상수가 Bgm · Image · Text · Tts · Video 다섯에 같다(TextNode.tsx:475-485).",
+          "gap": 0,
+          "$gap": "0. `.louis-node-shell__count-row { gap: 0 }` — 버튼 자신의 빈 둘레가 시각 간격을 만든다는 제품 주석(TextNode.tsx:472) 그대로다."
+        }
+      }
+    },
+    "node-response": {
+      "$doc": "design/components/node-shell.md",
+      "$source": "packages/css/src/component/node-shell.css 의 .louis-node-shell__response — 2026-10-13 DS-D-0084",
+      "$note": "텍스트 노드의 LLM 응답 칸. 값은 레시피 선언이다 — React 표면이 없어 packages/react/test/node-parts-geometry.browser.test.tsx 가 노드 셸 카드 안에 클래스 마크업을 렌더해 되잰다. **정사각이 계약이다** — 폭은 적지 않고(블록 흐름) `aspect-ratio: 1` 이 그 폭을 높이로 쓴다. 그래서 396 은 칸이 선언한 수가 아니라 카드 폭 400(리터럴)과 테두리 `border-width-ring` 2 의 결과이고, 시험이 그 규칙(띠 폭 = 카드 안쪽 폭)을 함께 잰다 — 셸 폭이 움직이면 시험이 먼저 빨개진다. width · height 는 **띠(margin box)** 다: Figma 오토레이아웃에 margin 이 없어 루트 프레임이 띠를 그리고, 채움의 바깥 8 은 그 프레임의 여백이 된다. `side` 는 칸 자신의 정사각 한 변이다(대조 밖, 시험만 읽는다).",
+      "$keyRule": "Figma Layout 변형 = 키 = 코드 `data-state`(없음 = empty).",
+      "sizes": {
+        "empty": {
+          "side": 396,
+          "$side": "396. 칸 자신의 정사각 한 변 — `aspect-ratio: 1` 이고 폭은 적지 않아(블록 흐름 자동 폭) `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396 를 그대로 받는다. 제품 `aspect-square`(TextNode.tsx:236).",
+          "width": 396,
+          "$width": "396. 띠의 폭 = 칸의 폭. 바깥 여백이 없어(`margin: 0`) `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396 를 그대로 받는다.",
+          "height": 396,
+          "$height": "396. 띠의 높이 = 정사각의 한 변. `aspect-ratio: 1` 이 폭을 높이로 쓴다(제품 `aspect-square`, TextNode.tsx:236)."
+        },
+        "generating": {
+          "side": 396,
+          "$side": "396. 칸 자신의 정사각 한 변 — `aspect-ratio: 1` 이고 폭은 적지 않아(블록 흐름 자동 폭) `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396 를 그대로 받는다. 제품 `aspect-square`(TextNode.tsx:236).",
+          "width": 396,
+          "$width": "396. 띠의 폭 = 칸의 폭. 바깥 여백이 없어(`margin: 0`) `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396 를 그대로 받는다.",
+          "height": 396,
+          "$height": "396. 띠의 높이 = 정사각의 한 변. `aspect-ratio: 1` 이 폭을 높이로 쓴다(제품 `aspect-square`, TextNode.tsx:236)."
+        },
+        "filled": {
+          "side": 380,
+          "$side": "380. 칸 자신의 정사각 한 변 — `aspect-ratio: 1` 이고 폭은 적지 않아(블록 흐름 자동 폭) 카드 안쪽 396 에서 `margin-inline: var(--louis-space-control-sm)` 8 × 2 가 빠진다. 제품 `aspect-square`(TextNode.tsx:236) · 채움 바깥 8(:258).",
+          "width": 396,
+          "$width": "396. **띠(바깥 여백 상자)의 폭** — Figma 오토레이아웃에 margin 이 없어 루트 프레임이 띠를 그린다. 칸 380 + 바깥 좌우 `space-control-sm` 8 × 2 = `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396 와 같다.",
+          "height": 388,
+          "$height": "388. **띠의 높이** — 칸 380 + 바깥 위 `margin-block-start: var(--louis-space-control-sm)` 8. 상태가 바뀔 때 띠가 8 움직이는 것은 제품 그대로다(TextNode.tsx:258)."
+        },
+        "error": {
+          "side": 396,
+          "$side": "396. 칸 자신의 정사각 한 변 — `aspect-ratio: 1` 이고 폭은 적지 않아(블록 흐름 자동 폭) `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396 를 그대로 받는다. 제품 `aspect-square`(TextNode.tsx:236).",
+          "width": 396,
+          "$width": "396. 띠의 폭 = 칸의 폭. 바깥 여백이 없어(`margin: 0`) `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396 를 그대로 받는다.",
+          "height": 396,
+          "$height": "396. 띠의 높이 = 정사각의 한 변. `aspect-ratio: 1` 이 폭을 높이로 쓴다(제품 `aspect-square`, TextNode.tsx:236)."
+        }
+      }
+    },
+    "node-media": {
+      "$doc": "design/components/node-shell.md",
+      "$source": "packages/css/src/component/node-shell.css 의 .louis-node-shell__media — 2026-10-13 DS-D-0084",
+      "$note": "이미지 · 영상 · 편집 노드의 결과 칸. 값은 레시피 선언이다 — React 표면이 없어 packages/react/test/node-parts-geometry.browser.test.tsx 가 노드 셸 카드 안에 클래스 마크업을 렌더해 되잰다. **높이는 담지 않는다** — 비율은 데이터라 소비처가 인라인 `aspect-ratio` 로 준다(Figma 의 223 은 16:9 표본이다). 폭 396 은 `inline-size: 100%` 가 카드 안쪽 폭을 받은 결과이고 시험이 그 규칙을 함께 잰다. 문서와 Figma 설명은 빈 칸 표식을 `data-empty` 로 적지만 레시피에 그 선택자는 없다 — 기하는 같다.",
+      "$keyRule": "Figma State 변형 = 키. Empty = `data-empty`, Result = `data-state=\"result\"`(전환 시간만 바뀌고 기하는 같다).",
+      "sizes": {
+        "Empty": {
+          "width": 396,
+          "$width": "396. `.louis-node-shell__media { inline-size: 100% }` — `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396. 카드 테두리 안쪽에 맞닿는다(ImageNode.tsx:300)."
+        },
+        "Result": {
+          "width": 396,
+          "$width": "396. `.louis-node-shell__media { inline-size: 100% }` — `.louis-node-shell { inline-size: 400px }` 리터럴 − 카드 테두리 `border-width-ring` 2 × 2 = 카드 안쪽 폭 396. 결과 상태는 전환 시간만 바꾼다(ImageNode.tsx:300 `IMAGE_AREA_MEDIA_FRAMED`)."
+        }
+      }
+    },
+    "node-channel": {
+      "$doc": "design/components/node-shell.md",
+      "$source": "packages/css/src/component/node-shell.css 의 .louis-node-shell__channel — 2026-10-13 DS-D-0084",
+      "$note": "게시 노드의 채널 줄. 값은 레시피 선언이다 — React 표면이 없어 packages/react/test/node-parts-geometry.browser.test.tsx 가 클래스 마크업을 렌더해 되잰다. 폭(`inline-size: 100%`)과 이름 글자 폭은 담지 않는다. 높이는 여백 + 아바타(선언 32 · 20)다 — 아바타가 글자 줄 상자(body-md 24 · caption 18)보다 커서 글자가 높이를 정하지 않는다.",
+      "$keyRule": "Figma Size 변형 = 키 = 코드 `data-size`(없음 = md · YouTube, sm · Instagram).",
+      "sizes": {
+        "md": {
+          "height": 48,
+          "$height": "48. 위아래 `space-control-sm` 8 × 2 + 아바타 32(`.louis-node-shell__channel-avatar { block-size: 32px }`, 제품 `w-16 h-16` YoutubeNode.tsx:278). 이름 줄 상자 body-md 16 × 1.5 = 24 가 아바타보다 작다.",
+          "paddingBlockStart": 8,
+          "$paddingBlockStart": "space-control-sm 8. `.louis-node-shell__channel { padding-block: var(--louis-space-control-sm) }`.",
+          "paddingBlockEnd": 8,
+          "$paddingBlockEnd": "space-control-sm 8. 위와 같은 선언.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-node-shell__channel { padding-inline: var(--louis-space-control-sm) }`.",
+          "gap": 10,
+          "$gap": "10. `.louis-node-shell__channel { gap: 10px }` 리터럴 — 제품 `gap-5`(--spacing 2px, YoutubeNode.tsx:270). 간격 사다리(8 · 12)에 없다.",
+          "avatarSize": 32,
+          "$avatarSize": "32. `.louis-node-shell__channel-avatar { inline-size · block-size: 32px }` 리터럴(테두리 포함 바깥 치수) — 제품 `w-16 h-16`(YoutubeNode.tsx:278). 아바타 사다리(24 · 28 · 40)에 없다."
+        },
+        "sm": {
+          "height": 40,
+          "$height": "40. 위 14 + 아바타 20 + 아래 6. 이름 줄 상자 caption 12 × 1.5 = 18 이 아바타 20 보다 작다.",
+          "paddingBlockStart": 14,
+          "$paddingBlockStart": "14. `.louis-node-shell__channel[data-size=\"sm\"] { padding-block: 14px 6px }` 리터럴 — 제품 `pt-7`(InstagramNode.tsx:216).",
+          "paddingBlockEnd": 6,
+          "$paddingBlockEnd": "6. 위 선언의 끝 값 — 제품 `pb-3`(InstagramNode.tsx:216).",
+          "paddingInline": 14,
+          "$paddingInline": "14. `.louis-node-shell__channel[data-size=\"sm\"] { padding-inline: 14px }` 리터럴 — 제품 `px-7`(InstagramNode.tsx:216).",
+          "gap": 8,
+          "$gap": "space-control-sm 8. `.louis-node-shell__channel[data-size=\"sm\"] { gap: var(--louis-space-control-sm) }`.",
+          "avatarSize": 20,
+          "$avatarSize": "20. `.louis-node-shell__channel[data-size=\"sm\"] .louis-node-shell__channel-avatar { inline-size · block-size: 20px }` 리터럴 — 제품 `w-10 h-10`(InstagramNode.tsx:65)."
+        }
+      }
+    },
+    "node-resize-handle": {
+      "$doc": "design/components/node-shell.md",
+      "$source": "packages/css/src/component/node-shell.css 의 .louis-node-shell__resize — 2026-10-13 DS-D-0084",
+      "$note": "입력판 크기 손잡이. 값은 레시피 선언이다 — React 표면이 없어 packages/react/test/node-parts-geometry.browser.test.tsx 가 노드 셸 카드 안에 클래스 마크업을 렌더해 되잰다. 폭(`min-inline-size: max-content` — 안내 글 폭 + 4)은 글자가 정해 담지 않는다. 안내 글(Figma `Hint`)은 `translate` 로 손잡이 아래에 내려 보여 프레임 바깥에 서는 것이 계약이다(되읽기 outsideParts).",
+      "$keyRule": "Figma State 변형 = 키. Hover 는 CSS :hover · `data-louis-state=\"active\"` 이고 그립 색 · 안내 글 불투명도만 바꾼다 — 기하는 같다.",
+      "sizes": {
+        "Rest": {
+          "height": 16,
+          "$height": "16. `.louis-node-shell__resize { block-size: 16px }` 리터럴 — 제품 `h-8`(--spacing 2px, NodePromptResizeHandle.tsx:21,:77).",
+          "paddingInline": 2,
+          "$paddingInline": "2. `.louis-node-shell__resize { padding-inline: 2px }` 리터럴 — 제품 안쪽 상자 `px-1`(NodePromptResizeHandle.tsx:77). 그립이 글자보다 양쪽 2 씩 길다."
+        },
+        "Hover": {
+          "height": 16,
+          "$height": "16. Rest 와 같은 선언 — 상태는 기하를 바꾸지 않는다(NodePromptResizeHandle.tsx:21,:77).",
+          "paddingInline": 2,
+          "$paddingInline": "2. Rest 와 같은 선언(NodePromptResizeHandle.tsx:77)."
+        }
+      }
+    },
+    "prompt-variant": {
+      "$doc": "design/components/prompt-variant.md",
+      "$source": "packages/css/src/component/prompt-variant.css — 2026-10-13 DS-D-0083 2c · DS-D-0084",
+      "$note": "AI 프롬프트 후보 하나의 상자. 값은 레시피 선언이다 — React 표면이 없어 packages/react/test/prompt-variant-geometry.browser.test.tsx 가 클래스 마크업을 렌더해 되잰다. 키 둘은 `data-layout` 축(없음 = card, `column`)이고 Figma 의 Layout 변형과 같다. 폭(카드는 inline-size 100%, 열은 격자 1fr)과 높이(머리 · 본문 · 버튼의 합)는 담지 않는다 — 놓이는 자리와 내용이 정한다.",
+      "$keyRule": "Figma Layout 변형 = 키. State(Default · Hover)는 CSS :hover 라 같은 키로 접힌다 — 호버는 면 · 테두리 색만 바꾸고 기하는 그대로다.",
+      "sizes": {
+        "card": {
+          "padding": 10,
+          "$padding": "10. `.louis-prompt-variant { padding: 10px }` 리터럴 — 제품 `p-5`(TextNode.tsx:376, --spacing 2px). 사다리(8 · 12)에 없는 제품 값이다.",
+          "gap": 6,
+          "$gap": "6. `.louis-prompt-variant { gap: 6px }` 리터럴 — 제품 `gap-3`(TextNode.tsx:376). 사다리(4 · 8)에 없다.",
+          "radius": 10,
+          "$radius": "10. `.louis-prompt-variant { border-radius: 10px }` 리터럴 — 제품 `rounded-10`(TextNode.tsx:377). 반경 사다리의 10 은 메뉴 항목 · 인스펙터 컨트롤 이름이라 빌리지 않는다."
+        },
+        "column": {
+          "padding": 16,
+          "$padding": "space-control-lg 16. `.louis-prompt-variant[data-layout=\"column\"] { padding: var(--louis-space-control-lg) }` — 제품 `p-8`(PromptVariantCompareModal.tsx:52).",
+          "gap": 0,
+          "$gap": "0. `.louis-prompt-variant[data-layout=\"column\"] { gap: 0 }` — 열의 줄 사이는 머리 아래 `margin-block-end` 12 · 버튼 위 `margin-block-start` 16 이 갖는다(제품 `mb-6` · `mt-8`, :57 · :81).",
+          "radius": 16,
+          "$radius": "radius-overlay 16. `.louis-prompt-variant[data-layout=\"column\"] { border-radius: var(--louis-radius-overlay) }` — 제품 `rounded-16`(PromptVariantCompareModal.tsx:53). 노드 응답 칸(`__response`)이 같은 판정으로 읽는 이름이다."
+        }
+      }
+    },
+    "segment-track": {
+      "$doc": "design/components/segment-track.md",
+      "$source": "packages/css/src/component/segment-track.css 의 .louis-segment-track(루트 · data-layout=\"compact\") — 2026-10-13 DS-D-0083 2b · DS-D-0084",
+      "$note": "Segment Track 틀. 값은 레시피 선언(과 그 합)이다 — React 표면이 없고 제품 렌더 하네스가 스튜디오 판에 닿지 못한다. 키는 Figma 의 Layout × State 다(State 는 코드에서 구간 줄이 있는가 — Empty 면 지도 · 구간 줄 대신 `__lane`). CSS 는 두 칸 격자(줄 머리 96 · 사이 12)이고 Figma 는 줄을 세로로 쌓아 각 줄 안에 머리를 둔다 — 그래서 격자 열은 계약 밖이고 줄 사이 6 만 itemSpacing 으로 맞댄다. 폭(소비처가 채운다)은 담지 않는다.",
+      "sizes": {
+        "regular/Filled": {
+          "minHeight": 108,
+          "$minHeight": "108. 높이는 선언이 아니라 줄의 합이다 — 12 + 눈금 28 + 6 + 지도 10(한 줄) + 6 + 칸 32 + 14. 지도 높이가 소비처가 주는 줄 수(`--louis-segment-track-lanes` 1~3 → 10 · 16 · 22)로 늘어나므로 한 줄일 때가 하한이다. Figma 시드 예시는 이 하한 이상이면 된다(계약 `atLeast`). 줄 머리(글자 18)는 마지막 줄 옆에 서고 그 줄보다 낮다.",
+          "paddingBlock": 12,
+          "$paddingBlock": "space-control-md 12. `.louis-segment-track { padding: var(--louis-space-control-md) … }` — 제품 `[padding:12px_16px_14px]`(HSS:1412).",
+          "paddingBlockEnd": 14,
+          "$paddingBlockEnd": "14. 아래 여백 리터럴 — 제품 `[padding:12px_16px_14px]`(HSS:1412). 사다리에 없다. 되읽기 명세가 paddingBlockEnd 를 담지 않아 계약에는 걸지 않고 브라우저 시험만 잰다(높이 하한이 이 값을 품는다).",
+          "paddingInline": 16,
+          "$paddingInline": "space-control-lg 16. 좌우 — 제품 `[padding:12px_16px_14px]`(HSS:1412). 틀에 테두리가 없어(헤어라인은 inset 그림자) 접을 것이 없다.",
+          "gap": 6,
+          "$gap": "6. `.louis-segment-track { row-gap: 6px }` 리터럴 — 제품 `[row-gap:6px]`(HSS:1440). 촘촘한 판도 바꾸지 않는다. Figma 는 세로 쌓기의 itemSpacing 이다.",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-segment-track { border-radius: var(--louis-radius-card) }`."
+        },
+        "compact/Filled": {
+          "minHeight": 108,
+          "$minHeight": "108. 높이는 선언이 아니라 줄의 합이다 — 8 + 눈금 24 + 6 + 지도 10(한 줄) + 6 + 칸 44 + 10. 지도 높이가 소비처가 주는 줄 수(`--louis-segment-track-lanes` 1~3 → 10 · 16 · 22)로 늘어나므로 한 줄일 때가 하한이다. Figma 시드 예시는 이 하한 이상이면 된다(계약 `atLeast`). 촘촘한 판은 줄 머리를 감춰(`display: none`) 한 칸으로 쌓는다.",
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8. `.louis-segment-track[data-layout=\"compact\"] { padding: var(--louis-space-control-sm) … }` — 제품 `[padding:8px_12px_10px]`(HSS:1419).",
+          "paddingBlockEnd": 10,
+          "$paddingBlockEnd": "10. 촘촘한 판 아래 여백 리터럴 — 제품 `[padding:8px_12px_10px]`(HSS:1419). 사다리에 없다. 되읽기 명세가 paddingBlockEnd 를 담지 않아 계약에는 걸지 않고 브라우저 시험만 잰다(높이 하한이 이 값을 품는다).",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12. 촘촘한 판 좌우 — 제품 `[padding:8px_12px_10px]`(HSS:1419). 틀에 테두리가 없어(헤어라인은 inset 그림자) 접을 것이 없다.",
+          "gap": 6,
+          "$gap": "6. `.louis-segment-track { row-gap: 6px }` 리터럴 — 제품 `[row-gap:6px]`(HSS:1440). 촘촘한 판도 바꾸지 않는다. Figma 는 세로 쌓기의 itemSpacing 이다.",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-segment-track { border-radius: var(--louis-radius-card) }`."
+        },
+        "regular/Empty": {
+          "minHeight": 116,
+          "$minHeight": "116. 높이는 선언이 아니라 줄의 합이다 — 12 + 눈금 28 + 6 + 빈 줄 56 + 14. 빈 줄은 `min-block-size` 라 글이 좁은 폭에서 줄바꿈하면 늘어난다 — 하한이다(계약 `atLeast`). 줄 머리(글자 18)는 마지막 줄 옆에 서고 그 줄보다 낮다.",
+          "paddingBlock": 12,
+          "$paddingBlock": "space-control-md 12. `.louis-segment-track { padding: var(--louis-space-control-md) … }` — 제품 `[padding:12px_16px_14px]`(HSS:1412).",
+          "paddingBlockEnd": 14,
+          "$paddingBlockEnd": "14. 아래 여백 리터럴 — 제품 `[padding:12px_16px_14px]`(HSS:1412). 사다리에 없다. 되읽기 명세가 paddingBlockEnd 를 담지 않아 계약에는 걸지 않고 브라우저 시험만 잰다(높이 하한이 이 값을 품는다).",
+          "paddingInline": 16,
+          "$paddingInline": "space-control-lg 16. 좌우 — 제품 `[padding:12px_16px_14px]`(HSS:1412). 틀에 테두리가 없어(헤어라인은 inset 그림자) 접을 것이 없다.",
+          "gap": 6,
+          "$gap": "6. `.louis-segment-track { row-gap: 6px }` 리터럴 — 제품 `[row-gap:6px]`(HSS:1440). 촘촘한 판도 바꾸지 않는다. Figma 는 세로 쌓기의 itemSpacing 이다.",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-segment-track { border-radius: var(--louis-radius-card) }`."
+        },
+        "compact/Empty": {
+          "minHeight": 88,
+          "$minHeight": "88. 높이는 선언이 아니라 줄의 합이다 — 8 + 눈금 24 + 6 + 빈 줄 40 + 10. 빈 줄은 `min-block-size` 라 글이 좁은 폭에서 줄바꿈하면 늘어난다 — 하한이다(계약 `atLeast`). 촘촘한 판은 줄 머리를 감춰(`display: none`) 한 칸으로 쌓는다.",
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8. `.louis-segment-track[data-layout=\"compact\"] { padding: var(--louis-space-control-sm) … }` — 제품 `[padding:8px_12px_10px]`(HSS:1419).",
+          "paddingBlockEnd": 10,
+          "$paddingBlockEnd": "10. 촘촘한 판 아래 여백 리터럴 — 제품 `[padding:8px_12px_10px]`(HSS:1419). 사다리에 없다. 되읽기 명세가 paddingBlockEnd 를 담지 않아 계약에는 걸지 않고 브라우저 시험만 잰다(높이 하한이 이 값을 품는다).",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12. 촘촘한 판 좌우 — 제품 `[padding:8px_12px_10px]`(HSS:1419). 틀에 테두리가 없어(헤어라인은 inset 그림자) 접을 것이 없다.",
+          "gap": 6,
+          "$gap": "6. `.louis-segment-track { row-gap: 6px }` 리터럴 — 제품 `[row-gap:6px]`(HSS:1440). 촘촘한 판도 바꾸지 않는다. Figma 는 세로 쌓기의 itemSpacing 이다.",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-segment-track { border-radius: var(--louis-radius-card) }`."
+        }
+      }
+    },
+    "segment-track-block": {
+      "$doc": "design/components/segment-track.md",
+      "$source": "packages/css/src/component/segment-track.css 의 .louis-segment-track__block(data-look · aria-current) — 2026-10-13 DS-D-0084",
+      "$note": "구간 줄의 칸 하나. 키는 Figma 의 Look × Selected(코드 `data-look` × `aria-current`)이고 네 모양 · 무대 여부가 기하를 바꾸지 않아 여덟 칸이 같다. 폭은 길이 비중(`--louis-segment-track-weight`)과 최소 88 이 정하는 데이터라 담지 않는다. 칸 사이(`__strip` gap 4)와 이름 번호 · 제목 사이 6 은 되읽기 명세가 담지 않는다. 촘촘한 판의 44 × 136 은 Figma 에 축이 없다.",
+      "sizes": {
+        "clip/false": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-segment-track__block { block-size: var(--louis-layout-control-height-md) }`(border-box) — 제품 칸 높이(HSS:1525). 촘촘한 판의 44(`layout-control-hit-target-minimum`)는 Figma 세트에 축이 없어 기록하지 않는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-segment-track__block { padding-inline: var(--louis-space-control-sm) }`. Figma 패딩은 이 값에 테두리 1 을 접은 내용 가장자리(9)로 맞댄다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-segment-track__block { border: var(--louis-border-width-default) solid … }`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-segment-track__block { border-radius: var(--louis-radius-control-sm) }`."
+        },
+        "candidate/false": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-segment-track__block { block-size: var(--louis-layout-control-height-md) }`(border-box) — 제품 칸 높이(HSS:1525). 촘촘한 판의 44(`layout-control-hit-target-minimum`)는 Figma 세트에 축이 없어 기록하지 않는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-segment-track__block { padding-inline: var(--louis-space-control-sm) }`. Figma 패딩은 이 값에 테두리 1 을 접은 내용 가장자리(9)로 맞댄다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-segment-track__block { border: var(--louis-border-width-default) solid … }` — 이 칸은 `border-style: dashed` 로 모양만 바뀌고 두께는 같다.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-segment-track__block { border-radius: var(--louis-radius-control-sm) }`."
+        },
+        "selected/false": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-segment-track__block { block-size: var(--louis-layout-control-height-md) }`(border-box) — 제품 칸 높이(HSS:1525). 촘촘한 판의 44(`layout-control-hit-target-minimum`)는 Figma 세트에 축이 없어 기록하지 않는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-segment-track__block { padding-inline: var(--louis-space-control-sm) }`. Figma 패딩은 이 값에 테두리 1 을 접은 내용 가장자리(9)로 맞댄다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-segment-track__block { border: var(--louis-border-width-default) solid … }` — 이 칸은 `border-style: dashed` 로 모양만 바뀌고 두께는 같다.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-segment-track__block { border-radius: var(--louis-radius-control-sm) }`."
+        },
+        "short/false": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-segment-track__block { block-size: var(--louis-layout-control-height-md) }`(border-box) — 제품 칸 높이(HSS:1525). 촘촘한 판의 44(`layout-control-hit-target-minimum`)는 Figma 세트에 축이 없어 기록하지 않는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-segment-track__block { padding-inline: var(--louis-space-control-sm) }`. Figma 패딩은 이 값에 테두리 1 을 접은 내용 가장자리(9)로 맞댄다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-segment-track__block { border: var(--louis-border-width-default) solid … }`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-segment-track__block { border-radius: var(--louis-radius-control-sm) }`."
+        },
+        "clip/true": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-segment-track__block { block-size: var(--louis-layout-control-height-md) }`(border-box) — 제품 칸 높이(HSS:1525). 촘촘한 판의 44(`layout-control-hit-target-minimum`)는 Figma 세트에 축이 없어 기록하지 않는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-segment-track__block { padding-inline: var(--louis-space-control-sm) }`. Figma 패딩은 이 값에 테두리 1 을 접은 내용 가장자리(9)로 맞댄다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-segment-track__block { border: var(--louis-border-width-default) solid … }`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-segment-track__block { border-radius: var(--louis-radius-control-sm) }`.",
+          "$ring": "무대 칸(`aria-current=\"true\"`)의 고리는 `outline` 2(`border-width-ring`) · 바깥 1(`outline-offset`) — 상자 밖이라 기하를 바꾸지 않는다. Figma 의 `Current ring` 은 되읽기 명세 outsideParts 로 밖에 선다."
+        },
+        "candidate/true": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-segment-track__block { block-size: var(--louis-layout-control-height-md) }`(border-box) — 제품 칸 높이(HSS:1525). 촘촘한 판의 44(`layout-control-hit-target-minimum`)는 Figma 세트에 축이 없어 기록하지 않는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-segment-track__block { padding-inline: var(--louis-space-control-sm) }`. Figma 패딩은 이 값에 테두리 1 을 접은 내용 가장자리(9)로 맞댄다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-segment-track__block { border: var(--louis-border-width-default) solid … }` — 이 칸은 `border-style: dashed` 로 모양만 바뀌고 두께는 같다.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-segment-track__block { border-radius: var(--louis-radius-control-sm) }`.",
+          "$ring": "무대 칸(`aria-current=\"true\"`)의 고리는 `outline` 2(`border-width-ring`) · 바깥 1(`outline-offset`) — 상자 밖이라 기하를 바꾸지 않는다. Figma 의 `Current ring` 은 되읽기 명세 outsideParts 로 밖에 선다."
+        },
+        "selected/true": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-segment-track__block { block-size: var(--louis-layout-control-height-md) }`(border-box) — 제품 칸 높이(HSS:1525). 촘촘한 판의 44(`layout-control-hit-target-minimum`)는 Figma 세트에 축이 없어 기록하지 않는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-segment-track__block { padding-inline: var(--louis-space-control-sm) }`. Figma 패딩은 이 값에 테두리 1 을 접은 내용 가장자리(9)로 맞댄다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-segment-track__block { border: var(--louis-border-width-default) solid … }` — 이 칸은 `border-style: dashed` 로 모양만 바뀌고 두께는 같다.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-segment-track__block { border-radius: var(--louis-radius-control-sm) }`.",
+          "$ring": "무대 칸(`aria-current=\"true\"`)의 고리는 `outline` 2(`border-width-ring`) · 바깥 1(`outline-offset`) — 상자 밖이라 기하를 바꾸지 않는다. Figma 의 `Current ring` 은 되읽기 명세 outsideParts 로 밖에 선다."
+        },
+        "short/true": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-segment-track__block { block-size: var(--louis-layout-control-height-md) }`(border-box) — 제품 칸 높이(HSS:1525). 촘촘한 판의 44(`layout-control-hit-target-minimum`)는 Figma 세트에 축이 없어 기록하지 않는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-segment-track__block { padding-inline: var(--louis-space-control-sm) }`. Figma 패딩은 이 값에 테두리 1 을 접은 내용 가장자리(9)로 맞댄다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-segment-track__block { border: var(--louis-border-width-default) solid … }`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-segment-track__block { border-radius: var(--louis-radius-control-sm) }`.",
+          "$ring": "무대 칸(`aria-current=\"true\"`)의 고리는 `outline` 2(`border-width-ring`) · 바깥 1(`outline-offset`) — 상자 밖이라 기하를 바꾸지 않는다. Figma 의 `Current ring` 은 되읽기 명세 outsideParts 로 밖에 선다."
+        }
+      }
+    },
+    "segment-track-map-bar": {
+      "$doc": "design/components/segment-track.md",
+      "$source": "packages/css/src/component/segment-track.css 의 .louis-segment-track__map-bar(data-look · data-current · data-hover) — 2026-10-13 DS-D-0084",
+      "$note": "전체 지도의 막대 하나. 키는 Figma 의 Look × Emphasis — Look accent 는 코드 `data-look=\"selected\"` · `\"short\"`(둘 다 강조색), Emphasis current · hover 는 `data-current` · `data-hover`. 폭(`--louis-segment-track-span`)과 자리는 데이터라 담지 않는다. 최소 폭 3 · 6 과 고리 1.5 는 되읽기 명세가 담지 않는다.",
+      "sizes": {
+        "clip/rest": {
+          "height": 4,
+          "$height": "4. `.louis-segment-track__map-bar { block-size: 4px }` 리터럴 — 제품 `[height:4px]`(HSS:1782).",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        },
+        "clip/current": {
+          "height": 8,
+          "$height": "8. `.louis-segment-track__map-bar:is([data-current=\"true\"], [data-hover=\"true\"]) { block-size: 8px }` 리터럴 — 제품 `[height:8px]`(HSS:1791). 무대 막대는 색이 아니라 크기와 고리 1.5 로 말한다.",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        },
+        "clip/hover": {
+          "height": 8,
+          "$height": "8. `.louis-segment-track__map-bar:is([data-current=\"true\"], [data-hover=\"true\"]) { block-size: 8px }` 리터럴 — 제품 `[height:8px]`(HSS:1791). 가리킴 막대는 색이 아니라 크기와 고리 1.5 로 말한다.",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        },
+        "candidate/rest": {
+          "height": 4,
+          "$height": "4. `.louis-segment-track__map-bar { block-size: 4px }` 리터럴 — 제품 `[height:4px]`(HSS:1782).",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        },
+        "candidate/current": {
+          "height": 8,
+          "$height": "8. `.louis-segment-track__map-bar:is([data-current=\"true\"], [data-hover=\"true\"]) { block-size: 8px }` 리터럴 — 제품 `[height:8px]`(HSS:1791). 무대 막대는 색이 아니라 크기와 고리 1.5 로 말한다.",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        },
+        "candidate/hover": {
+          "height": 8,
+          "$height": "8. `.louis-segment-track__map-bar:is([data-current=\"true\"], [data-hover=\"true\"]) { block-size: 8px }` 리터럴 — 제품 `[height:8px]`(HSS:1791). 가리킴 막대는 색이 아니라 크기와 고리 1.5 로 말한다.",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        },
+        "accent/rest": {
+          "height": 4,
+          "$height": "4. `.louis-segment-track__map-bar { block-size: 4px }` 리터럴 — 제품 `[height:4px]`(HSS:1782).",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        },
+        "accent/current": {
+          "height": 8,
+          "$height": "8. `.louis-segment-track__map-bar:is([data-current=\"true\"], [data-hover=\"true\"]) { block-size: 8px }` 리터럴 — 제품 `[height:8px]`(HSS:1791). 무대 막대는 색이 아니라 크기와 고리 1.5 로 말한다.",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        },
+        "accent/hover": {
+          "height": 8,
+          "$height": "8. `.louis-segment-track__map-bar:is([data-current=\"true\"], [data-hover=\"true\"]) { block-size: 8px }` 리터럴 — 제품 `[height:8px]`(HSS:1791). 가리킴 막대는 색이 아니라 크기와 고리 1.5 로 말한다.",
+          "radius": 999,
+          "$radius": "radius-pill 999. `.louis-segment-track__map-bar { border-radius: var(--louis-radius-pill) }`."
+        }
+      }
+    },
+    "stage-bar": {
+      "$doc": "design/components/segment-track.md",
+      "$source": "packages/css/src/component/segment-track.css 의 .louis-stage-bar · __row — 2026-10-13 DS-D-0084",
+      "$note": "무대 아래 상태 | 행동 막대의 틀. 키는 Figma 의 Layout(board · waiting · stopped)이고 줄 안 내용만 다르다 — 안의 조작(Button · Checkbox · ProgressBar · LoadingWord · Menu)은 각자의 기록이 소유한다. 코드는 줄 바꿈 흐름(flex-wrap)이고 Figma 는 한 줄과 실패 줄을 세로로 쌓는다.",
+      "sizes": {
+        "board": {
+          "minHeight": 56,
+          "$minHeight": "56. 선언이 아니라 합이다 — 위 8 + 한 줄 최소 40(`.louis-stage-bar__row { min-block-size: var(--louis-layout-control-height-lg) }`) + 아래 8. 실패 줄(`__error`)이 서거나 좁은 폭에서 줄이 접히면 늘어나므로 하한이다(계약 `atLeast`). 제품이 칸을 오가도 무대 높이가 그대로라는 약속(HSS:1699-1701)이 이 하한이다.",
+          "padding": 8,
+          "$padding": "space-control-sm 8. `.louis-stage-bar { padding: var(--louis-space-control-sm) }` — 제품 HSS:1421-1434. 틀에 테두리가 없어(헤어라인은 inset 그림자) 접을 것이 없다.",
+          "gap": 8,
+          "$gap": "space-control-sm 8. `.louis-stage-bar { gap: var(--louis-space-control-sm) }` — 줄 바꿈 흐름이라 한 줄과 실패 줄 사이가 이 값이다. Figma 는 세로 쌓기의 itemSpacing 이다.",
+          "rowMinHeight": 40,
+          "$rowMinHeight": "layout-control-height-lg 40. `.louis-stage-bar__row { min-block-size }` — 안에 서는 버튼 높이와 같다(HSS:1688). 되읽기가 자손을 담지 않아 계약에는 걸지 않고 높이 하한이 품는다.",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-stage-bar { border-radius: var(--louis-radius-card) }`."
+        },
+        "waiting": {
+          "minHeight": 56,
+          "$minHeight": "56. 선언이 아니라 합이다 — 위 8 + 한 줄 최소 40(`.louis-stage-bar__row { min-block-size: var(--louis-layout-control-height-lg) }`) + 아래 8. 실패 줄(`__error`)이 서거나 좁은 폭에서 줄이 접히면 늘어나므로 하한이다(계약 `atLeast`). 제품이 칸을 오가도 무대 높이가 그대로라는 약속(HSS:1699-1701)이 이 하한이다. Layout 은 줄 안 내용(상태 글 · 진행 묶음 · 행동)만 바꾸고 틀 기하는 같다.",
+          "padding": 8,
+          "$padding": "space-control-sm 8. `.louis-stage-bar { padding: var(--louis-space-control-sm) }` — 제품 HSS:1421-1434. 틀에 테두리가 없어(헤어라인은 inset 그림자) 접을 것이 없다.",
+          "gap": 8,
+          "$gap": "space-control-sm 8. `.louis-stage-bar { gap: var(--louis-space-control-sm) }` — 줄 바꿈 흐름이라 한 줄과 실패 줄 사이가 이 값이다. Figma 는 세로 쌓기의 itemSpacing 이다.",
+          "rowMinHeight": 40,
+          "$rowMinHeight": "layout-control-height-lg 40. `.louis-stage-bar__row { min-block-size }` — 안에 서는 버튼 높이와 같다(HSS:1688). 되읽기가 자손을 담지 않아 계약에는 걸지 않고 높이 하한이 품는다.",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-stage-bar { border-radius: var(--louis-radius-card) }`."
+        },
+        "stopped": {
+          "minHeight": 56,
+          "$minHeight": "56. 선언이 아니라 합이다 — 위 8 + 한 줄 최소 40(`.louis-stage-bar__row { min-block-size: var(--louis-layout-control-height-lg) }`) + 아래 8. 실패 줄(`__error`)이 서거나 좁은 폭에서 줄이 접히면 늘어나므로 하한이다(계약 `atLeast`). 제품이 칸을 오가도 무대 높이가 그대로라는 약속(HSS:1699-1701)이 이 하한이다. Layout 은 줄 안 내용(상태 글 · 진행 묶음 · 행동)만 바꾸고 틀 기하는 같다.",
+          "padding": 8,
+          "$padding": "space-control-sm 8. `.louis-stage-bar { padding: var(--louis-space-control-sm) }` — 제품 HSS:1421-1434. 틀에 테두리가 없어(헤어라인은 inset 그림자) 접을 것이 없다.",
+          "gap": 8,
+          "$gap": "space-control-sm 8. `.louis-stage-bar { gap: var(--louis-space-control-sm) }` — 줄 바꿈 흐름이라 한 줄과 실패 줄 사이가 이 값이다. Figma 는 세로 쌓기의 itemSpacing 이다.",
+          "rowMinHeight": 40,
+          "$rowMinHeight": "layout-control-height-lg 40. `.louis-stage-bar__row { min-block-size }` — 안에 서는 버튼 높이와 같다(HSS:1688). 되읽기가 자손을 담지 않아 계약에는 걸지 않고 높이 하한이 품는다.",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-stage-bar { border-radius: var(--louis-radius-card) }`."
+        }
+      }
+    },
+    "asset-tile": {
+      "$doc": "design/components/asset-tile.md",
+      "$source": "packages/css/src/component/asset-tile.css — 2026-10-13 DS-D-0084",
+      "$note": "넣는 그림 칸(`.louis-asset-tile`). 값은 레시피 선언이고 packages/react/test/small-parts-geometry.browser.test.tsx 가 계산값으로 되잰다. 키는 Figma AssetTile 의 State 축 — Default · Hover · Active 셋의 기하는 같다(호버는 면 · 선 색, 누름은 `scale: 0.97` 로 칠만 바뀐다). 폭은 격자 열이 정해 담지 않는다. 출처는 제품 imageEditParts/StickerPalette.tsx:30-56(통합 판 54b62a8aa).",
+      "sizes": {
+        "Default": {
+          "padding": 4,
+          "$padding": "space-control-xs 4. `.louis-asset-tile { padding: var(--louis-space-control-xs) }` — 제품 StickerPalette.tsx:35 `p-2`(격자 2px). Default 는 쉬는 칸.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-asset-tile { border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-12) }` — 제품 :36 `border`. 칠 있는 실재 테두리라 Figma 안쪽 여백은 CSS 여백 + 테두리(5)다(figma-component-authoring.md §10).",
+          "gap": 4,
+          "$gap": "space-control-xs 4. `.louis-asset-tile { gap: var(--louis-space-control-xs) }` — 우물과 라벨 사이, 제품 :35 `gap-2`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-asset-tile { border-radius: var(--louis-radius-control-sm) }` — 제품 :36 `rounded-8`.",
+          "direction": "column",
+          "$direction": "`.louis-asset-tile { display: flex; flex-direction: column }` — 우물 위 · 라벨 아래."
+        },
+        "Hover": {
+          "padding": 4,
+          "$padding": "space-control-xs 4. `.louis-asset-tile { padding: var(--louis-space-control-xs) }` — 제품 StickerPalette.tsx:35 `p-2`(격자 2px). Hover 는 면 04 → 08 · 선 강조색 48% 로 색만 바뀐다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-asset-tile { border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-12) }` — 제품 :36 `border`. 칠 있는 실재 테두리라 Figma 안쪽 여백은 CSS 여백 + 테두리(5)다(figma-component-authoring.md §10).",
+          "gap": 4,
+          "$gap": "space-control-xs 4. `.louis-asset-tile { gap: var(--louis-space-control-xs) }` — 우물과 라벨 사이, 제품 :35 `gap-2`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-asset-tile { border-radius: var(--louis-radius-control-sm) }` — 제품 :36 `rounded-8`.",
+          "direction": "column",
+          "$direction": "`.louis-asset-tile { display: flex; flex-direction: column }` — 우물 위 · 라벨 아래."
+        },
+        "Active": {
+          "padding": 4,
+          "$padding": "space-control-xs 4. `.louis-asset-tile { padding: var(--louis-space-control-xs) }` — 제품 StickerPalette.tsx:35 `p-2`(격자 2px). Active 는 `scale: 0.97` 로 그리는 크기만 줄고 상자의 여백은 같다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `.louis-asset-tile { border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-12) }` — 제품 :36 `border`. 칠 있는 실재 테두리라 Figma 안쪽 여백은 CSS 여백 + 테두리(5)다(figma-component-authoring.md §10).",
+          "gap": 4,
+          "$gap": "space-control-xs 4. `.louis-asset-tile { gap: var(--louis-space-control-xs) }` — 우물과 라벨 사이, 제품 :35 `gap-2`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. `.louis-asset-tile { border-radius: var(--louis-radius-control-sm) }` — 제품 :36 `rounded-8`.",
+          "direction": "column",
+          "$direction": "`.louis-asset-tile { display: flex; flex-direction: column }` — 우물 위 · 라벨 아래."
+        }
+      }
+    },
+    "color-swatch": {
+      "$doc": "design/components/color-swatch.md",
+      "$source": "packages/css/src/component/color-swatch.css — 2026-10-13 DS-D-0084",
+      "$note": "색 칩 칸(`.louis-color-swatch`). 값은 레시피 선언이고 small-parts-geometry 시험이 계산값으로 되잰다. 키는 Figma ColorSwatch 의 Layout/Size/Content 다섯 칸. 되읽기가 칸의 간격 · 방향만 담는다 — 칩 크기(32 · 16)와 반경은 color-swatch.browser.test.tsx 가 잰다. row 의 높이는 Figma TextField 의 위아래 4 때문에 40(CSS 32)이지만 되읽기가 높이를 담지 않아 이 기록 밖이다. 출처는 제품 app/admin/CaptionTemplateManagement.tsx:296-316 · :940-944, CaptionColorPanel.tsx:171-223(통합 판 54b62a8aa).",
+      "sizes": {
+        "row/md/filled": {
+          "gap": 6,
+          "$gap": "6. `.louis-color-swatch { gap: 6px }` 리터럴 — 칩과 헥스 필드(md) · 값 글자(sm) 사이, 제품 CaptionTemplateManagement.tsx:304 · :940 `gap-3`(격자 2px). 크기 축(md)은 칩만 바꾸고 이 간격은 그대로다.",
+          "direction": "row",
+          "$direction": "`.louis-color-swatch { display: inline-flex }` 의 기본 row — 칩 옆에 필드 · 값."
+        },
+        "row/md/empty": {
+          "gap": 6,
+          "$gap": "6. `.louis-color-swatch { gap: 6px }` 리터럴 — 칩과 헥스 필드(md) · 값 글자(sm) 사이, 제품 CaptionTemplateManagement.tsx:304 · :940 `gap-3`(격자 2px). 크기 축(md)은 칩만 바꾸고 이 간격은 그대로다.",
+          "direction": "row",
+          "$direction": "`.louis-color-swatch { display: inline-flex }` 의 기본 row — 칩 옆에 필드 · 값.",
+          "$content": "빈 칩(`__chip[data-empty=\"true\"]`)은 점선 테두리 · 투명 면 · 가운데 + 16 으로 칩 안만 바뀐다 — 칸의 간격 · 방향은 채운 칩과 같다."
+        },
+        "row/sm/filled": {
+          "gap": 6,
+          "$gap": "6. `.louis-color-swatch { gap: 6px }` 리터럴 — 칩과 헥스 필드(md) · 값 글자(sm) 사이, 제품 CaptionTemplateManagement.tsx:304 · :940 `gap-3`(격자 2px). 크기 축(sm)은 칩만 바꾸고 이 간격은 그대로다.",
+          "direction": "row",
+          "$direction": "`.louis-color-swatch { display: inline-flex }` 의 기본 row — 칩 옆에 필드 · 값."
+        },
+        "stack/md/filled": {
+          "gap": 4,
+          "$gap": "space-control-xs 4. `.louis-color-swatch[data-layout=\"stack\"] { gap: var(--louis-space-control-xs) }` — 라벨과 칩 사이, 제품 CaptionColorPanel.tsx:185 `gap-[3px]` 을 4 로 접었다.",
+          "direction": "column",
+          "$direction": "`.louis-color-swatch[data-layout=\"stack\"] { flex-direction: column }` — 라벨 위 · 칩 아래."
+        },
+        "stack/md/empty": {
+          "gap": 4,
+          "$gap": "space-control-xs 4. `.louis-color-swatch[data-layout=\"stack\"] { gap: var(--louis-space-control-xs) }` — 라벨과 칩 사이, 제품 CaptionColorPanel.tsx:185 `gap-[3px]` 을 4 로 접었다.",
+          "direction": "column",
+          "$direction": "`.louis-color-swatch[data-layout=\"stack\"] { flex-direction: column }` — 라벨 위 · 칩 아래.",
+          "$content": "빈 칩(`__chip[data-empty=\"true\"]`)은 점선 테두리 · 투명 면 · 가운데 + 16 으로 칩 안만 바뀐다 — 칸의 간격 · 방향은 채운 칩과 같다."
+        }
+      }
+    },
+    "logo-tile": {
+      "$doc": "design/components/logo-tile.md",
+      "$source": "packages/css/src/component/logo-tile.css — 2026-10-13 DS-D-0084",
+      "$note": "회사 로고 칸(`.louis-logo-tile`). 값은 레시피 선언이고 small-parts-geometry 시험이 1280 폭에서 계산값으로 되잰다. 키는 Figma LogoTile 의 Size/Content 여섯 칸. 출처는 제품 components/models/ModelLogo.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "sm/glyph": {
+          "size": 48,
+          "$size": "48. `.louis-logo-tile[data-size=\"sm\"] { --louis-logo-tile-size: 48px }` — 제품 ModelLogo.tsx:9 md 의 폰 판 `max-[719px]:size-24`. 폭 · 높이 둘 다 이 값이다(inline-size · block-size).",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-logo-tile { border-radius: var(--louis-radius-card) }` — 제품 lg `rounded-12`. md 의 10 은 12 로 접었다(소유자 판정 8). 세 크기가 같다.",
+          "$content": "글리프(`__glyph`)는 칸의 절반 — 되읽기가 자손을 담지 않아 이 기록에 두지 않는다(시험 logo-tile.browser.test.tsx 가 잰다)."
+        },
+        "sm/fallback": {
+          "size": 48,
+          "$size": "48. `.louis-logo-tile[data-size=\"sm\"] { --louis-logo-tile-size: 48px }` — 제품 ModelLogo.tsx:9 md 의 폰 판 `max-[719px]:size-24`. 폭 · 높이 둘 다 이 값이다(inline-size · block-size).",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-logo-tile { border-radius: var(--louis-radius-card) }` — 제품 lg `rounded-12`. md 의 10 은 12 로 접었다(소유자 판정 8). 세 크기가 같다.",
+          "$content": "대체 글자 칸(`__fallback`, body-md semibold)은 글리프 대신 글자를 담을 뿐 칸의 크기 · 반경은 같다."
+        },
+        "md/glyph": {
+          "size": 56,
+          "$size": "56. `.louis-logo-tile { --louis-logo-tile-size: 56px }` — 제품 ModelLogo.tsx:9 `size-28`. 719 이하에서는 48 로 내려간다(`@media (max-width: 719px)`) — Figma 는 데스크톱 판을 그리고 시험은 1280 에서 잰다. 폭 · 높이 둘 다 이 값이다(inline-size · block-size).",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-logo-tile { border-radius: var(--louis-radius-card) }` — 제품 lg `rounded-12`. md 의 10 은 12 로 접었다(소유자 판정 8). 세 크기가 같다.",
+          "$content": "글리프(`__glyph`)는 칸의 절반 — 되읽기가 자손을 담지 않아 이 기록에 두지 않는다(시험 logo-tile.browser.test.tsx 가 잰다)."
+        },
+        "md/fallback": {
+          "size": 56,
+          "$size": "56. `.louis-logo-tile { --louis-logo-tile-size: 56px }` — 제품 ModelLogo.tsx:9 `size-28`. 719 이하에서는 48 로 내려간다(`@media (max-width: 719px)`) — Figma 는 데스크톱 판을 그리고 시험은 1280 에서 잰다. 폭 · 높이 둘 다 이 값이다(inline-size · block-size).",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-logo-tile { border-radius: var(--louis-radius-card) }` — 제품 lg `rounded-12`. md 의 10 은 12 로 접었다(소유자 판정 8). 세 크기가 같다.",
+          "$content": "대체 글자 칸(`__fallback`, body-md semibold)은 글리프 대신 글자를 담을 뿐 칸의 크기 · 반경은 같다."
+        },
+        "lg/glyph": {
+          "size": 72,
+          "$size": "72. `.louis-logo-tile[data-size=\"lg\"] { --louis-logo-tile-size: 72px }` — 제품 ModelLogo.tsx:9 추천 결과 머리 `size-36`. 폭 · 높이 둘 다 이 값이다(inline-size · block-size).",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-logo-tile { border-radius: var(--louis-radius-card) }` — 제품 lg `rounded-12`. md 의 10 은 12 로 접었다(소유자 판정 8). 세 크기가 같다.",
+          "$content": "글리프(`__glyph`)는 칸의 절반 — 되읽기가 자손을 담지 않아 이 기록에 두지 않는다(시험 logo-tile.browser.test.tsx 가 잰다)."
+        },
+        "lg/fallback": {
+          "size": 72,
+          "$size": "72. `.louis-logo-tile[data-size=\"lg\"] { --louis-logo-tile-size: 72px }` — 제품 ModelLogo.tsx:9 추천 결과 머리 `size-36`. 폭 · 높이 둘 다 이 값이다(inline-size · block-size).",
+          "radius": 12,
+          "$radius": "radius-card 12. `.louis-logo-tile { border-radius: var(--louis-radius-card) }` — 제품 lg `rounded-12`. md 의 10 은 12 로 접었다(소유자 판정 8). 세 크기가 같다.",
+          "$content": "대체 글자 칸(`__fallback`, body-md semibold)은 글리프 대신 글자를 담을 뿐 칸의 크기 · 반경은 같다."
+        }
+      }
+    },
+    "notice-pill": {
+      "$doc": "design/components/notice-pill.md",
+      "$source": "packages/css/src/component/notice-pill.css — 2026-10-13 DS-D-0084",
+      "$note": "영상 위 한 줄 공지(`.louis-notice-pill`). 값은 레시피 선언이고 small-parts-geometry 시험이 계산값으로 되잰다. 키는 Figma NoticePill 의 Interactive/State 세 칸 — 셋의 기하는 같다. 폭은 문구가 정해 담지 않는다(`$whyNotTextWidth`). 출처는 제품 components/landing/sections/HeroNotice.tsx:41-91(통합 판 54b62a8aa).",
+      "sizes": {
+        "false/Default": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-notice-pill { block-size: var(--louis-layout-control-height-md) }` — 제품 HeroNotice.tsx:44 `h-16`(격자 2px).",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12. `.louis-notice-pill { padding-inline: var(--louis-space-control-md) }` — 제품 :44 `px-6`. 테두리가 없어(`border: 0`) 접을 것이 없다.",
+          "radius": 12,
+          "$radius": "radius-control 12. `.louis-notice-pill { border-radius: var(--louis-radius-control) }` — 제품 :44 `rounded-12`.",
+          "direction": "row",
+          "$direction": "`.louis-notice-pill { display: inline-flex }` 의 기본 row — 점 · 로고 · 문구가 한 줄.",
+          "$element": "목적지 없는 알약(`p`) — 커서 · 호버가 없다. 기하는 누를 수 있는 알약과 같다."
+        },
+        "true/Default": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-notice-pill { block-size: var(--louis-layout-control-height-md) }` — 제품 HeroNotice.tsx:44 `h-16`(격자 2px).",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12. `.louis-notice-pill { padding-inline: var(--louis-space-control-md) }` — 제품 :44 `px-6`. 테두리가 없어(`border: 0`) 접을 것이 없다.",
+          "radius": 12,
+          "$radius": "radius-control 12. `.louis-notice-pill { border-radius: var(--louis-radius-control) }` — 제품 :44 `rounded-12`.",
+          "direction": "row",
+          "$direction": "`.louis-notice-pill { display: inline-flex }` 의 기본 row — 점 · 로고 · 문구가 한 줄.",
+          "$element": "누를 수 있는 알약(`a[href]` · `button`)."
+        },
+        "true/Hover": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. `.louis-notice-pill { block-size: var(--louis-layout-control-height-md) }` — 제품 HeroNotice.tsx:44 `h-16`(격자 2px).",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12. `.louis-notice-pill { padding-inline: var(--louis-space-control-md) }` — 제품 :44 `px-6`. 테두리가 없어(`border: 0`) 접을 것이 없다.",
+          "radius": 12,
+          "$radius": "radius-control 12. `.louis-notice-pill { border-radius: var(--louis-radius-control) }` — 제품 :44 `rounded-12`.",
+          "direction": "row",
+          "$direction": "`.louis-notice-pill { display: inline-flex }` 의 기본 row — 점 · 로고 · 문구가 한 줄.",
+          "$element": "누를 수 있는 알약(`a[href]` · `button`) 의 호버 — 스크림 56 → 72% 로 면만 진해지고 기하는 같다."
+        }
+      }
+    },
+    "canvas-guide": {
+      "$doc": "design/components/canvas-guide.md",
+      "$source": "packages/css/src/component/canvas-guide.css — 2026-10-13 DS-D-0084",
+      "$note": "정렬 스냅 선(`.louis-canvas-guide__line`). 레시피가 소유하는 기하는 선의 두께 하나다 — 좌표 · 길이는 소비처의 데이터다. 값은 레시피 선언이고 small-parts-geometry 시험이 계산값 `stroke-width` 로 되잰다. 키는 Figma CanvasGuide 의 Orientation 두 칸. 출처는 제품 node-canvas-v2/components/SmartGuideOverlay.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "vertical": {
+          "thickness": 1,
+          "$thickness": "border-width-default 1. `.louis-canvas-guide__line { stroke-width: var(--louis-border-width-default); vector-effect: non-scaling-stroke }` — 제품 SmartGuideOverlay.tsx `strokeWidth={1}`. 세로 선이라 Figma 폭이 이 값이다. 길이(높이)는 스냅 계산이 `<line>` 좌표로 주는 데이터라 기록하지 않는다 — Figma 120 은 표본이다."
+        },
+        "horizontal": {
+          "thickness": 1,
+          "$thickness": "border-width-default 1. `.louis-canvas-guide__line { stroke-width: var(--louis-border-width-default); vector-effect: non-scaling-stroke }` — 제품 SmartGuideOverlay.tsx `strokeWidth={1}`. 가로 선이라 Figma 높이가 이 값이다. 길이(폭)는 스냅 계산이 `<line>` 좌표로 주는 데이터라 기록하지 않는다 — Figma 120 은 표본이다."
+        }
+      }
+    },
+    "top-bar-title": {
+      "$doc": "design/components/app-shell-parts.md",
+      "$source": "packages/css/src/component/app-shell.css",
+      "$note": "캔버스 상단 바의 제목(2026-10-13, DS-D-0084) — `.louis-app-top-bar__title-button` · `__title-input`. 값은 레시피 선언이고 top-bar-parts-geometry 브라우저 시험이 클래스 마크업을 렌더해 되잰다. 출처는 제품 통합 판 54b62a8a 의 components/scenes/create/ProjectHeader.tsx. 폭(제목 칸 최대 280 안에서 글자가 정한다) · 반경(되읽기 명세가 담지 않는다) · 글자 크기는 담지 않는다.",
+      "$keyRule": "키가 Figma 의 State 다 — Default · Hover · Active 는 같은 `__title-button`(호버 · 누름은 면 색만 바꾼다), Focus 는 이름 바꾸기 중 같은 자리에 선 `__title-input` 이다. 넷의 기하가 같다.",
+      "sizes": {
+        "Default": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `.louis-app-top-bar__title-button, .louis-app-top-bar__title-input { block-size: var(--louis-layout-control-height-md) }` — 제품 `[line-height:32px]!`(ProjectHeader.tsx:212).",
+          "paddingInline": 10,
+          "$paddingInline": "10. 레시피 `padding-inline: 10px` 리터럴(좌우 같다) — 제품 `px-5`(ProjectHeader.tsx:189 · :212). 간격 사다리(4 · 8 · 12)에 10 이 없다."
+        },
+        "Hover": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `.louis-app-top-bar__title-button, .louis-app-top-bar__title-input { block-size: var(--louis-layout-control-height-md) }` — 제품 `[line-height:32px]!`(ProjectHeader.tsx:212).",
+          "paddingInline": 10,
+          "$paddingInline": "10. 레시피 `padding-inline: 10px` 리터럴(좌우 같다) — 제품 `px-5`(ProjectHeader.tsx:189 · :212). 간격 사다리(4 · 8 · 12)에 10 이 없다."
+        },
+        "Active": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `.louis-app-top-bar__title-button, .louis-app-top-bar__title-input { block-size: var(--louis-layout-control-height-md) }` — 제품 `[line-height:32px]!`(ProjectHeader.tsx:212).",
+          "paddingInline": 10,
+          "$paddingInline": "10. 레시피 `padding-inline: 10px` 리터럴(좌우 같다) — 제품 `px-5`(ProjectHeader.tsx:189 · :212). 간격 사다리(4 · 8 · 12)에 10 이 없다."
+        },
+        "Focus": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `.louis-app-top-bar__title-button, .louis-app-top-bar__title-input { block-size: var(--louis-layout-control-height-md) }` — 제품 `[line-height:32px]!`(ProjectHeader.tsx:212). Focus 칸은 같은 선언을 받는 편집 입력 `__title-input` 이다.",
+          "paddingInline": 10,
+          "$paddingInline": "10. 레시피 `padding-inline: 10px` 리터럴(좌우 같다) — 제품 `px-5`(ProjectHeader.tsx:189 · :212). 간격 사다리(4 · 8 · 12)에 10 이 없다."
+        }
+      }
+    },
+    "top-bar-home": {
+      "$doc": "design/components/app-shell-parts.md",
+      "$source": "packages/css/src/component/app-shell.css",
+      "$note": "캔버스 상단 바의 홈 버튼(2026-10-13, DS-D-0084) — `.louis-app-top-bar__home`. 값은 레시피 선언이고 top-bar-parts-geometry 브라우저 시험이 클래스 마크업을 렌더해 되잰다. 출처는 제품 통합 판 54b62a8a 의 components/scenes/create/ProjectHeader.tsx:94-99. 폭(심볼 · 스피너가 정한다) · 반경(되읽기 명세가 담지 않는다)은 담지 않는다.",
+      "$keyRule": "키가 Figma 의 State 다 — Default · Hover · Active. 호버는 면 색, 누름은 면 색 + `scale: 0.95` 인데 scale 은 변환이라 레이아웃 기하(높이 · 여백)를 바꾸지 않는다. 셋의 기하가 같다.",
+      "sizes": {
+        "Default": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `.louis-app-top-bar__home { block-size: var(--louis-layout-control-height-md) }` — 제품 홈 버튼 h-16(ProjectHeader.tsx:94-97).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 32 이상이고 저장 · 뒤로가기 스피너가 서면 늘어난다(ProjectHeader.tsx:94-97). 폭은 내용이 정해 담지 않는다.",
+          "paddingInlineStart": 6,
+          "$paddingInlineStart": "6. 레시피 `padding-inline: 6px 0` 의 시작 쪽 — 제품 `pl-3`(ProjectHeader.tsx:96). 심볼 20 이 32 안에서 가운데처럼 보이는 자리.",
+          "paddingInlineEnd": 0,
+          "$paddingInlineEnd": "0. 레시피 `padding-inline: 6px 0` 의 끝 쪽 — 제품은 오른쪽 여백을 선언하지 않는다(ProjectHeader.tsx:96)."
+        },
+        "Hover": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `.louis-app-top-bar__home { block-size: var(--louis-layout-control-height-md) }` — 제품 홈 버튼 h-16(ProjectHeader.tsx:94-97).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 32 이상이고 저장 · 뒤로가기 스피너가 서면 늘어난다(ProjectHeader.tsx:94-97). 폭은 내용이 정해 담지 않는다.",
+          "paddingInlineStart": 6,
+          "$paddingInlineStart": "6. 레시피 `padding-inline: 6px 0` 의 시작 쪽 — 제품 `pl-3`(ProjectHeader.tsx:96). 심볼 20 이 32 안에서 가운데처럼 보이는 자리.",
+          "paddingInlineEnd": 0,
+          "$paddingInlineEnd": "0. 레시피 `padding-inline: 6px 0` 의 끝 쪽 — 제품은 오른쪽 여백을 선언하지 않는다(ProjectHeader.tsx:96)."
+        },
+        "Active": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `.louis-app-top-bar__home { block-size: var(--louis-layout-control-height-md) }` — 제품 홈 버튼 h-16(ProjectHeader.tsx:94-97).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 32 이상이고 저장 · 뒤로가기 스피너가 서면 늘어난다(ProjectHeader.tsx:94-97). 폭은 내용이 정해 담지 않는다.",
+          "paddingInlineStart": 6,
+          "$paddingInlineStart": "6. 레시피 `padding-inline: 6px 0` 의 시작 쪽 — 제품 `pl-3`(ProjectHeader.tsx:96). 심볼 20 이 32 안에서 가운데처럼 보이는 자리.",
+          "paddingInlineEnd": 0,
+          "$paddingInlineEnd": "0. 레시피 `padding-inline: 6px 0` 의 끝 쪽 — 제품은 오른쪽 여백을 선언하지 않는다(ProjectHeader.tsx:96)."
+        }
+      }
+    },
+    "video-player-chip": {
+      "$doc": "design/components/video-player.md",
+      "$source": "packages/css/src/component/video-player.css 의 .louis-video-player__chip — 2026-10-13 DS-D-0083 2a · DS-D-0084",
+      "$note": "영상 위 유리 칩(볼륨 · 확대 · 다운로드가 같은 상수). 값은 브라우저 실측이 아니라 레시피 선언이고 실브라우저 시험(video-chrome-geometry.browser.test.tsx)이 그 선언을 잰다. 키는 Figma 의 State 축이다 — 세 상태의 기하가 전부 같다. Hover 는 유리 틴트만 진해지고(`media-control-surface-hover`) Active 는 `transform: scale(0.94)` 라 레이아웃 크기를 바꾸지 않는다. Standalone 축(`data-standalone`)은 값을 누가 갖는지만 바꾸므로 같은 키에 묶인다. 글리프 16 은 INSTANCE 라 되읽기가 담지 않는다.",
+      "sizes": {
+        "Default": {
+          "size": 32,
+          "$size": "layout-control-height-md 32. `.louis-video-player__chip { inline-size · block-size: var(--louis-layout-control-height-md) }` — 제품 videoPlayerChrome.ts:35-44 의 `w-16 h-16`.",
+          "radius": 12,
+          "$radius": "radius-control 12. `.louis-video-player__chip { border-radius: var(--louis-radius-control) }` — 제품 `button-radius`(하단 알약과 같은 곡률)."
+        },
+        "Hover": {
+          "size": 32,
+          "$size": "layout-control-height-md 32. Default 와 같다 — hover 는 `background: var(--louis-video-player-glass-hover)` 만 바꾼다(VP hover 규칙).",
+          "radius": 12,
+          "$radius": "radius-control 12. Default 와 같다."
+        },
+        "Active": {
+          "size": 32,
+          "$size": "layout-control-height-md 32. `.louis-video-player__chip:active { transform: scale(0.94) }` 는 변환이라 레이아웃 크기가 32 그대로다(제품 VPC:43). Figma 도 축소를 그리지 않는다.",
+          "radius": 12,
+          "$radius": "radius-control 12. Default 와 같다."
+        }
+      }
+    },
+    "video-player-volume": {
+      "$doc": "design/components/video-player.md",
+      "$source": "packages/css/src/component/video-player.css 의 .louis-video-player__volume — 2026-10-13 DS-D-0083 2a · DS-D-0084",
+      "$note": "볼륨 칩 한 칸(칩 + 칩 위로 펼치는 세로 패널). 값은 레시피 선언이고 실브라우저 시험이 잰다. 패널은 `position: absolute; inset-block-end: 100%` 로 흐름 밖에 서므로 칸의 크기는 열림 · 음소거와 무관하게 칩 크기 그대로다 — Figma 도 패널 · 그 자손을 outsideParts 로 프레임 밖에 둔다. 패널 높이(64~112, 소비처가 재는 `--louis-video-player-volume-length`) · 칩과의 틈 8 은 되읽기가 담지 않는 축이라 기록하지 않는다.",
+      "sizes": {
+        "Closed": {
+          "size": 32,
+          "$size": "layout-control-height-md 32. `.louis-video-player__volume { inline-size · block-size: var(--louis-layout-control-height-md) }` — 제품 VideoPlayerVolume.tsx 의 칩 한 칸(VPV:68-71)."
+        },
+        "Open": {
+          "size": 32,
+          "$size": "layout-control-height-md 32. `data-open=\"true\"` 는 패널 표면의 block-size 만 0 → `--louis-video-player-volume-length` 로 펼친다. 패널이 흐름 밖이라 칸은 그대로다(VPV:68-71)."
+        },
+        "Muted": {
+          "size": 32,
+          "$size": "layout-control-height-md 32. 음소거는 글리프와 `--louis-video-player-volume: 0` 만 바꾼다 — 칸 크기와 무관하다."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -5128,7 +6023,30 @@
     "node-generate-button": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 입력판과 같은 사정이다. 생성 버튼은 캔버스에 노드를 만든 뒤 입력판 안에서만 그려지고, 정본 NodePromptGenerateButton.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. 명부에 그 파일을 올리고 ROOT 한 탐침을 세우면 이 면제를 지운다.",
     "node-composer": "제품 렌더 하네스가 이 조형에 닿지 못한다 — node-shell 과 같은 사정이다. 입력판은 프로젝트를 열고 캔버스에 노드를 만든 뒤에만 그려지고, 통합 판(76b6cf15)의 소비처 상수(VideoNode.tsx:622 PROMPT_AREA · :644 PROMPT_FIELD_SHELL · :742 PROMPT_FOOTER · :767 PROMPT_ERROR_BANNER)가 있는 nodes/VideoNode.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. node-shell 의 면제를 지울 회차가 VideoNode.tsx 를 명부에 올릴 때 PROMPT_FIELD_SHELL · PROMPT_ERROR_BANNER 두 탐침을 함께 세우면 이 면제를 지운다.",
     "chart-card-dot-tile": "제품 렌더 하네스가 이 조형을 하나의 노드로 잴 수 없다 — 점 바닥은 차트 칸의 `::before` 배경(반복 원형 그라디언트)이라 칸 크기가 DOM 노드가 아니다. 값은 레시피 선언 `--louis-chart-card-dot-pitch: 18px`(제품 `bg-[length:18px_18px]`, analytics/shared.tsx:42)이고 실브라우저 시험이 그 선언을 잰다(2026-10-13).",
-    "slider-ruler-ticks": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 눈금자는 비디오 편집기의 보정 슬라이더(ColorRulerSlider.tsx)로 영상을 올린 뒤에만 그려지고, 큰 눈금은 `::after` 배경이라 DOM 노드가 아니다. 값은 레시피 선언 16(제품 `h-8`, :294)이고 실브라우저 시험이 그 선언을 잰다(2026-10-13)."
+    "slider-ruler-ticks": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 눈금자는 비디오 편집기의 보정 슬라이더(ColorRulerSlider.tsx)로 영상을 올린 뒤에만 그려지고, 큰 눈금은 `::after` 배경이라 DOM 노드가 아니다. 값은 레시피 선언 16(제품 `h-8`, :294)이고 실브라우저 시험이 그 선언을 잰다(2026-10-13).",
+    "floating-shell-item": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 툴 버튼은 캔버스가 열려야 하단 툴바 · 상단 바 안에서 그려지고(셸과 같은 사정, floating-shell 의 $why), 정본 Toolbar.tsx · ProjectHeader.tsx 의 버튼은 측정 명부(scripts/lib/product-files.mjs)의 ROOT 탐침 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 유틸리티를 적는다. 실브라우저 시험 packages/react/test/floating-item-geometry.browser.test.tsx 가 레시피를 잰다.",
+    "floating-shell-divider": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 구분선은 캔버스 툴바 안의 장식 span 이라 캔버스가 열려야 그려지고 측정 명부의 탐침 밖이다. 값은 레시피 선언(1 × 22)이고 실브라우저 시험 packages/react/test/floating-item-geometry.browser.test.tsx 가 잰다.",
+    "media-slot": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 정본 넷(node-canvas-v2/components/PromptLinkedImageStrip.tsx · nodes/EditNode.tsx · nodes/VideoNode.tsx · components/scenes/create/PhotoGrid.tsx, 그리고 첨부의 apps/web/app/inquiry/InquiryClient.tsx)이 모두 측정 명부(scripts/lib/product-files.mjs) 밖이고, 칸은 캔버스에 노드를 만들고 참조를 연결하거나 만들기 화면에 그림을 올린 뒤에만 그려진다. 제품은 아직 이 클래스를 물지 않는다(Maturity experimental). 값은 레시피 선언이고 칸마다 $ 사유가 제품 유틸리티를 적으며 실브라우저 시험(media-audio-geometry.browser.test.tsx)이 그 선언을 잰다. 명부에 PromptLinkedImageStrip.tsx 를 올리고 칸 하나의 ROOT 탐침을 세우면 이 면제를 지운다.",
+    "audio-cell": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 정본 TtsNode.tsx:228-325 · BgmNode.tsx:363-458 이 측정 명부(scripts/lib/product-files.mjs) 밖이고, 칸은 캔버스에 TTS · BGM 노드를 만들어 결과가 생긴 뒤에만 그려진다. 제품은 아직 이 클래스를 물지 않는다(Maturity experimental). 값은 레시피 선언이고 실브라우저 시험(media-audio-geometry.browser.test.tsx)이 그 선언을 잰다. 명부에 TtsNode.tsx 를 올리고 결과 칸 ROOT 탐침을 세우면 이 면제를 지운다.",
+    "node-count-row": "제품 렌더 하네스가 이 조형에 닿지 못한다 — node-shell 과 같은 사정이다. 복사 · 글자 수 줄은 캔버스에 노드를 만든 뒤 입력칸 위 · 응답 칸 바닥에서만 그려지고, 소비처 상수가 있는 nodes/TextNode.tsx(:475-485 외 넷)는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. 명부에 TextNode.tsx 를 올리고 그 줄 한 탐침을 세우면 이 면제를 지운다.",
+    "node-response": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 응답 칸은 텍스트 노드를 AI 프롬프트 모드로 만든 뒤에만 그려지고, 정본 LlmResponseArea 가 있는 nodes/TextNode.tsx(:562-785)는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품의 어느 선언(aspect-square :236 · 채움 바깥 8 :258)에서 왔는지를 적는다. 명부에 TextNode.tsx 를 올리고 응답 칸 한 탐침을 세우면 이 면제를 지운다.",
+    "node-media": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 미디어 칸은 캔버스에 이미지 · 영상 · 편집 노드를 만든 뒤에만 그려지고, 소비처 nodes/ImageNode.tsx · VideoNode.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이다. 명부에 ImageNode.tsx 를 올리고 IMAGE_AREA_MEDIA_FRAMED 한 탐침을 세우면 이 면제를 지운다.",
+    "node-channel": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 채널 줄은 캔버스에 YouTube · Instagram 게시 노드를 만들고 채널을 연결한 뒤에만 그려지고, nodes/YoutubeNode.tsx · InstagramNode.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품의 어느 유틸리티(YoutubeNode.tsx:270 · :278, InstagramNode.tsx:216 · :65)에서 왔는지를 적는다. 두 파일을 명부에 올리고 줄 하나씩 탐침을 세우면 이 면제를 지운다.",
+    "node-resize-handle": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 손잡이는 노드 입력판 글이 여섯 줄을 넘은 뒤에만 뜨고, 정본 NodePromptResizeHandle.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이다. 명부에 그 파일을 올리고 안쪽 상자 한 탐침을 세우면 이 면제를 지운다.",
+    "prompt-variant": "제품 렌더 하네스가 닿지 못한다 — 카드는 텍스트 노드가 LLM 프롬프트 후보를 받은 뒤에만 노드 안에 그려지고(TextNode.tsx:667-714), 열은 그 카드를 눌러 연 비교 모달 안에만 있다(PromptVariantCompareModal.tsx). 둘 다 LLM 응답이라는 런타임 데이터와 캔버스 노드 상태가 있어야 나타나 정적 페이지 렌더로 띄울 수 없다.",
+    "segment-track": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 트랙 틀은 영상을 올리고 분석을 마친 뒤 하이라이트 스튜디오 판(HighlightStudioBoard.tsx:1528)에서만 그려지고, 정본 StudioSegmentTrack.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다(명부에는 스타일 상수 highlightSceneStyles.ts 만 있다). 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수(HSS 줄)를 적는다. 실브라우저 시험 segment-track-geometry.browser.test.tsx 가 그 선언을 잰다(2026-10-13).",
+    "segment-track-block": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 구간 칸은 구간이 생긴 트랙 안에서만, 영상을 올리고 분석을 마친 뒤 하이라이트 스튜디오 판(HighlightStudioBoard.tsx:1528)에서만 그려지고, 정본 StudioSegmentTrack.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다(명부에는 스타일 상수 highlightSceneStyles.ts 만 있다). 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수(HSS 줄)를 적는다. 실브라우저 시험 segment-track-geometry.browser.test.tsx 가 그 선언을 잰다(2026-10-13).",
+    "segment-track-map-bar": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 지도 막대는 구간이 생긴 트랙 안에서만, 영상을 올리고 분석을 마친 뒤 하이라이트 스튜디오 판(HighlightStudioBoard.tsx:1528)에서만 그려지고, 정본 StudioSegmentTrack.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다(명부에는 스타일 상수 highlightSceneStyles.ts 만 있다). 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수(HSS 줄)를 적는다. 실브라우저 시험 segment-track-geometry.browser.test.tsx 가 그 선언을 잰다(2026-10-13).",
+    "stage-bar": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 무대 아래 막대는 스튜디오 무대와 함께 영상을 올리고 분석을 마친 뒤 하이라이트 스튜디오 판(HighlightStudioBoard.tsx:1528)에서만 그려지고, 정본 StudioSegmentTrack.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다(명부에는 스타일 상수 highlightSceneStyles.ts 만 있다). 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수(HSS 줄)를 적는다. 실브라우저 시험 segment-track-geometry.browser.test.tsx 가 그 선언을 잰다(2026-10-13).",
+    "asset-tile": "제품 렌더 하네스가 이 조형에 닿지 못한다. 스티커 팔레트는 이미지 편집 모달을 열고(이미지를 고른 뒤) 스티커 탭을 눌러야 그려지는데 measure-product-components 는 라우트를 열어 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스라 그 상태에 도달하지 못하고, imageEditParts/StickerPalette.tsx 는 명부에도 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 StickerPalette.tsx 를 소스로 등록하고 타일 · 격자 두 탐침을 세우면 이 면제를 지운다.",
+    "color-swatch": "같은 이유다. 칩의 세 사본은 어드민 자막 템플릿 관리(로그인한 어드민 라우트)와 쇼츠 편집의 자막 색 패널(프로젝트 · 쇼츠를 연 뒤)에만 서므로 라우트 하네스가 닿지 못하고, CaptionTemplateManagement.tsx · CaptionColorPanel.tsx 는 명부에 없다. 두 파일을 등록하고 칩 · 줄 탐침을 세우면 이 면제를 지운다.",
+    "logo-tile": "같은 이유다. ModelLogo 는 모델 비교 표 · 폰 목록 · 추천 결과 안에서만 그려지고 로고는 어드민이 올린 데이터라 하네스가 렌더할 행이 없으며, components/models/ModelLogo.tsx 는 명부에 없다. 그 파일을 등록하고 크기 상수를 탐침으로 세우면 이 면제를 지운다.",
+    "notice-pill": "같은 이유다. HeroNotice 는 어드민이 랜딩 공지를 켠 때만 히어로 영상 위에 그려져 하네스가 여는 랜딩에는 공지가 없을 수 있고, components/landing/sections/HeroNotice.tsx 는 명부에 없다. 그 파일을 등록하고 알약 상수를 탐침으로 세우면 이 면제를 지운다.",
+    "canvas-guide": "같은 이유다. SmartGuideOverlay 의 선은 노드 캔버스에서 노드를 끌어 다른 노드와 줄이 맞는 순간에만 그려지므로 라우트 하네스가 그 상태에 도달하지 못한다. 값은 제품의 `strokeWidth={1}` 이고 SVG 속성이라 클래스 상수 탐침의 대상도 아니다 — 제품이 이 레시피를 물면 그때 이 면제를 지운다.",
+    "top-bar-title": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 캔버스 상단 바는 프로젝트를 열어 노드 캔버스(CreateScene.tsx:133-134)에 들어간 뒤에만 그려지고, 정본 components/scenes/create/ProjectHeader.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 유틸리티(px-5 · line-height 32)를 적으며 실브라우저 시험이 그 선언을 잰다(2026-10-13). 명부에 ProjectHeader.tsx 를 올리고 제목 탐침을 세우면 이 면제를 지운다.",
+    "top-bar-home": "제품 렌더 하네스가 이 조형에 닿지 못한다 — top-bar-title 과 같은 사정이다. 홈 버튼은 노드 캔버스 상단 바(ProjectHeader.tsx:94-99) 안에서만 그려지고 그 파일이 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 실브라우저 시험이 그 선언을 잰다(2026-10-13). 명부에 ProjectHeader.tsx 를 올리고 홈 탐침을 세우면 이 면제를 지운다.",
+    "video-player-chip": "제품 렌더 하네스가 이 조형에 닿지 못한다. 칩은 비디오 노드 · 크게 보기 모달 · 하이라이트 미리보기에서 영상이 올라온 뒤에만 그려지고, 정본 videoPlayerChrome.ts · VideoPlayer.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. 명부에 videoPlayerChrome.ts 를 올리고 칩 상수 한 탐침을 세우면 이 면제를 지운다.",
+    "video-player-volume": "위와 같은 이유다. 볼륨 칩은 영상 플레이어의 하단 줄 안에서만 그려지고 VideoPlayerVolume.tsx 는 측정 명부 밖이다. 패널은 마우스 · 트랙패드에서 호버하거나 끌 때만 열려 라우트 하네스로는 그 상태에 도달하지 못한다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

@@ -1165,6 +1165,8 @@ generated 셋은 직접 수정하지 않는다. 정본을 고치고 `pnpm build:
 - `stroke="currentColor"`, `fill="none"`, `stroke-linecap="round"`, `stroke-linejoin="round"`를
   **요소마다** 명시한다.
 - `stroke-width`는 **1.5** 하나만 허용한다.
+- **채운 글리프는 이름 끝이 `-fill` 이다**([DS-D-0085](../governance/decisions/DS-D-0085-filled-glyphs-and-monochrome-brand.md)). 채운 요소는
+  `fill="currentColor"` 이고 획을 갖지 않는다. 같은 모양의 외곽선 글리프가 있으면 짝으로 둔다(`play` · `play-fill`).
 - 요소는 `path` `circle` `rect` `ellipse` `line` `polyline` `polygon` `g`만 허용한다.
 - 아무것도 그리지 않는 요소를 남기지 않는다(`g` 제외). upstream의 배경 `rect`가 대표적이다.
 - `id`와 `clip-path`는 정본에 남길 수 없다. 인라인 SVG의 `id`는 문서 전역이라 같은 페이지의 다른
@@ -1223,7 +1225,9 @@ variant 축은 **값이 2개 이상일 때만** 만든다. Klipse 아이콘은 �
 - 아이콘은 `currentColor`만 쓴다. 자기 색을 정하지 않으며 부모의 `color`를 상속한다.
 - 상태 색은 부모가 semantic token으로 준다. 색만으로 상태를 구분하지 않고 텍스트·형태 신호를 함께
   제공한다 ([Color & Theme](../foundations/color-theme.md)).
-- 다색 글리프는 아이콘이 아니다. 브랜드 로고와 일러스트는 별도 트랙이다.
+- 다색 글리프는 아이콘이 아니다. 다색 · 고정색 브랜드 로고와 일러스트는 별도 트랙이다.
+- **한 색 브랜드 로고는 받는다 — 이름 끝이 `-logo` 다**(`youtube-logo` · `instagram-logo`, DS-D-0085). `currentColor` 하나로 그려지는
+  선 그림만이고, 상표 사용 조건은 쓰는 자리가 지킨다.
 
 #### Accessibility
 
@@ -1274,7 +1278,7 @@ breaking이므로**(DS-D-0006) 글리프 이름과 심볼은 이제 공개 계�
 | 32px과 64px | 32는 정본 viewBox와 숫자가 같아 혼동을 만든다. 64는 빈 상태 컴포넌트가 생길 때 사유와 함께 추가한다 |
 | `vector-effect: non-scaling-stroke` | 아이콘 규범이 아니라 줌 컨텍스트의 국소 처방이다 |
 | 크기 variant를 가진 Figma component set | 정본 이중화 |
-| 브랜드 로고·상표를 아이콘 슬롯에 투입 | 다색·고정색이라 `currentColor` 계약을 만족할 수 없고 상표 조건이 다른 축이다 |
+| 다색 · 고정색 브랜드 로고를 아이콘 슬롯에 투입 | `currentColor` 계약을 만족할 수 없다. 한 색 선 그림 로고는 `-logo` 로 받는다(DS-D-0085) |
 
 #### Known deviations
 

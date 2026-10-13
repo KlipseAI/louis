@@ -25,6 +25,14 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-13 (246) — 아이콘 23개 · 채운 글리프와 한 색 브랜드 로고(DS-D-0085)
+
+- 아이콘 47 → 70. 노드 캔버스: `sparkle-fill` · `play-fill` · `pause-fill` · `youtube-logo` · `instagram-logo` · `film-slate` · `video-camera`.
+  모바일 동작 바: `scissors` · `frame-corners` · `clip-split` · `gauge` · `speaker-high` · `speaker-x` · `fade-curve` · `frame-inset` · `text-aa` ·
+  `burst` · `list-bullets` · `frames-arrow` · `sliders-horizontal` · `lock` · `arrow-u-up-left` · `arrow-u-up-right`.
+- **규칙 둘.** 채운 글리프는 `-fill`(fill currentColor · 획 없음), 한 색 선 그림 브랜드 로고는 `-logo`(소유자 결정) — 다색 · 고정색 로고는 여전히 밖이다.
+- 출처는 DS-D-0078 그대로 — phosphor 둘 · lucide 하나는 원래 이름, 나머지는 제품이 그린 `original`. Figma DS · Icons 반영은 다음 작업.
+
 ## 2026-10-13 (245) — 노드 캔버스 하위 부품 여덟을 LOUIS 로(DS-D-0084)
 
 - **새 부품 둘.** `media-slot`(첨부 · 참조 썸네일 칸과 줄 — 32 · 76×52 · 열 채움, 빈 칸 점선)과 `audio-cell`(TTS · BGM 결과 칸 — 재생 원 · 진행 막대

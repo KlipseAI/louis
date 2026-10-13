@@ -320,6 +320,15 @@
       "generated": false
     },
     {
+      "id": "decision-filled-glyphs-and-monochrome-brand",
+      "path": "design/governance/decisions/DS-D-0085-filled-glyphs-and-monochrome-brand.md",
+      "title": "DS-D-0085 채운 글리프(-fill)와 한 색 브랜드 로고(-logo)를 아이콘 세트에 받는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1873,6 +1882,7 @@
         "design/governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md",
         "design/governance/decisions/DS-D-0083-deck-feedback-triage.md",
         "design/governance/decisions/DS-D-0084-product-parts-become-louis.md",
+        "design/governance/decisions/DS-D-0085-filled-glyphs-and-monochrome-brand.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

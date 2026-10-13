@@ -38,7 +38,7 @@ SOFTWARE.
 ## Lucide — ISC AND MIT
 
 - Source: https://github.com/lucide-icons/lucide
-- Icons: copy (upstream: copy), copy-check (upstream: copy-check), question-circle (upstream: circle-question-mark), text (upstream: type)
+- Icons: copy (upstream: copy), copy-check (upstream: copy-check), frame-corners (upstream: maximize), question-circle (upstream: circle-question-mark), text (upstream: type)
 
 ```text
 ISC License
@@ -89,7 +89,7 @@ SOFTWARE.
 ## Phosphor Icons — MIT
 
 - Source: https://github.com/phosphor-icons/core
-- Icons: arrow-elbow-down-left (upstream: arrow-elbow-down-left), arrow-right (upstream: arrow-right), arrow-up (upstream: arrow-up), arrows-left-right (upstream: arrows-left-right), check-circle (upstream: check-circle), cloud-arrow-up (upstream: cloud-arrow-up), cloud-check (upstream: cloud-check), cloud-warning (upstream: cloud-warning), desktop (upstream: desktop), dots-three-vertical (upstream: dots-three-vertical), download-simple (upstream: download-simple), file-zip (upstream: file-zip), folder (upstream: folder), graph (upstream: graph), hand (upstream: hand), house (upstream: house), info (upstream: info), magnifying-glass (upstream: magnifying-glass), minus (upstream: minus), monitor-arrow-up (upstream: monitor-arrow-up), moon (upstream: moon), music-notes-simple (upstream: music-notes-simple), plus (upstream: plus), sun (upstream: sun), trash-simple (upstream: trash-simple), user-sound (upstream: user-sound), waveform (upstream: waveform), x (upstream: x), x-circle (upstream: x-circle)
+- Icons: arrow-elbow-down-left (upstream: arrow-elbow-down-left), arrow-right (upstream: arrow-right), arrow-up (upstream: arrow-up), arrows-left-right (upstream: arrows-left-right), check-circle (upstream: check-circle), cloud-arrow-up (upstream: cloud-arrow-up), cloud-check (upstream: cloud-check), cloud-warning (upstream: cloud-warning), desktop (upstream: desktop), dots-three-vertical (upstream: dots-three-vertical), download-simple (upstream: download-simple), file-zip (upstream: file-zip), folder (upstream: folder), graph (upstream: graph), hand (upstream: hand), house (upstream: house), info (upstream: info), instagram-logo (upstream: instagram-logo), magnifying-glass (upstream: magnifying-glass), minus (upstream: minus), monitor-arrow-up (upstream: monitor-arrow-up), moon (upstream: moon), music-notes-simple (upstream: music-notes-simple), plus (upstream: plus), sparkle-fill (upstream: sparkle-fill), sun (upstream: sun), trash-simple (upstream: trash-simple), user-sound (upstream: user-sound), waveform (upstream: waveform), x (upstream: x), x-circle (upstream: x-circle)
 
 ```text
 MIT License

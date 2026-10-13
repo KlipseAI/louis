@@ -72,6 +72,44 @@
       }
     },
     {
+      "name": "arrow-u-up-left",
+      "symbol": "IconArrowUUpLeft",
+      "figmaName": "icon/arrow-u-up-left",
+      "source": "packages/react/src/icons/svg/arrow-u-up-left.svg",
+      "geometryHash": "07ef3fadfbd5f8f7",
+      "elementCount": 2,
+      "keywords": [
+        "실행취소",
+        "되돌리기",
+        "뒤로",
+        "undo",
+        "revert",
+        "back"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "arrow-u-up-right",
+      "symbol": "IconArrowUUpRight",
+      "figmaName": "icon/arrow-u-up-right",
+      "source": "packages/react/src/icons/svg/arrow-u-up-right.svg",
+      "geometryHash": "caa404a766f4c971",
+      "elementCount": 2,
+      "keywords": [
+        "다시실행",
+        "다시 하기",
+        "앞으로",
+        "redo",
+        "repeat",
+        "forward"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
       "name": "arrow-up",
       "symbol": "IconArrowUp",
       "figmaName": "icon/arrow-up",
@@ -133,6 +171,27 @@
         "문서",
         "가이드",
         "자료"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "burst",
+      "symbol": "IconBurst",
+      "figmaName": "icon/burst",
+      "source": "packages/react/src/icons/svg/burst.svg",
+      "geometryHash": "4e4744454e8209ed",
+      "elementCount": 1,
+      "keywords": [
+        "효과",
+        "반짝",
+        "빛",
+        "이펙트",
+        "effect",
+        "burst",
+        "shine",
+        "flash"
       ],
       "provenance": {
         "origin": "original"
@@ -247,6 +306,27 @@
         "origin": "upstream",
         "set": "phosphor",
         "icon": "check-circle"
+      }
+    },
+    {
+      "name": "clip-split",
+      "symbol": "IconClipSplit",
+      "figmaName": "icon/clip-split",
+      "source": "packages/react/src/icons/svg/clip-split.svg",
+      "geometryHash": "631a6a109f2fa140",
+      "elementCount": 3,
+      "keywords": [
+        "분할",
+        "나누기",
+        "자르기",
+        "재생헤드",
+        "split",
+        "divide",
+        "cut",
+        "playhead"
+      ],
+      "provenance": {
+        "origin": "original"
       }
     },
     {
@@ -468,6 +548,27 @@
       }
     },
     {
+      "name": "fade-curve",
+      "symbol": "IconFadeCurve",
+      "figmaName": "icon/fade-curve",
+      "source": "packages/react/src/icons/svg/fade-curve.svg",
+      "geometryHash": "0eda0091f6dc6cbd",
+      "elementCount": 2,
+      "keywords": [
+        "페이드",
+        "페이드인",
+        "곡선",
+        "서서히",
+        "fade",
+        "fade in",
+        "ease",
+        "curve"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
       "name": "file-zip",
       "symbol": "IconFileZip",
       "figmaName": "icon/file-zip",
@@ -489,6 +590,27 @@
       }
     },
     {
+      "name": "film-slate",
+      "symbol": "IconFilmSlate",
+      "figmaName": "icon/film-slate",
+      "source": "packages/react/src/icons/svg/film-slate.svg",
+      "geometryHash": "73ae8a1826c01365",
+      "elementCount": 3,
+      "keywords": [
+        "편집",
+        "슬레이트",
+        "컴포지션",
+        "영상 편집",
+        "edit",
+        "film slate",
+        "clapperboard",
+        "composition"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
       "name": "folder",
       "symbol": "IconFolder",
       "figmaName": "icon/folder",
@@ -505,6 +627,91 @@
         "origin": "upstream",
         "set": "phosphor",
         "icon": "folder"
+      }
+    },
+    {
+      "name": "frame-corners",
+      "symbol": "IconFrameCorners",
+      "figmaName": "icon/frame-corners",
+      "source": "packages/react/src/icons/svg/frame-corners.svg",
+      "geometryHash": "5df222994377bdc8",
+      "elementCount": 4,
+      "keywords": [
+        "비율",
+        "화면비",
+        "모서리",
+        "프레임",
+        "ratio",
+        "aspect ratio",
+        "frame",
+        "corners",
+        "crop"
+      ],
+      "provenance": {
+        "origin": "upstream",
+        "set": "lucide",
+        "icon": "maximize"
+      }
+    },
+    {
+      "name": "frame-inset",
+      "symbol": "IconFrameInset",
+      "figmaName": "icon/frame-inset",
+      "source": "packages/react/src/icons/svg/frame-inset.svg",
+      "geometryHash": "bd0a5394986be93f",
+      "elementCount": 3,
+      "keywords": [
+        "애니메이션",
+        "줌",
+        "팬",
+        "모션",
+        "motion",
+        "zoom",
+        "pan",
+        "animation"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "frames-arrow",
+      "symbol": "IconFramesArrow",
+      "figmaName": "icon/frames-arrow",
+      "source": "packages/react/src/icons/svg/frames-arrow.svg",
+      "geometryHash": "06c0a443596910f5",
+      "elementCount": 3,
+      "keywords": [
+        "전환",
+        "트랜지션",
+        "장면 전환",
+        "transition",
+        "frames",
+        "switch",
+        "next"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "gauge",
+      "symbol": "IconGauge",
+      "figmaName": "icon/gauge",
+      "source": "packages/react/src/icons/svg/gauge.svg",
+      "geometryHash": "3ba3fd431dcb2521",
+      "elementCount": 3,
+      "keywords": [
+        "속도",
+        "계기판",
+        "배속",
+        "speed",
+        "gauge",
+        "playback rate",
+        "tempo"
+      ],
+      "provenance": {
+        "origin": "original"
       }
     },
     {
@@ -633,6 +840,73 @@
         "origin": "upstream",
         "set": "phosphor",
         "icon": "info"
+      }
+    },
+    {
+      "name": "instagram-logo",
+      "symbol": "IconInstagramLogo",
+      "figmaName": "icon/instagram-logo",
+      "source": "packages/react/src/icons/svg/instagram-logo.svg",
+      "geometryHash": "a354c9ffeec66c28",
+      "elementCount": 3,
+      "keywords": [
+        "인스타그램",
+        "소셜",
+        "게시",
+        "instagram",
+        "social",
+        "post",
+        "브랜드",
+        "brand",
+        "logo",
+        "로고"
+      ],
+      "provenance": {
+        "origin": "upstream",
+        "set": "phosphor",
+        "icon": "instagram-logo"
+      }
+    },
+    {
+      "name": "list-bullets",
+      "symbol": "IconListBullets",
+      "figmaName": "icon/list-bullets",
+      "source": "packages/react/src/icons/svg/list-bullets.svg",
+      "geometryHash": "7189e6fdb91736bb",
+      "elementCount": 4,
+      "keywords": [
+        "목록",
+        "속성",
+        "리스트",
+        "항목",
+        "list",
+        "bullets",
+        "properties",
+        "items"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "lock",
+      "symbol": "IconLock",
+      "figmaName": "icon/lock",
+      "source": "packages/react/src/icons/svg/lock.svg",
+      "geometryHash": "580505d3523a9b63",
+      "elementCount": 2,
+      "keywords": [
+        "잠금",
+        "자물쇠",
+        "고정",
+        "보호",
+        "lock",
+        "locked",
+        "secure",
+        "pin"
+      ],
+      "provenance": {
+        "origin": "original"
       }
     },
     {
@@ -790,6 +1064,25 @@
       }
     },
     {
+      "name": "pause-fill",
+      "symbol": "IconPauseFill",
+      "figmaName": "icon/pause-fill",
+      "source": "packages/react/src/icons/svg/pause-fill.svg",
+      "geometryHash": "69a71cbb66ad891b",
+      "elementCount": 2,
+      "keywords": [
+        "일시정지",
+        "멈춤",
+        "채운 일시정지",
+        "pause",
+        "hold",
+        "filled"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
       "name": "play",
       "symbol": "IconPlay",
       "figmaName": "icon/play",
@@ -802,6 +1095,26 @@
         "play",
         "start",
         "resume"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "play-fill",
+      "symbol": "IconPlayFill",
+      "figmaName": "icon/play-fill",
+      "source": "packages/react/src/icons/svg/play-fill.svg",
+      "geometryHash": "5e09e2bdf81a215a",
+      "elementCount": 1,
+      "keywords": [
+        "재생",
+        "시작",
+        "채운 재생",
+        "play",
+        "start",
+        "resume",
+        "filled"
       ],
       "provenance": {
         "origin": "original"
@@ -852,6 +1165,27 @@
       }
     },
     {
+      "name": "scissors",
+      "symbol": "IconScissors",
+      "figmaName": "icon/scissors",
+      "source": "packages/react/src/icons/svg/scissors.svg",
+      "geometryHash": "fdc23f57610a3c5a",
+      "elementCount": 3,
+      "keywords": [
+        "편집",
+        "가위",
+        "자르기",
+        "오리기",
+        "edit",
+        "scissors",
+        "cut",
+        "trim"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
       "name": "shield-check",
       "symbol": "IconShieldCheck",
       "figmaName": "icon/shield-check",
@@ -869,6 +1203,91 @@
         "보안",
         "개인정보",
         "약관"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "sliders-horizontal",
+      "symbol": "IconSlidersHorizontal",
+      "figmaName": "icon/sliders-horizontal",
+      "source": "packages/react/src/icons/svg/sliders-horizontal.svg",
+      "geometryHash": "72a9e72f0b557191",
+      "elementCount": 4,
+      "keywords": [
+        "조정",
+        "속성",
+        "슬라이더",
+        "설정",
+        "adjust",
+        "sliders",
+        "settings",
+        "controls"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "sparkle-fill",
+      "symbol": "IconSparkleFill",
+      "figmaName": "icon/sparkle-fill",
+      "source": "packages/react/src/icons/svg/sparkle-fill.svg",
+      "geometryHash": "8288a66f4854ce37",
+      "elementCount": 1,
+      "keywords": [
+        "생성",
+        "반짝임",
+        "AI",
+        "별",
+        "generate",
+        "sparkle",
+        "magic",
+        "ai"
+      ],
+      "provenance": {
+        "origin": "upstream",
+        "set": "phosphor",
+        "icon": "sparkle-fill"
+      }
+    },
+    {
+      "name": "speaker-high",
+      "symbol": "IconSpeakerHigh",
+      "figmaName": "icon/speaker-high",
+      "source": "packages/react/src/icons/svg/speaker-high.svg",
+      "geometryHash": "d3d382b8843f5424",
+      "elementCount": 2,
+      "keywords": [
+        "볼륨",
+        "소리",
+        "스피커",
+        "음량",
+        "volume",
+        "sound",
+        "speaker",
+        "audio"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "speaker-x",
+      "symbol": "IconSpeakerX",
+      "figmaName": "icon/speaker-x",
+      "source": "packages/react/src/icons/svg/speaker-x.svg",
+      "geometryHash": "d0e06946ee50f6f0",
+      "elementCount": 2,
+      "keywords": [
+        "음소거",
+        "소리 끔",
+        "스피커",
+        "mute",
+        "muted",
+        "sound off",
+        "speaker"
       ],
       "provenance": {
         "origin": "original"
@@ -921,6 +1340,27 @@
       }
     },
     {
+      "name": "text-aa",
+      "symbol": "IconTextAa",
+      "figmaName": "icon/text-aa",
+      "source": "packages/react/src/icons/svg/text-aa.svg",
+      "geometryHash": "94eff7750a918f9c",
+      "elementCount": 2,
+      "keywords": [
+        "스타일",
+        "글자 스타일",
+        "서체",
+        "Aa",
+        "style",
+        "text style",
+        "typography",
+        "font"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
       "name": "trash-simple",
       "symbol": "IconTrashSimple",
       "figmaName": "icon/trash-simple",
@@ -963,6 +1403,27 @@
         "origin": "upstream",
         "set": "phosphor",
         "icon": "user-sound"
+      }
+    },
+    {
+      "name": "video-camera",
+      "symbol": "IconVideoCamera",
+      "figmaName": "icon/video-camera",
+      "source": "packages/react/src/icons/svg/video-camera.svg",
+      "geometryHash": "d0bec5645c4d7275",
+      "elementCount": 2,
+      "keywords": [
+        "비디오",
+        "영상",
+        "카메라",
+        "촬영",
+        "video",
+        "camera",
+        "record",
+        "clip"
+      ],
+      "provenance": {
+        "origin": "original"
       }
     },
     {
@@ -1051,6 +1512,29 @@
         "origin": "upstream",
         "set": "phosphor",
         "icon": "x-circle"
+      }
+    },
+    {
+      "name": "youtube-logo",
+      "symbol": "IconYoutubeLogo",
+      "figmaName": "icon/youtube-logo",
+      "source": "packages/react/src/icons/svg/youtube-logo.svg",
+      "geometryHash": "d6a9286d53781c0f",
+      "elementCount": 2,
+      "keywords": [
+        "유튜브",
+        "동영상 채널",
+        "업로드 대상",
+        "youtube",
+        "video platform",
+        "channel",
+        "브랜드",
+        "brand",
+        "logo",
+        "로고"
+      ],
+      "provenance": {
+        "origin": "original"
       }
     }
   ]

@@ -63,7 +63,7 @@ Iconoir(24/1.5)와 Lucide(24/2)도 마찬가지로 확인됐다. 그러나 어�
    생성한다. 이 파일은 패키지 `files`에 포함된다. MIT와 ISC가 공통으로 요구하는 "copies 또는
    substantial portions에 고지문을 포함한다"를 기계로 충족하기 위한 것이며, 고지문 생성 없이
    upstream 글리프를 배포하는 경로는 규범상 존재하지 않는다.
-5. **브랜드 로고와 제3자 상표는 아이콘 세트가 아니다.** 다색·고정색이라 `currentColor` 계약을
+5. **브랜드 로고와 제3자 상표는 아이콘 세트가 아니다.** (2026-10-13 개정 — 한 색 선 그림 로고는 `-logo` 로 받는다, [DS-D-0085](DS-D-0085-filled-glyphs-and-monochrome-brand.md).) 다색·고정색이라 `currentColor` 계약을
    만족할 수 없고, 상표 사용 조건은 오픈소스 라이선스와 다른 축이다. 별도 트랙으로 남긴다.
 6. **정본은 정규화된 형태로만 커밋한다.** viewBox `0 0 24 24`, 색 슬롯은 `currentColor`와
    `fill="none"`만, `stroke-width`는 선언된 허용 집합(초기값 `1.5`)만, root `width`/`height` 없음,

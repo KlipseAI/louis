@@ -21,6 +21,22 @@
       "진행",
       "화살표"
     ],
+    "arrow-u-up-left": [
+      "실행취소",
+      "되돌리기",
+      "뒤로",
+      "undo",
+      "revert",
+      "back"
+    ],
+    "arrow-u-up-right": [
+      "다시실행",
+      "다시 하기",
+      "앞으로",
+      "redo",
+      "repeat",
+      "forward"
+    ],
     "arrow-up": [
       "arrow",
       "up",
@@ -50,6 +66,16 @@
       "문서",
       "가이드",
       "자료"
+    ],
+    "burst": [
+      "효과",
+      "반짝",
+      "빛",
+      "이펙트",
+      "effect",
+      "burst",
+      "shine",
+      "flash"
     ],
     "caret-down": [
       "caret",
@@ -104,6 +130,16 @@
       "성공",
       "확인",
       "체크"
+    ],
+    "clip-split": [
+      "분할",
+      "나누기",
+      "자르기",
+      "재생헤드",
+      "split",
+      "divide",
+      "cut",
+      "playhead"
     ],
     "cloud-arrow-up": [
       "cloud",
@@ -193,6 +229,16 @@
       "가리기",
       "비표시"
     ],
+    "fade-curve": [
+      "페이드",
+      "페이드인",
+      "곡선",
+      "서서히",
+      "fade",
+      "fade in",
+      "ease",
+      "curve"
+    ],
     "file-zip": [
       "file",
       "zip",
@@ -201,11 +247,60 @@
       "파일",
       "아카이브"
     ],
+    "film-slate": [
+      "편집",
+      "슬레이트",
+      "컴포지션",
+      "영상 편집",
+      "edit",
+      "film slate",
+      "clapperboard",
+      "composition"
+    ],
     "folder": [
       "folder",
       "directory",
       "폴더",
       "디렉터리"
+    ],
+    "frame-corners": [
+      "비율",
+      "화면비",
+      "모서리",
+      "프레임",
+      "ratio",
+      "aspect ratio",
+      "frame",
+      "corners",
+      "crop"
+    ],
+    "frame-inset": [
+      "애니메이션",
+      "줌",
+      "팬",
+      "모션",
+      "motion",
+      "zoom",
+      "pan",
+      "animation"
+    ],
+    "frames-arrow": [
+      "전환",
+      "트랜지션",
+      "장면 전환",
+      "transition",
+      "frames",
+      "switch",
+      "next"
+    ],
+    "gauge": [
+      "속도",
+      "계기판",
+      "배속",
+      "speed",
+      "gauge",
+      "playback rate",
+      "tempo"
     ],
     "globe": [
       "globe",
@@ -258,6 +353,38 @@
       "정보",
       "안내",
       "도움말"
+    ],
+    "instagram-logo": [
+      "인스타그램",
+      "소셜",
+      "게시",
+      "instagram",
+      "social",
+      "post",
+      "브랜드",
+      "brand",
+      "logo",
+      "로고"
+    ],
+    "list-bullets": [
+      "목록",
+      "속성",
+      "리스트",
+      "항목",
+      "list",
+      "bullets",
+      "properties",
+      "items"
+    ],
+    "lock": [
+      "잠금",
+      "자물쇠",
+      "고정",
+      "보호",
+      "lock",
+      "locked",
+      "secure",
+      "pin"
     ],
     "magnifying-glass": [
       "search",
@@ -326,12 +453,29 @@
       "stop",
       "hold"
     ],
+    "pause-fill": [
+      "일시정지",
+      "멈춤",
+      "채운 일시정지",
+      "pause",
+      "hold",
+      "filled"
+    ],
     "play": [
       "재생",
       "시작",
       "play",
       "start",
       "resume"
+    ],
+    "play-fill": [
+      "재생",
+      "시작",
+      "채운 재생",
+      "play",
+      "start",
+      "resume",
+      "filled"
     ],
     "plus": [
       "plus",
@@ -351,6 +495,16 @@
       "질문",
       "도움말"
     ],
+    "scissors": [
+      "편집",
+      "가위",
+      "자르기",
+      "오리기",
+      "edit",
+      "scissors",
+      "cut",
+      "trim"
+    ],
     "shield-check": [
       "shield",
       "check",
@@ -362,6 +516,45 @@
       "보안",
       "개인정보",
       "약관"
+    ],
+    "sliders-horizontal": [
+      "조정",
+      "속성",
+      "슬라이더",
+      "설정",
+      "adjust",
+      "sliders",
+      "settings",
+      "controls"
+    ],
+    "sparkle-fill": [
+      "생성",
+      "반짝임",
+      "AI",
+      "별",
+      "generate",
+      "sparkle",
+      "magic",
+      "ai"
+    ],
+    "speaker-high": [
+      "볼륨",
+      "소리",
+      "스피커",
+      "음량",
+      "volume",
+      "sound",
+      "speaker",
+      "audio"
+    ],
+    "speaker-x": [
+      "음소거",
+      "소리 끔",
+      "스피커",
+      "mute",
+      "muted",
+      "sound off",
+      "speaker"
     ],
     "sun": [
       "sun",
@@ -383,6 +576,16 @@
       "자막",
       "문자"
     ],
+    "text-aa": [
+      "스타일",
+      "글자 스타일",
+      "서체",
+      "Aa",
+      "style",
+      "text style",
+      "typography",
+      "font"
+    ],
     "trash-simple": [
       "trash",
       "delete",
@@ -401,6 +604,16 @@
       "목소리",
       "화자",
       "내레이션"
+    ],
+    "video-camera": [
+      "비디오",
+      "영상",
+      "카메라",
+      "촬영",
+      "video",
+      "camera",
+      "record",
+      "clip"
     ],
     "video-stack": [
       "video",
@@ -439,6 +652,18 @@
       "오류",
       "지우기",
       "제거"
+    ],
+    "youtube-logo": [
+      "유튜브",
+      "동영상 채널",
+      "업로드 대상",
+      "youtube",
+      "video platform",
+      "channel",
+      "브랜드",
+      "brand",
+      "logo",
+      "로고"
     ]
   }
 }

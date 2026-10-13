@@ -4078,6 +4078,48 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "lightbox",
+    figmaName: "LightboxAction",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/lightbox.css 의 `__action` 이 정본이다(2026-10-13, DS-D-0086).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      State: { options: ["Default", "Hover"], reason: "CSS 상태 — 호버 면 56 → 80%(호버 기기만). 누름 0.97 은 면 · 잉크가 같아 그리지 않는다(§2)." },
+      Icon: { type: "INSTANCE_SWAP", reason: "액션 글리프 — 닫기 icon/x · 삭제 icon/trash-simple. 코드는 버튼 안 svg 다." },
+    },
+    geometry: {
+      measuredId: "lightbox-action",
+      sizeKeys: ["Default", "Hover"],
+      fields: { width: "size", height: "size", cornerRadius: "radius" },
+      slots: { Glyph: "glyphSize" },
+      extraStrokeWeights: [],
+      parts: { Glyph: { fields: { width: "glyphSize", height: "glyphSize" } } },
+    },
+  },
+  {
+    id: "lightbox",
+    figmaName: "Lightbox",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/lightbox.css 가 정본이다(2026-10-13, DS-D-0086). Figma 는 1440 × 900 화면의 비율 1 그림 한 장을 그린 보드다 — 창 크기 · 비율은 데이터라 계약이 아니다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "lightbox",
+      sizeKeys: ["base"],
+      // 루트는 자동 배치가 아니다 — 스크림이 화면을 덮고 창이 가운데 선다(CSS 는 grid place-items center).
+      fields: { layoutMode: { literal: "NONE" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 창. 액션 묶음의 inset 10 을 Figma 는 창의 위 · 오른쪽 여백으로 낸다.
+        Frame: { fields: { cornerRadius: "frameRadius", paddingBlock: "actionsInset", paddingInlineEnd: "actionsInset" } },
+        Actions: { fields: { itemSpacing: "actionGap", layoutMode: { enum: "actionsDirection", table: { row: "HORIZONTAL", column: "VERTICAL" } } } },
+      },
+    },
+  },
+  {
     id: "audio-cell",
     figmaName: "AudioCell",
     figmaAhead: "React 표면 없음 — packages/css/src/component/audio-cell.css 가 정본이다(2026-10-13, DS-D-0084).",

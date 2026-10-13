@@ -15589,6 +15589,136 @@
       "strokes": {},
       "effects": {}
     },
+    "Lightbox": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Frame": {
+              "cornerRadius": [
+                16
+              ],
+              "paddingBlock": [
+                10
+              ],
+              "paddingInlineEnd": [
+                10
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          },
+          "layoutMode": [
+            "NONE"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "LightboxAction": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Icon": {
+          "type": "INSTANCE_SWAP"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "width": [
+            36
+          ],
+          "height": [
+            36
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "width": [
+            36
+          ],
+          "height": [
+            36
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "LoadingWord": {
       "variantCount": 2,
       "hasDescription": true,

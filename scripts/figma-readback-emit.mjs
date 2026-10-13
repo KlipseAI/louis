@@ -289,6 +289,11 @@ const CAPTURE = {
   "LogoTile": {"key":{"by":["Size","Content"]},"fields":["width","height","cornerRadius"]},
   "NoticePill": {"key":{"by":["Interactive","State"]},"fields":["height","paddingInline","cornerRadius","layoutMode"]},
   "CanvasGuide": {"key":{"by":["Orientation"]},"fields":["width","height"]},
+  // 라이트박스(2026-10-13, DS-D-0086). 액션은 36 원 · 글리프 20. 라이트박스 보드는 축이 없어 키가 `base` 다 — 화면 1440 × 900 과
+  // 창 640 은 데이터(그림 비율 · 화면 크기)라 담지 않는다. 창 반경 · 액션 묶음의 위 · 오른쪽 안쪽(Frame 의 여백) · 액션 사이만 담는다.
+  // `Delete` · `Close` 는 LightboxAction 인스턴스라 훑기가 그 안으로 들어가지 않는다.
+  "LightboxAction": {"key":{"by":["State"]},"fields":["width","height","cornerRadius"],"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"]}},
+  "Lightbox": {"key":{"name":"base"},"fields":["layoutMode"],"parts":{"Frame":["cornerRadius","paddingBlock","paddingInlineEnd"],"Actions":["itemSpacing","layoutMode"]}},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

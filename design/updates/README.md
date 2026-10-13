@@ -38,7 +38,10 @@ authority: normative
   숫자 층 → `layer-modal`, 모달 의미 없음 → Dialog 모달 계약(초기 포커스 닫기), 따로 사는 280ms 타이머 → 계산된 전이 시간. 호버는 호버 기기에서만.
 - **보이는 변화(제품이 클래스를 입을 때).** 라이트 만들기 화면의 라이트박스가 흰 막에서 어두운 막으로, 열림 280 → 320 · 닫힘 → 200ms,
   액션 글리프 18 → 20, 크리에이티브 미디어의 닫기가 화면 구석에서 창 안 액션으로 들어온다.
-- 소유자 판정 열은 초안의 기본값으로 — DS-D-0086 표. 실브라우저 시험 `lightbox.browser.test.tsx`. Figma 세트는 다음이다(figma `not-ready`).
+- 소유자 판정 열은 초안의 기본값으로 — DS-D-0086 표. 실브라우저 시험 `lightbox.browser.test.tsx`.
+- **Figma.** DS · Components 「3 · 오버레이」에 `LightboxAction`(State Default · Hover, INSTANCE_SWAP Icon)과 `Lightbox`(1440 × 900 보드)가 섰다(figma `partial`).
+  스크림 · 액션 면의 알파는 `color/static-pure-black-alpha/88` · `/56` · `/80` 이 갖는다 — 색 변수에 묶은 칠의 불투명도는 Figma 가 1 로 되돌린다.
+  기록 `lightbox-action` · `lightbox`, parity 기하 계약, 되재기 `lightbox-geometry.browser.test.tsx`. 새 변수는 없다.
 
 ## 2026-10-13 (251) — 작은 새 부품 다섯과 예시 갤러리 칸(DS-D-0084)
 

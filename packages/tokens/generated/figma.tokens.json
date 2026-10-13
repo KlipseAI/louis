@@ -9,6 +9,11 @@
       },
       "contrastPairs": [
         {
+          "background": "color-bg-raised",
+          "foreground": "color-plan-tier-card-price-original",
+          "minimum": 4.5
+        },
+        {
           "background": "color-bg-inset",
           "foreground": "color-timeline-accent",
           "minimum": 3,
@@ -28922,6 +28927,108 @@
                 ]
               },
               "sourcePath": "semantic.light.color.notice-pill-dot"
+            }
+          }
+        },
+        "color-plan-tier-card-feature-icon": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/plan-tier-card-feature-icon",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.green.500}",
+              "aliasTarget": {
+                "id": "color-green-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.dark.color.plan-tier-card-feature-icon"
+            },
+            "Light": {
+              "$value": "{primitive.color.green.500}",
+              "aliasTarget": {
+                "id": "color-green-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.light.color.plan-tier-card-feature-icon"
+            }
+          }
+        },
+        "color-plan-tier-card-price-original": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/plan-tier-card-price-original",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.red.500}",
+              "aliasTarget": {
+                "id": "color-red-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.dark.color.plan-tier-card-price-original"
+            },
+            "Light": {
+              "$value": "{primitive.color.red.700}",
+              "aliasTarget": {
+                "id": "color-red-700",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.717647,
+                  0.141176,
+                  0.192157
+                ]
+              },
+              "sourcePath": "semantic.light.color.plan-tier-card-price-original"
             }
           }
         },

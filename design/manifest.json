@@ -374,6 +374,15 @@
       "generated": false
     },
     {
+      "id": "decision-plan-tier-card",
+      "path": "design/governance/decisions/DS-D-0091-plan-tier-card.md",
+      "title": "DS-D-0091 요금제 한 단을 세로 카드 한 장에 담는 새 부품 plan-tier-card — Choice Card · Stat Tile · Record Card 의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1863,6 +1872,7 @@
         "design/components/content-card.md",
         "design/components/timeline.md",
         "design/components/coverflow.md",
+        "design/components/plan-tier-card.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1945,6 +1955,7 @@
         "design/governance/decisions/DS-D-0088-content-card.md",
         "design/governance/decisions/DS-D-0089-timeline.md",
         "design/governance/decisions/DS-D-0090-coverflow.md",
+        "design/governance/decisions/DS-D-0091-plan-tier-card.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2153,6 +2164,15 @@
       "id": "coverflow",
       "path": "design/components/coverflow.md",
       "title": "Coverflow",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "plan-tier-card",
+      "path": "design/components/plan-tier-card.md",
+      "title": "Plan Tier Card",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3063,6 +3083,21 @@
         "CoverflowCard",
         "CoverflowNav",
         "CoverflowDot"
+      ]
+    },
+    {
+      "id": "plan-tier-card",
+      "name": "Plan Tier Card",
+      "doc": "design/components/plan-tier-card.md",
+      "note": "요금제 한 단을 세로 카드 한 장에 담고 덱으로 나란히 비교하는 카드(DS-D-0091, DS-D-0084). 공개 가격 PricingSection 과 로그인 뒤 플랜 선택 UpgradePlanPageClient 가 각자 들던 TIER_* 상수 벌을 한 레시피(packages/css/src/component/plan-tier-card.css)로 옮겼다 — 이름 · (원가 · 빈 줄) · 가격 · 크레딧 · 포함 · 기능 목록(체크 18 첫 줄 가운데 · 상세 트리거 점선 밑줄) · 바닥 묶음(메모 · 예약 안내 __notice · CTA, 기능 목록 다음 하나만 auto). 짝 블록 .louis-plan-tier-deck 이 5열 · 1199 이하 2열 · 사이 4 를 갖고 1열은 소비처가 --louis-plan-tier-deck-columns 로 덮는다. 축은 data-current 하나(data-glow 는 10-07 에 걷혔다). CTA · 안내 버튼은 Button, 상세는 Tooltip 그대로다. Choice Card(고르기 컨트롤) · Stat Tile · Record Card 의 변형이 아니다. 새 시맨틱 둘 — plan-tier-card-price-original(라이트 red-700 · 다크 red-500, 제품 라이트 3.28 을 고쳐 올렸다)과 plan-tier-card-feature-icon(green-500, 장식). 고쳐 올린 값 — 현재 링 blue-200 40% → accent-primary 2px, 메모 잉크 두 벌 → fg-tertiary. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 PlanTierCard 세트(Selected false · true — 코드 data-current × Layout base · compact, TEXT Name · Price · Credits · CreditUnit, BOOLEAN Description · OriginalPrice · Period · Includes · Note · Notice)와 기능 한 줄 PlanTierCardFeature(Interactive false · true — 상세 트리거 점선 밑줄), 예약 안내 PlanTierCardNotice(TEXT Label, BOOLEAN Action)로 섰다 — 기능 줄은 시드 데이터 인스턴스 여섯, CTA · 안내 버튼은 Button 인스턴스, 바닥 묶음은 Top/Bottom space-between 으로 그렸다. 변수 color/plan-tier-card-price-original · -feature-icon. 기록 plan-tier-card · plan-tier-card-feature · plan-tier-card-notice 와 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "PlanTierCard",
+        "PlanTierCardFeature",
+        "PlanTierCardNotice"
       ]
     },
     {

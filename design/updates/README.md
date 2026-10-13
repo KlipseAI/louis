@@ -25,6 +25,24 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (257) — 요금제 한 단을 세로 카드 한 장에 담는 새 부품 `plan-tier-card`, 짝 블록 `plan-tier-deck`(DS-D-0091, DS-D-0084)
+
+- **새 부품 `plan-tier-card`.** 이름 · (원가) · 가격 · 크레딧 · 포함 · 기능 목록 · (메모 · 예약 안내) · CTA 의 세로 카드(`.louis-plan-tier-card` · `__head` · `__name` ·
+  `__description` · `__price-original` · `__price` · `__amount` · `__period` · `__credits` · `__credits-amount` · `__includes` · `__features` · `__feature` ·
+  `__feature-icon` · `__feature-term` · `__note` · `__notice` · `__notice-label` · `__notice-action` · `__cta`). 공개 가격 `PricingSection` 과 로그인 뒤 플랜 선택
+  `UpgradePlanPageClient` 가 각자 들던 `TIER_*` 상수 벌을 한 레시피로 옮겼다. Choice Card · Stat Tile · Record Card 의 변형이 아니다.
+- **짝 블록 `.louis-plan-tier-deck`** — 5열 · 1199 이하 2열 · 사이 4 · 늘임. 1열 경계(제품 ≤559)는 소비처가 `--louis-plan-tier-deck-columns` 로 덮는다.
+- **축은 `data-current` 하나** — 2px `accent-primary` 안쪽 링. B1 제안의 `data-glow`(랜딩 Lite 안쪽 광)는 10-07 에 걷혀 없다.
+- **바닥 묶음** — 메모 · 안내 · CTA 중 기능 목록 바로 다음 하나만 남은 높이를 먹고 나머지는 8. 제품은 메모 · CTA 가 둘 다 `mt-auto` 였다.
+- **CTA · 안내 버튼은 `Button`, 상세는 `Tooltip` 그대로** — 레시피는 상세 트리거(`<button>`)의 점선 밑줄 · 도움 커서만 갖는다. 키보드로 열린다.
+- **새 토큰 둘** — `color-plan-tier-card-price-original`(라이트 `red-700` · 다크 `red-500`)와 `color-plan-tier-card-feature-icon`(`green-500`, 장식), 원시 0.
+  `contrastPairs` 한 줄(원가 · `bg-raised` 위 4.5).
+- **고쳐 올린 값(DS-D-0084 3항)** — 원가 라이트 3.28 → 6.34, 현재 표시 `blue-200` 40%(1.19 · 2.86) → `accent-primary` 2px(3.52 · 4.90), 메모 잉크 두 벌 → `fg-tertiary`,
+  제목 · 가격 `gray-200` → `fg-primary`. 제품 최소 높이 경계 788 은 719 로 접었다.
+- **Figma.** DS · Components 「5 · 내용」에 `PlanTierCard`(Selected × Layout = 4, TEXT 넷 · BOOLEAN 여섯) · `PlanTierCardFeature`(Interactive = 2) 세트와
+  `PlanTierCardNotice`, 변수 `color/plan-tier-card-price-original` · `-feature-icon`. 원시 칠 0. 기록 셋과 parity 기하 계약(figma `partial`).
+- 소유자 판정 여덟은 초안의 기본값으로 — DS-D-0091 표. 실브라우저 시험 `plan-tier-card.browser.test.tsx` · `plan-tier-card-geometry.browser.test.tsx`.
+
 ## 2026-10-14 (256) — 결과 미디어를 3D 로 늘어놓고 넘기는 커버플로를 새 부품 `coverflow` 로(DS-D-0090, DS-D-0084)
 
 - **새 부품 `coverflow`.** 가운데 카드는 정면, 옆 카드는 뒤로 물러나 기울어 「더 있다」를 보이는 넘김 묶음(`.louis-coverflow` · `__stage` · `__deck` ·

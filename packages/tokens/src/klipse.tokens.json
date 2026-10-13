@@ -11,6 +11,11 @@
       "figmaCollection": "Klipse",
       "contrastPairs": [
         {
+          "foreground": "color-plan-tier-card-price-original",
+          "background": "color-bg-raised",
+          "minimum": 4.5
+        },
+        {
           "foreground": "color-timeline-accent",
           "background": "color-bg-inset",
           "minimum": 3,
@@ -8039,6 +8044,26 @@
             }
           }
         },
+        "plan-tier-card-price-original": {
+          "$value": "{primitive.color.red.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-plan-tier-card-price-original",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "plan-tier-card-feature-icon": {
+          "$value": "{primitive.color.green.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-plan-tier-card-feature-icon",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "notice-pill-dot": {
           "$value": "{primitive.color.green.500}",
           "$extensions": {
@@ -10549,6 +10574,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-timeline-accent",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "plan-tier-card-price-original": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-plan-tier-card-price-original",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "plan-tier-card-feature-icon": {
+          "$value": "{primitive.color.green.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-plan-tier-card-feature-icon",
               "tier": "semantic",
               "mode": "dark"
             }

@@ -4406,6 +4406,112 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "plan-tier-card",
+    figmaName: "PlanTierCard",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/plan-tier-card.css 가 정본이다(2026-10-14, DS-D-0091). Figma 는 base 260 · compact 320 폭의 표본이다 — 카드 폭은 덱의 열이 정하는 데이터라 계약이 아니다. CSS 의 margin 은 Figma 에 없어 줄 프레임(Pricing · Credits · Includes · Features · Note)의 위 · 아래 패딩으로 그리고, 바닥 묶음의 「기능 목록 다음 하나만 auto」는 Top/Bottom space-between 으로 그린다. 최소 높이 560(base)은 Figma minHeight 로 섰지만 compact 의 「없음」을 Figma 가 0 으로 받지 않아(null) 이 계약에 걸지 않는다 — plan-tier-card-geometry.browser.test.tsx 가 코드를 되잰다. 479 이하 금액 28 · 원가 빈 줄 · 덱은 그리지 않는다(문서).",
+    variantProperties: {},
+    // 현재 플랜 링 — CSS 는 inset box-shadow 2(accent-primary), Figma 는 INSIDE 획 2(strokesIncludedInLayout false)다. Selected=true 칸에만 선다.
+    strokes: { self: { weight: 2, align: "INSIDE" } },
+    // 헤어라인 — CSS hairline-inset(사방 0.5), Figma INNER_SHADOW spread 0.5(DS-D-0023). Selected=true 칸은 링이 대신한다.
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {
+      Selected: { options: ["false", "true"], reason: "CSS 루트 `data-current=\"true\"`(지금 쓰는 플랜) — 헤어라인 대신 2px accent-primary 안쪽 링(시험 1). 조건 축 명부의 Selected 다(`Current` 어휘는 폐기)." },
+      Layout: { options: ["base", "compact"], reason: "너비 대역 — compact 는 719 이하(안쪽 16 → 12 · 최소 높이 560 → 없음). 코드에는 속성이 없고 뷰포트가 고른다(시험 2)." },
+      Name: { type: "TEXT", reason: "티어 이름 — 코드에서 `__name`(`<h3>`)의 글자다." },
+      Price: { type: "TEXT", reason: "금액 — 코드에서 `__amount`(`<strong>`)의 글자다(서식은 소비처)." },
+      Credits: { type: "TEXT", reason: "지급 크레딧 수 — 코드에서 `__credits-amount` 의 글자다." },
+      CreditUnit: { type: "TEXT", reason: "크레딧 단위 문구 — 코드에서 `__credits` 안 두 번째 `<span>` 의 글자다." },
+      Description: { type: "BOOLEAN", reason: "CSS 는 `__description` 요소 생략으로 말한다." },
+      OriginalPrice: { type: "BOOLEAN", reason: "CSS 는 `__price-original` 요소 생략으로 말한다. 덱의 줄 맞춤용 빈 줄(`data-placeholder`)은 그리지 않는다 — 꺼도 가격 줄 위 10 은 Pricing 프레임이 지킨다." },
+      Period: { type: "BOOLEAN", reason: "CSS 는 `__period` 요소 생략으로 말한다." },
+      Includes: { type: "BOOLEAN", reason: "CSS 는 `__includes` 요소 생략으로 말한다." },
+      Note: { type: "BOOLEAN", reason: "CSS 는 `__note` 요소 생략으로 말한다." },
+      Notice: { type: "BOOLEAN", reason: "CSS 는 `__notice` 요소 생략으로 말한다 — 예약이 있을 때만(PlanTierCardNotice 인스턴스, 기본 끔)." },
+    },
+    geometry: {
+      measuredId: "plan-tier-card",
+      sizeKeys: ["false/base", "true/base", "false/compact", "true/compact"],
+      fields: {
+        // CSS 테두리가 0 이라 Figma 패딩 = CSS 패딩이다(링은 레이아웃 밖 획).
+        paddingBlock: ["padding", "borderWidth"],
+        paddingInline: ["padding", "borderWidth"],
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      // 현재 링 2 — CSS border 가 아니라 inset box-shadow 다(위 strokes).
+      extraStrokeWeights: [2],
+      parts: {
+        Head: { fields: { itemSpacing: "headGap" } },
+        Pricing: { fields: { paddingBlock: "pricingOffset" } },
+        Price: { fields: { itemSpacing: "priceGap" } },
+        Amount: { fields: { fontSize: "amountSize" } },
+        Period: { fields: { paddingBlockEnd: "periodPaddingBottom" } },
+        Credits: { fields: { itemSpacing: "creditsGap", paddingBlock: "creditsOffset", paddingBlockEnd: "creditsPaddingBottom" } },
+        Includes: { fields: { paddingBlock: "includesOffset" } },
+        Features: { fields: { itemSpacing: "featuresGap", paddingBlock: "featuresOffset", paddingBlockEnd: "featuresMarginBottom" } },
+        Bottom: { fields: { itemSpacing: "bottomGap" } },
+        Note: { fields: { paddingBlock: "noteOffset" } },
+      },
+    },
+  },
+  {
+    id: "plan-tier-card",
+    figmaName: "PlanTierCardFeature",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/plan-tier-card.css 의 `__feature` 가 정본이다(2026-10-14, DS-D-0091). 228 폭은 base 카드 안쪽 폭의 표본이다. 상세 Tooltip 은 LOUIS Tooltip 그대로라 이 세트에 그리지 않는다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Interactive: { options: ["false", "true"], reason: "상세가 있는 기능 — 코드는 속성이 아니라 요소(`<button class=\"louis-bare-button louis-plan-tier-card__feature-term\">` 대 `<span>`)가 말한다. 점선 밑줄(stroke-underline, 간격 2)이 붙는다(시험 1). 조건 축 명부의 Interactive 다(NoticePill 선례)." },
+      Text: { type: "TEXT", reason: "기능 문구 — 코드에서 `__feature-term` 또는 `<span>` 의 글자다." },
+    },
+    geometry: {
+      measuredId: "plan-tier-card-feature",
+      sizeKeys: ["false", "true"],
+      fields: {
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Icon: { fields: { paddingBlock: "iconOffset" } },
+        Glyph: { fields: { width: "iconSize", height: "iconSize" } },
+        Text: { fields: { fontSize: "fontSize" } },
+      },
+    },
+  },
+  {
+    id: "plan-tier-card",
+    figmaName: "PlanTierCardNotice",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/plan-tier-card.css 의 `__notice` 가 정본이다(2026-10-14, DS-D-0091). 버튼은 Button ghost md 인스턴스다.",
+    variantProperties: {},
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    effects: {},
+    figmaOnlyProperties: {
+      Label: { type: "TEXT", reason: "안내 문구 — 코드에서 `__notice-label` 의 글자다." },
+      Action: { type: "BOOLEAN", reason: "CSS 는 `__notice-action`(Button) 요소 생략으로 말한다 — 되돌릴 수 있을 때만(해지 예약 + 결제수단 없음이면 없다)." },
+    },
+    geometry: {
+      measuredId: "plan-tier-card-notice",
+      sizeKeys: ["base"],
+      fields: {
+        // 테두리 1 을 패딩에 접는다(strokesIncludedInLayout false, §10).
+        paddingBlock: ["paddingBlock", "borderWidth"],
+        paddingInline: ["paddingInline", "borderWidth"],
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Label: { fields: { fontSize: "labelFontSize" } },
+      },
+    },
+  },
+  {
     id: "audio-cell",
     figmaName: "AudioCell",
     figmaAhead: "React 표면 없음 — packages/css/src/component/audio-cell.css 가 정본이다(2026-10-13, DS-D-0084).",

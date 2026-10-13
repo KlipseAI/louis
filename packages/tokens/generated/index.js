@@ -4,6 +4,11 @@ export const themes = Object.freeze(["light","dark"]);
 export const metadata = Object.freeze({
   "contrastPairs": [
     {
+      "foreground": "color-plan-tier-card-price-original",
+      "background": "color-bg-raised",
+      "minimum": 4.5
+    },
+    {
       "foreground": "color-timeline-accent",
       "background": "color-bg-inset",
       "minimum": 3,
@@ -19889,6 +19894,58 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-plan-tier-card-feature-icon": {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-plan-tier-card-feature-icon": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-plan-tier-card-feature-icon",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.500}",
+      "sourcePath": "semantic.light.color.plan-tier-card-feature-icon",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-plan-tier-card-price-original": {
+      "aliasTarget": {
+        "id": "color-red-700",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-plan-tier-card-price-original": "color(srgb 0.717647 0.141176 0.192157 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-plan-tier-card-price-original",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.700}",
+      "sourcePath": "semantic.light.color.plan-tier-card-price-original",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.717647,
+          0.141176,
+          0.192157
+        ],
+        "alpha": 1
+      }
+    },
     "color-platform-youtube-accent": {
       "aliasTarget": {
         "id": "color-youtube-red",
@@ -26424,6 +26481,58 @@ export const tokens = {
           0,
           0.776471,
           0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-plan-tier-card-feature-icon": {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-plan-tier-card-feature-icon": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-plan-tier-card-feature-icon",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.500}",
+      "sourcePath": "semantic.dark.color.plan-tier-card-feature-icon",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-plan-tier-card-price-original": {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-plan-tier-card-price-original": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-plan-tier-card-price-original",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "sourcePath": "semantic.dark.color.plan-tier-card-price-original",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
         ],
         "alpha": 1
       }

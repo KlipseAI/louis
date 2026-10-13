@@ -8781,6 +8781,40 @@
           ]
         ],
         [
+          "color/plan-tier-card-feature-icon",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/plan-tier-card-price-original",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/700",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
           "color/platform-youtube-accent",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -22241,6 +22275,564 @@
           "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:4"
         ]
       }
+    },
+    "PlanTierCard": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Name": {
+          "type": "TEXT"
+        },
+        "Price": {
+          "type": "TEXT"
+        },
+        "Credits": {
+          "type": "TEXT"
+        },
+        "CreditUnit": {
+          "type": "TEXT"
+        },
+        "Description": {
+          "type": "BOOLEAN"
+        },
+        "OriginalPrice": {
+          "type": "BOOLEAN"
+        },
+        "Period": {
+          "type": "BOOLEAN"
+        },
+        "Includes": {
+          "type": "BOOLEAN"
+        },
+        "Note": {
+          "type": "BOOLEAN"
+        },
+        "Notice": {
+          "type": "BOOLEAN"
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "compact"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 46,
+        "rawFills": 0,
+        "boundStrokes": 6,
+        "rawStrokes": 0,
+        "textStyled": 36,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false/base": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "itemSpacing": [
+                16
+              ]
+            },
+            "Pricing": {
+              "paddingBlock": [
+                10
+              ]
+            },
+            "Price": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Amount": {
+              "fontSize": [
+                36
+              ]
+            },
+            "Period": {
+              "paddingBlockEnd": [
+                4
+              ]
+            },
+            "Credits": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "paddingBlockEnd": [
+                24
+              ]
+            },
+            "Includes": {
+              "paddingBlock": [
+                12
+              ]
+            },
+            "Features": {
+              "itemSpacing": [
+                4
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingBlockEnd": [
+                18
+              ]
+            },
+            "Bottom": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Note": {
+              "paddingBlock": [
+                24
+              ]
+            }
+          },
+          "paddingBlock": [
+            16
+          ],
+          "paddingInline": [
+            16
+          ],
+          "minHeight": [
+            560
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/base": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "itemSpacing": [
+                16
+              ]
+            },
+            "Pricing": {
+              "paddingBlock": [
+                10
+              ]
+            },
+            "Price": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Amount": {
+              "fontSize": [
+                36
+              ]
+            },
+            "Period": {
+              "paddingBlockEnd": [
+                4
+              ]
+            },
+            "Credits": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "paddingBlockEnd": [
+                24
+              ]
+            },
+            "Includes": {
+              "paddingBlock": [
+                12
+              ]
+            },
+            "Features": {
+              "itemSpacing": [
+                4
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingBlockEnd": [
+                18
+              ]
+            },
+            "Bottom": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Note": {
+              "paddingBlock": [
+                24
+              ]
+            }
+          },
+          "paddingBlock": [
+            16
+          ],
+          "paddingInline": [
+            16
+          ],
+          "minHeight": [
+            560
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "false/compact": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "itemSpacing": [
+                16
+              ]
+            },
+            "Pricing": {
+              "paddingBlock": [
+                10
+              ]
+            },
+            "Price": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Amount": {
+              "fontSize": [
+                36
+              ]
+            },
+            "Period": {
+              "paddingBlockEnd": [
+                4
+              ]
+            },
+            "Credits": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "paddingBlockEnd": [
+                24
+              ]
+            },
+            "Includes": {
+              "paddingBlock": [
+                12
+              ]
+            },
+            "Features": {
+              "itemSpacing": [
+                4
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingBlockEnd": [
+                18
+              ]
+            },
+            "Bottom": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Note": {
+              "paddingBlock": [
+                24
+              ]
+            }
+          },
+          "paddingBlock": [
+            12
+          ],
+          "paddingInline": [
+            12
+          ],
+          "minHeight": [],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/compact": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "itemSpacing": [
+                16
+              ]
+            },
+            "Pricing": {
+              "paddingBlock": [
+                10
+              ]
+            },
+            "Price": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Amount": {
+              "fontSize": [
+                36
+              ]
+            },
+            "Period": {
+              "paddingBlockEnd": [
+                4
+              ]
+            },
+            "Credits": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "paddingBlockEnd": [
+                24
+              ]
+            },
+            "Includes": {
+              "paddingBlock": [
+                12
+              ]
+            },
+            "Features": {
+              "itemSpacing": [
+                4
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingBlockEnd": [
+                18
+              ]
+            },
+            "Bottom": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Note": {
+              "paddingBlock": [
+                24
+              ]
+            }
+          },
+          "paddingBlock": [
+            12
+          ],
+          "paddingInline": [
+            12
+          ],
+          "minHeight": [],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "2|INSIDE"
+        ]
+      },
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
+    },
+    "PlanTierCardFeature": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Text": {
+          "type": "TEXT"
+        },
+        "Interactive": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false": {
+          "slots": {},
+          "parts": {
+            "Icon": {
+              "paddingBlock": [
+                1.5
+              ]
+            },
+            "Glyph": {
+              "width": [
+                18
+              ],
+              "height": [
+                18
+              ]
+            },
+            "Text": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "itemSpacing": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true": {
+          "slots": {},
+          "parts": {
+            "Icon": {
+              "paddingBlock": [
+                1.5
+              ]
+            },
+            "Glyph": {
+              "width": [
+                18
+              ],
+              "height": [
+                18
+              ]
+            },
+            "Text": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "itemSpacing": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "PlanTierCardNotice": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "Action": {
+          "type": "BOOLEAN"
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            9
+          ],
+          "paddingInline": [
+            13
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
     },
     "ProgressBar": {
       "variantCount": 2,

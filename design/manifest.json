@@ -1806,6 +1806,7 @@
         "design/components/inspector-section-head.md",
         "design/components/node-chrome-button.md",
         "design/components/media-slot.md",
+        "design/components/prompt-variant.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1983,6 +1984,15 @@
       "id": "media-slot",
       "path": "design/components/media-slot.md",
       "title": "Media Slot",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "prompt-variant",
+      "path": "design/components/prompt-variant.md",
+      "title": "Prompt Variant",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -2739,6 +2749,16 @@
       "web": "partial",
       "docs": "done",
       "figmaName": "MediaSlot"
+    },
+    {
+      "id": "prompt-variant",
+      "name": "Prompt Variant",
+      "doc": "design/components/prompt-variant.md",
+      "note": "AI 프롬프트 후보 하나 — 스타일 이름 + 프롬프트 본문(DS-D-0084, DS-D-0083 2c). 텍스트 노드 응답 칸의 후보 카드(data-layout card, 누르면 비교 모달을 연다)와 비교 모달의 열(data-layout column, 사용 버튼)이 같은 어휘를 각자 상수로 들던 것을 한 레시피(packages/css/src/component/prompt-variant.css)로 모았다. 모달 셸은 dialog data-size compare 가 갖는다. 라이트 리터럴은 시맨틱 gray-000-alpha 로, 스타일 이름 잉크는 대비를 고친 node-text-response-foreground 로 옮겼다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 부품은 아직 없어 not-ready 다.",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done"
     },
     {
       "id": "audio-cell",

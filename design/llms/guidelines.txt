@@ -171,9 +171,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 184 |
+| Normative documents | 185 |
 | Generated documents | 5 |
-| Components | 60 |
+| Components | 61 |
 | Patterns | 9 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -2896,7 +2896,7 @@ X3 은 보드에서 묶이지 않는 칠의 대부분을 만든다 — 제품의
 | 1c 카드 더보기 버튼 | (나) | 없음 — 레시피 inset 이 이미 8 이다 |
 | 2a 비디오 플레이어 크롬 | (가), 다음 작업 | 없음 — 막힘 셋이 남았다(아래) |
 | 2b 하이라이트 트랙 · 무대 · 무대 아래 막대 | (다) | 없음 |
-| 2c AI 프롬프트 후보 카드 | (다) | 없음 |
+| 2c AI 프롬프트 후보 카드 | (다) → (가) DS-D-0084 | 새 부품 `.louis-prompt-variant`(`data-layout` card · column) — Updates (248) |
 | 2d-1 TTS 오디오 칸 | (가), 다음 작업 | 없음 — 슬라이더 접근성 계약을 새로 가진다 |
 | 2d-2 컴포지션 소스 썸네일 줄 | (다) | 없음 — node-shell 판정 9 로 접는다 |
 | 2d-3 「편집」 버튼 | (다) | 없음 |
@@ -3111,7 +3111,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | --- | ---: | --- |
 | 이미 LOUIS 부품이 있다 | 33 | 표면 원장 대응을 LOUIS 이름으로 옮겼다(같은 날, 표면 35). 제품이 그 클래스를 무는 일은 제품 (나) 목록 |
 | 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼) |
-| 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot · prompt-variant · asset-tile · canvas-guide · audio-cell. 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
+| 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot(섰다, (245)) · prompt-variant(섰다, (248)) · asset-tile · canvas-guide · audio-cell(섰다, (245)). 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
 | 부품이 아니다 | 19 | 아이콘 세트로(글리프 넷 · 레이아웃 썸네일 — sparkle 1 · 모바일 동작 글리프 15 가 새로 필요), 화면 조립, 데이터 계산 경로(스파크라인 · 차트 곡선) |
 
 소유자 판정 둘: 어드민 섹션 머리의 촘촘한 값 넷(간격 · 정렬 · 제목 28 · 설명 14 Regular)을 LOUIS compact 칸으로 열지, 제품 덮어쓰기를
@@ -16911,6 +16911,16 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-13 (248) — AI 프롬프트 후보를 새 부품 `prompt-variant` 로(DS-D-0084, DS-D-0083 2c)
+
+- **새 부품 `prompt-variant`.** 스타일 이름 + 프롬프트 본문 한 벌을 한 레시피로 — 노드 응답 칸 안 후보 카드(`data-layout="card"`, 기본 ·
+  누르면 비교 모달을 여는 `button` · 세 줄 자름 · 카드끼리 8)와 비교 모달의 열(`data-layout="column"` · 이름 알약 · 스크롤 본문 ·
+  「이 프롬프트 사용」 `__action`), 두 열 격자 `.louis-prompt-variant-grid`(719 이하 한 열). 모달 셸은 Dialog `data-size="compare"` 다.
+- **새 토큰은 없다.** 제품의 라이트 리터럴 `rgb(0 0 0 / n%)` 와 다크 `gray-000` n% 쌍은 시맨틱 `gray-000-alpha-*` 한 이름이다.
+- **대비 미달은 고쳐서 올렸다.** 스타일 이름 yellow-600(라이트 1.97:1)은 노드 결과 글과 같은 `node-text-response-foreground`(라이트 yellow-800,
+  5.79:1)로, 라이트 펼침 글리프 40% · 열 라벨 48% 는 48% · 56% 로. 사용 버튼 면은 텍스트 노드 액센트(yellow-500)로 접었다 — 문서 Known deviations.
+- 실브라우저 시험 `prompt-variant.browser.test.tsx`(기하 · 격자 두 판 · 두 테마 대비). Figma 부품과 React 표면은 다음이다(figma `not-ready`).
 
 #### 2026-10-13 (247) — 기존 부품의 변형 20개를 LOUIS 로(DS-D-0084 변형 묶음)
 

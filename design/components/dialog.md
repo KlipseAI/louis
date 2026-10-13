@@ -337,6 +337,8 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 (`padding-block-end: var(--louis-dialog-surface-inset)`, 제품 `PromptVariantCompareModal.tsx:41-44`). 기본 본문 아래 8 은
 발이 뒤따른다는 전제의 값이라, 발이 없으면 카드 바닥이 8 로 붙기 때문이다. 크기와 무관한 일반 규칙이다.
 
+본문의 두 열은 [Prompt Variant](prompt-variant.md) `data-layout="column"` 과 `.louis-prompt-variant-grid` 다.
+
 Figma 는 `Size` 축에 `compare` 를 더한다(쓰임새 값이라 사다리 순서를 주장하지 않는다).
 
 ## 구분선 — `data-dividers="true"`

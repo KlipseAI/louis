@@ -25,6 +25,16 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-13 (248) — AI 프롬프트 후보를 새 부품 `prompt-variant` 로(DS-D-0084, DS-D-0083 2c)
+
+- **새 부품 `prompt-variant`.** 스타일 이름 + 프롬프트 본문 한 벌을 한 레시피로 — 노드 응답 칸 안 후보 카드(`data-layout="card"`, 기본 ·
+  누르면 비교 모달을 여는 `button` · 세 줄 자름 · 카드끼리 8)와 비교 모달의 열(`data-layout="column"` · 이름 알약 · 스크롤 본문 ·
+  「이 프롬프트 사용」 `__action`), 두 열 격자 `.louis-prompt-variant-grid`(719 이하 한 열). 모달 셸은 Dialog `data-size="compare"` 다.
+- **새 토큰은 없다.** 제품의 라이트 리터럴 `rgb(0 0 0 / n%)` 와 다크 `gray-000` n% 쌍은 시맨틱 `gray-000-alpha-*` 한 이름이다.
+- **대비 미달은 고쳐서 올렸다.** 스타일 이름 yellow-600(라이트 1.97:1)은 노드 결과 글과 같은 `node-text-response-foreground`(라이트 yellow-800,
+  5.79:1)로, 라이트 펼침 글리프 40% · 열 라벨 48% 는 48% · 56% 로. 사용 버튼 면은 텍스트 노드 액센트(yellow-500)로 접었다 — 문서 Known deviations.
+- 실브라우저 시험 `prompt-variant.browser.test.tsx`(기하 · 격자 두 판 · 두 테마 대비). Figma 부품과 React 표면은 다음이다(figma `not-ready`).
+
 ## 2026-10-13 (247) — 기존 부품의 변형 20개를 LOUIS 로(DS-D-0084 변형 묶음)
 
 - **CSS 레시피 · 문서.** Select `data-size="lg"` · Tabs `data-variant="bar"`(2px 막대 줄) · Section Header `data-level="article"` · `"display"`(랜딩 제목 계단) ·

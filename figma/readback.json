@@ -19807,7 +19807,7 @@
       "effects": {}
     },
     "MediaCard": {
-      "variantCount": 3,
+      "variantCount": 1,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -19826,20 +19826,18 @@
           "type": "TEXT"
         },
         "Badge": {
-          "type": "VARIANT",
-          "options": [
-            "New",
-            "Top",
-            "none"
-          ]
+          "type": "BOOLEAN"
+        },
+        "BadgeLabel": {
+          "type": "TEXT"
         }
       },
       "binding": {
-        "boundFills": 15,
+        "boundFills": 5,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 9,
+        "textStyled": 3,
         "textUnstyled": 0
       },
       "geometry": {

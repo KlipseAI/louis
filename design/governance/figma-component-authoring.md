@@ -259,7 +259,7 @@ Slider 의 `thumb`/`track` 이 `Variant` 축에 들어가 있다. 부품은 vari
 
 | 컴포넌트 · 축 | 무엇이 걸렸나 | 판정 |
 | --- | --- | --- |
-| MediaCard `Badge` (`New`·`Top`·`none`) | 값이 **내용**이다(시험 4). 배지를 감춰도 카드는 316 × 316 고정이라 나머지가 하나도 안 바뀐다 — 시험 1·2·3 은 통과한다 | **축 폐기.** `Badge` BOOLEAN + `BadgeLabel` TEXT. 변형 3 → 1. `New`/`Top` 은 컴포넌트 문서 Content 절이 소유한다. **Figma 재작업 필요** |
+| MediaCard `Badge` (`New`·`Top`·`none`) | 값이 **내용**이다(시험 4). 배지를 감춰도 카드는 316 × 316 고정이라 나머지가 하나도 안 바뀐다 — 시험 1·2·3 은 통과한다 | **축 폐기.** `Badge` BOOLEAN + `BadgeLabel` TEXT. 변형 3 → 1. `New`/`Top` 은 컴포넌트 문서 Content 절이 소유한다. **2026-10-14 Figma 재작업 완료(DS-D-0099)** |
 | CarouselArrow `Direction` (`prev`·`next`) | 여섯 변형의 기하가 전부 같고 캐럿 향만 다르다. 축을 없애고 글리프를 `INSTANCE_SWAP` 으로 내리는 길이 있으나, **두 캐럿이 아이콘 라이브러리에 없다**(인라인 벡터다) — 스왑 후보를 채울 대상이 없어 인스턴스에서 고를 수가 없다 | **`Direction` 축을 연다.** 값은 `prev`·`next` 둘뿐이다 |
 | FaqRow `Expanded` (`false`·`true`) | 프레임이 66 → 132 로 자라는 것은 오토레이아웃의 정상 결과라 그것만으론 BOOLEAN 이어도 된다. 걸리는 것은 둘이다 — `+` 가 **계속 보이는 채로** 45° 돌고(시험 1), 여닫이에 전이를 걸어야 한다(시험 3). 제품도 `transform: rotate(45deg)` 과 높이 애니메이션 둘 다 갖는다(`FAQ.tsx`) | **조건 축.** `ON_CLICK` 반응을 두 변형 사이에 건다 |
 | NewsCard `Featured` (`false`·`true`) | **프레임 자신의 고정 크기**가 347 × 160 → 698 × 324 다(시험 2). 제품에서는 `image` 가 있으면 피처드다(`NewsCarousel.tsx`) — 슬롯 하나의 유무가 컨테이너 기하를 바꾸는, Button 의 `Icon` 과 같은 사례다 | **조건 축.** 헤드라인 줄 수(2줄 → 1줄)도 같이 갈린다 |
@@ -324,9 +324,8 @@ Slider 의 `thumb`/`track` 이 `Variant` 축에 들어가 있다. 부품은 vari
    GnbMenuItem 의 두 변형 중 어느 쪽이 어느 색에 묶여 있는지는 되읽기로 알 수 없다 —
    `figma/readback.json` 은 변형별 색 바인딩을 내지 않고 컴포넌트 단위 집계(`boundFills`)만 낸다.
    **소유자 확인 필요**: 지금 Figma 가 반대로 묶여 있으면 값 이름을 맞바꿔야 한다(Figma 재작업).
-2. **MediaCard `Badge` 축 폐기는 Figma 재작업을 요구한다.** 이 문서는 판정만 내렸고 파일은
-   손대지 않았다. `Badge` VARIANT 3값을 지우고 `Badge` BOOLEAN + `BadgeLabel` TEXT 로 다시
-   세우는 작업, 그리고 그 컴포넌트를 쓰는 인스턴스의 재바인딩이 남는다.
+2. ~~**MediaCard `Badge` 축 폐기는 Figma 재작업을 요구한다.**~~ **2026-10-14 해소(DS-D-0099).** `MediaCard` 가
+   단일 COMPONENT(`Badge` BOOLEAN + `BadgeLabel` TEXT)로 다시 섰고 인스턴스 다섯을 바꿔 끼웠다.
 3. ~~**Button `Loading` 이 가시성만 바꾸는지 대조하지 않았다.**~~ 라벨을 감추고 스피너를 보이는
    것뿐이면 BOOLEAN 이 맞지만, 그 상태에서 padding·gap 이 다시 쓰이는지 확인하지 않았다.
    같은 날 InlineLoadingLabel 이 `Loading` 을 조건 축 명부에 올렸지만 그것은 **그 컴포넌트의

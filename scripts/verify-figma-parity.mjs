@@ -1159,7 +1159,8 @@ const COMPONENT_CONTRACTS = [
   {
     id: "media-card",
     figmaName: "MediaCard",
-    figmaAhead: "LOUIS recipe 없음 — 제품 MediaCard.tsx 가 정본이고 소비처가 세 자리다.",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/media-card.css 가 정본이다(2026-10-14, DS-D-0099). 값의 출처는 제품 MediaCard.tsx 이고 소비처가 세 자리다. 레시피가 기록을 여전히 만드는지는 packages/react/test/media-card.browser.test.tsx 가 잰다.",
     variantProperties: {},
     // 카드 자신에는 테두리가 없다. 사진이 면이고 경계는 radius 로만 만든다.
     strokes: {},
@@ -1182,9 +1183,13 @@ const COMPONENT_CONTRACTS = [
     iconSlots: ["Glyph"],
     figmaOnlyProperties: {
       Badge: {
-        options: ["New", "Top", "none"],
+        type: "BOOLEAN",
         reason:
-          "코드에서 badge 는 optional 문구 prop 이라 축이 아니다. Figma 에 「값이 없으면 안 그린다」가 없어 축으로 뒀고, 값에 문구까지 들어가 있다. **figma-component-authoring.md §2 개정이 이 축을 폐기 판정했다** — 값이 내용이라 시험 4 에 걸리고, 배지를 감춰도 카드가 316×316 고정이라 나머지 세 시험은 통과한다. 갈 곳은 Badge BOOLEAN + BadgeLabel TEXT(변형 3 → 1)다. **Figma 재작업이 아직 안 됐다** — 그래서 이 계약은 현상(3값 VARIANT)을 그대로 적는다. 파일을 다시 세우면 여기도 같이 고친다.",
+          "배지의 유무. 코드에서는 badge 문구 prop 의 유무다(없으면 렌더되지 않는다). **2026-10-14 VARIANT 3값(New · Top · none)을 접었다** — figma-component-authoring.md §2 가 값이 내용이라 시험 4 에 걸린다고 폐기 판정한 축이다(DS-D-0099). 배지를 감춰도 카드는 316×316 이라 BOOLEAN 이 가시성만으로 그린다.",
+      },
+      BadgeLabel: {
+        type: "TEXT",
+        reason: "배지 문구. 코드에서는 badge prop 의 값이다. New · Top 같은 낱말은 문서 Content 가 갖는다 — §3 의 {Name} + {Name}Label 짝이다.",
       },
       Title: { type: "TEXT", reason: "이름 한 줄. 코드에서는 name prop 이다." },
       Icon: { type: "BOOLEAN", reason: "브랜드 글리프의 유무. 코드에서는 icon prop 이 ReactNode 라 있으면 그린다." },

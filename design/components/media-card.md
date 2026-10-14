@@ -10,10 +10,20 @@ summary: 사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보
 미디어가 주인공이고 그 위에 이름 한 줄이 얹히는 카드다. 랜딩의 캐러셀 둘(최신 AI 모델 · 그 외
 기능)과 템플릿 그리드가 **같은 카드**를 쓴다.
 
-**정본은 제품이다.** `MediaCard.tsx` 가 구현이고 LOUIS 에는 아직 컴포넌트 표면이 없다 —
-`packages/css/src/component` 에 `media-card.css` 가 없고 `packages/react/src` 에도 디렉터리가
-없다. Figma 는 그 제품 구현을 투영한 것이고, 이 문서는 그 둘을 대조한다. **다만 정보 바의 흐림
-레시피 하나는 LOUIS 가 소유한다** — 아래를 보라.
+**정본은 제품이고 LOUIS 레시피가 그것을 옮긴다(2026-10-14, [DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).** `MediaCard.tsx` 가 구현이고
+`packages/css/src/component/media-card.css` 가 그 일곱 상수(BOX · CARD · BADGE · INFO · NAME_ROW · NAME · SUB)를 옮긴 레시피다.
+React 표면은 없다 — 소비처가 클래스를 물면 되는 자리다. Figma 는 그 구현을 투영한 것이다.
+
+```html
+<article class="louis-media-card" data-layout="carousel">
+  <img class="louis-media-card__media" src="…" alt="…">
+  <span class="louis-media-card__badge">New</span>
+  <div class="louis-media-card__info">
+    <div class="louis-media-card__name-row"><svg class="louis-media-card__glyph" aria-hidden="true">…</svg><span class="louis-media-card__title">ElevenLabs</span></div>
+    <p class="louis-media-card__description">Music &amp; Effects</p>
+  </div>
+</article>
+```
 
 **정보 바는 점진 블러다.** 아래는 온전히 흐리고 위로 갈수록 흐림이 걷힌다. 곡선과 반경의 정본은
 [Project Card](./project-card.md) 의 제목 띠와 **같은 것**이고, `packages/css/src/base.css` 의
@@ -37,10 +47,10 @@ summary: 사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보
 
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 세 자리다. **컴포넌트 표면은 여전히 0** — `media-card.css` 도 React export 도 acceptance test 도 없다. 다만 **「LOUIS 표면 0」은 더 이상 맞지 않는다**: 정보 바의 점진 블러(반경 + 마스크 곡선)를 `base.css` 가 값으로 발행하고 제품이 그것을 참조한다. 상태를 올리지 않는 이유는 그 한 값이 컴포넌트 recipe 가 아니기 때문이다 |
-| Figma         | `partial`      | `MediaCard` 3 variant(`Badge`) · TEXT 2 · BOOLEAN 2 · INSTANCE_SWAP 1. parity 게이트가 대조하는 것은 effect 두 겹 · 속성 축 · raw fill·stroke 0 과 기하다 — 기하는 `figma/components.measured.json` 의 `media-card`(제품 클래스를 실브라우저에서 잰 값)와 카드 폭 · 높이 · 반경 · 안쪽 여백을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
+| Web           | `partial`      | CSS recipe `packages/css/src/component/media-card.css`(박스 `data-layout` · 배지 · 정보 바 · 이름 줄 · 설명). React 표면은 없다 — 소비처가 클래스를 물면 되는 자리다. 정보 바의 점진 블러(반경 + 마스크 곡선)는 `base.css` 가 발행하고 레시피와 제품이 그것을 참조한다. 실브라우저 시험 `packages/react/test/media-card.browser.test.tsx` |
+| Figma         | `done`         | `MediaCard` 단일 COMPONENT · TEXT 3(`Title` · `DescriptionLabel` · `BadgeLabel`) · BOOLEAN 3(`Icon` · `Description` · `Badge`) · INSTANCE_SWAP 1. parity 게이트가 effect 두 겹 · 속성 · raw fill·stroke 0 · 기하(카드 폭 · 높이 · 반경 · 배지 · 정보 바 항목)를 `figma/components.measured.json` 의 `media-card` 와 맞대고, `media-card.browser.test.tsx` 가 레시피가 같은 값을 만드는지 되잰다 — 두 방향이 다 걸려 DS-D-0035 를 채운다(2026-10-14) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
-| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                        |
+| Maturity      | `experimental` | React 표면이 없고 사진 위 대비를 고정해 잴 수 없다(Accessibility) |
 
 ## When to use
 
@@ -85,7 +95,8 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 
 | Figma | 타입 | 코드 대응 |
 | --- | --- | --- |
-| `Badge` | VARIANT `New` · `Top` · `none` | `badge` prop 의 유무 + 그 문구. **축과 대응이 1:1 이 아니다**(Known deviations 5) |
+| `Badge` | BOOLEAN | `badge` prop 의 유무 |
+| `BadgeLabel` | TEXT | `badge` 의 문구(`New` · `Top` 등 — 낱말은 Content 가 갖는다) |
 | `Title` | TEXT | `name` |
 | `Description` | BOOLEAN | `sub` 의 유무 |
 | `DescriptionLabel` | TEXT | `sub` 의 문구 |
@@ -100,7 +111,6 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 | --- | --- | --- |
 | `layout` (코드) | `carousel` | 960 이상 316 × 316 · 959 이하 `min(316px, 46vw)` 정사각 · 트랙 안에서 줄지 않음(`flex-none`) · `scroll-snap-align: start` |
 | | `grid` | 칸이 폭을 정한다(`w-full aspect-square`) · 스냅 없음 |
-| `Badge` (Figma) | `New` · `Top` · `none` | 알약의 유무와 그 문구 |
 
 카드 **안쪽**(배지 · 정보 바 · 이름 · 부제)은 두 쓰임이 완전히 같다. 전에는 템플릿 그리드가 같은
 조형을 따로 다시 짰고, 그 대가로 정본이 둘이 되어 실제로 값이 갈라졌다 — 유리 배지의 흰색 20%
@@ -190,7 +200,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 | Info bar 높이 | 내용이 정한다 — 481 이상에서 이름 · 설명이 한 줄이면 111 | `infoPaddingBlockStart` 40 + `titleLineHeight` 30 + `infoGap` 4 + `descriptionLineHeight` 21 + `infoPaddingBlockEnd` 16. 480 이하는 글자가 한 단 낮아져 함께 낮아진다 |
 | Name row | 높이 30, 간격 8 | 20 × 1.5 = 30 |
 | Name | body-20-medium | `typography/body-lg-medium` · `color/media-foreground-dark` |
-| Description | body-14-regular, 알파 72% | `typography/body-sm-regular` · `color/media-foreground-dark` 72% — 토큰 `color-media-foreground-dark-soft`(Figma 변수는 아직 없다) |
+| Description | body-14-regular, 알파 72% | `typography/body-sm-regular` · `color/media-foreground-dark-soft`(= `media-foreground-dark` 72%, 2026-10-14 Figma 도 이 변수에 묶였다) |
 | Glyph | 16 × 16 | `icon` 슬롯 |
 
 **위 padding 40 은 이제 마스크의 상수다.** 띠 111 에서 글자 윗변은 바닥에서 71(=64%) 에 있고
@@ -203,10 +213,11 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 1. **정보 바 높이가 시안과 다르다 — 111 대 98/94.** 시안은 모델명 줄 높이를 120% / 100% 로
    갈라 두 값을 냈는데, 제품 타입 스케일은 `body-20` 도 `body-14` 도 줄 높이 150% 다. 그래서
    40 + 30 + 4 + 21 + 16 = **111** 로 하나로 수렴시켰다. 시안 두 값 중 어느 쪽도 재현하지 않는다.
-2. **흰색 1% 를 `static-white-alpha/04` 로 대체했다.** 제품은 `rgb(255 255 255/1%)` 인데
-   알파 램프의 첫 단계가 **04** 다 — 01 단계가 없다. 리터럴로 두면 Figma 가 변수 알파로
-   `paint.opacity` 를 덮어써 값이 유지되지 않으므로, 가장 가까운 램프 단계로 올렸다.
-   **면이 제품보다 밝다**(4% 대 1%). 램프에 01 을 더할지, 제품을 04 로 올릴지는 소유자 판정이다.
+2. **정보 바 tint — 레시피는 제품 1%, Figma 는 `static-white-alpha/04`(2026-10-14 판정, [DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).** 제품은
+   흰색 1% 이고 [색과 테마](../foundations/color-theme.md) 「블러 표면의 tint 알파는 램프 단계가 아니다」가 그 값을 정본 예외로
+   세웠다 — 레시피는 `color-mix(media-foreground-dark 1%)` 로 그대로 갖는다. Figma 는 변수 알파가 `paint.opacity` 를 덮어 1% 를
+   담을 칸이 없어 가장 가까운 램프 단계 04 에 남는다(Figma 면이 제품보다 밝다, 4% 대 1%). 램프에 01 을 더하는 안은 「02 · 03 도」가
+   열려 거절했다.
 3. **Figma 의 progressive 램프가 CSS 마스크 곡선과 정확히 같지 않다 — 근사다.**
    먼저 **해소된 것**: 정보 바의 흐림 반경이 리터럴 20 이던 자리가 `blur/surface`(10) 로
    내려왔다. blur 토큰에 20 이 없어 이름을 못 갖던 값이 사라졌으므로 「토큰을 하나 더 세울지」는
@@ -225,25 +236,19 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
    않는다 — 수치 차이보다 이쪽이 근본이다. Figma 가 꺾인 램프를 지원하기 전에는 좁힐 수 없다.
 4. **카드 폭 316 이 리터럴이다.** 토큰 전수에서 값이 316 인 변수가 없다 — 시안 값을 고른 것이다
    (2px 격자에는 떨어진다, 316 = 2 × 158). 959 이하의 `min(316px, 46vw)` 도 같은 리터럴을 상한으로 쓴다.
-5. **`Badge` 축은 폐기 판정을 받았고 Figma 재작업이 남아 있다.**
-   `design/governance/figma-component-authoring.md` §2 개정의 「네 시험」 중 **시험 4(값 자체가
-   내용인가)** 에 걸린다 — 값에 문구(`New` · `Top`)가 들어가 있어 라이브러리가 카피를 소유하게
-   되고, 문구가 늘 때마다 변형이 는다. 나머지 셋은 통과한다: 배지를 감춰도 카드 크기는 박스가
-   정한 그대로라 스타일도 기하도 전이도 바뀌지 않는다. 갈 곳은 `Badge` BOOLEAN + `BadgeLabel` TEXT
-   이고 변형은 3 → 1 이 된다. **아직 Figma 파일을 고치지 않았다** — 그래서 parity 계약은
-   현상(3값 VARIANT)을 그대로 적고 있다. 재작업에는 기존 인스턴스의 재바인딩이 따라온다.
-6. **`TopBar` 층이 제품에 없다.** 제품은 배지를 `absolute left-8 top-8` 로 놓고 Figma 는
-   높이 54 · 안쪽 16 의 auto-layout 프레임으로 감쌌다. 보이는 위치는 같지만 층 수가 다르므로
-   LOUIS recipe 를 세울 때 어느 쪽을 정본으로 삼을지 정해야 한다.
+5. ~~**`Badge` 축은 폐기 판정을 받았고 Figma 재작업이 남아 있다.**~~ **2026-10-14 해소([DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).** VARIANT 3값
+   (`New` · `Top` · `none`)을 `Badge` BOOLEAN + `BadgeLabel` TEXT 로 접어 변형이 3 → 1 이 됐다(§2 시험 4 — 값이 내용이었다).
+   기존 인스턴스 다섯(「작업 · 시안」)은 새 컴포넌트로 바꿔 끼우고 문구 · 이름 · 설명을 옮겼다. 컴포넌트가 다시 서서 노드 id 가 바뀌었다.
+6. **`TopBar` 층이 제품에 없다 — 정본은 제품의 절대 배치다(2026-10-14 판정, DS-D-0099).** 제품은 배지를 `absolute left-8 top-8`
+   로 놓고 레시피도 카드 모서리에서 16 에 `absolute` 로 놓는다. Figma 의 높이 54 · 안쪽 16 오토레이아웃은 같은 자리를 만드는
+   투영으로 남는다 — 계약이 그 인셋을 기록의 `badgeInset` 으로 맞대고 시험이 레시피에서 같은 16 을 잰다.
 7. **`layout` 축이 Figma 에 없다.** 제품은 `carousel` · `grid` 두 박스를 갖는데 Figma 는 316
    고정 하나다(960 이상의 캐러셀 박스). 캐러셀 박스도 959 이하에서는 화면을 따라 줄어든다. 그리드 쪽 폭은 칸이 정하므로 고정 폭 variant 로 그리면 어떤 폭을 골라도
    거짓이 된다 — Dialog 의 `fullscreen` 을 뺀 것과 같은 이유다. 그래서 **의도적으로 비웠고**,
    대신 이 문서가 그 축을 소유한다.
-8. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `media-card.sizes.base` 가
-   제품 클래스를 실브라우저에서 잰 값(카드 316 · 배지 22 · 정보 바의 위 40 · 아래 16 · 간격 4 · 줄 높이
-   30 · 21 …)을 갖고, parity 게이트가 Figma 의 카드 폭 · 높이 · 반경 · 안쪽 여백을 그것과 맞댄다.
-   코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가 없어 없다 — 레시피가 서야
-   열린다.
+8. ~~**기하는 한 방향으로만 대조된다.**~~ **2026-10-14 해소.** 레시피가 서고 `media-card.browser.test.tsx` 가 기록
+   `media-card.sizes.base` 의 항목(카드 316 · 배지 22 · 정보 바의 위 40 · 아래 16 · 간격 4 · 줄 높이 30 · 21 · 배지 인셋 16 …)을
+   레시피에서 되잰다.
 
 ## Acceptance tests
 
@@ -261,10 +266,13 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 8. 사진에 `alt` 가 있고 이름과 같은 문구가 아니다.
 9. 캐러셀 박스가 960 이상에서 316 × 316, 959 이하에서 `min(316px, 46vw)` 정사각이다.
 
+`packages/react/test/media-card.browser.test.tsx` 가 레시피에서 1 · 2 · 3 · 4 · 5 · 6 · 8 · 9 를 잰다(9 는 375 · 800 폭). 7 은
+`verify-figma-parity` 가 Figma 쪽에서 잰다.
+
 ## Migration and changelog
 
-새로 선 컴포넌트다. 이전 API 가 없다. LOUIS recipe 가 서면 이 문서의 Specification 이 그 값의
-정본이 된다.
+새로 선 컴포넌트다. 이전 API 가 없다. 2026-10-14 LOUIS recipe 가 섰다 — 이 문서의 Specification 은 레시피와 같은 값을
+적는다(DS-D-0099). 같은 날 Figma `Badge` 축이 BOOLEAN + TEXT 로 접혔다.
 
 **2026-08-27 — 정보 바가 균일 `blur(20)` 에서 점진 블러로 바뀌었다.** Project Card 의 제목 띠와
 같은 레시피이고 반경이 10 으로 내려간다. 사용자가 보는 변화이므로 아래 셋이 함께 움직였다:

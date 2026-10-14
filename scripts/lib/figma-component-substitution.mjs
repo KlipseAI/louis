@@ -1005,7 +1005,7 @@ export function treeLookOf(spec) {
 
 /** 셸 자리를 인스턴스로 바꾼다. spec을 제자리에서 수정하고 적용·보류 목록을 돌려준다. */
 
-export function applyComponentInstances(spec, { route, context, viewport, styleOf, declaredOf, evidence, extraContent = [] }) {
+export function applyComponentInstances(spec, { route, context, viewport, styleOf, declaredOf, evidence, extraContent = [], sceneStages = [] }) {
   const desktop = context.startsWith("desktop");
   // **증거가 없으면 조용히 넘어가지 않는다.** 낱개 컨트롤 치환이 소리 없이 꺼지면 보드 36장이
   // 도형으로 되돌아가고, `check-figma-app-screens` 는 그 교환을 한 글자도 보지 못한다.
@@ -1119,7 +1119,11 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
         : mobileTopBarVariant(node, viewport.width, barStyle);
       if (substitute(node, set, variant, `앞머리 버튼 · breadcrumb nav · 뒷머리 버튼을 직접 품은 행 — 앱 상단 바 (${round(node.rect.width)}px)`)) return;
     }
-    const content = matchContent(node);
+    // **끈적 장면 무대 안은 본문 세트가 보지 않는다(2026-10-14, 조립 규칙 15조의 20).** 무대 안 그림은 장면 카메라가 정한 배율의 정지
+    // 프레임이다 — 랜딩 개요 장면은 제품 캔버스(NodeCanvasV2)를 0.361 배로 그리는데, 노드 부품 세트는 노드캔버스 보드의 0.815 배에서 떴다.
+    // 글자 서열이 같아도 그 세트를 붙이면 0.815 배 그림이 0.361 배 상자에 들어가 넘친다. 무대 안은 측정한 노드 그대로 그린다.
+    const inScene = sceneStages.some((stage) => node.path === stage || node.path.startsWith(stage + "."));
+    const content = inScene ? null : matchContent(node);
     if (content?.hit) {
       const { hit } = content;
       const why = content.label != null

@@ -4,7 +4,7 @@
   "lastModified": null,
   "version": null,
   "source": "plugin probe (figma-sync.mjs walk 와 같은 모양)",
-  "fetchedAt": "2026-10-14T06:29:52.470Z",
+  "fetchedAt": "2026-10-14T15:19:27.467Z",
   "pages": [
     {
       "id": "246:3446",
@@ -85,6 +85,16 @@
           "id": "2178:1495",
           "name": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
           "items": []
+        },
+        {
+          "id": "3464:23838",
+          "name": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+          "items": []
+        },
+        {
+          "id": "3467:4103",
+          "name": "R1 · 캔버스 · 편집기 부품 (2026-10-15)",
+          "items": []
         }
       ]
     },
@@ -130,6 +140,11 @@
         {
           "id": "255:1840",
           "name": "10.5.2 · /inquiry · 문의  ·  L2",
+          "items": []
+        },
+        {
+          "id": "3471:9265",
+          "name": "⚠ 미등록 · /models{,/[slug]} · 모델 목록 · 상세 — 대응 §10.N 문서 없음 · 커버리지 등급 없음 (등급을 지어내지 말 것)  ·  등급 없음",
           "items": []
         }
       ]
@@ -235,6 +250,11 @@
           "id": "255:1868",
           "name": "⚠ 미등록 · /creative-media{,-admin} · 부스 체험 — 대응 §10.N 문서 없음 · 커버리지 등급 없음 (등급을 지어내지 말 것)  ·  등급 없음",
           "items": []
+        },
+        {
+          "id": "3521:223",
+          "name": "10.12.2 · /admin?view= · 어드민 탭 · 하위 탭 — 상태 레시피 보드  ·  L3",
+          "items": []
         }
       ]
     },
@@ -339,7 +359,7 @@
         },
         {
           "id": "2418:5894",
-          "name": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+          "name": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
           "items": []
         },
         {
@@ -976,6 +996,55 @@
       "section": null,
       "key": "16e00cbfc6ee60fbd6bab19bfa890a7542727178"
     },
+    "3486:10564": {
+      "id": "3486:10564",
+      "name": "icon/caption-layout-standard",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "5bebe311a8ab18888f5014af77075f64fad30094"
+    },
+    "3486:10569": {
+      "id": "3486:10569",
+      "name": "icon/caption-layout-essay",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "7b7e44ff945b568476e21c65dda9b3aa2b2e317d"
+    },
+    "3486:10575": {
+      "id": "3486:10575",
+      "name": "icon/caption-layout-news",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "af1908469461c74ae14ceb9343174ac29c3b3753"
+    },
+    "3486:10580": {
+      "id": "3486:10580",
+      "name": "icon/caption-layout-bubble",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "a8ccb529a3192f7f3f6aefd67f4b5c389a416a84"
+    },
+    "3486:10585": {
+      "id": "3486:10585",
+      "name": "icon/caption-layout-cinematic",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "5352a608a26ce37516a637aff640754f1fd243f4"
+    },
+    "3486:10590": {
+      "id": "3486:10590",
+      "name": "icon/caption-layout-impact",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "757b004e4aaddc860bd43d9946f9a54778aaf761"
+    },
+    "3486:10595": {
+      "id": "3486:10595",
+      "name": "icon/caption-layout-lecture",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "735428a065b98d7d8a30ba78c2f3b3b09f73b847"
+    },
     "3285:21848": {
       "id": "3285:21848",
       "name": "SliderRulerTicks",
@@ -1074,6 +1143,13 @@
       "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
       "key": "ce7a21b9b2f1292ca4087217e19afd316b678179"
     },
+    "3476:24529": {
+      "id": "3476:24529",
+      "name": "MediaCard",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "key": "a7e151a1c1705e86c9091b366d05026b9fdd2784"
+    },
     "675:158": {
       "id": "675:158",
       "name": "SidebarNavRow",
@@ -1122,6 +1198,90 @@
       "page": "DS · Components",
       "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
       "key": "d564a9a53e1783ed371b925fcbca569fa8143acd"
+    },
+    "3476:4190": {
+      "id": "3476:4190",
+      "name": "BrandBar",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "key": "38ce9edf49217f01299ab6bf6f940fe8586b2812"
+    },
+    "3479:4349": {
+      "id": "3479:4349",
+      "name": "CommentItem",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "key": "6b4ac10dc1a4727d02aa59c4341fafd54a866882"
+    },
+    "3479:4357": {
+      "id": "3479:4357",
+      "name": "CommentEmpty",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "key": "58fed6f644a3e36f026ec6fa06ed017336516026"
+    },
+    "3479:4359": {
+      "id": "3479:4359",
+      "name": "CommentForm",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "key": "ff54e33f6ce51433e12f95bacc4c39bd3b0910a6"
+    },
+    "3479:4426": {
+      "id": "3479:4426",
+      "name": "CommentThread",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "key": "6a168c2bf3d4ca2896f5b7228903bf3f66d100a1"
+    },
+    "3485:4344": {
+      "id": "3485:4344",
+      "name": "PropertyStackGroup",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "key": "5b0586054a4368556fa5fe5d534bd24c9f158337"
+    },
+    "3485:4446": {
+      "id": "3485:4446",
+      "name": "PropertyStack",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "key": "e2e92c4add53b537bd9c749f21b5be9033c4c9eb"
+    },
+    "3488:4666": {
+      "id": "3488:4666",
+      "name": "CaptionThumb",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "key": "384e7775881329eff7044b8c207f9e8f0ea55eff"
+    },
+    "3467:4104": {
+      "id": "3467:4104",
+      "name": "CanvasDots",
+      "page": "DS · Components",
+      "section": "R1 · 캔버스 · 편집기 부품 (2026-10-15)",
+      "key": "d075a882758152f1759f8c1df439f207a61997f2"
+    },
+    "3467:4106": {
+      "id": "3467:4106",
+      "name": "GalleryPanel",
+      "page": "DS · Components",
+      "section": "R1 · 캔버스 · 편집기 부품 (2026-10-15)",
+      "key": "91a8e7ea80cb2eaf78f263dcdf18c33b092eae3e"
+    },
+    "3468:24039": {
+      "id": "3468:24039",
+      "name": "DrillPicker",
+      "page": "DS · Components",
+      "section": "R1 · 캔버스 · 편집기 부품 (2026-10-15)",
+      "key": "82261ab39028c721ffbd0da9475b995c356daf9c"
+    },
+    "3486:10596": {
+      "id": "3486:10596",
+      "name": "TableDrawer",
+      "page": "DS · Components",
+      "section": "R1 · 캔버스 · 편집기 부품 (2026-10-15)",
+      "key": "7709ace1000fed2fd22e21877a95c3ea6357d278"
     },
     "173:652": {
       "id": "173:652",
@@ -3500,92 +3660,302 @@
       "id": "2418:5896",
       "name": "image/landing/testimonials-backdrop",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "584c96ea6fcfbd3e1dad982367f8b2980ad07bf0"
     },
     "2418:5897": {
       "id": "2418:5897",
       "name": "image/landing/creator-program-backdrop",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "2da212c9703d6289ef2f23f5020b76d3c68bdedc"
     },
     "2418:5898": {
       "id": "2418:5898",
       "name": "image/landing/ambassador-seal",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "003ade18dc2c79252867ed658938f5ced70dcf73"
     },
     "2418:5899": {
       "id": "2418:5899",
       "name": "image/landing/news-featured",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "ea40115c95da1a8c812b6b1961028502267ca1e1"
     },
     "2716:4193": {
       "id": "2716:4193",
       "name": "image/examples/example-1",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "d20e718cff610111abeb20cdd3570e1ca79c2abf"
     },
     "2716:4194": {
       "id": "2716:4194",
       "name": "image/examples/example-2",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "490b134e0eb92a5dc0f1b1e3818d7700658ba019"
     },
     "2716:4195": {
       "id": "2716:4195",
       "name": "image/examples/example-3",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "5508431c7e82d9466791f505fe3b3ce22c1391ca"
     },
     "2716:4196": {
       "id": "2716:4196",
       "name": "image/examples/example-4",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "dfa5d19813e6cf6e99de631dbcec5a65904ddf4d"
     },
     "2716:4197": {
       "id": "2716:4197",
       "name": "image/examples/example-5",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "73b67a446ed396e8a874e12da3afd4ddbba6393d"
     },
     "2724:4193": {
       "id": "2724:4193",
       "name": "image/louis-examples/brand-mark",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "6d3fc0a5aee3e0b94b35af8c4fefbe69c22623f9"
     },
     "2724:4194": {
       "id": "2724:4194",
       "name": "image/louis-examples/login-product-mobile",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "ce992640ad319fad99fdf039f73eb6d2b01d5b32"
     },
     "2724:4195": {
       "id": "2724:4195",
       "name": "image/louis-examples/login-board-mobile",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "9d3d2fc1746465388bda62f03c4e700b1654ca30"
     },
     "2724:4196": {
       "id": "2724:4196",
       "name": "image/louis-examples/data-deletion-board-crop",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
-      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
       "key": "75d59752aef7ae474a49f352f7a3e15aa79e7eb7"
+    },
+    "3532:28989": {
+      "id": "3532:28989",
+      "name": "image/landing/hero-poster",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "b610aeac59a42c96e2f0318d7f5d7c1240c4bce2"
+    },
+    "3532:28990": {
+      "id": "3532:28990",
+      "name": "image/landing/node-showcase-sofa",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "16281faf78ecbd2bded0e0b22dbecb210e2c32c6"
+    },
+    "3532:28991": {
+      "id": "3532:28991",
+      "name": "image/landing/ending-sky-start",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "6ac8e7986c6ea32b065ee9227ad0ee4769260533"
+    },
+    "3532:28992": {
+      "id": "3532:28992",
+      "name": "image/landing/highlight-short",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "32df080f8f14dbc3819bf926ebba1ec137381045"
+    },
+    "3532:28993": {
+      "id": "3532:28993",
+      "name": "image/landing/highlight-cell-r1c1",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "33c1a5e83253d39e08ea46cb1ab696d2ced6d0e7"
+    },
+    "3532:28994": {
+      "id": "3532:28994",
+      "name": "image/landing/highlight-cell-r1c2",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "ca0b6221dbbaf2029339955a6814c56287ab8048"
+    },
+    "3532:28995": {
+      "id": "3532:28995",
+      "name": "image/landing/highlight-cell-r1c3",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "5bb759f92f6ef0f2154b7fd497c3fa66060133df"
+    },
+    "3532:28996": {
+      "id": "3532:28996",
+      "name": "image/landing/highlight-cell-r1c4",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "121c1c429d30c3f55198611269b672a933398f02"
+    },
+    "3532:28997": {
+      "id": "3532:28997",
+      "name": "image/landing/highlight-cell-r1c5",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "32e9ee293366e2db1c5bf214d5e7c7595cac3a5e"
+    },
+    "3532:28998": {
+      "id": "3532:28998",
+      "name": "image/landing/highlight-cell-r2c1",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "48220e24f2a56efc745b1e7a0216b3f436939c69"
+    },
+    "3532:28999": {
+      "id": "3532:28999",
+      "name": "image/landing/highlight-cell-r2c2",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "3c5af119951106c76a9653093e2ad67312051bc6"
+    },
+    "3532:29000": {
+      "id": "3532:29000",
+      "name": "image/landing/highlight-cell-r2c3",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "be2dd01d0184ba4961d2e2a705d8dd393c80cdaf"
+    },
+    "3532:29001": {
+      "id": "3532:29001",
+      "name": "image/landing/highlight-cell-r2c4",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "a42ac4d3a41ff0c14e91a471998126d9eed018f7"
+    },
+    "3532:29002": {
+      "id": "3532:29002",
+      "name": "image/landing/highlight-cell-r2c5",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "4af48ec2da73961f11030d9384422282112d5a7d"
+    },
+    "3532:29003": {
+      "id": "3532:29003",
+      "name": "image/landing/highlight-cell-r3c1",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "de1de887c568d1513a232bf8699658b7d57ab29d"
+    },
+    "3532:29004": {
+      "id": "3532:29004",
+      "name": "image/landing/highlight-cell-r3c2",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "8bfbaa0dc913c70c600641e3e91090009ac839bd"
+    },
+    "3532:29005": {
+      "id": "3532:29005",
+      "name": "image/landing/highlight-cell-r3c3",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "538bb50f63c8d51c7a849420443cef4be6b3e603"
+    },
+    "3532:29006": {
+      "id": "3532:29006",
+      "name": "image/landing/highlight-cell-r3c4",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "d3197753a0efca362e53950ecc27399e34d52531"
+    },
+    "3532:29007": {
+      "id": "3532:29007",
+      "name": "image/landing/highlight-cell-r3c5",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "cd67abeaa2d2d83a93c69b53c31bcd721a5fc5a2"
+    },
+    "3532:29008": {
+      "id": "3532:29008",
+      "name": "image/landing/highlight-cell-r4c1",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "0cd45245b894fd02b7e299ae9f05357a16c48a24"
+    },
+    "3532:29009": {
+      "id": "3532:29009",
+      "name": "image/landing/highlight-cell-r4c2",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "155b8f62ed41efd1de6532bc769703a03fc7766a"
+    },
+    "3532:29010": {
+      "id": "3532:29010",
+      "name": "image/landing/highlight-cell-r4c3",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "70f9df4a980cf43a5dce23b8c3616701d70fe120"
+    },
+    "3532:29011": {
+      "id": "3532:29011",
+      "name": "image/landing/highlight-cell-r4c4",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "0b9c4706a1b4f2a79ee95e75f9715d662822f4f4"
+    },
+    "3532:29012": {
+      "id": "3532:29012",
+      "name": "image/landing/highlight-cell-r4c5",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "7430581dee469d5a4a082c60f93ed2f9164cfb2c"
+    },
+    "3532:29013": {
+      "id": "3532:29013",
+      "name": "image/landing/highlight-cell-r5c1",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "072f13196c8db51101e109c6514a1f5711c102a1"
+    },
+    "3532:29014": {
+      "id": "3532:29014",
+      "name": "image/landing/highlight-cell-r5c2",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "af91cb5cd8e6c76251eca1671f525998f5899232"
+    },
+    "3532:29015": {
+      "id": "3532:29015",
+      "name": "image/landing/highlight-cell-r5c3",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "6644f8126283f0c4647c62c060671eadabb8f00d"
+    },
+    "3532:29016": {
+      "id": "3532:29016",
+      "name": "image/landing/highlight-cell-r5c4",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "2433cd8018b77d68e36bcae5f7a1b531e0e635e7"
+    },
+    "3532:29017": {
+      "id": "3532:29017",
+      "name": "image/landing/highlight-cell-r5c5",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "63fe3a6141f778c6a7e08f3fa7ca53f96c556659"
+    },
+    "3535:3601": {
+      "id": "3535:3601",
+      "name": "image/landing/composition-poster-en",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  43개",
+      "key": "612d60b27b6f634321d8d638425f3d3a202a6c2b"
     },
     "3154:3682": {
       "id": "3154:3682",
@@ -3921,13 +4291,6 @@
     "682:190": {
       "id": "682:190",
       "name": "ProjectCard",
-      "page": "DS · Components",
-      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
-      "variantsCount": 0
-    },
-    "828:846": {
-      "id": "828:846",
-      "name": "MediaCard",
       "page": "DS · Components",
       "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
       "variantsCount": 0
@@ -4399,6 +4762,62 @@
       "name": "CanvasSection",
       "page": "DS · Components",
       "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "3484:24692": {
+      "id": "3484:24692",
+      "name": "CanvasEdgeDelete",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "3464:23877": {
+      "id": "3464:23877",
+      "name": "CopyPanel",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "variantsCount": 0
+    },
+    "3470:4220": {
+      "id": "3470:4220",
+      "name": "SectionShell",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "variantsCount": 0
+    },
+    "3498:25223": {
+      "id": "3498:25223",
+      "name": "TimelineFooterClip",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "variantsCount": 0
+    },
+    "3501:25163": {
+      "id": "3501:25163",
+      "name": "TimelineFooter",
+      "page": "DS · Components",
+      "section": "R2 · 공개 · 덱 · 하이라이트 부품 (2026-10-15)",
+      "variantsCount": 0
+    },
+    "3467:23955": {
+      "id": "3467:23955",
+      "name": "MenuMediaItem",
+      "page": "DS · Components",
+      "section": "R1 · 캔버스 · 편집기 부품 (2026-10-15)",
+      "variantsCount": 0
+    },
+    "3468:24038": {
+      "id": "3468:24038",
+      "name": "DrillPickerRow",
+      "page": "DS · Components",
+      "section": "R1 · 캔버스 · 편집기 부품 (2026-10-15)",
+      "variantsCount": 0
+    },
+    "3486:10679": {
+      "id": "3486:10679",
+      "name": "NodeHandleTile",
+      "page": "DS · Components",
+      "section": "R1 · 캔버스 · 편집기 부품 (2026-10-15)",
       "variantsCount": 0
     },
     "310:3502": {

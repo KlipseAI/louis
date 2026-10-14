@@ -60,6 +60,8 @@ export function hasOwnPaint(node) {
   const style = node.style ?? {};
   if (node.ownText) return true;
   if (node.tag === "img" || node.tag === "svg") return true;
+  // 포스터가 있는 영상(측정기가 src 로 싣는다, 조립 규칙 15조의 21)은 그림이다 — 없는 영상은 예전처럼 빈 상자 판정을 받는다.
+  if (node.tag === "video" && node.src) return true;
   if (style.backgroundColor && !TRANSPARENT.test(style.backgroundColor)) return true;
   if (style.backgroundImage && style.backgroundImage !== "none") return true;
   if (style.boxShadow && style.boxShadow !== "none") return true;
@@ -1311,7 +1313,8 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       ...(node.tag === "svg" ? (() => { const markup = glyphMarkup(node, childrenOf); return markup ? { glyphSvg: markup } : {}; })() : {}),
       ...(node.looseMarkup ? { glyphSvg: node.looseMarkup } : {}),
       // **이미지의 정체.** `<img>` 의 src — 생성기가 LOUIS 자산 컴포넌트와 잇는 열쇠다(IMAGE_COMPONENTS).
-      ...(node.tag === "img" && node.src ? { src: node.src } : {}),
+      // `<video>` 는 측정기가 포스터를 src 로 싣는다(조립 규칙 15조의 21) — 같은 열쇠로 잇는다.
+      ...((node.tag === "img" || node.tag === "video") && node.src ? { src: node.src } : {}),
       sizing: nodeSizing,
       ...(fit ? { aspectLock: true } : {}),
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.

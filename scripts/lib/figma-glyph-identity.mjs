@@ -669,6 +669,21 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "bespoke",
     why: "공용 영상 플레이어의 가운데 재생 버튼(`components/ui/VideoPlayer.tsx:846`, 34 상자 채운 삼각형)이다. LOUIS `icon/play` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다.",
   },
+  // 2026-10-14 — 랜딩 개요 장면(끈적 장면 측정이 캔버스 프레임을 싣게 된 뒤 처음 보인다)의 TTS · BGM 노드 재생 버튼.
+  {
+    id: "play-filled-audio-node",
+    signature: "0 0 24 24|path(d=M8 5v14l11-7z)",
+    louis: "icon/play",
+    verdict: "bespoke",
+    why: "노드 캔버스 TTS · BGM 노드의 재생 버튼 글리프(`components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:676` · `BgmNode.tsx:720`, 24 상자 채운 삼각형)다. LOUIS `icon/play` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "x-remove-edit-source",
+    signature: "0 0 12 12|path(d=M2 2l8 8M10 2l-8 8)",
+    louis: "icon/x",
+    verdict: "bespoke",
+    why: "노드 캔버스 편집 노드의 소스 썸네일 제거 버튼 글리프(`components/scenes/create/node-canvas-v2/nodes/EditNode.tsx:1053`, 12 상자 · 10 표시 X 획)다. LOUIS `icon/x` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다. 툴팁 감싸개(크기 0)를 측정기가 건너뛰게 된 뒤(조립 규칙 15조의 21) 랜딩 개요 장면에서 처음 잡혔다.",
+  },
   {
     id: "volume-high-video-player",
     signature: "0 0 24 24|path(d=M11 5L6 9H3v6h3l5 4V5z)|path(d=M15.5 8.5a5 5 0 010 7M18 6a8 8 0 010 12)",

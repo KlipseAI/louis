@@ -91,6 +91,10 @@ const checkOnly = process.argv.includes("--check");
 // (캡처만 원하는 실행이 원장을 흔들지 않게). `--only` 와 함께 쓰면 그 화면만 연다.
 const shotsArg = process.argv.find((arg) => arg.startsWith("--shots="));
 const shotsDir = shotsArg ? resolve(shotsArg.slice("--shots=".length)) : null;
+// **`--scene-shots=<폴더>`(2026-10-14).** 끈적 장면을 고른 스크롤 자리에서 뷰포트 캡처로 남긴다 — 보드의 장면과 제품 프레임을 대조하는
+// 용도다. `--shots` 와 달리 원장 쓰기를 막지 않는다(캡처는 원장 값에 들어가지 않는다).
+const sceneShotsArg = process.argv.find((arg) => arg.startsWith("--scene-shots="));
+const sceneShotsDir = sceneShotsArg ? resolve(sceneShotsArg.slice("--scene-shots=".length)) : null;
 const onlyIds = new Set(process.argv.filter((arg) => arg.startsWith("--only=")).map((arg) => arg.slice("--only=".length)));
 if (onlyIds.size > 0 && checkOnly) {
   console.error("[product-auth-fixture] --only 와 --check 는 함께 쓸 수 없습니다");
@@ -344,7 +348,9 @@ const PUBLIC_ROUTES = [
   // 되감으면 히어로 아래 구획이 다시 `opacity: 0` 이 되어 FAQ · 마지막 CTA(데스크톱 1051)가 원장에서 빠졌다. 제품 CSS 는
   // `prefers-reduced-motion: reduce` 에서 출발 상태 규칙을 걸지 않아 도착 상태가 처음부터 보이고(globals.css 스크롤 리빌 주석), 제품의
   // 대비 · 렌더 하네스도 그 경로로 잰다. 동영상도 첫 프레임에 선다(`Hero.tsx`).
-  { pattern: "/", file: "apps/web/app/page.tsx", fullPage: true, reducedMotion: true },
+  // **끈적 장면은 제 스크롤 자리에서 잰다(2026-10-14, `scenes`).** 아래 `captureStickyScenes` 규칙 — 맨 위 한 자리에서는 스크롤 장면 무대가
+  // 시작 전이라 비어 있다.
+  { pattern: "/", file: "apps/web/app/page.tsx", fullPage: true, reducedMotion: true, scenes: true },
   { pattern: "/privacy", fullPage: true },
   { pattern: "/terms", fullPage: true },
   { pattern: "/inquiry", fullPage: true },
@@ -395,6 +401,7 @@ const MODE_SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? AN
     ...(spec.file ? { file: spec.file } : {}),
     ...(spec.fullPage ? { fullPage: true } : {}),
     ...(spec.reducedMotion ? { reducedMotion: true } : {}),
+    ...(spec.scenes ? { scenes: true } : {}),
     ...(spec.blockStorage ? { blockStorage: true } : {}),
     ...(spec.rootBody ? { rootBody: true } : {}),
     expectedPath: target.pathname,
@@ -690,6 +697,144 @@ const settleCentredMargins = (tree) => {
 // 들어갔다 하므로(`screen.redirected`), 알려진 흔들림(모바일 프로필 버튼 반복 27/26)도 같은 뿌리로 본다. `isQuiet` 는 부팅 · 이동에
 // 걸리는 요청(문서 · 스크립트 · 스타일 · fetch · XHR · 이미지 · 글꼴)이 하나도 진행 중이 아닐 때 참이다. 한도는 횟수가 아니라 시간이다 —
 // 개발 서버가 무거운 화면을 처음 컴파일하는 동안 스크립트 요청이 오래 열려 있을 수 있다. 값이 아니라 기다림의 한도다.
+// ── 끈적 장면 측정(2026-10-14, figma-screen-assembly 15조의 20) ──────────────────────────────────────────────────────────────────
+// 랜딩의 스크롤 장면(개요 캔버스 · 컴포지션 · 하이라이트 · 크리에이터 · 끝 장면)은 `position: sticky` 무대(높이 = 뷰포트)를 긴 섹션 안에
+// 붙여 두고, 스크롤이 그 섹션을 지나는 동안 JS 가 무대 안의 층을 움직인다. 문서 전체를 맨 위 한 자리에서 재면 무대는 아직 시작 전이라
+// 층이 `opacity: 0` 이거나 비어 있다 — 30540 짜리 랜딩이 노드 396 으로 잡혔다(컴포지션 3 · 크리에이터 6). 동작 줄이기도 이 장면들은
+// 끄지 않는다(스크롤이 곧 진행이다).
+//
+// **규칙.** 무대마다 **그 무대가 붙어 있는 스크롤 구간**(섹션 윗변 ~ 섹션 아랫변 − 뷰포트)을 `STICKY_SCENE_SAMPLES` 등분해 훑고,
+// 무대 안 요소의 **실효 불투명도 합**(조상 불투명도를 곱한 값, 화면에 걸친 면이 있는 것만)이 가장 큰 자리 — 같으면 앞 자리 — 에서 다시
+// 잰다(두 패스 · 조인 · 재시도 그대로). 그 자리에서 잰 무대 서브트리로 맨 위 측정의 같은 경로 서브트리를 바꾸고, 뷰포트 좌표를 문서
+// 무대의 흐름 자리(맨 위에서 잰 트랙 윗변)로 옮긴다 — 보드에서는 트랙 윗변에 그 프레임이 서고 아래로 트랙의 남은 높이가 이어진다.
+// - 무대는 뿌리 아래의 요소 중 계산값 `position: sticky`, 높이 = 뷰포트 높이(±2), 부모(스크롤 구간)가 뷰포트보다 긴 것이다.
+//   무대 안의 무대는 세지 않는다(바깥 무대가 품는다).
+// - 「가장 많이 보이는 프레임」을 고르는 까닭: 보드는 정지 그림 하나라 장면의 한 프레임을 골라야 하는데, 장면마다 시간표가 달라
+//   고정 진행률(0 · 0.5 …)은 어떤 장면에서는 빈 무대다. 실효 불투명도 합은 장면을 모르는 채로 「제품이 그 장면에서 가장 많이 보여 주는
+//   순간」을 고른다 — 반쯤 떠오른 층보다 다 떠오른 층이 이긴다. 결과 자리는 원장의 `stickyScenes` 에 무대 경로 · 고른 scrollY ·
+//   점수로 남는다.
+// - 측정은 스크롤 자리만 바꾼다. 시간 · 데이터 · 뷰포트는 그대로다.
+const STICKY_SCENE_SAMPLES = 17;
+const captureStickyScenes = async (page, base, measureStable, settle, label) => {
+  const stages = await page.evaluate(({ rootPath }) => {
+    const rootIndex = Number(rootPath.split(".")[1]);
+    const root = document.body.children[rootIndex];
+    const pathOf = (element) => {
+      const indices = [];
+      let node = element;
+      while (node && node !== root) {
+        const parent = node.parentElement;
+        if (!parent) return null;
+        indices.unshift([...parent.children].indexOf(node));
+        node = parent;
+      }
+      return node === root ? [rootPath, ...indices].join(".") : null;
+    };
+    const found = [];
+    for (const element of root.querySelectorAll("*")) {
+      if (getComputedStyle(element).position !== "sticky") continue;
+      const rect = element.getBoundingClientRect();
+      if (Math.abs(rect.height - innerHeight) > 2) continue;
+      const track = element.parentElement;
+      if (!track) continue;
+      const trackRect = track.getBoundingClientRect();
+      if (trackRect.height <= innerHeight + 2) continue;
+      if (found.some((outer) => outer.element.contains(element))) continue;
+      const path = pathOf(element);
+      if (!path) continue;
+      found.push({ element, path, top: trackRect.top + scrollY, span: trackRect.height - innerHeight });
+    }
+    return found.map(({ path, top, span }) => ({ path, top, span }));
+  }, { rootPath: base.rootPath });
+  let tree = base.tree;
+  const record = [];
+  for (const stage of stages) {
+    let best = null;
+    for (let index = 0; index < STICKY_SCENE_SAMPLES; index += 1) {
+      const y = Math.round(stage.top + stage.span * index / (STICKY_SCENE_SAMPLES - 1));
+      const score = await page.evaluate(async ({ y, path }) => {
+        scrollTo({ top: y, left: 0, behavior: "instant" });
+        dispatchEvent(new Event("scroll"));
+        for (let frame = 0; frame < 4; frame += 1) await new Promise((done) => requestAnimationFrame(done));
+        await new Promise((done) => setTimeout(done, 250));
+        for (let frame = 0; frame < 2; frame += 1) await new Promise((done) => requestAnimationFrame(done));
+        const parts = path.split(".");
+        let stage = document.body.children[Number(parts[1])];
+        for (const index of parts.slice(2)) stage = stage?.children[Number(index)];
+        if (!stage) return -1;
+        let total = 0;
+        const walk = (element, inherited) => {
+          const computed = getComputedStyle(element);
+          if (computed.display === "none") return;
+          const opacity = inherited * Number(computed.opacity);
+          if (opacity <= 0) return;
+          const rect = element.getBoundingClientRect();
+          const onScreen = rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.top < innerHeight && rect.right > 0 && rect.left < innerWidth;
+          if (onScreen && computed.visibility !== "hidden") total += opacity;
+          for (const child of element.children) walk(child, opacity);
+        };
+        walk(stage, 1);
+        return Math.round(total * 1000) / 1000;
+      }, { y, path: stage.path });
+      if (best === null || score > best.score) best = { y, score };
+    }
+    await page.evaluate((y) => {
+      scrollTo({ top: y, left: 0, behavior: "instant" });
+      dispatchEvent(new Event("scroll"));
+    }, best.y);
+    // **재생 중인 미디어는 0초에 세운다.** 장면 안의 영상(편집기 녹화 · 노드 쇼케이스 결과 영상)은 스크롤 자리에 닿으면 재생을 시작하고,
+    // 재생 시간 글자(타임라인 시각 등)가 계속 바뀌어 화면이 안정되지 않는다. 측정 패스가 끝나지 않는 CSS 애니메이션을 0 에 세우는 것과
+    // 같은 처리다 — 기하는 그대로이고 매 실행 같은 프레임이 된다.
+    const freezeMedia = () => page.evaluate(() => {
+      for (const media of document.querySelectorAll("video, audio")) {
+        media.pause();
+        if (media.readyState > 0) media.currentTime = 0;
+      }
+    });
+    await freezeMedia();
+    try {
+      await settle(label + " (끈적 장면 " + stage.path + " @ " + best.y + ")");
+    } catch (error) {
+      // 무엇이 움직이는지 남긴다 — 1초 간격 두 지문의 다른 글자 조각.
+      const sample = () => page.evaluate(() => document.body.innerText.replace(/\s+/g, " "));
+      const before = await sample();
+      await delay(1_000);
+      const after = await sample();
+      let at = 0;
+      while (at < before.length && before[at] === after[at]) at += 1;
+      console.error("[product-auth-fixture]   끈적 장면 불안정 — 글자 차이 @" + at + ": «" + before.slice(Math.max(0, at - 60), at + 60) + "» → «" + after.slice(Math.max(0, at - 60), at + 60) + "»");
+      throw error;
+    }
+    const scrolledY = await page.evaluate(() => scrollY);
+    if (sceneShotsDir) {
+      mkdirSync(sceneShotsDir, { recursive: true });
+      await page.screenshot({ path: resolve(sceneShotsDir, (label + " " + stage.path).replace(/[^\w.-]+/g, "_") + ".png") });
+    }
+    const frame = await measureStable(label + " (끈적 장면 " + stage.path + ")");
+    const inStage = (node) => node.path === stage.path || node.path.startsWith(stage.path + ".");
+    const baseStage = tree.find((node) => node.path === stage.path);
+    const frameStage = frame.tree.find((node) => node.path === stage.path);
+    if (!baseStage || !frameStage) {
+      throw new Error("[product-auth-fixture] 끈적 장면 무대를 측정 트리에서 찾지 못했습니다: " + stage.path + " (" + label + ")");
+    }
+    // 무대는 흐름 자리(맨 위에서 잰 자리 — 트랙 윗변)에 둔다. 붙어 있는 동안의 무대는 뷰포트 맨 위에 서므로 그 자리로 서브트리를 통째로 옮긴다 —
+    // 보드에서는 트랙 윗변에 그 프레임이 서고 아래로 트랙의 남은 높이가 이어진다.
+    const dy = baseStage.rect.y - frameStage.rect.y;
+    const replacement = frame.tree.filter(inStage).map((node) => ({
+      ...node,
+      rect: { ...node.rect, y: Math.round((node.rect.y + dy) * 10_000) / 10_000 },
+    }));
+    const first = tree.findIndex(inStage);
+    let last = first;
+    while (last + 1 < tree.length && inStage(tree[last + 1])) last += 1;
+    tree = [...tree.slice(0, first), ...replacement, ...tree.slice(last + 1)];
+    record.push({ stage: stage.path, scrollY: scrolledY, progress: Math.round((scrolledY - stage.top) / stage.span * 1000) / 1000, score: best.score, nodes: replacement.length, samples: STICKY_SCENE_SAMPLES });
+    console.log("[product-auth-fixture]   끈적 장면 " + stage.path + " — scrollY " + scrolledY + " · 점수 " + best.score + " · 노드 " + replacement.length);
+  }
+  await page.evaluate(() => scrollTo({ top: 0, left: 0, behavior: "instant" }));
+  return { tree, record };
+};
+
 const STABILIZE_DEADLINE_MS = 180_000;
 const stabilize = async (page, label, isQuiet = () => true) => {
   let previous = null;
@@ -1257,7 +1402,14 @@ try {
             // svg 를 크기 0 인 상자(`.react-flow__edges`)에 두고, 선은 그 svg 상자 밖에 그린다 — 크기 0 상자째 버려져 선이 원장에 오지 않았다
             // (노드캔버스 연결선, 제품 캡처 대조). 그런 svg 와, 그런 svg 만 담은 크기 0 상자는 `display: contents` 처럼 건너뛰고 안으로
             // 내려간다. 안의 도형에는 사용자 좌표 상자(`bbox`)를 함께 싣는다 — 생성기가 그 상자로 도형 하나짜리 svg 를 만든다.
-            const passThrough = computed.display !== "none" && computed.visibility !== "hidden" && (zeroSizeOwner(node)
+            // **크기 0 인 카메라 상자(2026-10-15, 조립 규칙 15조의 21).** 랜딩 컴포지션 장면은 크기 없는 절대 배치 상자(`preserve-3d` 카메라)
+            // 안에 1600×1000 판을 넘쳐 그린다 — 상자째 버려져 판과 그 위 영상이 원장에 오지 않았다(보드에 「Assets」 설명만 남았다). 넘침이
+            // 보이는(`overflow: visible`) 크기 0 HTML 상자가 면이 있는 자식을 가지면 svg 의 경우처럼 건너뛰고 안으로 내려간다. 불투명도 0 인
+            // 상자는 그대로 버린다.
+            const zeroSizeCamera = !visible && rect.width === 0 && rect.height === 0 && node instanceof HTMLElement
+              && computed.opacity !== "0" && computed.overflowX === "visible" && computed.overflowY === "visible"
+              && [...node.children].some((child) => { const r = child.getBoundingClientRect(); return r.width > 0 && r.height > 0; });
+            const passThrough = computed.display !== "none" && computed.visibility !== "hidden" && (zeroSizeOwner(node) || zeroSizeCamera
               || (!visible && rect.width === 0 && rect.height === 0 && node instanceof HTMLElement && node.children.length > 0 && [...node.children].every(zeroSizeOwner)));
             // 그 svg 안의 묶음(`g`)도 상자가 아니다 — 흐름 자식이 되어 배치를 흔들지 않게 건너뛴다.
             const passGroup = node instanceof SVGGElement && node.ownerSVGElement && zeroSizeOwner(node.ownerSVGElement);
@@ -1279,7 +1431,14 @@ try {
                   }
                   return parsed.origin === location.origin ? parsed.pathname : parsed.origin + parsed.pathname;
                 })()
-              : null;
+              // **영상은 포스터를 그림으로 싣는다(2026-10-15, 조립 규칙 15조의 21).** 프레임은 파일이 아니라 디코더 상태라 보드가 그릴 수 없다 —
+              // 제품이 첫 칠과 감소 모션에서 보여 주는 `poster` 가 그 자리의 그림이다. 포스터가 없는 영상은 예전처럼 src 없이 남는다.
+              : node instanceof HTMLVideoElement && node.getAttribute("poster")
+                ? (() => {
+                    const parsed = new URL(node.getAttribute("poster"), location.href);
+                    return parsed.origin === location.origin ? parsed.pathname : parsed.origin + parsed.pathname;
+                  })()
+                : null;
             // 글자 · 감긴 줄 · 값은 보이는 노드에서만 한 번씩 잰다(감긴 줄은 한 자씩 Range 를 만든다).
             const text = visible ? ownText(node) : "";
             const wraps = visible ? wrapLinesOf(node, text) : null;
@@ -1490,6 +1649,9 @@ try {
         // **두 패스는 서로 다른 시각의 DOM 을 본다.** 그 사이에 mount/unmount 가 일어나면
         // 조인이 성립하지 않는다. 그래서 한 번 얼려 여파를 끄집어내고, 가라앉히고, 재고,
         // 어긋나면 처음부터 다시 한다.
+        // **안정된 한 번의 측정(2026-10-14 함수로 묶음).** 끈적 장면 측정(아래 `captureStickyScenes`)이 스크롤 자리마다 같은 두 패스 ·
+        // 조인 · 재시도를 다시 돈다 — 한 벌을 두 곳에 베끼지 않게 닫힘으로 둔다. 기본 흐름은 종전과 같이 한 번 부른다.
+        const measureStable = async (label) => {
         let measured = null;
         for (let attempt = 1; attempt <= MEASURE_ATTEMPTS; attempt += 1) {
           // **애니메이션은 재기 전에, 별도 호출로 한 번 얼린다.**
@@ -1515,7 +1677,7 @@ try {
               try { animation.finish(); } catch { animation.currentTime = 0; }
             }
           });
-          await stabilize(page, spec.id + " (애니메이션 정지 후)", isQuiet);
+          await stabilize(page, label + " (애니메이션 정지 후)", isQuiet);
 
           measured = await runMeasurePass();
 
@@ -1592,7 +1754,15 @@ try {
           for (const overlay of measured.overlays) settleCentredMargins(overlay.tree);
           break;
         }
-        if (!measured) throw new Error("[product-auth-fixture] 측정이 성립하지 않았습니다 (" + spec.id + ")");
+        if (!measured) throw new Error("[product-auth-fixture] 측정이 성립하지 않았습니다 (" + label + ")");
+        return measured;
+        };
+        const measured = await measureStable(spec.id);
+        if (spec.scenes) {
+          const scenes = await captureStickyScenes(page, measured, measureStable, (label) => stabilize(page, label, isQuiet), spec.id + " @ " + contextSpec.id);
+          measured.tree = scenes.tree;
+          measured.stickyScenes = scenes.record;
+        }
 
         // 로캘 측정은 그 언어로 그려졌는지 단언한다 — 쿠키가 먹지 않으면 en 화면을 ko 원장에 쓰게 된다. 전체 오류 화면은 제 `<html lang="ko">` 로
         // 서므로(app/global-error.tsx) 단언에서 뺀다.

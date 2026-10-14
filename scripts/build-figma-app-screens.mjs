@@ -146,6 +146,17 @@ const IMAGE_COMPONENTS = {
   "/images/landing/creator-program-backdrop.jpg": "image/landing/creator-program-backdrop",
   "/images/landing/ambassador-seal.png": "image/landing/ambassador-seal",
   "/images/landing/news-featured.webp": "image/landing/news-featured",
+  // 2026-10-15 — 랜딩 「/」 의 남은 그림(조립 규칙 15조의 21). 히어로 영상의 포스터 · 개요 캔버스 노드의 사진 · 끝 장면의 하늘 첫 칸은 측정기가
+  // src 로 싣는다(영상은 poster). 하이라이트 격자 25칸과 모바일 숏폼 포스터는 `background-image: url(…)` 라 attachBackgroundImages 가 잇는다.
+  // 제품 public 원본을 같은 섹션(U · image/)에 원본 픽셀 크기의 이미지 채움 컴포넌트로 올렸다(webp 는 Figma 에서 빈 회색이라 PNG 로 변환).
+  "/landing-hero/v4/poster.webp": "image/landing/hero-poster",
+  "/images/landing/node-showcase-sofa.webp": "image/landing/node-showcase-sofa",
+  "/landing-ending/v1/sky-start.webp": "image/landing/ending-sky-start",
+  "/landing-highlight/v1/short.webp": "image/landing/highlight-short",
+  // 컴포지션 장면 판의 영상 포스터 — 로캘마다 다른 녹화라 보드 로캘(en)의 것만 올렸다.
+  "/landing-composition/v3/en/poster.webp": "image/landing/composition-poster-en",
+  ...Object.fromEntries([1, 2, 3, 4, 5].flatMap((row) => [1, 2, 3, 4, 5].map((column) =>
+    [`/landing-highlight/v1/cells/r${row}c${column}.webp`, `image/landing/highlight-cell-r${row}c${column}`]))),
   // 2026-10-07 — LOUIS 문서 예시(packages/css/examples)의 그림 넷. 브랜드 표식은 예시에 data URL 로 들어 있어 해시 키(imageKeyOf)로 잇는다.
   "data-sha256:14c4cecb59a81ede": "image/louis-examples/brand-mark",
   "/examples/media/login-product-mobile.webp": "image/louis-examples/login-product-mobile",
@@ -415,7 +426,8 @@ const attachDotGrid = (spec, measuredTree, styleOf) => {
 };
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
-  if (node.tag === "img" && node.src) {
+  // `<video>` 의 src 는 측정기가 실은 포스터다(조립 규칙 15조의 21) — 같은 표로 잇는다.
+  if ((node.tag === "img" || node.tag === "video") && node.src) {
     const component = imageComponentBySrc.get(imageKeyOf(node.src));
     const pixel = component ? null : onePixelColor(node.src);
     if (component) node.imageComponent = component;
@@ -423,6 +435,41 @@ const attachImageComponents = (node, unmapped) => {
     else unmapped.push({ path: node.path, src: imageKeyOf(node.src), rect: [Math.round(node.rect.width), Math.round(node.rect.height)] });
   }
   for (const child of node.children ?? []) attachImageComponents(child, unmapped);
+};
+// **바탕 그림(조립 규칙 15조의 21, 2026-10-15).** 제품이 그림을 `<img>` 가 아니라 `background-image: url(…)` 로 그리는 자리(랜딩 하이라이트
+// 격자 25칸 · 모바일 숏폼 포스터)는 측정 트리에 바탕 없는 상자만 남아 보드가 빈 칸으로 그렸다. 바탕이 **url 한 겹**이고 그 url 이
+// IMAGE_COMPONENTS 에 이어져 있을 때만 잇는다 — 자식이 없으면 그 상자가 곧 인스턴스가 되고, 자식이 있으면 바탕은 모든 자식 아래에
+// 칠해지므로 맨 앞 자식으로 두 축 STRETCH ABSOLUTE 인스턴스를 끼운다(15조의 13 과 같은 제약). `background-size: cover` 와 컴포넌트의
+// 이미지 채움(FILL)은 둘 다 가운데를 채우며 자른다. 그라디언트와 겹친 바탕 · 이어지지 않은 url 은 건드리지 않고 감사본에 남긴다.
+// 쌓임 순서 정렬 «뒤에» 돈다 — 끼운 자식에는 측정 스타일이 없다.
+const attachBackgroundImages = (node, styleOf, unmapped) => {
+  if (node.instance || node.imageComponent) return;
+  const background = styleOf(node.path)?.backgroundImage;
+  const url = background && /^url\("([^"]+)"\)$/.exec(background)?.[1];
+  if (url) {
+    const component = imageComponentBySrc.get(imageKeyOf(url));
+    if (!component) unmapped.push({ path: node.path, background: url, rect: [Math.round(node.rect.width), Math.round(node.rect.height)] });
+    else if (!(node.children ?? []).length) node.imageComponent = component;
+    else {
+      const why = { verdict: "FIXED", reason: "바탕 그림 — 부모를 두 축으로 채우는 ABSOLUTE 인스턴스(조립 규칙 15조의 21)", source: "100%", value: null };
+      node.children = [{
+        path: `${node.path}.bg`,
+        tag: "img",
+        rect: { ...node.rect },
+        positioning: "ABSOLUTE",
+        offset: { x: 0, y: 0 },
+        constraints: { horizontal: "STRETCH", vertical: "STRETCH" },
+        sizing: { layoutSizingHorizontal: "FIXED", layoutSizingVertical: "FIXED", layoutPositioning: "ABSOLUTE" },
+        why: { horizontal: why, vertical: why },
+        margin: { top: 0, right: 0, bottom: 0, left: 0 },
+        layout: null,
+        paint: null,
+        imageComponent: component,
+        children: [],
+      }, ...node.children];
+    }
+  }
+  for (const child of node.children ?? []) if (!child.path.endsWith(".bg")) attachBackgroundImages(child, styleOf, unmapped);
 };
 
 // **색 변수의 컬렉션 · 모드(2026-09-14).** 렌더러는 측정 색과 값이 같은 라이브 변수를 찾아 묶는다. 그 컬렉션은 되읽기
@@ -2433,6 +2480,8 @@ for (const screen of SCREENS) {
       declaredOf: (path) => declaredByPath.get(path) ?? null,
       evidence: { recipes, readback },
       extraContent: partContent,
+      // 끈적 장면 무대(측정기 `captureStickyScenes` 가 제 스크롤 자리에서 잰 서브트리) — 조립 규칙 15조의 20.
+      sceneStages: (measured.stickyScenes ?? []).map((scene) => scene.stage),
     });
     // **아이콘 정체를 서명 ↔ 이름 조인표에 댄다.** 인스턴스 치환 «뒤에» 돌린다 — 셸 안으로
     // 사라진 글리프는 payload 에 나오지 않으므로 이름을 붙일 일도 없다.
@@ -2447,6 +2496,8 @@ for (const screen of SCREENS) {
     const stackingMoved = [];
     orderByStacking(spec, (path) => styleByPath.get(path) ?? null, stackingMoved);
     totalStackingMoved += stackingMoved.length;
+    const unmappedBackgrounds = [];
+    attachBackgroundImages(spec, (path) => styleByPath.get(path) ?? null, unmappedBackgrounds);
     const emptyHugFixed = [];
     fixEmptyHug(spec, emptyHugFixed);
     const aspectFixed = [];
@@ -2531,6 +2582,8 @@ for (const screen of SCREENS) {
         // LOUIS 자산에 잇지 못해 빈 상자로 남은 `<img>`(IMAGE_COMPONENTS 주석).
         ...(unmappedImages.length ? { unmappedImages } : {}),
         ...(unmappedMasks.length ? { unmappedMasks } : {}),
+        // 이어지지 않은 바탕 그림 url(attachBackgroundImages 주석).
+        ...(unmappedBackgrounds.length ? { unmappedBackgrounds } : {}),
         ...(stackingMoved.length ? { stackingMoved } : {}),
         ...(shrinkFixed.length ? { shrinkFixed } : {}),
         ...(inlineCentred.length ? { inlineCentred } : {}),
@@ -2824,6 +2877,13 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   "/analytics/youtube loading @ desktop-1920x1080 · body.1.0.0.1.0.0.3.0.0.1.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
   "/analytics/youtube loading @ mobile-402x874 · body.1.0.0.1.0.0.3.0.0.0.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
   "/analytics/youtube loading @ mobile-402x874 · body.1.0.0.1.0.0.3.0.0.1.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
+  // 2026-10-14 — 랜딩 끈적 장면을 제 스크롤 자리에서 잰 뒤(조립 규칙 15조의 20) 처음 보이는 두 자리. ① 끝 장면 문장(`h2`, 두 줄 span 이 block
+  // 이라 h2 폭을 채운다)은 글자가 부모 폭을 정하는 stretch 다 — 두 span 이 같은 282.44 폭이다. ② 개요 캔버스(0.361 배)의 TTS 노드 재생 막대는
+  // `height: calc(4px)` 막대 안의 `height: 100%` 채움이다 — 막대의 calc 선언이 배율을 거쳐 HUG 로 판정됐다. 보낸 뒤 캡처로 대조한다.
+  "/ @ desktop-1920x1080 · body.1.0.0.2.8.0.2.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
+  "/ @ mobile-402x874 · body.1.0.0.2.8.0.2.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
+  "/ @ desktop-1920x1080 · body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.2.0.0.1.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
+  "/ @ mobile-402x874 · body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.2.0.0.1.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
 };
 {
   const actual = {};

@@ -301,7 +301,10 @@ const UNCLASSIFIED_BASELINE = 0;
 // `/highlight/[projectId]?__phase=loading` 두 보드가 「Couldn't load this project. · Reload」 오류(프로젝트 조회 401)에서 「Loading」
 // (조회 200)으로 바뀌어 Reload Button 인스턴스가 보드마다 하나씩 빠졌다. 불러오기 단계의 제품 화면에는 단추가 없다.
 // 합본: 359 − 2 = 357.
-const INSTANCE_FLOOR = 357;
+// 2026-10-15: (+4) **이득이다.** 랜딩 「/」 의 끈적 장면을 제 스크롤 자리에서 재자(조립 규칙 15조의 16) 맨 위 한 자리에서는
+// 불투명도 0 이던 장면 층의 버튼이 보드에 섰다 — `Button` +4(크리에이터 장면 「Learn more」 · 「Apply」 등, 두 뷰포트).
+// 합본: 357 + 4 = 361.
+const INSTANCE_FLOOR = 361;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.

@@ -2785,7 +2785,9 @@ const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 �
 const EDITOR_SEED_PENDING_WHY = "노드캔버스 편집기 · 영상 편집기 · 하이라이트 완료(자리표시 시드)의 세로 stretch 자식 — 2026-10-07 새 보드, 캡처 대조 전";
 // 2026-10-08 — 셸 상태 레시피의 커맨드 팔레트 겹침(`overlay.1.1` 대화 상자 · 행 · 플라이아웃). 보드를 보낸 뒤 캡처로 대조한다.
 const PALETTE_PENDING_WHY = "커맨드 팔레트 대화 상자 · 행 · 플라이아웃의 stretch 자식 — 2026-10-08 새 상태 보드(겹침을 처음 그린다), 캡처 대조 전";
-const SHORT_RESULT_PLAYER_WHY = "쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
+// 2026-10-15 — 분석 상태 레시피(연결된 채널)의 처음 보드. 시청자 탭 지역 행의 stretch 자식 · 로딩 스켈레톤 막대. 보낸 뒤 캡처로 대조한다.
+const ANALYTICS_PENDING_WHY = "분석 연결 상태 보드(시청자 탭 행 · 로딩 스켈레톤 막대)의 stretch 자식 — 2026-10-15 새 상태 보드, 캡처 대조 전";
+const SHORT_RESULT_PLAYER_WHY ="쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
   // 되살림(2026-10-08): 아래 자리는 통합 판(DS-D-0079)에서 세션 `/videoeditor/[projectId]` 가 오류 경계로 재져 잠시 빠졌다가, fixture 에
   // CDN 주소를 세워 다시 재자 서브트리가 돌아와 되살렸다. 같이 빠졌던 공개 `/` 데스크톱 `body.1.0.0.2.1.0.1 · vertical`(LANDING_PENDING_WHY)은
@@ -2804,6 +2806,24 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   // 규칙(최대 크기에 막힌 HUG 부모의 스크롤 칸)이 풀었다. 플라이아웃 둘은 그 조건이 아니라 남는다.
   "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
   "/archive palette.flyout @ mobile-402x874 · overlay.1.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
+  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.0 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.1 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.2 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.3 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.4 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.5 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.6 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.0 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.1 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.2 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.3 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.4 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.5 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.6 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube loading @ desktop-1920x1080 · body.1.0.0.1.0.0.3.0.0.0.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube loading @ desktop-1920x1080 · body.1.0.0.1.0.0.3.0.0.1.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube loading @ mobile-402x874 · body.1.0.0.1.0.0.3.0.0.0.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
+  "/analytics/youtube loading @ mobile-402x874 · body.1.0.0.1.0.0.3.0.0.1.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
 };
 {
   const actual = {};

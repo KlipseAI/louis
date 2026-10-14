@@ -7,6 +7,7 @@
   "recipes": [
     {
       "id": "/analytics/youtube overview",
+      "board": { "desktop": "3587:2", "mobile": "3587:3" },
       "pattern": "/analytics/youtube",
       "fullPage": true,
       "description": "연결된 채널의 개요 탭(기본 탭) — 채널 헤더 · 기간 선택기 · 지연 안내 · 지표 차트 둘 · KPI 넷 · 콘텐츠 표.",
@@ -185,6 +186,7 @@
     },
     {
       "id": "/analytics/youtube performance",
+      "board": { "desktop": "3587:4", "mobile": "3587:5" },
       "pattern": "/analytics/youtube",
       "fullPage": true,
       "description": "성과 탭 — 평균 시청 KPI 둘 · 인기 콘텐츠 목록 · 트래픽 소스 막대.",
@@ -373,6 +375,7 @@
     },
     {
       "id": "/analytics/youtube audience",
+      "board": { "desktop": "3587:6", "mobile": "3587:7" },
       "pattern": "/analytics/youtube",
       "fullPage": true,
       "description": "시청자 탭 — 구독 KPI 둘 · 구독 상태 도넛 · 나이 × 성별 피라미드 · 지역 · 기기 · 운영체제 막대.",
@@ -562,6 +565,7 @@
     },
     {
       "id": "/analytics/youtube insufficient",
+      "board": { "desktop": "3587:10", "mobile": "3587:11" },
       "pattern": "/analytics/youtube",
       "fullPage": true,
       "description": "개요 탭의 데이터 부족 — 요약 값은 있으나 일별 시계열이 비어 두 차트 자리에 InsufficientNotice(plain).",
@@ -729,6 +733,7 @@
     },
     {
       "id": "/analytics/youtube insufficient.performance",
+      "board": { "desktop": "3587:12", "mobile": "3587:13" },
       "pattern": "/analytics/youtube",
       "fullPage": true,
       "description": "성과 탭의 데이터 부족 — 인기 콘텐츠 자리에 InsufficientNotice(innerPanel), 트래픽 소스 자리에 plain.",
@@ -915,6 +920,7 @@
     },
     {
       "id": "/analytics/youtube insufficient.audience",
+      "board": { "desktop": "3587:14", "mobile": "3587:15" },
       "pattern": "/analytics/youtube",
       "fullPage": true,
       "description": "시청자 탭의 데이터 부족 — 구독 상태 도넛 자리에 InsufficientNotice(donutCard), 나이 × 성별 · 지역 · 기기 · 운영체제 자리에 plain.",
@@ -1107,6 +1113,7 @@
     },
     {
       "id": "/analytics/youtube loading",
+      "board": { "desktop": "3587:16", "mobile": "3587:17" },
       "pattern": "/analytics/youtube",
       "fullPage": true,
       "description": "core · extended 응답을 붙잡아 둔 로딩 — 개요 스켈레톤(ReportPrimaryBlockSkeleton 둘 + ReportKpiRowSkeleton 4) · 콘텐츠 표 스켈레톤. 채널 헤더는 응답해 선다.",
@@ -1285,6 +1292,7 @@
     },
     {
       "id": "/analytics/youtube fatal",
+      "board": { "desktop": "3587:18", "mobile": "3587:19" },
       "pattern": "/analytics/youtube",
       "fullPage": true,
       "description": "연결은 됐으나 분석 API 가 모두 500 — 지연 안내 자리의 오류 문구 · 개요 탭 오류 패널 · 페이지 끝 치명 오류 패널(AnalyticsStatePanel tone error).",
@@ -1473,6 +1481,7 @@
     },
     {
       "id": "/analytics/youtube channel-info",
+      "board": { "desktop": "3587:8", "mobile": "3587:9" },
       "pattern": "/analytics/youtube",
       "description": "채널 헤더의 설명 버튼을 눌러 연 채널 정보 모달(배너 · 아바타 · 수치 셋 · 설명).",
       "surfaces": [

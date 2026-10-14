@@ -296,7 +296,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-10-14: 316 → **332.** **이득이다.** 새 보드 넷 — `/models` 데스크톱 · 모바일 각 5, `/models/[slug]` 데스크톱 · 모바일 각 3(공개 시드
 // fixture). 옛 보드의 instance 는 하나도 바뀌지 않았다. 공개 모바일 일곱의 missing −1 · structural −3 은 닫힌 모바일 메뉴 판(`clip-path:
 // inset(0 0 100%)`)을 더는 그리지 않아서다(figma-tree-spec 의 clipPathHidesAll).
-const INSTANCE_FLOOR = 332;
+// 2026-10-15: 332 → 359. 분석 연결 상태 보드 열여덟(상태 레시피 analytics)이 셸 인스턴스 27(데스크톱 아홉 × 상단 바 · GNB 둘 + 모바일 아홉 × 상단 바)을 새로 얻었다.
+const INSTANCE_FLOOR = 359;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -406,6 +407,25 @@ const SHELL_COMPONENTS = new Set([
 const SHELL_INSTANCES_BY_BOARD = {
   "analytics-youtube.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
   "analytics-youtube.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  // 2026-10-15 — 분석 연결 상태 보드(상태 레시피 analytics). 기준 보드와 같은 셸(분석 상단 바 · YouTube GNB)이 래퍼가 아니라 바 자리에 붙었다.
+  "analytics-youtube-overview.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-overview.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "analytics-youtube-performance.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-performance.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "analytics-youtube-audience.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-audience.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "analytics-youtube-channel-info.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-channel-info.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "analytics-youtube-insufficient.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-insufficient.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "analytics-youtube-insufficient-performance.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-insufficient-performance.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "analytics-youtube-insufficient-audience.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-insufficient-audience.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "analytics-youtube-loading.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-loading.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "analytics-youtube-fatal.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube-fatal.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
   "archive.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
   "archive.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   // 2026-10-08 밤(앵커 54b62a8a): 하이라이트 상세 `?__phase=` 보드 열둘의 셸을 뺐다(데스크톱 상단 바 · 사이드바 각 6, 모바일 상단 바 6). 하이라이트 새

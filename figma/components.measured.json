@@ -2975,7 +2975,7 @@
     "news-card": {
       "$doc": "design/components/news-card.md",
       "$source": "제품 apps/web/components/landing/sections/NewsCarousel.tsx 안의 NewsCard",
-      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. 폭·높이는 카드가 아니라 트랙 격자가 정한다(grid-auto-columns 346px · grid-template-rows repeat(2,160px) · gap 6). 탐침이 트랙을 조상으로 세워 격자가 계산하게 둔다 — 698 = 346×2 + 6, 326 = 160×2 + 6.",
+      "$why": "제품이 정본이다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다. 2026-10-14 LOUIS 레시피(packages/css/src/component/news-card.css)가 생겨 packages/react/test/news-card-geometry.browser.test.tsx 가 같은 키를 레시피의 계산값으로 되잰다(DS-D-0035 (c)) — 레시피의 셸프 트랙 .louis-news-card-track 을 조상으로 세워 1280 폭에서 잰다. 폭·높이는 카드가 아니라 트랙 격자가 정한다(grid-auto-columns 346px · grid-template-rows repeat(2,160px) · gap 6). 탐침이 트랙을 조상으로 세워 격자가 계산하게 둔다 — 698 = 346×2 + 6, 326 = 160×2 + 6.",
       "$whyMoved": "제품 5a67d692 가 트랙 간격을 gap-2(4) 에서 gap-3(6) 으로 올리고 열 폭을 347 에서 346 으로 내렸다 — NewsCarousel.tsx 가 사유를 갖는다: 열 폭이 (1400 − gap×3) ÷ 4 에서 나오는데 gap 6 이면 345.5 라 --spacing 2px 격자에 떨어지지 않아 346 으로 올렸다. 두 축이 함께 움직여 피처드 폭 698 만 그대로다(346×2 + 6). 이 카드는 제품이 정본이므로 기록이 제품을 따라간다.",
       "sizes": {
         "false": {
@@ -3109,7 +3109,7 @@
     "segmented-code-input": {
       "$doc": "design/components/segmented-code-input.md",
       "$source": "제품 apps/web/components/ui/SegmentedCodeInput.tsx 의 BOX",
-      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다. 묶음 폭 386 과 칸 사이 2 는 넣지 않는다 — 386 은 12칸이 상한 28 에 닿는 폭에서 나온 산술이고, 2 는 소비처 래퍼의 인라인 className(gap-1)이라 상수로 존재하지 않아 커밋에서 꺼낼 수 없다. 프레임 높이 36 은 칸 높이가 정한다.",
+      "$why": "제품이 정본이다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다. 2026-10-14 LOUIS 레시피(packages/css/src/component/segmented-code-input.css)가 생겨 packages/react/test/segmented-code-input-geometry.browser.test.tsx 가 같은 키를 레시피의 계산값으로 되잰다(DS-D-0035 (c)). 묶음 폭 386 과 칸 사이 2 는 넣지 않는다 — 386 은 12칸이 상한 28 에 닿는 폭에서 나온 산술이고, 2 는 정본 자기 루트 래퍼(SegmentedCodeInput.tsx 의 flex w-full items-center gap-1)의 인라인 className 이라 이름 붙은 상수가 아니어서 커밋에서 꺼낼 수 없다 — 레시피에서는 .louis-segmented-code-input 의 gap 2 다. 프레임 높이 36 은 칸 높이가 정한다.",
       "sizes": {
         "Default": {
           "cellWidth": 28,

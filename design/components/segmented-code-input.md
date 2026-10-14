@@ -10,9 +10,9 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 한 칸에 한 글자씩 받는 입력 묶음. 실물 쿠폰의 코드를 손으로 옮겨 적는 자리라, 어디까지
 입력했는지 눈에 보이고 한 글자마다 다음 칸으로 넘어간다.
 
-**정본은 제품이다.** `components/ui/SegmentedCodeInput.tsx` 가 구현이고 LOUIS 에는 표면이
-없다 — `packages/css/src/component` 에 레시피가 없고 `packages/react/src` 에도 디렉터리가
-없다. 소비처는 `components/scenes/SubscriptionScene.tsx` 의 쿠폰 등록 모달 **한 자리**다.
+**정본은 제품이다.** `components/ui/SegmentedCodeInput.tsx` 가 구현이고 LOUIS 는 그것을 CSS 레시피
+`packages/css/src/component/segmented-code-input.css`(2026-10-14)로 옮겼다 — `packages/react/src` 에는
+디렉터리가 없다. 소비처는 `components/scenes/SubscriptionScene.tsx` 의 쿠폰 등록 모달 **한 자리**다.
 
 **컴포넌트는 칸이 아니라 묶음이다.** 칸은 정본에서 이름 없는 `input` 이고 export 되지
 않는다 — 파일이 내보내는 것은 묶음 하나뿐이다. 설계가 걸린 곳도 묶음이다: 칸이
@@ -32,10 +32,10 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 
 | Surface       | 상태           | 근거                                                                                                                                                                                                                                              |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 쿠폰 등록 모달 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다. 제품 쪽에도 이 컴포넌트를 겨냥한 테스트가 없다                                                          |
-| Figma         | `partial`      | `SegmentedCodeInput` 3 variant(`State`). parity 게이트가 대조하는 것은 속성 축 하나 · `Cell 1` stroke(1 · `INSIDE`) · effect 없음 · raw fill·stroke 0 · 스타일 없는 텍스트 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `segmented-code-input`(제품 칸 클래스를 실브라우저에서 잰 값)과 트랙 높이(= 칸 높이 36) · 칸 28 × 36 · 칸 반경 8 · 글자와 하이픈의 크기 16 · 높이 24 를 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
+| Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 쿠폰 등록 모달 한 자리다. LOUIS 에는 CSS 레시피 `segmented-code-input.css` 가 있고(2026-10-14) React export 는 없다. 시험은 기하 되재기(`segmented-code-input-geometry.browser.test.tsx`)뿐이고 acceptance test 는 0건이다. 제품 쪽에도 이 컴포넌트를 겨냥한 테스트가 없다 |
+| Figma         | `partial`      | `SegmentedCodeInput` 3 variant(`State`). parity 게이트가 대조하는 것은 속성 축 하나 · `Cell 1` stroke(1 · `INSIDE`) · effect 없음 · raw fill·stroke 0 · 스타일 없는 텍스트 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `segmented-code-input`(제품 칸 클래스를 실브라우저에서 잰 값)과 트랙 높이(= 칸 높이 36) · 칸 28 × 36 · 칸 반경 8 · 글자와 하이픈의 크기 16 · 높이 24 를 맞댄다. 반대 방향도 걸려 있다 — `segmented-code-input-geometry.browser.test.tsx` 가 LOUIS 레시피의 계산값을 같은 기록과 맞댄다(2026-10-14) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                                                                            |
-| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                                                                                                  |
+| Maturity      | `experimental` | 되읽기 · 문서 · CSS 레시피 · 기하 되재기가 섰다. React 표면과 acceptance test 가 남았다                                                                                                                                                            |
 
 ## When to use
 
@@ -286,11 +286,11 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 6. **칸 이름의 꼬리가 i18n 밖에 있다.** `aria-label` 이 `${ariaLabel} N번째 글자` 로 조립되고
    「번째 글자」가 한국어 리터럴이다. 영어·일본어 로케일에서 스크린리더가 두 언어를 섞어
    읽는다. 게이트가 잡지 못한다 — 이 저장소에는 제품의 하드코딩 문구를 보는 검사가 없다.
-7. **기하는 한 방향으로만, 일부만 대조된다.** `figma/components.measured.json` 의
+7. **기하는 일부만 대조된다.** `figma/components.measured.json` 의
    `segmented-code-input` 이 제품 칸 클래스(`BOX`)를 실브라우저에서 잰 칸 28 × 36 · 반경 8 ·
    글자 16 / 24 를 갖고, parity 게이트가 Figma 를 그것과 맞댄다. 28 은 트랙이 넉넉할 때의 값(상한)이고
-   24 는 451 이상의 값이다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가
-   없어 없다. **간격 2 와 묶음 폭 386 은 대조하지 않는다** — 2 는 소비처 래퍼의 인라인 className
+   24 는 451 이상의 값이다. 코드가 그 실측을 여전히 만드는지는
+   `segmented-code-input-geometry.browser.test.tsx` 가 LOUIS 레시피로 되잰다(2026-10-14). **간격 2 와 묶음 폭 386 은 대조하지 않는다** — 2 는 소비처 래퍼의 인라인 className
    (`gap-1`)이라 상수로 꺼낼 자리가 없고, 386 은 칸이 상한 28 에 닿는 폭에서 나온 산술이다.
 8. **글자 굵기가 대조되지 않는다.** 되읽기의 `parts` 는 `fontSize` 와 높이만 담고 텍스트
    스타일 **이름**을 담지 않는다. `typography/body-md` 세 굵기가 모두 16 / 150% / −0.16 이라
@@ -338,5 +338,5 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 
 ## Migration and changelog
 
-새로 선 컴포넌트다. 이전 API 가 없다. LOUIS recipe 가 서면 이 문서의 Specification 이 그 값의
+새로 선 컴포넌트다. 이전 API 가 없다. LOUIS recipe(`segmented-code-input.css`)가 섰으므로 이 문서의 Specification 이 그 값의
 정본이 된다. 사용자 영향 변경은 [Updates](../updates/README.md) 에 적는다.

@@ -1,0 +1,85 @@
+/* Segmented Code Input — design/components/segmented-code-input.md
+ *
+ * 한 칸에 한 글자씩 받는 입력 묶음. 제품 정본은 `components/ui/SegmentedCodeInput.tsx` 의 BOX · SEPARATOR 다.
+ * **컴포넌트는 칸이 아니라 묶음이다** — 칸이 컨테이너에 맞춰 줄고(flex 1 · 최소 0 · 최대 28), 칸 사이 2 와
+ * 네 칸마다 오는 구분자를 묶음이 갖는다. 칸 수 12 · 묶음 4 는 소비처 값이라 레시피에 없다.
+ *
+ * 마크업:
+ *   <div class="louis-segmented-code-input" role="group" aria-label="쿠폰 코드">
+ *     <input class="louis-segmented-code-input__cell" maxlength="1" aria-label="1번째 글자" />
+ *     …
+ *     <span class="louis-segmented-code-input__separator" aria-hidden="true">-</span>
+ *     …
+ *   </div>
+ *
+ * - 칸 최대 28 × 36, radius 8(radius-control-sm), **진짜 1px 테두리**(border-width-default) — 이 저장소의 기본인
+ *   0.5 inset 헤어라인이 아니다(문서 Known deviations 2, 소유자 확인 대기). 36 에 대응 토큰이 없다.
+ * - 면 잉크 4% · 테두리 잉크 12% · 글자 잉크 88% · 구분자 잉크 28% — 테마 적응 투명 잉크 gray-000-alpha-*.
+ * - Focus: 테두리 primary-400 72% · 면 잉크 8%. 제품 primary-400(#38a4ff, 모드 불변)과 값이 같은 시맨틱은
+ *   accent-primary-hover 하나뿐이라 그것을 72% 로 섞는다(문서 Known deviations 1 — 이름이 맞는 토큰이 없다).
+ *   제품은 outline 을 끄는데, 레시피는 base.css 의 공용 :focus-visible 링을 끄지 않는다(제품 결손을 올리지 않는다).
+ * - Disabled: 칸에만 불투명도 0.40. 구분자는 span 이라 그대로다.
+ * - Hover 없음. 전환은 색만 120ms ease. */
+
+.louis-segmented-code-input {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* 2 — 제품 자기 루트 래퍼 `flex w-full items-center gap-1`(2px 격자). 일반 간격 토큰이 없다(문서 Specification). */
+  gap: 2px;
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.louis-segmented-code-input__cell {
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  max-inline-size: 28px;
+  block-size: 36px;
+  margin: 0;
+  padding: 0;
+  border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-12);
+  border-radius: var(--louis-radius-control-sm);
+  background-color: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-gray-000-alpha-88);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+  text-align: center;
+  text-transform: uppercase;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+
+.louis-segmented-code-input__cell:focus {
+  border-color: color-mix(in srgb, var(--louis-color-accent-primary-hover) 72%, transparent);
+  background-color: var(--louis-color-gray-000-alpha-08);
+}
+
+.louis-segmented-code-input__cell:disabled {
+  opacity: 0.4;
+}
+
+/* 구분자 — 좌우 2(제품 `px-1`), 폭은 하이픈 글자가 정한다. 칸과 같은 글자 스타일이라 높이 24. */
+.louis-segmented-code-input__separator {
+  box-sizing: border-box;
+  display: block;
+  flex: none;
+  padding-block: 0;
+  padding-inline: 2px;
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+  color: var(--louis-color-gray-000-alpha-28);
+  user-select: none;
+}

@@ -1485,7 +1485,7 @@ const COMPONENT_CONTRACTS = [
     id: "news-card",
     figmaName: "NewsCard",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 NewsCarousel.tsx 안의 NewsCard 가 정본이다. export 되지 않는 파일 내부 함수라 대조할 .d.ts 자체가 없다.",
+      "React 표면 없음 — 제품 NewsCarousel.tsx 안의 NewsCard 가 정본이고 LOUIS 레시피 packages/css/src/component/news-card.css(2026-10-14)가 그것을 옮겼다(셸프 트랙 .louis-news-card-track 포함). export 되지 않는 파일 내부 함수라 대조할 .d.ts 자체가 없다.",
     variantProperties: {},
     // 카드에 테두리가 없다. 시안도 stroke 를 주지 않고 제품 클래스에도 border 선언이 없다 —
     // 보통 카드의 경계는 면(잉크 8%)이 만들고 피처드는 사진 자신이 만든다. 빈 객체로 적어
@@ -2049,7 +2049,7 @@ const COMPONENT_CONTRACTS = [
     id: "segmented-code-input",
     figmaName: "SegmentedCodeInput",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 components/ui/SegmentedCodeInput.tsx 가 정본이고 소비처는 components/scenes/SubscriptionScene.tsx 의 쿠폰 등록 모달 한 자리다. 대조할 .d.ts 가 없다.",
+      "React 표면 없음 — 제품 components/ui/SegmentedCodeInput.tsx 가 정본이고 LOUIS 레시피 packages/css/src/component/segmented-code-input.css(2026-10-14)가 그것을 옮겼다. 소비처는 components/scenes/SubscriptionScene.tsx 의 쿠폰 등록 모달 한 자리다. 대조할 .d.ts 가 없다.",
     variantProperties: {},
     // **칸이 아니라 묶음이 컴포넌트다.** 칸은 제품에서 이름 없는 input 이고 export 되지 않는다 —
     // 파일이 내보내는 것은 묶음 하나뿐이다. 설계가 걸린 곳도 묶음이다: 칸이

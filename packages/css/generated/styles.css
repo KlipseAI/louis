@@ -10168,6 +10168,155 @@ a.louis-breadcrumb__parent:hover {
   }
 }
 
+/* News Card — design/components/news-card.md
+ *
+ * 날짜 한 줄과 제목으로 소식 한 건을 적는 카드. 제품 정본은 `components/landing/sections/NewsCarousel.tsx` 의
+ * 파일 내부 함수 `NewsCard` 다. 사진이 붙으면 셸프의 2×2 를 차지하는 **피처드**가 된다(`data-featured`).
+ *
+ * **카드 크기는 카드가 아니라 셸프 트랙이 고른다** — 그래서 트랙(`.louis-news-card-track`)을 함께 둔다.
+ * 960 이상: 열 흐름 · 열 346 · 행 160 두 줄 · 간격 6 → 보통 346 × 160, 피처드 698 × 326(= 346 × 2 + 6, 160 × 2 + 6).
+ * 959 이하: 같은 폭 두 열 행 흐름 · 행 160 — 카드 폭이 화면을 따르고 높이는 그대로다.
+ * 346 · 160 에는 대응 토큰이 없다(문서 Known deviations 6) — 트랙의 임의값이다.
+ *
+ * 마크업:
+ *   <div class="louis-news-card-track">
+ *     <article class="louis-news-card" data-featured>
+ *       <img class="louis-news-card__media" src="…" alt="" />
+ *       <div class="louis-news-card__scrim" aria-hidden="true"></div>
+ *       <div class="louis-news-card__body">
+ *         <time class="louis-news-card__date" datetime="2026-02-18">2026년 2월 18일</time>
+ *         <h3 class="louis-news-card__headline">…</h3>
+ *       </div>
+ *     </article>
+ *     <article class="louis-news-card">…(사진 · 스크림 없음)</article>
+ *   </div>
+ *
+ * 색은 두 갈래다. 보통 카드는 테마를 따르고(면 landing-panel-strong · 제목 fg-primary · 날짜 landing-text-muted),
+ * 피처드는 사진 + 스크림 위라 고정이다(제목 media-foreground-dark · 날짜 palette-gray-300 · 스크림 palette-gray-900).
+ * 제목 `gray/000` 은 원시 램프라 같은 자리의 시맨틱 fg-primary 를 쓴다(carousel-arrow 와 같은 판단).
+ * 피처드 날짜는 제품이 palette-gray-500 에서 300 으로 옮겼다 — 500 이 #72757b 로 바뀌어 시안 #9aa0ab 와 멀어졌다.
+ * 테두리 · 그림자 · 배경 흐림 · 상태 · 모션이 없다. */
+
+.louis-news-card-track {
+  box-sizing: border-box;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 346px;
+  grid-template-rows: repeat(2, 160px);
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+
+@media (max-width: 959px) {
+  .louis-news-card-track {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-rows: 160px;
+    inline-size: 100%;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+}
+
+.louis-news-card {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-inline-size: 0;
+  margin: 0;
+  /* 위아래 20 · 좌우 16 — 제품 `py-10 px-8`(2px 격자). 두 갈래가 같다. */
+  padding: var(--louis-space-media-inset) var(--louis-space-control-lg);
+  border: 0;
+  border-radius: var(--louis-radius-card);
+  background-color: var(--louis-color-landing-panel-strong);
+  scroll-snap-align: start;
+}
+
+/* 피처드 — 두 열 · 두 행을 차지하고 그 사이 간격 6 을 자기 몸으로 덮는다. 면은 사진이다. */
+.louis-news-card[data-featured] {
+  grid-column: span 2;
+  grid-row: span 2;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.louis-news-card__media {
+  position: absolute;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+/* 위 → 아래 palette-gray-900 1.0 @0% → 0.8 @25% → 0 @50%. 테마를 따르지 않는다. */
+.louis-news-card__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    to bottom,
+    var(--louis-color-palette-gray-900) 0%,
+    color-mix(in srgb, var(--louis-color-palette-gray-900) 80%, transparent) 25%,
+    color-mix(in srgb, var(--louis-color-palette-gray-900) 0%, transparent) 50%
+  );
+}
+
+/* Body — 세로 · 간격 10(제품 `gap-5`). 스크림보다 뒤에 오는 positioned 형제라 위에 그려진다(숫자 z-index 없이). */
+.louis-news-card__body {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  inline-size: 100%;
+  min-inline-size: 0;
+}
+
+.louis-news-card__date {
+  display: block;
+  font-family: var(--louis-typography-body-md-regular-font-family);
+  font-size: var(--louis-typography-body-md-regular-font-size);
+  font-weight: var(--louis-typography-body-md-regular-font-weight);
+  line-height: var(--louis-typography-body-md-regular-line-height);
+  letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+  color: var(--louis-color-landing-text-muted);
+}
+
+.louis-news-card__headline {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: 0;
+  font-family: var(--louis-typography-body-lg-regular-font-family);
+  font-size: var(--louis-typography-body-lg-regular-font-size);
+  font-weight: var(--louis-typography-body-lg-regular-font-weight);
+  line-height: var(--louis-typography-body-lg-regular-line-height);
+  letter-spacing: var(--louis-typography-body-lg-regular-letter-spacing);
+  color: var(--louis-color-fg-primary);
+}
+
+.louis-news-card[data-featured] .louis-news-card__date {
+  color: var(--louis-color-palette-gray-300);
+}
+
+/* 피처드 제목은 1줄 — 스크림 상한 84px 이 근거다(문서 Interaction). */
+.louis-news-card[data-featured] .louis-news-card__headline {
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  color: var(--louis-color-media-foreground-dark);
+}
+
 /* Node chip — 캔버스의 메타 알약(모델·화면비·길이·해상도·사운드 등)
  *
  * 제품 정본은 node-canvas-v2 의 `--node-chrome-btn-*` 계열이다(VideoNode·ImageNode·BgmNode·
@@ -14733,6 +14882,92 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
     box-shadow: none;
     border: var(--louis-border-width-default) solid CanvasText;
   }
+}
+
+/* Segmented Code Input — design/components/segmented-code-input.md
+ *
+ * 한 칸에 한 글자씩 받는 입력 묶음. 제품 정본은 `components/ui/SegmentedCodeInput.tsx` 의 BOX · SEPARATOR 다.
+ * **컴포넌트는 칸이 아니라 묶음이다** — 칸이 컨테이너에 맞춰 줄고(flex 1 · 최소 0 · 최대 28), 칸 사이 2 와
+ * 네 칸마다 오는 구분자를 묶음이 갖는다. 칸 수 12 · 묶음 4 는 소비처 값이라 레시피에 없다.
+ *
+ * 마크업:
+ *   <div class="louis-segmented-code-input" role="group" aria-label="쿠폰 코드">
+ *     <input class="louis-segmented-code-input__cell" maxlength="1" aria-label="1번째 글자" />
+ *     …
+ *     <span class="louis-segmented-code-input__separator" aria-hidden="true">-</span>
+ *     …
+ *   </div>
+ *
+ * - 칸 최대 28 × 36, radius 8(radius-control-sm), **진짜 1px 테두리**(border-width-default) — 이 저장소의 기본인
+ *   0.5 inset 헤어라인이 아니다(문서 Known deviations 2, 소유자 확인 대기). 36 에 대응 토큰이 없다.
+ * - 면 잉크 4% · 테두리 잉크 12% · 글자 잉크 88% · 구분자 잉크 28% — 테마 적응 투명 잉크 gray-000-alpha-*.
+ * - Focus: 테두리 primary-400 72% · 면 잉크 8%. 제품 primary-400(#38a4ff, 모드 불변)과 값이 같은 시맨틱은
+ *   accent-primary-hover 하나뿐이라 그것을 72% 로 섞는다(문서 Known deviations 1 — 이름이 맞는 토큰이 없다).
+ *   제품은 outline 을 끄는데, 레시피는 base.css 의 공용 :focus-visible 링을 끄지 않는다(제품 결손을 올리지 않는다).
+ * - Disabled: 칸에만 불투명도 0.40. 구분자는 span 이라 그대로다.
+ * - Hover 없음. 전환은 색만 120ms ease. */
+
+.louis-segmented-code-input {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* 2 — 제품 자기 루트 래퍼 `flex w-full items-center gap-1`(2px 격자). 일반 간격 토큰이 없다(문서 Specification). */
+  gap: 2px;
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.louis-segmented-code-input__cell {
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  max-inline-size: 28px;
+  block-size: 36px;
+  margin: 0;
+  padding: 0;
+  border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-12);
+  border-radius: var(--louis-radius-control-sm);
+  background-color: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-gray-000-alpha-88);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+  text-align: center;
+  text-transform: uppercase;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+
+.louis-segmented-code-input__cell:focus {
+  border-color: color-mix(in srgb, var(--louis-color-accent-primary-hover) 72%, transparent);
+  background-color: var(--louis-color-gray-000-alpha-08);
+}
+
+.louis-segmented-code-input__cell:disabled {
+  opacity: 0.4;
+}
+
+/* 구분자 — 좌우 2(제품 `px-1`), 폭은 하이픈 글자가 정한다. 칸과 같은 글자 스타일이라 높이 24. */
+.louis-segmented-code-input__separator {
+  box-sizing: border-box;
+  display: block;
+  flex: none;
+  padding-block: 0;
+  padding-inline: 2px;
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+  color: var(--louis-color-gray-000-alpha-28);
+  user-select: none;
 }
 
 /* Segmented Control — design/components/segmented-control.md

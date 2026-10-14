@@ -10,9 +10,9 @@ summary: 날짜 한 줄과 제목으로 소식 한 건을 적는 카드입니다
 소식 한 건을 **날짜 + 제목** 두 줄로 적는 카드. 랜딩 「최신 소식」 셸프의 유일한 항목 형식이고,
 그중 한 장에 사진을 깔면 셸프의 왼쪽 2×2 를 차지하는 **피처드 카드**가 된다.
 
-**정본은 제품이다.** `NewsCarousel.tsx` 안의 `NewsCard` 가 구현이고 LOUIS 에는 표면이 없다 —
-`packages/css/src/component` 에 `news-card.css` 가 없고 `packages/react/src` 에도 없다. 더
-정확히는 **export 되지 않는 파일 내부 함수**다. 소비처가 같은 파일의 셸프 하나뿐이라, 여러
+**정본은 제품이다.** `NewsCarousel.tsx` 안의 `NewsCard` 가 구현이고 LOUIS 는 그것을 CSS 레시피
+`packages/css/src/component/news-card.css`(2026-10-14, 셸프 트랙 `.louis-news-card-track` 포함)로 옮겼다 —
+`packages/react/src` 에는 없다. 제품 쪽은 더 정확히는 **export 되지 않는 파일 내부 함수**다. 소비처가 같은 파일의 셸프 하나뿐이라, 여러
 자리에서 이미 쓰이던 것을 뒤늦게 이름 붙인 [Media Card](./media-card.md)·
 [Carousel Arrow](./carousel-arrow.md) 와 출발점이 다르다 — 이쪽은 아직 재사용된 적이 없고,
 그래서 이 문서가 「무엇이 카드에 속하고 무엇이 셸프에 속하는가」를 처음으로 가른다.
@@ -34,10 +34,10 @@ summary: 날짜 한 줄과 제목으로 소식 한 건을 적는 카드입니다
 
 | Surface       | 상태           | 근거                                                                                                                                                                                          |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web           | `not-ready`    | 제품 구현이 정본이지만 **export 조차 되지 않는 파일 내부 함수**이고 소비처가 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                     |
-| Figma         | `partial`      | `NewsCard` 2 variant(`Featured`) · TEXT 2. parity 게이트가 대조하는 것은 stroke 0 · effect 0 · 속성 축 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `news-card`(제품 클래스를 실브라우저에서 잰 값)와 카드 폭 · 높이 · 안쪽 여백 · 반경 · Body 간격 · 글자 크기를 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
+| Web           | `not-ready`    | 제품 구현이 정본이지만 **export 조차 되지 않는 파일 내부 함수**이고 소비처가 한 자리다. LOUIS 에는 CSS 레시피 `news-card.css` 가 있고(2026-10-14) React export 는 없다. 시험은 기하 되재기(`news-card-geometry.browser.test.tsx`)뿐이고 acceptance test 는 0건이다. 보통 카드 제목 색은 원시 `gray-000` 을 컴포넌트 CSS 가 직접 쓸 수 없어 시맨틱 `fg-primary` 다 |
+| Figma         | `partial`      | `NewsCard` 2 variant(`Featured`) · TEXT 2. parity 게이트가 대조하는 것은 stroke 0 · effect 0 · 속성 축 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `news-card`(제품 클래스를 실브라우저에서 잰 값)와 카드 폭 · 높이 · 안쪽 여백 · 반경 · Body 간격 · 글자 크기를 맞댄다. 반대 방향도 걸려 있다 — `news-card-geometry.browser.test.tsx` 가 LOUIS 레시피의 트랙 안에서 계산값을 같은 기록과 맞댄다(2026-10-14) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                       |
-| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                                              |
+| Maturity      | `experimental` | 되읽기 · 문서 · CSS 레시피 · 기하 되재기가 섰다. React 표면과 acceptance test 가 남았다                                                                                                        |
 
 ## When to use
 
@@ -67,7 +67,7 @@ summary: 날짜 한 줄과 제목으로 소식 한 건을 적는 카드입니다
 
 ## Properties
 
-정본은 제품 컴포넌트의 prop 이다. LOUIS 표면이 없으므로 대조할 `.d.ts` 가 없고, parity 계약도
+정본은 제품 컴포넌트의 prop 이다. LOUIS 에는 CSS 레시피만 있고 React 표면이 없으므로 대조할 `.d.ts` 가 없고, parity 계약도
 `figmaAhead` 로 그 사실을 적어 둔다.
 
 | prop | 값 | 기본 | 뜻 |
@@ -209,7 +209,7 @@ Body 의 94 · 64 는 1024 이상에서 제목이 2줄 · 1줄일 때의 높이�
 | Body 높이 (피처드) | 64 | 24 + 10 + 30. **1024 이상에서만**(→ 61 → 58 → 55). 출처는 위와 같다 |
 | Date | body-16-regular, 높이 24 | `typography/body-md-regular`(16 × 150%). **450 초과에서만** — 450 이하는 `body-16` 이 14 로 내려가 21 이다 |
 | Date 색 (보통) | `landing/text-muted` | 라이트 잉크 48% / 다크 잉크 56% |
-| Date 색 (피처드) | `palette-gray/500` | #9aa0ab 고정. 시안이 다섯 장의 날짜를 전부 이 값으로 찍었다 |
+| Date 색 (피처드) | `palette-gray/500` | #9aa0ab 고정. 시안이 다섯 장의 날짜를 전부 이 값으로 찍었다. **레시피는 `palette-gray-300`** — 제품이 500 이 #72757b 로 바뀐 뒤 시안 값에 가장 가까운 300 으로 옮겼다(Known deviations 1) |
 | Headline | body-20-regular | `typography/body-lg-regular`(20 × 150%). 랜딩 스코프에서 20 → 18(≤1023) → 16(≤767) |
 | Headline (보통) | 2줄 = 60, 말줄임 | **1024 이상**: 여유 120 − 24 − 10 = 86 이므로 2줄까지 든다(3줄이면 124 로 넘친다). 아래로는 2줄 54 · 48 · 48 이고 3줄도 든다 |
 | Headline (피처드) | 1줄 = 30, 말줄임 | 스크림 상한 84px 이 근거다. **1024 이상** 기준이며 아래로는 27 · 24 |
@@ -225,7 +225,10 @@ Body 의 94 · 64 는 1024 이상에서 제목이 2줄 · 1줄일 때의 높이�
    램프 인덱스만 뒤집으면(`gray/500`) 「흐린 보조 글자」라는 **역할**이 라이트에서 성립하지
    않기 때문이며, 랜딩이 그 역할에 이미 정해 둔 토큰이 `landing/text-muted` 다. 그 결과 **같은
    컴포넌트의 같은 부품이 variant 에 따라 다른 토큰 계열에서 온다.** `media-*` 계열에 muted
-   항목이 생기면 그때 양쪽을 그 토큰으로 모은다 — **소유자 판정 필요.**
+   항목이 생기면 그때 양쪽을 그 토큰으로 모은다 — **소유자 판정 필요.** 덧붙여 `palette-gray-500` 이
+   #72757b 로 바뀌어 시안 #9aa0ab 와 멀어졌고, 제품은 피처드 날짜를 값이 가장 가까운 `palette-gray-300`
+   으로 옮겼다. LOUIS 레시피(`news-card.css`)도 300 을 따른다 — **Figma 는 이 문서대로 500 에 묶였다고 적혀
+   있다** — 되읽기가 변수 이름을 담지 않아 이 게이트로는 확인되지 않는다. 소유자 판정 필요.
 2. **보통 카드 날짜의 라이트 대비가 AA 미달이다(3.5:1).** 이 컴포넌트에서 값을 올리지 않았다 —
    랜딩 전체가 공유하는 토큰이라 여기만 다른 값을 쓰면 정본이 둘이 된다. 올리려면 LOUIS 의
    `landing/text-muted` 를 손대야 하고, 그 순간 같은 토큰을 쓰는 다른 섹션들도 함께 움직인다.
@@ -256,8 +259,8 @@ Body 의 94 · 64 는 1024 이상에서 제목이 2줄 · 1줄일 때의 높이�
    2px 격자에 올린 값이라 이제 격자에 떨어진다(347 이던 때는 격자 밖이었다).
 7. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `news-card` 가 제품 클래스를
    실브라우저에서 잰 카드 칸(346 × 160 · 698 × 326) · 안쪽 여백 · 반경 · Body 간격 · 글자 크기를 갖고,
-   parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는
-   LOUIS 레시피가 없어 없다. **Body 높이 94 · 64 는 기록에 없다** — 제목이 2줄이냐 1줄이냐가 정하는
+   parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히 만드는지는
+   `news-card-geometry.browser.test.tsx` 가 LOUIS 레시피(트랙 포함)로 되잰다(2026-10-14). **Body 높이 94 · 64 는 기록에 없다** — 제목이 2줄이냐 1줄이냐가 정하는
    높이라 컴포넌트가 소유하는 값이 아니고, 게이트는 그 높이를 만드는 Body 간격 10 과 타이포를 잡는다.
 8. **셸프가 Figma 에 없다.** 열 흐름(`grid-auto-flow: column`) · 2행 · 간격 6 · 스크롤 스냅과 959 이하의
    두 열 행 흐름은 전부 카드 밖인데 그것을 담는 컴포넌트가 Figma 에 없다. 그 결과 **피처드가 왜 698 × 326 인지**
@@ -293,5 +296,5 @@ Body 의 94 · 64 는 1024 이상에서 제목이 2줄 · 1줄일 때의 높이�
 
 ## Migration and changelog
 
-새로 선 컴포넌트다. 이전 API 가 없다. LOUIS recipe 가 서면 이 문서의 Specification 이 그 값의
+새로 선 컴포넌트다. 이전 API 가 없다. LOUIS recipe(`news-card.css`)가 섰으므로 이 문서의 Specification 이 그 값의
 정본이 된다. 사용자 영향 변경은 [Updates](../updates/README.md) 에 적는다.

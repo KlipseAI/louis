@@ -219,6 +219,153 @@
       }
     },
     {
+      "name": "caption-layout-bubble",
+      "symbol": "IconCaptionLayoutBubble",
+      "figmaName": "icon/caption-layout-bubble",
+      "source": "packages/react/src/icons/svg/caption-layout-bubble.svg",
+      "geometryHash": "30d7e791a2425fcd",
+      "elementCount": 3,
+      "keywords": [
+        "caption layout",
+        "subtitle layout",
+        "bubble",
+        "자막 레이아웃",
+        "자막 배치",
+        "말풍선",
+        "버블"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "caption-layout-cinematic",
+      "symbol": "IconCaptionLayoutCinematic",
+      "figmaName": "icon/caption-layout-cinematic",
+      "source": "packages/react/src/icons/svg/caption-layout-cinematic.svg",
+      "geometryHash": "5d992259bfecd86f",
+      "elementCount": 3,
+      "keywords": [
+        "caption layout",
+        "subtitle layout",
+        "cinematic",
+        "film",
+        "자막 레이아웃",
+        "자막 배치",
+        "시네마틱",
+        "영화 자막"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "caption-layout-essay",
+      "symbol": "IconCaptionLayoutEssay",
+      "figmaName": "icon/caption-layout-essay",
+      "source": "packages/react/src/icons/svg/caption-layout-essay.svg",
+      "geometryHash": "f24418ea47e693a1",
+      "elementCount": 3,
+      "keywords": [
+        "caption layout",
+        "subtitle layout",
+        "essay",
+        "자막 레이아웃",
+        "자막 배치",
+        "에세이",
+        "왼쪽 정렬 제목"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "caption-layout-impact",
+      "symbol": "IconCaptionLayoutImpact",
+      "figmaName": "icon/caption-layout-impact",
+      "source": "packages/react/src/icons/svg/caption-layout-impact.svg",
+      "geometryHash": "d0d285ab96521b66",
+      "elementCount": 3,
+      "keywords": [
+        "caption layout",
+        "subtitle layout",
+        "impact",
+        "center caption",
+        "자막 레이아웃",
+        "자막 배치",
+        "임팩트",
+        "가운데 큰 자막"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "caption-layout-lecture",
+      "symbol": "IconCaptionLayoutLecture",
+      "figmaName": "icon/caption-layout-lecture",
+      "source": "packages/react/src/icons/svg/caption-layout-lecture.svg",
+      "geometryHash": "eed55286411162b9",
+      "elementCount": 3,
+      "keywords": [
+        "caption layout",
+        "subtitle layout",
+        "lecture",
+        "wide caption",
+        "자막 레이아웃",
+        "자막 배치",
+        "강의",
+        "넓은 자막"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "caption-layout-news",
+      "symbol": "IconCaptionLayoutNews",
+      "figmaName": "icon/caption-layout-news",
+      "source": "packages/react/src/icons/svg/caption-layout-news.svg",
+      "geometryHash": "3cb2d6b6d7096eb3",
+      "elementCount": 4,
+      "keywords": [
+        "caption layout",
+        "subtitle layout",
+        "news",
+        "lower third",
+        "자막 레이아웃",
+        "자막 배치",
+        "뉴스",
+        "하단 세 줄",
+        "로워서드"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
+      "name": "caption-layout-standard",
+      "symbol": "IconCaptionLayoutStandard",
+      "figmaName": "icon/caption-layout-standard",
+      "source": "packages/react/src/icons/svg/caption-layout-standard.svg",
+      "geometryHash": "171d1e7c03fb3c84",
+      "elementCount": 3,
+      "keywords": [
+        "caption layout",
+        "subtitle layout",
+        "standard",
+        "default",
+        "자막 레이아웃",
+        "자막 배치",
+        "기본",
+        "표준",
+        "제목 위 자막 아래"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
       "name": "caret-down",
       "symbol": "IconCaretDown",
       "figmaName": "icon/caret-down",

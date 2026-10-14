@@ -27,6 +27,27 @@ export function IconBookOpen(props) {
 export function IconBurst(props) {
     return (_jsx(IconRoot, { ...props, name: "burst", children: _jsx("path", { d: "M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }) }));
 }
+export function IconCaptionLayoutBubble(props) {
+    return (_jsxs(IconRoot, { ...props, name: "caption-layout-bubble", children: [_jsx("rect", { rx: "1.5", x: "6.75", y: "2.25", width: "10.5", height: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", opacity: "0.4" }), _jsx("path", { d: "M9.6 5.22H14.4", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M9.51 14.04H14.49", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
+export function IconCaptionLayoutCinematic(props) {
+    return (_jsxs(IconRoot, { ...props, name: "caption-layout-cinematic", children: [_jsx("rect", { rx: "1.5", x: "6.75", y: "2.25", width: "10.5", height: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", opacity: "0.4" }), _jsx("path", { d: "M9.15 13.68H12.6", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M9.6 16.92H14.4", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
+export function IconCaptionLayoutEssay(props) {
+    return (_jsxs(IconRoot, { ...props, name: "caption-layout-essay", children: [_jsx("rect", { rx: "1.5", x: "6.75", y: "2.25", width: "10.5", height: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", opacity: "0.4" }), _jsx("path", { d: "M8.97 4.86H11.97", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M9.33 16.2H14.67", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
+export function IconCaptionLayoutImpact(props) {
+    return (_jsxs(IconRoot, { ...props, name: "caption-layout-impact", children: [_jsx("rect", { rx: "1.5", x: "6.75", y: "2.25", width: "10.5", height: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", opacity: "0.4" }), _jsx("path", { d: "M9.6 5.04H14.4", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("rect", { rx: "0.5", x: "8.4", y: "11.64", width: "7.2", height: "1.8", fill: "currentColor" })] }));
+}
+export function IconCaptionLayoutLecture(props) {
+    return (_jsxs(IconRoot, { ...props, name: "caption-layout-lecture", children: [_jsx("rect", { rx: "1.5", x: "6.75", y: "2.25", width: "10.5", height: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", opacity: "0.4" }), _jsx("path", { d: "M8.97 5.04H12.42", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M8.61 16.74H15.39", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
+export function IconCaptionLayoutNews(props) {
+    return (_jsxs(IconRoot, { ...props, name: "caption-layout-news", children: [_jsx("rect", { rx: "1.5", x: "6.75", y: "2.25", width: "10.5", height: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", opacity: "0.4" }), _jsx("path", { d: "M8.97 13.68H12.87", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M8.97 15.93H11.79", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M8.97 18.18H13.77", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
+export function IconCaptionLayoutStandard(props) {
+    return (_jsxs(IconRoot, { ...props, name: "caption-layout-standard", children: [_jsx("rect", { rx: "1.5", x: "6.75", y: "2.25", width: "10.5", height: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", opacity: "0.4" }), _jsx("path", { d: "M9.6 5.04H14.4", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M9.33 15.84H14.67", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
 export function IconCaretDown(props) {
     return (_jsx(IconRoot, { ...props, name: "caret-down", children: _jsx("polyline", { points: "19.5 9 12 16.5 4.5 9", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }) }));
 }

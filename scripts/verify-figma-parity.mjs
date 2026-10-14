@@ -6474,6 +6474,32 @@ const COMPONENT_CONTRACTS = [
       },
     },
   },
+  {
+    id: "caption-thumb",
+    figmaName: "CaptionThumb",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/caption-thumb.css 가 정본이다(2026-10-15, DS-D-0115). 레터박스 · 영상 자리 · 줄 셋의 위치와 색은 DB 템플릿 행의 데이터라 Figma 의 값(레터박스 media-stage-surface · 줄 media-foreground-dark · 박스 자막 accent-primary)은 시드 표본이고 계약이 아니다. 계약은 프레임(27 × 48 · 반경 4 · 헤어라인)과 줄 높이(제목 3 · 부제목 2 · 박스 자막 5)다.",
+    variantProperties: {},
+    strokes: {},
+    // 헤어라인 — CSS hairline-inset(사방 0.5), Figma INNER_SHADOW spread 0.5(DS-D-0023).
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "caption-thumb",
+      sizeKeys: ["base"],
+      fields: {
+        width: "width",
+        height: "height",
+        cornerRadius: "radius",
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        TitleLine: { fields: { height: "titleHeight", cornerRadius: "lineRadius" } },
+        SubtitleLine: { fields: { height: "subtitleHeight" } },
+        CaptionLine: { fields: { height: "boxedCaptionHeight" } },
+      },
+    },
+  },
 ];
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와

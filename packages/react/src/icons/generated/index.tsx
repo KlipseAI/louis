@@ -16,6 +16,13 @@ export type IconName =
   | "arrows-left-right"
   | "book-open"
   | "burst"
+  | "caption-layout-bubble"
+  | "caption-layout-cinematic"
+  | "caption-layout-essay"
+  | "caption-layout-impact"
+  | "caption-layout-lecture"
+  | "caption-layout-news"
+  | "caption-layout-standard"
   | "caret-down"
   | "caret-left"
   | "caret-right"
@@ -160,6 +167,77 @@ export function IconBurst(props: IconProps): JSX.Element {
   return (
     <IconRoot {...props} name="burst">
       <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaptionLayoutBubble(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caption-layout-bubble">
+      <rect rx="1.5" x="6.75" y="2.25" width="10.5" height="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+      <path d="M9.6 5.22H14.4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.51 14.04H14.49" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaptionLayoutCinematic(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caption-layout-cinematic">
+      <rect rx="1.5" x="6.75" y="2.25" width="10.5" height="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+      <path d="M9.15 13.68H12.6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.6 16.92H14.4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaptionLayoutEssay(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caption-layout-essay">
+      <rect rx="1.5" x="6.75" y="2.25" width="10.5" height="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+      <path d="M8.97 4.86H11.97" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.33 16.2H14.67" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaptionLayoutImpact(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caption-layout-impact">
+      <rect rx="1.5" x="6.75" y="2.25" width="10.5" height="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+      <path d="M9.6 5.04H14.4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <rect rx="0.5" x="8.4" y="11.64" width="7.2" height="1.8" fill="currentColor" />
+    </IconRoot>
+  );
+}
+
+export function IconCaptionLayoutLecture(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caption-layout-lecture">
+      <rect rx="1.5" x="6.75" y="2.25" width="10.5" height="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+      <path d="M8.97 5.04H12.42" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8.61 16.74H15.39" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaptionLayoutNews(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caption-layout-news">
+      <rect rx="1.5" x="6.75" y="2.25" width="10.5" height="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+      <path d="M8.97 13.68H12.87" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8.97 15.93H11.79" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8.97 18.18H13.77" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCaptionLayoutStandard(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="caption-layout-standard">
+      <rect rx="1.5" x="6.75" y="2.25" width="10.5" height="19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+      <path d="M9.6 5.04H14.4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.33 15.84H14.67" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }

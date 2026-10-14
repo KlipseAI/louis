@@ -22476,6 +22476,57 @@
             }
           }
         },
+        "color-caption-thumb-video": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/caption-thumb-video",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.600}",
+              "aliasTarget": {
+                "id": "color-palette-gray-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.345098,
+                  0.360784,
+                  0.388235
+                ]
+              },
+              "sourcePath": "semantic.dark.color.caption-thumb-video"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.600}",
+              "aliasTarget": {
+                "id": "color-palette-gray-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.345098,
+                  0.360784,
+                  0.388235
+                ]
+              },
+              "sourcePath": "semantic.light.color.caption-thumb-video"
+            }
+          }
+        },
         "color-content-card-title-hover": {
           "$type": "color",
           "fields": [],

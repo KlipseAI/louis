@@ -2048,7 +2048,8 @@
         "design/components/section-shell.md",
         "design/components/brand-bar.md",
         "design/components/comment-thread.md",
-        "design/components/property-stack.md"
+        "design/components/property-stack.md",
+        "design/components/caption-thumb.md"
       ]
     },
     {
@@ -2213,7 +2214,8 @@
         "design/governance/decisions/DS-D-0111-section-shell.md",
         "design/governance/decisions/DS-D-0112-brand-bar.md",
         "design/governance/decisions/DS-D-0113-comment-thread.md",
-        "design/governance/decisions/DS-D-0114-property-stack.md"
+        "design/governance/decisions/DS-D-0114-property-stack.md",
+        "design/governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md"
       ]
     },
     {
@@ -2616,6 +2618,24 @@
       "id": "property-stack",
       "path": "design/components/property-stack.md",
       "title": "Property Stack",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-caption-layout-icons-and-thumb",
+      "path": "design/governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md",
+      "title": "DS-D-0115 숏츠 편집의 자막 레이아웃 칩은 아이콘 caption-layout-* 일곱, 템플릿 썸네일은 새 부품 caption-thumb",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "caption-thumb",
+      "path": "design/components/caption-thumb.md",
+      "title": "Caption Thumb",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3754,6 +3774,17 @@
         "PropertyStack",
         "PropertyStackGroup"
       ],
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "caption-thumb",
+      "name": "Caption Thumb",
+      "doc": "design/components/caption-thumb.md",
+      "note": "자막 템플릿 한 벌을 9:16 세로 프레임(27 × 48 · 반경 4 · 헤어라인)에 줄인 썸네일(DS-D-0115). 하이라이트 숏츠 편집 템플릿 탭의 TemplateThumb(app/highlight/[projectId]/shorts/[shortId]/page.tsx)을 한 레시피(packages/css/src/component/caption-thumb.css)로 옮겼다 — 레터박스 · 영상 자리 · 줄 셋의 위치와 색은 소비처가 지역 변수로 주는 데이터, 영상 자리 색은 새 시맨틱 caption-thumb-video. 같은 화면의 레이아웃 칩 글리프는 아이콘 caption-layout-* 일곱이다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. figma 는 2026-10-15 에 done 이다 — CaptionThumb 컴포넌트 · parity 기하 계약 · 실측 기록 · 브라우저 되재기가 DS-D-0035 를 채운다(verify-figma-done).",
+      "maturity": "experimental",
+      "figma": "done",
+      "figmaName": "CaptionThumb",
       "web": "partial",
       "docs": "done"
     }

@@ -508,6 +508,8 @@ const CAPTURE = {
   "PropertyStack": {"key":{"name":"base"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","itemSpacing","layoutMode"],"parts":{"Label":["fontSize"]}},
   // 요소 하나 — 사이 4, 칸 줄 가로 · 줄바꿈 사이 12(ColorSwatch stack 인스턴스), 슬라이더 줄 사이 8 · 라벨 최소 28 · 값 최소 16.
   "PropertyStackGroup": {"key":{"name":"base"},"fields":["itemSpacing","layoutMode"],"parts":{"Label":["fontSize"],"Fields":["itemSpacing","counterAxisSpacing"],"SliderRow":["itemSpacing"],"SliderLabel":["minWidth"],"SliderValue":["minWidth"]}},
+  // Caption Thumb(2026-10-15, DS-D-0115). 27 × 48 · 반경 4 · 헤어라인(INNER_SHADOW spread 0.5), 줄 높이 제목 3 · 부제목 2 · 박스 자막 5(3 + 2) · 반경 1. 위치 · 색은 템플릿 데이터의 표본이라 담지 않는다.
+  "CaptionThumb": {"key":{"name":"base"},"fields":["width","height","cornerRadius"],"parts":{"TitleLine":["height","cornerRadius"],"SubtitleLine":["height"],"CaptionLine":["height"]},"effects":["self"]},
 };
 
 function usage(message) {

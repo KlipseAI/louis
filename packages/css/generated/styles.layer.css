@@ -3321,6 +3321,89 @@
 }
 
 @layer louis.component {
+  /* Caption Thumb — design/components/caption-thumb.md
+   *
+   * 자막 템플릿 한 벌을 9:16 세로 프레임에 줄인 썸네일(DS-D-0115). 제품 정본은 하이라이트 숏츠 편집 화면의 템플릿 탭
+   * `app/highlight/[projectId]/shorts/[shortId]/page.tsx` 의 `TemplateThumb`(통합 판 `54b62a8aa`)이다.
+   *
+   * **그림은 데이터다.** 레터박스 색 · 영상 자리 · 줄 셋의 위치와 색은 DB 템플릿 행에서 오고 테마를 따르지 않는다 — 소비처가
+   * 지역 변수로 준다. 레시피는 프레임(27 × 48 · 반경 4 · 헤어라인), 영상 자리 색, 줄 높이 · 반경만 갖는다.
+   * 영상 자리를 fit 으로 넣는 계산(원본 비율 → 폭 · 높이 %)은 소비처의 것이다(제품 `TemplateThumb` 과 관리자 미리보기가 같다).
+   * 같은 화면의 레이아웃 칩 글리프(LayoutThumb)는 부품이 아니라 아이콘 `caption-layout-*` 이다. */
+
+  .louis-caption-thumb {
+    /* ── 소비처가 주는 데이터 ── */
+    /* 레터박스 — 템플릿 letterbox_color. */
+    --louis-caption-thumb-letterbox: transparent;
+    /* 영상 자리 — fit 계산 결과(백분율). 기본은 16:9 원본을 9:16 에 넣은 값. */
+    --louis-caption-thumb-video-x: 0%;
+    --louis-caption-thumb-video-y: 34.18%;
+    --louis-caption-thumb-video-w: 100%;
+    --louis-caption-thumb-video-h: 31.64%;
+    /* 줄 하나 — 줄 요소에 인라인으로 덮는다. */
+    --louis-caption-thumb-x: 7.5%;
+    --louis-caption-thumb-y: 0%;
+    --louis-caption-thumb-w: 85%;
+    --louis-caption-thumb-color: transparent;
+
+    position: relative;
+    display: block;
+    flex: none;
+    box-sizing: border-box;
+    /* 27 × 48 — 제품 `w-[27px] h-24`(9:16). */
+    inline-size: 27px;
+    block-size: 48px;
+    overflow: hidden;
+    /* 4 — 제품 `rounded-4`. 사다리에서 같은 값은 표 머리 이름이라 리터럴이다. */
+    border-radius: 4px;
+    background: var(--louis-caption-thumb-letterbox);
+    box-shadow: var(--louis-hairline-inset);
+  }
+
+  /* 영상 자리 — 원본 비율을 fit 으로 넣은 회색 면(제품 `bg-palette-gray-600`). 두 테마 같다(콘텐츠 그림). */
+  .louis-caption-thumb__video {
+    position: absolute;
+    inset-inline-start: var(--louis-caption-thumb-video-x);
+    inset-block-start: var(--louis-caption-thumb-video-y);
+    inline-size: var(--louis-caption-thumb-video-w);
+    block-size: var(--louis-caption-thumb-video-h);
+    background: var(--louis-color-caption-thumb-video);
+  }
+
+  /* 줄 — 제목 3 · 부제목 2 · 자막 3, 박스 배경이 있으면 +2(제품 `h: line.bg ? line.h + 2 : line.h`). 색은 배경 ?? 글자색. */
+  .louis-caption-thumb__line {
+    --louis-caption-thumb-line-height: 3px;
+
+    position: absolute;
+    inset-inline-start: var(--louis-caption-thumb-x);
+    inset-block-start: var(--louis-caption-thumb-y);
+    inline-size: var(--louis-caption-thumb-w);
+    block-size: var(--louis-caption-thumb-line-height);
+    border-radius: 1px;
+    background: var(--louis-caption-thumb-color);
+  }
+
+  .louis-caption-thumb__line[data-role="subtitle"] {
+    --louis-caption-thumb-line-height: 2px;
+  }
+
+  .louis-caption-thumb__line[data-boxed="true"] {
+    --louis-caption-thumb-line-height: 5px;
+  }
+
+  .louis-caption-thumb__line[data-role="subtitle"][data-boxed="true"] {
+    --louis-caption-thumb-line-height: 4px;
+  }
+
+  /* forced-colors — 콘텐츠 색이 지워지면 프레임 경계만 남긴다. */
+  @media (forced-colors: active) {
+    .louis-caption-thumb {
+      border: 1px solid CanvasText;
+    }
+  }
+}
+
+@layer louis.component {
   /* Carousel Arrow — design/components/carousel-arrow.md
    *
    * 랜딩 캐러셀의 이전 · 다음 버튼 하나(DS-D-0084). 제품 정본은 `components/landing/system/CarouselArrows.tsx`.

@@ -6657,6 +6657,23 @@
           ]
         ],
         [
+          "color/caption-thumb-video",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/palette-gray/600",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/600",
+              null
+            ]
+          ]
+        ],
+        [
           "color/content-card-title-hover",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -12890,6 +12907,61 @@
       },
       "strokes": {},
       "effects": {}
+    },
+    "CaptionThumb": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 5,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "TitleLine": {
+              "height": [
+                3
+              ],
+              "cornerRadius": [
+                1
+              ]
+            },
+            "SubtitleLine": {
+              "height": [
+                2
+              ]
+            },
+            "CaptionLine": {
+              "height": [
+                5
+              ]
+            }
+          },
+          "width": [
+            27
+          ],
+          "height": [
+            48
+          ],
+          "cornerRadius": [
+            4
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
     },
     "CarouselArrow": {
       "variantCount": 6,
@@ -36785,6 +36857,202 @@
         "빛",
         "이펙트",
         "효과"
+      ]
+    },
+    "icon/caption-layout-bubble": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "bubble",
+        "caption layout",
+        "subtitle layout",
+        "말풍선",
+        "버블",
+        "자막 레이아웃",
+        "자막 배치"
+      ]
+    },
+    "icon/caption-layout-cinematic": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caption layout",
+        "cinematic",
+        "film",
+        "subtitle layout",
+        "시네마틱",
+        "영화 자막",
+        "자막 레이아웃",
+        "자막 배치"
+      ]
+    },
+    "icon/caption-layout-essay": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caption layout",
+        "essay",
+        "subtitle layout",
+        "에세이",
+        "왼쪽 정렬 제목",
+        "자막 레이아웃",
+        "자막 배치"
+      ]
+    },
+    "icon/caption-layout-impact": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 1,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caption layout",
+        "center caption",
+        "impact",
+        "subtitle layout",
+        "가운데 큰 자막",
+        "임팩트",
+        "자막 레이아웃",
+        "자막 배치"
+      ]
+    },
+    "icon/caption-layout-lecture": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caption layout",
+        "lecture",
+        "subtitle layout",
+        "wide caption",
+        "강의",
+        "넓은 자막",
+        "자막 레이아웃",
+        "자막 배치"
+      ]
+    },
+    "icon/caption-layout-news": {
+      "width": 24,
+      "height": 24,
+      "vectors": 4,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caption layout",
+        "lower third",
+        "news",
+        "subtitle layout",
+        "뉴스",
+        "로워서드",
+        "자막 레이아웃",
+        "자막 배치",
+        "하단 세 줄"
+      ]
+    },
+    "icon/caption-layout-standard": {
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "caption layout",
+        "default",
+        "standard",
+        "subtitle layout",
+        "기본",
+        "자막 레이아웃",
+        "자막 배치",
+        "제목 위 자막 아래",
+        "표준"
       ]
     },
     "icon/caret-down": {

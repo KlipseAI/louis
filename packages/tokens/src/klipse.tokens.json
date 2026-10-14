@@ -8381,6 +8381,16 @@
             }
           }
         },
+        "caption-thumb-video": {
+          "$value": "{primitive.color.palette-gray.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-caption-thumb-video",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "canvas-guide": {
           "$value": "{primitive.color.pink.600}",
           "$extensions": {
@@ -11183,6 +11193,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-asset-tile-well",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "caption-thumb-video": {
+          "$value": "{primitive.color.palette-gray.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-caption-thumb-video",
               "tier": "semantic",
               "mode": "dark"
             }

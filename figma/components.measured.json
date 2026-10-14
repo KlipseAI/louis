@@ -9064,6 +9064,29 @@
           "$sliderValueMin": "space-control-lg 16. 제품 CCP `min-w-8`."
         }
       }
+    },
+    "caption-thumb": {
+      "$doc": "design/components/caption-thumb.md",
+      "$source": "packages/css/src/component/caption-thumb.css — 2026-10-15 DS-D-0115",
+      "$note": "Caption Thumb. 값은 CSS 가 만드는 값이고 출처는 통합 판 54b62a8aa 의 app/highlight/[projectId]/shorts/[shortId]/page.tsx(약칭 HSP) TemplateThumb 이다. caption-thumb-geometry.browser.test.tsx 가 되잰다.",
+      "sizes": {
+        "base": {
+          "width": 27,
+          "$width": "27px. 제품 HSP TemplateThumb `w-[27px]`.",
+          "height": 48,
+          "$height": "48px. 제품 HSP `h-24`(9:16).",
+          "radius": 4,
+          "$radius": "4px. 제품 HSP `rounded-4`.",
+          "titleHeight": 3,
+          "$titleHeight": "제목 줄 3. 제품 HSP lines title `h: 3`.",
+          "subtitleHeight": 2,
+          "$subtitleHeight": "부제목 줄 2. 제품 HSP lines subtitle `h: 2`.",
+          "boxedCaptionHeight": 5,
+          "$boxedCaptionHeight": "박스 배경이 있는 자막 줄 3 + 2. 제품 HSP `line.bg ? line.h + 2 : line.h`.",
+          "lineRadius": 1,
+          "$lineRadius": "1px. 제품 HSP `rounded-[1px]`."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -9161,7 +9184,8 @@
     "comment-thread-item": "제품 렌더 하네스가 닿지 못한다 — 블로그 글(app/blog/[slug])의 댓글은 DB 행이 있어야 렌더되고 BlogComments.tsx 는 measure-product-components 가 컴파일하는 제품 소스 명부(scripts/lib/product-files.mjs)에 없다. 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 BlogComments.tsx 선언과 접은 판정을 적는다.",
     "comment-thread-empty": "제품 렌더 하네스가 닿지 못한다 — 블로그 글(app/blog/[slug])의 댓글은 DB 행이 있어야 렌더되고 BlogComments.tsx 는 measure-product-components 가 컴파일하는 제품 소스 명부(scripts/lib/product-files.mjs)에 없다. 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 BlogComments.tsx 선언과 접은 판정을 적는다.",
     "property-stack": "제품 렌더 하네스가 닿지 못한다 — 자막 색 패널은 하이라이트 숏츠 편집 모달(로그인 뒤 프로젝트 · 숏츠 데이터가 있어야 열린다) 안이고 CaptionColorPanel.tsx 는 measure-product-components 가 컴파일하는 제품 소스 명부(scripts/lib/product-files.mjs)에 없다. 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 CaptionColorPanel.tsx 선언을 적는다.",
-    "property-stack-group": "제품 렌더 하네스가 닿지 못한다 — 자막 색 패널은 하이라이트 숏츠 편집 모달(로그인 뒤 프로젝트 · 숏츠 데이터가 있어야 열린다) 안이고 CaptionColorPanel.tsx 는 measure-product-components 가 컴파일하는 제품 소스 명부(scripts/lib/product-files.mjs)에 없다. 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 CaptionColorPanel.tsx 선언을 적는다."
+    "property-stack-group": "제품 렌더 하네스가 닿지 못한다 — 자막 색 패널은 하이라이트 숏츠 편집 모달(로그인 뒤 프로젝트 · 숏츠 데이터가 있어야 열린다) 안이고 CaptionColorPanel.tsx 는 measure-product-components 가 컴파일하는 제품 소스 명부(scripts/lib/product-files.mjs)에 없다. 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 CaptionColorPanel.tsx 선언을 적는다.",
+    "caption-thumb": "제품 렌더 하네스가 닿지 못한다 — 템플릿 썸네일은 하이라이트 숏츠 편집(로그인 뒤 프로젝트 · 숏츠 · DB 자막 템플릿 행이 있어야 렌더된다) 안이고 그 page.tsx 는 measure-product-components 가 컴파일하는 제품 소스 명부(scripts/lib/product-files.mjs)에 없다. 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 TemplateThumb 선언을 적는다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다. **2026-10-14 canvas-edge 를 이 명부에서 뺐다(DS-D-0100)** — DS-D-0061 의 근거(쉬머가 인스턴스 기하 · SMIL 주기)는 지금도 참이지만, 그 근거가 덮는 것은 쉬머 한 겹뿐이다. 실선 · hover 잉크 · 히트 영역 · 삭제 버튼은 CSS 가 온전히 담아 레시피가 섰고 쉬머는 제품 JS 에 남는다. 명부가 비어도 이 장치는 남는다 — 다음 판정이 여기 들어온다."

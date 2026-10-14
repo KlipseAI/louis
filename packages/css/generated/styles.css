@@ -1872,6 +1872,9 @@
   align-items: center;
   justify-content: flex-start;
   text-align: center;
+  /* 폭 540 · 높이 100% 에 여백이 들어간다 — 라이브러리는 전역 reset 을 강제하지 않으므로(DS-D-0004) 상자가 스스로 border-box 다.
+   * 없으면 reset 을 고르지 않은 소비처에서 본문이 580(540 + 여백 20 × 2)으로 서고 높이가 여백만큼 넘친다(2026-10-14 되재기 시험이 찾음). */
+  box-sizing: border-box;
   inline-size: min(540px, 100%);
   margin-inline: auto;
   block-size: 100%;

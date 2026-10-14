@@ -14,7 +14,7 @@ summary: 허브 화면 맨 위에서 사진 배너를 돌려 보여 줍니다.
 | Surface       | 상태           | 근거                                                                 |
 | ------------- | -------------- | -------------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 17건이 두 motion context에서 각각 돈다; 제품이 컨트롤·인디케이터 레시피를 실제로 소비한다(`appHomeSceneStyles.ts`); visual regression 없음 |
-| Figma         | `partial`      | component set 4 variant(Tone × Bleed)에 기하 계약이 붙었고 parity가 매 실행 대조한다; 2026-08-31 재조정분(가운데 본문 · 하단 가운데 막대)이 반영됐다; `controls="pill"` 변형은 아직 모델링하지 않았고 publish 전 |
+| Figma         | `done`      | component set 4 variant(Tone × Bleed)에 기하 계약이 붙었고 parity가 매 실행 대조한다; 2026-08-31 재조정분(가운데 본문 · 하단 가운데 막대)이 반영됐다; `controls="pill"` 변형은 아직 모델링하지 않았고 publish 전 — 2026-10-14 되재기 시험 `banner-carousel-geometry.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                           |
 

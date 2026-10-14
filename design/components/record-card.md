@@ -20,7 +20,7 @@ summary: 어드민 기록 하나를 머리 한 줄로 접고 눌러서 라벨/�
 | Surface       | 상태           | 근거                                                                                                    |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | `packages/css/src/component/record-card.css` 레시피는 있다. 제품 세 파일은 아직 자기 상수로 그린다 — 소비 증거도 브라우저 시험도 없어 `partial` 로 올리지 않는다 |
-| Figma         | `partial`      | component set `RecordCard`(DS · Components 「5 · 내용」, 2026-10-08, 8 변형). 되읽기 등재 + parity 계약(축 · 효과 · 기하 두 칸)이 있다. 기하 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
+| Figma         | `done`      | component set `RecordCard`(DS · Components 「5 · 내용」, 2026-10-08, 8 변형). 되읽기 등재 + parity 계약(축 · 효과 · 기하 두 칸)이 있다. 기하 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 — 2026-10-14 되재기 시험 `record-card-geometry.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `partial`      | 이 문서 — States · Content · Acceptance tests 절이 아직 없다 |
 | Maturity      | `experimental` | 레시피가 정본을 옮겨 적은 단계다. 소비처가 이 클래스를 물면 승격을 다시 판정한다                          |
 

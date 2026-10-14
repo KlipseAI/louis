@@ -18149,6 +18149,17 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-14 (269) — 되재기 시험 여섯 파일로 Figma done 일곱, Banner Carousel 본문 칸이 스스로 border-box
+
+- **figma `partial` → `done` 일곱** — banner-carousel · start-card · record-card · text-link · bare-button · inspector-row · inspector-section-head. 남은 조건이
+  DS-D-0035 (c) 「실측값을 코드가 여전히 만드는지 재는 브라우저 시험」 하나였다. 키마다 parity 계약이 거는 칸을 `figma/components.measured.json` 과 맞대는
+  시험을 붙였다(`*-geometry.browser.test.tsx`, inspector-row 파일 하나가 섹션 머리까지 닫는다). manifest done 42 → 49.
+- **Banner Carousel 결손 수정** — `.louis-banner-carousel__content` 가 `box-sizing: border-box` 를 갖는다. 라이브러리는 전역 reset 을 강제하지 않아(DS-D-0004)
+  reset 을 고르지 않은 소비처에서 본문 칸이 580(540 + 여백 20 × 2)으로 서고 높이가 여백만큼 넘쳤다. Figma 와 기록은 540 이다. 제품은 Tailwind preflight 로
+  이미 border-box 라 보이는 변화가 없다.
+- 남긴 것 — media-card · news-card · segmented-code-input · step-tile · carousel-arrow · gnb-menu-item · inline-loading-label · canvas-edge 는 LOUIS 안에 잴 코드(레시피)가
+  없다. 기록 숫자를 시험에 옮겨 다시 읽는 것은 검증이 아니라 만들지 않았다 — 레시피가 먼저다.
+
 #### 2026-10-14 (268) — 앱 보드 늘림 수정 셋, 홈과 하이라이트 스튜디오 화면을 Figma 대응으로(DS-D-0098)
 
 - **조립 규칙 15조의 10 · 11 · 12.** 줄 수를 자르는 글자(`line-clamp`, 계산값 `flow-root` + `overflow: hidden`)는 칸 폭을 채우고 N줄에서 자른다.

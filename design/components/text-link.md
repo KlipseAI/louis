@@ -18,7 +18,7 @@ LOUIS 레시피는 `packages/css/src/component/text-link.css`(2026-10-07)다. Re
 | Surface       | 상태           | 근거                                                                          |
 | ------------- | -------------- | ----------------------------------------------------------------------------- |
 | Web           | `not-ready`    | `packages/css/src/component/text-link.css` 레시피는 있다. 제품 세 곳은 아직 자기 상수로 그린다 — 소비 증거도 브라우저 시험도 없다 |
-| Figma         | `partial`      | component set `TextLink`(DS · Components 「1 · 액션」, 2026-10-08, 6 변형). 되읽기 등재 + parity 계약(축 · 여백 · 밑줄 네 칸)이 있다. 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
+| Figma         | `done`      | component set `TextLink`(DS · Components 「1 · 액션」, 2026-10-08, 6 변형). 되읽기 등재 + parity 계약(축 · 여백 · 밑줄 네 칸)이 있다. 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 — 2026-10-14 되재기 시험 `text-link-geometry.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `partial`      | 이 문서 — States · Content · Acceptance tests 절이 아직 없다 |
 | Maturity      | `experimental` | 소비처가 이 클래스를 물면 승격을 다시 판정한다                                |
 

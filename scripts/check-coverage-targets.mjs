@@ -201,7 +201,9 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 되읽기를 다시 떠 parity 가 초록이 되면 progress 를 done 으로 되올리고 이 바닥도 24 로 되올린다.
 // 2026-09-26: 23 → 24 — DropZone 신설(Figma 세트 · 되읽기 · 계약 · 되재기 테스트, DS-D-0035).
 // 2026-10-14: 24 → 42 — DS-D-0084 로 선 새 부품 열여덟(작은 것 일곱 · 큰 것 열하나)이 세트 · 계약 · 실측 · 되재기를 다 갖춰 done(Updates (264)).
-const MANIFEST_DONE_FLOOR = 42; // 바닥. 오르면 올려 이득을 잠근다
+// 같은 날 뒤: 42 → 49 — 되재기 시험이 없어 partial 이던 일곱(banner-carousel · start-card · record-card · text-link · bare-button ·
+// inspector-row · inspector-section-head)에 실브라우저 되재기를 붙였다(Updates (269)). banner-carousel 은 그 시험이 찾은 border-box 결손을 고쳤다.
+const MANIFEST_DONE_FLOOR = 49; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

@@ -19,7 +19,7 @@ summary: 인스펙터 절의 머리 한 줄이며 제목과 값 힌트·조작�
 | Surface       | 상태           | 근거                                                    |
 | ------------- | -------------- | ------------------------------------------------------- |
 | Web           | `partial`      | `packages/css/src/component/inspector-row.css` (React 표면 없음) |
-| Figma         | `partial`      | component set `InspectorSectionHead` (2 variant)        |
+| Figma         | `done`      | component set `InspectorSectionHead` (2 variant) — 2026-10-14 되재기 시험 `inspector-row-geometry.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                 |
 | Maturity      | `experimental` | 소비처가 붙고 절 사이 구분선 계약이 서면 beta           |
 

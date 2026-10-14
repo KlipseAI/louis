@@ -29,7 +29,7 @@ summary: 빈 캔버스에서 첫 노드를 만드는 생성 카드입니다. 미
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
 | Web | `not-ready` | CSS recipe 만 있다(`packages/css/src/component/start-card.css` — `.louis-start-card`). React 표면 · 실브라우저 acceptance test · 제품 소비 증거 없음 |
-| Figma | `partial` | component set `StartCard`(DS · Components 「5 · 내용」 MediaCard 오른쪽, 2026-10-08, 2 변형). EmptyState `Layout=canvas` 의 카드 둘이 그 인스턴스다. 되읽기 등재 + parity 계약(반경 · 이름 여백 · 글자 크기 · 헤어라인 획 · 위쪽 점진 흐림)이 있다. 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
+| Figma | `done` | component set `StartCard`(DS · Components 「5 · 내용」 MediaCard 오른쪽, 2026-10-08, 2 변형). EmptyState `Layout=canvas` 의 카드 둘이 그 인스턴스다. 되읽기 등재 + parity 계약(반경 · 이름 여백 · 글자 크기 · 헤어라인 획 · 위쪽 점진 흐림)이 있다. 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 — 2026-10-14 되재기 시험 `start-card-geometry.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `partial` | 이 문서. 제품이 이 클래스를 물고 acceptance test 가 서면 `done` |
 | Maturity | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다 |
 

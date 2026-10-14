@@ -20,7 +20,7 @@ summary: 속성 패널의 라벨-값 한 줄이며 값 자리의 네 형태를 �
 | Surface       | 상태           | 근거                                                    |
 | ------------- | -------------- | ------------------------------------------------------- |
 | Web           | `partial`      | `packages/css/src/component/inspector-row.css` (React 표면 없음) |
-| Figma         | `partial`      | component set `InspectorRow` (4 variant)                |
+| Figma         | `done`      | component set `InspectorRow` (4 variant) — 2026-10-14 되재기 시험 `inspector-row-geometry.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                 |
 | Maturity      | `experimental` | 소비처가 붙고 상태 축이 실측으로 판정되면 beta          |
 

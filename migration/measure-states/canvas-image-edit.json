@@ -1,0 +1,276 @@
+{
+  "$schema": "./_schema.json",
+  "area": "canvas-image-edit",
+  "mode": "session",
+  "authoredAgainst": "54b62a8a",
+  "description": "노드캔버스 편집기(/nodecanvas?project=)의 패널 상태 하나(panel.image-edit)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 노드캔버스 편집기(/nodecanvas?project=)의 모달 · 패널 넷을 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). nodecanvas 영역의 analysis · image-edit.crop 은 인용이 앵커 54b62a8a 와 어긋나 있고 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다(시드는 같은 내보내기를 state-seeds/canvas-panels.mjs 가 다시 내보낸다). 새로 더한 둘: 툴바 도움말 단추로 연 CanvasHelpPanel(≥768 은 오른쪽 도킹, 좁으면 아래 시트 dialog) · 이미지 노드 메뉴 「Camera angle」로 연 AngleModal.",
+  "recipes": [
+    {
+      "id": "/nodecanvas?project= panel.image-edit",
+      "board": {
+        "desktop": "3549:23841",
+        "mobile": "3549:23842"
+      },
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0105",
+      "description": "이미지 노드 우클릭 메뉴 「Edit image」로 연 이미지 편집 모달(ImageEditModal = CropModalInner stickerEnabled, 크롭 탭 · 비율 툴바 · 크롭 영역). R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "contentNote": "이미지는 쇼케이스 이미지(제품 public 같은 출처, 1088×1920)이고 프롬프트도 쇼케이스 값이다. **진입이 우클릭(contextmenu) 하나뿐**이다(NodeContextMenu.tsx:286, 다른 길 없음). 단계 어휘에 우클릭이 없어 키보드 ContextMenu 키(초점 요소에 contextmenu)로 대신한다. 처음 쓴 Shift+F10 은 macOS 헤드리스 Chromium 에서 contextmenu 를 만들지 않아 메뉴가 서지 않았다(2026-10-08 통합 판 측정 — 단계 #2 「Edit image」 30초 시간 초과, 같은 브라우저 시험에서 Shift+F10 은 이벤트 0건 · ContextMenu 는 contextmenu 1건). 키보드 contextmenu 의 좌표는 브라우저가 초점 요소 자리로 정하므로 메뉴 위치가 우클릭 지점과 다를 수 있다(handleNodeContextMenu 가 clientX · clientY 를 그대로 쓴다). 기반에 click 의 button: right 가 생기면 그것으로 바꾼다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#ImageEditModal"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 12037,
+          "expect": "onNodeContextMenu={staticInSection ? undefined : handleNodeContextMenu}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 1757,
+          "expect": "x: event.clientX,"
+        },
+        {
+          "path": "apps/web/app/lib/storage/buckets.ts",
+          "line": 54,
+          "expect": "images: { legacyBucket: \"project-assets\", visibility: \"cdn\" },"
+        },
+        {
+          "path": "apps/web/app/lib/storage/urls.ts",
+          "line": 295,
+          "expect": "return `${requirePublicCdnBase()}/${ref.key}`;"
+        },
+        {
+          "path": "apps/web/app/lib/storage/serving.ts",
+          "line": 52,
+          "expect": "if (!ref) return { url: value, outcome: \"passthrough\" };"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 7892,
+          "expect": "const handleRequestImageEdit = useCallback"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx",
+          "line": 286,
+          "expect": "onEditImage?.(menu.node);"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx",
+          "line": 293,
+          "expect": "{messages.create.nodeCanvas.nodeContextMenu.editImage}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
+          "line": 961,
+          "expect": "export function ImageEditModal({"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
+          "line": 798,
+          "expect": "{tEdit.tabSticker}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 1892,
+          "expect": "editImage: \"Edit image\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 1867,
+          "expect": "tabSticker: \"Sticker\""
+        },
+        {
+          "path": "apps/web/components/landing/sections/nodeShowcase.ts",
+          "line": 26,
+          "expect": "export const SHOWCASE_IMAGE_URL"
+        },
+        {
+          "path": "apps/web/components/landing/sections/nodeShowcase.ts",
+          "line": 113,
+          "expect": "const IMAGE_PROMPT_EN"
+        }
+      ],
+      "supabase": {
+        "module": "scripts/lib/state-seeds/canvas-image-edit.mjs#imageEditCanvas",
+        "tables": {
+          "canvas_sessions": {
+            "description": "imageEditCanvas 의 canvas_sessions 를 그대로 옮기고 nc-image-edit 의 imageUrl 만 /landing-highlight/v1/short.webp(540×960, mediaAspect 540/960)로 바꾼 표. 모듈 값 /images/landing/node-showcase-sofa.webp 는 첫 조각 images 가 스토리지 접두어라 캔버스 조회(GET /api/canvas/[projectId], withPlayableDocumentUrls)가 CDN 주소(https://cdn.fixture.invalid/images/…)로 바꾸고 측정기가 그 바깥 요청을 끊어 그림이 깨졌다 — 스티커 탭은 미리보기를 못 만들어 「Stickers」 팔레트가 서지 않았다(2026-10-08 통합 판 측정 · 요청 진단). 스토리지 접두어가 아닌 같은 출처 public 파일은 조회가 그대로 둔다(serving.ts 52 passthrough). 레시피 파일만 고치는 작업이라 시드 모듈 대신 여기서 덮는다 — 모듈의 문서가 바뀌면 이 표도 같이 바꾼다.",
+            "rows": [
+              {
+                "id": "00000000-0000-4000-8000-0000000c5001",
+                "project_id": "00000000-0000-4000-8000-0000000c0001",
+                "user_id": "00000000-0000-4000-8000-00000000f1c5",
+                "updated_at": "2026-01-01T00:00:00.000Z",
+                "document": {
+                  "version": 2,
+                  "globalState": {
+                    "prompt": "",
+                    "videoModelId": "seedance-2.0-mini",
+                    "videoAspectRatio": "9:16",
+                    "videoDuration": 8,
+                    "videoSound": true,
+                    "videoResolution": "1080p"
+                  },
+                  "textNodeState": {
+                    "texts": {
+                      "seed-text": "Placeholder generated prompt paragraph."
+                    },
+                    "inputTexts": {
+                      "seed-text": "Placeholder request sentence."
+                    },
+                    "assistModels": {},
+                    "assistReasoning": {}
+                  },
+                  "nodes": [
+                    {
+                      "id": "seed-text",
+                      "type": "text",
+                      "position": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "data": {
+                        "mode": "llm",
+                        "text": "Placeholder request sentence.",
+                        "generatedText": "Placeholder generated prompt paragraph."
+                      }
+                    },
+                    {
+                      "id": "seed-image",
+                      "type": "image",
+                      "position": {
+                        "x": 560,
+                        "y": 0
+                      },
+                      "data": {
+                        "imageOrigin": "generate",
+                        "imageUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8+P9/PQAJYwN4d1E2KAAAAABJRU5ErkJggg==",
+                        "mediaAspect": 1
+                      }
+                    },
+                    {
+                      "id": "seed-video",
+                      "type": "video",
+                      "position": {
+                        "x": 1120,
+                        "y": 0
+                      },
+                      "data": {
+                        "modelId": "seedance-2.0-mini",
+                        "aspectRatio": "9:16",
+                        "duration": 8,
+                        "soundOn": true,
+                        "videoResolution": "1080p",
+                        "mediaAspect": 0.5625
+                      }
+                    }
+                  ],
+                  "edges": [
+                    {
+                      "id": "edge-seed-text-seed-image-text",
+                      "source": "seed-text",
+                      "sourceHandle": "out",
+                      "target": "seed-image",
+                      "targetHandle": "text",
+                      "data": {
+                        "tone": "text"
+                      }
+                    },
+                    {
+                      "id": "edge-seed-image-seed-video-reference-images",
+                      "source": "seed-image",
+                      "sourceHandle": "image",
+                      "target": "seed-video",
+                      "targetHandle": "reference-images",
+                      "data": {
+                        "tone": "image"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "00000000-0000-4000-8000-0000000c5105",
+                "project_id": "00000000-0000-4000-8000-0000000c0105",
+                "user_id": "00000000-0000-4000-8000-00000000f1c5",
+                "updated_at": "2026-01-10T03:00:00.000Z",
+                "document": {
+                  "version": 2,
+                  "globalState": {
+                    "prompt": "",
+                    "videoModelId": "seedance-2.0-mini",
+                    "videoAspectRatio": "9:16",
+                    "videoDuration": 8,
+                    "videoSound": true,
+                    "videoResolution": "1080p"
+                  },
+                  "textNodeState": {
+                    "texts": {},
+                    "inputTexts": {},
+                    "assistModels": {},
+                    "assistReasoning": {}
+                  },
+                  "nodes": [
+                    {
+                      "id": "nc-image-edit",
+                      "type": "image",
+                      "position": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "data": {
+                        "imageOrigin": "generate",
+                        "imageUrl": "/landing-highlight/v1/short.webp",
+                        "mediaAspect": 0.5625,
+                        "model": "gpt-image-2",
+                        "prompt": "An oatmeal bouclé modular sofa sits beside an oak block table and a black ceramic vase, as afternoon sun casts long window shadows across the concrete floor."
+                      }
+                    }
+                  ],
+                  "edges": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      "steps": [
+        {
+          "press": "ContextMenu",
+          "on": {
+            "css": ".react-flow__node[data-id=\"nc-image-edit\"]"
+          },
+          "description": "노드에 초점을 두고 키보드 contextmenu(ContextMenu 키) — 우클릭 대신. Shift+F10 은 macOS Chromium 에서 contextmenu 를 만들지 않는다"
+        },
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Edit image",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Edit image",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Sticker",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Edit image",
+          "Crop",
+          "Sticker"
+        ]
+      }
+    }
+  ]
+}

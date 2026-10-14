@@ -1,0 +1,91 @@
+{
+  "$schema": "./_schema.json",
+  "area": "canvas-help",
+  "mode": "session",
+  "authoredAgainst": "54b62a8a",
+  "description": "노드캔버스 편집기(/nodecanvas?project=)의 패널 상태 하나(panel.help)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 노드캔버스 편집기(/nodecanvas?project=)의 모달 · 패널 넷을 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). nodecanvas 영역의 analysis · image-edit.crop 은 인용이 앵커 54b62a8a 와 어긋나 있고 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다(시드는 같은 내보내기를 state-seeds/canvas-panels.mjs 가 다시 내보낸다). 새로 더한 둘: 툴바 도움말 단추로 연 CanvasHelpPanel(≥768 은 오른쪽 도킹, 좁으면 아래 시트 dialog) · 이미지 노드 메뉴 「Camera angle」로 연 AngleModal.",
+  "recipes": [
+    {
+      "id": "/nodecanvas?project= panel.help",
+      "board": {
+        "desktop": "3549:23837",
+        "mobile": "3549:23838"
+      },
+      "base": "/nodecanvas?project=",
+      "description": "캔버스 툴바 오른쪽의 도움말 단추(aria 「Help」)로 연 도움말 패널 첫 쪽(CanvasHelpPanel — 검색 · 첫 영상 만들기). 데스크톱은 오른쪽 도킹, 모바일(<768)은 아래 시트 dialog. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx#CanvasHelpPanel"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 12264,
+          "expect": "aria-label={i18nMessages.create.nodeCanvas.help.title}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 12263,
+          "expect": "onClick={toggleNodeGuide}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 12187,
+          "expect": "<CanvasHelpPanel"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx",
+          "line": 920,
+          "expect": "aria-label={h.searchPlaceholder}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx",
+          "line": 568,
+          "expect": "<Section title={h.firstVideo.title}>"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/lib/canvasHelpPanelGeometry.ts",
+          "line": 10,
+          "expect": "export const HELP_PANEL_DOCK_MIN_VIEWPORT_PX = 768;"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 3055,
+          "expect": "title: \"Help\","
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 3062,
+          "expect": "searchPlaceholder: \"Search help\","
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 3067,
+          "expect": "title: \"Make your first video\","
+        }
+      ],
+      "steps": [
+        {
+          "click": {
+            "role": "button",
+            "name": "Help",
+            "exact": true
+          },
+          "description": "툴바 도움말 단추(노드 머리의 도움 단추는 이름이 「Help for …」라 겹치지 않는다)"
+        },
+        {
+          "waitFor": {
+            "role": "textbox",
+            "name": "Search help",
+            "exact": true
+          },
+          "description": "도움말 첫 쪽의 검색칸"
+        }
+      ],
+      "assert": {
+        "text": [
+          "Make your first video"
+        ]
+      }
+    }
+  ]
+}

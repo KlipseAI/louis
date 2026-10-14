@@ -1,0 +1,284 @@
+{
+  "$schema": "./_schema.json",
+  "area": "vem-overlay",
+  "mode": "session",
+  "authoredAgainst": "54b62a8a",
+  "description": "비디오 편집기(/videoeditor/[projectId])의 패널 상태 하나(panel.overlay)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 비디오 편집기(/videoeditor/[projectId])의 패널 상태를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). videoeditor 영역의 같은 상태 레시피는 데스크톱 전용이고 인용이 앵커 54b62a8a 와 어긋나 있으며 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다. 모바일(≤719)은 같은 aside.vem-propertiesPanel · div.vem-assets-panel 을 아래 시트로 쓰고, 고르기만으로는 시트가 열리지 않아(VideoEditModal 「Properties」 · 「Adjust」 · 「Assets」 단추가 시트를 연다) stepsByContext 로 그 단추를 누른다. 닫힌 시트는 translateY 로 화면 밖에 있을 뿐 DOM 에 남아 글자 assert 만으로는 열림을 증명하지 못한다 — 모바일의 마지막 waitFor 는 data-vem-sheet-open 이 선 시트다. CompositionInspector 는 넣지 않았다 — 앵커에서 selId 를 \"__composition__\" 으로 두는 코드가 없어(VideoEditModal.tsx 15065 비교 한 곳뿐) 여는 길이 없다.",
+  "recipes": [
+    {
+      "id": "/videoeditor/[projectId] panel.overlay",
+      "board": {
+        "desktop": "3549:23853",
+        "mobile": "3549:23854"
+      },
+      "base": "/videoeditor/[projectId]",
+      "description": "텍스트 오버레이를 고른 오버레이 인스펙터(OverlayInspector, 머리 「Subtitle」). 모바일은 자막 레인 클립을 누르고 「Properties」로 시트를 연다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "contentNote": "오버레이 둘의 위치 · 크기 · 스타일은 제품의 「새 오버레이」 기본값(VideoEditModal addOverlay · DEFAULT_OVERLAY_STYLE)을 그대로 쓰고, 텍스트 내용도 제품 기본값 「Text」다. 이미지 내용은 제품 public 의 같은 출처 예시 /image-edit/examples/example-1.jpg. 지어낸 것은 id 뿐.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx#OverlayInspector"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 578,
+          "expect": "fetch(`/api/editor/projects/${projectId}`)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 580,
+          "expect": "if (cancelled || !json.ok || !json.data)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 585,
+          "expect": "parseUnsignedDocumentRefs(p.unsignedRefs)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 614,
+          "expect": "if (state.overlays) setOverlays(state.overlays);"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 617,
+          "expect": "if (state.audioTracks) setAudioTracks(state.audioTracks);"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 78,
+          "expect": "ok: true,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 81,
+          "expect": "state: served.document,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 82,
+          "expect": "unsignedRefs: served.unsignedRefs,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 86,
+          "expect": "resultUnsigned:"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
+          "line": 1337,
+          "expect": "export interface VideoOverlay {"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7075,
+          "expect": "const baseX = type === \"text\" ? 0.25 : 0.1;"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7076,
+          "expect": "const baseY = type === \"text\" ? 0.82 : 0.05;"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7080,
+          "expect": "content: type === \"text\" ? vem.text : \"\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7089,
+          "expect": "width: type === \"text\" ? 0.12 : 0.15,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7090,
+          "expect": "height: type === \"text\" ? 0.05 : 0.08,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7091,
+          "expect": "style: { ...DEFAULT_OVERLAY_STYLE },"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/lib/videoEdit/overlayStyle.ts",
+          "line": 22,
+          "expect": "fontColor: \"white\","
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2638,
+          "expect": "text: \"Text\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+          "line": 153,
+          "expect": "role=\"group\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+          "line": 156,
+          "expect": "? vem.textOverlayAria"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+          "line": 157,
+          "expect": ": vem.imageOverlayAria"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+          "line": 205,
+          "expect": "onFocus={() => {"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2676,
+          "expect": "textOverlayAria: \"Text overlay\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2677,
+          "expect": "imageOverlayAria: \"Image overlay\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 15023,
+          "expect": "<OverlayInspector"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+          "line": 278,
+          "expect": "? vem.subtitle"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+          "line": 279,
+          "expect": ": vem.image}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2894,
+          "expect": "subtitle: \"Subtitle\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
+          "line": 330,
+          "expect": "role=\"spinbutton\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+          "line": 334,
+          "expect": "ariaLabel={vem.xCoordAria}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+          "line": 664,
+          "expect": "ariaLabel={vem.fontColor}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts",
+          "line": 213,
+          "expect": "\"vem-mobile-timeline-overlay-clip-text\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11780,
+          "expect": "label: vem.mobileTabProperties,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 14976,
+          "expect": "mobileSheet === \"properties\" ? \"\" : undefined"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2972,
+          "expect": "mobileTabProperties: \"Properties\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 3381,
+          "expect": "\"vem-propertiesPanel\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/editor/projects/00000000-0000-4000-8000-0000000ed170",
+          "status": 200,
+          "jsonFile": "data/vem-overlay/project-overlays-audio.json",
+          "description": "편집 프로젝트 조회를 가로채 state 에 text · image 오버레이와 BGM 오디오 클립 하나를 더한다(소스 · 클립은 fixture-seeds.mjs editor_projects 행과 같음)"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "group",
+            "name": "Text overlay",
+            "exact": true
+          },
+          "description": "가로챈 state 의 텍스트 오버레이가 미리보기에 섰다(0초에 보임)"
+        },
+        {
+          "click": {
+            "role": "group",
+            "name": "Text overlay",
+            "exact": true
+          },
+          "description": "미리보기 텍스트 오버레이 → onOverlayPointerDown + focus → setSelectedOverlayId"
+        },
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Subtitle",
+            "exact": true
+          },
+          "description": "OverlayInspector 머리(vem.subtitle)"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "waitFor": {
+              "css": ".vem-mobile-timeline-overlay-clip-text"
+            },
+            "description": "가로챈 state 의 텍스트 오버레이(모바일 자막 레인)"
+          },
+          {
+            "click": {
+              "css": ".vem-mobile-timeline-overlay-clip-text"
+            },
+            "description": "자막 클립 → onSelectOverlay(선택만)"
+          },
+          {
+            "click": {
+              "role": "button",
+              "name": "Properties",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "선택 층의 「Properties」 — 고르기만으로는 시트가 열리지 않는다"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-propertiesPanel[data-vem-sheet-open]"
+            },
+            "description": "모바일 속성 시트가 열렸다(data-vem-sheet-open 은 시트가 properties 일 때만 선다)"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "Subtitle",
+          "Position"
+        ],
+        "apiHit": "all"
+      }
+    }
+  ]
+}

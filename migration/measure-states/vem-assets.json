@@ -1,0 +1,95 @@
+{
+  "$schema": "./_schema.json",
+  "area": "vem-assets",
+  "mode": "session",
+  "authoredAgainst": "54b62a8a",
+  "description": "비디오 편집기(/videoeditor/[projectId])의 패널 상태 하나(panel.assets)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 비디오 편집기(/videoeditor/[projectId])의 패널 상태를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). videoeditor 영역의 같은 상태 레시피는 데스크톱 전용이고 인용이 앵커 54b62a8a 와 어긋나 있으며 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다. 모바일(≤719)은 같은 aside.vem-propertiesPanel · div.vem-assets-panel 을 아래 시트로 쓰고, 고르기만으로는 시트가 열리지 않아(VideoEditModal 「Properties」 · 「Adjust」 · 「Assets」 단추가 시트를 연다) stepsByContext 로 그 단추를 누른다. 닫힌 시트는 translateY 로 화면 밖에 있을 뿐 DOM 에 남아 글자 assert 만으로는 열림을 증명하지 못한다 — 모바일의 마지막 waitFor 는 data-vem-sheet-open 이 선 시트다. CompositionInspector 는 넣지 않았다 — 앵커에서 selId 를 \"__composition__\" 으로 두는 코드가 없어(VideoEditModal.tsx 15065 비교 한 곳뿐) 여는 길이 없다.",
+  "recipes": [
+    {
+      "id": "/videoeditor/[projectId] panel.assets",
+      "board": {
+        "desktop": "3549:23845",
+        "mobile": "3549:23846"
+      },
+      "base": "/videoeditor/[projectId]",
+      "description": "에셋 패널(AssetPanel) — 데스크톱은 도킹 왼쪽 칸에 늘 서 있고, 모바일은 아래 막대 「Assets」로 연 시트다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx#AssetPanel"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 219,
+          "expect": "aria-label={vem.assetsPanelAria}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 220,
+          "expect": "data-vem-sheet-open={sheetOpen ? \"\" : undefined}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2977,
+          "expect": "assetsFilterAria: \"Asset type filter\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2942,
+          "expect": "mobileTabAssets: \"Assets\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11716,
+          "expect": "label: vem.mobileTabAssets,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 371,
+          "expect": "\"vem-assets-panel\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tablist",
+            "name": "Asset type filter",
+            "exact": true
+          },
+          "description": "에셋 종류 탭(데스크톱 도킹 칸)"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "click": {
+              "role": "button",
+              "name": "Assets",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "아래 막대 「Assets」(레일 탭과 이름이 같아 막대 안으로 좁힌다)"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-assets-panel[data-vem-sheet-open]"
+            },
+            "description": "에셋 시트가 열렸다"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "Import from project",
+          "Assets"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,435 @@
+{
+  "$schema": "./_schema.json",
+  "area": "canvas-analysis",
+  "mode": "session",
+  "authoredAgainst": "54b62a8a",
+  "description": "노드캔버스 편집기(/nodecanvas?project=)의 패널 상태 하나(panel.analysis)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 노드캔버스 편집기(/nodecanvas?project=)의 모달 · 패널 넷을 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). nodecanvas 영역의 analysis · image-edit.crop 은 인용이 앵커 54b62a8a 와 어긋나 있고 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다(시드는 같은 내보내기를 state-seeds/canvas-panels.mjs 가 다시 내보낸다). 새로 더한 둘: 툴바 도움말 단추로 연 CanvasHelpPanel(≥768 은 오른쪽 도킹, 좁으면 아래 시트 dialog) · 이미지 노드 메뉴 「Camera angle」로 연 AngleModal.",
+  "recipes": [
+    {
+      "id": "/nodecanvas?project= panel.analysis",
+      "board": {
+        "desktop": "3549:23839",
+        "mobile": "3549:23840"
+      },
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0102",
+      "description": "업로드를 마친 유튜브 노드에서 「Analyze」를 눌러 연 분석 모달(유튜브 갈래, 개요 탭 — KPI 카드와 스파크라인). R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "contentNote": "영상 제목 · 설명 · 태그 · 채널은 쇼케이스 데모 값, 영상 id 는 「Placeholder」다. 지표(조회 1240 · 5일 시계열 · 트래픽 3 · 지역 3 · 기기 2 · 연령 2 · 시청 지속 5점)는 지은 개수이고, 라벨은 제품 라우트의 사전값(getTrafficSourceLabel · getCountryLabel · getDeviceTypeLabel)이다. 업로드 시각 2026-01-10T03:00Z, clock 2026-01-15T03:00Z.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx#NodeCanvasAnalysisModal"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx",
+          "line": 818,
+          "expect": "const uploadDone = youtubeUploadDone({"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx",
+          "line": 1616,
+          "expect": "idleLabel={t.analyzeButton}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 7752,
+          "expect": "fetch(\"/api/youtube/videos/check\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 7795,
+          "expect": "if (!hasCurrentYoutubeIdentity || channelMismatch) return;"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
+          "line": 7805,
+          "expect": "platform: \"youtube\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/videos/check/route.ts",
+          "line": 78,
+          "expect": "return NextResponse.json({ ok: true, existing, deleted });"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
+          "line": 477,
+          "expect": "`/api/youtube/analytics/video/header?videoId="
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
+          "line": 536,
+          "expect": "`/api/youtube/analytics/video?${params.toString()}`"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
+          "line": 568,
+          "expect": "`/api/youtube/analytics/video/retention?${params.toString()}`"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
+          "line": 722,
+          "expect": "<YoutubeVideoAnalyticsView"
+        },
+        {
+          "path": "apps/web/components/scenes/archive/types.ts",
+          "line": 163,
+          "expect": "export interface VideoHeaderData"
+        },
+        {
+          "path": "apps/web/components/scenes/archive/types.ts",
+          "line": 254,
+          "expect": "export interface VideoAnalyticsApiResponse"
+        },
+        {
+          "path": "apps/web/components/scenes/archive/types.ts",
+          "line": 285,
+          "expect": "export interface RetentionItem"
+        },
+        {
+          "path": "apps/web/components/scenes/archive/utils.ts",
+          "line": 38,
+          "expect": "daily: json.timeseries?.daily ?? [],"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/header/route.ts",
+          "line": 46,
+          "expect": "privacyStatus: video.status?.privacyStatus ?? null,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 611,
+          "expect": "return NextResponse.json({"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 376,
+          "expect": "subscribersLost: toNumber(overviewRow.subscribersLost),"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 659,
+          "expect": "operatingSystem: operatingSystemItems,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 517,
+          "expect": "? Number(((item.views / geographyTotalViews) * 100).toFixed(2))"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 100,
+          "expect": "SHORTS: \"쇼츠 피드\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 102,
+          "expect": "SUBSCRIBER: \"구독 피드\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 105,
+          "expect": "YT_SEARCH: \"YouTube 검색\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 116,
+          "expect": "KR: \"대한민국\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 117,
+          "expect": "US: \"미국\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 118,
+          "expect": "JP: \"일본\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 143,
+          "expect": "MOBILE: \"모바일\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 144,
+          "expect": "DESKTOP: \"데스크톱\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/route.ts",
+          "line": 604,
+          "expect": "ageGroup: ag.replace(\"age\", \"\"),"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/retention/route.ts",
+          "line": 59,
+          "expect": "totalSegmentImpressions: toNumber(parsed.totalSegmentImpressions),"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/video/retention/route.ts",
+          "line": 72,
+          "expect": "retention: items.length > 0 ? \"ok\" : \"empty\","
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 3792,
+          "expect": "avgViewDuration: \"Avg. view duration\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 3790,
+          "expect": "subscribersGained: \"Subscribers gained\""
+        }
+      ],
+      "clock": "2026-01-15T03:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/canvas-analysis/youtube-me-connected.json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/canvas-analysis/youtube-channel.json"
+        },
+        {
+          "method": "POST",
+          "path": "/api/youtube/videos/check",
+          "jsonFile": "data/canvas-analysis/youtube-videos-check.json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/video/header",
+          "query": {
+            "videoId": "Placeholder"
+          },
+          "jsonFile": "data/canvas-analysis/youtube-video-header.json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/video",
+          "query": {
+            "videoId": "Placeholder"
+          },
+          "jsonFile": "data/canvas-analysis/youtube-video-analytics.json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/video/retention",
+          "query": {
+            "videoId": "Placeholder"
+          },
+          "jsonFile": "data/canvas-analysis/youtube-video-retention.json"
+        }
+      ],
+      "supabase": {
+        "module": "scripts/lib/state-seeds/canvas-analysis.mjs#analysisCanvas",
+        "tables": {
+          "canvas_sessions": {
+            "description": "analysisCanvas 의 canvas_sessions 를 그대로 옮기고 nc-analysis-video 의 videoUrl 만 /landing-highlight/v1/short.mp4(540×960, mediaAspect 540/960)로 바꾼 표. 모듈 값 /videos/node-showcase-sofa.mp4 는 첫 조각 videos 가 서명 스토리지 접두어라(buckets.ts 62) 캔버스 조회(GET /api/canvas/[projectId])가 재생 주소로 바꾸지 못해 영상 노드가 「Couldn't load this video」 오류 상태로 찍혔다(2026-10-08 통합 판 측정 캡처). 스토리지 접두어가 아닌 같은 출처 public 파일은 조회가 그대로 둔다(serving.ts 52 passthrough). 레시피 파일만 고치는 작업이라 시드 모듈 대신 여기서 덮는다 — 모듈의 문서가 바뀌면 이 표도 같이 바꾼다.",
+            "rows": [
+              {
+                "id": "00000000-0000-4000-8000-0000000c5001",
+                "project_id": "00000000-0000-4000-8000-0000000c0001",
+                "user_id": "00000000-0000-4000-8000-00000000f1c5",
+                "updated_at": "2026-01-01T00:00:00.000Z",
+                "document": {
+                  "version": 2,
+                  "globalState": {
+                    "prompt": "",
+                    "videoModelId": "seedance-2.0-mini",
+                    "videoAspectRatio": "9:16",
+                    "videoDuration": 8,
+                    "videoSound": true,
+                    "videoResolution": "1080p"
+                  },
+                  "textNodeState": {
+                    "texts": {
+                      "seed-text": "Placeholder generated prompt paragraph."
+                    },
+                    "inputTexts": {
+                      "seed-text": "Placeholder request sentence."
+                    },
+                    "assistModels": {},
+                    "assistReasoning": {}
+                  },
+                  "nodes": [
+                    {
+                      "id": "seed-text",
+                      "type": "text",
+                      "position": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "data": {
+                        "mode": "llm",
+                        "text": "Placeholder request sentence.",
+                        "generatedText": "Placeholder generated prompt paragraph."
+                      }
+                    },
+                    {
+                      "id": "seed-image",
+                      "type": "image",
+                      "position": {
+                        "x": 560,
+                        "y": 0
+                      },
+                      "data": {
+                        "imageOrigin": "generate",
+                        "imageUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8+P9/PQAJYwN4d1E2KAAAAABJRU5ErkJggg==",
+                        "mediaAspect": 1
+                      }
+                    },
+                    {
+                      "id": "seed-video",
+                      "type": "video",
+                      "position": {
+                        "x": 1120,
+                        "y": 0
+                      },
+                      "data": {
+                        "modelId": "seedance-2.0-mini",
+                        "aspectRatio": "9:16",
+                        "duration": 8,
+                        "soundOn": true,
+                        "videoResolution": "1080p",
+                        "mediaAspect": 0.5625
+                      }
+                    }
+                  ],
+                  "edges": [
+                    {
+                      "id": "edge-seed-text-seed-image-text",
+                      "source": "seed-text",
+                      "sourceHandle": "out",
+                      "target": "seed-image",
+                      "targetHandle": "text",
+                      "data": {
+                        "tone": "text"
+                      }
+                    },
+                    {
+                      "id": "edge-seed-image-seed-video-reference-images",
+                      "source": "seed-image",
+                      "sourceHandle": "image",
+                      "target": "seed-video",
+                      "targetHandle": "reference-images",
+                      "data": {
+                        "tone": "image"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "00000000-0000-4000-8000-0000000c5102",
+                "project_id": "00000000-0000-4000-8000-0000000c0102",
+                "user_id": "00000000-0000-4000-8000-00000000f1c5",
+                "updated_at": "2026-01-10T03:00:00.000Z",
+                "document": {
+                  "version": 2,
+                  "globalState": {
+                    "prompt": "",
+                    "videoModelId": "seedance-2.0-mini",
+                    "videoAspectRatio": "9:16",
+                    "videoDuration": 8,
+                    "videoSound": true,
+                    "videoResolution": "1080p"
+                  },
+                  "textNodeState": {
+                    "texts": {},
+                    "inputTexts": {},
+                    "assistModels": {},
+                    "assistReasoning": {}
+                  },
+                  "nodes": [
+                    {
+                      "id": "nc-analysis-video",
+                      "type": "video",
+                      "position": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "data": {
+                        "prompt": "The camera opens on the bouclé sofa in a sunlit living room, moves in close on the fabric, and ends low where the modules sit on an oak base.",
+                        "modelId": "seedance-2.0-mini",
+                        "aspectRatio": "9:16",
+                        "mediaAspect": 0.5625,
+                        "duration": 4,
+                        "soundOn": true,
+                        "videoResolution": "720p",
+                        "videoUrl": "/landing-highlight/v1/short.mp4"
+                      }
+                    },
+                    {
+                      "id": "nc-analysis-youtube",
+                      "type": "youtube",
+                      "position": {
+                        "x": 560,
+                        "y": 0
+                      },
+                      "data": {
+                        "title": "Hydra Glow Sofa Launch Teaser",
+                        "description": "Meet the Hydra Glow bouclé modular sofa.\nA close look at sunlit bouclé and its oak base.\nIt sits low on the floor, with no legs showing.\n#HydraGlow #BoucleSofa #ModularSofa",
+                        "tags": [
+                          "HydraGlow",
+                          "sofa",
+                          "homedecor"
+                        ],
+                        "originVideoNodeId": "nc-analysis-video",
+                        "youtubeVideoId": "Placeholder",
+                        "youtubeUploadedAt": "2026-01-10T03:00:00.000Z",
+                        "youtubeChannelId": "klipse-demo-channel",
+                        "youtubeChannelTitle": "Klipse Studio",
+                        "youtubePublishedUrl": "https://youtu.be/Placeholder"
+                      }
+                    }
+                  ],
+                  "edges": [
+                    {
+                      "id": "edge-nc-analysis-video-nc-analysis-youtube-youtube",
+                      "source": "nc-analysis-video",
+                      "sourceHandle": "youtube-out",
+                      "target": "nc-analysis-youtube",
+                      "targetHandle": "youtube-in",
+                      "data": {
+                        "tone": "youtube"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "steps": [
+        {
+          "click": {
+            "role": "button",
+            "name": "Analyze"
+          },
+          "expectResponse": {
+            "method": "GET",
+            "path": "/api/youtube/analytics/video"
+          },
+          "description": "채널 연결이 서야 활성 — click 이 활성을 기다린다. 이름은 부분 일치(InlineLoadingLabel 이 숨은 바쁨 라벨을 함께 그릴 수 있다)"
+        },
+        {
+          "waitFor": {
+            "text": "Avg. view duration",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Avg. view duration",
+          "Subscribers gained",
+          "Hydra Glow Sofa Launch Teaser"
+        ],
+        "apiHit": "all"
+      }
+    }
+  ]
+}

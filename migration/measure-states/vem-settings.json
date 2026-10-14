@@ -1,0 +1,134 @@
+{
+  "$schema": "./_schema.json",
+  "area": "vem-settings",
+  "mode": "session",
+  "authoredAgainst": "54b62a8a",
+  "description": "비디오 편집기(/videoeditor/[projectId])의 패널 상태 하나(panel.settings)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 비디오 편집기(/videoeditor/[projectId])의 패널 상태를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). videoeditor 영역의 같은 상태 레시피는 데스크톱 전용이고 인용이 앵커 54b62a8a 와 어긋나 있으며 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다. 모바일(≤719)은 같은 aside.vem-propertiesPanel · div.vem-assets-panel 을 아래 시트로 쓰고, 고르기만으로는 시트가 열리지 않아(VideoEditModal 「Properties」 · 「Adjust」 · 「Assets」 단추가 시트를 연다) stepsByContext 로 그 단추를 누른다. 닫힌 시트는 translateY 로 화면 밖에 있을 뿐 DOM 에 남아 글자 assert 만으로는 열림을 증명하지 못한다 — 모바일의 마지막 waitFor 는 data-vem-sheet-open 이 선 시트다. CompositionInspector 는 넣지 않았다 — 앵커에서 selId 를 \"__composition__\" 으로 두는 코드가 없어(VideoEditModal.tsx 15065 비교 한 곳뿐) 여는 길이 없다.",
+  "recipes": [
+    {
+      "id": "/videoeditor/[projectId] panel.settings",
+      "board": {
+        "desktop": "3549:23855",
+        "mobile": "3549:23856"
+      },
+      "base": "/videoeditor/[projectId]",
+      "description": "에셋 레일의 「Editor settings」 탭으로 연 편집기 설정 몸통(EditorSettingsPanelBody — AssetPanel 안에 그려진다). 모바일은 「Assets」 시트를 먼저 연다(레일의 설정 탭은 ≤719 에서도 남는다). R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx#EditorSettingsPanelBody"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 382,
+          "expect": "aria-selected={showSettings}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 389,
+          "expect": "aria-label={vem.settings.menuLabel}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 463,
+          "expect": "<EditorSettingsPanelBody"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx",
+          "line": 120,
+          "expect": "label={vem.settings.snapLabel}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx",
+          "line": 178,
+          "expect": "<input"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2707,
+          "expect": "menuLabel: \"Editor settings\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2709,
+          "expect": "snapLabel: \"Magnetic snapping\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11716,
+          "expect": "label: vem.mobileTabAssets,"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2942,
+          "expect": "mobileTabAssets: \"Assets\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        }
+      ],
+      "steps": [
+        {
+          "click": {
+            "role": "tab",
+            "name": "Editor settings",
+            "exact": true
+          },
+          "description": "레일의 설정 칸(role=tab)"
+        },
+        {
+          "waitFor": {
+            "role": "checkbox",
+            "name": "Magnetic snapping",
+            "exact": true
+          },
+          "description": "설정 몸통의 스냅 체크 행"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "click": {
+              "role": "button",
+              "name": "Assets",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "아래 막대 「Assets」"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-assets-panel[data-vem-sheet-open]"
+            },
+            "description": "에셋 시트가 열렸다"
+          },
+          {
+            "click": {
+              "role": "tab",
+              "name": "Editor settings",
+              "exact": true
+            },
+            "description": "레일의 설정 칸(role=tab)"
+          },
+          {
+            "waitFor": {
+              "role": "checkbox",
+              "name": "Magnetic snapping",
+              "exact": true
+            },
+            "description": "설정 몸통의 스냅 체크 행"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "Magnetic snapping",
+          "Composition guides"
+        ]
+      }
+    }
+  ]
+}

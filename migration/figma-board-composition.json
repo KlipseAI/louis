@@ -14,15 +14,15 @@
   "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 144,
-  "rawNodesBeforePruning": 10079,
+  "rawNodesBeforePruning": 10082,
   "counts": {
-    "total": 10027,
+    "total": 10030,
     "instance": 332,
     "replaceable": 0,
     "bespoke": 310,
     "blocked": 26,
     "missing": 1908,
-    "structural": 7451,
+    "structural": 7454,
     "unclassified": 0
   },
   "ratio": {
@@ -92,7 +92,7 @@
   },
   "structuralByKind": {
     "surface": 1316,
-    "frame": 3776,
+    "frame": 3779,
     "text": 2233,
     "image": 126
   },
@@ -2039,13 +2039,13 @@
         "figma/app-screens.mypage-upgrade.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 40,
+        "total": 41,
         "instance": 8,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 5,
-        "structural": 27,
+        "structural": 28,
         "unclassified": 0
       }
     },
@@ -2823,13 +2823,13 @@
         "figma/app-screens.videoeditor--projectId-.desktop.02.draw.js"
       ],
       "counts": {
-        "total": 358,
+        "total": 360,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 27,
         "blocked": 0,
         "missing": 232,
-        "structural": 99,
+        "structural": 101,
         "unclassified": 0
       }
     },
@@ -56674,10 +56674,21 @@
         1332
       ],
       "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0": {
+      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        1300,
+        1332
+      ],
+      "verdict": "structural",
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56688,7 +56699,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.0": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.0.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56700,7 +56711,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.1": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56711,7 +56722,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.1.0": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56723,7 +56734,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.2": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.2": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56734,7 +56745,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.2.0": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.2.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56746,7 +56757,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.3": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.3": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56757,7 +56768,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.3.0": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56769,7 +56780,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.4": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.4": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -56780,7 +56791,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.4.0": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2.0.0.1.0.4.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109172,6 +109183,17 @@
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.1.1.3.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        280,
+        683
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.1.1.3.1.0.0": {
+      "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "p",
       "rect": [
         280,
@@ -109755,11 +109777,11 @@
       "tag": "div",
       "rect": [
         1888,
-        40
+        236
       ],
       "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -109776,7 +109798,7 @@
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
-        64,
+        1888,
         40
       ],
       "verdict": "structural",
@@ -109784,6 +109806,17 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        64,
+        40
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -109795,7 +109828,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -109808,7 +109841,7 @@
       "glyph": "volume-2-lucide",
       "reason": "비디오 노드 메타 툴바의 소리 켜짐 표시(`VideoNode.tsx`의 `IconSpeakerHigh`, 11px)와 비디오 편집기 인스펙터·타임라인의 볼륨 아이콘(`videoEditParts/volumeIcons.tsx`의 `VolumeOnIcon`, 14px)이 Lucide `volume-2` 패스를 인라인으로 그린다. LOUIS의 `icon/user-sound`는 화자·내레이션 의미라 볼륨(스피커) 아이콘은 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:903)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109819,7 +109852,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109830,7 +109863,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109841,7 +109874,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109853,7 +109886,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109865,7 +109898,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.2": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109877,7 +109910,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.3": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.3": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109889,7 +109922,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.4": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.4": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109901,7 +109934,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.5": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.5": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109913,7 +109946,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.6": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.6": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109925,7 +109958,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.7": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.7": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109937,7 +109970,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.8": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.8": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109949,7 +109982,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.9": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.9": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109961,7 +109994,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.10": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.10": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109973,7 +110006,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.11": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.11": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109985,7 +110018,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.12": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.12": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -109997,7 +110030,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.13": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.13": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110009,7 +110042,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.14": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.14": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110021,7 +110054,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.15": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.15": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110033,7 +110066,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.16": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.16": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110045,7 +110078,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.17": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.17": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110057,7 +110090,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.18": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.18": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110069,7 +110102,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.19": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.19": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110081,7 +110114,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.20": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.20": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110093,7 +110126,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.21": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.21": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110105,7 +110138,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.22": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.22": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110117,7 +110150,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.23": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.23": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110129,7 +110162,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.24": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.24": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110141,7 +110174,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.25": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.25": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110153,7 +110186,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.26": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.26": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110165,7 +110198,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.27": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.27": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110177,7 +110210,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.28": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.28": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110189,7 +110222,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.29": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.29": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110201,7 +110234,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.30": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.30": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110213,7 +110246,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.31": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.31": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110225,7 +110258,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.32": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.32": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110237,7 +110270,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.33": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.33": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110249,7 +110282,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.34": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.34": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110261,7 +110294,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.35": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.35": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110273,7 +110306,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.36": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.36": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110285,7 +110318,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.37": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.37": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110297,7 +110330,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.38": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.38": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110309,7 +110342,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.39": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.39": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110321,7 +110354,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.40": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.40": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110333,7 +110366,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.41": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.41": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110345,7 +110378,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.42": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.42": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110357,7 +110390,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.43": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.43": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110369,7 +110402,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.44": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.44": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110381,7 +110414,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.45": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.45": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110393,7 +110426,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.46": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.46": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110405,7 +110438,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.47": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.47": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110417,7 +110450,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.48": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.48": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110429,7 +110462,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.49": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.49": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110441,7 +110474,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.50": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.50": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110453,7 +110486,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.51": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.51": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110465,7 +110498,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.52": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.52": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110477,7 +110510,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.53": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.53": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110489,7 +110522,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.54": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.54": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110501,7 +110534,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.55": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.55": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110513,7 +110546,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.56": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.56": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110525,7 +110558,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.57": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.57": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110537,7 +110570,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.58": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.58": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110549,7 +110582,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.59": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.59": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110561,7 +110594,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.60": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.60": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110573,7 +110606,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.61": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.61": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110585,7 +110618,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.62": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.62": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110597,7 +110630,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.63": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.63": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110609,7 +110642,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.64": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.64": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110621,7 +110654,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.65": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.65": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110633,7 +110666,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.66": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.66": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110645,7 +110678,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.67": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.67": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110657,7 +110690,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.68": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.68": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110669,7 +110702,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.69": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.69": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110681,7 +110714,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.70": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.70": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110693,7 +110726,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.71": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.71": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110705,7 +110738,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.72": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.72": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110717,7 +110750,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.73": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.73": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110729,7 +110762,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.74": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.74": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110741,7 +110774,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.75": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.75": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110753,7 +110786,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.76": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.76": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110765,7 +110798,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.77": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.77": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110777,7 +110810,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.78": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.78": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110789,7 +110822,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.79": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.79": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110801,7 +110834,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.80": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.80": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110813,7 +110846,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.81": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.81": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110825,7 +110858,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.82": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.82": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110837,7 +110870,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.83": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.83": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110849,7 +110882,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.84": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.84": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110861,7 +110894,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.85": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.85": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110873,7 +110906,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.86": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.86": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110885,7 +110918,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.87": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.87": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110897,7 +110930,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.88": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.88": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110909,7 +110942,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.89": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.89": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110921,7 +110954,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.90": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.90": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110933,7 +110966,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.91": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.91": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110945,7 +110978,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.92": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.92": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110957,7 +110990,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.93": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.93": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110969,7 +111002,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.94": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.94": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110981,7 +111014,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.95": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.95": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -110993,7 +111026,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.96": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.96": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111005,7 +111038,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.97": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.97": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111017,7 +111050,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.98": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.98": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111029,7 +111062,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.99": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.99": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111041,7 +111074,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.100": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.100": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111053,7 +111086,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.101": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.101": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111065,7 +111098,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.102": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.102": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111077,7 +111110,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.103": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.103": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111089,7 +111122,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.104": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.104": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111101,7 +111134,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.105": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.105": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111113,7 +111146,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.106": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.106": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111125,7 +111158,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.107": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.107": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111137,7 +111170,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.108": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.108": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111149,7 +111182,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.109": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.109": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111161,7 +111194,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.110": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.110": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111173,7 +111206,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.111": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.111": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111185,7 +111218,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.112": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.112": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111197,7 +111230,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.113": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.113": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111209,7 +111242,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.114": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.114": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111221,7 +111254,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.115": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.115": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111233,7 +111266,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.116": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.116": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111245,7 +111278,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.117": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.117": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111257,7 +111290,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.118": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.118": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111269,7 +111302,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.119": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.119": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111281,7 +111314,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.120": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.120": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111293,7 +111326,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.121": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.121": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111305,7 +111338,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.122": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.122": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111317,7 +111350,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.123": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.123": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111329,7 +111362,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.124": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.124": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111341,7 +111374,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.125": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.125": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111353,7 +111386,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.126": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.126": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111365,7 +111398,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.127": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.127": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111377,7 +111410,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.128": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.128": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111389,7 +111422,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.129": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.129": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111401,7 +111434,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.130": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.130": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111413,7 +111446,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.131": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.131": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111425,7 +111458,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.132": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.132": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111437,7 +111470,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.133": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.133": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111449,7 +111482,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.134": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.134": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111461,7 +111494,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.135": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.135": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111473,7 +111506,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.136": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.136": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111485,7 +111518,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.137": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.137": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111497,7 +111530,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.138": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.138": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111509,7 +111542,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.139": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.139": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111521,7 +111554,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.140": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.140": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111533,7 +111566,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.141": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.141": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111545,7 +111578,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.142": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.142": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111557,7 +111590,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.143": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.143": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111569,7 +111602,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.144": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.144": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111581,7 +111614,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.145": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.145": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111593,7 +111626,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.146": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.146": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111605,7 +111638,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.147": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.147": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111617,7 +111650,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.148": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.148": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111629,7 +111662,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.149": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.149": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111641,7 +111674,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.150": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.150": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111653,7 +111686,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.151": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.151": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111665,7 +111698,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.152": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.152": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111677,7 +111710,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.153": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.153": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111689,7 +111722,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.154": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.154": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111701,7 +111734,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.155": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.155": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111713,7 +111746,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.156": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.156": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111725,7 +111758,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.157": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.157": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111737,7 +111770,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.158": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.158": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111749,7 +111782,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.159": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.159": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111761,7 +111794,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.160": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.160": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111773,7 +111806,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.161": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.161": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111785,7 +111818,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.162": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.162": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111797,7 +111830,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.163": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.163": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111809,7 +111842,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.0.0.164": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.0.0.164": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111821,7 +111854,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111832,7 +111865,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111844,7 +111877,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.1.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.1.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111856,7 +111889,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.2": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111868,7 +111901,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.3": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.3": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -111880,7 +111913,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.3.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.3.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -111893,7 +111926,7 @@
       "glyph": "transition-bowtie-marker",
       "reason": "편집기 시퀀스 타임라인에서 두 클립 사이에 놓이는 전환 마커 버튼(`aria-label` 「Add transition」, `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx`) — 마주 보는 두 삼각형을 채워 그린 10px 나비넥타이 글리프다. LOUIS 42종에 전환 아이콘이 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13068)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.1.4": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.0.0.1.4": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111905,7 +111938,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111916,7 +111949,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111927,7 +111960,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111938,7 +111971,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111950,7 +111983,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -111963,7 +111996,7 @@
       "glyph": "drag-handle-dots-six",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 드래그 핸들(`VEM_CLASS.trackDragHandle`, `aria-hidden`, `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx`) — 6×12 상자에 점 여섯 개를 2열 3행으로 찍은 그립이다. LOUIS에는 `icon/dots-three-vertical`(더보기 메뉴)만 있고 끌어 옮기기 손잡이 의미의 아이콘은 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13291)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -111974,7 +112007,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -111986,7 +112019,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.1.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.1.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112000,7 +112033,7 @@
       "icon": "icon/eye",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 숨기기 토글(`aria-label` 「Hide track」/「트랙 숨기기」, `VideoEditModal.tsx`) — 주석대로 lucide eye 경로를 인라인으로 그린다. 같은 의미의 LOUIS `icon/eye`(숨김 상태는 `icon/eye-slash`)가 있는데 제품이 따로 그린다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13381)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.1.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.1.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -112012,7 +112045,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.1.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.1.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112025,7 +112058,7 @@
       "glyph": "volume-2-lucide",
       "reason": "비디오 노드 메타 툴바의 소리 켜짐 표시(`VideoNode.tsx`의 `IconSpeakerHigh`, 11px)와 비디오 편집기 인스펙터·타임라인의 볼륨 아이콘(`videoEditParts/volumeIcons.tsx`의 `VolumeOnIcon`, 14px)이 Lucide `volume-2` 패스를 인라인으로 그린다. LOUIS의 `icon/user-sound`는 화자·내레이션 의미라 볼륨(스피커) 아이콘은 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:903)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.1.2": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.1.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -112037,7 +112070,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.0.0.1.2.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.0.0.1.2.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112050,7 +112083,7 @@
       "glyph": "lock-open-lucide",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 잠금 토글(`aria-label` 「Lock track」/「트랙 잠금」, `VideoEditModal.tsx`)이 잠기지 않은 상태에 그리는 열린 자물쇠(lucide lock-open 형)다. LOUIS 42종에 자물쇠·잠금 아이콘이 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13478)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112061,7 +112094,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112073,7 +112106,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112084,7 +112117,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112095,7 +112128,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112107,7 +112140,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112120,7 +112153,7 @@
       "glyph": "drag-handle-dots-six",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 드래그 핸들(`VEM_CLASS.trackDragHandle`, `aria-hidden`, `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx`) — 6×12 상자에 점 여섯 개를 2열 3행으로 찍은 그립이다. LOUIS에는 `icon/dots-three-vertical`(더보기 메뉴)만 있고 끌어 옮기기 손잡이 의미의 아이콘은 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13291)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112131,7 +112164,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -112143,7 +112176,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.1.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.1.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112157,7 +112190,7 @@
       "icon": "icon/eye",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 숨기기 토글(`aria-label` 「Hide track」/「트랙 숨기기」, `VideoEditModal.tsx`) — 주석대로 lucide eye 경로를 인라인으로 그린다. 같은 의미의 LOUIS `icon/eye`(숨김 상태는 `icon/eye-slash`)가 있는데 제품이 따로 그린다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13381)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.1.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.1.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -112169,7 +112202,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.1.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.1.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112182,7 +112215,7 @@
       "glyph": "volume-2-lucide",
       "reason": "비디오 노드 메타 툴바의 소리 켜짐 표시(`VideoNode.tsx`의 `IconSpeakerHigh`, 11px)와 비디오 편집기 인스펙터·타임라인의 볼륨 아이콘(`videoEditParts/volumeIcons.tsx`의 `VolumeOnIcon`, 14px)이 Lucide `volume-2` 패스를 인라인으로 그린다. LOUIS의 `icon/user-sound`는 화자·내레이션 의미라 볼륨(스피커) 아이콘은 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:903)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.1.2": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.1.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -112194,7 +112227,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.2.0.1.2.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.2.0.1.2.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112207,7 +112240,7 @@
       "glyph": "lock-open-lucide",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 잠금 토글(`aria-label` 「Lock track」/「트랙 잠금」, `VideoEditModal.tsx`)이 잠기지 않은 상태에 그리는 열린 자물쇠(lucide lock-open 형)다. LOUIS 42종에 자물쇠·잠금 아이콘이 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13478)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.3": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.3": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112218,7 +112251,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.3.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.3.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112230,7 +112263,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112241,7 +112274,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112252,7 +112285,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112264,7 +112297,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112277,7 +112310,7 @@
       "glyph": "drag-handle-dots-six",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 드래그 핸들(`VEM_CLASS.trackDragHandle`, `aria-hidden`, `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx`) — 6×12 상자에 점 여섯 개를 2열 3행으로 찍은 그립이다. LOUIS에는 `icon/dots-three-vertical`(더보기 메뉴)만 있고 끌어 옮기기 손잡이 의미의 아이콘은 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13291)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112288,7 +112321,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -112300,7 +112333,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.1.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.1.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112314,7 +112347,7 @@
       "icon": "icon/eye",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 숨기기 토글(`aria-label` 「Hide track」/「트랙 숨기기」, `VideoEditModal.tsx`) — 주석대로 lucide eye 경로를 인라인으로 그린다. 같은 의미의 LOUIS `icon/eye`(숨김 상태는 `icon/eye-slash`)가 있는데 제품이 따로 그린다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13381)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.1.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.1.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -112326,7 +112359,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.1.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.1.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112339,7 +112372,7 @@
       "glyph": "volume-2-lucide",
       "reason": "비디오 노드 메타 툴바의 소리 켜짐 표시(`VideoNode.tsx`의 `IconSpeakerHigh`, 11px)와 비디오 편집기 인스펙터·타임라인의 볼륨 아이콘(`videoEditParts/volumeIcons.tsx`의 `VolumeOnIcon`, 14px)이 Lucide `volume-2` 패스를 인라인으로 그린다. LOUIS의 `icon/user-sound`는 화자·내레이션 의미라 볼륨(스피커) 아이콘은 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:903)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.1.2": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.1.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -112351,7 +112384,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.4.0.1.2.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.4.0.1.2.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -112364,7 +112397,7 @@
       "glyph": "lock-open-lucide",
       "reason": "편집기 타임라인 비디오 트랙 레일의 트랙 잠금 토글(`aria-label` 「Lock track」/「트랙 잠금」, `VideoEditModal.tsx`)이 잠기지 않은 상태에 그리는 열린 자물쇠(lucide lock-open 형)다. LOUIS 42종에 자물쇠·잠금 아이콘이 없다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13478)"
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112375,7 +112408,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112386,7 +112419,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112397,7 +112430,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112408,7 +112441,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112419,7 +112452,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112431,7 +112464,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112443,7 +112476,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.2": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112455,7 +112488,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.3": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0.3": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112467,7 +112500,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.4": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0.4": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112479,7 +112512,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.5": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0.5": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112491,7 +112524,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.6": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0.6": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112503,7 +112536,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.7": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.0.0.7": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112515,7 +112548,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -112527,7 +112560,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112538,7 +112571,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112549,7 +112582,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112560,7 +112593,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112572,7 +112605,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112584,7 +112617,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.2": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0.0.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112596,7 +112629,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.3": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0.0.3": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112608,7 +112641,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.4": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0.0.4": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112620,7 +112653,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.5": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0.0.5": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112632,7 +112665,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.6": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.0.0.6": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -112644,7 +112677,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.1": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.5.0.1.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -112656,7 +112689,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.6": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.6": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -112667,7 +112700,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.6.0": {
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.0.1.6.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "div",
       "rect": [

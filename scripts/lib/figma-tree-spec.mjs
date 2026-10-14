@@ -1394,9 +1394,13 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       // 스크롤 칸(`overflow-x: auto · scroll`)은 자식이 실제로 넘칠 때만 자른다 — 스크롤 전 첫 화면이 그 칸 안만 보인다(요금제 비교표).
       // 세로 스크롤 칸(`overflow-y: auto · scroll`)도 같다(2026-10-12 오후) — 커맨드 팔레트 목록(최대 높이 520 패널 안)이 자르지 않아 뒤 그룹이
       // 아래 단축키 줄을 덮었다.
+      // **가로 스크롤 칸은 자식이 끝에 닿기만 해도 자른다(2026-10-15, 조립 규칙 15조의 19).** 스크롤 칸 밖은 «보이는 넘침»이 아니라 스크롤 영역이다 —
+      // 측정 폭에서 자식이 칸 끝에 딱 닿으면(0.5 안) 넘치지 않아 자르지 않았는데, 보드를 줄이면 그 자식이 칸 밖 · 보드 밖으로 나갔다(/models 모바일
+      // 3471:9268 의 추천 「What matters most?」 세그먼트 토글: 402 에서 370 칸에 370 으로 닿고, 360 에서 칸 328 밖 43 · 보드 밖 27). 제품은 같은 폭에서
+      // 토글을 칸 안에서 스크롤로 자른다. 칸 끝에 닿지 않는 자식은 전처럼 두고(측정 폭에서 여유가 있는 칸), 세로 축은 그대로다.
       clipsContent: style.overflow === "hidden" || style.overflowX === "hidden"
         || (/^(auto|scroll)$/.test(style.overflowX ?? "") && children.some((child) => child.positioning !== "ABSOLUTE"
-          && child.rect.x + child.rect.width > node.rect.x + node.rect.width + 1))
+          && child.rect.x + child.rect.width >= node.rect.x + node.rect.width - 0.5))
         || (/^(auto|scroll)$/.test(style.overflowY ?? "") && children.some((child) => child.positioning !== "ABSOLUTE"
           && child.rect.y + child.rect.height > node.rect.y + node.rect.height + 1)),
       children,

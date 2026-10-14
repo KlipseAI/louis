@@ -19204,6 +19204,13 @@ parity 계약을 지운다. 제품은 아직 어느 것도 물지 않으므로 �
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-15 (280) — Figma 속성 묶임 감사: 11 세트 82 칸을 묶고 parity 가 묶이지 않은 칸을 잡는다
+
+- **결손** — 세트에 BOOLEAN · TEXT 속성이 있는데 어떤 변형의 같은 이름 레이어가 그 속성을 참조하지 않으면, 인스턴스에서 속성을 바꿔도 그 칸만 따라오지 않는다. TextField floating 열의 Label 이 그랬다.
+- **고친 세트** — TextField 20 · Slider 16 · Dialog 15 · SelectableListRow 9 · SegmentedControlItem 5 · Tooltip 4 · DropZone 4 · FaqRow 3 · SegmentedControl 2 · Toast 2 · AppTopBar 2. 묶인 글자가 속성 기본값으로 바뀌어 Tooltip coachmark · Toast callout 의 예시 문구와 표본 폭이 달라졌다(계약 밖).
+- **게이트** — 되읽기에 `propertyBindings` 블록(`figma-readback-emit.mjs --property-bindings`)을 더했고, `verify-figma-parity` 가 면제 밖의 묶이지 않은 칸을 실패로 센다. 면제는 안내 문구 칸(SelectTrigger · TextField Placeholder 의 Value)과 InlineLoadingLabel 의 교대 둘이다. verify-gates canary 둘을 더했다.
+- 알아 둘 것 — 글리프 교체(INSTANCE_SWAP) 속성은 이 감사 밖이다. IconButton `Glyph` 가 안쪽 글리프에 묶이지 않은 결손은 따로 고치는 중이다.
+
 #### 2026-10-15 (279) — 공개 · 덱 · 하이라이트 새 부품 일곱과 아이콘 일곱, 부품 needed 0
 
 - **copy-panel** — 템플릿 상세의 프롬프트 상자(반경 16 면 · 제목 줄 · 복사 동작 · 원문). 글 머리는 Section Header `Level=article` 이다([DS-D-0110](../governance/decisions/DS-D-0110-copy-panel.md)).

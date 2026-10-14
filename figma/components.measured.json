@@ -1310,6 +1310,16 @@
           "$contentSize": "측정용 내용 크기다. 배포본의 아바타가 24이고(`--profile-avatar-size` 를 profileTrigger 한 곳이 선언한다) 지름(위 size)이 거기서 나온다. DS Avatar 로는 sm 칸이다.",
           "gap-plus-width": 4,
           "$gap-plus-width": "padding으로 만드는 링 두께다 — 두께 2 + 간격 2. 제품이 지름을 직접 계산하는 자리를 여기서는 padding이 대신한다."
+        },
+        "bipolar": {
+          "size": 32,
+          "$size": "layout-control-height-md 32. `.louis-progress-ring[data-mode=\"bipolar\"] { inline-size · block-size: var(--louis-layout-control-height-md) }` — 제품 `w-16 h-16`(ColorValueRing.tsx:52). 사용량 링과 달리 지름이 내용에서 나오지 않고 상자가 고정이다.",
+          "gap-plus-width": 0,
+          "$gap-plus-width": "0. 양방향 링은 `padding: 0` 이다 — 사용량 링처럼 패딩으로 지름을 만들지 않고, 링(::after)이 상자 안쪽 ringInset 에 서며 글리프는 상자 가운데에 앉는다.",
+          "radius": 0,
+          "$radius": "0 — base 칸과 같은 기록 규약(원형은 ::after 의 `border-radius: inherit` 알약이 그린다). Figma 변형 루트의 cornerRadius 도 0 이다.",
+          "ringInset": 2,
+          "$ringInset": "space-progress-ring-gap 2. `[data-mode=\"bipolar\"]::after { inset: var(--louis-progress-ring-gap) }` — 링 바깥 지름이 32 − 2×2 = 28 이다. Figma 는 Track 프레임(32) 안에 Ring base · Ring arc 타원 28 을 (2,2) 에 둔다(2026-10-14 탐침) — 되읽기 명세가 Track 아래를 뜨지 않아 계약은 이 칸을 대조하지 않고 되재기 시험만 잰다."
         }
       },
       "states": {
@@ -5808,6 +5818,54 @@
           "direction": "column",
           "$direction": "`.louis-color-swatch[data-layout=\"stack\"] { flex-direction: column }` — 라벨 위 · 칩 아래.",
           "$content": "빈 칩(`__chip[data-empty=\"true\"]`)은 점선 테두리 · 투명 면 · 가운데 + 16 으로 칩 안만 바뀐다 — 칸의 간격 · 방향은 채운 칩과 같다."
+        },
+        "row/md/filled/Hover": {
+          "gap": 6,
+          "$gap": "6. Hover 는 칸 기하를 바꾸지 않는다 — Default 칸(row/md/filled)과 같은 간격이다. 상태 규칙은 칩에만 걸린다(color-swatch.css `__chip:hover` · `__chip:active`).",
+          "direction": "row",
+          "$direction": "Default 와 같다. `@media (hover: hover)` 의 칩 호버는 칩 선 색(fg-tertiary)만 바꾼다."
+        },
+        "row/md/empty/Hover": {
+          "gap": 6,
+          "$gap": "6. Hover 는 칸 기하를 바꾸지 않는다 — Default 칸(row/md/empty)과 같은 간격이다. 상태 규칙은 칩에만 걸린다(color-swatch.css `__chip:hover` · `__chip:active`).",
+          "direction": "row",
+          "$direction": "Default 와 같다. `@media (hover: hover)` 의 칩 호버는 칩 선 색(fg-tertiary)만 바꾼다."
+        },
+        "row/sm/filled/Hover": {
+          "gap": 6,
+          "$gap": "6. Hover 는 칸 기하를 바꾸지 않는다 — Default 칸(row/sm/filled)과 같은 간격이다. 상태 규칙은 칩에만 걸린다(color-swatch.css `__chip:hover` · `__chip:active`).",
+          "direction": "row",
+          "$direction": "Default 와 같다. `@media (hover: hover)` 의 칩 호버는 칩 선 색(fg-tertiary)만 바꾼다."
+        },
+        "stack/md/filled/Hover": {
+          "gap": 4,
+          "$gap": "4. Hover 는 칸 기하를 바꾸지 않는다 — Default 칸(stack/md/filled)과 같은 간격이다. 상태 규칙은 칩에만 걸린다(color-swatch.css `__chip:hover` · `__chip:active`).",
+          "direction": "column",
+          "$direction": "Default 와 같다. `@media (hover: hover)` 의 칩 호버는 칩 선 색(fg-tertiary)만 바꾼다."
+        },
+        "stack/md/empty/Hover": {
+          "gap": 4,
+          "$gap": "4. Hover 는 칸 기하를 바꾸지 않는다 — Default 칸(stack/md/empty)과 같은 간격이다. 상태 규칙은 칩에만 걸린다(color-swatch.css `__chip:hover` · `__chip:active`).",
+          "direction": "column",
+          "$direction": "Default 와 같다. `@media (hover: hover)` 의 칩 호버는 칩 선 색(fg-tertiary)만 바꾼다."
+        },
+        "row/md/empty/Active": {
+          "gap": 6,
+          "$gap": "6. Active 는 칸 기하를 바꾸지 않는다 — Default 칸(row/md/empty)과 같은 간격이다. 상태 규칙은 칩에만 걸린다(color-swatch.css `__chip:hover` · `__chip:active`).",
+          "direction": "row",
+          "$direction": "Default 와 같다. button 칩 누름은 칩 선 색과 `scale: 0.96` 만 바꾼다 — scale 은 그리는 크기라 계산값 간격 · 방향에 닿지 않고 Figma 도 그리지 않는다."
+        },
+        "row/sm/filled/Active": {
+          "gap": 6,
+          "$gap": "6. Active 는 칸 기하를 바꾸지 않는다 — Default 칸(row/sm/filled)과 같은 간격이다. 상태 규칙은 칩에만 걸린다(color-swatch.css `__chip:hover` · `__chip:active`).",
+          "direction": "row",
+          "$direction": "Default 와 같다. button 칩 누름은 칩 선 색과 `scale: 0.96` 만 바꾼다 — scale 은 그리는 크기라 계산값 간격 · 방향에 닿지 않고 Figma 도 그리지 않는다."
+        },
+        "stack/md/empty/Active": {
+          "gap": 4,
+          "$gap": "4. Active 는 칸 기하를 바꾸지 않는다 — Default 칸(stack/md/empty)과 같은 간격이다. 상태 규칙은 칩에만 걸린다(color-swatch.css `__chip:hover` · `__chip:active`).",
+          "direction": "column",
+          "$direction": "Default 와 같다. button 칩 누름은 칩 선 색과 `scale: 0.96` 만 바꾼다 — scale 은 그리는 크기라 계산값 간격 · 방향에 닿지 않고 Figma 도 그리지 않는다."
         }
       }
     },

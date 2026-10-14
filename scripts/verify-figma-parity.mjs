@@ -2654,8 +2654,11 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
       parts: {
         // 트랙은 링 전체를 덮고 내용은 그 안에 놓인다. 지름이 내용에서 나온다는 것이 이 둘의 관계다.
+        // 양방향 링(bipolar)에서 Track 은 상자 전체(32)를 덮는 프레임이고 링 타원 28 은 그 안 (2,2) 에 선다 — 코드의
+        // `::after { inset: gap }` 과 같은 관계다(기록 `ringInset`, 되재기 시험이 잰다). bipolar 에는 Content 가 없고
+        // 글리프(`__label`)가 가운데 앉는다 — 기록에도 contentSize 가 없어 optional 이 통과한다.
         Track: { fields: { width: "size", height: "size" } },
-        Content: { fields: { width: "contentSize", height: "contentSize" } },
+        Content: { fields: { width: "contentSize", height: "contentSize" }, optional: true },
       },
     },
   },
@@ -3650,12 +3653,21 @@ const COMPONENT_CONTRACTS = [
     },
     geometry: {
       measuredId: "media-slot",
-      sizeKeys: ["md/base/Default", "video/base/Default", "attachment/base/Default"],
-      fields: { width: "width", height: "height", cornerRadius: "radius" },
+      sizeKeys: [
+        "md/base/Default", "video/base/Default", "attachment/base/Default",
+        "fill/base/Default", "fill/empty/Default", "fill/empty/Hover", "fill/base/Default/2:3",
+      ],
+      fields: {
+        // fill 네 키는 폭이 열 폭(100%)이라 기록에 수가 없다 — Figma 의 96 은 표본 폭이다. 그 폭은 대조하지 않는 대신
+        // 높이를 **그 표본 폭 × 기록의 비율(heightPerWidth)** 로 맞댄다(2026-10-14). 고정 상자 셋은 평소처럼 수를 읽는다.
+        width: { field: "width", sampleIn: ["fill/base/Default", "fill/empty/Default", "fill/empty/Hover", "fill/base/Default/2:3"] },
+        height: { field: "height", perWidth: "heightPerWidth" },
+        cornerRadius: "radius",
+      },
       slots: {},
       extraStrokeWeights: [],
       parts: {},
-      $comment: "고정 상자 셋만 건다 — fill 네 키(fill/base/Default · fill/empty/Default · fill/empty/Hover · fill/base/Default/2:3)는 폭이 열 폭(표본 96)이라 width · height 를 걸 수 없고, 계약 fields 가 키마다 갈리지 않아 그 키를 sizeKeys 에 넣으면 「근거 값이 없습니다」로 빨갛다. 그 키의 반경 · 비율은 시험이 잰다. strokeWeight 는 fields 에 넣지 않는다 — 기록 borderWidth 1 이 허용 두께 집합을 정하고, 지금 Figma 에는 stroke 가 없다(figmaMismatches).",
+      $comment: "strokeWeight 는 fields 에 넣지 않는다 — 기록 borderWidth 1 이 허용 두께 집합을 정한다. fill 키의 열 폭 · 비율 · 반경 · 테두리는 media-audio-geometry 되재기 시험이 잰다.",
     },
   },
   {
@@ -4001,7 +4013,13 @@ const COMPONENT_CONTRACTS = [
     },
     geometry: {
       measuredId: "color-swatch",
-      sizeKeys: ["row/md/filled", "row/md/empty", "row/sm/filled", "stack/md/filled", "stack/md/empty"],
+      // 상태 칸(Hover · Active)도 건다(2026-10-14) — 상태 규칙은 칩 선 색 · 누름 scale 만 바꿔 칸 기하가 Default 와 같다는 것이
+      // 기록의 주장이고, 되재기 시험이 Hover 칸을 실제로 올려 잰다.
+      sizeKeys: [
+        "row/md/filled", "row/md/empty", "row/sm/filled", "stack/md/filled", "stack/md/empty",
+        "row/md/filled/Hover", "row/md/empty/Hover", "row/sm/filled/Hover", "stack/md/filled/Hover", "stack/md/empty/Hover",
+        "row/md/empty/Active", "row/sm/filled/Active", "stack/md/empty/Active",
+      ],
       fields: {
         itemSpacing: "gap",
         layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
@@ -6480,6 +6498,41 @@ function compareComponentGeometry(contract, got) {
           continue;
         }
         expected[field] = spec[rule.field];
+      } else if (typeof rule?.field === "string" && Array.isArray(rule.sampleIn)) {
+        // **표본 칸 `{ field, sampleIn: [size…] }`(2026-10-14).** 열 폭을 받는 칸(MediaSlot fill)은 코드에 폭이 없다 — 소비처의
+        // 열이 정한다. 기록은 수 대신 `$<field>` 규칙을 갖고(채움 칸과 같은 규약), Figma 의 값은 **표본**이라 수로 맞대지
+        // 않는다. 대신 그 표본이 한 값이어야 한다 — 아래 `perWidth` 칸이 그 값을 받아 높이를 비율로 잰다. 건너뛴 사실은
+        // 출력에 남긴다.
+        if (rule.sampleIn.includes(size)) {
+          if (typeof spec[rule.field] === "number") {
+            issues.push(
+              `${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}.${rule.field} 는 표본 칸인데 수(${spec[rule.field]})가 있습니다 — 소비처가 정하는 크기를 기록에 굳혔습니다.`,
+            );
+          } else if (typeof spec["$" + rule.field] !== "string") {
+            issues.push(`${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}에 표본 칸 ${rule.field} 의 규칙(\$${rule.field})이 없습니다.`);
+          }
+          const sample = geometry[size]?.[field];
+          if (!Array.isArray(sample) || sample.length !== 1) {
+            issues.push(`${contract.figmaName} ${size}: 표본 칸 ${field} 가 한 값이 아닙니다 — Figma ${JSON.stringify(sample ?? null)}`);
+          } else {
+            derivationNotes.set(`표본 칸 ${contract.figmaName} ${size}.${field}`, `Figma 표본 ${sample[0]} — 대조하지 않고 비율 칸의 밑으로 쓴다`);
+          }
+          continue;
+        }
+        expected[field] = spec[rule.field];
+      } else if (typeof rule?.field === "string" && typeof rule.perWidth === "string") {
+        // **비율 칸 `{ field, perWidth: <기록 키> }`(2026-10-14).** 기록에 비율이 있는 칸은 Figma 폭 × 비율이 기대값이다
+        // (`aspect-ratio`). 비율이 없는 칸은 평소처럼 `field` 를 읽는다.
+        const ratio = spec[rule.perWidth];
+        if (typeof ratio === "number") {
+          const width = geometry[size]?.width;
+          if (Array.isArray(width) && width.length === 1) {
+            expected[field] = Math.round(width[0] * ratio * 10) / 10;
+            derivedFrom[field] = `코드 비율 ${ratio} × Figma 폭 ${width[0]} = ${expected[field]}`;
+          }
+        } else {
+          expected[field] = spec[rule.field];
+        }
       } else if (Array.isArray(rule?.set)) {
         // 한 축이 이 필드를 바꾸는 것이 계약인 경우. 대조는 **집합 상등**이다 — 선언한 값이
         // 전부 나타나야 하고 그 밖의 값은 없어야 한다. **어느 칸이 어느 값을 갖는지는 보지

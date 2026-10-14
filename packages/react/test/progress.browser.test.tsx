@@ -175,4 +175,29 @@ test("링은 지름을 내용에서 얻는다 — 소비처가 크기를 두 번
   expect(ring.getAttribute("aria-valuenow")).toBe("30");
 });
 
+test("양방향 링(bipolar)은 상자가 고정이고 링이 상자 안쪽에 선다 — 기록 bipolar 칸과 같다", async () => {
+  const spec = measured.components["progress-ring"].sizes.bipolar;
+  await render(
+    <div data-louis-fixture>
+      <ProgressRing aria-label="감마" value={40} data-mode="bipolar" data-direction="next">
+        <span className="louis-progress-ring__label">γ</span>
+      </ProgressRing>
+    </div>,
+  );
+  const ring = scope().querySelector<HTMLElement>(".louis-progress-ring")!;
+  const rect = ring.getBoundingClientRect();
+  // 지름이 내용에서 나오지 않는다 — 글리프가 작아도 상자는 기록의 size 다.
+  expect(rect.width, "width").toBe(spec.size);
+  expect(rect.height, "height").toBe(spec.size);
+  const style = getComputedStyle(ring);
+  for (const side of ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft"] as const) {
+    expect(px(style[side]), side).toBe(spec["gap-plus-width"]);
+  }
+  // 링(::after)은 상자 안쪽 ringInset 에 선다 — Figma Track 안의 링 타원 28 이 (2,2) 에 서는 것과 같은 관계다.
+  const after = getComputedStyle(ring, "::after");
+  for (const side of ["top", "right", "bottom", "left"] as const) {
+    expect(px(after[side]), `::after ${side}`).toBe(spec.ringInset);
+  }
+});
+
 export type _EnsureTsx = JSX.Element;

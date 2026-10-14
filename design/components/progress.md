@@ -209,7 +209,8 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 - **양(+) 호가 라이트에서 제품보다 짙다(DS-D-0084 §3)** — yellow-500 1.73:1 → `inspector-adjust-accent` yellow-700 3.57:1. 다크는 제품 값 그대로다.
 - **양방향 링의 `scale` 전이가 `motion-control-hover` 의 선언 property 밖이다.** `node-chrome-button` · `icon-button` 과 같은 방식이고, 전이는
   keyframe 게이트가 보지 않는다(소유자 판정 10).
-- **양방향 링에 React 표면 · 실브라우저 시험이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `ProgressRing` 이 세트가 되어 `Mode`(`determinate` ·
+- **양방향 링에 React 표면(타입 있는 prop)이 아직 없다.** 실브라우저 시험은 2026-10-14 에 섰다 — `progress.browser.test.tsx` 가
+  `data-mode` 를 rest 로 넘겨 기록 `progress-ring.sizes.bipolar`(상자 32 · 패딩 0 · 링 안쪽 2)를 잰다. Figma 는 2026-10-13 에 섰다 — `ProgressRing` 이 세트가 되어 `Mode`(`determinate` ·
   `bipolar`) · `Direction`(`next` · `prev`) · `Selected` · TEXT `Glyph` 를 갖는다. Figma 가 희소 세트를 받지 않아 determinate 칸에도
   `Direction=next, Selected=false` 가 붙는다. 고른 링의 1.1배 확대는 CSS `scale` 이라 변형 기하로 옮기지 않았다.
 

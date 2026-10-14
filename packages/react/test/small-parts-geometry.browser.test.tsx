@@ -163,6 +163,30 @@ test("color-swatch: 다섯 칸의 간격 · 방향이 기록과 같다", async (
   }
 });
 
+// 상태 칸(Hover · Active) — 상태 규칙이 칩에만 걸려 칸의 간격 · 방향이 Default 와 같다는 것이 기록의 주장이다. Hover 칸은 칩을
+// 실제로 올려 잰다. Active(`scale: 0.96`)는 누르는 동안만이라 붙잡지 않는다 — scale 은 그리는 크기라 계산값 간격에 닿지 않는다.
+const SWATCH_STATE_KEYS = [
+  "row/md/filled/Hover", "row/md/empty/Hover", "row/sm/filled/Hover", "stack/md/filled/Hover", "stack/md/empty/Hover",
+  "row/md/empty/Active", "row/sm/filled/Active", "stack/md/empty/Active",
+] as const;
+
+test("color-swatch: 상태 칸 여덟의 간격 · 방향이 기록과 같다 — 호버는 실제로 올린다", async () => {
+  await render(<Swatches />);
+  for (const key of SWATCH_STATE_KEYS) {
+    const base = key.split("/").slice(0, 3).join("/");
+    const root = find(`swatch-${base}`);
+    if (key.endsWith("/Hover")) await userEvent.hover(root.querySelector<HTMLElement>(".louis-color-swatch__chip")!);
+    const spec = measured.components["color-swatch"].sizes[key];
+    const label = `color-swatch.${key}`;
+    const style = getComputedStyle(root);
+    const gap = num(spec, "gap", label);
+    expect(style.display, label).toBe("inline-flex");
+    expect(style.flexDirection, label).toBe(word(spec, "direction", label));
+    expect(px(style.rowGap), label).toBe(gap);
+    expect(px(style.columnGap), label).toBe(gap);
+  }
+});
+
 // ── Logo Tile ──────────────────────────────────────────────────────────────────────────────────────────────
 
 const LOGO = `url("data:image/svg+xml,${encodeURIComponent(

@@ -116,8 +116,13 @@ const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 절대 배치 자동 배치 상자는 세로 HUG(조립 규칙 15조의 18)로 고쳐 다시 보냈다. 옛 열네 보드의 넘침 4 · 부모 밖 4 는 그대로다. **늘어난 서른넷은 다른 작업이
 // 세운 빈 틀이다** — 「10.12.2 · /admin?view= · 어드민 탭」 섹션의 레시피 측정 보드(3521:225 ~ 258)가 아직 자식이 없어 뿌리 없음(noRoot) 34 로 잡힌다. 채우면
 // 그 작업이 05-ops 를 다시 재고 이 수를 내린다.
+// 2026-10-15(run q-1015-r, 01-public 만): 보드 20 → 24 — `/models` · `/models/[slug]` 두 뷰포트(다른 레인이 보냈다)가 페이지에 섰다. 늘어난 수는
+// 전부 그 넷이다: overflow +1(`/models/[slug]` 모바일 360 의 안내 글 20px), childOutside +4(데스크톱 1440 둘 · 모바일 360 둘), heightFollow +4(문서
+// 길이 보드라 높이 130% 에 뿌리가 따라가지 않는다 — 다른 공개 문서 보드와 같다). 랜딩 「/」 데스크톱(359:2032, 끈적 장면 · 그림 규칙 15조의 20 · 21 로 다시
+// 그림)은 넘침 0 · 1440 의 부모 밖 6(시험 하나) · 높이 0.769 로 전과 같은 칸에 든다. 랜딩 모바일(359:2986)은 조각 00 만 들어간 상태로 쟀다(조각 01 이
+// 두 번 막혀 소유자 꾸러미로 넘겼다) — 남은 조각을 넣으면 01-public 을 다시 잰다.
 const BASELINE = {
-  "01-public": { overflow: 6, childOutside: 11, textClip: 1, heightFollow: 21, baseOverflow: 2 },
+  "01-public": { overflow: 6, childOutside: 13, textClip: 1, heightFollow: 21, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
   "03-app": { childOutside: 16, heightFollow: 2 },
   "04-billing": { childOutside: 7, heightFollow: 2 },

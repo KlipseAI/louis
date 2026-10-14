@@ -657,6 +657,13 @@
   --louis-layout-progress-bar-max-inline-size: 320px;
   --louis-layout-project-card-minimum: 240px;
   --louis-layout-project-grid-gap: 4px;
+  --louis-layout-section-block: 120px;
+  --louis-layout-section-block-md: 88px;
+  --louis-layout-section-block-sm: 60px;
+  --louis-layout-section-content-max: 1400px;
+  --louis-layout-section-inline: 20px;
+  --louis-layout-section-inline-md: 16px;
+  --louis-layout-section-inline-sm: 12px;
   --louis-layout-settings-segment-height: 28px;
   --louis-layout-tab-height: 28px;
   --louis-misc-project-card-overlay-stack-gap: 4px;

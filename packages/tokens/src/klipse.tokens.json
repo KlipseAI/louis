@@ -3500,6 +3500,18 @@
           }
         }
       },
+      "88": {
+        "$value": {
+          "value": 88,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "space-88",
+            "tier": "primitive"
+          }
+        }
+      },
       "96": {
         "$value": {
           "value": 96,
@@ -3568,6 +3580,18 @@
         "$extensions": {
           "com.klipse-design": {
             "id": "space-960",
+            "tier": "primitive"
+          }
+        }
+      },
+      "1400": {
+        "$value": {
+          "value": 1400,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "space-1400",
             "tier": "primitive"
           }
         }
@@ -6649,6 +6673,76 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "layout-tab-height",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "section-block": {
+          "$value": "{primitive.spacing.120}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-section-block",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "section-block-md": {
+          "$value": "{primitive.spacing.88}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-section-block-md",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "section-block-sm": {
+          "$value": "{primitive.spacing.60}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-section-block-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "section-inline": {
+          "$value": "{primitive.spacing.20}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-section-inline",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "section-inline-md": {
+          "$value": "{primitive.spacing.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-section-inline-md",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "section-inline-sm": {
+          "$value": "{primitive.spacing.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-section-inline-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "section-content-max": {
+          "$value": "{primitive.spacing.1400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "layout-section-content-max",
               "tier": "semantic",
               "mode": "global"
             }

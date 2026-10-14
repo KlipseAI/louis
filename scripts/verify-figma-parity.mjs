@@ -6255,6 +6255,35 @@ const COMPONENT_CONTRACTS = [
       },
     },
   },
+  {
+    id: "section-shell",
+    figmaName: "SectionShell",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/section-shell.css 와 토큰 일곱(layout-section-*)이 정본이다(2026-10-15, DS-D-0111). 면 · 글자 없는 레이아웃 규격이라 칸의 폭(1600 · 900 · 700 · 600 · 340)은 그 뷰포트 경계 안의 표본이고 계약이 아니다. 안의 Content · Track 면(landing/panel)은 자리 표시다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Viewport: { options: ["≥960", "≤959", "≤719", "≤640", "≤355"], reason: "CSS 미디어 경계를 철자 그대로 — 세로(≤959 · ≤640)와 좌우(≤719 · ≤355) 두 계단이 서로 다른 경계에서 바뀌어 다섯 칸이 실재한다. 코드에는 속성이 없고 뷰포트가 고른다(section-shell.browser.test.tsx). §2 Viewport 축." },
+      Bleed: { options: ["false", "true"], reason: "CSS `data-bleed=\"true\"` — 좌우 인셋이 0 이 되고 콘텐츠 폭 제한이 풀린다(시험 2). 조건 축 명부의 Bleed 다." },
+    },
+    geometry: {
+      measuredId: "section-shell",
+      sizeKeys: ["≥960/false", "≥960/true", "≤959/false", "≤959/true", "≤719/false", "≤719/true", "≤640/false", "≤640/true", "≤355/false", "≤355/true"],
+      fields: {
+        paddingBlock: "block",
+        paddingBlockEnd: "block",
+        paddingInline: "inline",
+        paddingInlineEnd: "inline",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // bleed 칸에는 콘텐츠 상자가 없다(Track 이 화면 끝까지) — 기록도 contentMax 를 갖지 않는다.
+        Content: { fields: { maxWidth: "contentMax" }, optional: true },
+      },
+    },
+  },
 ];
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와

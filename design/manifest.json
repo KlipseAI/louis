@@ -2044,7 +2044,8 @@
         "design/components/drill-picker.md",
         "design/components/table-drawer.md",
         "design/components/node-handle-tile.md",
-        "design/components/copy-panel.md"
+        "design/components/copy-panel.md",
+        "design/components/section-shell.md"
       ]
     },
     {
@@ -2205,7 +2206,8 @@
         "design/governance/decisions/DS-D-0109-fixed-dark-screens-are-in-scope.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md",
-        "design/governance/decisions/DS-D-0110-copy-panel.md"
+        "design/governance/decisions/DS-D-0110-copy-panel.md",
+        "design/governance/decisions/DS-D-0111-section-shell.md"
       ]
     },
     {
@@ -2536,6 +2538,24 @@
       "id": "copy-panel",
       "path": "design/components/copy-panel.md",
       "title": "Copy Panel",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-section-shell",
+      "path": "design/governance/decisions/DS-D-0111-section-shell.md",
+      "title": "DS-D-0111 랜딩 섹션의 리듬을 토큰 일곱과 껍데기 section-shell 로 — 세로 120 · 88 · 60, 좌우 20 · 16 · 12, 콘텐츠 1400, bleed 축",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "section-shell",
+      "path": "design/components/section-shell.md",
+      "title": "Section Shell",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3622,6 +3642,17 @@
       "maturity": "experimental",
       "figma": "done",
       "figmaName": "CopyPanel",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "section-shell",
+      "name": "Section Shell",
+      "doc": "design/components/section-shell.md",
+      "note": "랜딩 · 마케팅 섹션 하나의 껍데기 — 세로 120/88/60(≤959 · ≤640) · 좌우 20/16/12(≤719 · ≤355) · 콘텐츠 최대 1400 가운데 · bleed 축(DS-D-0111). 제품 components/landing/system/SectionShell.tsx · sectionInline.ts 를 토큰 일곱(layout-section-*)과 한 레시피(packages/css/src/component/section-shell.css)로 옮겼다. 면 · 글자가 없는 레이아웃 부품이다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. figma 는 2026-10-15 에 done 이다 — SectionShell 세트 · parity 기하 계약 · 실측 기록 · 브라우저 되재기가 DS-D-0035 를 채운다(verify-figma-done).",
+      "maturity": "experimental",
+      "figma": "done",
+      "figmaName": "SectionShell",
       "web": "partial",
       "docs": "done"
     }

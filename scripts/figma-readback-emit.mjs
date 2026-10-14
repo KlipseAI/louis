@@ -492,6 +492,8 @@ const CAPTURE = {
   "VideoPlayer": {"key":{"by":["Platform"],"map":{"default":"base"}},"parts":{"Video (placeholder)":["width","height"],"Scrim (opacity 0)":["width","height"],"Center chrome":["width","height"],"Bottom chrome":["width","height"]},"strokes":["Vector"],"effects":["Skip back 10s","Play","Skip forward 10s","Progress pill","Expand"]},
   // Copy Panel(2026-10-15, DS-D-0110). 면 — 안쪽 21 = CSS 20 + 테두리 1(strokesIncludedInLayout false, §10) · 사이 12 · 반경 16 · 선 1. 머리는 base 가로 · compact 세로. 동작은 Button 인스턴스라 훑기가 들어가지 않는다.
   "CopyPanel": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Head":["itemSpacing","layoutMode"],"Title":["fontSize"],"Body":["fontSize"]},"strokes":["self"]},
+  // Section Shell(2026-10-15, DS-D-0111). 면 없는 레이아웃 규격 — 세로 · 좌우 여백과 콘텐츠 최대 폭. 칸의 폭(1600 · 900 · 700 · 600 · 340)은 그 뷰포트 경계 안의 표본이라 담지 않는다. Bleed=true 의 Track 은 폭 제한이 없어 담을 것이 없다.
+  "SectionShell": {"key":{"by":["Viewport","Bleed"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"parts":{"Content":["maxWidth"]}},
 };
 
 function usage(message) {

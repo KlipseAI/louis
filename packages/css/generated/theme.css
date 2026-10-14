@@ -352,6 +352,13 @@
   --spacing-layout-progress-bar-max-inline-size: var(--louis-layout-progress-bar-max-inline-size);
   --spacing-layout-project-card-minimum: var(--louis-layout-project-card-minimum);
   --spacing-layout-project-grid-gap: var(--louis-layout-project-grid-gap);
+  --spacing-layout-section-block: var(--louis-layout-section-block);
+  --spacing-layout-section-block-md: var(--louis-layout-section-block-md);
+  --spacing-layout-section-block-sm: var(--louis-layout-section-block-sm);
+  --spacing-layout-section-content-max: var(--louis-layout-section-content-max);
+  --spacing-layout-section-inline: var(--louis-layout-section-inline);
+  --spacing-layout-section-inline-md: var(--louis-layout-section-inline-md);
+  --spacing-layout-section-inline-sm: var(--louis-layout-section-inline-sm);
   --spacing-layout-settings-segment-height: var(--louis-layout-settings-segment-height);
   --spacing-layout-tab-height: var(--louis-layout-tab-height);
   --spacing-control-lg: var(--louis-space-control-lg);

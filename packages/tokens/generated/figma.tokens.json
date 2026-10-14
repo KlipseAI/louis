@@ -9219,6 +9219,35 @@
             }
           }
         },
+        "space-1400": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/1400",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 1400
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 1400
+              },
+              "sourcePath": "primitive.spacing.1400"
+            }
+          }
+        },
         "space-16": {
           "$type": "dimension",
           "fields": [],
@@ -9796,6 +9825,35 @@
                 "value": 80
               },
               "sourcePath": "primitive.spacing.80"
+            }
+          }
+        },
+        "space-88": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "spacing/88",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 88
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 88
+              },
+              "sourcePath": "primitive.spacing.88"
             }
           }
         },
@@ -14643,6 +14701,202 @@
                 "value": 4
               },
               "sourcePath": "semantic.global.layout.project-grid-gap"
+            }
+          }
+        },
+        "layout-section-block": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/section-block",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.120}",
+              "aliasTarget": {
+                "id": "space-120",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 120
+              },
+              "sourcePath": "semantic.global.layout.section-block"
+            }
+          }
+        },
+        "layout-section-block-md": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/section-block-md",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.88}",
+              "aliasTarget": {
+                "id": "space-88",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 88
+              },
+              "sourcePath": "semantic.global.layout.section-block-md"
+            }
+          }
+        },
+        "layout-section-block-sm": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/section-block-sm",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.60}",
+              "aliasTarget": {
+                "id": "space-60",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 60
+              },
+              "sourcePath": "semantic.global.layout.section-block-sm"
+            }
+          }
+        },
+        "layout-section-content-max": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/section-content-max",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.1400}",
+              "aliasTarget": {
+                "id": "space-1400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 1400
+              },
+              "sourcePath": "semantic.global.layout.section-content-max"
+            }
+          }
+        },
+        "layout-section-inline": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/section-inline",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.20}",
+              "aliasTarget": {
+                "id": "space-20",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 20
+              },
+              "sourcePath": "semantic.global.layout.section-inline"
+            }
+          }
+        },
+        "layout-section-inline-md": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/section-inline-md",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.16}",
+              "aliasTarget": {
+                "id": "space-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 16
+              },
+              "sourcePath": "semantic.global.layout.section-inline-md"
+            }
+          }
+        },
+        "layout-section-inline-sm": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "layout/section-inline-sm",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.12}",
+              "aliasTarget": {
+                "id": "space-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 12
+              },
+              "sourcePath": "semantic.global.layout.section-inline-sm"
             }
           }
         },

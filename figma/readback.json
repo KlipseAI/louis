@@ -3210,6 +3210,18 @@
           ]
         ],
         [
+          "spacing/1400",
+          "FLOAT",
+          "GAP,WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              1400
+            ]
+          ]
+        ],
+        [
           "spacing/16",
           "FLOAT",
           "GAP,WIDTH_HEIGHT",
@@ -3446,6 +3458,18 @@
               "Base",
               null,
               80
+            ]
+          ]
+        ],
+        [
+          "spacing/88",
+          "FLOAT",
+          "GAP,WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              88
             ]
           ]
         ],
@@ -4185,6 +4209,90 @@
             [
               "Global",
               "Klipse Primitive::spacing/4",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/section-block",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/120",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/section-block-md",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/88",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/section-block-sm",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/60",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/section-content-max",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/1400",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/section-inline",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/20",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/section-inline-md",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "layout/section-inline-sm",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::spacing/12",
               null
             ]
           ]
@@ -28474,6 +28582,281 @@
           ],
           "layoutMode": [
             "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "SectionShell": {
+      "variantCount": 10,
+      "hasDescription": true,
+      "properties": {
+        "Viewport": {
+          "type": "VARIANT",
+          "options": [
+            "≥960",
+            "≤959",
+            "≤719",
+            "≤640",
+            "≤355"
+          ]
+        },
+        "Bleed": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 20,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 10,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "≥960/false": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "maxWidth": [
+                1400
+              ]
+            }
+          },
+          "paddingBlock": [
+            120
+          ],
+          "paddingBlockEnd": [
+            120
+          ],
+          "paddingInline": [
+            20
+          ],
+          "paddingInlineEnd": [
+            20
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≥960/true": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            120
+          ],
+          "paddingBlockEnd": [
+            120
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤959/false": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "maxWidth": [
+                1400
+              ]
+            }
+          },
+          "paddingBlock": [
+            88
+          ],
+          "paddingBlockEnd": [
+            88
+          ],
+          "paddingInline": [
+            20
+          ],
+          "paddingInlineEnd": [
+            20
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤959/true": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            88
+          ],
+          "paddingBlockEnd": [
+            88
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤719/false": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "maxWidth": [
+                1400
+              ]
+            }
+          },
+          "paddingBlock": [
+            88
+          ],
+          "paddingBlockEnd": [
+            88
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤719/true": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            88
+          ],
+          "paddingBlockEnd": [
+            88
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤640/false": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "maxWidth": [
+                1400
+              ]
+            }
+          },
+          "paddingBlock": [
+            60
+          ],
+          "paddingBlockEnd": [
+            60
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤640/true": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            60
+          ],
+          "paddingBlockEnd": [
+            60
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤355/false": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "maxWidth": [
+                1400
+              ]
+            }
+          },
+          "paddingBlock": [
+            60
+          ],
+          "paddingBlockEnd": [
+            60
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤355/true": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            60
+          ],
+          "paddingBlockEnd": [
+            60
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
           ],
           "overflowingParts": [],
           "offCenterMarks": []

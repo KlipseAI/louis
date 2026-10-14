@@ -7504,6 +7504,25 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "space-1400": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "space-1400",
+    "mode": "base",
+    "rawValue": {
+      "value": 1400,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.spacing.1400",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 1400,
+      "unit": "px"
+    }
+  },
   "space-16": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -7881,6 +7900,25 @@ export const primitives = {
     "type": "dimension",
     "value": {
       "value": 80,
+      "unit": "px"
+    }
+  },
+  "space-88": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "space-88",
+    "mode": "base",
+    "rawValue": {
+      "value": 88,
+      "unit": "px"
+    },
+    "sourcePath": "primitive.spacing.88",
+    "tier": "primitive",
+    "type": "dimension",
+    "value": {
+      "value": 88,
       "unit": "px"
     }
   },
@@ -11670,6 +11708,153 @@ export const tokens = {
       "type": "dimension",
       "value": {
         "value": 4,
+        "unit": "px"
+      }
+    },
+    "layout-section-block": {
+      "aliasTarget": {
+        "id": "space-120",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-block": "120px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-block",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.120}",
+      "sourcePath": "semantic.global.layout.section-block",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 120,
+        "unit": "px"
+      }
+    },
+    "layout-section-block-md": {
+      "aliasTarget": {
+        "id": "space-88",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-block-md": "88px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-block-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.88}",
+      "sourcePath": "semantic.global.layout.section-block-md",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 88,
+        "unit": "px"
+      }
+    },
+    "layout-section-block-sm": {
+      "aliasTarget": {
+        "id": "space-60",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-block-sm": "60px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-block-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.60}",
+      "sourcePath": "semantic.global.layout.section-block-sm",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 60,
+        "unit": "px"
+      }
+    },
+    "layout-section-content-max": {
+      "aliasTarget": {
+        "id": "space-1400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-content-max": "1400px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-content-max",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.1400}",
+      "sourcePath": "semantic.global.layout.section-content-max",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 1400,
+        "unit": "px"
+      }
+    },
+    "layout-section-inline": {
+      "aliasTarget": {
+        "id": "space-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-inline": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-inline",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.20}",
+      "sourcePath": "semantic.global.layout.section-inline",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 20,
+        "unit": "px"
+      }
+    },
+    "layout-section-inline-md": {
+      "aliasTarget": {
+        "id": "space-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-inline-md": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-inline-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.16}",
+      "sourcePath": "semantic.global.layout.section-inline-md",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "layout-section-inline-sm": {
+      "aliasTarget": {
+        "id": "space-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-inline-sm": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-inline-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.12}",
+      "sourcePath": "semantic.global.layout.section-inline-sm",
+      "tier": "semantic",
+      "type": "dimension",
+      "value": {
+        "value": 12,
         "unit": "px"
       }
     },

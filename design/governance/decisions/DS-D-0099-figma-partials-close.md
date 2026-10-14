@@ -66,12 +66,13 @@ authority: normative
 | 캡션의 층 | **제품의 인라인 흐름이 정본이다** — 레시피 캡션은 `<p>` 하나이고 라벨 · 설명이 `inline-block` 두 덩어리, 사이는 진짜 공백 문자다(복사 · 접근성 트리에서 붙지 않는다). Figma `Caption` 의 가로 오토레이아웃 `itemSpacing` 4 는 그 공백 폭(실측 4.69)의 투영으로 남는다 | Figma 를 TEXT 하나의 두 스타일 구간으로 바꾼다 — 설명의 BOOLEAN 이 레이어 가시성으로 그릴 수 없게 돼 거절 |
 | 목록의 롤 | **레시피 목록 `.louis-step-tile-list` 의 마크업이 `role="list"` 를 갖는다**(DS-D-0084 3항 — 과거 부채를 고친다). `list-style: none` 이 WebKit 에서 목록 롤을 벗기는 것을 막는다 | 제품 그대로 둔다 |
 | 설명 대비 | **`landing-text-muted` 를 그대로 쓴다** — 지금 값은 라이트 5.11:1 · 다크 8.03:1 로 AA 를 넘는다(문서의 3.63 은 옛 토큰 값). 레시피 시험이 실제로 잰다 | — |
+| 라벨 잉크 | **새 시맨틱 `color-landing-text-strong`**(라이트 palette-gray-800 · 다크 palette-gray-200 — 적응형 램프 `gray-200` 과 같은 값). 제품은 `text-gray-200` 이지만 저작 CSS 게이트가 램프 이름을 막는다. Figma `StepTile` 의 Label 도 같은 이름의 변수로 다시 묶는다 | 레시피를 `fg-secondary` 로 둔다 — 라이트 #41454c 로 제품보다 흐려져 거절 |
 | 타일 면 폴백 | **두지 않는다.** 제품의 `gray-000` 8% 폴백은 `--panel-strong` 이 랜딩 루트에서만 정의되기 때문이었다. LOUIS 의 `color-landing-panel-strong` 은 루트에 늘 있다 | — |
 | BOOLEAN 이름 | **`{Name}` BOOLEAN + `{Name}Label` TEXT 짝을 §3 명부에 올린다**(MediaCard `Badge` · StepTile `Description`) | 이름을 `ShowDescription` 등으로 바꾼다 — 인스턴스 재바인딩이 따라와 거절 |
 
 ## Consequences
 
-- 새 시맨틱 셋(`color-node-chrome-hover` · `-danger-hover` · `-hover-sm`)과 같은 이름의 Figma 변수가 선다. 원시는 늘지 않는다.
+- 새 시맨틱 넷(`color-node-chrome-hover` · `-danger-hover` · `-hover-sm` · `color-landing-text-strong`)과 같은 이름의 Figma 변수가 선다. 원시는 늘지 않는다.
 - 새 레시피 둘(`media-card.css` · `step-tile.css`)과 실브라우저 되재기가 서고, 네 부품의 `figma` 가 `done` 이 된다(`verify-figma-done` 이
   조건을 계산한다). `web` 은 React 표면이 없어 `partial` 이다.
 - `figma-component-authoring.md` §3 명부에 문구 유무 짝(`{Name}` + `{Name}Label`)이 오른다.

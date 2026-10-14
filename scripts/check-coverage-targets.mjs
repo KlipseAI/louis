@@ -215,7 +215,8 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 2026-10-15: 74 → 77 — 새 부품 canvas-dots · gallery-panel · drill-picker 가 되재기와 함께 섰다(DS-D-0102 · 0104 · 0105).
 // 2026-10-14 밤: 74 → 76 — node-chrome-button(호버 틴트 모드 쌍 시맨틱 셋) · node-side-handle(Channel 6 × State Default · Disabled)이
 // 「기계 조건은 서는데 partial」에서 done 으로(DS-D-0099).
-const MANIFEST_DONE_FLOOR = 79; // 바닥. 오르면 올려 이득을 잠근다
+// 같은 밤 뒤: 76 → 77 — step-tile 에 CSS 레시피 · 되재기(캡션은 제품의 인라인 흐름이 정본, 목록 role="list", DS-D-0099).
+const MANIFEST_DONE_FLOOR = 80; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

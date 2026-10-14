@@ -17817,6 +17817,32 @@ export const tokens = {
         "alpha": 0.72
       }
     },
+    "color-landing-text-strong": {
+      "aliasTarget": {
+        "id": "color-palette-gray-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-landing-text-strong": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+      },
+      "deprecated": null,
+      "description": "랜딩 바닥 위 강한 글자 — Step Tile 라벨(제품 StepTiles `text-gray-200`). 적응형 램프 gray-200 과 같은 값을 랜딩의 이름으로 받는다 — 저작 CSS 는 램프 이름을 직접 읽지 않는다(DS-D-0099).",
+      "id": "color-landing-text-strong",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.800}",
+      "sourcePath": "semantic.light.color.landing.text-strong",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.168627,
+          0.184314,
+          0.211765
+        ],
+        "alpha": 1
+      }
+    },
     "color-media-badge-foreground": {
       "aliasTarget": {
         "id": "color-palette-gray-200",
@@ -24848,6 +24874,32 @@ export const tokens = {
           0.980392
         ],
         "alpha": 0.72
+      }
+    },
+    "color-landing-text-strong": {
+      "aliasTarget": {
+        "id": "color-palette-gray-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-landing-text-strong": "color(srgb 0.756863 0.764706 0.776471 / 1)"
+      },
+      "deprecated": null,
+      "description": "랜딩 바닥 위 강한 글자 — Step Tile 라벨(제품 StepTiles `text-gray-200`). 적응형 램프 gray-200 과 같은 값을 랜딩의 이름으로 받는다 — 저작 CSS 는 램프 이름을 직접 읽지 않는다(DS-D-0099).",
+      "id": "color-landing-text-strong",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.200}",
+      "sourcePath": "semantic.dark.color.landing.text-strong",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.756863,
+          0.764706,
+          0.776471
+        ],
+        "alpha": 1
       }
     },
     "color-media-badge-foreground": {

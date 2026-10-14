@@ -10,9 +10,18 @@ summary: 비어 있는 정사각 면 하나와 그 밑에 붙는 한 줄 캡션�
 「업로드 → 카테고리 → 생성」처럼 **순서가 있는 안내**의 한 칸. 정사각 면 하나와 그 밑에 붙는
 라벨 한 줄이 전부다. 랜딩의 3-스텝 섹션이 이 타일을 셋 나란히 놓는다.
 
-**정본은 제품이다.** `StepTiles.tsx` 가 구현이고 LOUIS 에는 표면이 없다 —
-`packages/css/src/component` 에 `step-tile.css` 가 없고 `packages/react/src` 에도 없다. Figma 는
-그 제품 구현을 투영한 것이고, 이 문서가 그 둘을 처음으로 대조한다.
+**정본은 제품이고 LOUIS 레시피가 그것을 옮긴다(2026-10-14, [DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).** `StepTiles.tsx` 가 구현이고
+`packages/css/src/component/step-tile.css` 가 그 여섯 상수(ROW · CARD · TILE · CAPTION · LABEL · DESCRIPTION)를 옮긴 레시피다.
+React 표면은 없다 — 소비처가 클래스를 물면 되는 자리다. Figma 는 그 구현을 투영한 것이다.
+
+```html
+<ol class="louis-step-tile-list" role="list">
+  <li class="louis-step-tile">
+    <div class="louis-step-tile__tile"></div>
+    <p class="louis-step-tile__caption"><span class="louis-step-tile__label">카테고리</span> <span class="louis-step-tile__description">영상의 주제를 선택하세요.</span></p>
+  </li>
+</ol>
+```
 
 **타일 안은 비어 있다.** 시안의 세 프레임이 자식 0개 · IMAGE fill 0건 · VECTOR 0건이고 에셋도
 파일명도 없다. 캡션으로 보아 제품 화면 캡처가 들어갈 자리로 보이지만 없는 것을 지어내지 않고
@@ -29,10 +38,10 @@ summary: 비어 있는 정사각 면 하나와 그 밑에 붙는 한 줄 캡션�
 
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                          |
-| Figma         | `partial`      | `StepTile` 단일 COMPONENT(변형 축 0) · TEXT 2 · BOOLEAN 1. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `step-tile`(제품 클래스를 실브라우저에서 잰 값)과 루트 간격 12 · 안쪽 여백 0 · 반경 0 · 타일 반경 12 · 라벨과 설명의 글자 크기 20 · 줄 높이 150% 를 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
+| Web           | `partial`      | CSS recipe `packages/css/src/component/step-tile.css`(목록 `.louis-step-tile-list` 포함). React 표면은 없다 — 소비처가 클래스를 물면 되는 자리다. 실브라우저 시험 `packages/react/test/step-tile.browser.test.tsx` |
+| Figma         | `done`         | `StepTile` 단일 COMPONENT(변형 축 0) · TEXT 2 · BOOLEAN 1. parity 게이트가 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · 넘침 0 과 기하(루트 간격 12 · 안쪽 0 · 반경 0 · 타일 반경 12 · 글자 20 · 줄 높이 150%)를 `figma/components.measured.json` 의 `step-tile` 과 맞대고, `step-tile.browser.test.tsx` 가 레시피가 같은 값을 만드는지 되잰다 — 두 방향이 다 걸려 DS-D-0035 를 채운다(2026-10-14). 라벨은 `color/landing/text-strong` 에 묶였다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
-| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. 타일 콘텐츠가 정해지고 기하 실측이 붙으면 승격한다                                                                                      |
+| Maturity      | `experimental` | 타일 콘텐츠와 문구(Known deviations 4 · 8)가 미결이다 |
 
 ## When to use
 
@@ -149,17 +158,15 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 - 세 타일은 `ol` 안의 `li` 다. 순서가 있는 목록이라는 사실을 **마크업은** 담고 있어, 화면에
   번호가 없어도 「몇 개 중 몇 번째」가 읽힐 길이 열려 있다. 다만 제품이 마커를 지우려고
   `list-none`(`list-style: none`)을 걸었고 `role="list"` 를 달지 않았다 — WebKit/VoiceOver
-  계열은 그때 목록 롤을 벗기므로 **지금은 그 전달이 보장되지 않는다.** 이 저장소에 그것을 잰
-  증거도 없다(acceptance test 0건). `role="list"` 를 다는 것이 승격 조건이다
-  (Known deviations 11).
+  계열은 그때 목록 롤을 벗긴다. **레시피의 목록 마크업은 `role="list"` 를 단다**(DS-D-0099 — 과거 부채를 고쳐 올린다,
+  Known deviations 11). 제품은 아직 달지 않았다.
 - 타일은 빈 상자다. 역할도 이름도 없고 포커스도 받지 않는다 — 지금은 **장식**이다. 사진이
   들어가면 그때 대체 텍스트 계약이 생긴다.
 - 캡션은 문단 하나이고 라벨과 설명이 그 안의 두 덩어리다. 사이에 진짜 공백이 있어 접근성
   트리에서 두 문구가 붙지 않는다.
-- **대비**(제품에서 Chromium 으로 잰 값). 라벨은 다크 16.5:1 · 라이트 10.8:1 로 넉넉하다.
-  **설명은 라이트에서 3.63:1 로 AA(4.5:1)에 미달한다**(다크 6.48:1). 이 값은 랜딩 전체가
-  공유하는 `landing/text-muted` 에서 오므로 여기서 덮지 않는다 — 올리려면 그 토큰을 손대야
-  한다. **SC 1.4.3 결손**으로 적어 둔다.
+- **대비.** 라벨(`landing-text-strong`)도 설명(`landing-text-muted`)도 두 테마에서 랜딩 바닥 위 AA(4.5:1)를 넘는다 —
+  지금 토큰으로 설명은 라이트 5.11:1 · 다크 8.03:1 이다. 예전 문장(「라이트 3.63:1 로 미달」)은 `landing-text-muted` 가 라이트
+  검정 48% 이던 때의 값이다. `step-tile.browser.test.tsx` 가 두 테마에서 실제로 잰다.
 - 타일 면과 바닥의 대비는 라이트 1.19:1 · 다크 1.14:1 이다. 「겨우 보이는 면」이 의도이고, 지금
   이 면은 **뜻을 나르지 않는 빈 상자**라 SC 1.4.11 의 대상이 아니다 — 뜻은 캡션이 전부 나른다.
   사라지면 화면에서 타일이 없어지지만 읽히는 내용은 그대로다(머리말). **콘텐츠가 들어가는 순간
@@ -177,7 +184,7 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 | Tile 테두리 | **없다** | stroke 0 · effect 0. 이 시스템의 면 대부분이 갖는 헤어라인이 여기엔 없다 |
 | Tile ↔ Caption | 12 | 2px 격자 · Figma 루트 `itemSpacing` 12 |
 | Caption | body-20-medium, 줄 높이 150% — 1024 이상 30 · 1023 이하 27 · 767 이하 24 | `typography/body-lg-medium`(Known deviations 2). 타입과 행간 1.5 가 선택값이고 줄 높이는 글자 크기 × 1.5 다 |
-| Label 색 | `gray/200` | 램프를 그대로 쓴다 — 뒤집어도 관계가 유지되는 자리다 |
+| Label 색 | `landing/text-strong` | 적응형 램프 `gray-200` 과 같은 값(라이트 palette-gray-800 · 다크 palette-gray-200)을 랜딩의 이름으로 받는다 — 저작 CSS 는 램프 이름을 직접 읽지 않는다(DS-D-0099) |
 | Description 색 | `landing/text-muted` | 램프 인덱스만 뒤집어서는 성립하지 않는 역할이다 |
 | Label ↔ Description | 공백 문자 한 개(실측 4.69) | Figma 는 `itemSpacing` 4(Known deviations 1) |
 | 루트 안쪽 여백 | 0 | 여백은 섹션 껍데기가 갖는다 |
@@ -186,14 +193,11 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 
 ## Known deviations
 
-1. **캡션의 층이 서로 다르다 — Figma 는 가로 auto-layout 이고 제품은 인라인 흐름이다.**
-   되읽기의 `Caption` 은 `layoutMode: HORIZONTAL` · `itemSpacing: 4` 인데 제품에는 그 상자가
-   아예 없다. 제품 캡션은 문단 하나이고 라벨·설명은 그 안의 `inline-block` 덩어리 둘이며 사이는
-   gap 이 아니라 **진짜 공백 문자**다. flex 로 짰을 때 라벨과 설명 사이에 공백 문자가 없어
-   복사하면 붙고 접근성 트리에서도 이어졌기 때문이고, 플렉스 아이템 사이의 공백 전용 텍스트
-   노드는 렌더되지 않으므로 공백을 끼워 넣어도 해결되지 않았다. 보이는 결과(첫 카드 두 줄 ·
-   나머지 한 줄)는 두 매체가 같지만 **간격의 출처가 다르다** — Figma 4 대 실측 4.69. LOUIS
-   recipe 를 세울 때 어느 쪽을 정본으로 삼을지 정해야 한다. **소유자 판정 필요.**
+1. **캡션의 층이 서로 다르다 — 정본은 제품의 인라인 흐름이다(2026-10-14 판정, [DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).**
+   레시피 캡션은 문단 하나이고 라벨 · 설명이 `inline-block` 두 덩어리, 사이는 gap 이 아니라 **진짜 공백 문자**다 — flex 로
+   짜면 플렉스 아이템 사이의 공백 텍스트 노드가 렌더되지 않아 복사 · 접근성 트리에서 붙는다. Figma `Caption` 의 가로
+   오토레이아웃 `itemSpacing` 4 는 그 공백 폭(실측 4.69)의 **투영**으로 남는다 — Figma 에는 「공백 글자 폭」을 값으로 쓸 방법이
+   없고, TEXT 하나로 접으면 설명의 BOOLEAN 이 가시성으로 그릴 수 없게 된다. 갈림은 0.69 다.
 2. **줄 높이가 랜딩 목업과 다르다 — 150% 대 120%.** 여기서 「시안」은 되읽기의 `StepTile` 이
    아니라 그 출처인 랜딩 목업(「New Klipse」 `#capabilities`)이다. **되읽기의 `StepTile` 은 이미
    150%** 라(Label · Description 각 30 · Caption 60 · 루트 534.7) Figma 컴포넌트와 제품 사이에는
@@ -212,19 +216,18 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 4. **타일이 비어 있다.** 시안 프레임이 자식 0 · IMAGE fill 0 · VECTOR 0 이고 에셋도 파일명도
    없다. 제품도 면만 둔다. **지금 비어 있는 것은 결정이 아니라 미결이다** — 콘텐츠가 정해지면
    이 문서의 Anatomy · States · Accessibility 가 함께 움직인다.
-5. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `step-tile` 이 제품 클래스를
-   실브라우저에서 잰 루트 간격 12 · 타일 반경 12 · 캡션 글자 크기 20 · 줄 높이 30(1024 이상 값,
-   `step-tile.sizes.base.labelLineHeight`)을 갖고, parity 게이트가 Figma 를 간격 · 반경 · 글자 크기와
-   줄 높이 150% 로 맞댄다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가
-   없어 없다. **두 줄 캡션 60 과 Caption 의 `itemSpacing` 4 는 대조하지 않는다** — 60 은 카드 폭이
-   정하는 줄 수에서 나오는 값이고, 4 는 제품에 없는 gap 이다(Known deviations 1).
+5. ~~**기하는 한 방향으로만 대조된다.**~~ **2026-10-14 해소.** 레시피가 서고 `step-tile.browser.test.tsx` 가 기록의 루트 간격 12 ·
+   타일 반경 12 · 캡션 글자 20 · 줄 높이 30 을 레시피에서 되잰다. **두 줄 캡션 60 과 Caption 의 `itemSpacing` 4 는 여전히
+   대조하지 않는다** — 60 은 카드 폭이 정하는 줄 수에서 나오는 값이고, 4 는 제품에 없는 gap 이다(Known deviations 1).
 6. **좁은 화면 규칙이 Figma 에 없다.** 시안에 좁은 프레임이 없어 제품이 1열로 접는 지점을
    정했다 — **`max-width: 719px`**(720 미만)이고, 근거는 「정사각 3장이면 한 변이 100 도 안
-   된다」다. 그 값은 지금 제품에만 있고 아무도 대조하지 않는다 — 이 문서가 임시로 소유한다.
+   된다」다. 레시피의 `.louis-step-tile-list` 가 그 값을 갖고 시험이 700 폭에서 한 열을 잰다. Figma 에는 여전히 없다 —
+   목록은 컴포넌트 밖이다.
 7. **면의 폴백을 Figma 가 표현하지 못한다.** `landing/panel-strong` 은 제품에서 랜딩 루트
    스코프 안에서만 정의되는 변수라, 그 밖에 마운트되면 면이 투명으로 떨어진다 — 타일이 통째로
    사라지는 그림이다. 제품은 `gray/000` 8% 폴백을 달아 막았고 두 값은 두 테마 모두 실측
-   동일하다. Figma 변수에는 「없으면 이 값」이 없으므로 이 안전망은 제품에만 있다. **글자
+   동일하다. Figma 변수에는 「없으면 이 값」이 없으므로 이 안전망은 제품에만 있다. **레시피는 폴백이 필요 없다** —
+   LOUIS 의 `color-landing-panel-strong` 은 루트에 늘 정의돼 있다(DS-D-0099). **글자
    쪽에는 일부러 폴백을 달지 않았다** — 색은 상속되므로 토큰이 없으면 부모 색을 물려받아
    읽히는 쪽으로 무너진다. 면과 반대다.
 8. **문구가 확정되지 않았다.** 첫 카드의 설명이 둘째 카드의 설명과 글자 그대로 같고 셋째 카드는
@@ -236,15 +239,11 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
    소스에서 읽은 것이며, Figma 쪽이 예컨대 면과 글자의 변수를 서로 바꿔 묶어도 이 게이트는
    통과한다 — Carousel Arrow 에서 실제로 그 교차가 발견됐다. 변수 이름까지 되읽는 것이
    승격 조건 하나다.
-10. **BOOLEAN 슬롯의 이름 관례가 미정이다.** `Description`(BOOLEAN) + `DescriptionLabel`(TEXT)
-    는 §2 개정표의 MediaCard 선례(`Badge` + `BadgeLabel`)를 따른 형태이지만, `Description` 은
-    §3 의 **TEXT 명부**에 올라 있는 이름이고 §3 의 BOOLEAN 명부에는 이 형태도 `{Name}Label`
-    이라는 이름도 없다. 관행은 집안에 있는데 명부가 그것을 인정하지 않는다 — **§3 표 개정이
-    필요하고 소유자 판정이다.**
-11. **`role="list"` 가 없다.** 제품이 마커를 지우려고 `ol` 에 `list-none` 을 걸었는데
-    `role="list"` 를 달지 않아, WebKit/VoiceOver 계열에서 목록 롤이 벗겨질 수 있다. 「번호를
-    그리지 않고도 순서를 전달한다」는 이 컴포넌트의 근거가 그 브라우저에서 성립하는지 아무도
-    재지 않았다. **`role="list"` 추가가 승격 조건이다.**
+10. ~~**BOOLEAN 슬롯의 이름 관례가 미정이다.**~~ **2026-10-14 해소([DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).** `{Name}` BOOLEAN + `{Name}Label` TEXT
+    짝(MediaCard `Badge` · StepTile `Description`)이 [Figma 컴포넌트 저작](../governance/figma-component-authoring.md) §3 명부에 올랐다.
+11. **`role="list"` 가 제품에 없다 — 레시피는 단다(2026-10-14, DS-D-0099).** 제품이 마커를 지우려고 `ol` 에 `list-none` 을
+    걸었는데 `role="list"` 를 달지 않아 WebKit/VoiceOver 계열에서 목록 롤이 벗겨질 수 있다. 레시피의 목록 마크업이 그 롤을
+    되돌리고 시험이 그 속성을 잰다. 제품이 레시피를 물면 함께 풀린다.
 
 ## Acceptance tests
 
@@ -253,10 +252,14 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 3. 되읽기에서 stroke 도 effect 도 없다. 헤어라인이나 그림자를 더하면 실패다.
 4. 루트가 세로 auto-layout 이고 `itemSpacing` 이 12 이며 안쪽 여백이 0 이다.
 5. 라벨과 설명이 **같은 텍스트 스타일**(body-lg-medium · 150%)을 쓰고 색만 다르다 —
-   `gray/200` 대 `landing/text-muted`.
+   `landing/text-strong` 대 `landing/text-muted`.
 6. `Description` 을 끄면 캡션이 라벨 한 줄이 된다. 설명 문구는 `DescriptionLabel` 에서 온다.
 7. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이다.
 8. 제품에서 라벨과 설명을 함께 복사하면 **사이의 공백이 살아 있다.**
+
+`packages/react/test/step-tile.browser.test.tsx` 가 레시피에서 2 · 3 · 4 · 8(캡션 `textContent` 의 공백과 덩어리 사이 폭)을
+재고, 더해서 목록의 `role="list"` · 720 미만 한 열 · 두 테마의 대비 AA 를 잰다. 1 · 3 · 6 · 7 은 `verify-figma-parity` 가 Figma
+쪽에서 잰다.
 
 ## Migration and changelog
 

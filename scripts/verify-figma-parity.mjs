@@ -1332,7 +1332,7 @@ const COMPONENT_CONTRACTS = [
     id: "step-tile",
     figmaName: "StepTile",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 StepTiles.tsx 가 정본이고 랜딩 3-스텝 섹션 한 자리에서 쓴다.",
+      "React 표면 없음 — packages/css/src/component/step-tile.css 가 정본이다(2026-10-14, DS-D-0099). 값의 출처는 제품 StepTiles.tsx 이고 랜딩 3-스텝 섹션 한 자리에서 쓴다. 레시피가 기록을 여전히 만드는지는 packages/react/test/step-tile.browser.test.tsx 가 잰다.",
     // 변형 축이 하나도 없다. variantCount 가 1 이고, 폭은 바깥 3열 격자가 정하므로 Size 축도
     // 만들지 않았다 — 어떤 폭을 고정해도 거짓이 된다(MediaCard 의 layout 축을 비운 것과 같다).
     variantProperties: {},

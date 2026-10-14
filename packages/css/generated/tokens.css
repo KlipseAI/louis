@@ -455,6 +455,7 @@
   --louis-color-landing-panel-strong: color(srgb 0.921569 0.92549 0.933333 / 1);
   --louis-color-landing-text-muted: color(srgb 0.090196 0.105882 0.133333 / 0.64);
   --louis-color-landing-text-soft: color(srgb 0.090196 0.105882 0.133333 / 0.72);
+  --louis-color-landing-text-strong: color(srgb 0.168627 0.184314 0.211765 / 1);
   --louis-color-media-badge-foreground: color(srgb 0.756863 0.764706 0.776471 / 1);
   --louis-color-media-badge-foreground-danger: color(srgb 1 0.435294 0.486275 / 1);
   --louis-color-media-badge-foreground-info: color(srgb 0.219608 0.643137 1 / 1);
@@ -1007,6 +1008,7 @@
   --louis-color-landing-panel-strong: color(srgb 0.05098 0.066666 0.094117 / 1);
   --louis-color-landing-text-muted: color(srgb 0.980392 0.980392 0.980392 / 0.64);
   --louis-color-landing-text-soft: color(srgb 0.980392 0.980392 0.980392 / 0.72);
+  --louis-color-landing-text-strong: color(srgb 0.756863 0.764706 0.776471 / 1);
   --louis-color-media-badge-foreground: color(srgb 0.756863 0.764706 0.776471 / 1);
   --louis-color-media-badge-foreground-danger: color(srgb 1 0.435294 0.486275 / 1);
   --louis-color-media-badge-foreground-info: color(srgb 0.219608 0.643137 1 / 1);

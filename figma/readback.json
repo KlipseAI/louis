@@ -7348,6 +7348,23 @@
           ]
         ],
         [
+          "color/landing/text-strong",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/palette-gray/800",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/200",
+              null
+            ]
+          ]
+        ],
+        [
           "color/media-badge-foreground",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",

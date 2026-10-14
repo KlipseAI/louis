@@ -2876,7 +2876,7 @@
     "step-tile": {
       "$doc": "design/components/step-tile.md",
       "$source": "제품 apps/web/components/landing/sections/StepTiles.tsx",
-      "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 scripts/measure-product-components.mjs 가 제품 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다 — packages/react/test/component-geometry.browser.test.tsx 가 잴 코드가 없는 자리다.",
+      "$why": "값은 scripts/measure-product-components.mjs 가 제품 StepTiles.tsx 의 클래스를 제품 Tailwind 로 컴파일해 실브라우저에서 잰 것이다. 2026-10-14 LOUIS 레시피 packages/css/src/component/step-tile.css 가 섰고(DS-D-0099) packages/react/test/step-tile.browser.test.tsx 가 그 레시피가 같은 값을 만드는지 되잰다 — 두 방향이 다 걸렸다.",
       "sizes": {
         "base": {
           "gap": 12,

@@ -366,6 +366,10 @@ variant 로 만들지 않는다. 슬롯을 variant 축에 넣으면 조합이 2�
 
 BOOLEAN 과 INSTANCE_SWAP 은 짝으로 낸다 — `Icon`(있고 없고) + `IconGlyph`(무엇을).
 
+**문구가 있고 없는 자리는 `{Name}` BOOLEAN + `{Name}Label` TEXT 짝으로 낸다**(2026-10-14, [DS-D-0099](decisions/DS-D-0099-figma-partials-close.md)).
+BOOLEAN 이 레이어 가시성을, TEXT 가 그 레이어의 문구를 갖는다 — MediaCard `Badge` + `BadgeLabel`, StepTile `Description` + `DescriptionLabel`.
+`Description` 이 위 TEXT 명부의 이름과 같아도 짝의 BOOLEAN 쪽에서는 「설명이 있는가」를 뜻한다.
+
 ## 4. 라이트/다크는 모드로만
 
 컴포넌트를 두 벌 만들지 않는다. `Klipse Semantic Color` 의 `Light`/`Dark` 모드에 묶으면 한 벌로

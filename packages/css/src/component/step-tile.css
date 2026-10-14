@@ -1,0 +1,109 @@
+/* Step tile — 순서가 있는 안내의 한 칸: 비어 있는 정사각 면과 그 밑의 한 줄 캡션
+ *
+ * 규범: design/components/step-tile.md · 결정 DS-D-0099
+ * 계약: figma/components.measured.json 의 `step-tile`.
+ * 정본: 제품 앵커 `54b62a8a` 의 apps/web/components/landing/sections/StepTiles.tsx
+ *       (ROW · CARD · TILE · CAPTION · LABEL · DESCRIPTION 여섯 상수).
+ *
+ * **캡션은 인라인 흐름이다(DS-D-0099 판정 1).** 라벨과 설명은 문단 하나 안의 `inline-block` 두 덩어리이고 사이는 gap 이 아니라
+ * **진짜 공백 문자**다 — flex 로 짜면 플렉스 아이템 사이의 공백 텍스트 노드가 렌더되지 않아 복사 · 접근성 트리에서 두 문구가 붙는다.
+ * Figma `Caption` 의 가로 오토레이아웃 `itemSpacing` 4 는 그 공백 폭(실측 4.69)의 투영이다.
+ *
+ * **목록은 `role="list"` 를 단다(DS-D-0099 판정 2).** 마커를 지우려고 건 `list-style: none` 이 WebKit 에서 목록 롤을 벗기므로
+ * 마크업이 롤을 되돌린다. 순번은 목록의 성질이고 타일은 자기가 몇 번째인지 모른다.
+ *
+ * 마크업:
+ *   <ol class="louis-step-tile-list" role="list">
+ *     <li class="louis-step-tile">
+ *       <div class="louis-step-tile__tile"></div>
+ *       <p class="louis-step-tile__caption"><span class="louis-step-tile__label">카테고리</span> <span class="louis-step-tile__description">영상의 주제를 선택하세요.</span></p>
+ *     </li>
+ *   </ol>
+ */
+
+/* 바깥 목록 — 3열 · 사이 6, 720 미만에서 1열(제품 `ROW`). 시안에 좁은 프레임이 없어 제품이 정한 규칙이다 — 정사각 셋이면 한 변이
+ * 100 도 안 된다. 이 목록은 Figma `StepTile` 의 바깥이다(타일 사이 간격 · 열 수는 컴포넌트가 아니라 목록이 갖는다). */
+.louis-step-tile-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 719px) {
+  .louis-step-tile-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 한 칸 — 타일 ↔ 캡션 12(제품 `gap-6`). `min-inline-size: 0` 은 긴 라벨이 격자 트랙을 밀어 넓히지 못하게 막는다. */
+.louis-step-tile {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* 타일 — 폭 100% 정사각 · 반경 12 · 내용을 자른다. **테두리도 그림자도 없다** — 면이 유일한 조형이다.
+ *
+ * 면은 `gray-*` 램프가 아니라 랜딩의 면 시맨틱이다. 램프에서 고를 만한 칸은 라이트에서 랜딩 바닥과 같은 값이 되어 타일이 통째로
+ * 사라진 적이 있다(문서 머리말). 제품은 `--panel-strong` 이 랜딩 루트에서만 정의돼 `gray-000` 8% 폴백을 달지만, LOUIS 의
+ * `color-landing-panel-strong` 은 루트에 늘 있어 폴백이 필요 없다(DS-D-0099 판정 4). */
+.louis-step-tile__tile {
+  box-sizing: border-box;
+  inline-size: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--louis-radius-card);
+  background: var(--louis-color-landing-panel-strong);
+  overflow: hidden;
+}
+
+/* 캡션 — body-20-medium · 줄 높이 150%. 줄 높이 30 은 기록의 `labelLineHeight` 다(1024 이상). 아래 두 단은 제품 타입 스케일의
+ * 반응형 계단(20 → 18 → 16, 행간 1.5)을 그대로 옮긴 것이다 — LOUIS 타이포 토큰은 계단을 갖지 않는다. */
+.louis-step-tile__caption {
+  margin: 0;
+  font-family: var(--louis-typography-body-lg-medium-font-family);
+  font-size: var(--louis-typography-body-lg-medium-font-size);
+  font-weight: var(--louis-typography-body-lg-medium-font-weight);
+  line-height: var(--louis-typography-body-lg-medium-line-height);
+  letter-spacing: var(--louis-typography-body-lg-medium-letter-spacing);
+}
+
+@media (max-width: 1023px) {
+  .louis-step-tile__caption {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .louis-step-tile__caption {
+    font-size: 16px;
+  }
+}
+
+/* 라벨과 설명은 각각 쪼개지지 않는 덩어리다 — 한 줄에 못 들어가는 칸만 설명이 통째로 다음 줄로 내려간다. 덩어리 자체는
+ * 컨테이너 폭 안에서 다시 줄바꿈되므로 좁은 화면에서 넘치지 않는다. */
+.louis-step-tile__label {
+  display: inline-block;
+  color: var(--louis-color-landing-text-strong);
+}
+
+/* 설명 — 랜딩 전체가 공유하는 `landing-text-muted`. 지금 값으로 라이트 5.11:1 · 다크 8.03:1 이다(문서의 3.63 은 옛 토큰 값).
+ * 폴백을 달지 않는다 — 색은 상속되므로 토큰이 없으면 라벨 쪽 잉크로 무너져 읽히는 쪽으로 남는다. */
+.louis-step-tile__description {
+  display: inline-block;
+  color: var(--louis-color-landing-text-muted);
+}
+
+@media (forced-colors: active) {
+  /* 면이 강제 치환되면 빈 타일이 바닥과 같아져 사라진다 — 경계를 되살린다. 뜻은 캡션이 나르므로 장식이 남는 것뿐이다. */
+  .louis-step-tile__tile {
+    border: var(--louis-border-width-default) solid CanvasText;
+  }
+}

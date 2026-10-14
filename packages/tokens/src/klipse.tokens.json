@@ -10054,6 +10054,17 @@
               }
             }
           },
+          "text-strong": {
+            "$value": "{primitive.color.palette-gray.800}",
+            "$description": "랜딩 바닥 위 강한 글자 — Step Tile 라벨(제품 StepTiles `text-gray-200`). 적응형 램프 gray-200 과 같은 값을 랜딩의 이름으로 받는다 — 저작 CSS 는 램프 이름을 직접 읽지 않는다(DS-D-0099).",
+            "$extensions": {
+              "com.klipse-design": {
+                "id": "color-landing-text-strong",
+                "tier": "semantic",
+                "mode": "light"
+              }
+            }
+          },
           "text-soft": {
             "$value": "{primitive.color.static-black-alpha.72}",
             "$extensions": {
@@ -12757,6 +12768,17 @@
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-landing-text-muted",
+                "tier": "semantic",
+                "mode": "dark"
+              }
+            }
+          },
+          "text-strong": {
+            "$value": "{primitive.color.palette-gray.200}",
+            "$description": "랜딩 바닥 위 강한 글자 — Step Tile 라벨(제품 StepTiles `text-gray-200`). 적응형 램프 gray-200 과 같은 값을 랜딩의 이름으로 받는다 — 저작 CSS 는 램프 이름을 직접 읽지 않는다(DS-D-0099).",
+            "$extensions": {
+              "com.klipse-design": {
+                "id": "color-landing-text-strong",
                 "tier": "semantic",
                 "mode": "dark"
               }

@@ -50,7 +50,7 @@ TTS 노드와 BGM 노드가 결과 오디오를 카드 위쪽 미디어 띠에 �
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/audio-cell.css`. React 표면은 없다 — 소비처(TTS · BGM 노드)가 클래스를 물면 된다 |
-| Figma         | `partial`      | AudioCell — State(Ready · Playing · Pending), TEXT Current · Duration. 진행률은 40% 정지 그림이다 |
+| Figma         | `done`      | AudioCell — State(Ready · Playing · Pending), TEXT Current · Duration. 진행률은 40% 정지 그림이다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

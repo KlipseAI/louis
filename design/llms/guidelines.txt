@@ -18016,6 +18016,18 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-14 (264) — 새 부품 열여덟의 Figma 를 `done` 으로(DS-D-0035), 그 출처 표면 28 을 Figma 대응으로(DS-D-0084)
+
+- **figma `partial` → `done` 열여덟** — choice-card · prompt-variant · segment-track · asset-tile · logo-tile · notice-pill · canvas-guide · audio-cell ·
+  lightbox · channel-header · content-card · plan-tier-card · plan-comparison · canvas-section · chat-panel · command-palette · date-picker · color-picker.
+  같은 파일의 세트 · parity 계약 · 기하 실측 · 그 실측을 읽는 브라우저 되재기가 DS-D-0035 (a)(b)(c) 를 채운다(`verify-figma-done`). manifest 의 done 24 → 42.
+  큰 부품의 「제품 렌더 대조 전」은 그대로다 — DS-D-0035 의 조건이 아니고, 제품이 클래스를 물면 생긴다.
+- **partial 로 남긴 둘** — node-chrome-button(다크 호버 틴트 알파 4%p 차이를 담을 변수가 없다) · node-side-handle(상태 축을 열지 않았다). 게이트는 조건이
+  선다고 하지만 manifest 메모가 적은 Figma 쪽 결손이 남아 있다.
+- **표면 원장** — 새 부품과 변형(slider `ruler` · progress `bipolar` · segmented 알약 · chart-card `spark` · section-header `display` · 리사이즈 손잡이)의 출처였던
+  needed 28 을 Figma 대응으로 옮겼다. 대응 137 → 165(대상 288 대비 47.6% → 57.3%) · 컴포넌트 대응 91 → 119 · needed 149 → 121(부품 41 → 14).
+- 부품 문서의 Figma 줄과 manifest 메모의 낡은 문장(「Figma 부품은 아직 없어 not-ready」 · 「기하 계약 · 기록은 아직 없다」)을 고쳤다. 코드 · 토큰 변화 없음.
+
 #### 2026-10-14 (263) — 색 하나를 채도 · 밝기 면, 색조 · 불투명도 띠, 헥스 입력, 페이지 색 격자로 고르는 판을 새 부품 `color-picker` 로, Color Swatch 에 판 트리거 변형(DS-D-0097, DS-D-0084)
 
 - **새 부품 `color-picker`.** 영상 편집기 인스펙터의 색 팝오버(`ColorPopover`)의 상수 열여덟을 한 레시피로 옮겼다(`.louis-color-picker` · `__head` · `__area` ·

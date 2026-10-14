@@ -34,7 +34,7 @@ summary: 캔버스에서 끄는 노드가 다른 노드와 줄이 맞을 때 그
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/canvas-guide.css`. React 표면은 없다 — 스냅 계산은 소비처(노드 캔버스) 몫이다 |
-| Figma         | `partial`      | 2026-10-13 — `CanvasGuide` — Orientation(vertical · horizontal), 선 1 `color/canvas-guide`, 길이는 늘림. 기하 계약 · 기록은 아직 없다 |
+| Figma         | `done`      | 2026-10-13 — `CanvasGuide` — Orientation(vertical · horizontal), 선 1 `color/canvas-guide`, 길이는 늘림. 기하 계약 · 실측 기록 · 브라우저 되재기가 섰다(DS-D-0035, 2026-10-14 done) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

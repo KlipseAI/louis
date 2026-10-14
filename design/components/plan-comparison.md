@@ -58,7 +58,7 @@ summary: 요금제마다 한 열을 세워, 각 플랜이 무엇을 주는지 �
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/plan-comparison.css` · 실브라우저 시험 `plan-comparison.browser.test.tsx`. React 표면은 없다 — 행동이 없는 정적 조형이라 소비처가 클래스와 마크업 계약을 문다(DS-D-0092) |
-| Figma         | `partial`      | 2026-10-14 — `PlanComparison` 세트(Size `md` · `sm` — sm 은 767 이하, TEXT `Title`)와 한 열 `PlanComparisonColumn`(Size, TEXT `Plan`, BOOLEAN `Divider` — 열 사이 1px, 첫 열은 끈다), 항목 한 줄 `PlanComparisonItem`(Layout `included` · `excluded` · `text` — 코드 `data-value` 철자 × Size = 6, TEXT `Feature` · `Value`). 다섯 열(Trial · Lite · Plus · Pro · Ultra) · 묶음 하나 · 항목 셋은 시드 데이터다. 체크는 아이콘 `icon/check` 인스턴스 2/3 배(획 1.0), 대시는 16 칸 프레임. 머리 아래 선 · 격자 바깥 선은 INSIDE 획이고 패딩에 테두리를 접었다(§10). 가로 스크롤 칸은 그리지 않는다. 기록 `plan-comparison` · `-column` · `-item` 과 parity 기하 계약, 실브라우저 되재기(`plan-comparison-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
+| Figma         | `done`      | 2026-10-14 — `PlanComparison` 세트(Size `md` · `sm` — sm 은 767 이하, TEXT `Title`)와 한 열 `PlanComparisonColumn`(Size, TEXT `Plan`, BOOLEAN `Divider` — 열 사이 1px, 첫 열은 끈다), 항목 한 줄 `PlanComparisonItem`(Layout `included` · `excluded` · `text` — 코드 `data-value` 철자 × Size = 6, TEXT `Feature` · `Value`). 다섯 열(Trial · Lite · Plus · Pro · Ultra) · 묶음 하나 · 항목 셋은 시드 데이터다. 체크는 아이콘 `icon/check` 인스턴스 2/3 배(획 1.0), 대시는 16 칸 프레임. 머리 아래 선 · 격자 바깥 선은 INSIDE 획이고 패딩에 테두리를 접었다(§10). 가로 스크롤 칸은 그리지 않는다. 기록 `plan-comparison` · `-column` · `-item` 과 parity 기하 계약, 실브라우저 되재기(`plan-comparison-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

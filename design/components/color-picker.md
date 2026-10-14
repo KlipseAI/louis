@@ -81,7 +81,7 @@ Color Swatch + Text Field 다. 미리 정한 색조 중 하나를 고르는 섹�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/color-picker.css` · 실브라우저 시험 `color-picker.browser.test.tsx`. React 표면은 없다 — 끌기 · 2차원 면 키보드 · 색 변환 · 열고 닫기는 소비처가 클래스와 마크업 계약을 문다(DS-D-0097) |
-| Figma         | `partial`      | 2026-10-14 — 칸 `ColorPickerOption` 세트(Selected `false` · `true` — 코드 `aria-pressed`, 값 아래 체크무늬 · 고른 칸 링은 펼침 그림자 두 겹)와 판 `ColorPicker`(BOOLEAN `Eyedropper` · `Swatches`, TEXT `Label` · `Hex` · `Alpha`, 면 그라디언트 · 색조 띠 정지점이 `color/spectrum-*` 에 묶인다, 색 값은 시드 FF0000 60%), 예시 보드 하나(인스펙터 팝오버 268 × 426 — 면 `bg-menu` · 안쪽 6). 닫기는 `IconButton` ghost sm + `icon/x`, 스포이드는 `icon/eyedropper` 인스턴스다. 기록 `color-picker` · `color-picker-option` 과 parity 기하 계약, 실브라우저 되재기(`color-picker-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
+| Figma         | `done`      | 2026-10-14 — 칸 `ColorPickerOption` 세트(Selected `false` · `true` — 코드 `aria-pressed`, 값 아래 체크무늬 · 고른 칸 링은 펼침 그림자 두 겹)와 판 `ColorPicker`(BOOLEAN `Eyedropper` · `Swatches`, TEXT `Label` · `Hex` · `Alpha`, 면 그라디언트 · 색조 띠 정지점이 `color/spectrum-*` 에 묶인다, 색 값은 시드 FF0000 60%), 예시 보드 하나(인스펙터 팝오버 268 × 426 — 면 `bg-menu` · 안쪽 6). 닫기는 `IconButton` ghost sm + `icon/x`, 스포이드는 `icon/eyedropper` 인스턴스다. 기록 `color-picker` · `color-picker-option` 과 parity 기하 계약, 실브라우저 되재기(`color-picker-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

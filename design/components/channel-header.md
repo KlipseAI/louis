@@ -66,7 +66,7 @@ summary: 채널 · 계정 하나의 머리. 배너 띠 아래 아바타 · 이�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/channel-header.css` · 실브라우저 시험 `channel-header.browser.test.tsx`. React 표면은 없다 — 소비처가 클래스와 마크업 계약을 문다(DS-D-0087) |
-| Figma         | `partial`      | 2026-10-13 — `ChannelHeader` 세트(Loading `false` · `true` × Layout `base` · `compact` = 4, BOOLEAN `HasBanner` · `HasDescription` · `HasActions`, TEXT `Name` · `Stat1`~`Stat3`, INSTANCE_SWAP `Actions` — 기본 IconButton ghost 점 셋 세로)와 설명 한 줄의 상호작용을 가진 `ChannelHeaderDescription`(State `Default` · `Hover`, Default 에 ON_HOVER). `compact` 는 560 이하 · 480 이하 두 단을 한 칸(폭 448)으로 그린다. 띠 · 아바타 · 줄 막대는 Skeleton(`block` · `circle` · 새 `line`) · Avatar 인스턴스이고 띠 면은 `bg-inset` 이다(예시 그림 없음). 기록 `channel-header` · `channel-header-description` 과 parity 기하 계약, 실브라우저 되재기(`channel-header-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
+| Figma         | `done`      | 2026-10-13 — `ChannelHeader` 세트(Loading `false` · `true` × Layout `base` · `compact` = 4, BOOLEAN `HasBanner` · `HasDescription` · `HasActions`, TEXT `Name` · `Stat1`~`Stat3`, INSTANCE_SWAP `Actions` — 기본 IconButton ghost 점 셋 세로)와 설명 한 줄의 상호작용을 가진 `ChannelHeaderDescription`(State `Default` · `Hover`, Default 에 ON_HOVER). `compact` 는 560 이하 · 480 이하 두 단을 한 칸(폭 448)으로 그린다. 띠 · 아바타 · 줄 막대는 Skeleton(`block` · `circle` · 새 `line`) · Avatar 인스턴스이고 띠 면은 `bg-inset` 이다(예시 그림 없음). 기록 `channel-header` · `channel-header-description` 과 parity 기하 계약, 실브라우저 되재기(`channel-header-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

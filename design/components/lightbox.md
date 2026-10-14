@@ -50,7 +50,7 @@ summary: 썸네일을 눌러 그림 하나를 화면 가운데 크게 봅니다.
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/lightbox.css`. React 표면은 없다 — 소비처가 클래스와 마크업 계약을 문다(DS-D-0086 판단 10) |
-| Figma         | `partial`      | 2026-10-13 — `LightboxAction` 세트(State Default · Hover, INSTANCE_SWAP Icon — 닫기 `icon/x` · 삭제 `icon/trash-simple`, Default 에 ON_HOVER)와 `Lightbox` 단일 컴포넌트(1440 × 900 보드 · 비율 1 그림 자리표시). 스크림 · 액션 면의 알파는 `color/static-pure-black-alpha/88` · `/56` · `/80` 이 갖는다 — 웹 `media-scrim-dark` 와 같은 순검정이고, 색 변수에 묶은 칠의 불투명도는 Figma 가 1 로 되돌린다. 기록 `lightbox-action` · `lightbox` 와 parity 기하 계약, 실브라우저 되재기(`lightbox-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
+| Figma         | `done`      | 2026-10-13 — `LightboxAction` 세트(State Default · Hover, INSTANCE_SWAP Icon — 닫기 `icon/x` · 삭제 `icon/trash-simple`, Default 에 ON_HOVER)와 `Lightbox` 단일 컴포넌트(1440 × 900 보드 · 비율 1 그림 자리표시). 스크림 · 액션 면의 알파는 `color/static-pure-black-alpha/88` · `/56` · `/80` 이 갖는다 — 웹 `media-scrim-dark` 와 같은 순검정이고, 색 변수에 묶은 칠의 불투명도는 Figma 가 1 로 되돌린다. 기록 `lightbox-action` · `lightbox` 와 parity 기하 계약, 실브라우저 되재기(`lightbox-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

@@ -87,7 +87,7 @@ summary: 원본 영상의 시간축 위에 구간을 놓고 그중 하나를 무
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/segment-track.css`(Stage Bar 포함). React 표면은 없다 — 시각 → 위치 계산 · 줄 나누기 · 롤빙 · 굴림은 제품 컴포넌트가 갖고 클래스와 변수를 물면 된다 |
-| Figma         | `partial`      | 2026-10-13 — `SegmentTrack`(Layout regular · compact × State Filled · Empty, Filled 는 시드 예시) · `SegmentTrackBlock`(Look 넷 × Selected — 코드 `aria-current`) · `SegmentTrackMapBar`(Look 셋 × Emphasis 셋) · `StageBar`(Layout 셋, BOOLEAN Error · Progress). 칸 호버(`segment-track-clip-hover`) · 구간 줄 굴림과 끝 흐림 · 719 이하 줄바꿈은 그리지 않았다. 기하 계약 · 기록은 아직 없다 |
+| Figma         | `done`      | 2026-10-13 — `SegmentTrack`(Layout regular · compact × State Filled · Empty, Filled 는 시드 예시) · `SegmentTrackBlock`(Look 넷 × Selected — 코드 `aria-current`) · `SegmentTrackMapBar`(Look 셋 × Emphasis 셋) · `StageBar`(Layout 셋, BOOLEAN Error · Progress). 칸 호버(`segment-track-clip-hover`) · 구간 줄 굴림과 끝 흐림 · 719 이하 줄바꿈은 그리지 않았다. 기하 계약 · 실측 기록 · 브라우저 되재기가 섰다(DS-D-0035, 2026-10-14 done) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

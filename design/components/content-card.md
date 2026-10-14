@@ -57,7 +57,7 @@ summary: 커버 그림과 그 밖의 제목 · 설명을 통째로 누르는 링
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/content-card.css` · 실브라우저 시험 `content-card.browser.test.tsx`. React 표면은 없다 — 소비처가 클래스와 마크업 계약을 문다(DS-D-0088) |
-| Figma         | `partial`      | 2026-10-14 — `ContentCard` 세트(Layout `row` · `stack` × State `Default` · `Hover` = 4, TEXT `Title` · `Description` · `Meta`, BOOLEAN `HasDescription` · `HasMeta`(row) · `HasBadge`(stack, 기본 끔) · `EmptyCover`). row 720 · stack 300 은 표본 폭이다. 배지는 Badge 인스턴스의 칠 · 글자를 `media-badge` 변수로 덮었고(DS-D-0088 판단 8), 빈 커버는 랜딩 바닥 + 잉크 4% + 강조 20%(135° 휘도 마스크) 근사다. 움직임(그림 105% · 4 떠오름) · 719 접힘 · 랜딩 제목 계단 · 줄인 모션은 그리지 않는다(규칙). 기록 `content-card` 와 parity 기하 계약, 실브라우저 되재기(`content-card-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
+| Figma         | `done`      | 2026-10-14 — `ContentCard` 세트(Layout `row` · `stack` × State `Default` · `Hover` = 4, TEXT `Title` · `Description` · `Meta`, BOOLEAN `HasDescription` · `HasMeta`(row) · `HasBadge`(stack, 기본 끔) · `EmptyCover`). row 720 · stack 300 은 표본 폭이다. 배지는 Badge 인스턴스의 칠 · 글자를 `media-badge` 변수로 덮었고(DS-D-0088 판단 8), 빈 커버는 랜딩 바닥 + 잉크 4% + 강조 20%(135° 휘도 마스크) 근사다. 움직임(그림 105% · 4 떠오름) · 719 접힘 · 랜딩 제목 계단 · 줄인 모션은 그리지 않는다(규칙). 기록 `content-card` 와 parity 기하 계약, 실브라우저 되재기(`content-card-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

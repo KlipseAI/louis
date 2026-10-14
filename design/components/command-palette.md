@@ -98,7 +98,7 @@ summary: 입력 하나로 앱의 메뉴 · 프로젝트 · 설정을 찾아 바�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/command-palette.css` + Menu `data-layout="inline"`(`menu-popover.css`) · 실브라우저 시험 `command-palette.browser.test.tsx`. React 표면은 없다 — 거르기 · 하이라이트 · 수명 · 포커스는 소비처 스크립트이고 마크업 계약을 문다(DS-D-0095) |
-| Figma         | `partial`      | DS · Components 「3 · 오버레이」의 `CommandPalette`(패널 한 장, TEXT `Placeholder`) · `CommandPaletteEmpty`(TEXT `Label`)와 `Menu` 세트 `Layout=inline` 일곱 변형, 아이콘 `icon/arrow-down`, 예시 보드 「Command Palette — 열림 · 테마 플라이아웃」 · 「Command Palette — 결과 없음」. 기록 `command-palette` · `command-palette-empty` · menu-popover `inlineItem` 과 parity 기하 계약, 되재기 `command-palette-geometry.browser.test.tsx`. 제품 렌더 대조가 없어 `partial` |
+| Figma         | `done`      | DS · Components 「3 · 오버레이」의 `CommandPalette`(패널 한 장, TEXT `Placeholder`) · `CommandPaletteEmpty`(TEXT `Label`)와 `Menu` 세트 `Layout=inline` 일곱 변형, 아이콘 `icon/arrow-down`, 예시 보드 「Command Palette — 열림 · 테마 플라이아웃」 · 「Command Palette — 결과 없음」. 기록 `command-palette` · `command-palette-empty` · menu-popover `inlineItem` 과 parity 기하 계약, 되재기 `command-palette-geometry.browser.test.tsx`. 제품 렌더 대조가 없어 `partial` |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 소비처 1 · 제품이 아직 이 클래스를 물지 않는다 · 실기 스크린리더 검토 전 |
 

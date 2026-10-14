@@ -12,7 +12,7 @@ summary: 한 질문의 선택지를 카드나 행으로 늘어놓고 하나 또�
 
 | 항목 | 값 |
 | --- | --- |
-| Figma | `partial` — component set `ChoiceCard`(2026-10-08, 42 변형). 되읽기 · parity 계약은 있고 기하를 되재는 브라우저 시험이 없다 |
+| Figma | `done` — component set `ChoiceCard`(2026-10-08, 42 변형). 되읽기 · parity 계약은 있고 기하를 되재는 브라우저 시험도 섰다(DS-D-0035, 2026-10-14 done) |
 | 코드 | CSS recipe `.louis-choice-group` · `.louis-choice-card` ([`choice-card.css`](../../packages/css/src/component/choice-card.css), 2026-10-07). React 표면은 없다 |
 
 ## 왜 있는가

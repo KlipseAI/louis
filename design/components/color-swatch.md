@@ -66,7 +66,7 @@ sm `<button>` 칩은 [Color Picker](color-picker.md) 판을 여는 트리거다(
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/color-swatch.css`. React 표면은 없다 — 소비처가 클래스를 물면 된다 |
-| Figma         | `partial`      | 2026-10-13 — `ColorSwatch` — Layout(row · stack) × Size(md · sm) × Content(filled · empty) × State(Default · Hover · Active — 2026-10-14) 열세 칸, BOOLEAN Clear, TEXT Label · Value. filled 칩 안에 체크무늬 바탕(반투명 값이 비친다)이 있고 Active 의 0.96 축소는 그리지 않는다. 칩 칠은 사용자 색이라 예시 색을 변수에 묶었다(시드). row 는 Figma TextField 의 위아래 4 때문에 높이 40(CSS 32). 기하 계약 · 기록은 열세 칸 전부를 건다(2026-10-14 — 상태 칸은 칸 기하가 Default 와 같다), 실브라우저 시험은 `small-parts-geometry.browser.test.tsx` |
+| Figma         | `done`      | 2026-10-13 — `ColorSwatch` — Layout(row · stack) × Size(md · sm) × Content(filled · empty) × State(Default · Hover · Active — 2026-10-14) 열세 칸, BOOLEAN Clear, TEXT Label · Value. filled 칩 안에 체크무늬 바탕(반투명 값이 비친다)이 있고 Active 의 0.96 축소는 그리지 않는다. 칩 칠은 사용자 색이라 예시 색을 변수에 묶었다(시드). row 는 Figma TextField 의 위아래 4 때문에 높이 40(CSS 32). 기하 계약 · 기록은 열세 칸 전부를 건다(2026-10-14 — 상태 칸은 칸 기하가 Default 와 같다), 실브라우저 시험은 `small-parts-geometry.browser.test.tsx` — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

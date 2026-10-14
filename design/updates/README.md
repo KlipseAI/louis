@@ -25,6 +25,17 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (270) — 기하 계약을 넓히고 세워 Figma done 여덟, Segmented Control xs 의 코드 · Figma 불일치
+
+- **figma `partial` → `done` 여덟** — progress(ProgressRing `bipolar` 칸) · media-slot(`fill` 칸 넷, 높이는 폭 × 기록 비율) · color-swatch(Hover 다섯 · Active 셋) 는
+  계약이 대조하지 않던 칸을 넣었고, switch · keycap · node-chip · pane-divider · loading-word 는 기하 계약 · 레시피에서 잰 기록 · 되재기
+  (`recipe-parts-geometry.browser.test.tsx`)를 새로 세웠다. Figma 는 다시 읽어 저장된 되읽기와 같았다. manifest done 49 → 57.
+  loading-word 의 계약은 얇다 — 크기는 쓰는 쪽 글자가 정해 「여백 · 모서리 없음」만 건다.
+- **판정 필요: Segmented Control xs.** 코드(`segmented-control.css`)와 Figma 의 xs 칸이 다르다 — 트랙 여백 3 · 4, 트랙 반경 10 · 12, 세그먼트 높이 22 · 28,
+  세그먼트 반경 7 · 8. Figma 는 높이 28 트랙에 여백 4 를 두고 28 세그먼트를 넣어 맞지 않는다(Figma 를 코드에 맞추는 쪽이 자연스럽다). xs 이름이 DS-D-0032
+  미결 판정에 걸려 있어 어느 쪽도 고치지 않았고, 두 세트는 partial 이다. 계약은 xs 를 뺀 칸만 대조한다.
+- breadcrumb · form-message 는 LOUIS 레시피가 없어 잴 코드가 없다.
+
 ## 2026-10-14 (269) — 되재기 시험 여섯 파일로 Figma done 일곱, Banner Carousel 본문 칸이 스스로 border-box
 
 - **figma `partial` → `done` 일곱** — banner-carousel · start-card · record-card · text-link · bare-button · inspector-row · inspector-section-head. 남은 조건이

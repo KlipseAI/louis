@@ -10,7 +10,7 @@ authority: normative
 
 | 항목 | 값 |
 | --- | --- |
-| Figma | `partial` — component set 발행됨. 2026-10-14 되읽기가 아래 값(22×22 · 좌우 4 · 반경 10 · 그림자 없음)과 같다 |
+| Figma | `done` — component set 발행됨. 2026-10-14 되읽기가 아래 값(22×22 · 좌우 4 · 반경 10 · 그림자 없음)과 같다 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | 코드 | CSS recipe `.louis-keycap` ([`keycap.css`](../../packages/css/src/component/keycap.css), 2026-10-07). React 표면은 없다 |
 
 ## 왜 있는가

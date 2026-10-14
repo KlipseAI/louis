@@ -38,7 +38,7 @@ node chip은 눌러서 드롭다운을 여는 대화형 트리거이고 호버 �
 | Surface       | 상태           | 근거                                                                                                                                                                                            |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `partial`      | CSS 레시피 `packages/css/src/component/node-chip.css`가 `packages/css/generated/styles.layer.css`로 나가고 제품이 4개 파일 **루트 16자리**에서 소비한다(`__label` 슬롯 2자리는 별도). **React 표면이 없다** — `packages/react/src` 아래 node-chip 디렉터리가 없고 `packages/react/src/index.ts`에 export가 없다. 실브라우저 acceptance test 0건, visual regression 없음 |
-| Figma         | `partial`      | NodeChip — variant 축 Shape(default·square) × State(Default·Hover·Disabled) = 6개. 속성: Label TEXT, HasGlyph BOOLEAN, Glyph INSTANCE_SWAP                                                        |
+| Figma         | `done`      | NodeChip — variant 축 Shape(default·square) × State(Default·Hover·Disabled) = 6개. 속성: Label TEXT, HasGlyph BOOLEAN, Glyph INSTANCE_SWAP — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                          |
 | Maturity      | `experimental` | 규범이 구현보다 늦게 선다 — CSS·토큰·제품 소비가 먼저 있었고 이 문서가 그것을 처음 규범으로 적는다                                                                                              |
 

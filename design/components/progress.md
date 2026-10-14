@@ -17,7 +17,7 @@ authority: normative
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | --- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 둘 — ProgressBar(State) · ProgressRing. Figma 는 conic 각도의 런타임 값을 표현하지 못해 한 지점만 그린다. 기하는 양방향이다 — `progress.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. **2026-09-14 `done` 에서 내렸다** — 제품 앵커 `6f6282c1` 이 프로필 아바타(링의 기준 내용)를 줄여 기록의 지름 · 내용(`figma/components.measured.json` 의 `progress-ring.sizes.base` `size` · `contentSize`)이 따라 옮겨졌는데, 라이브 `ProgressRing` 마스터(`figma/readback.json` 의 `components.ProgressRing.geometry.base`)는 옛 아바타 기준 그대로라 `verify-figma-parity` 가 실패한다. 마스터를 옮기고 되읽기를 다시 뜨면 되올린다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md), 아래 Known deviations) |
+| Figma         | `done`      | component set 둘 — ProgressBar(State) · ProgressRing. Figma 는 conic 각도의 런타임 값을 표현하지 못해 한 지점만 그린다. 기하는 양방향이다 — `progress.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. **2026-09-14 `done` 에서 내렸다** — 제품 앵커 `6f6282c1` 이 프로필 아바타(링의 기준 내용)를 줄여 기록의 지름 · 내용(`figma/components.measured.json` 의 `progress-ring.sizes.base` `size` · `contentSize`)이 따라 옮겨졌는데, 라이브 `ProgressRing` 마스터(`figma/readback.json` 의 `components.ProgressRing.geometry.base`)는 옛 아바타 기준 그대로라 `verify-figma-parity` 가 실패한다. 마스터를 옮기고 되읽기를 다시 뜨면 되올린다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md), 아래 Known deviations) — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다 |
 

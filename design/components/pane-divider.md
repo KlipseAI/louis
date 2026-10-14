@@ -16,7 +16,7 @@ summary: 창과 창 사이를 잡아 미는 구분자입니다.
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ----------------------------------------------------------- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/pane-divider.css`. React 컴포넌트 없음 |
-| Figma         | `partial`      | component set 2 variant (Orientation). publish 는 사람이 한다        |
+| Figma         | `done`      | component set 2 variant (Orientation). publish 는 사람이 한다 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                     |
 | Maturity      | `experimental` | 제품이 소비한다. React 표면과 키보드 조절이 아직 없다        |
 

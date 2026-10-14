@@ -28,7 +28,7 @@ summary: 즉시 적용되는 설정을 켜고 끕니다.
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | CSS 레시피 `packages/css/src/component/switch.css`가 서고 제품이 한 자리에서 소비한다. **React 컴포넌트가 없다** — `packages/react/src`에 `switch` 디렉터리가 없고, `packages/react/test`에 `switch.browser.test.tsx`도 없다. 소비처가 마크업을 손으로 쓴다 |
-| Figma         | `partial`      | Switch — VARIANT 속성 Checked × Disabled로 4벌. 소비자가 그 드롭다운으로 상태를 바꾼다. 기하는 2026-10-14 부터 대조된다 — 기록 `switch`(트랙 44×24 · 여백 2 · 썸 20)를 계약이 Figma 와 맞대고 `recipe-parts-geometry.browser.test.tsx` 가 레시피에서 되잰다 |
+| Figma         | `done`      | Switch — VARIANT 속성 Checked × Disabled로 4벌. 소비자가 그 드롭다운으로 상태를 바꾼다. 기하는 2026-10-14 부터 대조된다 — 기록 `switch`(트랙 44×24 · 여백 2 · 썸 20)를 계약이 Figma 와 맞대고 `recipe-parts-geometry.browser.test.tsx` 가 레시피에서 되잰다 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범이 구현보다 먼저 서고, React 표면과 acceptance test가 아직 없다 |
 

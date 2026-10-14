@@ -203,7 +203,9 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 2026-10-14: 24 → 42 — DS-D-0084 로 선 새 부품 열여덟(작은 것 일곱 · 큰 것 열하나)이 세트 · 계약 · 실측 · 되재기를 다 갖춰 done(Updates (264)).
 // 같은 날 뒤: 42 → 49 — 되재기 시험이 없어 partial 이던 일곱(banner-carousel · start-card · record-card · text-link · bare-button ·
 // inspector-row · inspector-section-head)에 실브라우저 되재기를 붙였다(Updates (269)). banner-carousel 은 그 시험이 찾은 border-box 결손을 고쳤다.
-const MANIFEST_DONE_FLOOR = 49; // 바닥. 오르면 올려 이득을 잠근다
+// 같은 날 뒤: 49 → 57 — 계약 범위를 넓히거나(progress bipolar · media-slot fill · color-swatch Hover · Active) 기하 계약을 새로 세운(switch · keycap ·
+// node-chip · pane-divider · loading-word) 여덟(Updates (270)). segmented-control 둘은 xs 칸의 코드 · Figma 불일치로 남았다.
+const MANIFEST_DONE_FLOOR = 57; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

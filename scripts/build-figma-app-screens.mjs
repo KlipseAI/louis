@@ -79,6 +79,8 @@ const LEDGERS = {
   public: optionalFixture("migration/product.public-fixture.json"),
   // 공개 시드 원장(2026-10-07, `--public-seeded`) — 발행된 한 행이 있어야 서는 공개 상세(블로그 글 · 템플릿)를 자리표시 시드로 잰다.
   publicSeeded: optionalFixture("migration/product.public-seeded-fixture.json"),
+  // 덱 세션 원장(2026-10-14, `--session-deck`) — 세션 서버에 가짜 S3(자리표시 교안 판)를 붙여 잰 Klipse Deck 화면.
+  sessionDeck: optionalFixture("migration/product.session-deck-fixture.json"),
   // LOUIS 문서 예시(2026-10-07, 측정기 `--louis-examples`) — 예시 실행에서만 쓴다.
   louisExamples: LOUIS_EXAMPLES ? optionalFixture("migration/louis.document-examples.json") : null,
 };
@@ -158,6 +160,10 @@ const IMAGE_COMPONENTS = {
   // 2026-10-14 — 공개 시드의 랜딩 모델 카드(모델 목록 · 상세) 미디어. `next/image` 가 받는 측정용 CDN 호스트 밑에 같은 예시 그림 경로를 붙였다
   // (`lib/fixture-seeds.mjs` landing_models 주석) — 측정기가 적는 원본 주소가 이 꼴이다.
   ...Object.fromEntries([1, 2, 3, 4, 5].map((n) => [`https://cdn.fixture.invalid/image-edit/examples/example-${n}.jpg`, `image/examples/example-${n}`])),
+  // 2026-10-14 — 덱 세션 측정(`--session-deck`)의 교안 표지(`/deck/thumbs/<덱>.png`). 가짜 S3 가 표지 객체를 내주지 않아 측정에서는 빈 상자다 —
+  // 자리표시 교안(`lib/fixture-seeds.mjs` FIXTURE_DECK_S3_OBJECTS)의 덱 여덟을 같은 예시 그림에 돌려 잇는다(표지 내용은 제품 것이 아니다).
+  ...Object.fromEntries(["fixture-course-1", "fixture-course-2", "fixture-course-3", "fixture-deck-ko", "fixture-deck-en", "fixture-deck-ja", "fixture-member-deck", "fixture-presenter-deck"]
+    .map((slug, index) => [`/deck/thumbs/${slug}.png`, `image/examples/example-${(index % 5) + 1}`])),
 };
 const liveAssets = JSON.parse(readFileSync(resolve(repoRoot, "figma/live-assets.json"), "utf8"));
 const imageComponentBySrc = new Map(Object.entries(IMAGE_COMPONENTS).map(([src, name]) => {

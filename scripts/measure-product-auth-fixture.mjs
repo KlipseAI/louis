@@ -15,7 +15,8 @@ import { resolveProductRef } from "./lib/product-ref.mjs";
 import { productAriaLabels } from "./lib/product-aria-labels.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
 import { checkCites, createRecipeRouter, loadArea, readRecipeCss, recipeAssertProblems, recipeDigest, runRecipeSteps, specFromRecipe, supabaseOverlayOf, validateRecipes } from "./lib/state-recipes.mjs";
-import { FIXTURE_CANVAS_MORE_PROJECT_ID, FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
+import { FIXTURE_CANVAS_MORE_PROJECT_ID, FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_DECK_COURSE, FIXTURE_DECK_S3_OBJECTS, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
+import { startFakeS3 } from "./lib/fixture-fake-s3.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
 // 보호 route의 로그인 후 shell과 실패/빈 기본 상태를 렌더한다. API 401/500도 숨기지 않고 함께
@@ -41,7 +42,10 @@ const anonymous = process.argv.includes("--anonymous") || statesMode === "anonym
 // 가짜 세션으로 잰다 — 로컬 가짜 Supabase(`lib/fixture-fake-supabase.mjs`)가 인증에 고정 사용자로 답하고 데이터 조회에는 빈 목록으로
 // 답한다. **공개 모드(`--public`, 2026-09-29).** 뷰포트보다 긴 공개 페이지를 로그아웃 상태로 문서 전체까지 잰다(`fullPage`). 둘 다
 // 별도 원장에 쓴다 — 인증 · 로그아웃 원장과 환경이 달라 섞으면 기존 보드가 흔들린다.
-const session = process.argv.includes("--session") || statesMode === "session";
+// **덱 세션 모드(`--session-deck`, 2026-10-14).** 세션 모드와 같은 서버(가짜 Supabase 세션 · `ADMIN_EMAILS`)에 가짜 S3(`lib/fixture-fake-s3.mjs`)를
+// 붙여 Klipse Deck 화면을 잰다 — 덱은 교안 판을 S3 에서 읽는다. S3 환경변수가 다른 세션 화면의 측정을 바꾸지 않게 원장을 따로 쓴다.
+const sessionDeck = process.argv.includes("--session-deck");
+const session = process.argv.includes("--session") || sessionDeck || statesMode === "session";
 // `--public-seeded`(2026-10-07): 공개 모드와 같은 로그아웃 서버에 가짜 Supabase(세션 쿠키 없음) + 공개 시드를 붙여 상세 화면을 잰다. 원장을 따로 쓴다.
 const publicSeeded = process.argv.includes("--public-seeded") || statesMode === "public-seeded";
 const publicMode = process.argv.includes("--public") || publicSeeded || statesMode === "public";
@@ -57,6 +61,7 @@ if (statesArea && ["--anonymous", "--session", "--public", "--public-seeded", "-
 const enOutputRelative = statesArea ? `migration/product-states/${statesArea.area}.json`
   : louisExamples ? "migration/louis.document-examples.json"
   : anonymous ? "migration/product.anonymous-fixture.json"
+  : sessionDeck ? "migration/product.session-deck-fixture.json"
   : session ? "migration/product.session-fixture.json"
   : publicSeeded ? "migration/product.public-seeded-fixture.json"
   : publicMode ? "migration/product.public-fixture.json"
@@ -72,7 +77,7 @@ const LOCALE_TAGS = { en: "en-US", ko: "ko-KR", ja: "ja-JP" };
 if (!LOCALE_TAGS[LOCALE]) throw new Error("[product-auth-fixture] --locale 은 en · ko · ja 가운데 하나입니다: " + LOCALE);
 if (localeMode && louisExamples) throw new Error("[product-auth-fixture] --locale 은 LOUIS 예시 모드에 쓰지 않습니다");
 if (localeMode && statesArea) throw new Error("[product-auth-fixture] --locale 은 아직 상태 레시피(--states)와 함께 쓰지 않습니다");
-const localeModeName = anonymous ? "anonymous" : session ? "session" : publicSeeded ? "public-seeded" : publicMode ? "public" : "auth";
+const localeModeName = anonymous ? "anonymous" : sessionDeck ? "session-deck" : session ? "session" : publicSeeded ? "public-seeded" : publicMode ? "public" : "auth";
 const outputRelative = localeMode ? `migration/product-locale/${localeModeName}.${LOCALE}.json` : enOutputRelative;
 const outputPath = resolve(repoRoot, outputRelative);
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
@@ -315,6 +320,19 @@ const SESSION_ROUTES = [
     id: "/highlight/[projectId]/shorts/[shortId]", fullPage: true },
 ];
 
+// **덱 세션 모드가 재는 화면(`--session-deck`, 2026-10-14).** 가짜 S3 의 교안 판 둘(`lib/fixture-seeds.mjs` FIXTURE_DECK_S3_OBJECTS)로 연다.
+// 세션 사용자는 발표자 · 최고 관리자라 라이브러리는 카드 넷, 과정은 차시 셋, 관리는 판 둘(현재 · 지난 판)이다. 글자는 자리표시다.
+// **앵커 54b62a8a 에서는 원장을 커밋하지 않는다.** 그 앵커의 `app/deck/layout.tsx` 는 앱 판 · important 판 유틸리티(`utilities-app.css` ·
+// `utilities-important.css`)를 싣지 않아 덱 화면이 유틸리티 없이 그려진다 — 2026-10-14 측정에서 `main`(`max-w-[1280px] px-20`)이 x 0 · 폭 1920,
+// 카드 격자가 한 열 1920×1080 카드 넷(문서 4468)으로 섰다. 제품은 그 뒤 fca74d3ba(통합 판 dev 합치기)에서 레이아웃에 두 줄을 더했고 그 커밋은 앵커의
+// 조상이 아니다(/ambassador 와 같은 앵커 질문). 가짜 S3 는 판 포인터 · 판 파일 · 판 목록에 모두 200 으로 답했고 화면에 판 데이터가 섰다(관리 판 둘).
+// 앵커가 옮겨지면 이 모드로 다시 재서 원장과 보드를 세운다.
+const SESSION_DECK_ROUTES = [
+  { pattern: "/deck", fullPage: true },
+  { pattern: "/deck/c/[course]", url: `/deck/c/${FIXTURE_DECK_COURSE}`, id: "/deck/c/[course]", fullPage: true },
+  { pattern: "/deck/manage", fullPage: true },
+];
+
 // **공개 모드가 재는 화면(`--public`).** 뷰포트보다 긴 공개 페이지 — 문서 전체를 잰다(`fullPage`). 데이터 없이도 제품과 같은 화면이
 // 나오는 것부터 싣는다. 템플릿 상세는 장면 측정기와 같은 `filter` 로 연다.
 const PUBLIC_ROUTES = [
@@ -364,7 +382,7 @@ const LOUIS_EXAMPLE_ROUTES = [
   { pattern: "/examples/document-report.html", id: "document-report", file: "packages/css/examples/document-report.html", fullPage: true },
   { pattern: "/examples/document.html", id: "document", file: "packages/css/examples/document.html", fullPage: true },
 ];
-const MODE_SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : publicSeeded ? PUBLIC_SEEDED_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
+const MODE_SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? ANONYMOUS_ROUTES : sessionDeck ? SESSION_DECK_ROUTES : session ? SESSION_ROUTES : publicSeeded ? PUBLIC_SEEDED_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
   const spec = typeof entry === "string" ? { pattern: entry } : entry;
   const url = spec.url ?? spec.pattern;
   const target = new URL(url, "http://fixture.invalid");
@@ -567,6 +585,16 @@ const startFixtureServer = async () => {
         // 공개 시드 모드(2026-10-14): 모델 페이지는 랜딩 모델 카드를 관리자 클라이언트로 읽는다(`app/lib/models/landingModelCards.ts`) — 키가 없으면
         // 던지고 「실패하면 null」로 카드 없이 서서 시드가 닿지 않았다. 블로그 · 템플릿 상세는 관리자 클라이언트를 `?preview` 에서만 쓴다.
         ...(publicSeeded ? { SUPABASE_SECRET_KEY: "fixture-secret-key" } : {}),
+        // 덱 세션 모드(2026-10-14): 제품 S3 어댑터(`app/lib/storage/s3.ts`)는 `S3_ENDPOINT` 가 있으면 그 주소에 path-style 로 붙는다 — 가짜 S3 다.
+        // 버킷이 없으면 「S3 버킷 미설정」으로 던지고, SDK 는 자격증명이 없으면 요청 전에 던진다(측정용 가짜 값).
+        ...(fakeS3 ? {
+          S3_ENDPOINT: fakeS3.url,
+          AWS_REGION: "us-east-1",
+          AWS_ACCESS_KEY_ID: "fixture-access-key",
+          AWS_SECRET_ACCESS_KEY: "fixture-secret-key",
+          S3_BUCKET_PRIVATE: "fixture-private",
+          S3_BUCKET_PUBLIC: "fixture-public",
+        } : {}),
       },
       stdio: ["ignore", "pipe", "pipe"],
     },
@@ -830,6 +858,8 @@ if (recordedForOnly) {
 // 세션 모드만 가짜 Supabase 를 띄운다 — 서버 기동 환경(`NEXT_PUBLIC_SUPABASE_URL`)이 이 주소를 쓴다.
 const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS })
   : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS }) : null;
+// 덱 세션 모드만 가짜 S3 를 띄운다(`lib/fixture-fake-s3.mjs`) — 서버 기동 환경(`S3_ENDPOINT`)이 이 주소를 쓴다.
+const fakeS3 = sessionDeck && !dumpStatic ? await startFakeS3({ objects: FIXTURE_DECK_S3_OBJECTS }) : null;
 // **상태 레시피 측정은 직렬로 돈다(설계서 3절).** 모든 실행이 같은 fixture 의 `apps/web` 에서 `next dev` 를 띄워 `.next` 를 함께 쓴다 —
 // 잠금 폴더가 잡혀 있으면 기다린다. 기존 모드 실행은 잠금을 잡지 않는다(그 실행과 겹치지 않게 돌리는 것은 사람의 몫이다).
 const fixtureLock = statesArea && !dumpStatic ? resolve(tmpdir(), "kds-measure-fixture.lock") : null;
@@ -1643,6 +1673,7 @@ try {
   if (browser) await browser.close();
   await fixtureServer.stop();
   await fakeSupabase?.close();
+  await fakeS3?.close();
 }
 assertCleanFixture("측정 후");
 
@@ -1785,6 +1816,8 @@ const payload = JSON.stringify({
     ? `생성물. scripts/measure-product-auth-fixture.mjs --states=${statesArea.area} 가 ${statesArea.file} 의 상태 레시피를 그 모드(${statesMode})의 clean Next dev server 에서 열고 레시피 단계 · 가로챈 /api 응답 · 가짜 Supabase 오버레이로 세운 상태를 직접 렌더한다. 기존 모드 원장과 따로 쓴다. 직접 수정하지 않는다.`
     : louisExamples
     ? "생성물. scripts/measure-product-auth-fixture.mjs --louis-examples 가 이 저장소의 LOUIS 문서 예시(packages/css/examples)를 정적 서버로 내 1920×1080 · 402×874 에서 문서 전체를 잰다. 글꼴은 제품 PretendardVariable.woff2. 직접 수정하지 않는다."
+    : sessionDeck
+    ? "생성물. scripts/measure-product-auth-fixture.mjs --session-deck 이 세션 모드와 같은 서버(가짜 Supabase 세션 · ADMIN_EMAILS 의 고정 사용자)에 로컬 가짜 S3(자리표시 교안 판 둘)를 붙여 Klipse Deck 화면(라이브러리 · 과정 · 관리)을 문서 전체까지 직접 렌더한다. 직접 수정하지 않는다."
     : session
     ? "생성물. scripts/measure-product-auth-fixture.mjs --session 이 고정 커밋의 clean Next dev server를 로컬 가짜 Supabase(인증은 고정 사용자, 데이터 조회는 빈 목록)에 붙여 띄우고 세션 쿠키를 넣어, 서버가 로그인을 확인하는 화면의 기본 상태를 직접 렌더한다. 직접 수정하지 않는다."
     : publicMode
@@ -1812,6 +1845,8 @@ const payload = JSON.stringify({
     ],
   $method: STATES_METHOD + (louisExamples
     ? "packages/css 를 로컬 정적 서버로 내고 예시 문서를 연다. 예시가 CDN 에서 읽는 Pretendard Variable 은 제품 글꼴 파일로 대 주고 나머지 바깥 요청은 끊는다. fullPage 로 문서 끝까지의 노드를 잰다. " + MEASURE_METHOD
+    : sessionDeck
+    ? "세션 모드와 같다(가짜 Supabase 세션 · 세션 쿠키 · ADMIN_EMAILS). 더해 로컬 가짜 S3 를 S3_ENDPOINT(path-style)로 주고 교안 판 포인터 · 판 파일 둘(fixture.fakeS3.objects)만 내준다 — 나머지 키는 404 NoSuchKey, 쓰기는 403. 표지 그림(/deck/thumbs/*)은 판 파일의 해시 객체가 없어 404 다. fullPage 로 문서 끝까지 잰다. " + MEASURE_METHOD
     : session
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1 과 로컬 가짜 Supabase URL로 Next development server를 임시 localhost 포트에 띄운다. 가짜 Supabase는 /auth/v1/user 에 고정 사용자로, /rest/v1/* 조회에 빈 목록으로 답하고 요청을 기록한다 — 예외는 fixture.seededTables 의 표뿐이다(자리표시 내용, eq · order 를 PostgREST 처럼 적용). 브라우저 문맥에는 @supabase/ssr 세션 쿠키를 넣는다 — 서버 컴포넌트의 supabase.auth.getUser() 가 사용자를 돌려받는다. 외부 요청은 fixture 서버와 가짜 Supabase 밖이면 차단한다. " + MEASURE_METHOD
     : publicSeeded
@@ -1835,6 +1870,9 @@ const payload = JSON.stringify({
     ...(louisCss ? { louisCss: louisCss.record } : {}),
     // 상태 레시피 원장 — 어느 영역 파일의 어느 판으로 쟀는지(화면마다 stateRecipe.sha256 은 그 레시피 하나의 해시).
     ...(statesArea ? { stateRecipes: { file: statesArea.file, sha256: statesArea.sha256, mode: statesMode, authoredAgainst: statesArea.authoredAgainst } } : {}),
+    // 덱 세션 모드의 가짜 S3 — 내준 객체(자리표시 교안 판, `lib/fixture-seeds.mjs` FIXTURE_DECK_S3_OBJECTS)와 받은 요청.
+    ...(fakeS3 ? { fakeS3: { objects: fakeS3.keys, requests: [...new Set([...(recordedForOnly?.fixture?.fakeS3?.requests ?? []),
+      ...fakeS3.requests.map((request) => `${request.method} ${request.key || `?prefix=${request.list ?? ""}`} ${request.status}`)])].sort() } } : {}),
     externalRequests: "blocked",
     locale: LOCALE,
     theme: "light",

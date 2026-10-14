@@ -230,3 +230,49 @@ export const FIXTURE_PUBLIC_SEEDS = Object.freeze({
     is_active: true,
   })),
 });
+
+// **Klipse Deck 교안 판(2026-10-14, 측정기 `--session-deck`).** 덱 화면(`/deck` · `/deck/c/[course]` · `/deck/manage`)은 DB 가 아니라 S3 의
+// `shared/decks/current.json`(지금 판 id)과 `shared/decks/releases/<id>.json`(판 하나 — manifest · 메모)을 읽는다(앵커 `app/lib/deck/releases.server.ts`).
+// 가짜 S3(`lib/fixture-fake-s3.mjs`)가 이 객체만 내준다. 세션 사용자(fixture@klipse.test)는 `ADMIN_EMAILS` 라 발표자 · 최고 관리자다 — 모든 교안을 본다.
+// 라이브러리 카드 넷(과정 하나 · 언어판 셋인 덱 · 기준일 있는 덱 · 발표자 전용 덱)과 과정 차시 셋, 관리 화면의 판 둘(현재 · 지난 판)이 선다.
+// 글자는 자리표시이고 manifest 의 꼴(DeckManifest · DeckItem · DeckInfo · access)은 제품 그대로다. 파일 해시 · 크기는 지어낸 값이다(내용은 내주지 않는다 —
+// 표지 그림 `/deck/thumbs/<덱>.png` 는 404 로 빈 상자이고, 보드는 생성기 IMAGE_COMPONENTS 가 예시 그림에 잇는다).
+export const FIXTURE_DECK_COURSE = "fixture-course";
+const DECK_HASH = "f1c5".repeat(16);
+const deckInfo = (slug, label, subtitle, minutes, extra = {}) => ({ slug, label, subtitle, minutes: String(minutes), slides: 24, ...extra });
+const COURSE_DECKS = [1, 2, 3].map((n) => deckInfo(`fixture-course-${n}`, `Session ${n}`, `Placeholder session ${n} title`, 40 + n * 5));
+const LANG_DECKS = [["KO", "ko"], ["EN", "en"], ["JA", "ja"]].map(([lang, code]) => deckInfo(`fixture-deck-${code}`, `Placeholder deck (${lang})`, "Placeholder deck subtitle", 30, { lang }));
+const MEMBER_DECK = deckInfo("fixture-member-deck", "Placeholder member deck", "Placeholder deck subtitle", 20);
+const PRESENTER_DECK = deckInfo("fixture-presenter-deck", "Placeholder presenter deck", "Placeholder deck subtitle", 50);
+const deckFiles = (decks) => Object.fromEntries(decks.flatMap(({ slug, audience }) => [
+  [`thumbs/${slug}.png`, { hash: DECK_HASH, size: 182_400, type: "image/png" }],
+  [`_p/d/${slug}/index.html`, { hash: DECK_HASH, size: 96_200, type: "text/html" }],
+  ...(audience === "presenter" ? [] : [[`d/${slug}/index.html`, { hash: DECK_HASH, size: 88_900, type: "text/html" }]]),
+]));
+const deckManifest = ({ withPresenterDeck }) => {
+  const decks = [
+    ...COURSE_DECKS.map((d) => ({ slug: d.slug, audience: [FIXTURE_DECK_COURSE] })),
+    ...LANG_DECKS.map((d) => ({ slug: d.slug, audience: "member" })),
+    { slug: MEMBER_DECK.slug, audience: "member" },
+    ...(withPresenterDeck ? [{ slug: PRESENTER_DECK.slug, audience: "presenter" }] : []),
+  ];
+  return {
+    format: 1,
+    site: { sections: [{ title: "Placeholder section", items: [
+      { kind: "course", slug: FIXTURE_DECK_COURSE, title: "Placeholder course", description: "Placeholder course description.", audience: "enrolled", decks: COURSE_DECKS },
+      { kind: "deck", title: "Placeholder deck with language versions", audience: "member", decks: LANG_DECKS },
+      { kind: "deck", title: "Placeholder member deck", audience: "member", asOf: "2026-10-01", decks: [MEMBER_DECK] },
+      ...(withPresenterDeck ? [{ kind: "deck", title: "Placeholder presenter deck", audience: "presenter", decks: [PRESENTER_DECK] }] : []),
+    ] }] },
+    access: { [`c/${FIXTURE_DECK_COURSE}`]: [FIXTURE_DECK_COURSE], ...Object.fromEntries(decks.map(({ slug, audience }) => [`d/${slug}`, audience])) },
+    files: deckFiles(decks),
+  };
+};
+const DECK_RELEASE_CURRENT = "20261001T090000Z-00000000000f1c52";
+const DECK_RELEASE_PREVIOUS = "20260915T090000Z-00000000000f1c51";
+const deckRelease = (id, createdAt, note, manifest) => ({ format: 1, id, note, createdAt, createdBy: "fixture@klipse.test", manifest });
+export const FIXTURE_DECK_S3_OBJECTS = Object.freeze({
+  "shared/decks/current.json": { id: DECK_RELEASE_CURRENT, activatedAt: "2026-10-01T09:05:00.000Z", activatedBy: "fixture@klipse.test" },
+  [`shared/decks/releases/${DECK_RELEASE_CURRENT}.json`]: deckRelease(DECK_RELEASE_CURRENT, "2026-10-01T09:00:00.000Z", "Placeholder release note", deckManifest({ withPresenterDeck: true })),
+  [`shared/decks/releases/${DECK_RELEASE_PREVIOUS}.json`]: deckRelease(DECK_RELEASE_PREVIOUS, "2026-09-15T09:00:00.000Z", "Placeholder earlier release note", deckManifest({ withPresenterDeck: false })),
+});

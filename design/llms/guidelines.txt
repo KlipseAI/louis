@@ -18188,6 +18188,16 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-14 (274) — 새 CSS 레시피 둘(news-card · segmented-code-input)과 Figma done 둘, 피처드 뉴스 카드 날짜 색을 제품에 맞춤
+
+- **news-card** — 카드(반경 12 · 여백 20/16 · 면 `landing-panel-strong` · 날짜 16 · 제목 20/30 두 줄 말줄임)와 셸프 격자 `.louis-news-card-track`(960 이상 열 흐름 ·
+  열 346 · 행 160 두 줄 · 간격 6, 959 이하 두 열). 피처드는 2 × 2 칸 · 스크림 · 제목 1줄 · 날짜 `palette-gray-300`.
+- **segmented-code-input** — 가로 묶음 간격 2, 칸 최대 28 × 36 · 반경 8 · 테두리 1, Focus 테두리 `accent-primary-hover` · 면 8%, Disabled 0.4, 구분자 좌우 2.
+- **Figma** — NewsCard `Featured=true` 의 날짜를 `palette-gray/500` 에서 `palette-gray/300` 으로 다시 묶었다. 500 이 #72757b 로 바뀐 뒤 제품이 시안 값(#9aa0ab)에 가장
+  가까운 300 으로 옮겼고, 레시피도 300 이다.
+- figma `partial` → `done` 둘 — manifest done 72 → 74. 남은 partial 다섯: node-chrome-button · node-side-handle(Figma 결손) · media-card · step-tile(정본 판정) · canvas-edge(DS-D-0061 재판정).
+- 알아 둘 것 — 제품 통합 판의 뉴스 카로셀은 이미 `grid-cols-4` 로 바뀌어 열 346 고정이 아니다(기록 · 레시피는 346). 다음 재측정에서 폭 값이 움직일 수 있다.
+
 #### 2026-10-14 (273) — 새 CSS 레시피 다섯과 Figma done 다섯 — breadcrumb · form-message · carousel-arrow · gnb-menu-item · inline-loading-label
 
 - **새 레시피.** 문서와 제품 근거만 있고 LOUIS 코드가 없던 다섯에 CSS 레시피를 세웠다(`packages/css/src/component/<id>.css`, 새 토큰 0).

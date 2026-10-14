@@ -20,7 +20,7 @@ summary: 날짜 한 줄과 제목으로 소식 한 건을 적는 카드입니다
 **색이 두 갈래다.** 보통 카드는 페이지 바탕 위에 놓이므로 테마를 따르는 시맨틱을 쓰고(면
 `landing/panel-strong` · 제목 `gray/000` · 날짜 `landing/text-muted`), 피처드 카드는 사진과
 그 위 스크림 위에 놓이므로 **두 테마에서 같아야 읽히는** 고정 토큰을 쓴다(제목
-`media-foreground-dark` · 날짜 `palette-gray/500`). 같은 컴포넌트 안에서 색 계열이 통째로
+`media-foreground-dark` · 날짜 `palette-gray/300`). 같은 컴포넌트 안에서 색 계열이 통째로
 갈리는 것이 이 카드의 조형 전부이며, `Featured` 를 슬롯이 아니라 축으로 둔 이유이기도 하다.
 
 **카드 크기는 카드가 아니라 셸프 트랙이 고른다.** 열 폭 346 은 시안 콘텐츠 폭 1400 안에 카드
@@ -35,7 +35,7 @@ summary: 날짜 한 줄과 제목으로 소식 한 건을 적는 카드입니다
 | Surface       | 상태           | 근거                                                                                                                                                                                          |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이지만 **export 조차 되지 않는 파일 내부 함수**이고 소비처가 한 자리다. LOUIS 에는 CSS 레시피 `news-card.css` 가 있고(2026-10-14) React export 는 없다. 시험은 기하 되재기(`news-card-geometry.browser.test.tsx`)뿐이고 acceptance test 는 0건이다. 보통 카드 제목 색은 원시 `gray-000` 을 컴포넌트 CSS 가 직접 쓸 수 없어 시맨틱 `fg-primary` 다 |
-| Figma         | `partial`      | `NewsCard` 2 variant(`Featured`) · TEXT 2. parity 게이트가 대조하는 것은 stroke 0 · effect 0 · 속성 축 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `news-card`(제품 클래스를 실브라우저에서 잰 값)와 카드 폭 · 높이 · 안쪽 여백 · 반경 · Body 간격 · 글자 크기를 맞댄다. 반대 방향도 걸려 있다 — `news-card-geometry.browser.test.tsx` 가 LOUIS 레시피의 트랙 안에서 계산값을 같은 기록과 맞댄다(2026-10-14) |
+| Figma         | `done`      | `NewsCard` 2 variant(`Featured`) · TEXT 2. parity 게이트가 대조하는 것은 stroke 0 · effect 0 · 속성 축 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `news-card`(제품 클래스를 실브라우저에서 잰 값)와 카드 폭 · 높이 · 안쪽 여백 · 반경 · Body 간격 · 글자 크기를 맞댄다. 반대 방향도 걸려 있다 — `news-card-geometry.browser.test.tsx` 가 LOUIS 레시피의 트랙 안에서 계산값을 같은 기록과 맞댄다(2026-10-14) — 2026-10-14 레시피 · 되재기 `news-card-geometry.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                       |
 | Maturity      | `experimental` | 되읽기 · 문서 · CSS 레시피 · 기하 되재기가 섰다. React 표면과 acceptance test 가 남았다                                                                                                        |
 
@@ -99,7 +99,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 | Featured | Card | Body | Headline | 색 |
 | --- | --- | --- | --- | --- |
 | `false` | 346 × 160 | 314 × 94 | 2줄(60), 말줄임 | 테마 추종 — 면 `landing/panel-strong` · 제목 `gray/000` · 날짜 `landing/text-muted` |
-| `true` | 698 × 326 | 666 × 64 | 1줄(30), 말줄임 | 고정 — 사진 + 스크림 · 제목 `media-foreground-dark` · 날짜 `palette-gray/500` |
+| `true` | 698 × 326 | 666 × 64 | 1줄(30), 말줄임 | 고정 — 사진 + 스크림 · 제목 `media-foreground-dark` · 날짜 `palette-gray/300` |
 
 Card 칸은 960 이상의 값이다(`news-card.sizes.false` · `.true`). 698 = 346 × 2 + 6, 326 = 160 × 2 + 6
 — 피처드는 셸프에서 두 열 · 두 행을 차지하며 그 사이의 간격 6 을 자기 몸으로 덮는다. 959 이하에서는
@@ -209,7 +209,7 @@ Body 의 94 · 64 는 1024 이상에서 제목이 2줄 · 1줄일 때의 높이�
 | Body 높이 (피처드) | 64 | 24 + 10 + 30. **1024 이상에서만**(→ 61 → 58 → 55). 출처는 위와 같다 |
 | Date | body-16-regular, 높이 24 | `typography/body-md-regular`(16 × 150%). **450 초과에서만** — 450 이하는 `body-16` 이 14 로 내려가 21 이다 |
 | Date 색 (보통) | `landing/text-muted` | 라이트 잉크 48% / 다크 잉크 56% |
-| Date 색 (피처드) | `palette-gray/500` | #9aa0ab 고정. 시안이 다섯 장의 날짜를 전부 이 값으로 찍었다. **레시피는 `palette-gray-300`** — 제품이 500 이 #72757b 로 바뀐 뒤 시안 값에 가장 가까운 300 으로 옮겼다(Known deviations 1) |
+| Date 색 (피처드) | `palette-gray/300` | #9aa0ab 고정. 시안이 다섯 장의 날짜를 전부 이 값으로 찍었다. **레시피는 `palette-gray-300`** — 제품이 500 이 #72757b 로 바뀐 뒤 시안 값에 가장 가까운 300 으로 옮겼다(Known deviations 1) 2026-10-14 Figma 의 피처드 날짜도 `palette-gray/300` 으로 다시 묶었다(제품 · 레시피와 같다). |
 | Headline | body-20-regular | `typography/body-lg-regular`(20 × 150%). 랜딩 스코프에서 20 → 18(≤1023) → 16(≤767) |
 | Headline (보통) | 2줄 = 60, 말줄임 | **1024 이상**: 여유 120 − 24 − 10 = 86 이므로 2줄까지 든다(3줄이면 124 로 넘친다). 아래로는 2줄 54 · 48 · 48 이고 3줄도 든다 |
 | Headline (피처드) | 1줄 = 30, 말줄임 | 스크림 상한 84px 이 근거다. **1024 이상** 기준이며 아래로는 27 · 24 |
@@ -288,7 +288,7 @@ Body 의 94 · 64 는 1024 이상에서 제목이 2줄 · 1줄일 때의 높이�
 5. 보통 카드의 면·제목·날짜가 전부 **테마를 따르는** 토큰에서 온다
    (`landing/panel-strong` · `gray/000` · `landing/text-muted`).
 6. 피처드의 제목·날짜가 전부 **고정** 토큰에서 온다(`media-foreground-dark` ·
-   `palette-gray/500`). `gray/*` 램프를 쓰지 않는다.
+   `palette-gray/300`). `gray/*` 램프를 쓰지 않는다.
 7. 카드에 stroke 가 없고 effect 도 없다 — 되읽기의 `strokes` 와 `effects` 가 둘 다 비어 있다.
 8. 스크림이 `palette-gray/900` 에서 오고 위에서 아래로 사라진다.
 9. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이다.

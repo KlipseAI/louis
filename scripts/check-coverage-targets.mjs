@@ -210,7 +210,8 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 판정해 Figma xs 칸을 코드에 맞춘 segmented-control · segmented-control-item(Updates (271)).
 // 같은 날 뒤: 67 → 72 — LOUIS 에 잴 코드가 없던 다섯(breadcrumb · form-message · carousel-arrow · gnb-menu-item · inline-loading-label)에 CSS 레시피 ·
 // 기하 계약 · 되재기를 세웠다(Updates (273)).
-const MANIFEST_DONE_FLOOR = 72; // 바닥. 오르면 올려 이득을 잠근다
+// 같은 날 뒤: 72 → 74 — news-card · segmented-code-input 에 CSS 레시피 · 되재기(Updates (274)).
+const MANIFEST_DONE_FLOOR = 74; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

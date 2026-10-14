@@ -1868,6 +1868,15 @@
       "generated": false
     },
     {
+      "id": "decision-fixed-dark-screens-are-in-scope",
+      "path": "design/governance/decisions/DS-D-0109-fixed-dark-screens-are-in-scope.md",
+      "title": "DS-D-0109 테마 계약 밖 「고정 다크」 화면도 디자인 시스템이 소유한다 — 다크는 하위 트리에 고정되고, 부스 화면은 화면 보드로 닫는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -2192,6 +2201,7 @@
         "design/governance/decisions/DS-D-0105-drill-picker.md",
         "design/governance/decisions/DS-D-0107-table-drawer.md",
         "design/governance/decisions/DS-D-0108-node-handle-tile.md",
+        "design/governance/decisions/DS-D-0109-fixed-dark-screens-are-in-scope.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]

@@ -20079,6 +20079,115 @@
       "strokes": {},
       "effects": {}
     },
+    "MenuMediaItem": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Description": {
+          "type": "TEXT"
+        },
+        "Badge": {
+          "type": "BOOLEAN"
+        },
+        "MediaGlyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Selected",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 19,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 8,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "media": {
+          "slots": {},
+          "parts": {
+            "Media": {
+              "width": [
+                48
+              ],
+              "height": [
+                48
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Logo": {
+              "width": [
+                24
+              ],
+              "height": [
+                24
+              ]
+            },
+            "Text": {
+              "itemSpacing": [
+                2
+              ]
+            },
+            "Heading": {
+              "itemSpacing": [
+                6
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                16
+              ]
+            },
+            "Description": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "height": [
+            64
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "MenuPanel": {
       "variantCount": 1,
       "hasDescription": true,

@@ -8365,6 +8365,37 @@
           "$dot": "2. `--louis-canvas-dots-radius: 1px` × 2 — 제품 `size={2}`(xyflow 는 반지름을 size / 2 로 그린다)."
         }
       }
+    },
+    "menu-media-item": {
+      "$doc": "design/components/menu-popover.md",
+      "$source": "packages/css/src/component/menu-popover.css 의 `.louis-menu__item[data-layout=\"media\"]` — 제품 components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx 의 ROW_BASE · MODEL_ICON · MODEL_NAME · DESC (2026-10-15 DS-D-0103)",
+      "$why": "값은 CSS 가 만드는 값이다. packages/react/test/menu-media-item.browser.test.tsx 가 같은 키를 레시피의 계산값으로 되잰다(DS-D-0035 (c)).",
+      "sizes": {
+        "media": {
+          "height": 64,
+          "$height": "64 = 우물 48 + 여백 8 × 2. 제품 `p-4` · `w-24 h-24`(단위 2px).",
+          "padding": 8,
+          "$padding": "8 — 제품 padding 네 칸(단위 2px). 레시피 토큰 이름은 space-control-sm.",
+          "gap": 6,
+          "$gap": "6 — 제품 Tailwind gap 세 칸(단위 2px). 레시피 토큰 이름은 space-overlay-item-content-gap.",
+          "radius": 10,
+          "$radius": "10. `radius-overlay-item` — 제품 `rounded-[var(--louis-radius-overlay-item)]`.",
+          "mediaSize": 48,
+          "$mediaSize": "48. 레시피 리터럴 — 제품 `w-24 h-24`.",
+          "mediaRadius": 8,
+          "$mediaRadius": "8. `radius-control-sm` — 제품 `rounded-6`(6)을 반경 사다리로 접었다(DS-D-0103 판정 2).",
+          "logoSize": 24,
+          "$logoSize": "24 — 제품 로고 상자 w · h 열두 칸(단위 2px). 레시피 토큰 이름은 icon-size-lg.",
+          "textGap": 2,
+          "$textGap": "2. `space-overlay-item-gap` — 제품 설명 `mt-1`.",
+          "headingGap": 6,
+          "$headingGap": "6 — 제품 TITLE_ROW 의 gap 세 칸(단위 2px). 레시피 토큰 이름은 space-overlay-item-content-gap.",
+          "titleFontSize": 16,
+          "$titleFontSize": "16. `body-md-medium` — 제품 `type-body-16-medium`.",
+          "descriptionFontSize": 12,
+          "$descriptionFontSize": "12. `caption-regular` — 제품 `type-caption-12-regular`."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -8447,7 +8478,8 @@
     "date-picker-time": "위(date-picker-cell)와 같은 이유다.",
     "color-picker": "제품 렌더 하네스가 이 조형에 닿지 못한다. 색 팝오버는 영상 편집 모달(노드 캔버스의 영상 노드 → 편집, 로그인 뒤 /create)에서 오버레이를 고르고 인스펙터의 색 칩을 눌러야 열리고, measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스인데 components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 게다가 제품은 아직 이 레시피를 물지 않아 면 220 정사각 같은 제품 값이 LOUIS 값(256 × 220)과 다르다 — 대조할 것은 이관 뒤의 렌더다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 ColorPopover.tsx 를 소스로 등록하고 판 · 면 · 칸 탐침을 세우면 이 면제를 지운다.",
     "color-picker-option": "위(color-picker)와 같은 이유다.",
-    "canvas-dots": "제품 렌더 하네스가 이 조형을 하나의 노드로 잴 수 없다 — 제품 바닥은 xyflow `<Background>` 의 SVG pattern 이고 간격 · 점 크기가 props 숫자(CanvasBackground.tsx:5-6)다. 값은 레시피 선언 `--louis-canvas-dots-pitch: 24px` · `--louis-canvas-dots-radius: 1px` 이고 실브라우저 시험이 그 선언을 잰다(2026-10-15)."
+    "canvas-dots": "제품 렌더 하네스가 이 조형을 하나의 노드로 잴 수 없다 — 제품 바닥은 xyflow `<Background>` 의 SVG pattern 이고 간격 · 점 크기가 props 숫자(CanvasBackground.tsx:5-6)다. 값은 레시피 선언 `--louis-canvas-dots-pitch: 24px` · `--louis-canvas-dots-radius: 1px` 이고 실브라우저 시험이 그 선언을 잰다(2026-10-15).",
+    "menu-media-item": "제품 렌더 하네스의 명부에 영상 노드 모델 메뉴(VideoModelMenu.tsx)가 없다 — 메뉴가 노드 툴바의 드롭다운 안에서만 열리고 VIDEO_MODELS · 플랜 판정 데이터를 물어 단독 렌더가 서지 않는다. 값은 레시피 선언이고 제품 클래스는 소스(VideoModelMenu.tsx:149-166 · :181-184 · :251-283)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15)."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

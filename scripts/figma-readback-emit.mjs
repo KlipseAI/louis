@@ -289,8 +289,9 @@ const CAPTURE = {
   "SegmentTrackBlock": {"key":{"by":["Look","Selected"]},"fields":["height","paddingInline","itemSpacing","cornerRadius","layoutMode"],"outsideParts":["Current ring"]},
   "SegmentTrackMapBar": {"key":{"by":["Look","Emphasis"]},"fields":["height","cornerRadius"]},
   "StageBar": {"key":{"by":["Layout"]},"fields":["height","paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
-  // R1 캔버스 · 편집기 부품(2026-10-15, DS-D-0102).
+  // R1 캔버스 · 편집기 부품(2026-10-15, DS-D-0102 · DS-D-0103).
   "CanvasDots": {"key":{"name":"tile"},"fields":["width","height"],"parts":{"Dot":["width","height"]}},
+  "MenuMediaItem": {"key":{"name":"media"},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"parts":{"Media":["width","height","cornerRadius"],"Logo":["width","height"],"Text":["itemSpacing"],"Heading":["itemSpacing"],"Title":["fontSize"],"Description":["fontSize"]}},
   "VideoPlayerChip": {"key":{"by":["State"]},"fields":["width","height","cornerRadius"]},
   // 볼륨 패널은 칩 위로 열려(틈 8 · 64 ~ 112) 칩 프레임 밖에 선다 — 패널과 그 자손 전부가 계약된 바깥 부품이다.
   "VideoPlayerVolume": {"key":{"by":["State"]},"fields":["width","height"],"outsideParts":["Panel","Surface","Slider","Track","Fill","Thumb"]},

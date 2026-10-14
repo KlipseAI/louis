@@ -15,7 +15,7 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ----------------------------------------------------------- |
 | Web           | `partial`      | `ActionMenu`·`CompositePopover` public export, 실브라우저 회귀 35건 |
-| Figma         | `done`      | 항목 set(`State` × `Layout`, 두 줄 항목 `Layout=description` 2026-10-08) + 패널 component 셋(`MenuPanel`·`MenuSeparator`·`CompositePopover`). 넷 다 계약이 모든 property 를 pin 하고 기하가 붙었다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다(구분선 두께 0.5 포함). 서브메뉴·체크 상태는 아직 Figma 에 없다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | 항목 set(`State` × `Layout`, 두 줄 항목 `Layout=description` 2026-10-08) + 패널 component 셋(`MenuPanel`·`MenuSeparator`·`CompositePopover`) + 그림 우물 항목 set `MenuMediaItem`(2026-10-15, DS-D-0103). 넷 다 계약이 모든 property 를 pin 하고 기하가 붙었다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다(구분선 두께 0.5 포함). 서브메뉴·체크 상태는 아직 Figma 에 없다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                     |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음            |
 
@@ -654,6 +654,37 @@ CSS 클래스만 있고 소비처가 마크업을 직접 쓴다.
 **Figma 는 항목 set 의 `Layout=inline` 이다(2026-10-14).** `State` 일곱 값과 곱해 변형 일곱이 더해진다(희소 세트를 받지 않는다). 프레임은 가로 · 가운데 정렬,
 이름은 HUG + 말줄임, 설명은 FILL + 말줄임(`color/fg-secondary`), 높이 37.
 
+### 그림 우물 항목 (`data-layout="media"`)
+
+**출처: 2026-10-15, 영상 모델 메뉴(통합 판 `54b62a8aa` `components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx:149-166` · `:181-184` · `:251-283`,
+[DS-D-0103](../governance/decisions/DS-D-0103-menu-media-item.md)).** 고를 것마다 브랜드 로고가 있는 값 목록이다 — 두 줄 항목 앞에 48 우물이 서고
+이름 줄 끝에 배지가 붙는다. 패널 · 검색 칸 · 필터 칩은 있는 부품(`MenuPanel` · Text Field · Tabs)이고, 이 변형이 새로 갖는 것은 행 하나다.
+
+```
+.louis-menu__item[data-layout="media"]   role="option" · 가운데 정렬 · 여백 8 · 간격 6
+├─ .louis-menu__item-media               48 우물 · accent-secondary · radius-control-sm — 안에 로고 24(img · svg)
+└─ .louis-menu__item-text                세로 · 간격 2
+   ├─ .louis-menu__item-heading          가로 · 간격 6
+   │  ├─ .louis-menu__item-label         이름 — body-md-medium · fg-primary · 말줄임
+   │  └─ .louis-badge                    배지(선택) — 끝으로 밀린다
+   └─ .louis-menu__item-description      설명 — caption · fg-secondary · 한 줄 말줄임
+```
+
+| 속성 | 값 | 근거 |
+| --- | --- | --- |
+| 높이 | 64(우물 48 + 여백 8 × 2) | 제품 `p-4` · `w-24 h-24`(단위 2px) |
+| 우물 | 48 · `radius-control-sm`(8) · `color-accent-secondary` | 제품 `rounded-6` 은 반경 사다리에 없어 8 로 접었다(DS-D-0103 판정 2) |
+| 로고 | 24 · `object-fit: contain` · 단색화하지 않는다 | 제3자 브랜드 자산(원장 `ProviderGlyph` 는 scoped) — 제품의 평상시 실루엣 · 호버 원색 필터는 소비처 몫 |
+| 이름 | `body-md-medium` · `fg-primary` | 제품 `type-body-16-medium` · 88% |
+| 설명 | `caption-regular` · **`fg-secondary`** · 한 줄 말줄임 | 제품 48% 는 tertiary 칸 — 하이라이트 면(다크 8%) 위 4.28 미달이라 고쳐 올렸다. 호버 마퀴는 옮기지 않는다 |
+| 선택 | `aria-selected="true"` 면 `accent-secondary-hover` — 값 목록의 정본 규칙 그대로 | 제품은 선택 면이 없다(로고 색으로만 가렸다) |
+| 비활성 | `aria-disabled="true"` — 잉크 `fg-disabled` · 우물 0.4 | 제품 행 전체 0.55 |
+| 플랜 잠김 | 따로 그리지 않는다 — 배지 글자(「Basic 이상」)가 말하고 행은 누를 수 있다 | 제품 보라 면 · 0.78 흐림은 옮기지 않는다(DS-D-0103 판정 3) |
+
+**Figma 는 따로 선 세트 `MenuMediaItem`(`State` = Default · Hover · Selected · Disabled)이다.** 항목 set(`Menu`)의 `Layout` 축에 넣으면 `State` 일곱과 곱해
+변형 일곱이 늘고 대부분(Danger · Busy …)이 이 행에서 실현되지 않는다. 속성 `Title` · `Description`(TEXT) · `Badge`(BOOLEAN) · `MediaGlyph`(INSTANCE_SWAP —
+브랜드 로고 자리표시). 기하 계약은 `figma/components.measured.json` 의 `menu-media-item` 이고 `menu-media-item.browser.test.tsx` 가 레시피 쪽에서 되잰다.
+
 ### 팝오버 밖 목록 — 정본으로 올리지 않고 편차로 둔다
 
 작업 브랜치 `HomeCreateNewMenu.tsx` 의 `HomeCreateNewList` 는 같은 항목 배열을 **팝오버 없이 본문에 펼치고**
@@ -894,5 +925,8 @@ non-modal에서 Tab으로 focus가 빠져나가 닫히는 경로의 reason은 **
 - 접근성 검사에서 role 구조, accessible name, `aria-expanded/controls`, focus-visible 오류가 없다.
   자동 검사가 `role="menu"`의 accessible name 누락은 잡지 못하므로 그 항목은 별도 단언으로 고정한다.
 - forced-colors에서 하이라이트된 danger item의 배경과 전경이 서로 다른 시스템 색이다.
+- 그림 우물 항목(`data-layout="media"`)의 높이 64 · 여백 8 · 간격 6 · 반경 10 · 우물 48 · 반경 8 · 로고 24 · 글자 묶음 간격 2 · 이름 16 · 설명 12 가
+  `figma/components.measured.json` 의 `menu-media-item.media` 와 같고, 두 테마에서 이름 · 설명 · 배지가 쉼 · 호버 · 선택 면 위 4.5:1 을 넘는다
+  (`packages/react/test/menu-media-item.browser.test.tsx`).
 
 이 테스트와 Figma variant가 연결되고 알려진 편차가 닫히기 전에는 `stable`로 승격하지 않는다.

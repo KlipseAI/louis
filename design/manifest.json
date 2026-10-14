@@ -1805,6 +1805,15 @@
       "generated": false
     },
     {
+      "id": "decision-menu-media-item",
+      "path": "design/governance/decisions/DS-D-0103-menu-media-item.md",
+      "title": "DS-D-0103 영상 모델 메뉴의 행을 Menu 항목의 그림 우물 변형으로 — 새 모델 피커가 아니라 data-layout=\"media\" 한 칸이다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -2118,6 +2127,7 @@
         "design/governance/decisions/DS-D-0053-select-is-not-a-menu.md",
         "design/governance/decisions/DS-D-0102-canvas-dots.md",
         "design/governance/decisions/DS-D-0106-canvas-editor-surfaces-map-to-existing-parts.md",
+        "design/governance/decisions/DS-D-0103-menu-media-item.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
@@ -2707,7 +2717,8 @@
         "MenuPanel",
         "MenuSeparator",
         "CompositePopover",
-        "MenuTrigger"
+        "MenuTrigger",
+        "MenuMediaItem"
       ]
     },
     {

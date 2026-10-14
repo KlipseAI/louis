@@ -328,6 +328,92 @@
   }
 }
 
+/* ── 그림 우물 항목 (`data-layout="media"`) ──────────────────────────────────
+ *
+ * 근거: 2026-10-15, 영상 모델 메뉴(통합 판 `54b62a8aa` `components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx:149-166` 의 `ROW_BASE` ·
+ * `:181-184` 의 `MODEL_ICON` · `:251-283` 의 이름 · 배지 · 설명, DS-D-0103). 두 줄 항목에 **48 우물**(브랜드 로고 24 를 담는 면)이 앞에 서고,
+ * 이름 줄 끝에 배지(`.louis-badge`)가 붙는다. 여백이 사방 8 · 우물과 글자 사이 6 이고 행은 가운데 정렬이다(우물이 두 줄보다 크다).
+ *
+ * - 이름은 `body-md-medium`(제품 `type-body-16-medium`) · `fg-primary`. 메뉴의 다른 항목보다 한 단 크다 — 모델 이름이 행의 주인공이다.
+ * - 설명은 `caption-regular` · **`fg-secondary`**. 제품 48% 는 tertiary 칸인데, 두 줄 항목의 tertiary 가 하이라이트 면(다크 8%) 위 4.28 로
+ *   미달하므로(위 한 줄 항목 주석) 고쳐 올린다(DS-D-0084 3항). 설명은 한 줄 말줄임이다 — 제품의 호버 마퀴는 옮기지 않는다(문서 Known deviations).
+ * - 우물 면은 `accent-secondary`(제품과 같은 칸 — 팝오버 안 한 단). 로고는 제3자 자산이라 레시피가 단색화하지 않는다(원장 ProviderGlyph `scoped`).
+ * - 플랜 잠김 행은 따로 그리지 않는다 — 배지 글자가 「필요한 플랜」을 말하고 행은 누를 수 있다(누르면 업그레이드 안내). 제품의 보라 면 · 0.78
+ *   흐림은 옮기지 않는다(DS-D-0103 판정 3). */
+.louis-menu__item[data-layout="media"] {
+  align-items: center;
+  padding: var(--louis-space-control-sm);
+  white-space: nowrap;
+}
+
+.louis-menu__item-media {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  /* 48. 제품 `w-24 h-24`(Tailwind 단위 2px). 아이콘 사다리 xl(64) · lg(24) 사이라 토큰이 없다 — 두 줄 글자 높이(24 + 2 + 18 = 44)를 덮는 우물. */
+  inline-size: 48px;
+  block-size: 48px;
+  overflow: hidden;
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-accent-secondary);
+}
+
+.louis-menu__item-media > :where(img, svg, span) {
+  display: block;
+  inline-size: var(--louis-icon-size-lg);
+  block-size: var(--louis-icon-size-lg);
+  object-fit: contain;
+}
+
+.louis-menu__item[data-layout="media"] .louis-menu__item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+}
+
+/* 이름 + 배지 한 줄. 배지는 끝으로 밀린다(제품 `ml-auto`). */
+.louis-menu__item-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--louis-space-overlay-item-content-gap);
+  min-inline-size: 0;
+}
+
+.louis-menu__item-heading > .louis-badge {
+  flex: none;
+  margin-inline-start: auto;
+}
+
+.louis-menu__item:where([data-layout="media"]) .louis-menu__item-description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--louis-color-fg-secondary);
+}
+
+.louis-menu__item[data-layout="media"]:disabled .louis-menu__item-label,
+.louis-menu__item[data-layout="media"][aria-disabled="true"] .louis-menu__item-label {
+  color: inherit;
+}
+
+.louis-menu__item[data-layout="media"]:disabled .louis-menu__item-media,
+.louis-menu__item[data-layout="media"][aria-disabled="true"] .louis-menu__item-media {
+  opacity: 0.4;
+}
+
+@media (forced-colors: active) {
+  .louis-menu__item:where([data-layout="media"]) .louis-menu__item-label,
+  .louis-menu__item:where([data-layout="media"]) .louis-menu__item-description {
+    color: inherit;
+  }
+}
+
 .louis-menu__item-trailing {
   flex: none;
   color: var(--louis-color-fg-secondary);

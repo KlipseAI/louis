@@ -10,7 +10,7 @@ authority: normative
 
 | 항목 | 값 |
 | --- | --- |
-| Figma | `partial` — component set 발행됨, 기하 계약 · 기록 · 되재기가 걸려 있다(DS-D-0035 (c)) |
+| Figma | `done` — component set 발행됨, 기하 계약 · 기록 · 되재기가 걸려 있다(DS-D-0035 (c)) — 2026-10-14 레시피 · 되재기 `breadcrumb-geometry.browser.test.tsx` 로 done(DS-D-0035) |
 | 코드 | CSS 레시피 `packages/css/src/component/breadcrumb.css`(2026-10-14). React 표면은 없다 |
 
 ## 왜 있는가

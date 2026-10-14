@@ -18188,6 +18188,17 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-14 (273) — 새 CSS 레시피 다섯과 Figma done 다섯 — breadcrumb · form-message · carousel-arrow · gnb-menu-item · inline-loading-label
+
+- **새 레시피.** 문서와 제품 근거만 있고 LOUIS 코드가 없던 다섯에 CSS 레시피를 세웠다(`packages/css/src/component/<id>.css`, 새 토큰 0).
+  breadcrumb(가로 간격 4 · body-md medium · 현재 칸 `fg-primary` + `aria-current` · 부모와 구분자 `fg-tertiary`), form-message(시작 여백 4 · caption 12/18 ·
+  `data-tone="error"` 는 `fg-danger`), carousel-arrow(32 × 32 · 반경 12 · 랜딩 판 면 · hairline), gnb-menu-item(높이 28 · 좌우 12, 959 이하 8 · 알약 · 잉크 불투명도
+  사다리), inline-loading-label(스피너 슬롯 16 · 12, 열림 여백 6 · 4, 닫히면 폭 0).
+- **figma `partial` → `done` 다섯** — 기하 계약 · 레시피에서 잰 기록 · 되재기(`*-geometry.browser.test.tsx`)가 DS-D-0035 를 채운다. Figma 되읽기와 어긋남이 없다.
+  manifest done 67 → 72. web 은 React 표면이 없어 `not-ready` 그대로다.
+- **보이는 차이(레시피를 쓸 때)** — breadcrumb 의 부모 48% · 구분자 32% 잉크를 글자 토큰에 맞춰 `fg-tertiary` 하나로 접었다, carousel-arrow 캐럿은 원시
+  `gray/000` 대신 시맨틱 `fg-primary` 다(컴포넌트 CSS 는 원시 토큰을 쓰지 않는다).
+
 #### 2026-10-14 (272) — 늘림 수정 둘째 판, 단체 구매 실패 · 편집기 · 캔버스 스테이지 화면을 Figma 대응으로(DS-D-0098)
 
 - **조립 규칙 15조의 13 · 14 · 15.** 감싸개를 접을 때 grid 칸 정렬을 자식이 넘겨받는다, NONE 부모 안에서 제약으로 늘어나는 자동 배치 프레임은 NONE 으로

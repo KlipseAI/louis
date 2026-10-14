@@ -987,7 +987,8 @@ const SIZING_CODE = (verdict) => {
 // **제약 코드도 같은 함정이다(2026-10-08).** 첫 글자만 쓰면 `MIN` 과 `MAX` 가 둘 다 `"M"` 이 되어 렌더러(`CONSTRAINT` — M · A · S · C)가
 // 오른쪽에 붙은 절대 배치를 모두 왼쪽 고정으로 읽었다 — `/aws/signup` 오른쪽 위 모서리 단추(`right: 20px`)가 보드를 1440 으로 줄이자
 // 1864 에 남아 보드 밖으로 460 나갔다(늘림 시험). 렌더러와 같은 표로 옮긴다.
-const CONSTRAINT_CODES = { MIN: "M", MAX: "A", STRETCH: "S", CENTER: "C" };
+// SCALE(K) 는 스크립트가 무대 크기로 자리를 쓰는 층이다(2026-10-14, 조립 규칙 15조의 8 · figma-tree-spec constraintsFor).
+const CONSTRAINT_CODES = { MIN: "M", MAX: "A", STRETCH: "S", CENTER: "C", SCALE: "K" };
 const CONSTRAINT_CODE = (value) => {
   const code = CONSTRAINT_CODES[value];
   if (!code) throw new Error(`[figma-app-screens] 알 수 없는 제약: ${value}`);

@@ -1,5 +1,5 @@
 // 시험용 복제본, 끝에 지움 — 보드 반응 탐침(scripts/build-figma-resize-probe.mjs 가 쓴다). 원본 보드는 복제만 한다.
-const RUN = "2026-10-12b", PAGE_ID = "246:3447", OFFSET = 0, LIMIT = 10, SLOT = 0;
+const RUN = "2026-10-14a", PAGE_ID = "246:3447", OFFSET = 0, LIMIT = 10, SLOT = 0;
 const RE = /^(desktop|mobile) \d+×\d+ — /;
 const work = await figma.getNodeByIdAsync("699:2");
 if (!work || work.type !== "PAGE") throw new Error("work page not found");
@@ -14,6 +14,10 @@ const collect = (n, depth) => {
 };
 for (const c of page.children) collect(c, 0);
 const slice = boards.slice(OFFSET, OFFSET + LIMIT);
+// 복제본을 작업 페이지로 옮기려면 글꼴이 실려 있어야 한다(appendChild 가 unloaded font 로 멈춘다).
+const fonts = new Set();
+for (const b of slice) for (const t of b.findAllWithCriteria({ types: ["TEXT"] })) for (const f of t.getRangeAllFontNames(0, t.characters.length)) fonts.add(JSON.stringify(f));
+for (const f of fonts) await figma.loadFontAsync(JSON.parse(f));
 const FRAMEISH = { FRAME: 1, COMPONENT: 1, INSTANCE: 1, COMPONENT_SET: 1 };
 const r1 = (v) => Math.round(v * 10) / 10;
 const r3 = (v) => Math.round(v * 1000) / 1000;
@@ -39,7 +43,9 @@ function measure(board, base) {
     if (p && p !== board.parent && FRAMEISH[p.type]) {
       const pb = p.absoluteBoundingBox;
       const dx = Math.max(bb.x + bb.width - (pb.x + pb.width), pb.x - bb.x);
-      const dy = Math.max(bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
+      // 문서 뿌리(보드의 세로 HUG 자식)가 보드 아래로 길어진 것은 부모 밖이 아니다 — 제품 문서는 줄이 늘면 길어진다(DS-D-0098 의 문서 보드 예외).
+      const documentRoot = p === board && n.layoutSizingVertical === "HUG";
+      const dy = Math.max(documentRoot ? 0 : bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
       if (dx > 0.5 || dy > 0.5) { parent++; pset.add(path); if (base && !base.pset.has(path)) parentNew++; }
       if (n.type === "TEXT" && n.textAutoResize !== "WIDTH_AND_HEIGHT" && bb.width > pb.width + 0.5) {
         text++; tset.add(path); if (base && !base.tset.has(path)) textNew++;

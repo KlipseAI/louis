@@ -26,7 +26,15 @@
 //      → 기록 속 `"probe":"figma-resize"` + 같은 run 의 응답만 모아 figma/resize-check.json 을 다시 쓴다.
 //        응답을 손으로 옮기지 않는다(유니코드가 전송 중 바뀐다 — figma-live-assets-probe 와 같은 길).
 //        보낸 code 도 같은 기록에서 꺼내 러너 파일과 맞댄다(다르면 멈춘다).
+//   3) 페이지만 다시 재기(2026-10-14):  code <run> --pages 01-public · merge <run> --pages 01-public <기록>...
+//      → 그 페이지의 조각만 쓰고, merge 는 그 페이지만 새 응답으로 바꾸고 나머지 페이지는 원장에 있던 것을 그대로 둔다.
+//        페이지마다 잰 run 은 `pageRuns` 에 남는다(원장의 `run` 은 마지막으로 merge 한 run). 다른 페이지를 건드리지 않고
+//        고친 보드가 있는 페이지만 다시 잴 때 쓴다 — 동시에 다른 작업이 보낸 보드가 기준선에 섞여 들어오지 않게.
 //   판정은 scripts/check-figma-resize.mjs 가 한다.
+//
+// **문서 뿌리의 세로 길어짐은 부모 밖이 아니다(2026-10-14).** 보드의 세로 HUG 자식(문서 길이 보드의 뿌리)이 폭 시험에서 줄이 늘어
+// 보드 아래로 길어지면 전에는 부모 밖(pn)으로 셌다 — 랜딩 모바일 360 에서 FAQ 답 · 푸터 링크가 한 줄씩 늘어 뿌리가 보드보다 32 길어졌다.
+// 제품 문서도 그렇게 길어진다(DS-D-0098 의 문서 보드 예외와 같은 이유). 보드 바로 아래 HUG 자식은 아래쪽 넘침을 세지 않는다 — 위 · 옆은 그대로 센다.
 import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -72,6 +80,10 @@ const collect = (n, depth) => {
 };
 for (const c of page.children) collect(c, 0);
 const slice = boards.slice(OFFSET, OFFSET + LIMIT);
+// 복제본을 작업 페이지로 옮기려면 글꼴이 실려 있어야 한다(appendChild 가 unloaded font 로 멈춘다).
+const fonts = new Set();
+for (const b of slice) for (const t of b.findAllWithCriteria({ types: ["TEXT"] })) for (const f of t.getRangeAllFontNames(0, t.characters.length)) fonts.add(JSON.stringify(f));
+for (const f of fonts) await figma.loadFontAsync(JSON.parse(f));
 const FRAMEISH = { FRAME: 1, COMPONENT: 1, INSTANCE: 1, COMPONENT_SET: 1 };
 const r1 = (v) => Math.round(v * 10) / 10;
 const r3 = (v) => Math.round(v * 1000) / 1000;
@@ -97,7 +109,9 @@ function measure(board, base) {
     if (p && p !== board.parent && FRAMEISH[p.type]) {
       const pb = p.absoluteBoundingBox;
       const dx = Math.max(bb.x + bb.width - (pb.x + pb.width), pb.x - bb.x);
-      const dy = Math.max(bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
+      // 문서 뿌리(보드의 세로 HUG 자식)가 보드 아래로 길어진 것은 부모 밖이 아니다 — 제품 문서는 줄이 늘면 길어진다(DS-D-0098 의 문서 보드 예외).
+      const documentRoot = p === board && n.layoutSizingVertical === "HUG";
+      const dy = Math.max(documentRoot ? 0 : bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
       if (dx > 0.5 || dy > 0.5) { parent++; pset.add(path); if (base && !base.pset.has(path)) parentNew++; }
       if (n.type === "TEXT" && n.textAutoResize !== "WIDTH_AND_HEIGHT" && bb.width > pb.width + 0.5) {
         text++; tset.add(path); if (base && !base.tset.has(path)) textNew++;
@@ -162,9 +176,10 @@ return { probe: "figma-resize", run: RUN, kind: "page", page: { id: page.id, nam
 `;
 }
 
-function chunkFiles() {
+function chunkFiles(only = null) {
   const files = [];
   for (const { slug, id, limit } of PAGES) {
+    if (only && !only.includes(slug)) continue;
     for (let offset = 0; offset < BOARD_COUNT[id]; offset += limit) {
       files.push({ slug, id, offset, limit, slot: files.length, path: `figma/resize-probe.${slug}.${String(offset).padStart(2, "0")}.draw.js` });
     }
@@ -209,7 +224,7 @@ function parseProbe(text) {
 
 const sha = (s) => createHash("sha256").update(s).digest("hex");
 
-function merge(run, paths) {
+function merge(run, paths, only = null) {
   const sent = new Map(); // tool_use id → code
   const found = []; // { obj, toolUseId }
   for (const file of jsonlFiles(paths)) {
@@ -233,12 +248,22 @@ function merge(run, paths) {
     }
   }
   if (found.length === 0) fail(`run ${run} 의 응답이 기록에 없습니다`);
-  const files = chunkFiles();
+  const files = chunkFiles(only);
   const byKey = new Map();
   for (const f of found) byKey.set(`${f.obj.page.id}@${f.obj.offset}`, f); // 같은 조각을 두 번 떴으면 나중 것
-  const ledger = { fileKey: FILE_KEY, run, source: "scripts/build-figma-resize-probe.mjs (시험용 복제본, 끝에 지움)", mergedAt: new Date().toISOString(), sizes: { desktop: ["w1440", "w2560", "h130"], mobile: ["w360", "w430", "h130"] }, pages: [] };
+  const previous = only ? JSON.parse(readFileSync(resolve(repoRoot, LEDGER), "utf8")) : null;
+  const ledger = { fileKey: FILE_KEY, run, source: "scripts/build-figma-resize-probe.mjs (시험용 복제본, 끝에 지움)", mergedAt: new Date().toISOString(), sizes: { desktop: ["w1440", "w2560", "h130"], mobile: ["w360", "w430", "h130"] }, pageRuns: {}, pages: [] };
   const report = [];
   for (const { slug, id } of PAGES) {
+    if (only && !only.includes(slug)) {
+      const kept = previous.pages.find((page) => page.slug === slug);
+      if (!kept) fail(`${slug}: 원장에 없는 페이지는 남길 수 없습니다 — --pages 에 넣어 잰다`);
+      ledger.pages.push(kept);
+      ledger.pageRuns[slug] = previous.pageRuns?.[slug] ?? previous.run;
+      report.push(`${slug}: 그대로(${ledger.pageRuns[slug]})`);
+      continue;
+    }
+    ledger.pageRuns[slug] = run;
     const chunks = files.filter((f) => f.id === id);
     const boards = [];
     let pageName = null;
@@ -273,14 +298,18 @@ function merge(run, paths) {
   console.log(`[figma-resize-probe] → ${LEDGER}`);
 }
 
-const [cmd, run, ...rest] = process.argv.slice(2);
-if (!cmd || !run) fail("사용법: code <run> | merge <run> <jsonl|dir>...");
+const [cmd, run, ...args] = process.argv.slice(2);
+const pagesAt = args.indexOf("--pages");
+const only = pagesAt >= 0 ? String(args[pagesAt + 1] ?? "").split(",").filter(Boolean) : null;
+const rest = pagesAt >= 0 ? args.filter((_, index) => index !== pagesAt && index !== pagesAt + 1) : args;
+if (only) for (const slug of only) if (!PAGES.some((page) => page.slug === slug)) fail(`알 수 없는 페이지: ${slug}`);
+if (!cmd || !run) fail("사용법: code <run> [--pages a,b] | merge <run> [--pages a,b] <jsonl|dir>...");
 if (cmd === "code") {
-  for (const f of chunkFiles()) {
+  for (const f of chunkFiles(only)) {
     writeFileSync(resolve(repoRoot, f.path), runnerCode(run, f.id, f.offset, f.limit, f.slot), "utf8");
     console.log(`${f.path}  (${f.slug} offset ${f.offset} limit ${f.limit})`);
   }
 } else if (cmd === "merge") {
   if (rest.length === 0) fail("merge 에는 기록 경로가 필요합니다");
-  merge(run, rest);
+  merge(run, rest, only);
 } else fail(`알 수 없는 명령: ${cmd}`);

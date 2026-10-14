@@ -67,8 +67,20 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 그렇다** — 세로 flex · `items-start` 안의 nowrap 글자는 min-content 가 max-content 와 같아 열보다 좁아지지 않는다(크로미움 실측: 열 140 에 글자 172,
 // 말줄임 없음). HUG 가 제품과 같은 반응이라 FILL · 말줄임으로 바꾸지 않는다. 나머지 하나(하이라이트 완료 모바일 220:3759)는 폭 324
 // 고정 줄 안의 시간 글자 「1:30」 · 딱지 · 버튼 줄이 360 에서 밖으로 나간다(숨긴 `legacy//…` 묶음은 시험이 세지 않는다) — 조사 전.
+// run 2026-10-14a(01-public 만 다시 쟀다 — `merge --pages 01-public`, 나머지 네 페이지는 2026-10-12b 그대로): 01-public 넘침 11 → 5 ·
+// 부모 밖 15 → 10. 고친 셋 — ① 랜딩 하이라이트 · 끝 장면의 칸 · 카드(스크립트가 무대 크기로 `translate3d` 를 쓴다)가 MIN 으로 서서 1440 에서
+// 무대 밖으로 108 · 151, 360 에서 22 나갔다 → 뷰포트 무대의 변환 배치 층은 SCALE, 같은 여백의 모바일 제목 칸은 STRETCH(조립 규칙 15조의 8).
+// ② 공개 모바일 메뉴 판의 grid(366)가 360 에서 판 밖으로 24 — Figma 가 제약으로 줄어든 자동 배치 프레임의 FILL 자식을 다시 배치하지 않는다 →
+// `fixed` 겹침을 채운 외동 절대 자식을 흐름 FILL 로(15조의 9). 공개 모바일 일곱(/ · /pricing · /templates · /templates/[slug] · /blog ·
+// /blog/[slug] · /inquiry)을 다시 보냈다. ③ 탐침이 문서 뿌리(보드의 세로 HUG 자식)의 아래쪽 길어짐을 부모 밖으로 세던 것을 뺐다(랜딩 모바일
+// 360 의 뿌리 +32 · /pricing 모바일 +1.8 — FAQ 답 · 푸터 링크가 한 줄씩 늘어난 것, 제품 문서도 길어진다).
+// 남은 01-public 부모 밖 10: **데스크톱 1440 일곱(/ · /pricing · /templates · /templates/[slug] · /blog · /blog/[slug] · /inquiry)은 제품도
+// 그렇다** — 푸터 눈금자(`TimelineFooter.tsx` RULER — `relative overflow-hidden`, 눈금 글자 72 개가 `left: index × 60px`)의 오른쪽 끝을 가로지르는
+// 글자가 폭마다 바뀐다(크로미움 실측 앵커 54b62a8a: 1920 은 「00:29」 x 1908, 1440 은 눈금자 1272 에 「00:21」 x 1428 — 둘 다 잘린다). 랜딩 모바일
+// 360 하나는 뉴스 카드 제목 둘(`h3` line-clamp-2, 줄을 옮긴 HUG 145 / 칸 129)이다 — 15 조 「줄을 옮긴 글자」의 2026-10-12 판단(Figma 에서 줄 폭을
+// 재기 전에는 FILL 로 돌리지 않는다)에 걸려 남겼다. 나머지 둘은 /blog/[slug] 모바일 360(본문 그림 · 표 +26)과 /terms 모바일 360(목록 글자) — 조사 전.
 const BASELINE = {
-  "01-public": { overflow: 11, childOutside: 15, textClip: 1, heightFollow: 17, baseOverflow: 2 },
+  "01-public": { overflow: 5, childOutside: 10, textClip: 1, heightFollow: 17, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
   "03-app": { childOutside: 21, heightFollow: 2 },
   "04-billing": { childOutside: 8, heightFollow: 2 },

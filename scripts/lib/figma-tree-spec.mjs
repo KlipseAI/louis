@@ -1078,6 +1078,30 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     if (style.flexWrap === "wrap" && layoutMode !== "HORIZONTAL" && layoutMode !== "NONE") {
       stats.verticalWrap.push({ path: node.path, layoutMode });
     }
+    // **부모를 채운 외동 절대 자식은 흐름 자식 FILL 이다(2026-10-14, 조립 규칙 15조의 9).** 절대 자식만 둔 부모는 자동 배치 없이(NONE)
+    // 서고, `inset: 0` 자식은 두 축 STRETCH 제약으로 부모를 따라간다(15조의 2). 그런데 Figma 는 제약으로 크기가 바뀐 자동 배치 프레임의
+    // FILL 자식을 다시 배치하지 않는다 — 공개 모바일 메뉴 판(`fixed inset-0` 안의 `absolute inset-0` 세로 flex)을 360 으로 줄이자 판은
+    // 360 이 됐는데 그 안의 FILL grid 가 366 에 남아 판 밖으로 24 나갔다(늘림 시험 run 2026-10-12b, 공개 모바일 보드 전부의 넘침 2 ·
+    // 부모 밖 1). FILL 을 다시 걸면 324 로 풀린다(라이브 탐침) — 판을 세로 자동 배치로 두고 자식을 흐름 FILL 로 두면 처음부터 풀린다.
+    // 부모가 뷰포트 겹침(`position: fixed`)이고 · 자식이 하나이고 · 자동 배치를 가지며 · 두 축 STRETCH · 부모 상자와 자리 · 크기가 같고(0.5 안)
+    // · 부모에 패딩이 없을 때만 — CSS 에서 그 자식은 부모의 안쪽 상자 전체이고, 흐름 FILL 도 같은 상자다. 측정 크기의 자리 · 크기는 바뀌지
+    // 않는다. 흐름 안의 절대 부모(편집기 · 노드캔버스 · 랜딩 장면의 같은 모양)는 늘림 시험이 그 결함을 보이지 않아 넓히지 않았다.
+    if (layoutMode === "NONE" && style.position === "fixed" && children.length === 1 && soleSpanningChild(node, style, children[0])) {
+      const [only] = children;
+      children = [{
+        ...only,
+        positioning: "AUTO",
+        offset: null,
+        constraints: null,
+        sizing: { ...only.sizing, layoutSizingHorizontal: "FILL", layoutSizingVertical: "FILL", layoutPositioning: "AUTO" },
+        why: {
+          horizontal: { verdict: "FILL", reason: "부모를 채운 외동 절대 자식(inset 0) — 흐름 FILL 로 옮긴다(조립 규칙 15조의 9)", source: "inset:0", value: null },
+          vertical: { verdict: "FILL", reason: "부모를 채운 외동 절대 자식(inset 0) — 흐름 FILL 로 옮긴다(조립 규칙 15조의 9)", source: "inset:0", value: null },
+        },
+      }];
+      layoutMode = "VERTICAL";
+      stats.soleSpanningChildren = (stats.soleSpanningChildren ?? 0) + 1;
+    }
     // 늘어난 grid 행과 칸 안 정렬(gridStretchedRow · gridCellAlign 주석).
     const gridRow = layoutMode === "GRID"
       ? gridCellAlign(node, style, stretchedRow, children, (child) => byPath.get(child.path)?.declared ?? {})
@@ -1223,7 +1247,12 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       offset: decision.absolute && parent
         ? { x: node.rect.x - parent.rect.x, y: node.rect.y - parent.rect.y }
         : null,
-      constraints: decision.absolute ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null) : null,
+      constraints: decision.absolute
+        ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null, parent ? {
+          viewport: viewportStage(parent, byPath),
+          siblings: (childrenOf.get(parent.path) ?? []).filter((sibling) => sibling !== node),
+        } : null)
+        : null,
       why: { horizontal: decision.h, vertical: decision.v },
       // **자동 배치 없는 글자 상자의 안쪽 여백(2026-10-12 오후).** 입력칸처럼 자식 없이 글자(placeholder)를 그리는 면은 layout 이 null 이라
       // padding 이 실리지 않아, 렌더러가 글자를 면 전체에 펼쳤다 — 노드캔버스 레이어 검색칸(pl 28)의 「Search layers」 가 x 0 에서 돋보기와 겹쳤다.
@@ -1365,11 +1394,31 @@ export function collapseWrappers(node, stats = null) {
  * 없으면 부모 `align-items`)이 `center` 면 부모 교차축 가운데다. 연체 배너 닫기 단추(`position: absolute; right: 12px` · 배너는 가로
  * flex · `align-items: center`)가 MIN 으로 서면 배너 높이가 바뀔 때 위에 붙는다. 가로 flex 면 세로, 세로 flex 면 가로가 교차축이다.
  * 주축 정적 자리(`justify-content`)는 보지 않는다. 측정 폭의 자리는 바뀌지 않는다.
+ *
+ * **스크립트가 무대 크기로 자리를 쓰는 층은 SCALE 이다(2026-10-14, 조립 규칙 15조의 8).** 랜딩 하이라이트 · 끝 장면의 칸과 카드는
+ * `absolute left-0 top-0` 위에 스크립트가 무대(`stage.clientWidth`)에서 계산한 `translate3d(x, y)` · 폭 · 높이를 프레임마다 쓴다
+ * (`HighlightShowcase.tsx` · `highlightScene.ts` 의 `frame(scrolled, stage)`). 선언으로 보면 왼쪽 0 이라 MIN 이 되고, 측정 자리는
+ * 변환(translate) 안에만 있다 — 보드를 1920 → 1440 으로 줄이자 칸이 1379 · 카드가 1240 에 남아 무대 밖으로 108 · 151 나갔다(늘림
+ * 시험 run 2026-10-12b). 제품은 무대가 줄면 자리를 다시 계산해 무대 안에 둔다. 계산값의 변환이 이동만 있는 행렬이고 그 축의 이동이
+ * 0 이 아니며, 그 축의 시작 변 선언이 없거나 0 이고 끝 변 선언이 없으면 — 자리를 변환이 정했다 — 그 축을 무대에 비례(SCALE)로 둔다.
+ * 무대가 뷰포트 높이 단위로 선 상자일 때만(viewportStage) — 노드 캔버스의 React Flow 노드도 `translate` 로 서지만 창이 줄어도 캔버스 좌표에
+ * 머문다.
+ * `top: 50%` + `translateY(-50%)` 처럼 시작 변을 선언한 가운데 맞춤은 그 선언이 정한다(위 CENTER).
+ *
+ * **같은 무대의 같은 여백 상자는 STRETCH 다(2026-10-14, 15조의 8).** 그런 층을 형제로 둔 무대(`stageSiblings` 가운데 위 판정에 걸리는
+ * 형제가 있다)는 스크립트가 배치한다 — 모바일 제목 칸(`left: 20px; width: 362px`)은 `titleColumn(stage)` 의 `{ left: 20, width:
+ * stage.width - 40 }` 이다. 선언으로는 고정 폭이지만, 계산값의 양쪽 여백이 같으면(왼쪽 20 · 오른쪽 20) 무대 폭에서 여백을 뺀 폭이라
+ * 그 축을 STRETCH 로 둔다. 데스크톱 제목(왼쪽 192 · 오른쪽 1128)은 여백이 달라 그대로 MIN 이다.
  */
-export function constraintsFor(declared, computed = null, parentComputed = null) {
+export function constraintsFor(declared, computed = null, parentComputed = null, stage = null) {
   const has = (value) => value != null && value !== "auto" && value !== "";
   const position = computed?.position;
   const zero = (value) => px(value) === 0;
+  const placed = stage?.viewport ? transformPlacedAxes(declared, computed) : { horizontal: false, vertical: false };
+  const scriptStage = Boolean(stage?.viewport) && position === "absolute" && (stage.siblings ?? [])
+    .some((sibling) => { const axes = transformPlacedAxes(sibling.declared ?? {}, sibling.style ?? null); return axes.horizontal || axes.vertical; });
+  const equalInsets = (start, end, size) => scriptStage && px(declared[start]) > 0 && lengthDeclaredPx(declared[size]) && !has(declared[end])
+    && px(computed?.[start]) != null && Math.abs(px(computed[start]) - (px(computed?.[end]) ?? Number.NaN)) <= 0.5;
   const lengthDeclared = (value) => has(value) && px(String(value).replace(/\s*!\s*important\s*$/i, "")) != null;
   const spans = (start, end, size) => (position === "fixed" || (position === "absolute" && !lengthDeclared(declared[size])))
     && zero(computed[start]) && zero(computed[end]);
@@ -1382,12 +1431,67 @@ export function constraintsFor(declared, computed = null, parentComputed = null)
   const staticCentre = (cross, start, end) => cross && position === "absolute" && !has(declared[start]) && !has(declared[end])
     && /^(safe\s+|unsafe\s+)?center$/.test(String(crossAlign ?? "").trim());
   return {
-    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") ? "STRETCH"
+    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") || equalInsets("left", "right", "width") ? "STRETCH"
       : centred(declared.left) || (centred(declared.right) && !has(declared.left)) || staticCentre(flexColumn, "left", "right") ? "CENTER"
-        : has(declared.right) ? "MAX" : "MIN",
-    vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") ? "STRETCH"
+        : placed.horizontal ? "SCALE"
+          : has(declared.right) ? "MAX" : "MIN",
+    vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") || equalInsets("top", "bottom", "height") ? "STRETCH"
       : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) || staticCentre(flexRow, "top", "bottom") ? "CENTER"
-        : has(declared.bottom) ? "MAX" : "MIN",
+        : placed.vertical ? "SCALE"
+          : has(declared.bottom) ? "MAX" : "MIN",
+  };
+}
+
+/**
+ * 무대가 뷰포트 높이 단위로 선 상자인가(constraintsFor 의 SCALE 주석). 부모에서 시작해 `inset: 0`(네 변 0) 절대 상자를 건너 올라가
+ * 처음 만나는 상자의 높이 선언이 `100lvh` · `100svh` · `100dvh` · `100vh` 처럼 뷰포트 높이 단위면 참이다 — 랜딩 장면 무대(sticky
+ * `[height:100lvh]`)는 뷰포트 크기로 서고, 스크립트가 그 크기에서 층의 자리를 다시 계산한다. 노드 캔버스처럼 패널 안에서 이동 · 확대로
+ * 자리를 쓰는 층(React Flow 의 `translate`)은 무대가 뷰포트 단위가 아니라 빠진다 — 그 층은 창이 줄어도 캔버스 좌표에 머문다.
+ */
+function viewportStage(parent, byPath) {
+  const zero = (value) => /^0(px)?$/.test(String(value ?? "").trim());
+  let at = parent;
+  for (let hop = 0; at && hop < 4; hop++) {
+    const declared = at.declared ?? {};
+    const insetZero = at.style?.position === "absolute"
+      && (zero(declared.inset) || ["top", "right", "bottom", "left"].every((side) => zero(declared[side])));
+    if (!insetZero) return /^\d+(\.\d+)?(l|s|d)?vh$/.test(String(declared.height ?? "").trim());
+    at = byPath.get(at.parentPath);
+  }
+  return false;
+}
+
+/** 부모를 채운 외동 절대 자식인가(convert 의 15조의 9 주석). */
+function soleSpanningChild(node, style, child) {
+  if (child?.positioning !== "ABSOLUTE" || !child.layout) return false;
+  if (child.constraints?.horizontal !== "STRETCH" || child.constraints?.vertical !== "STRETCH") return false;
+  if (["paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth"]
+    .some((key) => (px(style[key]) ?? 0) !== 0)) return false;
+  const near = (a, b) => Math.abs(a - b) <= 0.5;
+  return near(child.rect.x, node.rect.x) && near(child.rect.y, node.rect.y)
+    && near(child.rect.width, node.rect.width) && near(child.rect.height, node.rect.height);
+}
+
+const lengthDeclaredPx = (value) => /^-?[\d.]+px$/.test(String(value ?? "").trim());
+
+/**
+ * 절대 배치의 자리를 변환이 정한 축(constraintsFor 의 SCALE 주석). 계산값 `transform` 이 이동만 있는 `matrix(1, 0, 0, 1, tx, ty)` 이고,
+ * 그 축의 이동이 0 이 아니며, 시작 변 선언이 없거나 0px 이고 끝 변 선언이 없을 때 그 축이 참이다.
+ */
+function transformPlacedAxes(declared, computed) {
+  const none = { horizontal: false, vertical: false };
+  if (computed?.position !== "absolute") return none;
+  const match = /^matrix\(\s*1,\s*0,\s*0,\s*1,\s*([-\d.e]+),\s*([-\d.e]+)\s*\)$/.exec(String(computed.transform ?? "").trim());
+  if (!match) return none;
+  const free = (start, end) => {
+    const startValue = String(declared[start] ?? "").trim();
+    const endValue = String(declared[end] ?? "").trim();
+    return (startValue === "" || startValue === "auto" || px(startValue) === 0) && (endValue === "" || endValue === "auto");
+  };
+  const moved = (value) => Math.abs(Number(value)) > 0.5;
+  return {
+    horizontal: moved(match[1]) && free("left", "right") && !String(declared.inset ?? "").trim(),
+    vertical: moved(match[2]) && free("top", "bottom") && !String(declared.inset ?? "").trim(),
   };
 }
 

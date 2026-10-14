@@ -27,7 +27,7 @@
 
 const MODE = { V: "VERTICAL", H: "HORIZONTAL", G: "GRID" };
 const SIZE = { F: "FILL", H: "HUG", A: "FIXED" };
-const CONSTRAINT = { M: "MIN", A: "MAX", S: "STRETCH", C: "CENTER" };
+const CONSTRAINT = { M: "MIN", A: "MAX", S: "STRETCH", C: "CENTER", K: "SCALE" };
 const WEIGHT_STYLE = { 400: "Regular", 500: "Medium", 600: "SemiBold", 700: "Bold" };
 const ALIGN = { center: "CENTER", right: "RIGHT", justify: "JUSTIFIED" };
 

@@ -1033,6 +1033,48 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "missing",
     why: "어드민 사용자 표 머리의 정렬 단추(`aria-label` 「Sort by Joined, descending」)가 활성 열 옆에 그리는 내림차순 화살표다 — 10 상자에 세로 선 하나와 아래 화살촉, 1.4 획(`app/admin/AdminClient.tsx:626-633`, 오름차순이면 같은 자리에 위 화살표). 표에 사용자가 한 명이라도 있어야 머리가 서므로 프로필 시드(2026-10-15)부터 재졌다. LOUIS 화살표는 `arrow-up` 뿐이고 방향을 축으로 두지 않는다(위 `arrow-left` 와 같은 판정).",
   },
+  {
+    id: "check-12",
+    signature: "0 0 12 12|path(d=M2.5 6.3l2.2 2.2L9.5 3.7)",
+    louis: "icon/check",
+    verdict: "bespoke",
+    why: "캔버스 도움말 패널 「Make your first video」 단계 줄의 끝난 단계 표시(`components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx:612-614` — 12 상자 1.6 획 체크, 옆 글자 「Done」)다. LOUIS `icon/check` 와 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
+  },
+  {
+    id: "toolbar-chevron-left",
+    signature: "0 0 24 24|path(d=m15 18-6-6 6-6)",
+    louis: "icon/caret-left",
+    verdict: "bespoke",
+    why: "캔버스 툴바 글리프 `ToolbarIconChevronLeft`(`components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx:46` — 24 상자 상대 좌표 꺾쇠)다. 도움말 패널의 링크 행 끝 화살표(`CanvasHelpPanel.tsx:199`, `scaleX(-1)` 로 오른쪽을 본다)와 뒤로 단추(898)가 쓰고, 편집기 모바일 막대(`videoEditParts/mobileActionGlyphs.tsx:194`)도 같은 경로다. 기하는 배너 캐러셀의 `chevron-left`(M15 18L9 12L15 6)와 같지만 경로 문자열이 상대 좌표라 서명이 다르다. LOUIS `icon/caret-left` 와 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
+  },
+  {
+    id: "close-x-16",
+    signature: "0 0 16 16|path(d=M3 3l10 10M13 3L3 13)",
+    louis: "icon/x",
+    verdict: "bespoke",
+    why: "이미지 편집 모달(ImageEditModal) 머리의 닫기 단추(`aria-label` 「Close」, `components/scenes/create/node-canvas-v2/nodes/CropModal.tsx:767` — 16 상자 1.5 획 X)다. 스티커 예시 갤러리(`imageEditParts/ExampleGallery.tsx:85`)도 같은 경로다. LOUIS `icon/x` 와 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
+  },
+  {
+    id: "react-crop-mask",
+    signature: "|rect(width=100% height=100%)",
+    louis: null,
+    verdict: "missing",
+    why: "아이콘이 아니라 이미지 편집 모달 크롭 탭의 자르기 바깥 어둠 막(`react-image-crop` 의 `svg.ReactCrop__crop-mask` — 크롭 영역만 구멍 낸 mask 위 50% 검정 rect, `node_modules/react-image-crop/dist/index.js:410-428`, 제품은 `nodes/CropModal.tsx:12` 에서 `ReactCrop` 을 쓴다)이다. 크기가 크롭 상자를 그대로 덮는 장식이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
+  {
+    id: "angle-orbit-back",
+    signature: "0 0 200 200|ellipse(cx=100 cy=138 rx=30 ry=6)|ellipse(cx=100 cy=140 rx=66 ry=20)|circle(cx=100 cy=160 r=3.4)|circle(cx=146.66904755831212 cy=154.14213562373095 r=1.7)|circle(cx=166 cy=140 r=1.7)|circle(cx=146.66904755831214 cy=125.85786437626905 r=1.7)|circle(cx=100.00000000000001 cy=120 r=1.7)|circle(cx=53.33095244168787 cy=125.85786437626905 r=1.7)|circle(cx=34 cy=140 r=1.7)|circle(cx=53.330952441687856 cy=154.14213562373095 r=1.7)",
+    louis: null,
+    verdict: "missing",
+    why: "아이콘이 아니라 카메라 각도 모달(AngleModal) 스테이지의 궤도 뒤 레이어(`components/scenes/create/node-canvas-v2/nodes/AngleModal.tsx:612-660` — 200 상자 바닥 그림자 타원 · 궤도 타원 · 여덟 방위 눈금, 현재 방위 Front 가 r 3.4)다. 각도 값으로 좌표가 정해지는 조작 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
+  {
+    id: "angle-camera-marker",
+    signature: "0 0 200 200|g()|circle(cx=100 cy=160 r=1.4)|circle(cx=100 cy=160 r=4.4)",
+    louis: null,
+    verdict: "missing",
+    why: "아이콘이 아니라 카메라 각도 모달 스테이지의 앞쪽 카메라 표식(`components/scenes/create/node-canvas-v2/nodes/AngleModal.tsx:140-168` `CameraMarker` — 궤도면 발자국 r 1.4 · 표식 r 4.4, 높이 Eye level 이라 수직선 길이 0, 728 의 앞 레이어 svg 안)이다. 각도 값으로 좌표가 정해지는 조작 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

@@ -2744,21 +2744,26 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Signup Legal Agreements": 2,
   // 2026-10-08(저녁) — 오류 경계에서 돌아온 세션 화면의 세트(PRODUCT_PARTS 의 주석). 노드 카드 셋은 노드캔버스 프로젝트 데스크톱 보드에 하나씩,
   // 프로젝트 머리는 두 뷰포트, 모바일 타임라인은 편집기 모바일 보드 하나다. 모바일 캔버스의 카드(줌 0.19)는 데스크톱 variant 와 뷰포트가 달라 날노드다.
-  "Product/Canvas Text Node": 1,
-  "Product/Canvas Image Node": 1,
-  "Product/Canvas Video Node": 1,
+  // 2026-10-15(R2): 셋 다 1 → 2 — 패널 상태 레시피 `/nodecanvas?project= panel.help` 데스크톱 보드도 같은 캔버스(텍스트 → 이미지 → 비디오)다.
+  "Product/Canvas Text Node": 2,
+  "Product/Canvas Image Node": 2,
+  "Product/Canvas Video Node": 2,
   // 2026-10-14 — 나머지 노드 카드 다섯은 두 번째 노드캔버스 프로젝트에서 찍는데 그 화면은 보드가 없다(PRODUCT_PARTS 의 주석) — 0 이다.
   "Product/Canvas TTS Node": 0,
   "Product/Canvas BGM Node": 0,
   "Product/Canvas Edit Node": 0,
   "Product/Canvas YouTube Node": 0,
   "Product/Canvas Instagram Node": 0,
-  "Product/Project Header": 2,
+  // 2026-10-15(R2): 2 → 4 — 패널 상태 레시피 `/nodecanvas?project= panel.help` × 두 뷰포트에도 같은 프로젝트 머리가 선다.
+  "Product/Project Header": 4,
   "Product/Mobile Timeline": 1,
   // 같은 날 뒤: 줌 비율 트리거 — 노드캔버스 프로젝트 데스크톱 보드 하나(모바일 캔버스에는 이 컨트롤이 없다).
-  "Product/Canvas Zoom Trigger": 1,
+  // 2026-10-15(R2): 1 → 2 — 패널 상태 레시피 `/nodecanvas?project= panel.help` 데스크톱 보드(같은 캔버스 위 도움말 패널)에도 같은 트리거가 선다.
+  "Product/Canvas Zoom Trigger": 2,
   // 카드 안 부품은 카드 인스턴스가 서브트리를 통째로 가져가 보드에 따로 서지 않는다(생성 알약 · 제목 · LLM 결과 — 글자는 있다).
-  "Product/Node Generate Button": 0,
+  // 2026-10-15(R2): 0 → 2 — 패널 상태 레시피 `/nodecanvas?project= panel.image-edit` · `panel.angle` 데스크톱의 이미지 노드(쇼케이스 시드 — 프롬프트 ·
+  // GPT Image 2 · 9:16)는 카드 세트와 서명이 달라 카드가 날노드로 남고, 그 안의 「Regenerate」 생성 알약만 이 세트의 인스턴스가 된다.
+  "Product/Node Generate Button": 2,
   "Product/Node Title Label": 0,
   "Product/LLM Response Area": 0,
   // 글자가 없는 부품(aria-label · svg · img 뿐)은 매처가 보지 않는다 — 테마 순환 버튼과 같은 사정.
@@ -2794,8 +2799,12 @@ for (const entry of screens) {
 // **같은 결의 보류(2026-10-08 저녁).** 노드캔버스 프로젝트 모바일의 노드 카드 셋과 카드 안 글자 부품(제목 · LLM 결과 · 생성 알약)은 데스크톱
 // variant 와 글자 서열이 같지만 모바일 variant 를 일부러 세우지 않았다 — 캔버스 맞춤 줌이 0.19 배라 카드 76 폭 · 글자 4px 안팎의 축소판이다
 // (PRODUCT_PARTS 의 「캔버스 안 부품은 데스크톱 하나다」). 모바일 보드의 카드는 측정한 노드 그대로 그린다.
-const NODE_CANVAS_MOBILE_SKIPPED = ["0.0", "0.0.0.0.0.1", "0.0.1.0.4.0.0", "0.0.1.0.5.0.0.2.1.0.1", "1.0", "1.0.1.0.5.0.0.1.0.1.0.0.1", "2.0", "2.0.1.0.5.0.0.3.0.1.0.0.1"]
-  .map((tail) => `/nodecanvas?project= @ mobile-402x874 · ${NODE_CANVAS}.${tail}`);
+// 2026-10-15(R2): 같은 캔버스 문서 위에 도움말 패널을 연 상태 레시피 보드(`/nodecanvas?project= panel.help`)도 같은 여덟 자리다.
+const NODE_CANVAS_MOBILE_SKIPPED = ["/nodecanvas?project=", "/nodecanvas?project= panel.help"].flatMap((route) =>
+  ["0.0", "0.0.0.0.0.1", "0.0.1.0.4.0.0", "0.0.1.0.5.0.0.2.1.0.1", "1.0", "1.0.1.0.5.0.0.1.0.1.0.0.1", "2.0", "2.0.1.0.5.0.0.3.0.1.0.0.1"]
+    .map((tail) => `${route} @ mobile-402x874 · ${NODE_CANVAS}.${tail}`))
+  // 같은 결 — 쇼케이스 이미지 노드 하나를 연 이미지 편집 · 카메라 각도 보드의 모바일 생성 알약(「Regenerate」, 줌 축소판).
+  .concat(["/nodecanvas?project= panel.image-edit", "/nodecanvas?project= panel.angle"].map((route) => `${route} @ mobile-402x874 · ${NODE_CANVAS}.0.0.1.0.5.0.0.2.0.1.0.0.1`));
 const CONTENT_SKIPPED_ALLOWED = new Set([...[1, 2, 3, 4].map((index) => `/pricing @ mobile-402x874 · body.1.0.0.2.0.0.1.${index}`), ...NODE_CANVAS_MOBILE_SKIPPED]);
 const contentSkippedUnexpected = contentSkipped.filter((line) => !CONTENT_SKIPPED_ALLOWED.has(line.split(":")[0]));
 if (contentSkippedUnexpected.length > 0) fail(`본문 세트 치환이 사유와 함께 보류됐습니다 — 세트 plan 이나 매처가 제품과 어긋났습니다:\n  ${contentSkippedUnexpected.join("\n  ")}`);

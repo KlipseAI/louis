@@ -2756,8 +2756,9 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Canvas Instagram Node": 0,
   // 2026-10-15(R2): 2 → 4 — 패널 상태 레시피 `/nodecanvas?project= panel.help` × 두 뷰포트에도 같은 프로젝트 머리가 선다.
   "Product/Project Header": 4,
-  // 2026-10-15(R2): 1 → 2 — 패널 상태 레시피 `/videoeditor/[projectId] panel.clip-color` 모바일 보드(클립을 고른 같은 편집기)에도 타임라인이 선다.
-  "Product/Mobile Timeline": 2,
+  // 2026-10-15(R2): 1 → 4 — 패널 상태 레시피 `/videoeditor/[projectId] panel.clip-color` · `panel.assets` · `panel.settings` 모바일 보드(같은 편집기에
+  // 속성 · 에셋 시트를 연 상태)에도 타임라인이 선다.
+  "Product/Mobile Timeline": 4,
   // 같은 날 뒤: 줌 비율 트리거 — 노드캔버스 프로젝트 데스크톱 보드 하나(모바일 캔버스에는 이 컨트롤이 없다).
   // 2026-10-15(R2): 1 → 2 — 패널 상태 레시피 `/nodecanvas?project= panel.help` 데스크톱 보드(같은 캔버스 위 도움말 패널)에도 같은 트리거가 선다.
   "Product/Canvas Zoom Trigger": 2,

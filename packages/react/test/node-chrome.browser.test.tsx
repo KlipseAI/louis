@@ -25,6 +25,7 @@ import "../../css/src/component/node-shell.css";
 import "../../css/src/component/node-chrome-button.css";
 import "../../css/src/component/node-side-handle.css";
 import "../../css/src/component/node-chip.css";
+import { parseColor } from "./fixtures/contrast";
 
 const shellSpec = measured.components["node-shell"].sizes;
 const buttonSpec = measured.components["node-chrome-button"].sizes;
@@ -46,7 +47,7 @@ const button = (key: string): number =>
     "node-chrome-button.sizes.md/neutral/Default",
   );
 const handle = (key: string): number =>
-  sizeOf(handleSpec.image as Record<string, unknown>, key, "node-side-handle.sizes.image");
+  sizeOf(handleSpec["image/Default"] as Record<string, unknown>, key, "node-side-handle.sizes.image/Default");
 
 const px = (value: string): number => Number.parseFloat(value);
 
@@ -150,11 +151,14 @@ function Shell({
   );
 }
 
+const CHANNELS = ["image", "text", "edit", "audio", "youtube", "instagram"] as const;
+type Channel = (typeof CHANNELS)[number];
+
 function Handle({
   channel,
   disabled = false,
 }: {
-  channel: "image" | "text" | "edit";
+  channel: Channel;
   disabled?: boolean;
 }): JSX.Element {
   return (
@@ -170,7 +174,7 @@ function Handle({
         className="louis-node-side-handle__facet"
         data-testid={`facet-${channel}${disabled ? "-off" : ""}`}
       >
-        <span className="louis-node-side-handle__glyph" data-testid={`hglyph-${channel}`} />
+        <span className="louis-node-side-handle__glyph" data-testid={`hglyph-${channel}${disabled ? "-off" : ""}`} />
       </span>
     </button>
   );
@@ -349,6 +353,48 @@ test("비활성 크롬 버튼이 불투명도로만 갈린다", async () => {
   expect(style.backgroundColor).toBe("rgba(0, 0, 0, 0)");
 });
 
+// 호버 틴트의 모드 쌍(DS-D-0099). 제품은 중립 라이트 검정 8% · 다크 흰 12%, 삭제 red 8% · 12%, sm 8% · 16% 다.
+// 진짜 포인터를 옮기지 않고 **두 칸**을 잰다 — 토큰이 그 쌍을 갖는가, 그리고 호버 규칙이 그 토큰을 읽는가.
+// 앞 칸만 재면 규칙이 옛 `accent-ghost-hover`(두 모드 8%)로 돌아가도 초록이다.
+function hoverRuleBackgrounds(): string[] {
+  const out: string[] = [];
+  const walk = (rules: CSSRuleList): void => {
+    for (const rule of Array.from(rules)) {
+      if (rule instanceof CSSStyleRule && rule.selectorText.includes(".louis-node-chrome-button") && rule.selectorText.includes(":hover")) {
+        const value = rule.style.getPropertyValue("background");
+        if (value !== "") out.push(`${rule.selectorText} => ${value}`);
+      } else if ("cssRules" in rule) walk((rule as CSSGroupingRule).cssRules);
+    }
+  };
+  for (const sheet of Array.from(document.styleSheets)) walk(sheet.cssRules);
+  return out;
+}
+
+test("크롬 버튼 호버 틴트가 모드 쌍 토큰을 읽는다", async () => {
+  await render(<span />);
+  // [채널 r · g · b(0~255), 알파] — 라이트 / 다크. 다크의 흰색은 palette-gray-000(#fafafa)이다(제품 `--palette-gray-000-rgb`).
+  const expected: Record<string, Record<"light" | "dark", readonly [number, number, number, number]>> = {
+    "color-node-chrome-hover": { light: [0, 0, 0, 0.08], dark: [250, 250, 250, 0.12] },
+    "color-node-chrome-hover-sm": { light: [23, 27, 34, 0.08], dark: [250, 250, 250, 0.16] },
+    "color-node-chrome-danger-hover": { light: [255, 75, 89, 0.08], dark: [255, 75, 89, 0.12] },
+  };
+  for (const theme of ["light", "dark"] as const) {
+    document.documentElement.setAttribute("data-theme", theme);
+    for (const [token, pair] of Object.entries(expected)) {
+      const got = parseColor(tokenColor(token));
+      const want = pair[theme];
+      for (let i = 0; i < 3; i += 1) expect(Math.abs((got[i] ?? 0) - want[i]!), `${theme} ${token} 채널 ${i}`).toBeLessThan(1);
+      expect(got[3], `${theme} ${token} 알파`).toBeCloseTo(want[3], 3);
+    }
+  }
+  document.documentElement.removeAttribute("data-theme");
+  const rules = hoverRuleBackgrounds().join("\n");
+  expect(rules).toContain("var(--louis-color-node-chrome-hover)");
+  expect(rules).toContain("var(--louis-color-node-chrome-danger-hover)");
+  expect(rules).toContain("var(--louis-color-node-chrome-hover-sm)");
+  expect(rules).not.toContain("accent-ghost-hover");
+});
+
 test("사이드 핸들의 기하가 기록과 같고 디스크가 셸을 꽉 채운다", async () => {
   await render(<Handle channel="image" />);
   const shellBox = find("handle-image").getBoundingClientRect();
@@ -399,6 +445,48 @@ test("비활성 디스크가 채널별 비활성 토큰을 문다", async () => 
   const facet = getComputedStyle(find("facet-image-off"));
   expect(facet.backgroundColor).toBe(tokenColor("color-node-handle-bg-disabled-image"));
   expect(facet.color).toBe(tokenColor("color-node-handle-icon-disabled-image"));
+});
+
+// Figma NodeSideHandle 의 열두 칸(Channel 6 × State Default · Disabled, DS-D-0099)을 기록의 키마다 렌더해 맞댄다.
+// 기하는 열두 칸이 같지만 **칸마다 잰다** — 비활성에서 디스크가 줄거나 셸이 면을 얻으면 그 칸만 빨개진다.
+// 비활성 칸은 면 · 잉크가 그 채널의 비활성 토큰이고 안쪽 광(`::before`)이 꺼진다(Figma 는 INNER_SHADOW 가 없다).
+test("사이드 핸들 열두 칸이 기록의 키마다 같은 기하와 그 칸의 토큰을 갖는다", async () => {
+  await render(
+    <>
+      {CHANNELS.map((channel) => (
+        <Handle key={channel} channel={channel} />
+      ))}
+      {CHANNELS.map((channel) => (
+        <Handle key={`${channel}-off`} channel={channel} disabled />
+      ))}
+    </>,
+  );
+  const keys = Object.keys(handleSpec);
+  expect(keys.length).toBe(12);
+  for (const key of keys) {
+    const [channel, state] = key.split("/") as [Channel, "Default" | "Disabled"];
+    const spec = handleSpec[key as keyof typeof handleSpec] as Record<string, unknown>;
+    const suffix = state === "Disabled" ? "-off" : "";
+    const label = `node-side-handle.sizes.${key}`;
+    const shell = find(`handle-${channel}${suffix}`).getBoundingClientRect();
+    expect(shell.width, `${key} 폭`).toBe(sizeOf(spec, "width", label));
+    expect(shell.height, `${key} 높이`).toBe(sizeOf(spec, "height", label));
+    expect(px(getComputedStyle(find(`handle-${channel}${suffix}`)).borderTopLeftRadius), `${key} 반경`).toBe(sizeOf(spec, "radius", label));
+    const facetNode = find(`facet-${channel}${suffix}`);
+    expect(facetNode.getBoundingClientRect().width, `${key} 디스크`).toBe(sizeOf(spec, "facetSize", label));
+    expect(px(getComputedStyle(facetNode).borderTopLeftRadius), `${key} 디스크 반경`).toBe(sizeOf(spec, "facetRadius", label));
+    expect(find(`hglyph-${channel}${suffix}`).getBoundingClientRect().width, `${key} 글리프`).toBe(sizeOf(spec, "glyphSize", label));
+    const facet = getComputedStyle(facetNode);
+    const glow = getComputedStyle(facetNode, "::before").display;
+    if (state === "Default") {
+      expect(facet.backgroundColor, `${key} 면`).toBe(tokenColor(`color-node-handle-icon-${channel}`));
+      expect(glow, `${key} 안쪽 광`).not.toBe("none");
+    } else {
+      expect(facet.backgroundColor, `${key} 면`).toBe(tokenColor(`color-node-handle-bg-disabled-${channel}`));
+      expect(facet.color, `${key} 잉크`).toBe(tokenColor(`color-node-handle-icon-disabled-${channel}`));
+      expect(glow, `${key} 안쪽 광`).toBe("none");
+    }
+  }
 });
 
 // ── 생성 버튼(2026-10-13, DS-D-0084) ────────────────────────────────────────

@@ -497,6 +497,9 @@
   --louis-color-node-chip-surface: color(srgb 0.921569 0.92549 0.933333 / 1);
   --louis-color-node-chip-surface-hover: color(srgb 0.862745 0.870588 0.882353 / 1);
   --louis-color-node-chrome-btn-bg: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --louis-color-node-chrome-danger-hover: color(srgb 1 0.294118 0.34902 / 0.08);
+  --louis-color-node-chrome-hover: color(srgb 0 0 0 / 0.08);
+  --louis-color-node-chrome-hover-sm: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --louis-color-node-composer-surface: color(srgb 1 1 1 / 1);
   --louis-color-node-edit-accent: color(srgb 0.376471 0.333333 1 / 1);
   --louis-color-node-edit-chip-foreground: color(srgb 0.207843 0.156863 0.721569 / 1);
@@ -1046,6 +1049,9 @@
   --louis-color-node-chip-surface: color(srgb 0.345098 0.360784 0.388235 / 1);
   --louis-color-node-chip-surface-hover: color(srgb 0.447059 0.458824 0.482353 / 1);
   --louis-color-node-chrome-btn-bg: color(srgb 0.254902 0.270588 0.298039 / 1);
+  --louis-color-node-chrome-danger-hover: color(srgb 1 0.294118 0.34902 / 0.12);
+  --louis-color-node-chrome-hover: color(srgb 0.980392 0.980392 0.980392 / 0.12);
+  --louis-color-node-chrome-hover-sm: color(srgb 0.980392 0.980392 0.980392 / 0.16);
   --louis-color-node-composer-surface: color(srgb 0.168627 0.184314 0.211765 / 1);
   --louis-color-node-edit-accent: color(srgb 0.376471 0.333333 1 / 1);
   --louis-color-node-edit-chip-foreground: color(srgb 0.615686 0.568627 1 / 1);

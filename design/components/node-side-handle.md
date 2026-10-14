@@ -31,9 +31,9 @@ InstagramNode · VideoNode 의 `instagram`(`[background:var(--node-handle-icon-{
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/node-side-handle.css`. React 표면은 없다 — 연결 핸들 배선은 소비처(React Flow)의 몫이라 감싸는 컴포넌트를 두면 그 배선이 LOUIS 로 넘어온다 |
-| Figma         | `partial`      | NodeSideHandle — Channel(image·text·edit) = 3 variant(audio · youtube · instagram 셋은 아직 — DS-D-0083). 슬롯: Glyph(INSTANCE_SWAP). 상태 축은 열지 않았다(아래) |
+| Figma         | `done`         | NodeSideHandle — Channel(image·text·edit·audio·youtube·instagram) × State(Default·Disabled) = 12 variant(2026-10-14, [DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)). 슬롯: Glyph(INSTANCE_SWAP). Disabled 는 면 `color/node/handle-bg-disabled-*` · 잉크 `handle-icon-disabled-*` 이고 안쪽 광이 없다. Hover · Active · 메뉴 열림은 열지 않았다(아래). 세트 · parity 계약 · 기하 실측 · 브라우저 되재기가 DS-D-0035 를 채운다 |
 | Documentation | `done`         | 이 문서 |
-| Maturity      | `experimental` | 상태 축 셋이 담기지 않았고 그 이유가 전부 「담을 수 없다」이다 |
+| Maturity      | `experimental` | React 표면이 없고 제품 렌더 대조(`$noProductRender`)가 아직이다. 호버 · 프레스는 Figma 가 표현할 수 없는 칸으로 남는다 |
 
 ## Anatomy
 
@@ -45,27 +45,29 @@ InstagramNode · VideoNode 의 `instagram`(`[background:var(--node-handle-icon-{
 - 레일 좌표는 이 컴포넌트가 갖지 않는다. 카드 패딩 박스에서 바깥으로 `--node-side-gap`,
   버튼끼리 세로 간격은 `--node-side-stack-gap` 이며 둘 다 캔버스가 소유한다.
 
-## 상태 축을 열지 않은 이유 셋
+## 상태 축 — 연 것 하나, 열지 않은 것 둘
 
-1. **Disabled 를 담을 변수가 없다.** 비활성 면이 라이트와 다크에서 **서로 다른 토큰**을 쓴다 —
-   다크는 `--node-handle-bg-disabled-{channel}`(채널 900), 라이트는 활성 토큰
-   `--node-handle-bg-{channel}`(채널 200)에 `brightness(0.78) saturate(0.95)` 를 건다. Figma
-   변수는 라이트/다크 쌍 하나라 그 둘을 담을 수 없고, 라이트 쪽은 필터라 값 자체가 없다.
-2. **Hover·Active 는 색이 아니라 필터다.** 호버는 `brightness(1.1)`, 프레스는 `brightness(0.94)`
+**Disabled 는 열었다(2026-10-14, [DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).** 예전 사유는 「비활성 면이
+라이트와 다크에서 서로 다른 토큰을 쓰고 라이트 쪽은 필터라 값이 없다」였다. [DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md)
+이 라이트 비활성 토큰 `color-node-handle-{bg,icon}-disabled-{채널}` 을 제품 필터(`brightness(0.78) saturate(0.95)`)를 구운 색으로 세워 그
+사유가 풀렸다 — 한 변수의 라이트/다크 쌍이 두 테마를 다 담는다. Figma `State=Disabled` 칸은 면 `color/node/handle-bg-disabled-{채널}` ·
+글리프 `color/node/handle-icon-disabled-{채널}` 에 묶이고 안쪽 광(INNER_SHADOW)이 없다 — 레시피가 비활성에서 `::before` 를 끄는 것과 같다.
+
+열지 않은 둘은 **Figma 가 표현할 수 없는 칸**이다.
+
+1. **Hover·Active 는 색이 아니라 필터다.** 호버는 `brightness(1.1)`, 프레스는 `brightness(0.94)`
    에 디스크 스케일 1.08/0.94다. 옮길 변수가 없고, 같은 면으로 그리면 「호버가 기본과 같다」는
-   거짓을 파일에 새긴다.
-3. **메뉴가 열린 상태는 기본과 시각이 같다.** 소스에서 `.buttonActive` 가 더하는 선언은
-   `filter: none` 하나뿐이고 면과 잉크는 기본 톤 그대로다. 축을 여는 것이 오히려 거짓이다.
-
-셋 다 「아직 안 했다」가 아니라 **「지금은 담을 수 없다」**이다. 1번은 새 세만틱 변수 여섯이
-서면 풀린다.
+   거짓을 파일에 새긴다. 값은 레시피와 이 문서 States 표가 갖는다.
+2. **메뉴가 열린 상태는 기본과 시각이 같다.** 소스에서 `.buttonActive` 가 더하는 선언은
+   `filter: none` 하나뿐이고 면과 잉크는 기본 톤 그대로다. `Open` 축을 여는 것이 오히려 거짓이다.
 
 ## Properties
 
 | 이름 | 종류 | 뜻 |
 | --- | --- | --- |
 | `Glyph` | 슬롯 (INSTANCE_SWAP) | 20px 글리프. 같은 채널 안에서도 자리마다 다르다 |
-| `Channel` | 축 (3) | `image` · `text` · `edit`. 디스크의 면 색을 가른다 |
+| `Channel` | 축 (6) | `image` · `text` · `edit` · `audio` · `youtube` · `instagram`. 디스크의 면 색을 가른다 |
+| `State` | 축 (2) | `Default` · `Disabled`. 비활성 토큰으로 가는 면 · 잉크와 꺼지는 안쪽 광 |
 
 레일 좌표·개수·순서는 이 컴포넌트가 갖지 않는다. 어느 채널 버튼이 몇 개 서는지는 노드 타입이
 정하고, 그 배치는 캔버스가 토큰으로 갖는다.
@@ -78,7 +80,7 @@ InstagramNode · VideoNode 의 `instagram`(`[background:var(--node-handle-icon-{
 | 호버 | `brightness(1.1)` + 디스크 `scale(1.08)` | 없다 — 색이 아니라 필터다 |
 | 프레스 | `brightness(0.94)` + 디스크 `scale(0.94)` | 없다 — 같은 이유 |
 | 메뉴 열림 | `filter: none` 만 더한다 = **기본과 같다** | 축을 열지 않는 것이 옳다 |
-| 비활성 | 다크는 채널 900 면 · 700 잉크, 라이트는 활성 토큰에 `brightness(0.78) saturate(0.95)` | 없다 — 라이트/다크가 다른 토큰이라 변수 하나에 담기지 않는다 |
+| 비활성 | 다크는 채널 900 면 · 700 잉크, 라이트는 제품 필터를 구운 비활성 토큰 · 안쪽 광 꺼짐 | 있다 — `State=Disabled`(DS-D-0099) |
 
 ## Content
 
@@ -106,9 +108,9 @@ InstagramNode · VideoNode 의 `instagram`(`[background:var(--node-handle-icon-{
 `verify-recipe-record` 는 그 칸을 볼 수 없고, 렌더해야만 나온다. 실제로 디스크 폭을 24 로
 바꿔 두고 돌려 보면 이 시험만 빨개진다(`expected 24 to be 28`).
 
-상태 축 셋이 Figma 에 담기지 않은 사유는 `figma/components.measured.json` 의
-`$whyNoDisabledVariant` · `$whyNoHoverVariant` 가 그대로 갖는다 — recipe 가 섰다고 그 사유가
-풀리지는 않는다. 호버·프레스의 밝기와 스케일은 코드에는 있고 Figma 에는 없다.
+「사이드 핸들 열두 칸」 시험이 Figma 의 열두 칸(Channel 6 × State 2)을 기록의 키마다 렌더해 기하 · 면 · 잉크 · 안쪽 광의
+유무를 맞댄다(DS-D-0035 (c)). 호버 · 프레스를 Figma 에 담지 않은 사유는 `figma/components.measured.json` 의
+`$whyNoHoverVariant` 가 갖는다 — 밝기와 스케일은 코드에는 있고 Figma 에는 없다.
 
 ## Known deviations
 

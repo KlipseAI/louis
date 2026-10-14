@@ -8572,6 +8572,57 @@
           ]
         ],
         [
+          "color/node/chrome-danger-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red-alpha/08",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red-alpha/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node/chrome-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-pure-black-alpha/08",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/node/chrome-hover-sm",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-black-alpha/08",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/16",
+              null
+            ]
+          ]
+        ],
+        [
           "color/node/handle-bg-audio",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -24293,7 +24344,7 @@
       "effects": {}
     },
     "NodeSideHandle": {
-      "variantCount": 3,
+      "variantCount": 12,
       "hasDescription": true,
       "properties": {
         "Glyph": {
@@ -24304,12 +24355,22 @@
           "options": [
             "image",
             "text",
-            "edit"
+            "edit",
+            "audio",
+            "youtube",
+            "instagram"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Disabled"
           ]
         }
       },
       "binding": {
-        "boundFills": 3,
+        "boundFills": 12,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -24317,7 +24378,7 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "image": {
+        "image/Default": {
           "slots": {
             "Glyph": [
               "20x20"
@@ -24375,7 +24436,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "text": {
+        "text/Default": {
           "slots": {
             "Glyph": [
               "20x20"
@@ -24433,7 +24494,529 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "edit": {
+        "edit/Default": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "audio/Default": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "youtube/Default": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "instagram/Default": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "image/Disabled": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "text/Disabled": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "edit/Disabled": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "audio/Disabled": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "youtube/Disabled": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {
+            "Facet": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "instagram/Disabled": {
           "slots": {
             "Glyph": [
               "20x20"

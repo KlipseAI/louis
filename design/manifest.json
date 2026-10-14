@@ -446,6 +446,15 @@
       "generated": false
     },
     {
+      "id": "decision-figma-partials-close",
+      "path": "design/governance/decisions/DS-D-0099-figma-partials-close.md",
+      "title": "DS-D-0099 Figma partial 넷을 닫는다 — 노드 크롬 호버 쌍 · 사이드 핸들 비활성 · Media Card · Step Tile 의 「어느 쪽이 정본인가」",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -2080,6 +2089,7 @@
         "design/governance/decisions/DS-D-0096-date-picker.md",
         "design/governance/decisions/DS-D-0097-color-picker.md",
         "design/governance/decisions/DS-D-0098-screen-surface-closes-on-filled-board.md",
+        "design/governance/decisions/DS-D-0099-figma-partials-close.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -3151,9 +3161,9 @@
       "name": "Node Chrome Button",
       "figmaName": "NodeChromeButton",
       "doc": "design/components/node-chrome-button.md",
-      "note": "노드 카드 헤더의 32px 아이콘 버튼 쌍(다운로드·삭제). LOUIS recipe 는 packages/css/src/component/node-chrome-button.css 이고 제품 NodeHeaderActions.tsx 가 값의 정본이다 — 치수만 노드 크롬 토큰에서 받고 면은 투명, 호버에서만 틴트가 뜬다. Figma 는 NodeChromeButton 6 variant(Tone 2 × State 3)로 섰다. Active(scale 0.94)와 Success(복사→체크)는 열지 않았고 사유를 문서가 갖는다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다(Alert·Switch·NodeChip 과 같은 형태 — 감싸는 컴포넌트를 요구하는 소비처가 없다). figma 가 partial 인 이유는 호버 틴트 알파가 다크에서 4%p 갈리기 때문이다(라이트/다크 쌍을 담을 변수가 없다). 브라우저 되재기는 packages/react/test/node-chrome.browser.test.tsx 가 셋을 한 파일로 갖는다.",
+      "note": "노드 카드 헤더의 32px 아이콘 버튼 쌍(다운로드·삭제). LOUIS recipe 는 packages/css/src/component/node-chrome-button.css 이고 제품 NodeHeaderActions.tsx 가 값의 정본이다 — 치수만 노드 크롬 토큰에서 받고 면은 투명, 호버에서만 틴트가 뜬다. Figma 는 NodeChromeButton 9 variant(Size md · sm × Tone 2 × State 3, sm 은 neutral 만)로 섰다. Active(scale 0.94)와 Success(복사→체크)는 열지 않았고 사유를 문서가 갖는다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다(Alert·Switch·NodeChip 과 같은 형태 — 감싸는 컴포넌트를 요구하는 소비처가 없다). 호버 틴트는 2026-10-14 부터 노드 크롬 전용 시맨틱 셋(color-node-chrome-hover · -danger-hover · -hover-sm)이 제품의 라이트/다크 쌍을 갖고 Figma Hover 세 칸이 같은 이름의 변수에 묶였다(DS-D-0099) — 전에는 두 모드 8% 에 물려 다크가 4%p 얕았다. figma 는 2026-10-14 에 done 이다 — 같은 파일의 세트 · parity 계약 · 기하 실측 · 브라우저 되재기가 DS-D-0035 를 채운다(verify-figma-done). 브라우저 되재기는 packages/react/test/node-chrome.browser.test.tsx 가 셋을 한 파일로 갖는다.",
       "maturity": "experimental",
-      "figma": "partial",
+      "figma": "done",
       "web": "partial",
       "docs": "done"
     },
@@ -3476,9 +3486,9 @@
       "name": "Node Side Handle",
       "figmaName": "NodeSideHandle",
       "doc": "design/components/node-side-handle.md",
-      "note": "노드 카드 좌우 레일의 28px 채널 버튼. LOUIS recipe 는 packages/css/src/component/node-side-handle.css 이고 제품 NodeSideButtons.tsx 의 TargetButton 이 값의 정본이다. 표면 원장이 적은 채널 여섯은 틀렸다 — SideTone 타입이 image·text·edit 셋이다. Figma 는 NodeSideHandle 3 variant(Channel)로 섰고 상태 축은 열지 않았다: 비활성 면이 라이트/다크에서 서로 다른 토큰을 쓰고, 호버·프레스는 색이 아니라 filter 이며, 메뉴 열림은 기본과 시각이 같다. recipe 는 그 셋을 코드로 갖되 라이트 비활성이 제품과 갈리며(문서 Known deviations 1) web 이 partial 인 이유는 React 표면이 없기 때문이다. 브라우저 되재기는 packages/react/test/node-chrome.browser.test.tsx 가 갖는다.",
+      "note": "노드 카드 좌우 레일의 28px 채널 버튼. LOUIS recipe 는 packages/css/src/component/node-side-handle.css 이고 제품 NodeSideButtons.tsx 의 TargetButton 이 값의 정본이다. 표면 원장이 적은 채널 여섯은 틀렸다 — SideTone 타입이 image·text·edit 셋이다. Figma 는 NodeSideHandle 12 variant(Channel 6 × State Default · Disabled)로 섰다(2026-10-14, DS-D-0099) — Disabled 는 면 · 잉크가 채널별 비활성 변수이고 안쪽 광이 없다. 호버 · 프레스는 색이 아니라 filter 라 Figma 가 표현할 수 없는 칸이고, 메뉴 열림은 기본과 시각이 같아 열지 않았다. web 이 partial 인 이유는 React 표면이 없기 때문이다. 브라우저 되재기는 packages/react/test/node-chrome.browser.test.tsx 가 갖는다. figma 는 2026-10-14 에 done 이다 — 같은 파일의 세트 · parity 계약 · 기하 실측 · 브라우저 되재기가 DS-D-0035 를 채운다(verify-figma-done).",
       "maturity": "experimental",
-      "figma": "partial",
+      "figma": "done",
       "web": "partial",
       "docs": "done"
     },

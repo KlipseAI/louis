@@ -26780,6 +26780,165 @@
             }
           }
         },
+        "color-node-chrome-danger-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node/chrome-danger-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$description": "노드 크롬 버튼 삭제 호버 틴트 — 제품 BUTTON_DANGER 의 red-500 라이트 8% · 다크 12% 쌍(DS-D-0099).",
+              "$value": "{primitive.color.red-alpha.12}",
+              "aliasTarget": {
+                "id": "color-red-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node.chrome-danger-hover"
+            },
+            "Light": {
+              "$description": "노드 크롬 버튼 삭제 호버 틴트 — 제품 BUTTON_DANGER 의 red-500 라이트 8% · 다크 12% 쌍(DS-D-0099).",
+              "$value": "{primitive.color.red-alpha.08}",
+              "aliasTarget": {
+                "id": "color-red-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.light.color.node.chrome-danger-hover"
+            }
+          }
+        },
+        "color-node-chrome-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node/chrome-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$description": "노드 크롬 버튼(도움말 · 다운로드) 호버 틴트 — 제품 NodeHeaderActions BUTTON_NEUTRAL 의 라이트 순검정 8%(rgb(0 0 0/8%)) · 다크 흰 12% 쌍(DS-D-0099). accent-ghost-hover 는 두 모드 8% 라 다크가 4%p 얕았다.",
+              "$value": "{primitive.color.static-white-alpha.12}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node.chrome-hover"
+            },
+            "Light": {
+              "$description": "노드 크롬 버튼(도움말 · 다운로드) 호버 틴트 — 제품 NodeHeaderActions BUTTON_NEUTRAL 의 라이트 순검정 8%(rgb(0 0 0/8%)) · 다크 흰 12% 쌍(DS-D-0099). accent-ghost-hover 는 두 모드 8% 라 다크가 4%p 얕았다.",
+              "$value": "{primitive.color.static-pure-black-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node.chrome-hover"
+            }
+          }
+        },
+        "color-node-chrome-hover-sm": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node/chrome-hover-sm",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$description": "노드 크롬 버튼 sm(28 복사 버튼) 호버 틴트 — 제품 NodePromptInputCopyButton 의 라이트 palette-gray-900 8% · 다크 흰 16% 쌍(DS-D-0099). static-black 이 palette-gray-900 과 같은 값이다.",
+              "$value": "{primitive.color.static-white-alpha.16}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node.chrome-hover-sm"
+            },
+            "Light": {
+              "$description": "노드 크롬 버튼 sm(28 복사 버튼) 호버 틴트 — 제품 NodePromptInputCopyButton 의 라이트 palette-gray-900 8% · 다크 흰 16% 쌍(DS-D-0099). static-black 이 palette-gray-900 과 같은 값이다.",
+              "$value": "{primitive.color.static-black-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.node.chrome-hover-sm"
+            }
+          }
+        },
         "color-node-composer-surface": {
           "$type": "color",
           "fields": [],

@@ -48,9 +48,9 @@ CSS 선언도 늘지 않았다.
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/node-chrome-button.css`. React 표면은 없다 — 소비처가 클래스를 물면 되는 자리다 |
-| Figma         | `partial`      | NodeChromeButton — Tone(neutral·danger) × State(Default·Hover·Disabled) = 6 variant. 슬롯: Glyph(INSTANCE_SWAP) |
+| Figma         | `done`         | NodeChromeButton — Size(md·sm) × Tone(neutral·danger) × State(Default·Hover·Disabled) = 9 variant(sm 은 neutral 만). 슬롯: Glyph(INSTANCE_SWAP). Hover 칸의 면은 `color/node/chrome-hover` · `-danger-hover` · `-hover-sm` 에 묶였다 — 라이트/다크 쌍이 제품과 같다(2026-10-14, [DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)). 세트 · parity 계약 · 기하 실측 · 브라우저 되재기가 DS-D-0035 를 채운다 |
 | Documentation | `done`         | 이 문서 |
-| Maturity      | `experimental` | Figma 가 코드보다 앞서 있고 호버 틴트 알파가 다크에서 갈린다 |
+| Maturity      | `experimental` | React 표면이 없고 제품 렌더 대조(`$noProductRender`)가 아직이다 |
 
 ## Anatomy
 
@@ -116,7 +116,8 @@ CSS 선언도 늘지 않았다.
 `background: transparent` 를 **이름으로** 고정한다 — 기본에 면이 하나 생기면 이 버튼이
 IconButton 의 `ghost` 와 구분되지 않고, 노드 크롬 축을 따로 두는 이유도 사라진다.
 
-호버 두 톤은 아직 재지 않는다. `:hover` 는 진짜 포인터를 옮겨야 하고, 이 저장소에서 남은
+호버 틴트는 **토큰과 규칙**으로 잰다(DS-D-0099) — 세 시맨틱이 두 테마에서 제품의 모드 쌍을 갖는지, 호버 규칙의 `background` 가
+그 이름을 읽는지. 호버 상태 자체는 아직 재지 않는다. `:hover` 는 진짜 포인터를 옮겨야 하고, 이 저장소에서 남은
 포인터가 다음 시험의 색을 바꾼 사고가 있어 `test/setup-styles.ts` 가 그 뒤처리를 갖는다 —
 톤 두 벌을 재려면 그 왕복을 두 번 더 얹게 되므로, 값이 갈리는 자리(잉크가 붉게 간다)를
 Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
@@ -144,7 +145,7 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
 | --- | --- | --- |
 | 상자 | 32 · 반경 `node-chrome-btn-radius`(12) | 28(`node-chrome-btn-h-sm`) · 반경 `radius-control-sm`(8) |
 | 글리프 | 16 | 14(칸 16 안에 겹침 둘) |
-| 호버 | 면 `accent-ghost-hover` | 면 같음 + 잉크 `fg-primary` 88% |
+| 호버 | 면 `node-chrome-hover`(라이트 순검정 8% · 다크 흰 12%) | 면 `node-chrome-hover-sm`(라이트 palette-gray-900 8% · 다크 흰 16%) + 잉크 `fg-primary` 88% |
 | 누름 | 0.94 | 0.96 |
 | 비활성 · 쉼 잉크 | 0.35 · `fg-secondary` | 같음 |
 
@@ -157,10 +158,12 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
 
 ## Known deviations
 
-1. **호버 틴트 알파가 다크에서 얕다.** 제품은 중립 호버를 라이트 검정 8% · 다크 흰 12% 로,
-   삭제 호버를 라이트 8% · 다크 12% 로 칠한다. Figma 는 `color/accent-ghost-hover`(양쪽 8%)와
-   `color/red-alpha/08`(양쪽 8%)에 물렸다 — 라이트는 정확히 같고 다크만 4%p 얕다. 12/8 쌍을
-   담을 변수가 없고 새 변수는 토큰 생성물을 다시 내야 한다.
+1. ~~**호버 틴트 알파가 다크에서 얕다.**~~ **2026-10-14 해소([DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).**
+   제품은 중립 호버를 라이트 순검정 8% · 다크 흰 12% 로, 삭제 호버를 red 라이트 8% · 다크 12% 로, sm 복사 버튼을 라이트
+   palette-gray-900 8% · 다크 흰 16% 로 칠한다. 전에는 두 모드 다 8% 인 `accent-ghost-hover` 와 `red-alpha/08` 에 물려 다크가
+   4%p(sm 8%p) 얕았다. 시맨틱 셋 `color-node-chrome-hover` · `-danger-hover` · `-hover-sm` 이 그 모드 쌍을 담고, Figma 변수
+   `color/node/chrome-*` 와 레시피가 같은 이름을 읽는다(토큰 · 변수 · CSS 한 변경, DS-D-0028). `node-chrome.browser.test.tsx`
+   가 두 테마의 값과 호버 규칙이 그 토큰을 읽는다는 것을 잰다.
 2. **Active 를 열지 않았다.** 제품의 `:active` 는 `transform: scale(0.94)` 다. 변형으로 그리려면
    프레임을 0.94배로 줄여야 하는데 그러면 기하 계약이 「눌린 크기」를 정본처럼 말하게 된다.
    프레스는 크기가 아니라 동작이므로 축이 아니라 이 문단이 값을 갖는다.
@@ -182,7 +185,7 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
    두 단에서 한 단으로 줄었다 — [Node Shell](node-shell.md) Known deviations 3.
 8. **sm 의 잉크와 비활성이 제품과 다르다(DS-D-0084 §3).** 제품은 잉크 `palette-gray-500` 고정이고(다크 입력판 위 2.91:1)
    비활성에서 불투명도 대신 잉크를 600/400 으로 바꾼다(`NodePromptInputCopyButton.tsx:34-45`). 레시피는 md 의 `fg-secondary`
-   (5.63:1)와 0.35 를 물려받는다. 호버 면 다크도 제품 16% 대 8% 다 — 1 과 같은 칸이다.
+   (5.63:1)와 0.35 를 물려받는다. 호버 면은 2026-10-14 부터 제품 그대로다(라이트 8% · 다크 16%, `node-chrome-hover-sm` — 1 과 같은 회차에 풀렸다).
 9. **복사됨을 화면 읽기 도구에 알리지 않는다** — 제품 그대로다. 문서가 권하는 live 영역은 호출부 몫이다.
 
 ## Related

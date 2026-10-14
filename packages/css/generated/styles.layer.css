@@ -11030,10 +11030,11 @@
    * **같은 토큰을 쓰지만 이 컴포넌트가 아닌 자리가 있다.** 메타 툴바의 알약(`node-chip`)은 좌우
    * 패딩과 면을 갖는다. 이 버튼만 치수(`-h`·`-radius`)만 빌려 쓰고 면을 쓰지 않는다.
    *
-   * **호버 틴트의 알파가 다크에서 제품과 갈린다.** 제품은 중립을 라이트 검정 8% · 다크 흰 12% 로,
-   * 삭제를 라이트 8% · 다크 12% 로 칠한다. 여기서는 두 테마 다 8% 인 세만틱에 문다 — 12/8 쌍을
-   * 담을 변수가 없고 새 변수는 토큰 생성물을 다시 내야 한다. Figma 도 같은 8% 에 물려 있어
-   * 세 곳이 같은 값이고, 갈리는 칸은 문서 Known deviations 1 이 소유한다. */
+   * **호버 틴트는 노드 크롬 전용 시맨틱 셋이 갖는다(2026-10-14, DS-D-0099).** 제품은 중립을 라이트 검정 8% ·
+   * 다크 흰 12% 로, 삭제를 라이트 red 8% · 다크 12% 로, sm 복사 버튼을 라이트 8% · 다크 16% 로 칠한다. 전에는 두
+   * 모드 다 8% 인 `accent-ghost-hover` 와 `color-mix(accent-danger 8%)` 에 물려 다크가 4%p(sm 8%p) 얕았다.
+   * `color-node-chrome-hover` · `-hover-sm` · `-danger-hover` 가 그 모드 쌍을 담고 Figma 변수
+   * `color/node/chrome-*` 가 같은 값이다 — 토큰 · 변수 · CSS 셋이 한 변경에서 섰다(DS-D-0028). */
 
   .louis-node-chrome-button {
     box-sizing: border-box;
@@ -11074,19 +11075,18 @@
     /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
     /* 중립(도움말 · 다운로드) 호버 — 면만 얹고 잉크는 그대로 둔다. */
     .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
-      background: var(--louis-color-accent-ghost-hover);
+      background: var(--louis-color-node-chrome-hover);
     }
 
     /* 삭제 호버 — **잉크까지 붉게 간다.** 두 톤이 갈리는 것은 면이 아니라 잉크이고, 그래서
      * `Tone` 이 축이고 글리프는 슬롯이다.
      *
-     * 면은 `accent-danger` 를 8% 로 섞어 만든다. 같은 값의 원시 토큰(`color-red-alpha-08`)이
-     * 있지만 component CSS 는 primitive 를 직접 소비하지 않는 것이 이 저장소의 규칙이고, 저작
-     * 게이트가 그것을 강제한다 — 섞어 만든 색은 그 원시 칸과 바이트 단위로 같다. */
+     * 면은 `node-chrome-danger-hover`(라이트 red-alpha 08 · 다크 12)다. 전에는 `accent-danger` 를 8% 로
+     * 섞어 두 모드가 같았다 — 다크 12% 를 담을 이름이 없었기 때문이다(DS-D-0099). */
     .louis-node-chrome-button[data-tone="danger"]:where(
         :not(:disabled):not([aria-disabled="true"])
       ):hover {
-      background: color-mix(in srgb, var(--louis-color-accent-danger) 8%, transparent);
+      background: var(--louis-color-node-chrome-danger-hover);
       color: var(--louis-color-accent-danger);
     }
   }
@@ -11191,11 +11191,13 @@
   @media (hover: hover) {
     /* sm 호버는 잉크까지 올린다 — 제품 다크 palette-gray-000 88% · 라이트 palette-gray-900 88%(:27 · :30).
      * `fg-primary` 가 정확히 그 두 칸(라이트 pg-900 · 다크 pg-000)이라 88% 를 섞으면 바이트 단위로 같다.
-     * 면은 md 의 `accent-ghost-hover` 를 물려받는다 — 제품은 다크 16% 라 다크만 갈린다(Known deviations 1 과 같은 칸).
+     * 면은 `node-chrome-hover-sm`(라이트 8% · 다크 16%)이다 — 제품 다크 16% 를 그대로 담는다(DS-D-0099).
+     * 라이트는 제품 palette-gray-900 8% 그대로다 — md 의 순검정 8% 와 다른 칸이라 토큰이 따로 섰다.
      * sm 에 삭제 톤은 없다. */
     .louis-node-chrome-button[data-size="sm"]:where(:not([data-tone="danger"])):where(
         :not(:disabled):not([aria-disabled="true"])
       ):hover {
+      background: var(--louis-color-node-chrome-hover-sm);
       color: color-mix(in srgb, var(--louis-color-fg-primary) 88%, transparent);
     }
   }

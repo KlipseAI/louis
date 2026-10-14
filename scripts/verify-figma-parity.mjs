@@ -5754,9 +5754,14 @@ const COMPONENT_CONTRACTS = [
           "채널 글리프는 호출부가 넘기는 자식이다(`icon={<ImageIcon …/>}`). 같은 채널 안에서도 자리마다 다르다 — image 채널이 시작 프레임에서는 align-left, 끝 프레임에서는 align-right 를 쓴다.",
       },
       Channel: {
-        options: ["image", "text", "edit"],
+        options: ["image", "text", "edit", "audio", "youtube", "instagram"],
         reason:
-          "제품 `NodeSideButtons.tsx:518` 의 `type SideTone = \"image\" | \"text\" | \"edit\"` 이 정본이다. `Tone` 을 쓰지 않은 이유는 그 어휘가 의미 톤(neutral·info·success·warning·danger)만 담기 때문이고, 이 셋은 의미가 아니라 **이음새로 흐르는 것의 종류**다 — globals.css 가 같은 것을 「채널」이라 부른다.",
+          "코드의 `data-channel` 여섯이다(DS-D-0083 — 제품 `NodeSideButtons.tsx` 의 `SideTone` 셋에 노드 파일들이 원판 면으로 칠하는 audio · youtube · instagram 셋). `Tone` 을 쓰지 않은 이유는 그 어휘가 의미 톤(neutral·info·success·warning·danger)만 담기 때문이고, 이 여섯은 의미가 아니라 **이음새로 흐르는 것의 종류**다 — globals.css 가 같은 것을 「채널」이라 부른다.",
+      },
+      State: {
+        options: ["Default", "Disabled"],
+        reason:
+          "Disabled 는 DOM 속성(`disabled` · `aria-disabled`)이다 — 면 · 잉크가 채널별 비활성 토큰으로 가고 안쪽 광이 꺼진다(DS-D-0099). Hover · Active 는 `filter: brightness()` 와 디스크 `scale()` 이라 색 변수로 옮길 값이 없어 열지 않았고, 메뉴 열림(`aria-expanded`)은 `filter: none` 만 더해 기본과 시각이 같아 Open 을 열지 않았다 — 사유는 measured 의 `$whyNoHoverVariant` 가 갖는다.",
       },
     },
     geometry: {

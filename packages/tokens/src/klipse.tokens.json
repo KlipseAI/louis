@@ -10076,6 +10076,39 @@
               }
             }
           },
+          "chrome-hover": {
+            "$value": "{primitive.color.static-pure-black-alpha.08}",
+            "$description": "노드 크롬 버튼(도움말 · 다운로드) 호버 틴트 — 제품 NodeHeaderActions BUTTON_NEUTRAL 의 라이트 순검정 8%(rgb(0 0 0/8%)) · 다크 흰 12% 쌍(DS-D-0099). accent-ghost-hover 는 두 모드 8% 라 다크가 4%p 얕았다.",
+            "$extensions": {
+              "com.klipse-design": {
+                "id": "color-node-chrome-hover",
+                "tier": "semantic",
+                "mode": "light"
+              }
+            }
+          },
+          "chrome-hover-sm": {
+            "$value": "{primitive.color.static-black-alpha.08}",
+            "$description": "노드 크롬 버튼 sm(28 복사 버튼) 호버 틴트 — 제품 NodePromptInputCopyButton 의 라이트 palette-gray-900 8% · 다크 흰 16% 쌍(DS-D-0099). static-black 이 palette-gray-900 과 같은 값이다.",
+            "$extensions": {
+              "com.klipse-design": {
+                "id": "color-node-chrome-hover-sm",
+                "tier": "semantic",
+                "mode": "light"
+              }
+            }
+          },
+          "chrome-danger-hover": {
+            "$value": "{primitive.color.red-alpha.08}",
+            "$description": "노드 크롬 버튼 삭제 호버 틴트 — 제품 BUTTON_DANGER 의 red-500 라이트 8% · 다크 12% 쌍(DS-D-0099).",
+            "$extensions": {
+              "com.klipse-design": {
+                "id": "color-node-chrome-danger-hover",
+                "tier": "semantic",
+                "mode": "light"
+              }
+            }
+          },
           "handle-bg-audio": {
             "$value": "{primitive.color.pink.200}",
             "$extensions": {
@@ -12746,6 +12779,39 @@
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-chrome-btn-bg",
+                "tier": "semantic",
+                "mode": "dark"
+              }
+            }
+          },
+          "chrome-hover": {
+            "$value": "{primitive.color.static-white-alpha.12}",
+            "$description": "노드 크롬 버튼(도움말 · 다운로드) 호버 틴트 — 제품 NodeHeaderActions BUTTON_NEUTRAL 의 라이트 순검정 8%(rgb(0 0 0/8%)) · 다크 흰 12% 쌍(DS-D-0099). accent-ghost-hover 는 두 모드 8% 라 다크가 4%p 얕았다.",
+            "$extensions": {
+              "com.klipse-design": {
+                "id": "color-node-chrome-hover",
+                "tier": "semantic",
+                "mode": "dark"
+              }
+            }
+          },
+          "chrome-hover-sm": {
+            "$value": "{primitive.color.static-white-alpha.16}",
+            "$description": "노드 크롬 버튼 sm(28 복사 버튼) 호버 틴트 — 제품 NodePromptInputCopyButton 의 라이트 palette-gray-900 8% · 다크 흰 16% 쌍(DS-D-0099). static-black 이 palette-gray-900 과 같은 값이다.",
+            "$extensions": {
+              "com.klipse-design": {
+                "id": "color-node-chrome-hover-sm",
+                "tier": "semantic",
+                "mode": "dark"
+              }
+            }
+          },
+          "chrome-danger-hover": {
+            "$value": "{primitive.color.red-alpha.12}",
+            "$description": "노드 크롬 버튼 삭제 호버 틴트 — 제품 BUTTON_DANGER 의 red-500 라이트 8% · 다크 12% 쌍(DS-D-0099).",
+            "$extensions": {
+              "com.klipse-design": {
+                "id": "color-node-chrome-danger-hover",
                 "tier": "semantic",
                 "mode": "dark"
               }

@@ -186,6 +186,9 @@
   --color-node-chip-surface: var(--louis-color-node-chip-surface);
   --color-node-chip-surface-hover: var(--louis-color-node-chip-surface-hover);
   --color-node-chrome-btn-bg: var(--louis-color-node-chrome-btn-bg);
+  --color-node-chrome-danger-hover: var(--louis-color-node-chrome-danger-hover);
+  --color-node-chrome-hover: var(--louis-color-node-chrome-hover);
+  --color-node-chrome-hover-sm: var(--louis-color-node-chrome-hover-sm);
   --color-node-composer-surface: var(--louis-color-node-composer-surface);
   --color-node-edit-accent: var(--louis-color-node-edit-accent);
   --color-node-edit-chip-foreground: var(--louis-color-node-edit-chip-foreground);

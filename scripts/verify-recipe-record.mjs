@@ -226,14 +226,14 @@ const RECIPES = [
     component: "node-side-handle",
     recipe: "packages/css/src/component/node-side-handle.css",
     geometry: [
-      [".louis-node-side-handle", "inline-size", "image", "width"],
-      [".louis-node-side-handle", "block-size", "image", "height"],
-      [".louis-node-side-handle", "border-radius", "image", "radius"],
+      [".louis-node-side-handle", "inline-size", "image/Default", "width"],
+      [".louis-node-side-handle", "block-size", "image/Default", "height"],
+      [".louis-node-side-handle", "border-radius", "image/Default", "radius"],
       // 디스크의 28 · 8 은 표에 없다 — 레시피가 그것을 수로 적지 않고 `100%` 와 `inherit` 로
       // 적기 때문이다. **관계가 계약이고 수는 그 결과**라서, 수로 바꿔 적게 만들면 셸이
       // 움직였을 때 디스크만 남는 사고가 오히려 열린다.
-      [".louis-node-side-handle__glyph", "inline-size", "image", "glyphSize"],
-      [".louis-node-side-handle__glyph", "block-size", "image", "glyphSize"],
+      [".louis-node-side-handle__glyph", "inline-size", "image/Default", "glyphSize"],
+      [".louis-node-side-handle__glyph", "block-size", "image/Default", "glyphSize"],
     ],
     // 셸은 투명하고 채색은 디스크가 갖는다. 셸에 면이 붙으면 호버 스케일이 클릭 영역을
     // 흔든다 — 제품이 셸과 디스크를 나눈 이유가 그것이다.

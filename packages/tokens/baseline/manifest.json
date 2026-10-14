@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "26126fff75a62e1627fd48fc6c224b956028651c46c8d894ed78acc13775386a"
+      "sha256": "48753ba5826f2c70579872c3a3e44258d058574437dbe524603d4e2d294224b6"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "2e775a466f2e6ab125fb3fab65641a7c9f4848dbe1e439bb2dbe283e60a2bfb8"
+      "sha256": "d632908d1881311fb8192b4b6e2d0f2f58d6f06ca5e1df6740c52c5dab03e819"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "271b2f4a2b017c4c433ac21c0014b85076525764e8cdc8ea9482234885a51464"
+      "sha256": "01a84c9acdfd87e99fa6b92d0f52fddcf86b161cdd50573f5993678330458f81"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "0c32141971b6d491fc14d8e758b47ce547bb60b8c6c9963e68e9ebf03eb1a9c9"
+      "sha256": "a942840d9587e3e5f90c7a1811354bb671d91f7df9e510afd834c6cc42a39a00"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "bf8cd6bacdc26c841cc04ef88f9349e88829c5f05a15216ba30edd9ea444d9e9"
+      "sha256": "2536aa8e2e0cd24008dc9df46d67b79487c0a92c8e28d30c6775a137c10a07ce"
     }
   ],
   "contrastPairs": [
@@ -539,13 +539,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "8c0f3f580dd9f52c318832b71674a4c21cd47026fe50a5c5913bc9f6f4d1624a"
+    "sha256": "9e36e691950e98951c916d8748cec1fb3ac53c8eb85605646d748e1320409c0b"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 966,
+  "tokenCount": 994,
   "tokens": [
     {
       "aliasTarget": {
@@ -10631,6 +10631,162 @@
     },
     {
       "aliasTarget": {
+        "id": "color-red-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chrome-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.08)"
+      },
+      "deprecated": null,
+      "description": "노드 크롬 버튼 삭제 호버 틴트 — 제품 BUTTON_DANGER 의 red-500 라이트 8% · 다크 12% 쌍(DS-D-0099).",
+      "id": "color-node-chrome-danger-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.08}",
+      "resolvedValue": {
+        "alpha": 0.08,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.node.chrome-danger-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chrome-danger-hover": "color(srgb 1 0.294118 0.34902 / 0.12)"
+      },
+      "deprecated": null,
+      "description": "노드 크롬 버튼 삭제 호버 틴트 — 제품 BUTTON_DANGER 의 red-500 라이트 8% · 다크 12% 쌍(DS-D-0099).",
+      "id": "color-node-chrome-danger-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.12}",
+      "resolvedValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node.chrome-danger-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-pure-black-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chrome-hover": "color(srgb 0 0 0 / 0.08)"
+      },
+      "deprecated": null,
+      "description": "노드 크롬 버튼(도움말 · 다운로드) 호버 틴트 — 제품 NodeHeaderActions BUTTON_NEUTRAL 의 라이트 순검정 8%(rgb(0 0 0/8%)) · 다크 흰 12% 쌍(DS-D-0099). accent-ghost-hover 는 두 모드 8% 라 다크가 4%p 얕았다.",
+      "id": "color-node-chrome-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-pure-black-alpha.08}",
+      "resolvedValue": {
+        "alpha": 0.08,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.node.chrome-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chrome-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
+      },
+      "deprecated": null,
+      "description": "노드 크롬 버튼(도움말 · 다운로드) 호버 틴트 — 제품 NodeHeaderActions BUTTON_NEUTRAL 의 라이트 순검정 8%(rgb(0 0 0/8%)) · 다크 흰 12% 쌍(DS-D-0099). accent-ghost-hover 는 두 모드 8% 라 다크가 4%p 얕았다.",
+      "id": "color-node-chrome-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.12}",
+      "resolvedValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node.chrome-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chrome-hover-sm": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
+      },
+      "deprecated": null,
+      "description": "노드 크롬 버튼 sm(28 복사 버튼) 호버 틴트 — 제품 NodePromptInputCopyButton 의 라이트 palette-gray-900 8% · 다크 흰 16% 쌍(DS-D-0099). static-black 이 palette-gray-900 과 같은 값이다.",
+      "id": "color-node-chrome-hover-sm",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
+      "resolvedValue": {
+        "alpha": 0.08,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.light.color.node.chrome-hover-sm",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-chrome-hover-sm": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
+      },
+      "deprecated": null,
+      "description": "노드 크롬 버튼 sm(28 복사 버튼) 호버 틴트 — 제품 NodePromptInputCopyButton 의 라이트 palette-gray-900 8% · 다크 흰 16% 쌍(DS-D-0099). static-black 이 palette-gray-900 과 같은 값이다.",
+      "id": "color-node-chrome-hover-sm",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.16}",
+      "resolvedValue": {
+        "alpha": 0.16,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.node.chrome-hover-sm",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
         "id": "color-static-white",
         "mode": "base"
       },
@@ -15030,6 +15186,198 @@
     {
       "aliasTarget": null,
       "cssProperties": {
+        "--louis-color-pure-blue": "color(srgb 0 0 1 / 1)",
+        "--louis-color-pure-blue-rgb": "0 0 255"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-pure-blue",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          1
+        ],
+        "hex": "#0000ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.pure.blue",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-pure-cyan": "color(srgb 0 1 1 / 1)",
+        "--louis-color-pure-cyan-rgb": "0 255 255"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-pure-cyan",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          1,
+          1
+        ],
+        "hex": "#00ffff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.pure.cyan",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-pure-green": "color(srgb 0 1 0 / 1)",
+        "--louis-color-pure-green-rgb": "0 255 0"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-pure-green",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          1,
+          0
+        ],
+        "hex": "#00ff00"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          1,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.pure.green",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-pure-magenta": "color(srgb 1 0 1 / 1)",
+        "--louis-color-pure-magenta-rgb": "255 0 255"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-pure-magenta",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0,
+          1
+        ],
+        "hex": "#ff00ff"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "primitive.color.pure.magenta",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-pure-red": "color(srgb 1 0 0 / 1)",
+        "--louis-color-pure-red-rgb": "255 0 0"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-pure-red",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0,
+          0
+        ],
+        "hex": "#ff0000"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.pure.red",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-pure-yellow": "color(srgb 1 1 0 / 1)",
+        "--louis-color-pure-yellow-rgb": "255 255 0"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-pure-yellow",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          0
+        ],
+        "hex": "#ffff00"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          0
+        ]
+      },
+      "sourcePath": "primitive.color.pure.yellow",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
         "--louis-color-red-100": "color(srgb 1 0.898039 0.909804 / 1)",
         "--louis-color-red-100-rgb": "255 229 232"
       },
@@ -15671,6 +16019,422 @@
         ]
       },
       "sourcePath": "semantic.dark.color.segment-track-clip-stroke",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-black",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-black": "color(srgb 0 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-black",
+      "mode": "light",
+      "rawValue": "{primitive.color.static.black}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.spectrum-black",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-black",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-black": "color(srgb 0 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-black",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static.black}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.spectrum-black",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-blue",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-blue": "color(srgb 0 0 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-blue",
+      "mode": "light",
+      "rawValue": "{primitive.color.pure.blue}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.spectrum-blue",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-blue",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-blue": "color(srgb 0 0 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-blue",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pure.blue}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.spectrum-blue",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-cyan",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-cyan": "color(srgb 0 1 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-cyan",
+      "mode": "light",
+      "rawValue": "{primitive.color.pure.cyan}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.spectrum-cyan",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-cyan",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-cyan": "color(srgb 0 1 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-cyan",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pure.cyan}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.spectrum-cyan",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-green",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-green": "color(srgb 0 1 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-green",
+      "mode": "light",
+      "rawValue": "{primitive.color.pure.green}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          1,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.spectrum-green",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-green",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-green": "color(srgb 0 1 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-green",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pure.green}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          1,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.spectrum-green",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-magenta",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-magenta": "color(srgb 1 0 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-magenta",
+      "mode": "light",
+      "rawValue": "{primitive.color.pure.magenta}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.spectrum-magenta",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-magenta",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-magenta": "color(srgb 1 0 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-magenta",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pure.magenta}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.spectrum-magenta",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-red",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-red": "color(srgb 1 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-red",
+      "mode": "light",
+      "rawValue": "{primitive.color.pure.red}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.spectrum-red",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-red",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-red": "color(srgb 1 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-red",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pure.red}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.spectrum-red",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-white": "color(srgb 1 1 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-white",
+      "mode": "light",
+      "rawValue": "{primitive.color.static.white}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.spectrum-white",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-white": "color(srgb 1 1 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-white",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static.white}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.spectrum-white",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-yellow",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-yellow": "color(srgb 1 1 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-yellow",
+      "mode": "light",
+      "rawValue": "{primitive.color.pure.yellow}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.spectrum-yellow",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pure-yellow",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-spectrum-yellow": "color(srgb 1 1 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-spectrum-yellow",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pure.yellow}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.spectrum-yellow",
       "tier": "semantic",
       "type": "color"
     },

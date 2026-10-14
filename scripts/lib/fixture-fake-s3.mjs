@@ -9,7 +9,7 @@
  * 버킷 이름은 보지 않는다(공개 · 비공개 둘 다 같은 객체). 서명도 보지 않는다. 들어온 요청은 기록해(`requests`) 원장에 남긴다.
  *
  * **이 서버는 `--session-deck` 모드에서만 뜬다.** S3 환경변수를 세션 모드 전체에 주면 저장소를 읽는 다른 화면(`/api/auth/me` 의 서명 주소 등)의
- * 측정이 바뀐다 — 덱 화면만 따로 재서 따로 원장(`migration/product.session-deck-fixture.json`)에 쓴다.
+ * 측정이 바뀐다 — 덱 화면만 따로 재서 따로 원장(migration/product.session-deck-fixture.json — 앵커가 덱 레이아웃을 가진 뒤에 커밋한다)에 쓴다.
  */
 import { createServer } from "node:http";
 

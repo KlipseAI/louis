@@ -13,16 +13,16 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 195,
-    "scoped": 325,
-    "needed": 92,
+    "mapped": 202,
+    "scoped": 327,
+    "needed": 83,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 6,
+    "primitive": 0,
     "screen": 83,
-    "oneoff": 3,
+    "oneoff": 0,
     "unclear": 0,
     "kindless": 0
   },
@@ -1102,12 +1102,12 @@
       "louis": [
         "louis-focus-ring"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "덱 화면군의 머리 막대 — 왼쪽 DeckLockup(홈 링크면 louis-focus-ring rounded-8, :54), 오른쪽 링크 묶음(gap-x-12 · wrap, :36)에 body-14-medium fg-secondary 호버 primary 링크(:37 · :56-59), 아래 여백 48(:35). Figma AppTopBar 는 제목 가운데의 40 막대라 맞지 않고, 락업형 독립 화면 머리가 없다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: AppTopBar · SidebarBrand · TextLink] 렌더 4자리 · 4라우트(deck/page.tsx:39 · c/[course]/page.tsx:35 · manage/page.tsx:24 · notice/page.tsx:19). 발표자 링크 유무만 갈리는 같은 그림이 네 화면에서 되풀이되어 부품이다."
+      "verdict": "figma",
+      "figma": "BrandBar",
+      "reason": "덱 화면군의 머리 막대(왼쪽 락업 · 오른쪽 Text Link 묶음)를 부품 brand-bar 로 올렸다(DS-D-0112). App Top Bar 의 변형이 아니다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/deck/layout.tsx#DeckLayout": {
       "file": "apps/web/app/deck/layout.tsx",
@@ -1217,12 +1217,12 @@
         "louis-slider",
         "louis-slider-fill"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "제목·부제목·자막 세 요소마다 글자·배경·박스 테두리·외곽선 색과 여백을 조절하는 우측 패널이다. 여백 슬라이더는 이미 louis-slider / louis-slider-fill 정본을 물지만 **패널의 행 구조와 요소별 묶음은 51개 어디에도 없다**. 편집 화면의 속성 패널이 이 하나뿐이 아니므로 재사용 가능한 벌로 세울 값이 있다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Slider (여백 슬라이더 몫)] 패널 자체의 라우트는 1 이지만 «속성 패널 행 묶음»이라는 형태가 두 라우트에 있다 — 이 파일과 `node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx`(NumberInput · InspectorPill · InspectorSectionHead · InspectorSectionAction · InspectorMetric)가 같은 계열의 형제다(파일 목록·export 목록으로 확인). 게다가 이 패널 안에서 행 묶음이 제목·부제목·자막 **세 요소마다 인스턴스화**된다. 여백 슬라이더는 이미 louis-slider / louis-slider-fill 정본을 문다 — 남는 건 행·섹션 구조다."
+      "verdict": "figma",
+      "figma": "PropertyStack",
+      "reason": "자막 색 패널의 세로 속성 묶음(라벨 위 · 컨트롤 아래)을 부품 property-stack 으로 올렸다(DS-D-0114). 칸은 Color Swatch stack, 슬라이더는 Slider 다. Inspector Row 의 변형이 아니다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx#Swatch": {
       "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx",
@@ -1257,12 +1257,12 @@
       "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "자막 레이아웃 프리셋을 18×32 세로 프레임 안의 막대 배치로 미리 보여 주는 글리프다. CAPTION_LAYOUT_IDS 마다 한 벌씩 필요하고 currentColor 를 따라간다. 컴포넌트 세트보다는 `DS · Icons` 페이지의 아이콘 세트로 가는 것이 맞을 수 있으니, 세울 자리를 정할 때 그 축을 먼저 고른다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "아이콘·글리프 축이라 라우트 수와 무관하다. 18×32 세로 프레임 안의 막대 배치로 자막 레이아웃 프리셋을 보여 주는 글리프이고, `CAPTION_LAYOUT_IDS`(정의는 `node-canvas-v2/lib/captionLayoutPresets.ts` — 즉 프리셋 목록 자체는 다른 라우트와 공유된다) 마다 한 벌씩 인스턴스화된다. currentColor 를 따르므로 icon/ 세트에 그대로 들어간다. 컴포넌트 51 이 아니라 DS·Icons 축으로 가는 것이 맞다는 원장의 저울을 아이콘 쪽으로 확정한다."
+      "reason": "자막 레이아웃 프리셋 글리프 일곱을 아이콘 축의 icon/caption-layout-{standard, essay, news, bubble, cinematic, impact, lecture} 로 올렸다(DS-D-0115, DS · Icons). 면 · 타이포 · 상태가 없는 글리프라 컴포넌트 대응이 아니라 아이콘 축이 정본이다 — icon/plus 로 간 글리프 표면들과 같은 판정이다. 2026-10-15 재판정.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx#TemplateThumb": {
       "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
@@ -1270,12 +1270,12 @@
       "louis": [
         "louis-hairline-inset"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "숏츠 편집 화면의 템플릿 탭에서 템플릿 행 앞에 붙는 썸네일이다(page.tsx:476–516). 27px 폭의 9:16 프레임에 letterbox_color 를 깔고, 가운데에 source_crop 비율을 fit 으로 넣은 회색 영상 자리를 그리고, 그 위에 제목·부제목·자막 줄을 막대 셋으로 얹는다. 줄 색은 박스 배경이 있으면 배경색, 없으면 글자색이다. 51개에 대응물이 없다. 부모 HighlightShortPage(needed · screen)의 kindReason 은 꺼낼 부품으로 CaptionColorPanel·Swatch·LayoutThumb 만 꼽았고 이 썸네일은 빠져 있다. 템플릿 행 자체는 화면이 인라인으로 그리므로(page.tsx:1724–1757) 이 그림을 맡을 다른 주인이 원장에 없다. 그래서 따로 세어 둔다. (검증 메모: 사실 근거는 76b6cf15 에서 확인된다. 정의는 page.tsx:476, 호출은 :1739 한 곳뿐이다. w-[27px] 9:16 프레임에 letterbox_color 를 깔고, source_crop 을 fit 으로 넣은 gray-600 영상 자리와 막대 셋을 얹으며, 줄 색은 bg ?? fg 다. 관리자 미리보기의 fit 계산(CaptionTemplateManagement.tsx:776–786)도 같다. 그런데 판정 논리에 두 가지 흠이 있다. (1) reason 의 「이 그림을 맡을 다른 주인이 원장에 없다」는 틀렸다. 템플)",
-      "weight": "low",
-      "kind": "oneoff",
-      "kindReason": "소비처가 1곳이다. `git grep TemplateThumb` 결과는 정의(page.tsx:476)와 호출(page.tsx:1739)뿐이다. LayoutThumb 와 달리 아이콘 세트로 보낼 수 없다. LayoutThumb 는 CAPTION_LAYOUT_IDS 라는 고정 목록마다 한 벌씩 서는 글리프인데, 이것은 DB 템플릿 행의 값(letterbox_color · positions[\"9:16\"] · *_bg_color · *_font_color)으로 그때그때 그리는 콘텐츠 그림이라 고정된 벌이 없다. 파일 주석도 「콘텐츠 색이라 테마를 따르지 않는다」고 적었다. 영상 자리를 fit 으로 넣는 계산은 관리자 미리보기(admin/CaptionTemplateManagement.tsx:775–822)와 같다. 하지만 그쪽은 PreviewTextImg 로 실제 캔버스 글자를 렌더하는 큰 프레임이라 같은 그림이 아니다. 되풀이 증거가 없으니 부품으로 볼 수 없고, 화면도 아니다. 숏츠 편집 보드를 그릴 때 시드 템플릿 값으로 그 자리에 함께 그리면 된다."
+      "verdict": "figma",
+      "figma": "CaptionThumb",
+      "reason": "숏츠 편집 템플릿 썸네일을 부품 caption-thumb 로 올렸다(DS-D-0115). 영상 면은 새 시맨틱 caption-thumb-video 다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/highlight/HighlightWorkspace.tsx#HighlightWorkspace": {
       "file": "apps/web/app/highlight/HighlightWorkspace.tsx",
@@ -1316,12 +1316,12 @@
       "louis": [
         "louis-color-landing"
       ],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "소유자 판정(2026-09-03): 세운다. 아홉 섹션을 순서대로 나열하는 조립 자체는 범위 밖이지만 이 파일만 소유한 시각이 하나 있다 — `#final-cta` 밴드의 정지점 다섯짜리 세로 그라디언트(page-bg → primary-500 → #bed7fe → #f9b157 → #ff4b59). 그 밴드는 다른 어느 표면도 갖지 않으므로 조립을 범위 밖으로 두면 함께 사라진다. 세울 것은 라우트 셸이 아니라 그 밴드다 — 랜딩 최종 CTA 한 자리이므로 medium.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "소유자가 2026-09-03 에 「세운다」로 판정했지만, 그 판정이 가리키는 실체는 컴포넌트가 아니다 — 아홉 섹션 조립은 범위 밖이고 이 파일만 소유한 시각은 `#final-cta` 밴드의 **정지점 다섯짜리 세로 그라디언트**(page-bg → primary-500 → #bed7fe → #f9b157 → #ff4b59) 하나뿐이다. 랜딩 최종 CTA 한 자리에만 있고 되풀이되지 않으므로 부품이 아니라 «이름 붙일 그라디언트 토큰» 한 개다. 그 사실을 못 박아야 조립을 범위 밖으로 두면서도 밴드가 함께 사라지지 않는다."
+      "reason": "2026-10-15 재판정: 범위 밖. 2026-09-03 소유자 판정 「세운다」의 근거였던 #final-cta 다섯 정지점 그라디언트가 앵커 54b62a8a 에서 이 파일을 떠나 FinalCtaScene(별도 화면 표면)으로 옮겨졌다. 남은 것은 아홉 섹션을 순서대로 나열하는 조립뿐이고, 조립은 그 판정에서도 범위 밖이었다(R2 보고 · DS-D-0084).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/HomePageClient.tsx#Page": {
       "file": "apps/web/app/HomePageClient.tsx",
@@ -1790,12 +1790,12 @@
       "louis": [
         "louis-alert"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "템플릿 상세가 자기만 갖는 조판이 둘 있다 — 프롬프트 박스(라운드16 면 + 제목 행 + CopyPromptButton + 원문 pre-wrap)와 아티클 헤더. 미리보기 배너는 이미 louis-alert 를 물고 있어 Alert 로 흡수되지만 프롬프트 박스는 대응물이 없다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Alert (미리보기 배너 몫)] 위와 같은 ArticleHeader 벌의 두 번째 복제처(실측: 같은 상수 이름 5개). 세울 것은 그 헤더 하나다. 이 파일만 갖는 프롬프트 박스(라운드16 면 + 제목 행 + CopyPromptButton + pre-wrap)는 라우트 1·형제 0 이라 그 자체로는 프리미티브가 아니고, 면·타이포·버튼으로 조립된다. 미리보기 배너는 이미 louis-alert 를 문다."
+      "verdict": "figma",
+      "figma": "CopyPanel",
+      "reason": "템플릿 상세의 프롬프트 상자(반경 16 면 · 제목 줄 · 복사 동작 · pre-wrap 원문)를 부품 copy-panel 로 올렸다(DS-D-0110). 글 머리는 Section Header Level=article, 배너는 Alert 다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/templates/page.tsx#TemplatesPage": {
       "file": "apps/web/app/templates/page.tsx",
@@ -1961,12 +1961,12 @@
       "file": "apps/web/components/blog/BlogComments.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "댓글 폼(이름 입력 · 텍스트에어리어 · 오류 문구 · 제출 버튼)과 댓글 목록 행(작성자 · 날짜 · 삭제 · 본문)과 빈 상태를 갖는데 Figma 에 대응이 없다. 입력 둘은 TextField 정본을 쓰지 않고 자기 테두리·포커스 색을 직접 쓰는 별벌이라, 세울 때 TextField 로 수렴시킬지부터 정하는 편이 낫다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: TextField · Button · EmptyState · FormMessage] 실측 소비처 1(blog/[slug]). 부분이 전부 이미 선 것들로 접힌다 — 이름 입력·텍스트에어리어는 TextField, 제출은 Button, 빈 상태는 EmptyState, 오류 문구는 FormMessage. 지금은 TextField 정본을 안 쓰고 자기 테두리·포커스 색을 직접 쓰는 별벌이라 **할 일은 「짓기」가 아니라 「수렴시키기」**다. 새 컴포넌트를 세우면 입력 계열이 하나 더 갈린다."
+      "verdict": "figma",
+      "figma": "CommentThread",
+      "reason": "블로그 댓글을 부품 comment-thread 로 올렸다(DS-D-0113). 입력은 Text Field, 오류는 Form Message, 제출은 Button 으로 수렴했고 날짜 · 빈 줄 · 삭제 버튼 대비와 입력 라벨 결손을 고쳤다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/blog/BlogShell.tsx#BlogShell": {
       "file": "apps/web/components/blog/BlogShell.tsx",
@@ -2916,12 +2916,12 @@
       "file": "apps/web/components/landing/sections/TimelineFooter.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "공개 화면 전부가 쓰는 푸터다. 머리말에 따르면 소유자가 2026-10-07 「전부 새 푸터로」라고 지시해 옛 판 푸터 `Footer` 를 걷고 이것으로 바꿨다. 원장에서 그 옛 표면 `…/sections/Footer.tsx#Footer` 는 `figma: Product/Landing Footer` 였지만, 그 Figma 세트는 걷힌 판 푸터를 그린다. 생성물 figma/product-parts.landing-footer-viewport-desktop.00.draw.js 가 라이트 면 #ebecee 와 64% 잉크 워드마크 판이다. 이 표면은 그와 조형이 전혀 다르다. 늘 다크(palette-gray-950)이고, 168/44 트랙 이름 칸 + 레인 2열 격자, 12/60px 눈금자와 시각 라벨, 트랙 넷(primary · green · yellow · pink)의 클립, 재생헤드와 타임코드(TimelineFooter.tsx:257 이하, :113 TRACKS), 윗머리 160px 녹임 띠(lead 축)를 갖는다. 그래서 대응은 없고, 세울 일은 Product/Landing Footer 세트를 이 판으로 다시 그리는 것이다(Viewport Desktop/Mobile + lead true/false). 지금은 보드 열 곳의 푸터 인스턴스가 사라진 판을 보여 준다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "실측 결과 렌더 자리는 7곳이다. app/HomePageClient.tsx:110 · app/inquiry/InquiryClient.tsx:832 · app/pricing/page.tsx:71 · components/blog/BlogShell.tsx:66 · components/landing/sections/BlogComingSoon.tsx:142 · components/models/ModelShell.tsx:34 · components/templates/TemplateShell.tsx:68 이고, 라우트로는 랜딩 · 문의 · 가격 · 블로그 · 모델 · 템플릿이다. 홈만 lead=true 이고 나머지는 lead=false 라 그것이 축이다. 여러 라우트가 같은 그림을 되풀이하므로 부품이다. 옛 판 푸터가 그랬듯 LOUIS 컴포넌트가 아니라 제품 세트(DS-D-0071)로 세울 대상이다."
+      "verdict": "figma",
+      "figma": "TimelineFooter",
+      "reason": "공개 화면의 타임라인 푸터를 부품 timeline-footer 로 올렸다(DS-D-0116). 늘 다크라 루트에 data-theme=\"dark\" 를 고정하고 트랙 색 시맨틱 넷을 세웠다. 흐린 글자 대비 약 4.0 을 fg-tertiary(5.75)로 고쳤다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/landing/system/Carousel.tsx#Carousel": {
       "file": "apps/web/components/landing/system/Carousel.tsx",
@@ -3015,12 +3015,12 @@
       "file": "apps/web/components/landing/system/SectionShell.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "원장이 남긴 갈림(「컴포넌트로 세울까 templates 축에 적을까」)은 판정을 가르지 않는다 — 원장 자신이 `…/landing/navigation/Gnb.tsx#Gnb` 에 `figma: landing-shell` 을 주어 **templates 의 패턴 보드도 대응으로 친다**(DS-D-0039). 그런데 templates 아홉(loading·app-shell·home·project-grid·status-result·route-boundary·auth-two-panel·landing-shell·editor-workspace)에 섹션 리듬 규격이 없다. 즉 형태가 무엇이든 지금 Figma 에 없다. 세워야 하는 값: 세로 여백 120 / 88 / 60 세 계단(≤959·≤640), 좌우 인셋 20 / 16 / 12(≤719·≤355), 콘텐츠 최대폭 1400 중앙 정렬, bleed(트랙이 화면 끝까지 흐르는 캐러셀용) 축. 랜딩 아홉 섹션과 마케팅 라우트 넷이 전부 이것을 밟으므로 값이 갈리면 전 섹션이 갈린다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "실측: SectionShell 을 import 하는 파일 10개 중 `<SectionShell` 을 실제로 그리는 곳 8개(CreatorProgram · FAQ · ModelCarousel · NewsCarousel · OverviewSection · StepTiles · TemplateGrid · Testimonials). 나머지 둘(HomePageClient · Footer)은 INLINE/CONTENT_WIDTH 상수만 가져간다. 라우트는 /(랜딩) 하나지만 그 한 화면의 **모든 절이 이것을 밟으므로** 값이 갈리면 전 섹션이 갈린다. 세울 것: 세로 여백 120/88/60(≤959·≤640) · 좌우 인셋 20/16/12(≤719·≤355) · 콘텐츠 최대폭 1400 중앙 · bleed 축. **주의 — 이것은 「그리는」 부품이 아니다.** 같은 성질(fill·stroke·radius·타이포 없음)을 가진 AdminPanel·AdminTileGrid 를 원장은 scoped 로 내렸다(DS-D-0040). 그래서 LOUIS 가 가져야 할 형태는 컴포넌트가 아니라 **레이아웃 토큰 한 벌 + Figma 오토레이아웃 규격**이다. 그 단서를 달아 primitive 로 둔다 — 되풀이는 8자리로 실측됐고 지금 어디에도 정본이 없다는 사실은 형태와 무관하게 참이다."
+      "verdict": "figma",
+      "figma": "SectionShell",
+      "reason": "랜딩 섹션 리듬(세로 120 · 88 · 60, 좌우 20 · 16 · 12, 콘텐츠 1400, bleed 축)을 토큰 layout-section-* 일곱과 껍데기 section-shell 로 올렸다(DS-D-0111). 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/landing/system/ThemeSelector.tsx#ThemeSelector": {
       "file": "apps/web/components/landing/system/ThemeSelector.tsx",

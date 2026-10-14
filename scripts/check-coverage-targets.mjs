@@ -134,7 +134,8 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 2026-10-15: 102 → 95 — 캔버스 · 편집기 표면 여섯 대응 + ActionButton 범위 밖(죽은 코드, DS-D-0106).
 // 같은 날 뒤: 95 → 94 — DeletableEdge.
 // 같은 날 뒤: 94 → 92 — 모델 상세 화면 · 버전 행.
-const NEEDED_BASELINE = 92; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 같은 날 뒤: 92 → 83 — 공개 · 덱 · 하이라이트 표면 아홉(대응 일곱 · 범위 밖 둘). 남은 needed 83 은 모두 화면이다.
+const NEEDED_BASELINE = 83; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -182,7 +183,9 @@ const UNCLEAR_BASELINE = 0; // 하락만 잠근다(소유자만 줄일 수 있�
 // 2026-10-08 밤: 248 → **324** — 표면 총수 기준점을 612 로 옮기며(아래) 지금 scoped 로 맞춘다. 두 앵커 이동(76b6cf15 · 54b62a8a)의
 // 새 표면 판정(라우트 진입점 · 레이아웃 · 부모에 딸린 조각 · 시각 없는 호스트)이 쌓인 수다.
 // 2026-10-15: 324 → 325 — 캔버스 원형 FAB(ActionButton)는 앵커에서 import · JSX 렌더 지점이 0 인 죽은 코드라 범위 밖으로 옮겼다(DS-D-0106).
-const SCOPED_BASELINE = 325; // 표면 총수가 오른 만큼만 오를 수 있다
+// 같은 날 뒤: 325 → 327 — LandingContent(근거였던 #final-cta 그라디언트가 FinalCtaScene 으로 떠나 조립만 남음) · LayoutThumb(글리프 일곱이 아이콘
+// 축 icon/caption-layout-* 으로, icon/plus 글리프 표면들과 같은 판정). DS-D-0115 · R2 보고.
+const SCOPED_BASELINE = 327; // 표면 총수가 오른 만큼만 오를 수 있다
 // 2026-09-10: 434 → 468. 앵커가 5a67d692 → f19cc41c 로 옮기며 제품 표면이 34종 늘었다
 // (쿠폰·선물하기 화면 등). **기준점을 옮기지 않으면 그만큼 범위 밖 허용치가 벌어진 채로
 // 남아 그물이 무뎌진다** — 실제로 `needed reclassified as out of scope` 카나리아가 그래서
@@ -222,12 +225,8 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // Default · Disabled) · step-tile · media-card(CSS 레시피 · 되재기, DS-D-0099) · canvas-edge(레시피 · 삭제 버튼 CanvasEdgeDelete, DS-D-0100 —
 // DS-D-0061 재판정). 컴포넌트 82 가 전부 done 이다(Updates (276)).
 // 같은 날 뒤: 82 → 84 — 새 부품 table-drawer · node-handle-tile 이 되재기와 함께 섰다(DS-D-0107 · 0108, Updates (277)).
-// 2026-10-15: 74 → 76 — 새 부품 copy-panel · section-shell 이 세트 · 기하 계약 · 되재기와 함께 섰다(DS-D-0110 · DS-D-0111, R2).
-// 같은 날 뒤: 76 → 77 — brand-bar(DS-D-0112, R2).
-// 같은 날 뒤: 77 → 78 — comment-thread(DS-D-0113, R2).
-// 같은 날 뒤: 78 → 79 — property-stack(DS-D-0114, R2).
-// 같은 날 뒤: 79 → 80 — caption-thumb(DS-D-0115, R2).
-// 같은 날 뒤: 80 → 81 — timeline-footer(DS-D-0116, R2).
+// 같은 날 뒤: 84 → 91 — 공개 · 덱 · 하이라이트 새 부품 일곱(copy-panel · section-shell · brand-bar · comment-thread · property-stack · caption-thumb ·
+// timeline-footer)이 세트 · 기하 계약 · 되재기와 함께 섰다(DS-D-0110 ~ 0116, Updates (279)).
 const MANIFEST_DONE_FLOOR = 91; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.

@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 120
+- Documents: 127
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -129,6 +129,13 @@
 - design/governance/decisions/DS-D-0108-node-handle-tile.md
 - design/governance/decisions/DS-D-0109-fixed-dark-screens-are-in-scope.md
 - design/governance/product-confirmations.md
+- design/governance/decisions/DS-D-0110-copy-panel.md
+- design/governance/decisions/DS-D-0111-section-shell.md
+- design/governance/decisions/DS-D-0112-brand-bar.md
+- design/governance/decisions/DS-D-0113-comment-thread.md
+- design/governance/decisions/DS-D-0114-property-stack.md
+- design/governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md
+- design/governance/decisions/DS-D-0116-timeline-footer.md
 - design/updates/README.md
 
 ---
@@ -194,9 +201,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 231 |
+| Normative documents | 245 |
 | Generated documents | 5 |
-| Components | 84 |
+| Components | 91 |
 | Patterns | 9 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -5387,6 +5394,7 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | `LabelBehavior` | `stacked` · `floating` | **라벨이 어디 사는가.** `stacked` 은 라벨이 컨트롤 **위**의 형제이고 움직이지 않는다. `floating` 은 라벨이 컨트롤 **안**에서 placeholder 노릇을 하다가 값이나 포커스가 오면 떠오른다. 조건 축이 아니다 — 「지금 떠 있는가」는 `State` 가 담고(`Placeholder` 가 쉼), 이 축은 **디자이너가 고르는** 것이라 `Size` 와 같은 종류다 |
 | `Level` | `page` · `section` · `label` · `list` · `article` · `display` | **문서 위계.** 그 부품이 «무엇의» 머리인가 — 화면 · 카드 안 묶음 · 패널. `Size` 가 아니다: 값이 밀도가 아니고, 셋의 관계가 순서가 아니라 **포함**이다(화면이 묶음을 품고 묶음이 패널을 품는다). 그 차이가 크기 밖으로 새는 자리가 있다 — SectionHeader 는 아래 여백을 `page` 만 지고 `label` 에는 설명·메타·액션 자리가 아예 없다. 어드민 밖 자리의 머리 셋은 2026-10-13 에 올렸다(DS-D-0084) — `list`(허브 목록 머리, CSS 에는 2026-10-12 에 섰는데 이 표에 없었다) · `article`(읽는 글의 머리) · `display`(랜딩 캐러셀 · 섹션 머리). 셋 다 정렬 · 간격 · 접힘이 갈려 프레임이 자기 값을 다시 쓴다(시험 2) |
 | `Orientation` | `vertical` · `horizontal` | **긴 축이 어디로 놓이나.** `Direction` 과 다르다 — `Direction` 은 기하가 그대로고 향만 바뀌지만 여기서는 **기하가 90° 전치된다**(4×60 ↔ 60×4). 축이 바뀌면 커서와 전환 프로퍼티도 함께 바뀐다 |
+| `Viewport` | CSS 미디어 경계를 철자 그대로(`≥960` · `≤959` · `≤719` · `≤640` · `≤355`) | **뷰포트가 고르는 계단.** 컴포넌트 안의 밀도(`Size`)가 아니라 화면 폭이 값을 고르는 레이아웃 껍데기에만 쓴다 — 값이 경계 자신이라 코드의 `@media (max-width: …)` 와 한 글자씩 대조된다. 이름을 지으면(`tablet` · `mobile`) 경계가 바뀔 때 거짓이 된다. 2026-10-15 SectionShell 에서 열렸다(DS-D-0111) — 세로 · 좌우 두 계단이 서로 다른 경계에서 바뀌어 다섯 칸이 실재한다 |
 | `Role` | `radio` · `checkbox` | **하나를 고르는가, 여럿을 고르는가.** 항목의 ARIA `role` 을 철자 그대로 옮긴다(CSS 가 `[role="checkbox"]` 로 표식의 모양을 가른다). 상태가 아니라 마크업 계약이고, 시각으로는 선택 표식의 모양(원 · 사각)만 바꾼다. 2026-10-08 ChoiceCard 에서 열렸다 |
 | `Underline` | `hover` · `none` | **글자 꾸밈이 언제 서는가.** CSS `data-underline` 을 철자 그대로 옮긴다 — `hover` 는 호버에 밑줄(속성 없음), `none` 은 호버에도 밑줄 없이 색만 바뀐다. 계속 보이는 글자의 꾸밈이 바뀌어 BOOLEAN 이 아니다(시험 1). 2026-10-08 TextLink 에서 열렸다 |
 | 조건 축 (`Expanded` 등) | `false` · `true` | BOOLEAN 으로 그릴 수 없는 조건 하나. 축 이름은 아래 명부에 있는 것만 쓴다 |
@@ -5481,7 +5489,7 @@ BOOLEAN 이 못 그리는 조건은 **그 조건 이름을 그대로 쓰는 2값
 Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서 있고, 이 표가 그것을
 인정하지 않고 있었을 뿐이다.
 
-**현재 열려 있는 조건 축 이름은 열이다.**
+**현재 열려 있는 조건 축 이름은 열하나다.**
 
 | 조건 축 | 어디에 | 왜 BOOLEAN 이 아닌가 |
 | --- | --- | --- |
@@ -5495,6 +5503,7 @@ Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서
 | `Placeholder` | 값이 아직 없는 선택 트리거 | 계속 보이는 값 레이어의 잉크가 바뀐다(시험 1). SelectTrigger 에서 열렸다(2026-10-08) — CSS `data-placeholder` 와 같은 철자다 |
 | `Dividers` | 머리 · 발에 구분선을 긋는 대화 | 선을 켜면 발 위 여백이 24 → 8 로 함께 바뀐다(시험 2). Dialog 에서 열렸다(2026-10-13) — CSS `data-dividers` 와 같은 철자다 |
 | `Interactive` | 누를 수도 있고 아닐 수도 있는 같은 조형 | 누를 수 있을 때만 `Hover` 칸이 서고 잉크 · 면이 바뀐다(시험 1 · 3). NoticePill 에서 열렸다(2026-10-13) — 코드는 속성이 아니라 요소(`a[href]` · `button` 대 `p`)가 말한다 |
+| `Bleed` | 트랙이 화면 끝까지 흐르는 섹션 껍데기 | 좌우 인셋이 0 으로 다시 쓰이고 콘텐츠 폭 제한이 풀린다(시험 2). SectionShell 에서 열렸다(2026-10-15, DS-D-0111) — CSS `data-bleed` 와 같은 철자다 |
 
 이 열 밖의 조건 이름을 쓰려면 이 표를 먼저 늘린다. `Current` 는 `Selected` 의 두 번째
 어휘이므로 **쓰지 않는다** — 같은 뜻에 이름이 둘이면 두 벌이 된다.
@@ -18782,6 +18791,393 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 **그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드에서 글자색을 고치면 보드가 제품보다 「정본」이 된다(업그레이드 비교표 대비와 같은 판례).
 
+## DS-D-0110 제목 · 복사 동작 · 원문 한 덩이를 담는 새 부품 copy-panel — 템플릿 상세의 프롬프트 상자, 머리는 Section Header article
+
+- Source: design/governance/decisions/DS-D-0110-copy-panel.md
+- Maturity: experimental
+
+### DS-D-0110 제목 · 복사 동작 · 원문 한 덩이를 담는 새 부품 `copy-panel` — 템플릿 상세의 프롬프트 상자, 머리는 Section Header `article`
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-15)
+- Date: 2026-10-15
+- Owners: repository owner, design system maintainer
+- Affects: `copy-panel`, `button`, `section-header`, `decision-product-parts-become-louis`
+
+#### Context
+
+표면 원장의 `app/templates/[slug]/page.tsx` 의 `TemplateDetailPage` 가 `needed` 로 남았다. 그 화면이 자기만 갖는 조판은 둘이다 —
+아티클 헤더와 프롬프트 상자. 아티클 헤더는 [Section Header](../components/section-header.md) 의 `data-level="article"` 이 이미 갖는다
+(그 문서의 단 표가 이 파일을 근거로 든다). 미리보기 배너는 이미 `louis-alert` 를 문다. **남는 것은 프롬프트 상자다** — 4% 면 · 8% 선 ·
+반경 16 · 안쪽 20 에 제목 줄(body-20 semibold + 복사 버튼)과 줄바꿈을 그대로 보이는 원문(body-16 · `--text-soft`)이 선다
+(`app/templates/[slug]/page.tsx` 의 `PROMPT_SECTION_CLASS` · `PROMPT_HEAD_CLASS` · `PROMPT_TITLE_CLASS` · `PROMPT_BOX_CLASS`, 통합 판 `54b62a8aa`).
+복사 버튼은 `components/templates/CopyPromptButton.tsx` 의 Button secondary md 이고 「복사됨」은 글리프 · 라벨 교체다.
+
+[DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 1항은 제품에 보이는 부품을 LOUIS 부품으로 올리라고 한다. 소비처가 하나여도 지금
+올린다(같은 결정의 「작은 새 부품」 판단 2).
+
+#### Decision
+
+1. **새 부품 `copy-panel` 한 벌**(`.louis-copy-panel` · `__head` · `__title` · `__action` · `__body`). 이름은 쓰임(프롬프트)이 아니라 모양
+   (복사할 원문을 담는 면)으로 짓는다 — 같은 모양의 다음 소비처(예: 코드 조각 · 공유 문구)가 이름을 바꾸지 않고 쓴다.
+2. **면은 랜딩 면 사다리** — `landing-panel`(4%) · `color-gray-000-alpha-08` 선 1 · 반경 `radius-overlay`(16) · 안쪽 `space-media-inset`(20) ·
+   머리와 원문 사이 `space-stack-md`(12). 원문 잉크 `landing-text-soft`(72%), 제목 `fg-primary` body-lg semibold.
+3. **동작은 [Button](../components/button.md) 그대로**(secondary · md, 앞 글리프 `copy` → `copy-check`). 레시피는 `__action` 이 줄지 않게만 한다.
+4. **글 머리는 Section Header `article` 이다** — 이 부품에 머리를 넣지 않는다.
+5. 새 토큰 · 새 의존성 · React 표면 없음.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | 자리 | 새 부품 `copy-panel` | Alert 중립 톤(Alert 에는 중립 톤이 없고 제목 · 동작 줄이 없다) · 화면 조립(면 · 글자 · 버튼) |
+| 2 | 반경 16 | `radius-overlay`(같은 값) | `radius-card-lg` 20 · `radius-card` 12 로 접기 |
+| 3 | 머리 쌓임 경계 | 제품 640 을 LOUIS compact 경계 719 로 접는다 | 640 을 레시피에(새 경계) |
+| 4 | 「복사됨」 | 글리프 · 라벨 교체(Figma 축 없음) — 노드 캔버스 묶음 판단과 같다 | 조건 축 `Copied` |
+| 5 | 긴 낱말 끊기 | `overflow-wrap: anywhere`(칸 안에서 끊는다) | 제품 `word-break: break-word`(비표준 값) |
+
+#### Consequences
+
+- 제품 (나): `PROMPT_*` 상수 넷을 `louis-copy-panel*` 로, `CopyPromptButton` 에 `louis-copy-panel__action` 을 붙인다. 보이는 변화 —
+  640 ~ 719 폭에서 머리가 쌓인다.
+- Figma 에 `CopyPanel`(Layout base · compact) 세트가 선다.
+
+#### Rollback
+
+`copy-panel.css` · 문서 · manifest 세 자리 · Figma 세트 · 기록 · parity 계약을 지운다. 제품은 아직 이 클래스를 물지 않으므로 영향이 없다.
+
+## DS-D-0111 랜딩 섹션의 리듬을 토큰 일곱과 껍데기 section-shell 로 — 세로 120 · 88 · 60, 좌우 20 · 16 · 12, 콘텐츠 1400, bleed 축
+
+- Source: design/governance/decisions/DS-D-0111-section-shell.md
+- Maturity: experimental
+
+### DS-D-0111 랜딩 섹션의 리듬을 토큰 일곱과 껍데기 `section-shell` 로 — 세로 120 · 88 · 60, 좌우 20 · 16 · 12, 콘텐츠 1400, bleed 축
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-15)
+- Date: 2026-10-15
+- Owners: repository owner, design system maintainer
+- Affects: `section-shell`, `landing-shell`, `section-header`, `governance-figma-component-authoring`, `decision-product-parts-become-louis`
+
+#### Context
+
+표면 원장의 `components/landing/system/SectionShell.tsx` 의 `SectionShell` 이 `needed`(high)로 남았다. 랜딩 여덟 섹션(CreatorProgram · FAQ ·
+ModelCarousel · NewsCarousel · OverviewSection · StepTiles · TemplateGrid · Testimonials)이 그것을 밟고, HomePageClient · Footer 는 상수만
+가져간다. 값은 세 벌이다(통합 판 `54b62a8aa`).
+
+| 축 | 값 | 경계 | 제품 |
+| --- | --- | --- | --- |
+| 세로 여백 | 120 → 88 → 60 | ≤959 · ≤640 | `SectionShell.tsx` 의 `SECTION` |
+| 좌우 인셋 | 20 → 16 → 12 | ≤719 · ≤355 | `sectionInline.ts` 의 `INLINE` |
+| 콘텐츠 폭 | 최대 1400 · 가운데 | — | `SectionShell.tsx` 의 `CONTENT_WIDTH` |
+| bleed | 좌우 인셋 · 폭 제한 없음, 안쪽 상자가 같은 인셋을 직접 건다 | — | `SectionShell.tsx` 의 `bleed` · `INLINE` export |
+
+LOUIS 에 이 리듬이 없다 — [landing-shell](../patterns/landing-shell.md) 패턴은 GNB · 푸터 · 면을 갖지만 섹션 하나의 껍데기 값은 갖지 않는다.
+원장의 kindReason 은 「그리는 부품이 아니다 — 레이아웃 토큰 한 벌 + Figma 오토레이아웃 규격」이라고 적었다.
+
+#### Decision
+
+1. **토큰 일곱** — `layout-section-block`(120) · `-block-md`(88) · `-block-sm`(60) · `layout-section-inline`(20) · `-inline-md`(16) ·
+   `-inline-sm`(12) · `layout-section-content-max`(1400). 원시 둘(`space-88` · `space-1400`)이 함께 선다.
+2. **껍데기 레시피 `section-shell`**(`.louis-section-shell` · `__content` · `__inset`, 축 `data-bleed`). 면 · 선 · 반경 · 글자가 없는
+   레이아웃 부품이다 — 레시피는 계단을 경계에 붙이는 일만 한다.
+3. **경계는 제품 그대로** — 세로 ≤959 · ≤640, 좌우 ≤719 · ≤355. 640 · 355 는 LOUIS compact 경계(719)와 다르지만 랜딩 전 섹션이 같은
+   경계를 밟아야 줄이 맞아 접지 않는다.
+4. **Figma 는 `SectionShell` 컴포넌트**(Viewport × Bleed) — 패딩 · 최대 폭을 토큰 변수에 묶은 오토레이아웃 규격이다. 이를 위해
+   [figma-component-authoring](../governance/figma-component-authoring.md) §2 에 `Viewport` 축(값 = CSS 미디어 경계의 철자)과 조건 축 `Bleed` 를 연다.
+5. 새 의존성 · React 표면 없음. 리빌(`data-reveal`)과 앵커 여백(`scroll-mt-60`)은 껍데기 밖 — 소비처 몫이다.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | 형태 | 토큰 일곱 + 껍데기 레시피 + Figma 컴포넌트 | 토큰만(레시피 없음) · `landing-shell` 패턴 안 블록 |
+| 2 | 좌우 인셋 토큰 | 따로 셋(`layout-section-inline*`) — 값이 같은 `space-media-inset` 등을 빌리지 않는다 | 기존 간격 토큰 재사용(뜻이 다른 이름을 빌린다) |
+| 3 | 경계 640 · 355 | 제품 그대로 | 719 · 479 로 접기(랜딩 전 섹션의 줄이 바뀐다) |
+| 4 | Figma 축 | `Viewport`(경계 철자) × 조건 축 `Bleed` — 다섯 칸이 실재한다 | `Size` 사다리(두 계단의 경계가 달라 셋으로 안 접힌다) · 예시 프레임만 |
+| 5 | 리빌 · 앵커 여백 | 소비처 | 껍데기가 `data-reveal` · `scroll-margin` 을 갖는다 |
+
+#### Consequences
+
+- 제품 (나): `SECTION` · `INLINE` · `CONTENT_WIDTH` 를 `louis-section-shell` · `__inset` · `__content` 로. 보이는 변화 없음(값 · 경계가 같다).
+- Figma 에 변수 아홉 · `SectionShell` 세트가 선다.
+
+#### Rollback
+
+`section-shell.css` · 토큰 아홉 · 문서 · manifest 세 자리 · Figma 세트 · 변수 · 기록 · parity 계약 · §2 의 두 줄을 지운다. 제품은 아직 이 클래스를
+물지 않으므로 영향이 없다.
+
+## DS-D-0112 앱 셸 없는 독립 화면의 머리 막대를 새 부품 brand-bar 로 — 왼쪽 락업, 오른쪽 Text Link 묶음, App Top Bar 의 변형이 아니다
+
+- Source: design/governance/decisions/DS-D-0112-brand-bar.md
+- Maturity: experimental
+
+### DS-D-0112 앱 셸 없는 독립 화면의 머리 막대를 새 부품 `brand-bar` 로 — 왼쪽 락업, 오른쪽 Text Link 묶음, App Top Bar 의 변형이 아니다
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-15)
+- Date: 2026-10-15
+- Owners: repository owner, design system maintainer
+- Affects: `brand-bar`, `text-link`, `app-shell-parts`, `decision-product-parts-become-louis`
+
+#### Context
+
+표면 원장의 `app/deck/DeckParts.tsx` 의 `DeckTopBar` 가 `needed` 로 남았다. 덱 화면군(앱 사이드바 없는 독립 화면) 네 라우트 — `deck/page.tsx` ·
+`deck/c/[course]/page.tsx` · `deck/manage/page.tsx` · `deck/notice/page.tsx` — 가 같은 막대를 그린다(통합 판 `54b62a8aa`). 왼쪽은 「Klipse 워드마크 + Deck」
+락업(높이 28, 홈 링크면 `louis-focus-ring rounded-8`), 오른쪽은 링크 묶음(`gap-x-12 gap-y-4` · `flex-wrap` · 오른쪽 정렬)이고 링크는 body-14 medium
+`fg-secondary` → 호버 `fg-primary` 다. 막대는 `gap-8` 에 아래 여백 `mb-24` 다.
+
+LOUIS 의 [App Shell Parts](../components/app-shell-parts.md) `AppTopBar` 는 앱 셸 안의 40 막대(제목 가운데)라 맞지 않고, 락업형 독립 화면 머리가 없다.
+링크 모양은 [Text Link](../components/text-link.md) 의 `data-underline="none"` 이 이미 갖는다(그 문서의 소비처 표가 이 파일을 든다).
+
+#### Decision
+
+1. **새 부품 `brand-bar` 한 벌**(`.louis-brand-bar` · `__brand` · `__links` · `__link`). 이름은 덱이 아니라 모양(브랜드 락업 막대)으로 짓는다 —
+   다음 독립 화면(공유 · 초대 같은)이 이름을 바꾸지 않고 쓴다.
+2. **막대** — 양끝 · 가운데 맞춤 · 사이 16(`space-control-lg`). **링크 묶음** — 오른쪽 정렬 · 줄바꿈 · 세로 8(`space-control-sm`) · 가로 24(`space-layout-section`).
+3. **락업은 소비처의 그림이다.** 레시피는 자리(높이 28 `layout-app-shell-brand-mark-height` · 줄지 않음 · 링크면 반경 8)만 갖는다.
+4. **링크는 Text Link 그대로**(`.louis-text-link[data-underline="none"]`) + `__link`(body-sm medium · 줄바꿈 없음).
+5. 아래 여백 48 은 화면 몫이다 — 막대가 갖지 않는다. 새 토큰 · 새 의존성 · React 표면 없음.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | 자리 | 새 부품 `brand-bar` | `app-shell-parts` 의 AppTopBar 변형(앱 셸 40 막대 계약이 깨진다) · 덱 전용 `deck-top-bar` |
+| 2 | 링크 모양 | Text Link `underline=none` 그대로 | 부품 안 링크 잉크를 따로 |
+| 3 | 아래 여백 48 | 화면 몫 | 막대가 `margin-block-end` 로 갖는다 |
+| 4 | 락업 높이 토큰 | `layout-app-shell-brand-mark-height`(28, 같은 브랜드 마크 높이) | 새 토큰 · 리터럴 28 |
+
+#### Consequences
+
+- 제품 (나): `TOP_BAR` · `TOP_LINKS` · `BACK_LINK` 를 `louis-brand-bar*` 와 `louis-text-link` 로. 보이는 변화 없음(값이 같다).
+- Figma 에 `BrandBar`(BOOLEAN `ExtraLink`) 컴포넌트가 선다. 링크는 `TextLink`(Underline=none) 인스턴스다.
+
+#### Rollback
+
+`brand-bar.css` · 문서 · manifest 세 자리 · Figma 컴포넌트 · 기록 · parity 계약을 지운다. 제품은 아직 이 클래스를 물지 않으므로 영향이 없다.
+
+## DS-D-0113 블로그 댓글을 새 부품 comment-thread 로 수렴한다 — 입력은 Text Field, 오류는 Form Message, 제출은 Button, 레시피는 묶음과 한 줄만
+
+- Source: design/governance/decisions/DS-D-0113-comment-thread.md
+- Maturity: experimental
+
+### DS-D-0113 블로그 댓글을 새 부품 `comment-thread` 로 수렴한다 — 입력은 Text Field, 오류는 Form Message, 제출은 Button, 레시피는 묶음과 한 줄만
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-15)
+- Date: 2026-10-15
+- Owners: repository owner, design system maintainer
+- Affects: `comment-thread`, `text-field`, `form-message`, `button`, `bare-button`, `copy-panel`, `decision-product-parts-become-louis`
+
+#### Context
+
+표면 원장의 `components/blog/BlogComments.tsx` 의 `BlogComments` 가 `needed` 로 남았다. 댓글 폼(이름 입력 · 텍스트에어리어 · 오류 문구 · 제출 버튼),
+댓글 목록 줄(작성자 · 날짜 · 관리자 삭제 · 본문)과 빈 줄을 갖는다(통합 판 `54b62a8aa` 의 `COMMENT_*` 상수). 원장의 kindReason 은 「할 일은 짓기가
+아니라 수렴」이라고 적었다 — 입력 둘은 Text Field 정본을 쓰지 않고 자기 테두리 · 포커스 색(primary 56%)을 직접 쓰는 별벌이다.
+
+대비 미달이 셋이다(라이트 랜딩 면 위). 날짜 · 빈 줄 잉크 `gray-000` 40%(약 2.4), 삭제 `accent-red-500`(약 3.3). 오류 문구도 같은 빨강이다.
+삭제 버튼의 누름 자리는 약 22 다.
+
+#### Decision
+
+1. **새 부품 `comment-thread`**(`.louis-comment-thread` · `__title` · `__form` · `__name` · `__body` · `__form-foot` · `__list` · `__item` · `__item-head` ·
+   `__author` · `__date` · `__delete` · `__content` · `__empty`). 레시피는 묶음의 흐름과 댓글 한 줄의 조판만 갖는다.
+2. **입력은 [Text Field](../components/text-field.md) lg** — 이름은 한 줄 판(폭 `min(240px, 100%)`), 본문은 여러 줄 판에서 첨부 줄 · 툴바를 뺀 것
+   (최소 높이 96 · 세로로만 늘림). 라벨은 시각적으로 감춘 `<label>` 로 단다(제품은 placeholder 뿐이라 이름이 없다).
+3. **오류는 [Form Message](../components/form-message.md) `error`, 제출은 [Button](../components/button.md) primary.** 삭제는
+   [Bare Button](../components/bare-button.md) 위에 `__delete`(caption · `fg-danger-on-surface` · 누름 자리 24).
+4. **폼 면은 [Copy Panel](../components/copy-panel.md) 과 같은 면 사다리** — 4% 면 · 8% 선 · 반경 16 · 안쪽 20 · 사이 12.
+5. 새 토큰 · 새 의존성 · React 표면 없음.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | 자리 | 새 부품 `comment-thread`(수렴 — 부분은 기존 부품) | 화면 조립(부품 없이 Text Field · Button 만) · EmptyState 로 빈 줄 |
+| 2 | 입력 높이 38 | Text Field lg 40 으로 접는다 | 38 칸을 Text Field 에 연다 |
+| 3 | 폼 면 값(반경 14 · 안쪽 18 · 사이 10) | Copy Panel 면 사다리(16 · 20 · 12)로 접는다 | 제품 값 리터럴 |
+| 4 | 목록 줄 값(위아래 18 · 머리 사이 10 · 머리 아래 6 · 폼 아래 28) | 16 · 8 · 4 · 24 로 접는다 | 제품 값 리터럴 |
+| 5 | 날짜 · 빈 줄 잉크 40% | `fg-tertiary` — 보이는 변화 | 제품 값 + Known deviation |
+| 6 | 삭제 · 오류 빨강 | `fg-danger-on-surface`(Form Message error 와 같다) — 보이는 변화 | 제품 `accent-red-500` |
+| 7 | 입력 라벨 | 시각적으로 감춘 `<label>` | `aria-label` · 보이는 라벨 |
+
+#### Consequences
+
+- 제품 (나): `COMMENT_*` 상수를 `louis-comment-thread*` 와 Text Field · Form Message · Button 마크업으로. 보이는 변화 — 입력 높이 38 → 40,
+  포커스 색이 Text Field 의 것, 날짜 · 빈 줄 · 삭제 잉크가 진해진다, 폼 반경 · 여백이 2 씩 커진다.
+- Figma 에 `CommentThread` · `CommentForm`(BOOLEAN Error) · `CommentItem`(BOOLEAN Deletable) · `CommentEmpty` 가 선다.
+
+#### Rollback
+
+`comment-thread.css` · 문서 · manifest 세 자리 · Figma 컴포넌트 넷 · 기록 · parity 계약을 지운다. 제품은 아직 이 클래스를 물지 않으므로 영향이 없다.
+
+## DS-D-0114 라벨이 컨트롤 위에 쌓이는 편집 패널 묶음을 새 부품 property-stack 으로 — 칸은 Color Swatch stack, 슬라이더는 Slider, Inspector Row 의 변형이 아니다
+
+- Source: design/governance/decisions/DS-D-0114-property-stack.md
+- Maturity: experimental
+
+### DS-D-0114 라벨이 컨트롤 위에 쌓이는 편집 패널 묶음을 새 부품 `property-stack` 으로 — 칸은 Color Swatch stack, 슬라이더는 Slider, Inspector Row 의 변형이 아니다
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-15)
+- Date: 2026-10-15
+- Owners: repository owner, design system maintainer
+- Affects: `property-stack`, `color-swatch`, `slider`, `inspector-row`, `decision-product-parts-become-louis`
+
+#### Context
+
+표면 원장의 `app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx` 의 `CaptionColorPanel` 이 `needed` 로 남았다. 하이라이트 숏츠 편집
+모달의 오른쪽 패널에서 제목 · 부제목 · 자막 세 요소마다 글자 · 배경 · 박스 테두리 · 외곽선 색과 배경 여백을 고친다(통합 판 `54b62a8aa`).
+구조는 묶음 라벨(caption medium `fg-tertiary`) 아래 요소마다 이름(caption `fg-primary`) · 라벨 위 색 칸 넷(줄바꿈 · 사이 12) · (배경이 있으면)
+여백 슬라이더 줄(라벨 · Slider · 값)이다. 묶음 사이 10, 안쪽 위 8 · 좌우 12 · 아래 4.
+
+칸 하나(라벨 위 30 칩 · 빈 칸 · 지우기)는 이미 [Color Swatch](../components/color-swatch.md) `data-layout="stack"` 이고, 슬라이더는
+[Slider](../components/slider.md) md 다. [Inspector Row](../components/inspector-row.md) 는 이 행을 일부러 받지 않았다 — 라벨이 컨트롤 **위**에
+쌓이고 컨트롤이 색 칸이라 28 한 줄로 표현되지 않는다(그 문서 Known deviations 6). **남은 것은 묶음 · 줄 · 슬라이더 줄의 흐름이다.**
+
+#### Decision
+
+1. **새 부품 `property-stack`**(`.louis-property-stack` · `__label` · `__group` · `__group-label` · `__fields` · `__slider-row` · `__slider-label` ·
+   `__slider-value`). 이름은 자막 색이 아니라 모양(세로 속성 묶음)으로 짓는다 — 같은 편집 패널의 다른 묶음이 쓴다.
+2. **칸은 Color Swatch stack, 슬라이더는 Slider md 그대로.** 레시피는 흐름만 갖는다.
+3. **값** — 묶음 사이 12(`space-stack-md`, 제품 10 을 접음) · 안쪽 8 / 12 / 4 · 요소 안 4 · 칸 사이 12 · 슬라이더 줄 사이 8, 라벨 최소 28 · 값 최소 16.
+4. 새 토큰 · 새 의존성 · React 표면 없음.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | 자리 | 새 부품 `property-stack` | Inspector Row 에 세로 행 형태 + `Value=Swatch` 칸을 연다(inspector-row.md Known deviations 6 의 「별개의 결정」) |
+| 2 | 묶음 사이 10 | 12 로 접는다 | 리터럴 10 |
+| 3 | 슬라이더 줄 위 2(`pt-1`) | 요소 안 사이 4 에 접는다(없앤다) | 리터럴 2 |
+| 4 | 칸 열 폭 44 | Color Swatch stack 이 이미 갖는다 | 묶음이 칸 폭을 정한다 |
+
+#### Consequences
+
+- 제품 (나): 패널 루트 · 요소 · 칸 줄 · 슬라이더 줄의 유틸리티를 `louis-property-stack*` 로, `Swatch` 함수를 Color Swatch stack 마크업으로.
+  보이는 변화 — 묶음 사이 10 → 12, 슬라이더 줄 위 2 가 없어진다.
+- Figma 에 `PropertyStack`(요소 셋)과 `PropertyStackGroup`(BOOLEAN Slider)이 선다. 칸은 `ColorSwatch`(Layout=stack) 인스턴스다.
+
+#### Rollback
+
+`property-stack.css` · 문서 · manifest 세 자리 · Figma 컴포넌트 둘 · 기록 · parity 계약을 지운다. 제품은 아직 이 클래스를 물지 않으므로 영향이 없다.
+
+## DS-D-0115 숏츠 편집의 자막 레이아웃 칩은 아이콘 caption-layout-* 일곱, 템플릿 썸네일은 새 부품 caption-thumb
+
+- Source: design/governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md
+- Maturity: experimental
+
+### DS-D-0115 숏츠 편집의 자막 레이아웃 칩은 아이콘 `caption-layout-*` 일곱, 템플릿 썸네일은 새 부품 `caption-thumb`
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-15)
+- Date: 2026-10-15
+- Owners: repository owner, design system maintainer
+- Affects: `caption-thumb`, `foundations-iconography`, `decision-product-parts-become-louis`
+
+#### Context
+
+하이라이트 숏츠 편집 화면(`app/highlight/[projectId]/shorts/[shortId]/page.tsx`, 통합 판 `54b62a8aa`)의 템플릿 탭에 그림 둘이 있고, 표면 원장에서
+둘 다 `needed` 다.
+
+- **`LayoutThumb`** — 자막 레이아웃 프리셋(`CAPTION_LAYOUT_IDS` 일곱: standard · essay · news · bubble · cinematic · impact · lecture)을 18 × 32 세로
+  프레임(테두리 `gray-000` 24% · 반경 3) 안의 막대(currentColor 75%, 높이 2 또는 비율)로 보여 주는 글리프다(`LAYOUT_THUMB_SPECS`). 원장은 「컴포넌트가 아니라
+  DS·Icons 축」으로 저울을 기울였다 — 고정된 목록마다 한 벌이고 currentColor 를 따른다.
+- **`TemplateThumb`** — 템플릿 행 앞의 27 × 48 썸네일. 레터박스 색 위에 원본 비율을 fit 으로 넣은 회색 영상 자리, 그 위에 제목 · 부제목 · 자막 막대 셋
+  (높이 3 · 2 · 3, 박스 배경이 있으면 +2, 색은 배경 ?? 글자색)이다. 원장은 소비처 1 · oneoff 로 적었지만 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)
+  「작은 새 부품」 판단 2(소비처 수는 승격 조건이 아니다)가 그 저울을 넘는다.
+
+아이콘 요소에 알파 16단 투명도가 2026-10-14 에 열렸다(iconography, `highlight` 선례).
+
+#### Decision
+
+1. **아이콘 일곱 `caption-layout-{standard,essay,news,bubble,cinematic,impact,lecture}`** — 24 격자 · 선 1.5. 프레임은 중심선 6.75 · 2.25 · 10.5 × 19.5 ·
+   반경 1.5 의 사각에 `opacity="0.4"`(제품 24% 를 1.5 획에서 읽히게 사다리 한 칸 올림), 막대는 선 1.5 · 둥근 끝(제품 75% 를 1 로 — 프레임과의 농담 차이를
+   유지), impact 의 굵은 막대는 채운 사각. 막대 위치는 제품 비율을 안쪽 9 × 18 상자에 옮기고, 선끼리 붙지 않게 중심 사이 2.25 이상을 둔다(news).
+   출처 `original`. Figma `DS · Icons` 에 `icon/caption-layout-*`(벡터 · `color/fg-primary` 획 · 레이어 불투명도).
+2. **새 부품 `caption-thumb`**(`.louis-caption-thumb` · `__video` · `__line`) — 프레임 27 × 48 · 반경 4 · 헤어라인, 줄 높이 제목 3 · 부제목 2 · 자막 3(박스면 +2) ·
+   반경 1. 레터박스 · 영상 자리 · 줄 위치 · 색은 소비처가 지역 변수(`--louis-caption-thumb-*`)로 준다 — 콘텐츠 그림이라 테마를 따르지 않는다.
+3. **새 시맨틱 하나 `color-caption-thumb-video`** — 두 테마 `palette-gray-600`(제품 `bg-palette-gray-600`). 컴포넌트 CSS 는 원시를 쓰지 않는다.
+4. React 표면 · 새 의존성 없음.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | LayoutThumb 의 자리 | 아이콘 일곱(원장의 저울) | 컴포넌트 `caption-layout-thumb`(Layout 축 일곱) |
+| 2 | 아이콘 농담 | 프레임 0.4 · 막대 1 | 제품 비율 그대로(0.24 · 0.72 — 24 크기에서 프레임이 사라진다) |
+| 3 | news 막대 간격 | 중심 사이 2.25 이상으로 벌린다 | 제품 비율 그대로(세 줄이 한 덩이) |
+| 4 | TemplateThumb 의 자리 | 새 부품 `caption-thumb`(소비처 1 이어도) | 원장의 oneoff — 보드에 시드 값으로 그 자리에 그린다 |
+| 5 | 영상 자리 색 | 새 시맨틱 `caption-thumb-video`(gray-600 두 테마) | `asset-tile-well`(값은 같지만 뜻이 다르다) |
+
+#### Consequences
+
+- 아이콘 74 → 81. 제품 (나): `LayoutThumb` 을 `<CaptionLayoutStandardIcon />` 등으로, `TemplateThumb` 의 인라인 스타일을 `louis-caption-thumb*` 와 지역
+  변수로. 보이는 변화 — 레이아웃 칩 글리프가 24 격자 선 아이콘으로 바뀐다(프레임 3:5.6 → 12:21, 막대가 둥근 끝).
+- Figma 에 아이콘 일곱 · `CaptionThumb` · 변수 `color/caption-thumb-video` 가 선다.
+
+#### Rollback
+
+아이콘 SVG 일곱 · provenance · keywords 줄과 생성물, `caption-thumb.css` · 토큰 하나 · 문서 · manifest 세 자리 · Figma 아이콘 · 컴포넌트 · 변수 · 기록 ·
+parity 계약을 지운다. 제품은 아직 어느 것도 물지 않으므로 영향이 없다.
+
+## DS-D-0116 공개 화면의 타임라인 푸터를 새 부품 timeline-footer 로 — 늘 다크는 data-theme="dark" 고정, 트랙 색 넷, 흐린 글자 대비를 고친다
+
+- Source: design/governance/decisions/DS-D-0116-timeline-footer.md
+- Maturity: experimental
+
+### DS-D-0116 공개 화면의 타임라인 푸터를 새 부품 `timeline-footer` 로 — 늘 다크는 `data-theme="dark"` 고정, 트랙 색 넷, 흐린 글자 대비를 고친다
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-15)
+- Date: 2026-10-15
+- Owners: repository owner, design system maintainer
+- Affects: `timeline-footer`, `landing-shell`, `section-shell`, `governance-figma-component-authoring`, `decision-product-parts-become-louis`
+
+#### Context
+
+표면 원장의 `components/landing/sections/TimelineFooter.tsx` 의 `TimelineFooter` 가 `needed`(high)로 남았다. 공개 화면 일곱 자리(홈 · 문의 · 가격 · 블로그 ·
+블로그 공개 예정 · 모델 · 템플릿)가 그린다 — 홈만 `lead`(윗머리 160 녹임 띠)를 켠다. 소유자가 2026-10-07 「전부 새 푸터로」 지시해 옛 판 푸터 `Footer` 를
+걷었고, Figma 의 `Product/Landing Footer` 세트는 걷힌 판(라이트 면 · 워드마크)을 그린다(통합 판 `54b62a8aa`).
+
+모양은 컴포지션 편집기의 타임라인이다 — 머리 줄(워드마크 · 태그라인 · 소셜), 168 / 44 트랙 이름 칸 + 레인 격자, 12 / 60 px 눈금과 시각 라벨, 트랙 넷
+(프로덕트 · 리소스 · 소셜 · 신뢰 — primary · green · yellow · pink)의 클립, 재생헤드와 시각, 상태 줄(사업자 정보 · 저작권). 늘 다크라 고정 팔레트
+(`palette-gray-950 · 900 · 300 · 500 · 000`)로 칠한다. 흐린 글자 `palette-gray-500` 은 `gray-950` 위에서 약 4.0 이라 사업자 라벨 · 저작권(caption 12)이 4.5:1 에
+못 미친다.
+
+#### Decision
+
+1. **새 부품 `timeline-footer`**(`.louis-timeline-footer` · `__lead` · `__bar` · `__brand` · `__wordmark` · `__tagline` · `__social` · `__social-link` · `__timeline` ·
+   `__ruler-head` · `__ruler` · `__ruler-label` · `__track` · `__track-head` · `__track-icon` · `__track-name` · `__lane` · `__clip` · `__clip-text` · `__clip-note` ·
+   `__playhead` · `__timecode` · `__status` · `__biz` · `__biz-label` · `__copyright`). 제품 세트(DS-D-0071)가 아니라 LOUIS 부품이다(DS-D-0084 1항).
+2. **늘 다크는 루트의 `data-theme="dark"` 다.** LOUIS 테마 블록이 `[data-theme]` 선택자라 안쪽이 다크 램프로 풀린다 — 고정 팔레트를 시맨틱으로 적는다:
+   면 `bg-canvas`(gray-950) · 클립 바탕 `bg-raised`(gray-900) · 글자 `fg-primary`(gray-000) · 보조 `fg-secondary`(gray-300) · 흐린 글자 `fg-tertiary`
+   (gray-400 — **제품 gray-500 에서 고쳐 올림**, 5.75) · 선 `stroke-hairline`(7% → 8%) · 레인 바닥 `gray-000-alpha-04`(2% → 4%, 알파 사다리 첫 칸) ·
+   소셜 호버 `gray-000-alpha-08`(6% → 8%).
+3. **트랙 색은 새 시맨틱 넷** `timeline-footer-track-product · -resources · -social · -trust`(blue · green · yellow · pink 500, 두 테마 같다). 트랙 감싸개
+   `__track[data-tone]` 가 색 · 레인 시작 자리 · 클립 최소 폭(제품 TRACKS 의 %)을 고른다. 재생헤드 · 시각은 프로덕트 트랙 색.
+4. **재생헤드의 마우스 따라가기와 시각 글자 갱신은 소비처 스크립트다** — 레시피는 쉬는 자리(레인의 40.5%)와 모양(1px 선 · 9 오각형 머리 · 위 22 시각)만 갖는다.
+5. **값은 제품 그대로** — 사다리에 없는 값(바깥 48 · 머리 줄 26 / 18 · 이름 칸 168 / 44 · 트랙 48 · 클립 반경 6 · 사이 10 · 사업자 사이 22 · 최대 900)은 출처
+   주석을 단 리터럴이다. 경계는 719.
+6. Figma 는 `TimelineFooter`(Viewport `≥720` · `≤719`, BOOLEAN Lead)와 `TimelineFooterClip`(Tone × Interactive × State) — Semantic Color 모드를 Dark 로
+   고정한다. 새 의존성 · React 표면 없음.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | 자리 | 새 LOUIS 부품 `timeline-footer` | 원장의 안 — 제품 세트 `Product/Landing Footer` 를 이 판으로 다시 그리기 |
+| 2 | 늘 다크 | 루트 `data-theme="dark"` + 시맨틱 | 고정 팔레트용 새 시맨틱 다섯(`timeline-footer-surface` 등) |
+| 3 | 흐린 글자 gray-500(약 4.0) | `fg-tertiary`(gray-400, 5.75) — 보이는 변화 | 제품 값 + Known deviation |
+| 4 | 선 7% · 레인 2% · 소셜 호버 6% | 알파 사다리 8% · 4% · 8% 로 접는다 | 리터럴 알파 |
+| 5 | 트랙 색 | 새 시맨틱 넷 | `accent-primary` · 기존 노드 색을 빌린다 |
+| 6 | 클립 Figma 축 이름 | `Tone`(CSS `data-tone` 철자 예외) | 새 축 `Track` |
+
+#### Consequences
+
+- 새 시맨틱 넷(원시 0). 제품 (나): `TimelineFooter.tsx` 의 상수를 `louis-timeline-footer*` 로, 트랙 `contents` 감싸개에 `data-tone`, 루트에 `data-theme="dark"`.
+  보이는 변화 — 사업자 라벨 · 저작권 · 눈금 글자 · 클립 메모가 한 칸 밝아진다, 선 · 레인 바닥이 조금 진해진다.
+- Figma 에 `TimelineFooter` · `TimelineFooterClip` · 변수 `color/timeline-footer-track-*` 가 선다. 화면 보드 열 곳의 옛 푸터 인스턴스를 이 세트로 바꾸는 일은
+  보드 쪽 작업이다(조정자).
+
+#### Rollback
+
+`timeline-footer.css` · 토큰 넷 · 문서 · manifest 세 자리 · Figma 세트 둘 · 변수 · 기록 · parity 계약을 지운다. 제품은 아직 이 클래스를 물지 않으므로 영향이 없다.
+
 ## Updates
 
 - Source: design/updates/README.md
@@ -18807,6 +19203,19 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-15 (279) — 공개 · 덱 · 하이라이트 새 부품 일곱과 아이콘 일곱, 부품 needed 0
+
+- **copy-panel** — 템플릿 상세의 프롬프트 상자(반경 16 면 · 제목 줄 · 복사 동작 · 원문). 글 머리는 Section Header `Level=article` 이다([DS-D-0110](../governance/decisions/DS-D-0110-copy-panel.md)).
+- **section-shell** — 랜딩 섹션 리듬을 새 토큰 `layout-section-*` 일곱(세로 120 · 88 · 60, 좌우 20 · 16 · 12, 콘텐츠 1400)과 껍데기로. 원시 `space-88` · `space-1400` 을 더했다([DS-D-0111](../governance/decisions/DS-D-0111-section-shell.md)).
+- **brand-bar** — 덱 화면군의 머리 막대(왼쪽 락업 · 오른쪽 Text Link 묶음). App Top Bar 의 변형이 아니다([DS-D-0112](../governance/decisions/DS-D-0112-brand-bar.md)).
+- **comment-thread** — 블로그 댓글. 입력 Text Field · 오류 Form Message · 제출 Button 으로 수렴했고, 날짜 · 빈 줄의 40% 잉크를 `fg-tertiary`(6.44)로, 삭제 단추를 `fg-danger-on-surface` 로 올리고 누름 영역을 24 로 키웠다. 입력란 라벨 결손도 고쳤다([DS-D-0113](../governance/decisions/DS-D-0113-comment-thread.md)).
+- **property-stack** — 라벨 위 · 컨트롤 아래인 세로 속성 묶음(자막 색 패널). 칸은 Color Swatch stack, 슬라이더는 Slider 다([DS-D-0114](../governance/decisions/DS-D-0114-property-stack.md)).
+- **caption-thumb 과 아이콘 `icon/caption-layout-*` 일곱** — 숏츠 편집의 템플릿 썸네일과 자막 레이아웃 프리셋 글리프. 아이콘 74 → 81([DS-D-0115](../governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md)).
+- **timeline-footer** — 공개 화면의 다크 타임라인 푸터. 루트에 `data-theme="dark"` 를 고정하고 트랙 색 시맨틱 넷을 세웠다. 흐린 글자 약 4.0 을 `fg-tertiary`(5.75)로 고쳤다([DS-D-0116](../governance/decisions/DS-D-0116-timeline-footer.md)).
+- **규범** — figma-component-authoring §2 에 `Viewport` 축(CSS 경계 철자 그대로)과 조건 축 `Bleed` 를 더했다(조건 축 10 → 11).
+- figma done 84 → 91(컴포넌트 91 전부). 표면 대응 195 → 202, needed 92 → 83 — **남은 needed 는 모두 화면이다.** LandingContent 는 근거였던 `#final-cta` 그라디언트가 앵커에서 FinalCtaScene 으로 떠나 조립만 남아 범위 밖으로, LayoutThumb 은 아이콘 축으로 갔다.
+- 알아 둘 것 — 화면 보드의 옛 `Product/Landing Footer` 인스턴스를 새 TimelineFooter 로 바꾸는 일은 랜딩 보드 작업 뒤로 미뤘다. Figma TextField `lg · Placeholder · base` 의 `HasLabel` · `HasMessage` 가 레이어에 묶이지 않은 결손이 드러나 고치는 중이다.
 
 #### 2026-10-15 (278) — 모델 목록 · 상세 보드 넷, 모델 상세 화면을 Figma 대응으로(DS-D-0098)
 

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "1876b041037b3d948a5a941df1a962307a44ef90954576ee61b7fc8c26629b3d"
+      "sha256": "45a43b6049006cd76e136b14de1df4114de37cf47bfc5e3d3f4fed7a1cebdb9c"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "9dd780039b2a7488802a972caa1b043a66c83b4598e27786d7afe903ffe59c95"
+      "sha256": "cc1979165d79e83fcc2ed0dc0815edc48c9f073ada78fecd28189a252228122d"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "df540217d6d72f3380e8349e2a70b3a7dc026a9054df272a69d42731b5f6c898"
+      "sha256": "638fb8dfe67b016046bcf3564ec4cebe3af0905f3ed61c0651c1c31de1b9c552"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "c0535e6b8d030f012e4ce7808d3c008705e82a96598e82258944bdee22b7801e"
+      "sha256": "de418a907c9b1d9d144f48909b7ada07ad10a71198542fb370c8f5e2fec40d1e"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "6a412adb1cb59770a21203bfc9e4d0e934c7e02aa7187a417c0b5be091ecd23f"
+      "sha256": "3f980098982d7a78371b155910ce74c9ea5860203802ba5852bed1d9f79be617"
     }
   ],
   "contrastPairs": [
@@ -539,13 +539,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "3a5d5713795417367472e4594af02521d529f5dcbffa892f2093ffd3c7a3e0f0"
+    "sha256": "e5e4915343a390e1f61327781f676350d88b54d04150ae9147a3f6066dab6209"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 1015,
+  "tokenCount": 1034,
   "tokens": [
     {
       "aliasTarget": {
@@ -5520,6 +5520,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.canvas-section-tint-yellow",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-palette-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-caption-thumb-video": "color(srgb 0.345098 0.360784 0.388235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-caption-thumb-video",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.600}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.345098,
+          0.360784,
+          0.388235
+        ]
+      },
+      "sourcePath": "semantic.light.color.caption-thumb-video",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-palette-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-caption-thumb-video": "color(srgb 0.345098 0.360784 0.388235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-caption-thumb-video",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.600}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.345098,
+          0.360784,
+          0.388235
+        ]
+      },
+      "sourcePath": "semantic.dark.color.caption-thumb-video",
       "tier": "semantic",
       "type": "color"
     },
@@ -19642,6 +19694,214 @@
       "type": "color"
     },
     {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-product": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-product",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.timeline-footer-track-product",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-product": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-product",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.timeline-footer-track-product",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-resources": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-resources",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.timeline-footer-track-resources",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-resources": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-resources",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.timeline-footer-track-resources",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-social": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-social",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.timeline-footer-track-social",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-social": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-social",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.timeline-footer-track-social",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-trust": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-trust",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.light.color.timeline-footer-track-trust",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-trust": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-trust",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.timeline-footer-track-trust",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
       "aliasTarget": null,
       "cssProperties": {
         "--louis-color-violet-100": "color(srgb 0.921569 0.909804 1 / 1)",
@@ -22214,6 +22474,153 @@
         "value": 4
       },
       "sourcePath": "semantic.global.layout.project-grid-gap",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-120",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-block": "120px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-block",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.120}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 120
+      },
+      "sourcePath": "semantic.global.layout.section-block",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-88",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-block-md": "88px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-block-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.88}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 88
+      },
+      "sourcePath": "semantic.global.layout.section-block-md",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-60",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-block-sm": "60px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-block-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.60}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 60
+      },
+      "sourcePath": "semantic.global.layout.section-block-sm",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-1400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-content-max": "1400px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-content-max",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.1400}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 1400
+      },
+      "sourcePath": "semantic.global.layout.section-content-max",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-inline": "20px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-inline",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.20}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 20
+      },
+      "sourcePath": "semantic.global.layout.section-inline",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-inline-md": "16px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-inline-md",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.16}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 16
+      },
+      "sourcePath": "semantic.global.layout.section-inline-md",
+      "tier": "semantic",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": {
+        "id": "space-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-layout-section-inline-sm": "12px"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "layout-section-inline-sm",
+      "mode": "global",
+      "rawValue": "{primitive.spacing.12}",
+      "resolvedValue": {
+        "unit": "px",
+        "value": 12
+      },
+      "sourcePath": "semantic.global.layout.section-inline-sm",
       "tier": "semantic",
       "type": "dimension"
     },
@@ -25202,6 +25609,25 @@
       "cssProperties": {},
       "deprecated": null,
       "description": null,
+      "id": "space-1400",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 1400
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 1400
+      },
+      "sourcePath": "primitive.spacing.1400",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
       "id": "space-16",
       "mode": "base",
       "rawValue": {
@@ -25574,6 +26000,25 @@
         "value": 80
       },
       "sourcePath": "primitive.spacing.80",
+      "tier": "primitive",
+      "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "space-88",
+      "mode": "base",
+      "rawValue": {
+        "unit": "px",
+        "value": 88
+      },
+      "resolvedValue": {
+        "unit": "px",
+        "value": 88
+      },
+      "sourcePath": "primitive.spacing.88",
       "tier": "primitive",
       "type": "dimension"
     },

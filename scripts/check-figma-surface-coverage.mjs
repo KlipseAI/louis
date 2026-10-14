@@ -144,11 +144,13 @@ const UNCLASSIFIED_BASELINE = 0;
 // 같은 날 뒤: 190 → 191 — 캔버스 연결선 DeletableEdge 를 CanvasEdge(삭제 버튼 CanvasEdgeDelete 를 품은 Hover 칸)로(DS-D-0100).
 // 같은 날 뒤: 191 → 193 — 광고 표 서랍 GroupDrawer → TableDrawer(DS-D-0107) · 도움말 채널 타일 HandleTile → NodeHandleTile(DS-D-0108).
 // 같은 날 뒤: 193 → 195 — 모델 상세 화면 · 버전 행(보드 /models/[slug], run 2026-10-14s, 아래 MAPPED_SCREEN_BASELINE).
-const MAPPED_BASELINE = 195;
+// 같은 날 뒤: 195 → 202 — 공개 · 덱 · 하이라이트 새 부품 일곱(CopyPanel · SectionShell · BrandBar · CommentThread · PropertyStack · CaptionThumb ·
+// TimelineFooter, DS-D-0110 ~ 0116). 부품 · 한 자리 needed 가 0 이 됐다 — 남은 needed 는 화면뿐이다.
+const MAPPED_BASELINE = 202;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 // 2026-10-15: 124 → 130 — 위 여섯이 모두 컴포넌트 대응이다.
-const MAPPED_COMPONENT_BASELINE = 133;
+const MAPPED_COMPONENT_BASELINE = 140;
 // **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
 // 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
 // 제품 세트 대응으로 바꿔치기해도 수가 유지된다.

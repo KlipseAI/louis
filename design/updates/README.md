@@ -25,6 +25,19 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-15 (279) — 공개 · 덱 · 하이라이트 새 부품 일곱과 아이콘 일곱, 부품 needed 0
+
+- **copy-panel** — 템플릿 상세의 프롬프트 상자(반경 16 면 · 제목 줄 · 복사 동작 · 원문). 글 머리는 Section Header `Level=article` 이다([DS-D-0110](../governance/decisions/DS-D-0110-copy-panel.md)).
+- **section-shell** — 랜딩 섹션 리듬을 새 토큰 `layout-section-*` 일곱(세로 120 · 88 · 60, 좌우 20 · 16 · 12, 콘텐츠 1400)과 껍데기로. 원시 `space-88` · `space-1400` 을 더했다([DS-D-0111](../governance/decisions/DS-D-0111-section-shell.md)).
+- **brand-bar** — 덱 화면군의 머리 막대(왼쪽 락업 · 오른쪽 Text Link 묶음). App Top Bar 의 변형이 아니다([DS-D-0112](../governance/decisions/DS-D-0112-brand-bar.md)).
+- **comment-thread** — 블로그 댓글. 입력 Text Field · 오류 Form Message · 제출 Button 으로 수렴했고, 날짜 · 빈 줄의 40% 잉크를 `fg-tertiary`(6.44)로, 삭제 단추를 `fg-danger-on-surface` 로 올리고 누름 영역을 24 로 키웠다. 입력란 라벨 결손도 고쳤다([DS-D-0113](../governance/decisions/DS-D-0113-comment-thread.md)).
+- **property-stack** — 라벨 위 · 컨트롤 아래인 세로 속성 묶음(자막 색 패널). 칸은 Color Swatch stack, 슬라이더는 Slider 다([DS-D-0114](../governance/decisions/DS-D-0114-property-stack.md)).
+- **caption-thumb 과 아이콘 `icon/caption-layout-*` 일곱** — 숏츠 편집의 템플릿 썸네일과 자막 레이아웃 프리셋 글리프. 아이콘 74 → 81([DS-D-0115](../governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md)).
+- **timeline-footer** — 공개 화면의 다크 타임라인 푸터. 루트에 `data-theme="dark"` 를 고정하고 트랙 색 시맨틱 넷을 세웠다. 흐린 글자 약 4.0 을 `fg-tertiary`(5.75)로 고쳤다([DS-D-0116](../governance/decisions/DS-D-0116-timeline-footer.md)).
+- **규범** — figma-component-authoring §2 에 `Viewport` 축(CSS 경계 철자 그대로)과 조건 축 `Bleed` 를 더했다(조건 축 10 → 11).
+- figma done 84 → 91(컴포넌트 91 전부). 표면 대응 195 → 202, needed 92 → 83 — **남은 needed 는 모두 화면이다.** LandingContent 는 근거였던 `#final-cta` 그라디언트가 앵커에서 FinalCtaScene 으로 떠나 조립만 남아 범위 밖으로, LayoutThumb 은 아이콘 축으로 갔다.
+- 알아 둘 것 — 화면 보드의 옛 `Product/Landing Footer` 인스턴스를 새 TimelineFooter 로 바꾸는 일은 랜딩 보드 작업 뒤로 미뤘다. Figma TextField `lg · Placeholder · base` 의 `HasLabel` · `HasMessage` 가 레이어에 묶이지 않은 결손이 드러나 고치는 중이다.
+
 ## 2026-10-15 (278) — 모델 목록 · 상세 보드 넷, 모델 상세 화면을 Figma 대응으로(DS-D-0098)
 
 - **새 보드** — 01 · 공개 섹션에 `/models` · `/models/[slug]` 데스크톱 · 모바일 넷. 공개 시드 fixture 에 `landing_models` 10행을 넣어 배너 · 추천 · 비교 표 · 버전 행 · 계산기 · 다른 모델 카드를 채운다.

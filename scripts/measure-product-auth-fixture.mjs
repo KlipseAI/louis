@@ -15,7 +15,7 @@ import { resolveProductRef } from "./lib/product-ref.mjs";
 import { productAriaLabels } from "./lib/product-aria-labels.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
 import { checkCites, createRecipeRouter, loadArea, readRecipeCss, recipeAssertProblems, recipeDigest, runRecipeSteps, specFromRecipe, supabaseOverlayOf, validateRecipes } from "./lib/state-recipes.mjs";
-import { FIXTURE_CANVAS_MORE_PROJECT_ID, FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_DECK_COURSE, FIXTURE_DECK_S3_OBJECTS, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS, FIXTURE_CREATIVE_MEDIA_SEEDS } from "./lib/fixture-seeds.mjs";
+import { FIXTURE_AUTH_SEEDS, FIXTURE_CANVAS_MORE_PROJECT_ID, FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_DECK_COURSE, FIXTURE_DECK_S3_OBJECTS, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS, FIXTURE_CREATIVE_MEDIA_SEEDS } from "./lib/fixture-seeds.mjs";
 import { startFakeS3 } from "./lib/fixture-fake-s3.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
@@ -861,8 +861,11 @@ if (recordedForOnly) {
 // **세션 모드 시드 = 공용 + 부스 체험(2026-10-15, DS-D-0109).** 부스 시드는 따로 둔 상수라 공용 `FIXTURE_SEEDS` 를 고치지 않고 여기서만 합친다
 // (`lib/fixture-seeds.mjs` FIXTURE_CREATIVE_MEDIA_SEEDS 주석 — 활성 필터로 집을 때만 행을 내 부스 운영 보드는 그대로다).
 const SESSION_SEEDS = { ...FIXTURE_SEEDS, ...FIXTURE_CREATIVE_MEDIA_SEEDS };
+// auth 모드(로그인 우회, 기본)도 프로필 한 표만 가진 가짜 Supabase 를 띄운다(2026-10-14, FIXTURE_AUTH_SEEDS 주석).
+const authMode = !session && !publicMode && !anonymous && !louisExamples;
 const fakeSupabase = session ? await startFakeSupabase({ seeds: SESSION_SEEDS })
-  : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS }) : null;
+  : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS })
+  : authMode && !dumpStatic ? await startFakeSupabase({ seeds: FIXTURE_AUTH_SEEDS }) : null;
 // 덱 세션 모드만 가짜 S3 를 띄운다(`lib/fixture-fake-s3.mjs`) — 서버 기동 환경(`S3_ENDPOINT`)이 이 주소를 쓴다.
 const fakeS3 = sessionDeck && !dumpStatic ? await startFakeS3({ objects: FIXTURE_DECK_S3_OBJECTS }) : null;
 // **상태 레시피 측정은 직렬로 돈다(설계서 3절).** 모든 실행이 같은 fixture 의 `apps/web` 에서 `next dev` 를 띄워 `.next` 를 함께 쓴다 —
@@ -949,7 +952,7 @@ try {
           ...(localeMode ? [{ name: "klipse-locale", value: LOCALE, url: fixtureServer.url }] : []),
           { name: "klipse-theme", value: "light", url: fixtureServer.url },
           // 세션 쿠키는 세션 모드만 넣는다 — 공개 시드 모드는 로그아웃 사용자다.
-          ...(session && fakeSupabase ? [sessionCookie(fakeSupabase.url, fixtureServer.url)] : []),
+          ...((session || authMode) && fakeSupabase ? [sessionCookie(fakeSupabase.url, fixtureServer.url)] : []),
         ]);
         await context.addInitScript((locale) => {
           localStorage.setItem("facen-language", locale);
@@ -1869,7 +1872,7 @@ const payload = JSON.stringify({
     devAuthBypass: !anonymous && !publicMode && !louisExamples,
     mockSupabase: louisExamples ? "none-static-example" : session ? "local-fake-auth-seeded-tables" : publicSeeded ? "local-fake-no-session-seeded-tables" : "unreachable-localhost",
     // 시드가 든 표 — 그 표에서 온 글자는 제품 문구가 아니라 자리표시다(`lib/fixture-seeds.mjs`).
-    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : SESSION_SEEDS).map(([table, rows]) => [table, (Array.isArray(rows) ? rows : rows.rows).length])) } : {}),
+    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : session ? SESSION_SEEDS : FIXTURE_AUTH_SEEDS).map(([table, rows]) => [table, (Array.isArray(rows) ? rows : rows.rows).length])) } : {}),
     ...(fakeSupabase ? { supabaseRequests: [...new Set([...(recordedForOnly?.fixture?.supabaseRequests ?? []),
       ...fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`)])].sort() } : {}),
     ...(louisCss ? { louisCss: louisCss.record } : {}),

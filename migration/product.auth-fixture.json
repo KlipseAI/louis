@@ -15,6 +15,17 @@
     "nodeEnv": "development",
     "devAuthBypass": true,
     "mockSupabase": "unreachable-localhost",
+    "seededTables": {
+      "profiles": 1
+    },
+    "supabaseRequests": [
+      "GET /auth/v1/user 200",
+      "GET /rest/v1/highlight_jobs 200",
+      "GET /rest/v1/highlight_shorts 200",
+      "GET /rest/v1/instagram_accounts 200",
+      "GET /rest/v1/profiles 200",
+      "GET /rest/v1/youtube_accounts 200"
+    ],
     "louisCss": {
       "source": "repo:packages/css/generated",
       "productPinned": "bab5efdf6f9e075226728276182c9cb336ee066b"
@@ -6422,6 +6433,107 @@
       }
     },
     {
+      "id": "s14f4103c1ad9",
+      "value": {
+        "display": "block",
+        "position": "static",
+        "top": "auto",
+        "right": "auto",
+        "bottom": "auto",
+        "left": "auto",
+        "zIndex": "auto",
+        "boxSizing": "border-box",
+        "width": "1400px",
+        "height": "48px",
+        "minWidth": "0px",
+        "minHeight": "auto",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "flexDirection": "row",
+        "flexWrap": "nowrap",
+        "flexGrow": "1",
+        "flexShrink": "1",
+        "flexBasis": "0%",
+        "alignSelf": "auto",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gridAutoFlow": "row",
+        "gap": "normal",
+        "rowGap": "normal",
+        "columnGap": "normal",
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderTopWidth": "0px",
+        "borderRightWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderTopColor": "color(srgb 0 0 0)",
+        "borderRightColor": "color(srgb 0 0 0)",
+        "borderBottomColor": "color(srgb 0 0 0)",
+        "borderLeftColor": "color(srgb 0 0 0)",
+        "borderTopStyle": "none",
+        "borderRightStyle": "none",
+        "borderBottomStyle": "none",
+        "borderLeftStyle": "none",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineColor": "color(srgb 0 0 0)",
+        "outlineOffset": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "backgroundRepeat": "repeat",
+        "backgroundSize": "auto",
+        "backgroundPosition": "0% 0%",
+        "color": "color(srgb 0 0 0)",
+        "opacity": "1",
+        "boxShadow": "none",
+        "filter": "none",
+        "backdropFilter": "none",
+        "mixBlendMode": "normal",
+        "transform": "none",
+        "transformOrigin": "700px 24px",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "aspectRatio": "auto",
+        "objectFit": "fill",
+        "objectPosition": "50% 50%",
+        "clipPath": "none",
+        "maskImage": "none",
+        "maskRepeat": "repeat",
+        "maskPosition": "0% 0%",
+        "maskSize": "auto",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none",
+        "strokeWidth": "1px",
+        "strokeLinecap": "butt",
+        "strokeLinejoin": "miter",
+        "strokeDasharray": "none",
+        "strokeDashoffset": "0px",
+        "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "-0.16px",
+        "textAlign": "start",
+        "textDecorationLine": "none",
+        "textTransform": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
       "id": "s15eadb6579bf",
       "value": {
         "display": "flex",
@@ -12553,6 +12665,107 @@
         "mixBlendMode": "normal",
         "transform": "none",
         "transformOrigin": "92.1484px 16px",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "aspectRatio": "auto",
+        "objectFit": "fill",
+        "objectPosition": "50% 50%",
+        "clipPath": "none",
+        "maskImage": "none",
+        "maskRepeat": "repeat",
+        "maskPosition": "0% 0%",
+        "maskSize": "auto",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none",
+        "strokeWidth": "1px",
+        "strokeLinecap": "butt",
+        "strokeLinejoin": "miter",
+        "strokeDasharray": "none",
+        "strokeDashoffset": "0px",
+        "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "-0.14px",
+        "textAlign": "start",
+        "textDecorationLine": "none",
+        "textTransform": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "id": "s273a3fab216f",
+      "value": {
+        "display": "block",
+        "position": "static",
+        "top": "auto",
+        "right": "auto",
+        "bottom": "auto",
+        "left": "auto",
+        "zIndex": "auto",
+        "boxSizing": "border-box",
+        "width": "1400px",
+        "height": "21px",
+        "minWidth": "0px",
+        "minHeight": "0px",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "flexDirection": "row",
+        "flexWrap": "nowrap",
+        "flexGrow": "0",
+        "flexShrink": "1",
+        "flexBasis": "auto",
+        "alignSelf": "auto",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gridAutoFlow": "row",
+        "gap": "normal",
+        "rowGap": "normal",
+        "columnGap": "normal",
+        "marginTop": "3px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderTopWidth": "0px",
+        "borderRightWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderTopColor": "rgba(0, 0, 0, 0.4)",
+        "borderRightColor": "rgba(0, 0, 0, 0.4)",
+        "borderBottomColor": "rgba(0, 0, 0, 0.4)",
+        "borderLeftColor": "rgba(0, 0, 0, 0.4)",
+        "borderTopStyle": "none",
+        "borderRightStyle": "none",
+        "borderBottomStyle": "none",
+        "borderLeftStyle": "none",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineColor": "rgba(0, 0, 0, 0.4)",
+        "outlineOffset": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "backgroundRepeat": "repeat",
+        "backgroundSize": "auto",
+        "backgroundPosition": "0% 0%",
+        "color": "rgba(0, 0, 0, 0.4)",
+        "opacity": "1",
+        "boxShadow": "none",
+        "filter": "none",
+        "backdropFilter": "none",
+        "mixBlendMode": "normal",
+        "transform": "none",
+        "transformOrigin": "700px 10.5px",
         "overflow": "visible",
         "overflowX": "visible",
         "overflowY": "visible",
@@ -21061,6 +21274,107 @@
         "lineHeight": "21px",
         "letterSpacing": "-0.14px",
         "textAlign": "center",
+        "textDecorationLine": "none",
+        "textTransform": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "id": "s42620076fcff",
+      "value": {
+        "display": "block",
+        "position": "static",
+        "top": "auto",
+        "right": "auto",
+        "bottom": "auto",
+        "left": "auto",
+        "zIndex": "auto",
+        "boxSizing": "border-box",
+        "width": "390px",
+        "height": "45px",
+        "minWidth": "0px",
+        "minHeight": "auto",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "flexDirection": "row",
+        "flexWrap": "nowrap",
+        "flexGrow": "1",
+        "flexShrink": "1",
+        "flexBasis": "0%",
+        "alignSelf": "auto",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gridAutoFlow": "row",
+        "gap": "normal",
+        "rowGap": "normal",
+        "columnGap": "normal",
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderTopWidth": "0px",
+        "borderRightWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderTopColor": "color(srgb 0 0 0)",
+        "borderRightColor": "color(srgb 0 0 0)",
+        "borderBottomColor": "color(srgb 0 0 0)",
+        "borderLeftColor": "color(srgb 0 0 0)",
+        "borderTopStyle": "none",
+        "borderRightStyle": "none",
+        "borderBottomStyle": "none",
+        "borderLeftStyle": "none",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineColor": "color(srgb 0 0 0)",
+        "outlineOffset": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "backgroundRepeat": "repeat",
+        "backgroundSize": "auto",
+        "backgroundPosition": "0% 0%",
+        "color": "color(srgb 0 0 0)",
+        "opacity": "1",
+        "boxShadow": "none",
+        "filter": "none",
+        "backdropFilter": "none",
+        "mixBlendMode": "normal",
+        "transform": "none",
+        "transformOrigin": "195px 22.5px",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "aspectRatio": "auto",
+        "objectFit": "fill",
+        "objectPosition": "50% 50%",
+        "clipPath": "none",
+        "maskImage": "none",
+        "maskRepeat": "repeat",
+        "maskPosition": "0% 0%",
+        "maskSize": "auto",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none",
+        "strokeWidth": "1px",
+        "strokeLinecap": "butt",
+        "strokeLinejoin": "miter",
+        "strokeDasharray": "none",
+        "strokeDashoffset": "0px",
+        "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "-0.14px",
+        "textAlign": "start",
         "textDecorationLine": "none",
         "textTransform": "none",
         "whiteSpace": "normal"
@@ -68941,6 +69255,107 @@
       }
     },
     {
+      "id": "seb81922cbf93",
+      "value": {
+        "display": "block",
+        "position": "static",
+        "top": "auto",
+        "right": "auto",
+        "bottom": "auto",
+        "left": "auto",
+        "zIndex": "auto",
+        "boxSizing": "border-box",
+        "width": "390px",
+        "height": "21px",
+        "minWidth": "0px",
+        "minHeight": "0px",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "flexDirection": "row",
+        "flexWrap": "nowrap",
+        "flexGrow": "0",
+        "flexShrink": "1",
+        "flexBasis": "auto",
+        "alignSelf": "auto",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gridAutoFlow": "row",
+        "gap": "normal",
+        "rowGap": "normal",
+        "columnGap": "normal",
+        "marginTop": "3px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderTopWidth": "0px",
+        "borderRightWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderTopColor": "rgba(0, 0, 0, 0.4)",
+        "borderRightColor": "rgba(0, 0, 0, 0.4)",
+        "borderBottomColor": "rgba(0, 0, 0, 0.4)",
+        "borderLeftColor": "rgba(0, 0, 0, 0.4)",
+        "borderTopStyle": "none",
+        "borderRightStyle": "none",
+        "borderBottomStyle": "none",
+        "borderLeftStyle": "none",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineColor": "rgba(0, 0, 0, 0.4)",
+        "outlineOffset": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "backgroundRepeat": "repeat",
+        "backgroundSize": "auto",
+        "backgroundPosition": "0% 0%",
+        "color": "rgba(0, 0, 0, 0.4)",
+        "opacity": "1",
+        "boxShadow": "none",
+        "filter": "none",
+        "backdropFilter": "none",
+        "mixBlendMode": "normal",
+        "transform": "none",
+        "transformOrigin": "195px 10.5px",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "aspectRatio": "auto",
+        "objectFit": "fill",
+        "objectPosition": "50% 50%",
+        "clipPath": "none",
+        "maskImage": "none",
+        "maskRepeat": "repeat",
+        "maskPosition": "0% 0%",
+        "maskSize": "auto",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none",
+        "strokeWidth": "1px",
+        "strokeLinecap": "butt",
+        "strokeLinejoin": "miter",
+        "strokeDasharray": "none",
+        "strokeDashoffset": "0px",
+        "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "-0.14px",
+        "textAlign": "start",
+        "textDecorationLine": "none",
+        "textTransform": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
       "id": "sebc27065c141",
       "value": {
         "display": "block",
@@ -85295,7 +85710,7 @@
           "width": 1920,
           "height": 1080
         },
-        "rootNodeCount": 180,
+        "rootNodeCount": 181,
         "landmarks": [
           {
             "tag": "header",
@@ -85343,7 +85758,7 @@
               "x": 1687.2,
               "y": 12,
               "width": 220.8,
-              "height": 330.28
+              "height": 383.64
             }
           },
           {
@@ -85351,7 +85766,7 @@
             "ariaLabel": "Legal",
             "rect": {
               "x": 1692.72,
-              "y": 218.08,
+              "y": 271.44,
               "width": 209.76,
               "height": 73.6
             }
@@ -87837,7 +88252,7 @@
               "x": 380,
               "y": 239.5938,
               "width": 1400,
-              "height": 67
+              "height": 88
             },
             "declared": {
               "padding": "20px 0",
@@ -87851,7 +88266,7 @@
               "row-gap": "16px",
               "column-gap": "16px"
             },
-            "styleRef": "sadfb74740314"
+            "styleRef": "s51455f4eadf9"
           },
           {
             "path": "body.1.0.0.1.0.1.3.0",
@@ -87861,7 +88276,7 @@
               "x": 380,
               "y": 259.5938,
               "width": 1400,
-              "height": 27
+              "height": 48
             },
             "declared": {
               "padding": "0",
@@ -87876,7 +88291,7 @@
               "flex-shrink": "1",
               "flex-basis": "0%"
             },
-            "styleRef": "s0d1a04b973b7"
+            "styleRef": "s14f4103c1ad9"
           },
           {
             "path": "body.1.0.0.1.0.1.3.0.0",
@@ -87900,12 +88315,33 @@
             "styleRef": "s7d991af177c2"
           },
           {
+            "path": "body.1.0.0.1.0.1.3.0.1",
+            "parentPath": "body.1.0.0.1.0.1.3.0",
+            "tag": "span",
+            "ownText": "dev@local.test",
+            "rect": {
+              "x": 380,
+              "y": 286.5938,
+              "width": 1400,
+              "height": 21
+            },
+            "declared": {
+              "padding": "0",
+              "margin": "0",
+              "margin-top": "3px",
+              "margin-right": "0px",
+              "margin-bottom": "0px",
+              "margin-left": "0px"
+            },
+            "styleRef": "s273a3fab216f"
+          },
+          {
             "path": "body.1.0.0.1.0.1.4",
             "parentPath": "body.1.0.0.1.0.1",
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 306.5938,
+              "y": 327.5938,
               "width": 1400,
               "height": 88
             },
@@ -87929,7 +88365,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 326.5938,
+              "y": 347.5938,
               "width": 1247.0469,
               "height": 48
             },
@@ -87955,7 +88391,7 @@
             "ownText": "Username",
             "rect": {
               "x": 380,
-              "y": 326.5938,
+              "y": 347.5938,
               "width": 1247.0469,
               "height": 24
             },
@@ -87973,10 +88409,10 @@
             "path": "body.1.0.0.1.0.1.4.0.1",
             "parentPath": "body.1.0.0.1.0.1.4.0",
             "tag": "span",
-            "ownText": "Enter your username",
+            "ownText": "Dev",
             "rect": {
               "x": 380,
-              "y": 353.5938,
+              "y": 374.5938,
               "width": 1247.0469,
               "height": 21
             },
@@ -87996,7 +88432,7 @@
             "tag": "div",
             "rect": {
               "x": 1643.0469,
-              "y": 334.5938,
+              "y": 355.5938,
               "width": 136.9531,
               "height": 32
             },
@@ -88020,7 +88456,7 @@
             "tag": "button",
             "rect": {
               "x": 1643.0469,
-              "y": 334.5938,
+              "y": 355.5938,
               "width": 136.9531,
               "height": 32
             },
@@ -88049,7 +88485,7 @@
             "ownText": "Update username",
             "rect": {
               "x": 1655.0469,
-              "y": 340.0938,
+              "y": 361.0938,
               "width": 112.9531,
               "height": 21
             },
@@ -88069,7 +88505,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 394.5938,
+              "y": 415.5938,
               "width": 1400,
               "height": 88
             },
@@ -88093,7 +88529,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 414.5938,
+              "y": 435.5938,
               "width": 1227.4531,
               "height": 48
             },
@@ -88119,7 +88555,7 @@
             "ownText": "Current plan",
             "rect": {
               "x": 380,
-              "y": 414.5938,
+              "y": 435.5938,
               "width": 1227.4531,
               "height": 24
             },
@@ -88140,7 +88576,7 @@
             "ownText": "Trial",
             "rect": {
               "x": 380,
-              "y": 441.5938,
+              "y": 462.5938,
               "width": 1227.4531,
               "height": 21
             },
@@ -88160,7 +88596,7 @@
             "tag": "div",
             "rect": {
               "x": 1623.4531,
-              "y": 422.5938,
+              "y": 443.5938,
               "width": 156.5469,
               "height": 32
             },
@@ -88184,7 +88620,7 @@
             "tag": "button",
             "rect": {
               "x": 1623.4531,
-              "y": 422.5938,
+              "y": 443.5938,
               "width": 156.5469,
               "height": 32
             },
@@ -88213,7 +88649,7 @@
             "ownText": "Manage subscription",
             "rect": {
               "x": 1635.4531,
-              "y": 428.0938,
+              "y": 449.0938,
               "width": 132.5469,
               "height": 21
             },
@@ -88233,7 +88669,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 482.5938,
+              "y": 503.5938,
               "width": 1400,
               "height": 88
             },
@@ -88257,7 +88693,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 502.5938,
+              "y": 523.5938,
               "width": 1199.7031,
               "height": 48
             },
@@ -88283,7 +88719,7 @@
             "ownText": "Payment method",
             "rect": {
               "x": 380,
-              "y": 502.5938,
+              "y": 523.5938,
               "width": 1199.7031,
               "height": 24
             },
@@ -88304,7 +88740,7 @@
             "ownText": "Recurring billing settings become available after upgrading from Trial.",
             "rect": {
               "x": 380,
-              "y": 529.5938,
+              "y": 550.5938,
               "width": 1199.7031,
               "height": 21
             },
@@ -88324,7 +88760,7 @@
             "tag": "div",
             "rect": {
               "x": 1595.7031,
-              "y": 510.5938,
+              "y": 531.5938,
               "width": 184.2969,
               "height": 32
             },
@@ -88348,7 +88784,7 @@
             "tag": "button",
             "rect": {
               "x": 1595.7031,
-              "y": 510.5938,
+              "y": 531.5938,
               "width": 184.2969,
               "height": 32
             },
@@ -88377,7 +88813,7 @@
             "ownText": "Change payment method",
             "rect": {
               "x": 1607.7031,
-              "y": 516.0938,
+              "y": 537.0938,
               "width": 160.2969,
               "height": 21
             },
@@ -88397,7 +88833,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 570.5938,
+              "y": 591.5938,
               "width": 1400,
               "height": 76
             },
@@ -88421,7 +88857,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 596.5938,
+              "y": 617.5938,
               "width": 1141.6875,
               "height": 24
             },
@@ -88447,7 +88883,7 @@
             "ownText": "Theme",
             "rect": {
               "x": 380,
-              "y": 596.5938,
+              "y": 617.5938,
               "width": 1141.6875,
               "height": 24
             },
@@ -88467,7 +88903,7 @@
             "tag": "div",
             "rect": {
               "x": 1537.6875,
-              "y": 590.5938,
+              "y": 611.5938,
               "width": 242.3125,
               "height": 36
             },
@@ -88491,7 +88927,7 @@
             "tag": "span",
             "rect": {
               "x": 1537.6875,
-              "y": 590.5938,
+              "y": 611.5938,
               "width": 242.3125,
               "height": 36
             },
@@ -88518,7 +88954,7 @@
             "tag": "span",
             "rect": {
               "x": 1630.6875,
-              "y": 594.5938,
+              "y": 615.5938,
               "width": 73,
               "height": 28
             },
@@ -88543,7 +88979,7 @@
             "tag": "button",
             "rect": {
               "x": 1541.6875,
-              "y": 594.5938,
+              "y": 615.5938,
               "width": 89.0469,
               "height": 28
             },
@@ -88580,7 +89016,7 @@
             },
             "rect": {
               "x": 1553.6875,
-              "y": 601.5938,
+              "y": 622.5938,
               "width": 14,
               "height": 14
             },
@@ -88603,7 +89039,7 @@
             },
             "rect": {
               "x": 1555.4375,
-              "y": 604.2188,
+              "y": 625.2188,
               "width": 10.5,
               "height": 7.875
             },
@@ -88626,7 +89062,7 @@
             },
             "rect": {
               "x": 1558.9375,
-              "y": 613.8438,
+              "y": 634.8438,
               "width": 3.5,
               "height": 0
             },
@@ -88649,7 +89085,7 @@
             },
             "rect": {
               "x": 1555.4375,
-              "y": 609.9063,
+              "y": 630.9063,
               "width": 10.5,
               "height": 0
             },
@@ -88672,7 +89108,7 @@
             },
             "rect": {
               "x": 1560.6875,
-              "y": 612.0938,
+              "y": 633.0938,
               "width": 0,
               "height": 1.75
             },
@@ -88693,7 +89129,7 @@
             "ownText": "System",
             "rect": {
               "x": 1571.6875,
-              "y": 598.0938,
+              "y": 619.0938,
               "width": 47.0469,
               "height": 21
             },
@@ -88716,7 +89152,7 @@
             "tag": "button",
             "rect": {
               "x": 1630.7344,
-              "y": 594.5938,
+              "y": 615.5938,
               "width": 73.2656,
               "height": 28
             },
@@ -88753,7 +89189,7 @@
             },
             "rect": {
               "x": 1642.7344,
-              "y": 601.5938,
+              "y": 622.5938,
               "width": 14,
               "height": 14
             },
@@ -88776,7 +89212,7 @@
             },
             "rect": {
               "x": 1649.7344,
-              "y": 602.4688,
+              "y": 623.4688,
               "width": 0,
               "height": 1.3125
             },
@@ -88799,7 +89235,7 @@
             },
             "rect": {
               "x": 1646.6719,
-              "y": 605.5313,
+              "y": 626.5313,
               "width": 6.125,
               "height": 6.125
             },
@@ -88822,7 +89258,7 @@
             },
             "rect": {
               "x": 1645.3594,
-              "y": 604.2188,
+              "y": 625.2188,
               "width": 0.875,
               "height": 0.875
             },
@@ -88845,7 +89281,7 @@
             },
             "rect": {
               "x": 1645.3594,
-              "y": 612.0938,
+              "y": 633.0938,
               "width": 0.875,
               "height": 0.875
             },
@@ -88868,7 +89304,7 @@
             },
             "rect": {
               "x": 1653.2344,
-              "y": 604.2188,
+              "y": 625.2188,
               "width": 0.875,
               "height": 0.875
             },
@@ -88891,7 +89327,7 @@
             },
             "rect": {
               "x": 1653.2344,
-              "y": 612.0938,
+              "y": 633.0938,
               "width": 0.875,
               "height": 0.875
             },
@@ -88914,7 +89350,7 @@
             },
             "rect": {
               "x": 1643.6094,
-              "y": 608.5938,
+              "y": 629.5938,
               "width": 1.3125,
               "height": 0
             },
@@ -88937,7 +89373,7 @@
             },
             "rect": {
               "x": 1649.7344,
-              "y": 613.4063,
+              "y": 634.4063,
               "width": 0,
               "height": 1.3125
             },
@@ -88960,7 +89396,7 @@
             },
             "rect": {
               "x": 1654.5469,
-              "y": 608.5938,
+              "y": 629.5938,
               "width": 1.3125,
               "height": 0
             },
@@ -88981,7 +89417,7 @@
             "ownText": "Light",
             "rect": {
               "x": 1660.7344,
-              "y": 598.0938,
+              "y": 619.0938,
               "width": 31.2656,
               "height": 21
             },
@@ -89004,7 +89440,7 @@
             "tag": "button",
             "rect": {
               "x": 1704,
-              "y": 594.5938,
+              "y": 615.5938,
               "width": 72,
               "height": 28
             },
@@ -89041,7 +89477,7 @@
             },
             "rect": {
               "x": 1716,
-              "y": 601.5938,
+              "y": 622.5938,
               "width": 14,
               "height": 14
             },
@@ -89064,7 +89500,7 @@
             },
             "rect": {
               "x": 1718.1899,
-              "y": 603.1299,
+              "y": 624.1299,
               "width": 10.2728,
               "height": 10.2728
             },
@@ -89085,7 +89521,7 @@
             "ownText": "Dark",
             "rect": {
               "x": 1734,
-              "y": 598.0938,
+              "y": 619.0938,
               "width": 30,
               "height": 21
             },
@@ -89108,7 +89544,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 646.5938,
+              "y": 667.5938,
               "width": 1400,
               "height": 76
             },
@@ -89132,7 +89568,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 672.5938,
+              "y": 693.5938,
               "width": 1223.9219,
               "height": 24
             },
@@ -89158,7 +89594,7 @@
             "ownText": "Language",
             "rect": {
               "x": 380,
-              "y": 672.5938,
+              "y": 693.5938,
               "width": 1223.9219,
               "height": 24
             },
@@ -89178,7 +89614,7 @@
             "tag": "div",
             "rect": {
               "x": 1619.9219,
-              "y": 666.5938,
+              "y": 687.5938,
               "width": 160.0781,
               "height": 36
             },
@@ -89202,7 +89638,7 @@
             "tag": "span",
             "rect": {
               "x": 1619.9219,
-              "y": 666.5938,
+              "y": 687.5938,
               "width": 160.0781,
               "height": 36
             },
@@ -89229,7 +89665,7 @@
             "tag": "span",
             "rect": {
               "x": 1674.9219,
-              "y": 670.5938,
+              "y": 691.5938,
               "width": 52,
               "height": 28
             },
@@ -89254,7 +89690,7 @@
             "tag": "button",
             "rect": {
               "x": 1623.9219,
-              "y": 670.5938,
+              "y": 691.5938,
               "width": 50.8906,
               "height": 28
             },
@@ -89287,7 +89723,7 @@
             "ownText": "KOR",
             "rect": {
               "x": 1635.9219,
-              "y": 674.0938,
+              "y": 695.0938,
               "width": 26.8906,
               "height": 21
             },
@@ -89310,7 +89746,7 @@
             "tag": "button",
             "rect": {
               "x": 1674.8125,
-              "y": 670.5938,
+              "y": 691.5938,
               "width": 51.6719,
               "height": 28
             },
@@ -89343,7 +89779,7 @@
             "ownText": "ENG",
             "rect": {
               "x": 1686.8125,
-              "y": 674.0938,
+              "y": 695.0938,
               "width": 27.6719,
               "height": 21
             },
@@ -89366,7 +89802,7 @@
             "tag": "button",
             "rect": {
               "x": 1726.4844,
-              "y": 670.5938,
+              "y": 691.5938,
               "width": 49.5156,
               "height": 28
             },
@@ -89399,7 +89835,7 @@
             "ownText": "JPN",
             "rect": {
               "x": 1738.4844,
-              "y": 674.0938,
+              "y": 695.0938,
               "width": 25.5156,
               "height": 21
             },
@@ -89422,7 +89858,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 722.5938,
+              "y": 743.5938,
               "width": 1400,
               "height": 88
             },
@@ -89446,7 +89882,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 742.5938,
+              "y": 763.5938,
               "width": 1336,
               "height": 48
             },
@@ -89472,7 +89908,7 @@
             "ownText": "Contact",
             "rect": {
               "x": 380,
-              "y": 742.5938,
+              "y": 763.5938,
               "width": 1336,
               "height": 24
             },
@@ -89493,7 +89929,7 @@
             "ownText": "Submit a bug report or ask a question.",
             "rect": {
               "x": 380,
-              "y": 769.5938,
+              "y": 790.5938,
               "width": 1336,
               "height": 21
             },
@@ -89513,7 +89949,7 @@
             "tag": "div",
             "rect": {
               "x": 1732,
-              "y": 750.5938,
+              "y": 771.5938,
               "width": 48,
               "height": 32
             },
@@ -89537,7 +89973,7 @@
             "tag": "button",
             "rect": {
               "x": 1732,
-              "y": 750.5938,
+              "y": 771.5938,
               "width": 48,
               "height": 32
             },
@@ -89566,7 +90002,7 @@
             "ownText": "Go",
             "rect": {
               "x": 1747.0938,
-              "y": 756.0938,
+              "y": 777.0938,
               "width": 17.8125,
               "height": 21
             },
@@ -89586,7 +90022,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 810.5938,
+              "y": 831.5938,
               "width": 1400,
               "height": 72
             },
@@ -89610,7 +90046,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 834.5938,
+              "y": 855.5938,
               "width": 1245.3281,
               "height": 24
             },
@@ -89636,7 +90072,7 @@
             "ownText": "Reset password",
             "rect": {
               "x": 380,
-              "y": 834.5938,
+              "y": 855.5938,
               "width": 1245.3281,
               "height": 24
             },
@@ -89656,7 +90092,7 @@
             "tag": "div",
             "rect": {
               "x": 1641.3281,
-              "y": 830.5938,
+              "y": 851.5938,
               "width": 138.6719,
               "height": 32
             },
@@ -89680,7 +90116,7 @@
             "tag": "button",
             "rect": {
               "x": 1641.3281,
-              "y": 830.5938,
+              "y": 851.5938,
               "width": 138.6719,
               "height": 32
             },
@@ -89709,7 +90145,7 @@
             "ownText": "Change password",
             "rect": {
               "x": 1653.3281,
-              "y": 836.0938,
+              "y": 857.0938,
               "width": 114.6719,
               "height": 21
             },
@@ -89729,7 +90165,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 882.5938,
+              "y": 903.5938,
               "width": 1400,
               "height": 72
             },
@@ -89753,7 +90189,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 906.5938,
+              "y": 927.5938,
               "width": 1308.7344,
               "height": 24
             },
@@ -89779,7 +90215,7 @@
             "ownText": "Sign out",
             "rect": {
               "x": 380,
-              "y": 906.5938,
+              "y": 927.5938,
               "width": 1308.7344,
               "height": 24
             },
@@ -89799,7 +90235,7 @@
             "tag": "div",
             "rect": {
               "x": 1704.7344,
-              "y": 902.5938,
+              "y": 923.5938,
               "width": 75.2656,
               "height": 32
             },
@@ -89823,7 +90259,7 @@
             "tag": "button",
             "rect": {
               "x": 1704.7344,
-              "y": 902.5938,
+              "y": 923.5938,
               "width": 75.2656,
               "height": 32
             },
@@ -89851,7 +90287,7 @@
             "tag": "span",
             "rect": {
               "x": 1716.7344,
-              "y": 908.0938,
+              "y": 929.0938,
               "width": 51.2656,
               "height": 21
             },
@@ -89871,7 +90307,7 @@
             "tag": "span",
             "rect": {
               "x": 1716.7344,
-              "y": 908.0938,
+              "y": 929.0938,
               "width": 51.2656,
               "height": 21
             },
@@ -89894,7 +90330,7 @@
             "ownText": "Sign out",
             "rect": {
               "x": 1716.7344,
-              "y": 908.0938,
+              "y": 929.0938,
               "width": 51.2656,
               "height": 21
             },
@@ -89919,7 +90355,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 954.5938,
+              "y": 975.5938,
               "width": 1400,
               "height": 88
             },
@@ -89943,7 +90379,7 @@
             "tag": "div",
             "rect": {
               "x": 380,
-              "y": 974.5938,
+              "y": 995.5938,
               "width": 1260.9063,
               "height": 48
             },
@@ -89969,7 +90405,7 @@
             "ownText": "Delete account",
             "rect": {
               "x": 380,
-              "y": 974.5938,
+              "y": 995.5938,
               "width": 1260.9063,
               "height": 24
             },
@@ -89990,7 +90426,7 @@
             "ownText": "This action is permanent. All your data will be deleted.",
             "rect": {
               "x": 380,
-              "y": 1001.5938,
+              "y": 1022.5938,
               "width": 1260.9063,
               "height": 21
             },
@@ -90010,7 +90446,7 @@
             "tag": "div",
             "rect": {
               "x": 1656.9063,
-              "y": 982.5938,
+              "y": 1003.5938,
               "width": 123.0938,
               "height": 32
             },
@@ -90035,7 +90471,7 @@
             "ownText": "Delete account",
             "rect": {
               "x": 1656.9063,
-              "y": 982.5938,
+              "y": 1003.5938,
               "width": 123.0938,
               "height": 32
             },
@@ -90061,18 +90497,38 @@
         "localApiResponses": [
           {
             "method": "GET",
-            "path": "/api/auth/me",
+            "path": "/api/auth/instagram/me",
             "status": 200
           },
           {
             "method": "GET",
+            "path": "/api/auth/me",
+            "status": 500
+          },
+          {
+            "method": "GET",
             "path": "/api/auth/me/billing-details",
-            "status": 401
+            "status": 500
           },
           {
             "method": "GET",
             "path": "/api/auth/me/billing",
-            "status": 401
+            "status": 500
+          },
+          {
+            "method": "GET",
+            "path": "/api/auth/youtube/me",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/api/onboarding",
+            "status": 500
           }
         ],
         "localApiFailures": []
@@ -168365,7 +168821,7 @@
           "width": 402,
           "height": 874
         },
-        "rootNodeCount": 113,
+        "rootNodeCount": 114,
         "landmarks": [
           {
             "tag": "main",
@@ -168394,7 +168850,7 @@
               "x": 169.2,
               "y": 12,
               "width": 220.8,
-              "height": 330.28
+              "height": 380.88
             }
           },
           {
@@ -168402,7 +168858,7 @@
             "ariaLabel": "Legal",
             "rect": {
               "x": 174.72,
-              "y": 218.08,
+              "y": 268.68,
               "width": 209.76,
               "height": 73.6
             }
@@ -169537,7 +169993,7 @@
               "x": 6,
               "y": 207.7969,
               "width": 390,
-              "height": 64
+              "height": 85
             },
             "declared": {
               "padding": "20px 0",
@@ -169551,7 +170007,7 @@
               "row-gap": "12px",
               "column-gap": "12px"
             },
-            "styleRef": "s3a9341a6bbfe"
+            "styleRef": "s6068d2f72c46"
           },
           {
             "path": "body.1.0.0.1.0.1.3.0",
@@ -169561,7 +170017,7 @@
               "x": 6,
               "y": 227.7969,
               "width": 390,
-              "height": 24
+              "height": 45
             },
             "declared": {
               "padding": "0",
@@ -169576,7 +170032,7 @@
               "flex-shrink": "1",
               "flex-basis": "0%"
             },
-            "styleRef": "sfb5fcf795e08"
+            "styleRef": "s42620076fcff"
           },
           {
             "path": "body.1.0.0.1.0.1.3.0.0",
@@ -169600,12 +170056,33 @@
             "styleRef": "s611c43952ebd"
           },
           {
+            "path": "body.1.0.0.1.0.1.3.0.1",
+            "parentPath": "body.1.0.0.1.0.1.3.0",
+            "tag": "span",
+            "ownText": "dev@local.test",
+            "rect": {
+              "x": 6,
+              "y": 251.7969,
+              "width": 390,
+              "height": 21
+            },
+            "declared": {
+              "padding": "0",
+              "margin": "0",
+              "margin-top": "3px",
+              "margin-right": "0px",
+              "margin-bottom": "0px",
+              "margin-left": "0px"
+            },
+            "styleRef": "seb81922cbf93"
+          },
+          {
             "path": "body.1.0.0.1.0.1.4",
             "parentPath": "body.1.0.0.1.0.1",
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 271.7969,
+              "y": 292.7969,
               "width": 390,
               "height": 85
             },
@@ -169629,7 +170106,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 291.7969,
+              "y": 312.7969,
               "width": 241.0469,
               "height": 45
             },
@@ -169655,7 +170132,7 @@
             "ownText": "Username",
             "rect": {
               "x": 6,
-              "y": 291.7969,
+              "y": 312.7969,
               "width": 241.0469,
               "height": 21
             },
@@ -169673,10 +170150,10 @@
             "path": "body.1.0.0.1.0.1.4.0.1",
             "parentPath": "body.1.0.0.1.0.1.4.0",
             "tag": "span",
-            "ownText": "Enter your username",
+            "ownText": "Dev",
             "rect": {
               "x": 6,
-              "y": 315.7969,
+              "y": 336.7969,
               "width": 241.0469,
               "height": 21
             },
@@ -169696,7 +170173,7 @@
             "tag": "div",
             "rect": {
               "x": 259.0469,
-              "y": 298.2969,
+              "y": 319.2969,
               "width": 136.9531,
               "height": 32
             },
@@ -169720,7 +170197,7 @@
             "tag": "button",
             "rect": {
               "x": 259.0469,
-              "y": 298.2969,
+              "y": 319.2969,
               "width": 136.9531,
               "height": 32
             },
@@ -169753,7 +170230,7 @@
             "ownText": "Update username",
             "rect": {
               "x": 271.0469,
-              "y": 303.7969,
+              "y": 324.7969,
               "width": 112.9531,
               "height": 21
             },
@@ -169773,7 +170250,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 356.7969,
+              "y": 377.7969,
               "width": 390,
               "height": 85
             },
@@ -169797,7 +170274,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 376.7969,
+              "y": 397.7969,
               "width": 221.4531,
               "height": 45
             },
@@ -169823,7 +170300,7 @@
             "ownText": "Current plan",
             "rect": {
               "x": 6,
-              "y": 376.7969,
+              "y": 397.7969,
               "width": 221.4531,
               "height": 21
             },
@@ -169844,7 +170321,7 @@
             "ownText": "Trial",
             "rect": {
               "x": 6,
-              "y": 400.7969,
+              "y": 421.7969,
               "width": 221.4531,
               "height": 21
             },
@@ -169864,7 +170341,7 @@
             "tag": "div",
             "rect": {
               "x": 239.4531,
-              "y": 383.2969,
+              "y": 404.2969,
               "width": 156.5469,
               "height": 32
             },
@@ -169888,7 +170365,7 @@
             "tag": "button",
             "rect": {
               "x": 239.4531,
-              "y": 383.2969,
+              "y": 404.2969,
               "width": 156.5469,
               "height": 32
             },
@@ -169921,7 +170398,7 @@
             "ownText": "Manage subscription",
             "rect": {
               "x": 251.4531,
-              "y": 388.7969,
+              "y": 409.7969,
               "width": 132.5469,
               "height": 21
             },
@@ -169941,7 +170418,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 441.7969,
+              "y": 462.7969,
               "width": 390,
               "height": 127
             },
@@ -169965,7 +170442,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 461.7969,
+              "y": 482.7969,
               "width": 193.7031,
               "height": 87
             },
@@ -169991,7 +170468,7 @@
             "ownText": "Payment method",
             "rect": {
               "x": 6,
-              "y": 461.7969,
+              "y": 482.7969,
               "width": 193.7031,
               "height": 21
             },
@@ -170017,7 +170494,7 @@
             ],
             "rect": {
               "x": 6,
-              "y": 485.7969,
+              "y": 506.7969,
               "width": 193.7031,
               "height": 63
             },
@@ -170037,7 +170514,7 @@
             "tag": "div",
             "rect": {
               "x": 211.7031,
-              "y": 489.2969,
+              "y": 510.2969,
               "width": 184.2969,
               "height": 32
             },
@@ -170061,7 +170538,7 @@
             "tag": "button",
             "rect": {
               "x": 211.7031,
-              "y": 489.2969,
+              "y": 510.2969,
               "width": 184.2969,
               "height": 32
             },
@@ -170094,7 +170571,7 @@
             "ownText": "Change payment method",
             "rect": {
               "x": 223.7031,
-              "y": 494.7969,
+              "y": 515.7969,
               "width": 160.2969,
               "height": 21
             },
@@ -170114,7 +170591,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 568.7969,
+              "y": 589.7969,
               "width": 390,
               "height": 76
             },
@@ -170138,7 +170615,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 596.2969,
+              "y": 617.2969,
               "width": 135.6875,
               "height": 21
             },
@@ -170164,7 +170641,7 @@
             "ownText": "Theme",
             "rect": {
               "x": 6,
-              "y": 596.2969,
+              "y": 617.2969,
               "width": 135.6875,
               "height": 21
             },
@@ -170184,7 +170661,7 @@
             "tag": "div",
             "rect": {
               "x": 153.6875,
-              "y": 588.7969,
+              "y": 609.7969,
               "width": 242.3125,
               "height": 36
             },
@@ -170208,7 +170685,7 @@
             "tag": "span",
             "rect": {
               "x": 153.6875,
-              "y": 588.7969,
+              "y": 609.7969,
               "width": 242.3125,
               "height": 36
             },
@@ -170235,7 +170712,7 @@
             "tag": "span",
             "rect": {
               "x": 246.6875,
-              "y": 592.7969,
+              "y": 613.7969,
               "width": 73,
               "height": 28
             },
@@ -170260,7 +170737,7 @@
             "tag": "button",
             "rect": {
               "x": 157.6875,
-              "y": 592.7969,
+              "y": 613.7969,
               "width": 89.0469,
               "height": 28
             },
@@ -170297,7 +170774,7 @@
             },
             "rect": {
               "x": 169.6875,
-              "y": 599.7969,
+              "y": 620.7969,
               "width": 14,
               "height": 14
             },
@@ -170320,7 +170797,7 @@
             },
             "rect": {
               "x": 171.4375,
-              "y": 602.4219,
+              "y": 623.4219,
               "width": 10.5,
               "height": 7.875
             },
@@ -170343,7 +170820,7 @@
             },
             "rect": {
               "x": 174.9375,
-              "y": 612.0469,
+              "y": 633.0469,
               "width": 3.5,
               "height": 0
             },
@@ -170366,7 +170843,7 @@
             },
             "rect": {
               "x": 171.4375,
-              "y": 608.1094,
+              "y": 629.1094,
               "width": 10.5,
               "height": 0
             },
@@ -170389,7 +170866,7 @@
             },
             "rect": {
               "x": 176.6875,
-              "y": 610.2969,
+              "y": 631.2969,
               "width": 0,
               "height": 1.75
             },
@@ -170410,7 +170887,7 @@
             "ownText": "System",
             "rect": {
               "x": 187.6875,
-              "y": 596.2969,
+              "y": 617.2969,
               "width": 47.0469,
               "height": 21
             },
@@ -170433,7 +170910,7 @@
             "tag": "button",
             "rect": {
               "x": 246.7344,
-              "y": 592.7969,
+              "y": 613.7969,
               "width": 73.2656,
               "height": 28
             },
@@ -170470,7 +170947,7 @@
             },
             "rect": {
               "x": 258.7344,
-              "y": 599.7969,
+              "y": 620.7969,
               "width": 14,
               "height": 14
             },
@@ -170493,7 +170970,7 @@
             },
             "rect": {
               "x": 265.7344,
-              "y": 600.6719,
+              "y": 621.6719,
               "width": 0,
               "height": 1.3125
             },
@@ -170516,7 +170993,7 @@
             },
             "rect": {
               "x": 262.6719,
-              "y": 603.7344,
+              "y": 624.7344,
               "width": 6.125,
               "height": 6.125
             },
@@ -170539,7 +171016,7 @@
             },
             "rect": {
               "x": 261.3594,
-              "y": 602.4219,
+              "y": 623.4219,
               "width": 0.875,
               "height": 0.875
             },
@@ -170562,7 +171039,7 @@
             },
             "rect": {
               "x": 261.3594,
-              "y": 610.2969,
+              "y": 631.2969,
               "width": 0.875,
               "height": 0.875
             },
@@ -170585,7 +171062,7 @@
             },
             "rect": {
               "x": 269.2344,
-              "y": 602.4219,
+              "y": 623.4219,
               "width": 0.875,
               "height": 0.875
             },
@@ -170608,7 +171085,7 @@
             },
             "rect": {
               "x": 269.2344,
-              "y": 610.2969,
+              "y": 631.2969,
               "width": 0.875,
               "height": 0.875
             },
@@ -170631,7 +171108,7 @@
             },
             "rect": {
               "x": 259.6094,
-              "y": 606.7969,
+              "y": 627.7969,
               "width": 1.3125,
               "height": 0
             },
@@ -170654,7 +171131,7 @@
             },
             "rect": {
               "x": 265.7344,
-              "y": 611.6094,
+              "y": 632.6094,
               "width": 0,
               "height": 1.3125
             },
@@ -170677,7 +171154,7 @@
             },
             "rect": {
               "x": 270.5469,
-              "y": 606.7969,
+              "y": 627.7969,
               "width": 1.3125,
               "height": 0
             },
@@ -170698,7 +171175,7 @@
             "ownText": "Light",
             "rect": {
               "x": 276.7344,
-              "y": 596.2969,
+              "y": 617.2969,
               "width": 31.2656,
               "height": 21
             },
@@ -170721,7 +171198,7 @@
             "tag": "button",
             "rect": {
               "x": 320,
-              "y": 592.7969,
+              "y": 613.7969,
               "width": 72,
               "height": 28
             },
@@ -170758,7 +171235,7 @@
             },
             "rect": {
               "x": 332,
-              "y": 599.7969,
+              "y": 620.7969,
               "width": 14,
               "height": 14
             },
@@ -170781,7 +171258,7 @@
             },
             "rect": {
               "x": 334.1899,
-              "y": 601.333,
+              "y": 622.333,
               "width": 10.2729,
               "height": 10.2728
             },
@@ -170802,7 +171279,7 @@
             "ownText": "Dark",
             "rect": {
               "x": 350,
-              "y": 596.2969,
+              "y": 617.2969,
               "width": 30,
               "height": 21
             },
@@ -170825,7 +171302,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 644.7969,
+              "y": 665.7969,
               "width": 390,
               "height": 76
             },
@@ -170849,7 +171326,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 672.2969,
+              "y": 693.2969,
               "width": 217.9219,
               "height": 21
             },
@@ -170875,7 +171352,7 @@
             "ownText": "Language",
             "rect": {
               "x": 6,
-              "y": 672.2969,
+              "y": 693.2969,
               "width": 217.9219,
               "height": 21
             },
@@ -170895,7 +171372,7 @@
             "tag": "div",
             "rect": {
               "x": 235.9219,
-              "y": 664.7969,
+              "y": 685.7969,
               "width": 160.0781,
               "height": 36
             },
@@ -170919,7 +171396,7 @@
             "tag": "span",
             "rect": {
               "x": 235.9219,
-              "y": 664.7969,
+              "y": 685.7969,
               "width": 160.0781,
               "height": 36
             },
@@ -170946,7 +171423,7 @@
             "tag": "span",
             "rect": {
               "x": 290.9219,
-              "y": 668.7969,
+              "y": 689.7969,
               "width": 52,
               "height": 28
             },
@@ -170971,7 +171448,7 @@
             "tag": "button",
             "rect": {
               "x": 239.9219,
-              "y": 668.7969,
+              "y": 689.7969,
               "width": 50.8906,
               "height": 28
             },
@@ -171004,7 +171481,7 @@
             "ownText": "KOR",
             "rect": {
               "x": 251.9219,
-              "y": 672.2969,
+              "y": 693.2969,
               "width": 26.8906,
               "height": 21
             },
@@ -171027,7 +171504,7 @@
             "tag": "button",
             "rect": {
               "x": 290.8125,
-              "y": 668.7969,
+              "y": 689.7969,
               "width": 51.6719,
               "height": 28
             },
@@ -171060,7 +171537,7 @@
             "ownText": "ENG",
             "rect": {
               "x": 302.8125,
-              "y": 672.2969,
+              "y": 693.2969,
               "width": 27.6719,
               "height": 21
             },
@@ -171083,7 +171560,7 @@
             "tag": "button",
             "rect": {
               "x": 342.4844,
-              "y": 668.7969,
+              "y": 689.7969,
               "width": 49.5156,
               "height": 28
             },
@@ -171116,7 +171593,7 @@
             "ownText": "JPN",
             "rect": {
               "x": 354.4844,
-              "y": 672.2969,
+              "y": 693.2969,
               "width": 25.5156,
               "height": 21
             },
@@ -171139,7 +171616,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 720.7969,
+              "y": 741.7969,
               "width": 390,
               "height": 85
             },
@@ -171163,7 +171640,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 740.7969,
+              "y": 761.7969,
               "width": 330,
               "height": 45
             },
@@ -171189,7 +171666,7 @@
             "ownText": "Contact",
             "rect": {
               "x": 6,
-              "y": 740.7969,
+              "y": 761.7969,
               "width": 330,
               "height": 21
             },
@@ -171210,7 +171687,7 @@
             "ownText": "Submit a bug report or ask a question.",
             "rect": {
               "x": 6,
-              "y": 764.7969,
+              "y": 785.7969,
               "width": 330,
               "height": 21
             },
@@ -171230,7 +171707,7 @@
             "tag": "div",
             "rect": {
               "x": 348,
-              "y": 747.2969,
+              "y": 768.2969,
               "width": 48,
               "height": 32
             },
@@ -171254,7 +171731,7 @@
             "tag": "button",
             "rect": {
               "x": 348,
-              "y": 747.2969,
+              "y": 768.2969,
               "width": 48,
               "height": 32
             },
@@ -171287,7 +171764,7 @@
             "ownText": "Go",
             "rect": {
               "x": 363.0938,
-              "y": 752.7969,
+              "y": 773.7969,
               "width": 17.8125,
               "height": 21
             },
@@ -171307,7 +171784,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 805.7969,
+              "y": 826.7969,
               "width": 390,
               "height": 72
             },
@@ -171331,7 +171808,7 @@
             "tag": "div",
             "rect": {
               "x": 6,
-              "y": 831.2969,
+              "y": 852.2969,
               "width": 239.3281,
               "height": 21
             },
@@ -171357,7 +171834,7 @@
             "ownText": "Reset password",
             "rect": {
               "x": 6,
-              "y": 831.2969,
+              "y": 852.2969,
               "width": 239.3281,
               "height": 21
             },
@@ -171377,7 +171854,7 @@
             "tag": "div",
             "rect": {
               "x": 257.3281,
-              "y": 825.7969,
+              "y": 846.7969,
               "width": 138.6719,
               "height": 32
             },
@@ -171401,7 +171878,7 @@
             "tag": "button",
             "rect": {
               "x": 257.3281,
-              "y": 825.7969,
+              "y": 846.7969,
               "width": 138.6719,
               "height": 32
             },
@@ -171434,7 +171911,7 @@
             "ownText": "Change password",
             "rect": {
               "x": 269.3281,
-              "y": 831.2969,
+              "y": 852.2969,
               "width": 114.6719,
               "height": 21
             },
@@ -171459,18 +171936,38 @@
         "localApiResponses": [
           {
             "method": "GET",
-            "path": "/api/auth/me",
+            "path": "/api/auth/instagram/me",
             "status": 200
           },
           {
             "method": "GET",
+            "path": "/api/auth/me",
+            "status": 500
+          },
+          {
+            "method": "GET",
             "path": "/api/auth/me/billing-details",
-            "status": 401
+            "status": 500
           },
           {
             "method": "GET",
             "path": "/api/auth/me/billing",
-            "status": 401
+            "status": 500
+          },
+          {
+            "method": "GET",
+            "path": "/api/auth/youtube/me",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/api/onboarding",
+            "status": 500
           }
         ],
         "localApiFailures": []

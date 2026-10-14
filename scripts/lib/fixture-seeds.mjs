@@ -101,7 +101,15 @@ const highlightItem = (index) => ({
 // 하이라이트 완료 화면이 같은 표를 읽어도 `id` 로 집을 때만 보인다.
 export const FIXTURE_HIGHLIGHT_SHORT_ID = "00000000-0000-4000-8000-00000000c0c3";
 
+// **로그인 화면의 프로필(2026-10-14 소유자 승인 — 결정 요청 1).** auth 모드(로그인 우회)는 가짜 Supabase 없이 재어 `/api/auth/me` 가 프로필
+// null 을 냈다 — 설정의 사용자 이름 칸이 「Enter your username」으로, Gnb 프로필이 이름 없이 재졌다. auth 모드에도 가짜 Supabase 를 띄우되
+// 시드는 이 한 표뿐이다 — 다른 표는 빈 목록이라 지금의 빈 상태(닿지 않는 주소)와 같은 화면을 낸다. 사진은 스토리지 서명이 바깥으로 가서 비운다.
+const fixtureProfile = { id: FIXTURE_USER, email: "fixture@klipse.test", username: "Fixture User", avatar_storage_key: null, is_ambassador: false,
+  deleted_at: null, created_at: "2026-01-01T00:00:00.000Z", updated_at: "2026-01-01T00:00:00.000Z" };
+export const FIXTURE_AUTH_SEEDS = Object.freeze({ profiles: [fixtureProfile] });
+
 export const FIXTURE_SEEDS = Object.freeze({
+  profiles: [fixtureProfile],
   coupon_campaigns: [{ id: FIXTURE_COUPON_CAMPAIGN_ID, code: "FIXTURE2026", name: "픽스처 쿠폰 캠페인" }],
   coupon_codes: couponCodes,
   projects: {

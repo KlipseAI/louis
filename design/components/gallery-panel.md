@@ -15,7 +15,7 @@ summary: 열린 모달 안을 덮어 예시 그림을 세 열 격자로 보여 �
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS 레시피 `.louis-gallery-panel` 만 있다(`packages/css/src/component/gallery-panel.css`). React 표면은 없다 |
-| Figma         | `partial`      | `GalleryPanel`(400 폭 표본). 계약 · 기하 · 되재기 시험이 선다 |
+| Figma         | `done`         | `GalleryPanel`(400 폭 표본). 계약 · 기하 · 되재기 시험이 선다 — 2026-10-15 되재기 `gallery-panel.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품 이미지 편집 모달이 이 레시피를 물면 승격 후보 |
 

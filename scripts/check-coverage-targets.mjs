@@ -131,7 +131,8 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 같은 날 뒤: 112 → 107 — 노드캔버스 노드 카드 다섯이 제품 세트가 됐다(check-figma-surface-coverage 의 MAPPED_PRODUCT_BASELINE 주석).
 // 같은 날 뒤: 107 → 105 — 홈 · 하이라이트 스튜디오 판 화면.
 // 같은 날 뒤: 105 → 102 — 단체 구매 실패 · 편집기 작업 화면 · 캔버스 스테이지 프레임.
-const NEEDED_BASELINE = 102; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 2026-10-15: 102 → 95 — 캔버스 · 편집기 표면 여섯 대응 + ActionButton 범위 밖(죽은 코드, DS-D-0106).
+const NEEDED_BASELINE = 95; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -211,7 +212,8 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 같은 날 뒤: 67 → 72 — LOUIS 에 잴 코드가 없던 다섯(breadcrumb · form-message · carousel-arrow · gnb-menu-item · inline-loading-label)에 CSS 레시피 ·
 // 기하 계약 · 되재기를 세웠다(Updates (273)).
 // 같은 날 뒤: 72 → 74 — news-card · segmented-code-input 에 CSS 레시피 · 되재기(Updates (274)).
-const MANIFEST_DONE_FLOOR = 74; // 바닥. 오르면 올려 이득을 잠근다
+// 2026-10-15: 74 → 77 — 새 부품 canvas-dots · gallery-panel · drill-picker 가 되재기와 함께 섰다(DS-D-0102 · 0104 · 0105).
+const MANIFEST_DONE_FLOOR = 77; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

@@ -25,6 +25,16 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-15 (275) — 캔버스 · 편집기 새 부품 넷과 Figma done 셋, 표면 대응 184 → 190
+
+- **canvas-dots** — 캔버스 바닥 점 격자(gap 24 · dot 2)를 부품으로 등록했다. Figma 는 한 칸 타일 `CanvasDots`(24 × 24)로 라이트 · 다크 점 색을 변수로 묻는다([DS-D-0102](../governance/decisions/DS-D-0102-canvas-dots.md)).
+- **Menu 항목 `data-layout="media"`** — 로고 우물 + 이름 + 능력 표기 행. Figma `MenuMediaItem`. 다크 호버 면 위 설명 대비 4.28 을 `fg-secondary` 로 고쳤다(DS-D-0103).
+- **gallery-panel** — 편집 모달 안을 덮는 예시 패널. Figma `GalleryPanel`. 닫기 · 안내 글 대비(라이트 2.63 · 다크 3.80)를 고쳤다(DS-D-0104).
+- **drill-picker** — 「프로젝트에서 가져오기」 드릴다운 피커. 폴더 행은 SelectableListRow `Layout=link`, 고르기 행은 새 `DrillPickerRow`(State × Checked). 실패 · 빈 목록 글 대비 1.91 을 `fg-danger-on-surface` 로 고쳤다(DS-D-0105).
+- **기존 부품 사상** — 영상 편집 효과 행은 InspectorSectionHead + Menu, 스티커 캔버스는 TransformFrame 으로 대응한다. 캔버스 원형 FAB(ActionButton)는 앵커에서 렌더 지점이 0 인 죽은 코드라 범위 밖으로 옮겼다(DS-D-0106).
+- figma `partial` → `done` 셋(canvas-dots · gallery-panel · drill-picker) — manifest done 74 → 77. 표면 대응 184 → 190, needed 102 → 95.
+- 알아 둘 것 — 제품과 달라지는 값: 모델 메뉴 로고 우물 반경 6 → 8 · 설명 마퀴 없음 · 플랜 잠김 보라 면 없음, 피커 가져오기 버튼 높이 41 → 40. 각 문서의 Known deviations 에 적었다.
+
 ## 2026-10-14 (274) — 새 CSS 레시피 둘(news-card · segmented-code-input)과 Figma done 둘, 피처드 뉴스 카드 날짜 색을 제품에 맞춤
 
 - **news-card** — 카드(반경 12 · 여백 20/16 · 면 `landing-panel-strong` · 날짜 16 · 제목 20/30 두 줄 말줄임)와 셸프 격자 `.louis-news-card-track`(960 이상 열 흐름 ·

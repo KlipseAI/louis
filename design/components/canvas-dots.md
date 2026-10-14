@@ -15,7 +15,7 @@ summary: 노드 캔버스 바닥에 지름 2 점을 24 격자로 깝니다.
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS 레시피 `.louis-canvas-dots` 만 있다(`packages/css/src/pattern/editor-workspace.css`). React 표면은 없다 |
-| Figma         | `partial`      | 한 칸 타일 `CanvasDots`(24 × 24). 계약 · 기하 · 되재기 시험이 선다([DS-D-0102](../governance/decisions/DS-D-0102-canvas-dots.md)) |
+| Figma         | `done`         | 한 칸 타일 `CanvasDots`(24 × 24). 계약 · 기하 · 되재기 시험이 선다([DS-D-0102](../governance/decisions/DS-D-0102-canvas-dots.md)) — 2026-10-15 되재기 `canvas-dots.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품 캔버스가 xyflow SVG 대신 같은 값을 문다는 확인이 서면 승격 후보 |
 

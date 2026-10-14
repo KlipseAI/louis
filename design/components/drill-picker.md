@@ -15,7 +15,7 @@ summary: 폴더를 열고 그 안의 항목을 여럿 골라 가져오는 Finder
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS 레시피 `.louis-drill-picker` 만 있다(`packages/css/src/component/drill-picker.css`). React 표면은 없다 |
-| Figma         | `partial`      | 고르기 행 `DrillPickerRow`(State × Checked) + 항목 단계 합성 `DrillPicker`. 계약 · 기하 · 되재기 시험이 선다 |
+| Figma         | `done`         | 고르기 행 `DrillPickerRow`(State × Checked) + 항목 단계 합성 `DrillPicker`. 계약 · 기하 · 되재기 시험이 선다 — 2026-10-15 되재기 `drill-picker.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품 영상 편집기가 이 레시피를 물면 승격 후보 |
 

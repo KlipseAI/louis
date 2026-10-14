@@ -13,16 +13,16 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 184,
-    "scoped": 324,
-    "needed": 102,
+    "mapped": 190,
+    "scoped": 325,
+    "needed": 95,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 8,
+    "primitive": 7,
     "screen": 84,
-    "oneoff": 10,
+    "oneoff": 4,
     "unclear": 0,
     "kindless": 0
   },
@@ -3779,23 +3779,23 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/ActionButton.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "캔버스 좌하단 원형 FAB(44px, 그림자 2단·호버 scale 1.06·프레스 0.96). LOUIS `louis-icon-button` 을 쓰지 않는 bespoke 원형 버튼이라 IconButton 의 어느 변형과도 치수·그림자가 맞지 않는다. IconButton 에 `Shape: circle` + elevated 변형을 더하는 쪽이 자연스럽다.",
-      "weight": "low",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: IconButton] **소비자 0 — 죽은 코드다.** 앵커 전체에서 이 이름이 나오는 곳은 자기 파일(3회) · 무관한 주석(ImageLightbox.tsx:44) · lint-baseline.json 뿐이고, JSX 렌더 지점도 import 도 없다. 배럴 index 도 없다. 파일 머리주석이 스스로 「`NodeCanvasV2.module.css` 이식 · 공유 파일은 남는다」라 적어 둔 이식 잔재다. 원장의 사유(IconButton 에 circle+elevated 를 더하자)는 살아 있는 표면을 전제하는데 그 전제가 틀렸다 — 지을 게 아니라 제품에서 지울 후보다."
+      "reason": "앵커 전체에서 import · JSX 렌더 지점이 0 인 죽은 코드다(DS-D-0106). 제품에 보이는 부품이 아니므로 범위 밖이다. 제품 저장소에서 지울 후보로 적는다. 2026-10-15 판정.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx#CanvasBackground": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 바닥의 점 격자(gap 24 · dot 2). 원장이 이 영역의 첫 항목으로 적은 표면이고, 모든 캔버스 화면의 배경이라 Figma 보드에서 노드를 얹을 바닥면이 없으면 어떤 캔버스 시안도 세울 수 없다. 라이트/다크 점 색이 함께 정본화돼야 한다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "import 1 (index.tsx)이지만 그 index.tsx 를 렌더하는 곳이 3군데 · 라우트 계열 2개다 — CreateScene(/create) · landing/sections/NodeMockupCard · landing/demo-snapshots/StaticCreateDemo. 즉 제품 화면과 랜딩 양쪽에 같은 바닥이 깔린다. 이 점 격자(gap 24·dot 2)가 Figma 에 없으면 어떤 캔버스 보드도 얹을 바닥이 없다. 라이트/다크 점 색이 함께 정본화돼야 한다."
+      "verdict": "figma",
+      "figma": "CanvasDots",
+      "reason": "캔버스 바닥 점 격자(gap 24 · dot 2)를 부품 canvas-dots 로 올렸다(DS-D-0102). Figma 타일 CanvasDots 가 라이트 · 다크 점 색을 변수로 물고, 기하 되재기 시험이 gap · dot 크기를 잰다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx#CanvasEmptyState": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx",
@@ -5073,23 +5073,23 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "스티커 예시를 보여주는 패널(113줄)이다. 파일 주석이 「모달 안을 덮는 패널 — 별도 포털을 쓰지 않는다」고 스스로 적는다. 모달 위에 한 겹 더 얹히는 자리라 Dialog 정본으로 접히지 않는다.",
-      "weight": "low",
-      "kind": "oneoff",
-      "kindReason": "한 자리다 — 이미지 편집 모달 안에서만 열린다. 되풀이 증거가 없다."
+      "verdict": "figma",
+      "figma": "GalleryPanel",
+      "reason": "편집 모달 안을 덮는 예시 패널을 부품 gallery-panel 로 올렸다(DS-D-0104). 닫기 · 안내 글 대비(라이트 2.63 · 다크 3.80)를 고쳐 올렸다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerCanvas.tsx#StickerCanvas": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerCanvas.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "스티커를 얹고 끌어 옮기는 캔버스(449줄)다. 포인터로 스티커의 위치·크기·회전을 잡는 조형이라 되풀이 증거가 없고, 같은 종류가 제품 어디에도 없다. Figma 65 컴포넌트에 담을 칸이 없다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "한 자리에만 있는 그림이다 — 이미지 편집 모달 안에서만 서고 다른 소비처가 없다."
+      "verdict": "figma",
+      "figma": "TransformFrame",
+      "reason": "스티커의 위치 · 크기 · 회전 손잡이는 Transform Frame 이 이미 이 파일을 정본으로 인용한다(DS-D-0106). 바닥은 편집 대상 그림이라 시스템이 정의할 시각이 없다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx#StickerPalette": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx",
@@ -5432,12 +5432,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/effectsTabRow.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "`…/nodes/VideoEditModal.tsx#VideoEditModal` 안의 독립 영역이다. 속성 패널의 효과 행 — `+` 로 페이드 인/아웃을 고르는 인라인 확장 행이다. Tabs·Menu 어느 쪽과도 다른 '행 안에서 펼쳐지는 선택' 문법이라 정본이 필요하다.",
-      "weight": "low",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: menu-popover] import 1곳(ClipInspector·OverlayInspector 두 인스펙터가 부른다), 라우트 3. 소스를 읽으면 남은 것이 없다 — 머리는 이미 InspectorSectionHead 로 넘겼고(파일 주석이 그 이관을 적고 있다), 트리거는 InspectorSectionAction(원장에서 이미 figma:IconButton), 글리프는 SectionPlusGlyph(이미 scoped→icon/plus), 팝오버는 louis-popover + louis-menu__item 을 그대로 문다. 즉 이 파일이 자기 것으로 갖는 건 rAF 펼침 애니와 peer 이벤트 배선뿐이고 그건 LOUIS Menu 정본으로 수렴시킬 코드 부채다. 원장 louis [] 는 틀렸다."
+      "verdict": "figma",
+      "figma": "InspectorSectionHead",
+      "reason": "머리는 InspectorSectionHead(Action=Icon), 펼침은 louis-popover + louis-menu__item 을 그대로 문다(DS-D-0106). 파일 고유 시각이 남지 않는다 — rAF 펼침 애니는 Menu 정본으로 수렴시킬 코드 부채다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx#InspectorMetric": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
@@ -5895,12 +5895,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "영상 모델 선택 메뉴 — 프로바이더 로고 + 모델명 + 지원 능력 표기가 한 행에 들어간다. 항목이 Menu 정본의 아이콘+라벨 구성보다 정보가 많아(브랜드 로고·능력 축) 그대로 흡수되지 않는다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: menu-popover] 인스턴스화 1곳(VideoNode.tsx)뿐이고 짝이 없다 — 원장 전체에 ImageModelMenu 같은 형제 모델 피커가 없다(Menu/Dropdown/Picker 이름 25건 전수 확인). 구성은 검색 input + 필터 칩 행 + 리치 옵션 목록으로, 셋 다 LOUIS 에 대응이 있다(input · segmented-control/badge · menu-popover + selectable-list-row). 새 컴포넌트가 아니라 정본 조합으로 수렴시킬 자리다. 두 번째 모델 피커가 생기면 그때 «로고+이름+능력 배지+마퀴 설명» 행만 뽑으면 된다."
+      "verdict": "figma",
+      "figma": "MenuMediaItem",
+      "reason": "프로바이더 로고 + 모델명 + 능력 표기 행을 Menu 항목 변형 data-layout=\"media\" 로 올렸다(DS-D-0103). 메뉴 셸은 menu-popover 정본이고 행은 Figma MenuMediaItem 이다. 다크 호버 위 설명 대비 4.28 을 fg-secondary 로 고쳤다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx#IconSpeakerHigh": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
@@ -6688,12 +6688,12 @@
       "louis": [
         "louis-checkbox"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "Finder 식 드릴다운 피커 본문 — 뒤로가기 헤더, 폴더 글리프 + 체브론이 붙은 프로젝트 행, 체크박스 + 16:9 썸네일 + 종류 배지 + 라벨의 소스 행, 하단 가져오기 바. 소스 행은 Figma SelectableListRow(State/Title/Meta/Trailing/Media)의 확장 후보이고 드릴 헤더·가져오기 바는 대응물이 없다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: SelectableListRow (행에 한정)] 앵커 실측: JSX 1곳(videoEditParts/AssetPanel.tsx:1410)뿐. 소비처가 하나이고 Finder 식 드릴다운 셸(뒤로가기 헤더 + 하단 가져오기 바)이 제품 어디에도 두 번 나오지 않는다. 되풀이될 성질이 있는 부분은 셸이 아니라 «소스 행»(체크박스 + 16:9 썸네일 + 종류 배지 + 라벨)인데, 그건 이미 LOUIS SelectableListRow(State/Title/Meta/Trailing/Media)의 확장으로 흡수된다 — 즉 새로 지을 것은 없고 행만 물게 하면 된다."
+      "verdict": "figma",
+      "figma": "DrillPicker",
+      "reason": "Finder 식 드릴다운 피커를 부품 drill-picker 로 올렸다(DS-D-0105). 폴더 행은 SelectableListRow Layout=link, 고르기 행은 DrillPickerRow 다. 실패 · 빈 목록 글 대비 1.91 을 고쳤다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/VideoEditProjectPicker.tsx#VideoPosterThumb": {
       "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",

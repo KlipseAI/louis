@@ -12,6 +12,7 @@ import { overlayLouisCss } from "./lib/louis-css-overlay.mjs";
 import { productFontFile } from "./lib/product-font.mjs";
 import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
+import { productAriaLabels } from "./lib/product-aria-labels.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
 import { checkCites, createRecipeRouter, loadArea, readRecipeCss, recipeAssertProblems, recipeDigest, runRecipeSteps, specFromRecipe, supabaseOverlayOf, validateRecipes } from "./lib/state-recipes.mjs";
 import { FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
@@ -117,6 +118,9 @@ if (localeMode) {
   const enCommit = JSON.parse(readFileSync(enLedgerPath, "utf8")).productCommit;
   if (enCommit !== commit) unavailable("--locale: en 원장의 커밋(" + String(enCommit).slice(0, 12) + ")이 지금 앵커(" + commit.slice(0, 12) + ")와 다릅니다 — en 원장을 같은 앵커에서 다시 잰다");
 }
+// 탐침은 단추를 접근 이름으로 찾는다. 제품이 그 이름을 번역하므로(10-14 사전 이관) 측정 커밋 사전의 ko · ja 값도 함께 받는다.
+// 기록에는 영어 정본 이름을 남긴다 — 생성기(build-figma-product-app-shell.mjs)가 그 이름을 키로 쓴다.
+const PROBE_LABELS = productAriaLabels(productRoot, commit, ["Collapse sidebar", "Expand sidebar", "Open navigation menu", "Back to subscription", "Open profile"]);
 const fixtureCommit = louisExamples ? commit : gitAt(fixtureRoot, ["rev-parse", "HEAD"]).trim();
 if (fixtureCommit !== commit) {
   unavailable(
@@ -1001,7 +1005,7 @@ try {
         }
 
         // 이 패스는 **여러 번 돌 수 있다**(아래 재시도 루프). 그래서 즉시 실행이 아니라 닫힘이다.
-        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes, fullPage, rootBody, overlaySelector }) => {
+        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes, fullPage, rootBody, overlaySelector, probeLabels }) => {
           // **읽기 직전에 애니메이션을 얼린다.** 회전 중인 요소의 `getBoundingClientRect()` 는
           // 잰 순간의 각도를 담는다 — 16×16 스피너는 축 정렬 경계가 16×(|cos|+|sin|) 이라
           // 16 과 22.63 사이를 오간다. 실측: `?__phase=analyzing` 의 스피너가 한 번은
@@ -1348,7 +1352,7 @@ try {
             }));
           const vectorControlProbe = (ariaLabel) => {
             const button = [...document.querySelectorAll("button")]
-              .find((node) => node.getAttribute("aria-label") === ariaLabel);
+              .find((node) => probeLabels[ariaLabel].includes(node.getAttribute("aria-label")));
             if (!button || !rootCandidate.node.contains(button)) return null;
             const svg = button.querySelector("svg");
             if (!svg) return null;
@@ -1376,7 +1380,7 @@ try {
           };
           const profileRingProbe = () => {
             const button = [...document.querySelectorAll("button")]
-              .find((node) => node.getAttribute("aria-label") === "Open profile");
+              .find((node) => probeLabels["Open profile"].includes(node.getAttribute("aria-label")));
             if (!button || !rootCandidate.node.contains(button)) return null;
             const avatar = button.querySelector("span, img");
             const computed = getComputedStyle(button);
@@ -1421,7 +1425,7 @@ try {
             tree: rootTree,
             overlays,
           };
-        }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES, fullPage: Boolean(spec.fullPage), rootBody: Boolean(spec.rootBody),
+        }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES, fullPage: Boolean(spec.fullPage), rootBody: Boolean(spec.rootBody), probeLabels: PROBE_LABELS,
           // 겹침창은 `role=dialog` 만 잡는다. 레시피가 포털 메뉴 · 팝오버의 선택자를 주면 그것도 함께 잡는다(설계서 2절 10번).
           overlaySelector: spec.recipe?.overlaySelectors.length ? ['[role="dialog"]', ...spec.recipe.overlaySelectors].join(",") : '[role="dialog"]' });
 

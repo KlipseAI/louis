@@ -1102,6 +1102,42 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       layoutMode = "VERTICAL";
       stats.soleSpanningChildren = (stats.soleSpanningChildren ?? 0) + 1;
     }
+    // **자동 배치 없는 부모 안에서 제약으로 늘어나는 자동 배치 자식은 외동 FILL 자식을 제약으로 바꾼다(2026-10-14, 조립 규칙 15조의 13).**
+    // 15조의 9 와 같은 Figma 성질 — 제약으로 크기가 바뀐 자동 배치 프레임은 FILL 자식을 다시 배치하지 않는다. 노드캔버스의 캔버스 층(`absolute
+    // inset-0` 넷이 모인 NONE 부모 안의 `absolute inset-0` 세로 flex, 그 안의 React Flow 상자 `width · height 100%`)을 1440 으로 줄이자 층은
+    // 1440 이 됐는데 React Flow 상자가 1920 에 남아 480 나갔다(모바일 360 은 42, 늘림 시험 run 2026-10-14b). 부모가 넷이라 15조의 9(부모를
+    // 자동 배치로)는 서지 않는다. 그 자식의 자동 배치를 걷고(NONE) 외동 흐름 자식을 측정 자리(0, 0) · 두 축 STRETCH 의 절대 배치로 두면
+    // 제약 사슬로 따라간다(라이브 탐침 2026-10-14: 1440 에서 1440). 자식이 하나 · 두 축 FILL · 패딩 · margin 없음 · 자리 · 크기가 같을 때만 —
+    // CSS 에서 그 자식은 부모 안쪽 상자 전체이고 두 축 STRETCH 도 같은 상자다. 측정 크기의 자리 · 크기는 바뀌지 않는다.
+    if (layoutMode === "NONE") {
+      const near = (a, b) => Math.abs(a - b) <= 0.5;
+      children = children.map((child) => {
+        const c = child.constraints;
+        if (child.positioning !== "ABSOLUTE" || !child.layout || child.layout.layoutMode === "GRID" || !c) return child;
+        if (![c.horizontal, c.vertical].some((value) => value === "STRETCH" || value === "SCALE")) return child;
+        if ((child.children ?? []).length !== 1) return child;
+        const [only] = child.children;
+        if (only.positioning === "ABSOLUTE" || only.sizing.layoutSizingHorizontal !== "FILL" || only.sizing.layoutSizingVertical !== "FILL") return child;
+        const pad = child.layout.padding;
+        const m = only.margin;
+        if (pad.top || pad.right || pad.bottom || pad.left || (m && (m.top || m.right || m.bottom || m.left))) return child;
+        if (!near(only.rect.x, child.rect.x) || !near(only.rect.y, child.rect.y) || !near(only.rect.width, child.rect.width) || !near(only.rect.height, child.rect.height)) return child;
+        stats.stretchedSoleFill = (stats.stretchedSoleFill ?? 0) + 1;
+        const why = { verdict: "FIXED", reason: "제약으로 늘어나는 자동 배치 부모의 외동 FILL — 부모를 NONE 으로, 자식을 두 축 STRETCH 로(조립 규칙 15조의 13)", source: "100%", value: null };
+        return {
+          ...child,
+          layout: null,
+          children: [{
+            ...only,
+            positioning: "ABSOLUTE",
+            offset: { x: 0, y: 0 },
+            constraints: { horizontal: "STRETCH", vertical: "STRETCH" },
+            sizing: { ...only.sizing, layoutSizingHorizontal: "FIXED", layoutSizingVertical: "FIXED", layoutPositioning: "ABSOLUTE" },
+            why: { horizontal: why, vertical: why },
+          }],
+        };
+      });
+    }
     // 늘어난 grid 행과 칸 안 정렬(gridStretchedRow · gridCellAlign 주석).
     const gridRow = layoutMode === "GRID"
       ? gridCellAlign(node, style, stretchedRow, children, (child) => byPath.get(child.path)?.declared ?? {})
@@ -1170,7 +1206,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     // 남기는데, 가로까지 굳히자 랜딩의 스크롤 자리 상자(`height: 3040px` · 폭 선언 없는 block — 부모를 채운다)가 보드를 1920 → 1440 으로
     // 줄여도 1920 에 남아 480 넘쳤다(늘림 시험, 모바일 402 → 360 은 42 · 공개 모바일 메뉴 판의 grid 칸 366 도 같다). 판정이 FILL 이면
     // 가로는 FILL 로 둔다 — 측정 폭에서는 부모 안쪽 폭 = 측정 폭이라 자리 · 크기가 같다. 세로는 지금처럼 측정 높이(FIXED)다.
-    const nodeSizing = floatingLine
+    let nodeSizing = floatingLine
       ? { ...sizing, layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG" }
       : placeholder
         ? { ...sizing, layoutSizingHorizontal: sizing.layoutSizingHorizontal === "FILL" ? "FILL" : "FIXED", layoutSizingVertical: "FIXED" }
@@ -1178,6 +1214,12 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
           ? { ...sizing, layoutSizingHorizontal: "FILL" }
           : sizing;
     if (floatingLine) stats.floatingLines = (stats.floatingLines ?? 0) + 1;
+    // 스크립트가 부모 안에 비율을 지켜 맞춘 상자(containFitOf 주석, 조립 규칙 15조의 15) — 가로 FILL + 비율 잠금, 높이가 정한 쪽이면 측정 폭이 상한.
+    const fit = !floatingLine && !placeholder && !wrappedRows && !decision.absolute ? containFitOf(node, parent, childrenOf) : null;
+    if (fit) {
+      nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", maxWidth: fit.heightLimited ? node.rect.width : nodeSizing.maxWidth };
+      stats.containFit = (stats.containFit ?? 0) + 1;
+    }
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren)
       : layoutMode === "VERTICAL" && !split && !stackedText && !padded
         ? flowSlack(node, style, children, rawChildren, nodeSizing, options.recordedBottom ?? null, parent, parent ? (childrenOf.get(parent.path) ?? []) : []) : null;
@@ -1213,6 +1255,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       // **이미지의 정체.** `<img>` 의 src — 생성기가 LOUIS 자산 컴포넌트와 잇는 열쇠다(IMAGE_COMPONENTS).
       ...(node.tag === "img" && node.src ? { src: node.src } : {}),
       sizing: nodeSizing,
+      ...(fit ? { aspectLock: true } : {}),
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
       paint,
       // **타이포.** 텍스트를 직접 가진 노드만. LOUIS 텍스트 스타일 이름으로 바꿔 싣는다.
@@ -1317,9 +1360,31 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
 
   const root = byPath.get(rootPath);
   if (!root) throw new Error(`[figma-tree-spec] 루트 경로를 찾지 못했습니다: ${rootPath}`);
-  const converted = convert(root, null);
+  const converted = scaleFlushChildren(convert(root, null), stats);
   const collapsed = options.collapseWrappers === false ? converted : collapseWrappers(converted, stats);
   return { spec: collapsed, stats };
+}
+
+/**
+ * **SCALE 부모를 꽉 채운 STRETCH 자식은 그 축도 SCALE 이다(2026-10-14, 조립 규칙 15조의 14).** 여백 0 · 크기가 부모와 같은 자식에게 STRETCH 와
+ * SCALE 은 같은 뜻(자식 = 부모)이다. 그런데 Figma 는 SCALE 로 늘어난 부모 안의 STRETCH 자식을 반올림한 변 차이로 옮겨, 편집기 타임라인 클립(시간 자리라
+ * SCALE)의 필름 상자(`absolute inset-0`)가 2560 에서 부모 328.52 보다 0.67 넓었다(라이브 탐침 — SCALE 로 두면 328.52 로 같다). 부모의 그 축이 SCALE 이면
+ * 여백 0 인 STRETCH 자식의 그 축을 SCALE 로 바꾸고 아래로 잇는다. 측정 크기에서는 둘 다 측정 자리 · 크기다.
+ */
+function scaleFlushChildren(node, stats = null) {
+  if (!Array.isArray(node.children) || node.children.length === 0) return node;
+  const near = (a, b) => Math.abs(a - b) <= 0.5;
+  const children = (node.children ?? []).map((child) => {
+    const c = child.constraints;
+    if (!c || !node.constraints || !child.rect || !node.rect) return child;
+    const next = { ...c };
+    if (node.constraints.horizontal === "SCALE" && c.horizontal === "STRETCH" && near(child.rect.x, node.rect.x) && near(child.rect.width, node.rect.width)) next.horizontal = "SCALE";
+    if (node.constraints.vertical === "SCALE" && c.vertical === "STRETCH" && near(child.rect.y, node.rect.y) && near(child.rect.height, node.rect.height)) next.vertical = "SCALE";
+    if (next.horizontal === c.horizontal && next.vertical === c.vertical) return child;
+    if (stats) stats.scaledFlushChildren = (stats.scaledFlushChildren ?? 0) + 1;
+    return { ...child, constraints: next };
+  });
+  return { ...node, children: children.map((child) => scaleFlushChildren(child, stats)) };
 }
 
 /**
@@ -1364,7 +1429,16 @@ export function collapseWrappers(node, stats = null) {
   const self = { ...node, children };
   if (isPassThrough(self)) {
     if (stats) stats.collapsedWrappers = (stats.collapsedWrappers ?? 0) + 1;
-    return self.children[0];
+    // **grid 칸 정렬 · 자리는 접힌 자식이 넘겨받는다(2026-10-14, 조립 규칙 15조의 13).** 칸 정렬(gridCellAlign)과 칸 자리(gridPlacements)는
+    // grid 의 자식인 감싸개에 붙는데, 접으면 자식만 남아 그 값이 사라졌다 — 편집기 모바일 상단 바의 오른쪽 묶음(`justify-self: end` 인 block
+    // 감싸개 안의 inline-flex)이 칸 시작(AUTO)에 서서 측정 폭에서 48 왼쪽에 있었고, 360 에서 Figma 글자 폭(+10)만큼 칸 밖으로 3.6 나갔다
+    // (늘림 시험 run 2026-10-14b). 크기 판정이 같은 자식이라 칸 안 자리도 같다.
+    const only = self.children[0];
+    const carried = {
+      ...(self.gridAlign && !only.gridAlign ? { gridAlign: self.gridAlign } : {}),
+      ...(self.gridPlace && !only.gridPlace ? { gridPlace: self.gridPlace } : {}),
+    };
+    return Object.keys(carried).length ? { ...only, ...carried } : only;
   }
   return self;
 }
@@ -1412,7 +1486,8 @@ export function collapseWrappers(node, stats = null) {
  * stage.width - 40 }` 이다. 선언으로는 고정 폭이지만, 계산값의 양쪽 여백이 같으면(왼쪽 20 · 오른쪽 20) 무대 폭에서 여백을 뺀 폭이라
  * 그 축을 STRETCH 로 둔다. 데스크톱 제목(왼쪽 192 · 오른쪽 1128)은 여백이 달라 그대로 MIN 이다.
  */
-export function constraintsFor(declared, computed = null, parentComputed = null, stage = null, self = {}) {
+export function constraintsFor(rawDeclared, computed = null, parentComputed = null, stage = null, self = {}) {
+  const declared = insetLonghands(rawDeclared ?? {});
   const has = (value) => value != null && value !== "auto" && value !== "";
   const position = computed?.position;
   const zero = (value) => px(value) === 0;
@@ -1461,6 +1536,32 @@ export function constraintsFor(declared, computed = null, parentComputed = null,
   };
 }
 
+/**
+ * **변수가 든 `inset` 은 긴 이름이 비어 온다(2026-10-14, 조립 규칙 15조의 14).** CDP 는 `inset: 0 0 0 var(--vem-rail-width, 64px)` 처럼 변수를 품은
+ * 줄임 선언의 긴 이름(top · right · bottom · left)을 빈 문자열로 준다(변수 치환 대기). 제약 판정이 긴 이름만 보아 편집기 타임라인의 레인 덮개가
+ * 왼쪽 고정(MIN)으로 섰다 — 줄을 FILL 로 두면 1440 에서 덮개 1824 가 줄 밖으로 나간다. 긴 이름이 비었고 `inset` 이 있으면 CSS 순서(위 · 오른쪽 ·
+ * 아래 · 왼쪽, 1~4 값)로 채운다. 긴 이름에 값이 있으면 그대로 둔다.
+ */
+function insetLonghands(declared) {
+  const inset = String(declared.inset ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+  if (!inset || !["top", "right", "bottom", "left"].some((side) => declared[side] === "")) return declared;
+  const parts = [];
+  let depth = 0, current = "";
+  for (const char of inset) {
+    if (char === "(") depth += 1;
+    if (char === ")") depth -= 1;
+    if (/\s/.test(char) && depth === 0) { if (current) parts.push(current); current = ""; continue; }
+    current += char;
+  }
+  if (current) parts.push(current);
+  if (parts.length < 1 || parts.length > 4) return declared;
+  const [top, right = top, bottom = top, left = right] = parts;
+  const values = { top, right, bottom, left };
+  const out = { ...declared };
+  for (const side of ["top", "right", "bottom", "left"]) if (out[side] === "") out[side] = values[side];
+  return out;
+}
+
 /** 선언이 포함 블록의 백분율인가 — `5%` · `calc(var(--tick, 0) * 1%)` 처럼 `%` 를 품은 길이(15조의 11). `50%` 가운데 맞춤은 위 CENTER 가 먼저 받는다. */
 function percentOf(value) {
   return /%/.test(String(value ?? "").replace(/\s*!\s*important\s*$/i, ""));
@@ -1483,6 +1584,35 @@ function viewportStage(parent, byPath) {
     at = byPath.get(at.parentPath);
   }
   return false;
+}
+
+/**
+ * **스크립트가 부모 안에 비율을 지켜 맞춘 상자(2026-10-14, 조립 규칙 15조의 15).** 편집기 미리보기 출력 틀은 제품 스크립트(`VideoEditModal.tsx`
+ * 의 출력 틀 ResizeObserver)가 부모 안쪽 상자에 16:9 로 맞춰 `style.width · height` 를 px 로 쓴다 — 넓으면 높이가, 좁으면 폭이 부모를 채우고
+ * 다른 축은 가운데다. 선언으로는 고정 px 두 축이라 FIXED 로 굳어, 데스크톱 보드를 1440 으로 줄이자 1216 틀이 835 부모 밖으로 190, 모바일 360
+ * 에서 402 틀이 21 나갔다(늘림 시험 run 2026-10-14b). 그 모양 — 두 축 선언이 px · 흐름 자식이 그 하나 · 한 축이 부모 안쪽과 같고(0.5 안) 다른
+ * 축은 1 넘게 짧고 양쪽 여백이 같다(1 안) — 이면 가로 FILL + 비율 잠금(렌더러 `ar`)이다. 높이가 정한 쪽(높이 = 부모 안쪽)이면 측정 폭을 최대
+ * 폭으로 둔다 — 부모가 넓어져도 높이가 정한 폭을 넘지 않는다. 측정 크기에서 FILL 폭 = min(부모 안쪽, 최대 폭) = 측정 폭이라 자리 · 크기가
+ * 같다. 근사: 보드 높이를 늘리면 제품은 부모 높이로 다시 맞추지만 Figma 는 최대 폭에 머문다(부모 밖으로 나가지 않는다).
+ */
+function containFitOf(node, parent, childrenOf) {
+  const declared = node.declared ?? {};
+  if (!parent?.rect || !lengthDeclaredPx(declared.width) || !lengthDeclaredPx(declared.height)) return null;
+  if (/^(absolute|fixed|sticky)$/.test(node.style?.position ?? "")) return null;
+  const flow = (childrenOf.get(parent.path) ?? []).filter((sibling) => isVisible(sibling) && !/^(absolute|fixed)$/.test(sibling.style?.position ?? ""));
+  if (flow.length !== 1 || flow[0].path !== node.path) return null;
+  const outer = parent.style ?? {};
+  const edge = (side) => (px(outer[`padding${side}`]) ?? 0) + (px(outer[`border${side}Width`]) ?? 0);
+  const box = {
+    x: parent.rect.x + edge("Left"), y: parent.rect.y + edge("Top"),
+    width: parent.rect.width - edge("Left") - edge("Right"), height: parent.rect.height - edge("Top") - edge("Bottom"),
+  };
+  const r = node.rect;
+  const centred = (start, size, boxStart, boxSize) => size < boxSize - 1 && Math.abs((start - boxStart) - (boxStart + boxSize - start - size)) <= 1;
+  const filled = (start, size, boxStart, boxSize) => Math.abs(start - boxStart) <= 0.5 && Math.abs(size - boxSize) <= 0.5;
+  if (filled(r.y, r.height, box.y, box.height) && centred(r.x, r.width, box.x, box.width)) return { heightLimited: true };
+  if (filled(r.x, r.width, box.x, box.width) && centred(r.y, r.height, box.y, box.height)) return { heightLimited: false };
+  return null;
 }
 
 /** 부모를 채운 외동 절대 자식인가(convert 의 15조의 9 주석). */
@@ -2101,8 +2231,14 @@ function gridColumnTracks(node, style, sizing) {
     const minmax = /^minmax\(\s*([^,]+),\s*(.+)\)$/.exec(text);
     return minmax ? trackOf(minmax[2]) : null;
   };
+  // **폭 선언과 같은 변수로 정한 열은 폭을 따라 늘고 준다(2026-10-14, 조립 규칙 15조의 14).** 타임라인 줄은 `width: calc(64px +
+  // var(--sequence-time-axis-width))` · 열 `var(--vem-rail-width) minmax(0, var(--sequence-time-axis-width))` 다 — 줄 폭에서 다른 열을 뺀 나머지가
+  // 그 변수다. 줄이 부모를 따르는 FILL 이면(sizing-provenance 의 min-width:100% 규칙) 그 열은 남는 폭(`fr`)이다 — px 로 굳히면 줄이 줄어도
+  // 열이 1824 에 남는다. 측정 폭에서는 남는 폭 = 그 변수의 계산값이라 같다.
+  const widthVars = new Set([...String(node.declared?.width ?? "").matchAll(/var\(\s*(--[\w-]+)/g)].map((match) => match[1]));
+  const sharesWidthVar = (token) => sizing?.layoutSizingHorizontal === "FILL" && [...token.matchAll(/var\(\s*(--[\w-]+)/g)].some((match) => widthVars.has(match[1]));
   const tracks = tokens.map((token, index) => (computedForVar && /var\(/.test(token)
-    ? ["X", Math.round(computedForVar[index] * 100) / 100] : trackOf(token)));
+    ? (sharesWidthVar(token) ? ["F", 1] : ["X", Math.round(computedForVar[index] * 100) / 100]) : trackOf(token)));
   if (tracks.some((track) => track == null)) return null;
   if (tracks.every((track) => track[0] === "F" && track[1] === tracks[0][1])) return null;
   if (sizing?.layoutSizingHorizontal === "HUG" && tracks.some((track) => track[0] === "F")) {

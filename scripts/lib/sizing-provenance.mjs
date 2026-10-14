@@ -247,6 +247,14 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
 
     if (/^(var\(|calc\()/.test(declared) && !declared.includes("%")) {
       const resolved = px(horizontal ? computed?.width : computed?.height);
+      // **`min-width: 100%` 가 붙은 계산 폭은 부모 폭 이상이다(2026-10-14, 조립 규칙 15조의 14).** 편집기 타임라인 줄(`width: calc(64px +
+      // var(--sequence-time-axis-width)); min-width: 100%`)의 변수는 제품 스크립트가 레인 상자 폭(clientWidth − 64)으로 다시 쓴다 — 줄은
+      // 늘 부모 폭을 따른다. FIXED 1888 로 굳히자 데스크톱 보드를 1440 으로 줄였을 때 줄 둘이 1408 부모 밖으로 480 나갔다(늘림 시험
+      // run 2026-10-14b). 측정 폭에서 부모와 같으면(호출자 convert 의 15조의 6 대조 — 계산 폭이 부모보다 넓었으면 FIXED 로 되돌린다) FILL 이다.
+      if (resolved != null && horizontal && percent(computed?.minWidth) === 100) {
+        return { verdict: AXIS.FILL, reason: `${declared} + min-width:100% — 부모 폭 이상이고 측정 폭에서 부모와 같다`, source: `width:${declared} · min-width:100%`, value: null, cappedFixed: resolved,
+          fixedFallback: { verdict: AXIS.FIXED, reason: `${declared} — 계산 폭(${resolved}px)이 부모보다 넓다`, source: `width:${declared}`, value: resolved } };
+      }
       if (resolved != null) {
         return {
           verdict: AXIS.FIXED,

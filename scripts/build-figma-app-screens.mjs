@@ -1158,6 +1158,8 @@ const slimNode = (node) => ({
     : {}),
   ...(node.sizing.minHeight ? { mh: round(node.sizing.minHeight) } : {}),
   ...(node.sizing.maxWidth ? { mw: round(node.sizing.maxWidth) } : {}),
+  // 비율 잠금(figma-tree-spec containFitOf, 조립 규칙 15조의 15) — 스크립트가 부모 안에 비율을 지켜 맞춘 상자. 있을 때만 싣는다.
+  ...(node.aspectLock ? { ar: 1 } : {}),
   // 폭 하한 — 하한에 닿은 자리만(측정 폭 = 하한). 요금제 비교표(`min-width: 640px`)가 스크롤 칸(370)에 FILL 로 눌려 열이 좁아지고
   // 글자가 여러 줄로 꺾여 모바일 보드가 1269 길었다(2026-09-30, 글자 전부 대조).
   // auto margin 감싸개(wrapSiblingMargins)의 하한은 측정 폭에서 닿지 않아도 싣는다 — 줄이 좁아질 때 자식 상자 아래로 접히지 않게.

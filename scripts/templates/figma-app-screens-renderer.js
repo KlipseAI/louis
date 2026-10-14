@@ -498,6 +498,8 @@ const buildNode = (spec, parent) => {
   // 자식에 자리를 걸지 않아 모두 원점에 섰다 — 랜딩 노드 캔버스 목업의 월드(363.79, 24)가 부모 원점에 서서 목업 안 글자가 −370 옮겨졌다.
   if (!parentAuto && parent && spec.o) { node.x = spec.o[0]; node.y = spec.o[1]; }
   if ((isAbsolute || (!parentAuto && parent && spec.o)) && !isText) pendingAbsolute.push([node, spec.r, spec.o]);
+  // 비율 잠금(`ar`, 조립 규칙 15조의 15) — 측정 크기로 깐 뒤, FILL 을 걸기 전에 그 비율을 잠근다. 폭이 바뀌면 높이가 비율을 따른다.
+  if (spec.ar && !isText) { try { node.lockAspectRatio(); } catch (error) {} }
 
   if (!isAbsolute) {
     const selfAuto = "layoutMode" in node && node.layoutMode && node.layoutMode !== "NONE";

@@ -8396,6 +8396,43 @@
           "$descriptionFontSize": "12. `caption-regular` — 제품 `type-caption-12-regular`."
         }
       }
+    },
+    "gallery-panel": {
+      "$doc": "design/components/gallery-panel.md",
+      "$source": "packages/css/src/component/gallery-panel.css — 제품 components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx 의 HEADER · TITLE · CLOSE_BUTTON · BODY · HINT · GRID · CELL (2026-10-15 DS-D-0104)",
+      "$why": "값은 CSS 가 만드는 값이다. packages/react/test/gallery-panel.browser.test.tsx 가 같은 키를 레시피의 계산값으로 되잰다(DS-D-0035 (c)). 패널 폭 · 높이는 덮는 모달 상자가 정해 넣지 않는다.",
+      "sizes": {
+        "panel": {
+          "headPaddingTop": 10,
+          "$headPaddingTop": "10 — 제품 머리 위 여백 다섯 칸(단위 2px). 레시피 리터럴.",
+          "headPaddingBottom": 8,
+          "$headPaddingBottom": "8 — 제품 머리 아래 여백 네 칸(단위 2px). 레시피 토큰 이름은 space-control-sm.",
+          "headPaddingInline": 12,
+          "$headPaddingInline": "12 — 제품 머리 양옆 여백 여섯 칸(단위 2px). 레시피 토큰 이름은 space-control-md.",
+          "headGap": 8,
+          "$headGap": "8 — 제목과 닫기 사이 최소 간격(제품은 justify-between 만 둔다). 레시피 토큰 이름은 space-control-sm.",
+          "titleFontSize": 14,
+          "$titleFontSize": "14 — 제품 type-body-14-medium. 레시피 글자 단계는 body-sm-medium.",
+          "closeSize": 28,
+          "$closeSize": "28 — 제품 닫기 w · h 열네 칸(단위 2px). 레시피 리터럴.",
+          "closeRadius": 999,
+          "$closeRadius": "999 — 제품 rounded-[50%] 원. 레시피 토큰 이름은 radius-pill.",
+          "glyphSize": 16,
+          "$glyphSize": "16 — 제품 svg width · height. 레시피 토큰 이름은 icon-size-sm.",
+          "dividerHeight": 1,
+          "$dividerHeight": "1 — 제품 border-bottom 1px. 레시피 토큰 이름은 border-width-default.",
+          "bodyPadding": 12,
+          "$bodyPadding": "12 — 제품 본문 여백 여섯 칸(단위 2px). 레시피 토큰 이름은 space-control-md.",
+          "bodyGap": 8,
+          "$bodyGap": "8 — 제품 본문 간격 네 칸(단위 2px). 레시피 토큰 이름은 space-control-sm.",
+          "hintFontSize": 12,
+          "$hintFontSize": "12 — 제품 type-caption-12-regular. 레시피 글자 단계는 caption-regular.",
+          "gridGap": 8,
+          "$gridGap": "8 — 제품 격자 간격 네 칸(단위 2px). 레시피 토큰 이름은 space-control-sm.",
+          "cellRadius": 8,
+          "$cellRadius": "8 — 제품 rounded-8. 레시피 토큰 이름은 radius-control-sm."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -8479,7 +8516,8 @@
     "color-picker": "제품 렌더 하네스가 이 조형에 닿지 못한다. 색 팝오버는 영상 편집 모달(노드 캔버스의 영상 노드 → 편집, 로그인 뒤 /create)에서 오버레이를 고르고 인스펙터의 색 칩을 눌러야 열리고, measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스인데 components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 게다가 제품은 아직 이 레시피를 물지 않아 면 220 정사각 같은 제품 값이 LOUIS 값(256 × 220)과 다르다 — 대조할 것은 이관 뒤의 렌더다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 ColorPopover.tsx 를 소스로 등록하고 판 · 면 · 칸 탐침을 세우면 이 면제를 지운다.",
     "color-picker-option": "위(color-picker)와 같은 이유다.",
     "canvas-dots": "제품 렌더 하네스가 이 조형을 하나의 노드로 잴 수 없다 — 제품 바닥은 xyflow `<Background>` 의 SVG pattern 이고 간격 · 점 크기가 props 숫자(CanvasBackground.tsx:5-6)다. 값은 레시피 선언 `--louis-canvas-dots-pitch: 24px` · `--louis-canvas-dots-radius: 1px` 이고 실브라우저 시험이 그 선언을 잰다(2026-10-15).",
-    "menu-media-item": "제품 렌더 하네스의 명부에 영상 노드 모델 메뉴(VideoModelMenu.tsx)가 없다 — 메뉴가 노드 툴바의 드롭다운 안에서만 열리고 VIDEO_MODELS · 플랜 판정 데이터를 물어 단독 렌더가 서지 않는다. 값은 레시피 선언이고 제품 클래스는 소스(VideoModelMenu.tsx:149-166 · :181-184 · :251-283)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15)."
+    "menu-media-item": "제품 렌더 하네스의 명부에 영상 노드 모델 메뉴(VideoModelMenu.tsx)가 없다 — 메뉴가 노드 툴바의 드롭다운 안에서만 열리고 VIDEO_MODELS · 플랜 판정 데이터를 물어 단독 렌더가 서지 않는다. 값은 레시피 선언이고 제품 클래스는 소스(VideoModelMenu.tsx:149-166 · :181-184 · :251-283)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15).",
+    "gallery-panel": "제품 렌더 하네스의 명부에 이미지 편집 모달의 예시 패널(ExampleGallery.tsx)이 없다 — 패널이 편집 모달 안에서만 열리고 next/image · i18n 공급자 · 스티커 예시 데이터를 물어 단독 렌더가 서지 않는다. 값은 레시피 선언이고 제품 클래스는 소스(ExampleGallery.tsx:10-47)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15)."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

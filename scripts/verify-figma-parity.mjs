@@ -4116,6 +4116,47 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "gallery-panel",
+    figmaName: "GalleryPanel",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/gallery-panel.css 가 정본이다(2026-10-15, DS-D-0104).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "gallery-panel",
+      sizeKeys: ["panel"],
+      // 패널 크기는 덮는 모달 상자가 정한다 — 400 폭 표본은 계약이 아니다.
+      fields: {
+        itemSpacing: { literal: 0 },
+        cornerRadius: { literal: 0 },
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // CSS 는 머리 아래 선을 `__head` 의 border-block-end 로 긋고, Figma 는 같은 선을 형제 `Divider`(높이 1)로 둔다 — 머리 여백은 테두리를 뺀 값으로 같다.
+        Head: {
+          fields: {
+            paddingBlock: "headPaddingTop",
+            paddingBlockEnd: "headPaddingBottom",
+            paddingInline: "headPaddingInline",
+            paddingInlineEnd: "headPaddingInline",
+            itemSpacing: "headGap",
+          },
+        },
+        Title: { fields: { fontSize: "titleFontSize" } },
+        Close: { fields: { width: "closeSize", height: "closeSize", cornerRadius: "closeRadius" } },
+        CloseGlyph: { fields: { width: "glyphSize", height: "glyphSize" } },
+        Divider: { fields: { height: "dividerHeight" } },
+        Body: { fields: { paddingBlock: "bodyPadding", paddingInline: "bodyPadding", itemSpacing: "bodyGap" } },
+        Hint: { fields: { fontSize: "hintFontSize" } },
+        Grid: { fields: { itemSpacing: "gridGap" } },
+        Cell: { fields: { cornerRadius: "cellRadius" } },
+      },
+    },
+  },
+  {
     id: "canvas-dots",
     figmaName: "CanvasDots",
     figmaAhead: "React 표면 없음 — packages/css/src/pattern/editor-workspace.css 의 .louis-canvas-dots 가 정본이다. Figma 패턴 채움이 변수를 받지 못해 한 칸 타일을 반복한다(2026-10-15, DS-D-0102).",

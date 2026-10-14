@@ -18,8 +18,8 @@
         "effect": 11
       },
       "components": {
-        "sets": 138,
-        "variants": 1163
+        "sets": 139,
+        "variants": 1164
       },
       "icons": 74,
       "templates": 9
@@ -15567,6 +15567,113 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "GalleryPanel": {
+      "outsideParts": [],
+      "tokenId": "gallery-panel",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 10,
+        "rawFills": 0,
+        "boundStrokes": 6,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "panel": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "paddingBlock": [
+                10
+              ],
+              "paddingBlockEnd": [
+                8
+              ],
+              "paddingInline": [
+                12
+              ],
+              "paddingInlineEnd": [
+                12
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Close": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "CloseGlyph": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "Divider": {
+              "height": [
+                1
+              ]
+            },
+            "Body": {
+              "paddingBlock": [
+                12
+              ],
+              "paddingInline": [
+                12
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Hint": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Grid": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Cell": {
+              "cornerRadius": [
+                8
+              ]
+            }
+          },
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         }

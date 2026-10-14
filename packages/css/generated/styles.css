@@ -8140,6 +8140,134 @@ a.louis-breadcrumb__parent:hover {
   color: var(--louis-color-fg-danger);
 }
 
+/* Gallery Panel — design/components/gallery-panel.md (DS-D-0104)
+ *
+ * 열린 모달 **안을 덮는** 그림 예시 패널. 머리(제목 · 닫기) + 본문(안내 한 줄 · 세 열 격자)이다. 정본은 이미지 편집 모달의 스티커 예시
+ * (통합 판 `54b62a8aa` `components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx:10-49`). 모달 위에 두 번째 포털을 띄우지 않고
+ * 모달의 내용 상자 안에서 `absolute inset 0` 으로 덮는다 — 바깥 클릭 닫기가 서로 물리지 않게(제품 주석 :8-9).
+ *
+ * 고쳐 올린 값(DS-D-0084 3항): 닫기 잉크 44% → `fg-secondary`, 안내 글 44% → `fg-tertiary`(둘 다 제품 값이 면 위 4.5 미달),
+ * 면은 고정 gray-800 / gray-100 대신 모달 면과 같은 `bg-overlay`(DS-D-0104 판정 2).
+ *
+ * 숫자 z-index 가 없다 — 패널은 모달 내용 상자의 **마지막 자식**으로 둔다(문서 순서가 칠 순서다). */
+.louis-gallery-panel {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-block-size: 0;
+  background: var(--louis-color-bg-overlay);
+  color: var(--louis-color-fg-primary);
+}
+
+.louis-gallery-panel__head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--louis-space-control-sm);
+  /* 10 · 12 · 8 — 제품 `pt-5 px-6 pb-4`. */
+  padding-block: 10px var(--louis-space-control-sm);
+  padding-inline: var(--louis-space-control-md);
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-stroke-subtle);
+}
+
+.louis-gallery-panel__title {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* 닫기 — 28 원(제품 `w-14 h-14 rounded-[50%]`). 면 없음, 호버에 잉크 면. */
+.louis-gallery-panel__close {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: 28px;
+  block-size: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  background: transparent;
+  color: var(--louis-color-fg-secondary);
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.louis-gallery-panel__close > :where(svg) {
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+}
+
+@media (hover: hover) {
+  .louis-gallery-panel__close:hover {
+    background: var(--louis-color-accent-ghost-hover);
+    color: var(--louis-color-fg-primary);
+  }
+}
+
+.louis-gallery-panel__body {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+  min-block-size: 0;
+  overflow-y: auto;
+  padding: var(--louis-space-control-md);
+}
+
+.louis-gallery-panel__hint {
+  flex: none;
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+.louis-gallery-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--louis-space-control-sm);
+}
+
+/* 칸 — 2:3 세로 그림. 면은 그림이 오기 전의 우물, 경계는 그림이 면과 같은 밝기일 때 칸을 가른다. */
+.louis-gallery-panel__cell {
+  position: relative;
+  box-sizing: border-box;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: var(--louis-border-width-default) solid var(--louis-color-stroke-subtle);
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-accent-secondary);
+}
+
+.louis-gallery-panel__cell > :where(img) {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+@media (forced-colors: active) {
+  .louis-gallery-panel__head {
+    border-block-end-color: CanvasText;
+  }
+}
+
 /* GNB Menu Item — design/components/gnb-menu-item.md
  *
  * 랜딩 상단 내비게이션의 메뉴 항목 하나(DS-D-0084). 제품 정본은 `components/landing/navigation/Gnb.tsx` 의

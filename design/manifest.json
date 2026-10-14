@@ -1814,6 +1814,15 @@
       "generated": false
     },
     {
+      "id": "decision-gallery-panel",
+      "path": "design/governance/decisions/DS-D-0104-gallery-panel.md",
+      "title": "DS-D-0104 편집 모달 안을 덮는 예시 패널을 새 부품 gallery-panel 로 — 두 번째 대화상자가 아니라 모달 내용 상자의 덮개다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1976,7 +1985,8 @@
         "design/components/chart-card.md",
         "design/components/select.md",
         "design/components/stat-tile.md",
-        "design/components/canvas-dots.md"
+        "design/components/canvas-dots.md",
+        "design/components/gallery-panel.md"
       ]
     },
     {
@@ -2128,6 +2138,7 @@
         "design/governance/decisions/DS-D-0102-canvas-dots.md",
         "design/governance/decisions/DS-D-0106-canvas-editor-surfaces-map-to-existing-parts.md",
         "design/governance/decisions/DS-D-0103-menu-media-item.md",
+        "design/governance/decisions/DS-D-0104-gallery-panel.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
@@ -2410,6 +2421,15 @@
       "authority": "normative",
       "maturity": "experimental",
       "generated": false
+    },
+    {
+      "id": "gallery-panel",
+      "path": "design/components/gallery-panel.md",
+      "title": "Gallery Panel",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
     }
   ],
   "components": [
@@ -2560,6 +2580,17 @@
       "note": "public export와 실브라우저 acceptance test. Figma component set 3 variant(Size). fullscreen은 표면이 뷰포트라 고정 폭 variant로 그릴 수 없어 제외했다. 제품에 공용 정본이 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(dialog · surface-geometry.browser.test.tsx).",
       "doc": "design/components/dialog.md",
       "figmaName": "Dialog"
+    },
+    {
+      "id": "gallery-panel",
+      "name": "Gallery Panel",
+      "doc": "design/components/gallery-panel.md",
+      "note": "열린 모달의 내용 상자 안을 덮는 예시 그림 패널(DS-D-0104, DS-D-0084). 머리(제목 · 28 원 닫기 · 아래 헤어라인) + 본문(안내 한 줄 · 세 열 2:3 격자). 정본은 이미지 편집 모달의 스티커 예시(ExampleGallery.tsx)이고 레시피는 packages/css/src/component/gallery-panel.css 다. 두 번째 포털을 띄우지 않고 absolute inset 0 · 마지막 자식으로 덮는다(숫자 z-index 없음). 닫기 · 안내 44% 잉크(라이트 2.63 · 다크 3.80)를 fg-secondary · fg-tertiary 로, 고정 팔레트 면을 bg-overlay 로 고쳐 올렸다. Figma 는 GalleryPanel 한 장 — 계약 · 기하 · 브라우저 되재기가 선다. web 이 partial 인 이유는 React 표면이 없기 때문이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "figmaName": "GalleryPanel",
+      "web": "partial",
+      "docs": "done"
     },
     {
       "id": "drop-zone",

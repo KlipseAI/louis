@@ -230,6 +230,8 @@ for (const surface of found) {
     // 아래 $kindRule 이 갖는다.
     kind: before.kind ?? null,
     kindReason: before.kindReason ?? null,
+    // 화면 대응(`figma: "screen:…"`, DS-D-0098)에만 붙는 채움의 근거. 사람이 적고 게이트가 길이를 잰다.
+    ...(before.filled !== undefined ? { filled: before.filled } : {}),
   };
 }
 
@@ -324,7 +326,11 @@ const output = {
     "순간 그것이 곧 손으로 센 원장이고, 이 열거기가 없애려던 물건이다.\n" +
     "(나)를 재려면 두 가지가 먼저 움직여야 한다 — 보드가 화면의 «채워진» 상태를 그리는 것, " +
     "그리고 대응 규칙이 LOUIS 51종 중 6종만 보는 상한($upperBound)이 걷히는 것. 둘 다 " +
-    "measure-figma-board-composition 이 할 일이지 이 원장이 할 일이 아니다.",
+    "measure-figma-board-composition 이 할 일이지 이 원장이 할 일이 아니다.\n" +
+    "**2026-10-14 소유자 결정(DS-D-0098)으로 (나)를 이렇게 잰다** — 같은 파일(`file`)에 needed · unclear 표면이 0 이면 꺼낼 것이 " +
+    "남지 않았다(입자도 규칙상 파일 안 시각 단위는 모두 표면으로 열거된다). 여기에 (가)를 «채운» 보드로 좁히고(시드 데이터, 근거는 " +
+    "`filled`) 늘림 시험 실패 0 을 더해 셋을 모두 만족하면 `verdict: figma` · `figma: \"screen:<보드 라우트>\"` 로 대응이 된다. " +
+    "check-figma-surface-coverage 가 셋을 잰다.",
   $upperBound:
     "이 수는 상한이 아니라 하한이다 — 다른 함수 안에서 정의된 컴포넌트(앵커에서 2개)와 " +
     "camelCase 렌더 헬퍼(14개)는 세지 않는다. `louis` 도 하한이다: 클래스 맵 파일을 " +

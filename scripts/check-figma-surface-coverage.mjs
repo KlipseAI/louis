@@ -157,6 +157,8 @@ const MAPPED_COMPONENT_BASELINE = 124;
 // 어드민 섹션 머리 · 페이지 머리 · 테마 순환 · 셀렉트 · 줌 트리거 · 노드 머리 동작 · 제목 · 연결점 · 생성 버튼)가 같은 조형의 LOUIS 부품
 // 대응이 됐다(표면 12). 위 MAPPED_COMPONENT_BASELINE 이 그만큼 올랐다.
 const MAPPED_PRODUCT_BASELINE = 41;
+// **화면 보드 대응(DS-D-0098, 2026-10-14).** 채운 보드 · 늘림 통과 · 안의 부품 needed 0 을 만족한 화면. 따로 잠근다.
+const MAPPED_SCREEN_BASELINE = 0;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이
@@ -219,6 +221,35 @@ for (const file of readdirSync(resolve(repoRoot, "figma")).filter((name) => /^pr
   };
   walk(readJson("figma/" + file));
 }
+// 넷째 어휘 — 화면 보드(DS-D-0098). `figma: "screen:<보드 라우트>"` 는 `figma/app-screens.plan.json` 의 라우트 이름이다. 화면 대응은
+// 세 조건을 이 게이트가 잰다 — 그 라우트의 데스크톱 · 모바일 보드가 있고(채움의 근거는 표면의 `filled`), 그 보드 전부가 늘림 원장
+// `figma/resize-check.json` 에서 실패 0 이고, 같은 파일에 needed · unclear 표면이 없다.
+const SCREEN_PREFIX = "screen:";
+const screenBoards = new Map();
+for (const board of readJson("figma/app-screens.plan.json").screens ?? []) {
+  if (!screenBoards.has(board.route)) screenBoards.set(board.route, []);
+  screenBoards.get(board.route).push(board);
+}
+const resizeById = new Map();
+for (const page of readJson("figma/resize-check.json").pages ?? []) for (const board of page.boards ?? []) resizeById.set(board.id, board);
+const resizeFailures = (board) => {
+  const record = resizeById.get(board.figmaFrameId);
+  if (!record) return ["늘림 원장에 없음"];
+  const failures = [];
+  if ((record.base?.o ?? 0) > 0) failures.push("측정 크기 넘침");
+  for (const [size, value] of Object.entries(record.v ?? {})) {
+    if ((value.o ?? 0) > 0) failures.push(size + " 넘침");
+    if ((value.pn ?? 0) > 0) failures.push(size + " 자식 넘침");
+    if ((value.tn ?? 0) > 0) failures.push(size + " 글자 잘림");
+    if (size === "h130" && (value.rh ?? 1) < 0.99) failures.push("높이 추종");
+    if (size !== "h130" && (value.rw ?? 1) < 0.99) failures.push(size + " 폭 추종");
+  }
+  return failures;
+};
+const openFiles = new Set(
+  Object.values(ledger.surfaces ?? {}).filter((s) => s.verdict === "needed" || s.verdict === "unclear").map((s) => s.file),
+);
+
 if (productVocabulary.size === 0) {
   errors.push("figma/product-*.plan.json 에서 제품 세트 이름을 하나도 읽지 못했습니다(DS-D-0071).");
 }
@@ -283,6 +314,7 @@ let mapped = 0;
 let mappedComponent = 0;
 let mappedPattern = 0;
 let mappedProduct = 0;
+let mappedScreen = 0;
 let scoped = 0;
 let needed = 0;
 let unclear = 0;
@@ -397,6 +429,34 @@ for (const id of ids) {
       at + ": kind 는 needed 판정에만 붙습니다(현재 " + verdict + "). 종류는 needed 안의 " +
         "축이지 needed 밖으로 나가는 문이 아닙니다.",
     );
+  }
+
+  if (verdict === "figma" && typeof surface.figma === "string" && surface.figma.startsWith(SCREEN_PREFIX)) {
+    const route = surface.figma.slice(SCREEN_PREFIX.length);
+    const boards = screenBoards.get(route) ?? [];
+    const contexts = new Set(boards.map((board) => String(board.context).split("-")[0]));
+    if (!contexts.has("desktop") || !contexts.has("mobile")) {
+      errors.push(at + ": 화면 대응 `" + surface.figma + "` 의 보드가 데스크톱 · 모바일 둘 다 있어야 합니다(DS-D-0098 조건 1) — 있는 것: " + ([...contexts].join(" · ") || "없음"));
+    }
+    const filled = typeof surface.filled === "string" ? surface.filled.trim() : "";
+    if (filled.length < 20) {
+      errors.push(at + ": 화면 대응은 `filled` 에 보드가 채운 상태라는 근거(어느 시드가 무엇을 채웠나)를 20자 이상 적어야 합니다(DS-D-0098 조건 1).");
+    }
+    for (const board of boards) {
+      const failures = resizeFailures(board);
+      if (failures.length > 0) {
+        errors.push(at + ": 화면 대응 `" + surface.figma + "` 의 보드 " + board.figmaFrameId + "(" + board.context + ")가 늘림 시험에서 실패합니다(DS-D-0098 조건 2): " + failures.join(" · "));
+      }
+    }
+    if (openFiles.has(surface.file)) {
+      errors.push(at + ": 같은 파일에 needed · unclear 표면이 남아 있어 화면을 닫을 수 없습니다(DS-D-0098 조건 3).");
+    }
+    mappedScreen += 1;
+    mapped += 1;
+    continue;
+  }
+  if (surface.filled !== undefined) {
+    errors.push(at + ": `filled` 는 화면 대응(`screen:`)에만 붙습니다.");
   }
 
   if (verdict === "figma") {
@@ -537,6 +597,13 @@ if (mappedProduct < MAPPED_PRODUCT_BASELINE) {
   );
 }
 
+if (mappedScreen !== MAPPED_SCREEN_BASELINE) {
+  errors.push(
+    "화면 보드 대응이 " + MAPPED_SCREEN_BASELINE + " → " + mappedScreen + " 입니다. 늘었으면 이 파일의 MAPPED_SCREEN_BASELINE 을 " + mappedScreen +
+      " 로 올려 잠그고, 줄었으면 어느 화면이 조건을 잃었는지 확인하세요(DS-D-0098).",
+  );
+}
+
 if (ids.length < TOTAL_FLOOR) {
   errors.push(
     "표면 총수가 바닥 아래로 내려갔습니다 (" + TOTAL_FLOOR + " → " + ids.length + "). " +
@@ -561,7 +628,7 @@ const percentComponentTarget =
   target > 0 ? ((mappedComponent / target) * 100).toFixed(1) : "0.0";
 console.log(
   "Figma 표면 커버리지: 표면 " + ids.length + "종 · 대응 " + mapped +
-    " = 컴포넌트 " + mappedComponent + " + 패턴 " + mappedPattern + " + 제품 세트 " + mappedProduct +
+    " = 컴포넌트 " + mappedComponent + " + 패턴 " + mappedPattern + " + 제품 세트 " + mappedProduct + " + 화면 " + mappedScreen +
     " (전체 대비 " + percentAll + "% · 대상 대비 " + percentTarget + "% / 대상 " + target + ") · " +
     "범위 밖 " + scoped + " · 필요 " + needed +
     "(high " + neededByWeight.high + " · medium " + neededByWeight.medium +

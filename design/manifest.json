@@ -437,6 +437,15 @@
       "generated": false
     },
     {
+      "id": "decision-screen-surface-closes-on-filled-board",
+      "path": "design/governance/decisions/DS-D-0098-screen-surface-closes-on-filled-board.md",
+      "title": "DS-D-0098 화면 표면은 채운 보드 · 늘림 통과 · 안의 부품 needed 0 으로 Figma 대응이 된다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -2022,6 +2031,7 @@
         "design/governance/decisions/DS-D-0095-command-palette.md",
         "design/governance/decisions/DS-D-0096-date-picker.md",
         "design/governance/decisions/DS-D-0097-color-picker.md",
+        "design/governance/decisions/DS-D-0098-screen-surface-closes-on-filled-board.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

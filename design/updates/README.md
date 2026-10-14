@@ -25,6 +25,15 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (265) — 화면 표면을 닫는 조건: 채운 보드 · 늘림 통과 · 안의 부품 needed 0(DS-D-0098)
+
+- **소유자 결정.** 표면 원장의 화면(needed 의 kind `screen`, 93 — 대상 288 의 3 분의 1)은 셋을 모두 만족하면 `figma: "screen:<보드 라우트>"` 대응이 된다.
+  ① `figma/app-screens.plan.json` 에 그 라우트의 데스크톱 · 모바일 보드가 있고 시드 데이터로 채운 상태를 그린다(근거는 표면의 `filled`),
+  ② 그 보드 전부가 늘림 원장(`figma/resize-check.json`)에서 실패 0, ③ 같은 파일에 needed · unclear 표면이 없다.
+- `check-figma-surface-coverage` 가 화면 대응을 따로 센다(`MAPPED_SCREEN_BASELINE`, 지금 0). 늘림 원장을 다시 재 실패가 생기면 그 화면 대응이 빨갛게 된다.
+- 지금 닫히는 화면은 없다 — 예를 들어 `/settings` 보드는 늘림을 통과하지만 사용자 이름이 비어 있다(채운 상태가 아니다). 화면을 닫는 일은
+  「시드 측정 → 보드 재생성 → 늘림 실패 0 → 같은 파일 정리」다. 원장 `$kindRule` 에 이 규칙을 이어 적었다.
+
 ## 2026-10-14 (264) — 새 부품 열여덟의 Figma 를 `done` 으로(DS-D-0035), 그 출처 표면 28 을 Figma 대응으로(DS-D-0084)
 
 - **figma `partial` → `done` 열여덟** — choice-card · prompt-variant · segment-track · asset-tile · logo-tile · notice-pill · canvas-guide · audio-cell ·

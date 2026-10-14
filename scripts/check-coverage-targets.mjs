@@ -132,7 +132,8 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 같은 날 뒤: 107 → 105 — 홈 · 하이라이트 스튜디오 판 화면.
 // 같은 날 뒤: 105 → 102 — 단체 구매 실패 · 편집기 작업 화면 · 캔버스 스테이지 프레임.
 // 2026-10-15: 102 → 95 — 캔버스 · 편집기 표면 여섯 대응 + ActionButton 범위 밖(죽은 코드, DS-D-0106).
-const NEEDED_BASELINE = 95; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 같은 날 뒤: 95 → 94 — DeletableEdge.
+const NEEDED_BASELINE = 94; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -177,7 +178,8 @@ const UNCLEAR_BASELINE = 2; // 하락만 잠근다(소유자만 줄일 수 있�
 // 앵커 grep 근거를 적었고, 제품이 그 수출을 다시 쓰면 needed 로 되돌린다.
 // 2026-10-08 밤: 248 → **324** — 표면 총수 기준점을 612 로 옮기며(아래) 지금 scoped 로 맞춘다. 두 앵커 이동(76b6cf15 · 54b62a8a)의
 // 새 표면 판정(라우트 진입점 · 레이아웃 · 부모에 딸린 조각 · 시각 없는 호스트)이 쌓인 수다.
-const SCOPED_BASELINE = 324; // 표면 총수가 오른 만큼만 오를 수 있다
+// 2026-10-15: 324 → 325 — 캔버스 원형 FAB(ActionButton)는 앵커에서 import · JSX 렌더 지점이 0 인 죽은 코드라 범위 밖으로 옮겼다(DS-D-0106).
+const SCOPED_BASELINE = 325; // 표면 총수가 오른 만큼만 오를 수 있다
 // 2026-09-10: 434 → 468. 앵커가 5a67d692 → f19cc41c 로 옮기며 제품 표면이 34종 늘었다
 // (쿠폰·선물하기 화면 등). **기준점을 옮기지 않으면 그만큼 범위 밖 허용치가 벌어진 채로
 // 남아 그물이 무뎌진다** — 실제로 `needed reclassified as out of scope` 카나리아가 그래서
@@ -213,12 +215,9 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 기하 계약 · 되재기를 세웠다(Updates (273)).
 // 같은 날 뒤: 72 → 74 — news-card · segmented-code-input 에 CSS 레시피 · 되재기(Updates (274)).
 // 2026-10-15: 74 → 77 — 새 부품 canvas-dots · gallery-panel · drill-picker 가 되재기와 함께 섰다(DS-D-0102 · 0104 · 0105).
-// 2026-10-14 밤: 74 → 76 — node-chrome-button(호버 틴트 모드 쌍 시맨틱 셋) · node-side-handle(Channel 6 × State Default · Disabled)이
-// 「기계 조건은 서는데 partial」에서 done 으로(DS-D-0099).
-// 같은 밤 뒤: 76 → 77 — step-tile 에 CSS 레시피 · 되재기(캡션은 제품의 인라인 흐름이 정본, 목록 role="list", DS-D-0099).
-// 같은 밤 뒤: 77 → 78 — media-card 에 CSS 레시피 · 되재기, Figma Badge 축을 BOOLEAN + BadgeLabel TEXT 로(DS-D-0099).
-// 같은 밤 뒤: 78 → 79 — canvas-edge 에 레시피(실선 · hover 잉크 · 히트 영역 · 삭제 버튼)와 Figma CanvasEdgeDelete, 되재기(DS-D-0100 —
-// DS-D-0061 재판정). 컴포넌트 79 가 전부 done 이다.
+// 같은 날 뒤: 77 → 82 — 남은 partial 다섯을 닫았다. node-chrome-button(호버 틴트 모드 쌍 시맨틱 셋) · node-side-handle(Channel 6 × State
+// Default · Disabled) · step-tile · media-card(CSS 레시피 · 되재기, DS-D-0099) · canvas-edge(레시피 · 삭제 버튼 CanvasEdgeDelete, DS-D-0100 —
+// DS-D-0061 재판정). 컴포넌트 82 가 전부 done 이다(Updates (276)).
 const MANIFEST_DONE_FLOOR = 82; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.

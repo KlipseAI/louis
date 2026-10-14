@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 115
+- Documents: 117
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -191,7 +191,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 224 |
+| Normative documents | 226 |
 | Generated documents | 5 |
 | Components | 82 |
 | Patterns | 9 |
@@ -18618,6 +18618,16 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-15 (276) — 남은 partial 다섯을 닫아 컴포넌트 82 전부 Figma done, 캔버스 연결선에 레시피와 삭제 버튼
+
+- **node-chrome-button** — 호버 틴트를 라이트 · 다크 쌍으로 갖는 시맨틱 셋을 토큰 · Figma 변수 · CSS 한 변경으로 세웠다(중립 라이트 검정 8% · 다크 흰 12%, 삭제 red 8% · 12%, sm 8% · 16%). 다크에서 4%p 얕던 결손이 풀렸다([DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).
+- **node-side-handle** — Channel 6 × State(Default · Disabled) 12 칸. 호버 · 누름은 filter 라 Figma 가 표현하지 못하는 칸으로 남기고, 메뉴 열림은 기본과 같아 열지 않았다.
+- **step-tile** — CSS 레시피 · 되재기. 캡션은 제품의 인라인 흐름이 정본이고 Figma 간격 4 는 그 투영이다. 목록에 `role="list"`, 라벨 색은 새 시맨틱 `color-landing-text-strong`.
+- **media-card** — CSS 레시피 · 되재기. Figma Badge 축을 BOOLEAN + `BadgeLabel` TEXT 로 접어 세트를 다시 세웠다(노드 id 가 바뀌었다, 쓰던 인스턴스 다섯은 바꿔 끼웠다).
+- **canvas-edge** — DS-D-0061 을 부분적으로 뒤집었다(DS-D-0100). 레시피가 실선 · hover 잉크 · 히트 영역 44 · 삭제 버튼을 갖고, 쉬머 한 겹은 제품 JS 에 남는다. 기본 톤 실선의 라이트 대비 1.03 을 4.16 으로 올렸고, 삭제 버튼(20 원형)에 호버 가드 · 키보드 노출 · 포커스 링을 붙였다. Figma `CanvasEdge` 의 Hover 칸이 `CanvasEdgeDelete` 를 품는다.
+- figma `partial` 0 — manifest done 77 → 82(컴포넌트 82 전부). 표면 대응 190 → 191(DeletableEdge → CanvasEdge), needed 95 → 94.
+- 알아 둘 것 — media-card 정보 바 tint 는 레시피가 제품 그대로 1% 이고 Figma 는 변수 알파가 칠 불투명도를 덮어 4% 로 남는다.
 
 #### 2026-10-15 (275) — 캔버스 · 편집기 새 부품 넷과 Figma done 셋, 표면 대응 184 → 190
 

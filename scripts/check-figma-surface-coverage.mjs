@@ -141,11 +141,12 @@ const UNCLASSIFIED_BASELINE = 0;
 // 같은 날 뒤: 179 → 181 — 홈(/archive seeded) · 하이라이트 스튜디오 판(/highlight/[projectId] completed) 화면(run 2026-10-14b 늘림 수정 뒤).
 // 같은 날 뒤: 181 → 184 — 단체 구매 실패 · 편집기 작업 화면 · 캔버스 스테이지 프레임(run 2026-10-14c 늘림 수정 뒤, 아래 MAPPED_SCREEN_BASELINE).
 // 2026-10-15: 184 → 190 — 캔버스 · 편집기 표면 여섯(CanvasDots · MenuMediaItem · GalleryPanel · DrillPicker 새 부품, InspectorSectionHead · TransformFrame 사상, DS-D-0102~0106).
-const MAPPED_BASELINE = 190;
+// 같은 날 뒤: 190 → 191 — 캔버스 연결선 DeletableEdge 를 CanvasEdge(삭제 버튼 CanvasEdgeDelete 를 품은 Hover 칸)로(DS-D-0100).
+const MAPPED_BASELINE = 191;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 // 2026-10-15: 124 → 130 — 위 여섯이 모두 컴포넌트 대응이다.
-const MAPPED_COMPONENT_BASELINE = 130;
+const MAPPED_COMPONENT_BASELINE = 131;
 // **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
 // 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
 // 제품 세트 대응으로 바꿔치기해도 수가 유지된다.

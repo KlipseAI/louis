@@ -13,14 +13,14 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 190,
+    "mapped": 191,
     "scoped": 325,
-    "needed": 95,
+    "needed": 94,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 7,
+    "primitive": 6,
     "screen": 84,
     "oneoff": 4,
     "unclear": 0,
@@ -4364,12 +4364,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "노드 사이 연결선 + 호버 시 중앙에 뜨는 삭제 버튼(20px 원형 · accent-red-600 · scale 1.12/0.94) + 레이블. 캔버스 그래프의 조작 어피던스이고 삭제 버튼은 IconButton danger 와 치수·톤이 다르다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "JSX 실측 0인데 죽은 게 아니다 — React Flow 레지스트리(index.tsx:849 `EDGE_TYPES = { deletable: DeletableEdge }`)로 등록돼 캔버스의 **모든 연결선**이 이것이다. 이름 grep 이 못 보는 자리다. 게다가 같은 `getBezierPath` 인자를 Walkthrough{TextToImage,ImageToVideoPrompt,VideoPromptToVideo}ConnectOverlay 3 파일이 「실제 DeletableEdge 와 동일」 주석과 함께 손으로 복제했다 = 1 등록 + 3 복제."
+      "verdict": "figma",
+      "figma": "CanvasEdge",
+      "reason": "연결선과 호버 시 가운데에 뜨는 삭제 버튼을 canvas-edge 레시피와 부품으로 올렸다(DS-D-0100, DS-D-0061 재판정). Figma CanvasEdge 의 State=Hover 일곱 칸이 선 한가운데에 CanvasEdgeDelete(20 원형 · 빨강 · Default · Hover)를 품는다. 기본 톤 실선의 라이트 대비 1.03 을 4.16 으로 올렸고 삭제 버튼에 호버 가드 · 키보드 노출 · 포커스 링을 붙였다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/edges/V2EdgeLayers.tsx#V2EdgeLayers": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/edges/V2EdgeLayers.tsx",

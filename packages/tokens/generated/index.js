@@ -22001,6 +22001,110 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-timeline-footer-track-product": {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-product": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-product",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.500}",
+      "sourcePath": "semantic.light.color.timeline-footer-track-product",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-footer-track-resources": {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-resources": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-resources",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.500}",
+      "sourcePath": "semantic.light.color.timeline-footer-track-resources",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-footer-track-social": {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-social": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-social",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.500}",
+      "sourcePath": "semantic.light.color.timeline-footer-track-social",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-footer-track-trust": {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-trust": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-trust",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.500}",
+      "sourcePath": "semantic.light.color.timeline-footer-track-trust",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ],
+        "alpha": 1
+      }
+    },
     "elevation-menu": {
       "aliasTarget": {
         "id": "shadow-menu-light",
@@ -29290,6 +29394,110 @@ export const tokens = {
           0.47451,
           0.92549,
           0.8
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-footer-track-product": {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-product": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-product",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "sourcePath": "semantic.dark.color.timeline-footer-track-product",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-footer-track-resources": {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-resources": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-resources",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.500}",
+      "sourcePath": "semantic.dark.color.timeline-footer-track-resources",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-footer-track-social": {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-social": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-social",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "sourcePath": "semantic.dark.color.timeline-footer-track-social",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-footer-track-trust": {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-footer-track-trust": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-footer-track-trust",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "sourcePath": "semantic.dark.color.timeline-footer-track-trust",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
         ],
         "alpha": 1
       }

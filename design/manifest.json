@@ -2049,7 +2049,8 @@
         "design/components/brand-bar.md",
         "design/components/comment-thread.md",
         "design/components/property-stack.md",
-        "design/components/caption-thumb.md"
+        "design/components/caption-thumb.md",
+        "design/components/timeline-footer.md"
       ]
     },
     {
@@ -2215,7 +2216,8 @@
         "design/governance/decisions/DS-D-0112-brand-bar.md",
         "design/governance/decisions/DS-D-0113-comment-thread.md",
         "design/governance/decisions/DS-D-0114-property-stack.md",
-        "design/governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md"
+        "design/governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md",
+        "design/governance/decisions/DS-D-0116-timeline-footer.md"
       ]
     },
     {
@@ -2636,6 +2638,24 @@
       "id": "caption-thumb",
       "path": "design/components/caption-thumb.md",
       "title": "Caption Thumb",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-timeline-footer",
+      "path": "design/governance/decisions/DS-D-0116-timeline-footer.md",
+      "title": "DS-D-0116 공개 화면의 타임라인 푸터를 새 부품 timeline-footer 로 — 늘 다크는 data-theme=\"dark\" 고정, 트랙 색 넷, 흐린 글자 대비를 고친다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "timeline-footer",
+      "path": "design/components/timeline-footer.md",
+      "title": "Timeline Footer",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3785,6 +3805,20 @@
       "maturity": "experimental",
       "figma": "done",
       "figmaName": "CaptionThumb",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "timeline-footer",
+      "name": "Timeline Footer",
+      "doc": "design/components/timeline-footer.md",
+      "note": "공개 화면의 타임라인 푸터 — 머리 줄 · 트랙 이름 칸 + 레인 격자 · 눈금 · 트랙 넷의 클립 · 재생헤드 · 상태 줄(DS-D-0116). 제품 components/landing/sections/TimelineFooter.tsx(공개 화면 일곱 자리)를 한 레시피(packages/css/src/component/timeline-footer.css)로 옮겼다. 늘 다크는 루트 data-theme=\"dark\" 로 고정하고 고정 팔레트를 시맨틱으로 적었다 — 흐린 글자 gray-500(약 4.0)을 fg-tertiary(5.75)로 고쳤다. 트랙 색은 새 시맨틱 timeline-footer-track-* 넷. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. figma 는 2026-10-15 에 done 이다 — 세트 둘 · parity 기하 계약 · 실측 기록 · 브라우저 되재기가 DS-D-0035 를 채운다(verify-figma-done).",
+      "maturity": "experimental",
+      "figma": "done",
+      "figmaNames": [
+        "TimelineFooter",
+        "TimelineFooterClip"
+      ],
       "web": "partial",
       "docs": "done"
     }

@@ -10631,6 +10631,46 @@
               }
             }
           }
+        },
+        "timeline-footer-track-product": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-footer-track-product",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "timeline-footer-track-resources": {
+          "$value": "{primitive.color.green.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-footer-track-resources",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "timeline-footer-track-social": {
+          "$value": "{primitive.color.yellow.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-footer-track-social",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "timeline-footer-track-trust": {
+          "$value": "{primitive.color.pink.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-footer-track-trust",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
         }
       },
       "elevation": {
@@ -13446,6 +13486,46 @@
                 "tier": "semantic",
                 "mode": "dark"
               }
+            }
+          }
+        },
+        "timeline-footer-track-product": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-footer-track-product",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "timeline-footer-track-resources": {
+          "$value": "{primitive.color.green.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-footer-track-resources",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "timeline-footer-track-social": {
+          "$value": "{primitive.color.yellow.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-footer-track-social",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "timeline-footer-track-trust": {
+          "$value": "{primitive.color.pink.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-footer-track-trust",
+              "tier": "semantic",
+              "mode": "dark"
             }
           }
         }

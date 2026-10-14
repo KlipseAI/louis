@@ -294,6 +294,10 @@
   --color-timeline-clip-audio: var(--louis-color-timeline-clip-audio);
   --color-timeline-clip-caption: var(--louis-color-timeline-clip-caption);
   --color-timeline-clip-image: var(--louis-color-timeline-clip-image);
+  --color-timeline-footer-track-product: var(--louis-color-timeline-footer-track-product);
+  --color-timeline-footer-track-resources: var(--louis-color-timeline-footer-track-resources);
+  --color-timeline-footer-track-social: var(--louis-color-timeline-footer-track-social);
+  --color-timeline-footer-track-trust: var(--louis-color-timeline-footer-track-trust);
 
   /* 곡률 — rounded-* 유틸리티가 된다 */
   --radius-alert: var(--louis-radius-alert);

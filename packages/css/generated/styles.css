@@ -19544,6 +19544,454 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
   }
 }
 
+/* Timeline Footer — design/components/timeline-footer.md
+ *
+ * 공개 화면(홈 · 모델 · 가격 · 문의 · 블로그 · 템플릿)의 푸터 — 컴포지션 편집기의 타임라인 모양이다(DS-D-0116). 링크 묶음 넷이 트랙,
+ * 링크 하나하나가 클립이다. 제품 정본은 `components/landing/sections/TimelineFooter.tsx`(통합 판 `54b62a8aa`)이고 일곱 자리가 그린다.
+ *
+ * **늘 다크다.** 루트가 `data-theme="dark"` 를 단다 — LOUIS 의 테마 블록이 `[data-theme]` 선택자라 안쪽이 다크 램프로 풀린다. 그래서 제품의
+ * 고정 팔레트(`palette-gray-950 · 900 · 300 · 500 · 000`)를 시맨틱으로 적는다: 면 `bg-canvas` · 클립 바탕 `bg-raised` · 글자 `fg-primary` ·
+ * 보조 `fg-secondary` · 흐린 글자 `fg-tertiary`(제품 gray-500 → 400 으로 대비를 고친다, DS-D-0084 3항) · 선 `stroke-hairline`(7% → 8%).
+ * 트랙 색 넷은 새 시맨틱 `timeline-footer-track-*`(blue · green · yellow · pink 500)이다.
+ * 재생헤드의 마우스 따라가기 · 시각 글자 갱신은 소비처 스크립트다 — 레시피는 쉬는 자리(레인의 40.5%)와 모양만 갖는다. */
+
+.louis-timeline-footer {
+  /* 트랙 색 — 레인 · 머리가 `data-tone` 으로 덮는다. */
+  --louis-timeline-footer-track: var(--louis-color-timeline-footer-track-product);
+  /* 트랙 이름 칸 폭 — 제품 `grid-cols-[168px_…]`, 폰 44. */
+  --louis-timeline-footer-head: 168px;
+  /* 바깥 좌우 — 제품 `px-24`(48), 폰 `px-10`(20). 48 은 사다리에 없다. */
+  --louis-timeline-footer-inline: 48px;
+  /* 아래 안전 영역 — 소비처가 이 요소에 덮는다(제품 `--footer-safe-bottom`). */
+  --louis-timeline-footer-safe-bottom: 0px;
+  /* 레인 안 시작 자리 · 클립 최소 폭 — 트랙 감싸개(`data-tone`)가 덮는다. 기본은 프로덕트 트랙(제품 TRACKS.product). */
+  --louis-timeline-footer-lane-start: 2%;
+  --louis-timeline-footer-clip-min: 13%;
+
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  padding-block-end: var(--louis-timeline-footer-safe-bottom);
+  background: var(--louis-color-bg-canvas);
+  color: var(--louis-color-fg-primary);
+}
+
+/* 윗머리 녹임 띠 — 푸터 바로 위 160 에 투명 → 면 색. 홈(끝 장면의 하늘 아래)에서만 켠다. */
+.louis-timeline-footer__lead {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 100%;
+  block-size: 160px;
+  background-image: linear-gradient(to bottom, transparent, var(--louis-color-bg-canvas));
+  pointer-events: none;
+}
+
+/* 머리 줄 — 워드마크 · 태그라인 · 소셜. 제품 BAR `gap-10 px-24 pt-13 pb-9`(20 · 48 · 26 · 18). */
+.louis-timeline-footer__bar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--louis-space-media-inset);
+  padding: 26px var(--louis-timeline-footer-inline) 18px;
+}
+
+.louis-timeline-footer__brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--louis-space-control-lg);
+  min-inline-size: 0;
+}
+
+/* 워드마크 — 높이 24, 잉크 fg-primary(제품 `h-12` · `fill: palette-gray-000`). */
+.louis-timeline-footer__wordmark {
+  display: block;
+  inline-size: auto;
+  block-size: 24px;
+  fill: var(--louis-color-fg-primary);
+  user-select: none;
+}
+
+.louis-timeline-footer__tagline {
+  margin: 0;
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  white-space: nowrap;
+}
+
+.louis-timeline-footer__social {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--louis-space-overlay-item-gap);
+}
+
+/* 소셜 — 32 · 반경 8, 호버에 흰 6% → 8% 면 · 글자 fg-primary(제품 SOCIAL_LINK). */
+.louis-timeline-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
+  border-radius: var(--louis-radius-control-sm);
+  color: var(--louis-color-fg-secondary);
+  text-decoration: none;
+  transition-property: background-color, color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 타임라인 — 트랙 이름 칸 + 레인 두 열, 위 헤어라인. */
+.louis-timeline-footer__timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--louis-timeline-footer-head) minmax(0, 1fr);
+  border-block-start: var(--louis-border-width-default) solid var(--louis-color-stroke-hairline);
+}
+
+/* 눈금 머리 — 지금 시각(장식). 제품 RULER_HEAD `pl-24`. */
+.louis-timeline-footer__ruler-head {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding-inline-start: var(--louis-timeline-footer-inline);
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-stroke-hairline);
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 눈금 — 높이 28, 12 마다 짧은 틱(5) · 60 마다 긴 틱(10), 흰 12%(제품 RULER). 60 이 1초다. */
+.louis-timeline-footer__ruler {
+  box-sizing: border-box;
+  position: relative;
+  block-size: var(--louis-layout-inspector-control-height);
+  overflow: hidden;
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-stroke-hairline);
+  background-image:
+    repeating-linear-gradient(to right, var(--louis-color-gray-000-alpha-12) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(to right, var(--louis-color-gray-000-alpha-12) 0 1px, transparent 1px 60px);
+  background-repeat: repeat-x;
+  background-position: 0 100%, 0 100%;
+  background-size: 100% 5px, 100% 10px;
+}
+
+/* 눈금 글자 — 긴 틱 옆, 위 2 · 왼쪽 4(제품 RULER_LABEL `top-1 pl-2`). 자리(`left`)는 소비처가 초 × 60 으로 준다. */
+.louis-timeline-footer__ruler-label {
+  position: absolute;
+  inset-block-start: var(--louis-space-overlay-item-gap);
+  padding-inline-start: var(--louis-space-control-xs);
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 트랙 이름 — 높이 48 · 아이콘 20 과 이름 사이 10 · 왼쪽 48 · 오른쪽 16(제품 TRACK_HEAD). */
+.louis-timeline-footer__track-head {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  block-size: 48px;
+  margin: 0;
+  padding-inline: var(--louis-timeline-footer-inline) var(--louis-space-control-lg);
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-stroke-hairline);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+.louis-timeline-footer__track-icon {
+  flex: none;
+  inline-size: 20px;
+  block-size: 20px;
+  color: var(--louis-timeline-footer-track);
+}
+
+/* 레인 — 높이 48 · 클립 사이 12 · 오른쪽 16, 흰 4% 바닥(제품 2% 를 알파 사다리의 첫 칸으로). */
+.louis-timeline-footer__lane {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--louis-space-stack-md);
+  min-block-size: 48px;
+  margin: 0;
+  padding: 0 var(--louis-space-control-lg) 0 var(--louis-timeline-footer-lane-start);
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-stroke-hairline);
+  background: var(--louis-color-gray-000-alpha-04);
+  list-style: none;
+}
+
+/* 트랙 한 벌 — 이름 칸과 레인을 묶는 상자. 격자에 끼어들지 않는다(제품 `contents` 감싸개). */
+.louis-timeline-footer__track {
+  display: contents;
+}
+
+/* 트랙마다 색 · 레인 안 시작 자리 · 클립 최소 폭(실제 타임라인처럼 엇갈리게, 제품 TRACKS). */
+.louis-timeline-footer [data-tone="resources"] {
+  --louis-timeline-footer-track: var(--louis-color-timeline-footer-track-resources);
+  --louis-timeline-footer-lane-start: 9%;
+  --louis-timeline-footer-clip-min: 12%;
+}
+
+.louis-timeline-footer [data-tone="social"] {
+  --louis-timeline-footer-track: var(--louis-color-timeline-footer-track-social);
+  --louis-timeline-footer-lane-start: 30%;
+  --louis-timeline-footer-clip-min: 12%;
+}
+
+.louis-timeline-footer [data-tone="trust"] {
+  --louis-timeline-footer-track: var(--louis-color-timeline-footer-track-trust);
+  --louis-timeline-footer-lane-start: 4%;
+  --louis-timeline-footer-clip-min: 22%;
+}
+
+/* 클립 — 높이 32 · 반경 6 · 좌우 12 · 사이 10, 바탕 트랙 14% + bg-raised, 안쪽 선 트랙 34%(제품 CLIP). */
+.louis-timeline-footer__clip {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-inline-size: var(--louis-timeline-footer-clip-min);
+  block-size: var(--louis-layout-control-height-md);
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-inline: var(--louis-space-control-md);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--louis-timeline-footer-track) 14%, var(--louis-color-bg-raised));
+  box-shadow: inset 0 0 0 var(--louis-border-width-default) color-mix(in srgb, var(--louis-timeline-footer-track) 34%, transparent);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  text-decoration: none;
+  white-space: nowrap;
+  transition-property: box-shadow;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 준비중 — 트랙 색 없이 흰 12% 선 · 흐린 글자 · 누르지 못함(제품 CLIP_SOON). */
+.louis-timeline-footer__clip[aria-disabled="true"] {
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--louis-border-width-default) var(--louis-color-gray-000-alpha-12);
+  color: var(--louis-color-fg-tertiary);
+  cursor: default;
+}
+
+/* 신뢰 트랙의 결 — 옅은 세로 파형(제품 TRACKS.trust.texture). 장식. */
+.louis-timeline-footer [data-tone="trust"] .louis-timeline-footer__clip:not([aria-disabled="true"])::before {
+  position: absolute;
+  inset: 9px 0;
+  background-image: repeating-linear-gradient(to right, color-mix(in srgb, var(--louis-timeline-footer-track) 26%, transparent) 0 1px, transparent 1px 3px);
+  content: "";
+  mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+  pointer-events: none;
+}
+
+.louis-timeline-footer__clip-text {
+  position: relative;
+}
+
+/* 클립 메모 — 「↗」 · 「준비중」(제품 CLIP_NOTE). */
+.louis-timeline-footer__clip-note {
+  position: relative;
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 재생헤드 — 1px 주색 세로선, 쉬는 자리는 레인의 40.5%. 머리 9 오각형 · 위 22 에 시각(제품 PLAYHEAD · TIMECODE). */
+.louis-timeline-footer__playhead {
+  --louis-timeline-footer-playhead-rest: 0.405;
+
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(var(--louis-timeline-footer-head) + (100% - var(--louis-timeline-footer-head))*var(--louis-timeline-footer-playhead-rest));
+  inline-size: var(--louis-border-width-default);
+  background: var(--louis-color-timeline-footer-track-product);
+  pointer-events: none;
+}
+
+.louis-timeline-footer__playhead::before {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: -4px;
+  inline-size: 9px;
+  block-size: 9px;
+  background: var(--louis-color-timeline-footer-track-product);
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
+  content: "";
+}
+
+.louis-timeline-footer__timecode {
+  position: absolute;
+  inset-block-start: -22px;
+  inset-inline-start: 0;
+  transform: translateX(-50%);
+  color: var(--louis-color-timeline-footer-track-product);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 상태 줄 — 사업자 정보 · 저작권. 제품 STATUS `gap-12 px-24 pt-9 pb-11`(24 · 48 · 18 · 22). */
+.louis-timeline-footer__status {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--louis-space-layout-section);
+  padding: 18px var(--louis-timeline-footer-inline) 22px;
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 사업자 정보 — 최대 900 · 줄바꿈 · 가로 22(제품 BIZ `gap-x-11`). */
+.louis-timeline-footer__biz {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 22px;
+  max-inline-size: 900px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.louis-timeline-footer__biz-label {
+  margin-inline-end: 6px;
+  color: var(--louis-color-fg-tertiary);
+}
+
+.louis-timeline-footer__copyright {
+  margin: 0;
+  color: var(--louis-color-fg-tertiary);
+  white-space: nowrap;
+}
+
+@media (hover: hover) {
+  .louis-timeline-footer__social-link:hover {
+    background: var(--louis-color-gray-000-alpha-08);
+    color: var(--louis-color-fg-primary);
+  }
+
+  .louis-timeline-footer__clip:is(a[href]):hover {
+    box-shadow: inset 0 0 0 var(--louis-border-width-default) var(--louis-timeline-footer-track);
+  }
+}
+
+/* 폰(≤719) — 트랙 이름은 아이콘만(이름은 보조기기에 남는다), 클립이 줄을 바꿔 쌓이고 엇갈림이 풀린다. */
+@media (max-width: 719px) {
+  .louis-timeline-footer {
+    --louis-timeline-footer-head: 44px;
+    --louis-timeline-footer-inline: 20px;
+  }
+
+  .louis-timeline-footer__bar {
+    padding-block-start: var(--louis-space-media-inset);
+  }
+
+  .louis-timeline-footer__tagline {
+    display: none;
+  }
+
+  .louis-timeline-footer__ruler-head {
+    padding-inline-start: 0;
+  }
+
+  .louis-timeline-footer__ruler-head > span {
+    display: none;
+  }
+
+  .louis-timeline-footer__ruler-label:nth-child(even) {
+    display: none;
+  }
+
+  .louis-timeline-footer__track-head {
+    justify-content: center;
+    block-size: auto;
+    padding: 0;
+  }
+
+  .louis-timeline-footer__track-name {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .louis-timeline-footer__lane {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: var(--louis-space-control-sm);
+  }
+
+  .louis-timeline-footer__clip {
+    min-inline-size: 0;
+    padding-inline: 10px;
+  }
+
+  .louis-timeline-footer__clip-note {
+    display: none;
+  }
+
+  .louis-timeline-footer__status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .louis-timeline-footer__copyright {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-timeline-footer__social-link,
+  .louis-timeline-footer__clip {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* forced-colors — 클립의 바탕 · 안쪽 선이 지워지므로 테두리를 세운다. */
+@media (forced-colors: active) {
+  .louis-timeline-footer__clip {
+    border: 1px solid CanvasText;
+  }
+}
+
 /* Timeline — design/components/timeline.md
  *
  * 편집기 좁은 화면의 타임라인(DS-D-0089 · DS-D-0084). 제품 정본은 `MobileTimeline.tsx:823-1085` 와 `mobileTimelineClass.ts`(통합 판 `54b62a8aa`),

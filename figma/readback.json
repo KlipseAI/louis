@@ -10055,6 +10055,74 @@
               null
             ]
           ]
+        ],
+        [
+          "color/timeline-footer-track-product",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/timeline-footer-track-resources",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/timeline-footer-track-social",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/yellow/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/yellow/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/timeline-footer-track-trust",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/pink/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/pink/500",
+              null
+            ]
+          ]
         ]
       ]
     }
@@ -35651,6 +35719,345 @@
         "TrimStart",
         "TrimEnd"
       ]
+    },
+    "TimelineFooter": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Lead": {
+          "type": "BOOLEAN"
+        },
+        "Viewport": {
+          "type": "VARIANT",
+          "options": [
+            "≥720",
+            "≤719"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 250,
+        "rawFills": 0,
+        "boundStrokes": 46,
+        "rawStrokes": 0,
+        "textStyled": 58,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "≥720": {
+          "slots": {},
+          "parts": {
+            "Bar": {
+              "paddingBlock": [
+                26
+              ],
+              "paddingBlockEnd": [
+                18
+              ],
+              "paddingInline": [
+                48
+              ],
+              "itemSpacing": [
+                20
+              ]
+            },
+            "Brand": {
+              "itemSpacing": [
+                16
+              ]
+            },
+            "Wordmark": {
+              "height": [
+                24
+              ]
+            },
+            "Social": {
+              "itemSpacing": [
+                2
+              ]
+            },
+            "SocialLink": {
+              "width": [
+                32
+              ],
+              "height": [
+                32
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "RulerHead": {
+              "width": [
+                168
+              ],
+              "height": [
+                28
+              ]
+            },
+            "Ruler": {
+              "height": [
+                28
+              ]
+            },
+            "TrackHead": {
+              "width": [
+                168
+              ],
+              "height": [
+                48
+              ],
+              "itemSpacing": [
+                10
+              ]
+            },
+            "Lane": {
+              "height": [
+                48
+              ],
+              "paddingInlineEnd": [
+                16
+              ]
+            },
+            "Playhead": {
+              "width": [
+                1
+              ]
+            },
+            "Status": {
+              "paddingBlock": [
+                18
+              ],
+              "paddingBlockEnd": [
+                22
+              ],
+              "paddingInline": [
+                48
+              ]
+            },
+            "Biz": {
+              "itemSpacing": [
+                22
+              ]
+            }
+          },
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "≤719": {
+          "slots": {},
+          "parts": {
+            "Bar": {
+              "paddingBlock": [
+                20
+              ],
+              "paddingBlockEnd": [
+                18
+              ],
+              "paddingInline": [
+                20
+              ],
+              "itemSpacing": [
+                20
+              ]
+            },
+            "Brand": {
+              "itemSpacing": [
+                16
+              ]
+            },
+            "Wordmark": {
+              "height": [
+                24
+              ]
+            },
+            "Social": {
+              "itemSpacing": [
+                2
+              ]
+            },
+            "SocialLink": {
+              "width": [
+                32
+              ],
+              "height": [
+                32
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "RulerHead": {
+              "width": [
+                44
+              ],
+              "height": [
+                28
+              ]
+            },
+            "Ruler": {
+              "height": [
+                28
+              ]
+            },
+            "TrackHead": {
+              "width": [
+                44
+              ],
+              "height": [
+                49
+              ],
+              "itemSpacing": [
+                10
+              ]
+            },
+            "Lane": {
+              "height": [
+                49
+              ],
+              "paddingInlineEnd": [
+                8
+              ]
+            },
+            "Playhead": {
+              "width": [
+                1
+              ]
+            },
+            "Status": {
+              "paddingBlock": [
+                18
+              ],
+              "paddingBlockEnd": [
+                22
+              ],
+              "paddingInline": [
+                20
+              ]
+            },
+            "Biz": {
+              "itemSpacing": [
+                22
+              ]
+            }
+          },
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {},
+      "outsideParts": [
+        "Lead"
+      ]
+    },
+    "TimelineFooterClip": {
+      "variantCount": 16,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "Note": {
+          "type": "TEXT"
+        },
+        "HasNote": {
+          "type": "BOOLEAN"
+        },
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "product",
+            "resources",
+            "social",
+            "trust"
+          ]
+        },
+        "Interactive": {
+          "type": "VARIANT",
+          "options": [
+            "true",
+            "false"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 49,
+        "rawFills": 0,
+        "boundStrokes": 16,
+        "rawStrokes": 0,
+        "textStyled": 32,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            12
+          ],
+          "itemSpacing": [
+            10
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            12
+          ],
+          "itemSpacing": [
+            10
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
     },
     "TimelineRuler": {
       "variantCount": 2,

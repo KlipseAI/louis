@@ -510,6 +510,10 @@ const CAPTURE = {
   "PropertyStackGroup": {"key":{"name":"base"},"fields":["itemSpacing","layoutMode"],"parts":{"Label":["fontSize"],"Fields":["itemSpacing","counterAxisSpacing"],"SliderRow":["itemSpacing"],"SliderLabel":["minWidth"],"SliderValue":["minWidth"]}},
   // Caption Thumb(2026-10-15, DS-D-0115). 27 × 48 · 반경 4 · 헤어라인(INNER_SHADOW spread 0.5), 줄 높이 제목 3 · 부제목 2 · 박스 자막 5(3 + 2) · 반경 1. 위치 · 색은 템플릿 데이터의 표본이라 담지 않는다.
   "CaptionThumb": {"key":{"name":"base"},"fields":["width","height","cornerRadius"],"parts":{"TitleLine":["height","cornerRadius"],"SubtitleLine":["height"],"CaptionLine":["height"]},"effects":["self"]},
+  // Timeline Footer(2026-10-15, DS-D-0116). 머리 줄 · 눈금 · 트랙 이름 칸 · 레인 · 재생헤드 · 상태 줄의 기하. 클립은 TimelineFooterClip 인스턴스라 훑기가 들어가지 않는다. 레인의 시작 자리 · 클립 최소 폭(%)은 트랙마다 다른 데이터라 담지 않는다. Lead(160 녹임 띠)는 일부러 프레임 위로 나간다.
+  "TimelineFooter": {"key":{"by":["Viewport"]},"fields":["layoutMode"],"parts":{"Bar":["paddingBlock","paddingBlockEnd","paddingInline","itemSpacing"],"Brand":["itemSpacing"],"Wordmark":["height"],"Social":["itemSpacing"],"SocialLink":["width","height","cornerRadius"],"RulerHead":["width","height"],"Ruler":["height"],"TrackHead":["width","height","itemSpacing"],"Lane":["height","paddingInlineEnd"],"Playhead":["width"],"Status":["paddingBlock","paddingBlockEnd","paddingInline"],"Biz":["itemSpacing"]},"outsideParts":["Lead"]},
+  // 클립 — 높이 32 · 좌우 12 · 사이 10 · 반경 6 · 안쪽 선 1. Tone · State 는 색만 바꿔 기하가 같다(키는 Interactive).
+  "TimelineFooterClip": {"key":{"by":["Interactive"]},"fields":["height","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"strokes":["self"]},
 };
 
 function usage(message) {

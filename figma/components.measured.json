@@ -8929,6 +8929,25 @@
           "$inline": "data-bleed — 껍데기가 좌우 인셋을 걸지 않는다(제품 `bleed ? \"\" : INLINE`). 안쪽 `__inset` 이 위 계단을 건다."
         }
       }
+    },
+    "brand-bar": {
+      "$doc": "design/components/brand-bar.md",
+      "$source": "packages/css/src/component/brand-bar.css — 2026-10-15 DS-D-0112",
+      "$note": "Brand Bar. 값은 CSS 가 만드는 값이고 출처는 통합 판 54b62a8aa 의 app/deck/DeckParts.tsx(약칭 DP) TOP_BAR · TOP_LINKS · DeckLockup 이다. brand-bar-geometry.browser.test.tsx 가 되잰다.",
+      "sizes": {
+        "base": {
+          "gap": 16,
+          "$gap": "space-control-lg 16. 제품 DP TOP_BAR `gap-8`.",
+          "brandHeight": 28,
+          "$brandHeight": "layout-app-shell-brand-mark-height 28. 제품 DP DeckLockup `LOCKUP_H = 28`.",
+          "brandRadius": 8,
+          "$brandRadius": "radius-control-sm 8. 제품 DP DeckTopBar 홈 링크 `rounded-8`.",
+          "linksGap": 24,
+          "$linksGap": "space-layout-section 24. 제품 DP TOP_LINKS `gap-x-12`.",
+          "linksRowGap": 8,
+          "$linksRowGap": "space-control-sm 8. 제품 DP TOP_LINKS `gap-y-4`."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -9019,7 +9038,8 @@
     "table-drawer": "제품 렌더 하네스의 명부에 어드민 광고 성과 표(AdAttributionPanel.tsx)가 없다 — 서랍이 어드민 인증 · 광고 집계 데이터를 물고 줄을 펼쳤을 때만 선다. 값은 레시피 선언이고 제품 클래스는 소스(AdAttributionPanel.tsx:95 · :505-565)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15).",
     "node-handle-tile": "제품 렌더 하네스의 명부에 캔버스 도움말 패널(CanvasHelpPanel.tsx)이 없다 — 타일이 도움말 패널의 입력 목록 안에서만 서고 패널은 캔버스 셸 · i18n 공급자를 문다. 값은 레시피 선언이고 제품 클래스는 소스(CanvasHelpPanel.tsx:217-237)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15).",
     "copy-panel": "제품은 아직 이 레시피를 물지 않는다 — measure-product-components 가 컴파일하는 제품 소스 명부(scripts/lib/product-files.mjs)에 템플릿 상세 페이지(서버 컴포넌트, DB 템플릿 행이 있어야 렌더된다)가 없다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다.",
-    "section-shell": "제품 렌더 하네스가 닿지 못한다 — 껍데기는 면 · 글자가 없는 레이아웃 부품이라 measure-product-components 의 탐침으로 세울 표본이 없고, 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 SectionShell.tsx · sectionInline.ts 선언을 적는다."
+    "section-shell": "제품 렌더 하네스가 닿지 못한다 — 껍데기는 면 · 글자가 없는 레이아웃 부품이라 measure-product-components 의 탐침으로 세울 표본이 없고, 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 SectionShell.tsx · sectionInline.ts 선언을 적는다.",
+    "brand-bar": "제품 렌더 하네스가 닿지 못한다 — 덱 화면(app/deck/*)은 measure-product-components 가 컴파일하는 제품 소스 명부(scripts/lib/product-files.mjs)에 없고, 제품은 아직 이 레시피를 물지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 사유가 통합 판 54b62a8aa 의 DeckParts.tsx 선언을 적는다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다. **2026-10-14 canvas-edge 를 이 명부에서 뺐다(DS-D-0100)** — DS-D-0061 의 근거(쉬머가 인스턴스 기하 · SMIL 주기)는 지금도 참이지만, 그 근거가 덮는 것은 쉬머 한 겹뿐이다. 실선 · hover 잉크 · 히트 영역 · 삭제 버튼은 CSS 가 온전히 담아 레시피가 섰고 쉬머는 제품 JS 에 남는다. 명부가 비어도 이 장치는 남는다 — 다음 판정이 여기 들어온다."

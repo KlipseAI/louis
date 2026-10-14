@@ -494,6 +494,8 @@ const CAPTURE = {
   "CopyPanel": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Head":["itemSpacing","layoutMode"],"Title":["fontSize"],"Body":["fontSize"]},"strokes":["self"]},
   // Section Shell(2026-10-15, DS-D-0111). 면 없는 레이아웃 규격 — 세로 · 좌우 여백과 콘텐츠 최대 폭. 칸의 폭(1600 · 900 · 700 · 600 · 340)은 그 뷰포트 경계 안의 표본이라 담지 않는다. Bleed=true 의 Track 은 폭 제한이 없어 담을 것이 없다.
   "SectionShell": {"key":{"by":["Viewport","Bleed"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"parts":{"Content":["maxWidth"]}},
+  // Brand Bar(2026-10-15, DS-D-0112). 막대 사이 16, 락업 자리 높이 28 · 반경 8, 링크 묶음 가로 24 · 세로(줄바꿈) 8. 링크는 TextLink 인스턴스라 훑기가 들어가지 않는다. 1240 폭과 락업 그림(워드마크 + Deck)은 표본이다.
+  "BrandBar": {"key":{"name":"base"},"fields":["itemSpacing","layoutMode"],"parts":{"Brand":["height","cornerRadius"],"Links":["itemSpacing","counterAxisSpacing","layoutMode"]}},
 };
 
 function usage(message) {

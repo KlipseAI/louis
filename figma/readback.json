@@ -11711,6 +11711,59 @@
       "strokes": {},
       "effects": {}
     },
+    "BrandBar": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "ExtraLink": {
+          "type": "BOOLEAN"
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Brand": {
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Links": {
+              "itemSpacing": [
+                24
+              ],
+              "counterAxisSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          },
+          "itemSpacing": [
+            16
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "Breadcrumb": {
       "variantCount": 2,
       "hasDescription": true,

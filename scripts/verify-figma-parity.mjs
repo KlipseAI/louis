@@ -6284,6 +6284,31 @@ const COMPONENT_CONTRACTS = [
       },
     },
   },
+  {
+    id: "brand-bar",
+    figmaName: "BrandBar",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/brand-bar.css 가 정본이다(2026-10-15, DS-D-0112). 1240 폭은 덱 컬럼(1280 − 20×2)의 표본이고, 락업 그림(워드마크 + Deck 벡터, brand/logo-ink)은 소비처의 그림이라 계약이 아니다 — 레시피는 자리(높이 28 · 반경 8)만 갖는다. 링크는 TextLink(Underline=none) 인스턴스라 그 계약이 갖는다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      ExtraLink: { type: "BOOLEAN", reason: "돌아가기 앞의 링크(발표자의 「교안 관리」) — 코드는 `__links` 안 앞 링크 요소의 유무로 말한다." },
+    },
+    geometry: {
+      measuredId: "brand-bar",
+      sizeKeys: ["base"],
+      fields: {
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Brand: { fields: { height: "brandHeight", cornerRadius: "brandRadius" } },
+        Links: { fields: { itemSpacing: "linksGap", counterAxisSpacing: "linksRowGap", layoutMode: { literal: "HORIZONTAL" } } },
+      },
+    },
+  },
 ];
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와

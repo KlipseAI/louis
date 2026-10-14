@@ -223,7 +223,8 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // DS-D-0061 재판정). 컴포넌트 82 가 전부 done 이다(Updates (276)).
 // 같은 날 뒤: 82 → 84 — 새 부품 table-drawer · node-handle-tile 이 되재기와 함께 섰다(DS-D-0107 · 0108, Updates (277)).
 // 2026-10-15: 74 → 76 — 새 부품 copy-panel · section-shell 이 세트 · 기하 계약 · 되재기와 함께 섰다(DS-D-0110 · DS-D-0111, R2).
-const MANIFEST_DONE_FLOOR = 86; // 바닥. 오르면 올려 이득을 잠근다
+// 같은 날 뒤: 76 → 77 — brand-bar(DS-D-0112, R2).
+const MANIFEST_DONE_FLOOR = 87; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

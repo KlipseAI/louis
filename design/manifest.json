@@ -2045,7 +2045,8 @@
         "design/components/table-drawer.md",
         "design/components/node-handle-tile.md",
         "design/components/copy-panel.md",
-        "design/components/section-shell.md"
+        "design/components/section-shell.md",
+        "design/components/brand-bar.md"
       ]
     },
     {
@@ -2207,7 +2208,8 @@
         "design/governance/product-confirmations.md",
         "design/updates/README.md",
         "design/governance/decisions/DS-D-0110-copy-panel.md",
-        "design/governance/decisions/DS-D-0111-section-shell.md"
+        "design/governance/decisions/DS-D-0111-section-shell.md",
+        "design/governance/decisions/DS-D-0112-brand-bar.md"
       ]
     },
     {
@@ -2556,6 +2558,24 @@
       "id": "section-shell",
       "path": "design/components/section-shell.md",
       "title": "Section Shell",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-brand-bar",
+      "path": "design/governance/decisions/DS-D-0112-brand-bar.md",
+      "title": "DS-D-0112 앱 셸 없는 독립 화면의 머리 막대를 새 부품 brand-bar 로 — 왼쪽 락업, 오른쪽 Text Link 묶음, App Top Bar 의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "brand-bar",
+      "path": "design/components/brand-bar.md",
+      "title": "Brand Bar",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3653,6 +3673,17 @@
       "maturity": "experimental",
       "figma": "done",
       "figmaName": "SectionShell",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "brand-bar",
+      "name": "Brand Bar",
+      "doc": "design/components/brand-bar.md",
+      "note": "앱 셸 없는 독립 화면의 머리 막대 — 왼쪽 브랜드 락업(높이 28 · 반경 8), 오른쪽 Text Link(underline=none) 묶음(가로 24 · 세로 8 · 줄바꿈 · 오른쪽 정렬), 사이 16(DS-D-0112). 덱 화면군 네 라우트의 DeckTopBar(app/deck/DeckParts.tsx)를 한 레시피(packages/css/src/component/brand-bar.css)로 옮겼다. 락업 그림은 소비처 몫이다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. figma 는 2026-10-15 에 done 이다 — BrandBar 컴포넌트 · parity 기하 계약 · 실측 기록 · 브라우저 되재기가 DS-D-0035 를 채운다(verify-figma-done).",
+      "maturity": "experimental",
+      "figma": "done",
+      "figmaName": "BrandBar",
       "web": "partial",
       "docs": "done"
     }

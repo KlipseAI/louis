@@ -217,7 +217,9 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 「기계 조건은 서는데 partial」에서 done 으로(DS-D-0099).
 // 같은 밤 뒤: 76 → 77 — step-tile 에 CSS 레시피 · 되재기(캡션은 제품의 인라인 흐름이 정본, 목록 role="list", DS-D-0099).
 // 같은 밤 뒤: 77 → 78 — media-card 에 CSS 레시피 · 되재기, Figma Badge 축을 BOOLEAN + BadgeLabel TEXT 로(DS-D-0099).
-const MANIFEST_DONE_FLOOR = 81; // 바닥. 오르면 올려 이득을 잠근다
+// 같은 밤 뒤: 78 → 79 — canvas-edge 에 레시피(실선 · hover 잉크 · 히트 영역 · 삭제 버튼)와 Figma CanvasEdgeDelete, 되재기(DS-D-0100 —
+// DS-D-0061 재판정). 컴포넌트 79 가 전부 done 이다.
+const MANIFEST_DONE_FLOOR = 82; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.
@@ -231,7 +233,10 @@ const MANIFEST_DONE_FLOOR = 81; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-10-13: 59 → 58. DS-D-0084 작은 새 부품 — `color-swatch` 의 칩 경계가 `color-stroke-strong` 을 LOUIS CSS 에서 처음 문다
 // (제품 `stroke-control` 은 흰 값 · 검정 값 칩의 경계가 3:1 미만이라 고쳐 올렸다). 같은 회차에 세운 시맨틱 셋(`asset-tile-well` ·
 // `notice-pill-dot` · `canvas-guide`)은 레시피가 바로 읽어 죽은 채로 들어오지 않았다. 이득 방향이라 잠근다.
-const DEAD_TOKEN_BASELINE = 58; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
+// 2026-10-14 밤: 58 → 57. DS-D-0099 · DS-D-0100 — 새 시맨틱(노드 크롬 호버 셋 · landing-text-strong · canvas-edge 여덟)을 레시피가
+// 바로 읽으며 그동안 아무 저작 CSS 도 풀지 않던 원시 하나가 별칭 사슬로 살아났다. 새 원시 셋(red-600-alpha 56 · 80 · 88)은 시맨틱이
+// 바로 물어 죽은 채로 들어오지 않았다. 이득 방향이라 잠근다.
+const DEAD_TOKEN_BASELINE = 57; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 // 95 → 94 (stat-tile · chart-card 가 서면서). 이득 방향이라 잠근다.
 // 2026-09-21: 73 → 72. Document 패턴(DS-D-0067)의 바닥이 화면 가장자리와 시트 사이를
 // `layout-app-shell-outer-gap` 으로 띄우면서 LOUIS CSS 가 그 토큰을 처음 문다. 이득 방향이라 잠근다.

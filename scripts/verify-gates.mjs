@@ -1518,27 +1518,25 @@ withCanary(
   "pill-trigger: 레시피와 기록이 다릅니다",
 );
 
-// ── 「레시피가 없다」가 판정인 자리 카나리아 둘 (2026-09-09, DS-D-0061) ──
-// 위의 둘은 레시피가 **있는** 자리를 잰다. canvas-edge 는 반대쪽이다 — 쉬머의 페인트가
-// 인스턴스 기하이고 주기가 SMIL 의 `dur` 이라 CSS 가 이 조형을 담지 못하고, 그래서 레시피를
-// 세우지 않는 것이 결론이다. 그 판정은 두 길로 조용히 사라질 수 있다.
+// ── 「레시피가 없다」가 판정인 자리 카나리아 둘 (2026-09-09, DS-D-0061 · 2026-10-14 DS-D-0100) ──
+// 위의 둘은 레시피가 **있는** 자리를 잰다. `$noRecipe` 명부는 반대쪽이다 — 「레시피를 세우지 않는 것이 결론」인 자리를
+// 판정으로 적는다. 그 판정은 두 길로 조용히 사라질 수 있다.
 //
-// ① 누가 상태를 「정리」하며 `not-planned` 를 `not-ready` 로 되돌린다. 그러면 다음 사람은
-//    다시 「빠진 것」으로 읽고 같은 조사를 반복한다 — 이 회차가 없애려던 바로 그 낭비다.
-// ② 사유만 지우고 `not-planned` 는 남긴다. 그러면 `not-planned` 는 상태가 아니라
-//    **검사를 끄는 값**이 된다.
+// ① 명부에 사유는 있는데 manifest 의 `web` 이 `not-planned` 가 아니다(「아직」과 「안 한다」가 섞인다).
+// ② manifest 가 `not-planned` 인데 명부에 사유가 없다 — 그러면 `not-planned` 는 상태가 아니라 **검사를 끄는 값**이 된다.
 //
-// 대상 문자열은 둘 다 파일에서 유일하다(`"web": "not-planned"` 는 manifest 에 한 건,
-// `$noRecipe` 의 canvas-edge 항은 그 산문 머리로 유일하다). 첫 일치 치환이 다른 컴포넌트를
-// 건드리는 사고를 피하려고 유일성을 치환 결과로 확인한다.
+// **2026-10-14 명부가 비었다.** canvas-edge 의 판정이 DS-D-0100 으로 뒤집혀 레시피가 섰고, manifest 에 `not-planned` 가
+// 하나도 남지 않았다. 예전 카나리아는 그 둘을 문자열로 찾아 바꿨는데 찾을 것이 사라졌다 — 그래서 **판정을 하나 지어 넣는다.**
+// 장치는 명부가 비어도 남아야 하고(다음 판정이 여기 들어온다), 카나리아가 그 장치가 살아 있음을 증명한다. JSON 을 읽어
+// 고친 뒤 다시 쓰므로 치환 대상의 유일성에 기대지 않는다.
+const CANARY_VERDICT =
+  "카나리아가 지어 넣은 판정이다 — 이 컴포넌트에는 레시피를 세우지 않는다고 적는다. 사유가 충분히 길어야 길이 검사를 넘고 manifest 대조까지 도달한다.";
 withCanary(
-  "design/manifest.json",
+  "figma/components.measured.json",
   (source) => {
-    const next = source.replace('"web": "not-planned"', '"web": "not-ready"');
-    if (next === source) {
-      errors.push("recipe-record 판정 canary 가 manifest 에서 not-planned 를 찾지 못했습니다.");
-    }
-    return next;
+    const record = JSON.parse(source);
+    record.$noRecipe = { ...(record.$noRecipe ?? {}), "canvas-edge": CANARY_VERDICT };
+    return JSON.stringify(record, null, 2) + "\n";
   },
   "recipe-less verdict stays not-planned",
   "scripts/verify-recipe-record.mjs",
@@ -1546,16 +1544,16 @@ withCanary(
 );
 
 withCanary(
-  "figma/components.measured.json",
+  "design/manifest.json",
   (source) => {
-    // **지우지 않고 이름만 바꾼다.** 마지막 항이라 줄을 지우면 앞 항의 쉼표가 남아 JSON 이
-    // 깨지고, 그러면 게이트는 「사유가 없다」가 아니라 「JSON 을 읽지 못했다」로 실패해
-    // 카나리아가 엉뚱한 사유로 초록이 된다(실측으로 확인).
-    const next = source.replace('"canvas-edge": "**정본은 CSS', '"canvas-edge-gone": "**정본은 CSS');
-    if (next === source) {
-      errors.push("recipe-record 사유 canary 가 기록에서 $noRecipe 의 canvas-edge 항을 찾지 못했습니다.");
+    const manifest = JSON.parse(source);
+    const target = (manifest.components ?? []).find((item) => item.id === "canvas-edge");
+    if (target === undefined) {
+      errors.push("recipe-record 사유 canary 가 manifest 에서 canvas-edge 를 찾지 못했습니다.");
+      return source;
     }
-    return next;
+    target.web = "not-planned";
+    return JSON.stringify(manifest, null, 2) + "\n";
   },
   "not-planned carries a written verdict",
   "scripts/verify-recipe-record.mjs",

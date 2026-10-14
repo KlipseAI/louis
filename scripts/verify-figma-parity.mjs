@@ -3355,7 +3355,7 @@ const COMPONENT_CONTRACTS = [
     id: "canvas-edge",
     figmaName: "CanvasEdge",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 apps/web/components/scenes/create/node-canvas-v2/edges/V2EdgeLayers.tsx 가 정본이고, 톤 어휘의 실행 가능한 SSOT 는 같은 폴더의 lib/edgeTone.ts 다. 손으로 복제된 사본이 일곱 벌이라 정본을 세우는 것이 이 컴포넌트의 내용이다.",
+      "React 표면 없음 — packages/css/src/component/canvas-edge.css 가 정본이다(2026-10-14, DS-D-0100 — DS-D-0061 을 다시 판정). 값의 출처는 제품 apps/web/components/scenes/create/node-canvas-v2/edges/V2EdgeLayers.tsx · DeletableEdge.tsx 이고 톤 어휘의 실행 가능한 SSOT 는 lib/edgeTone.ts 다. 쉬머 한 겹은 여전히 제품 JS 가 갖는다. State=Hover 칸은 선 한가운데 CanvasEdgeDelete 인스턴스 Delete 를 품는다 — 인스턴스 안은 그 세트의 계약이 잰다.",
     variantProperties: {},
     // **엣지의 획은 테두리가 아니라 그림이다.** 그래서 되읽기의 strokeWeight 집합은 비어 있고
     // (채취 규칙 3 이 VECTOR 를 뺀다) 두께는 역할로만 담긴다. align 이 CENTER 인 것도 같은
@@ -3394,6 +3394,44 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
       parts: {
         Line: { fields: { width: "specimenSpanX", height: "specimenSpanY" } },
+      },
+    },
+  },
+  {
+    id: "canvas-edge",
+    figmaName: "CanvasEdgeDelete",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/canvas-edge.css 의 .louis-canvas-edge__delete 가 정본이다(2026-10-14, DS-D-0100). 값의 출처는 제품 DeletableEdge.tsx 의 DELETE_BTN 이다. Canvas Edge 의 부품이라 manifest 항목이 canvas-edge 하나다(figmaNames).",
+    variantProperties: {},
+    // 테두리 1 — 면과 같은 red-600 의 더 옅은 알파(쉼 56% · 호버 80%). CSS border-box 라 Figma 도 INSIDE 다.
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    // 그림자 0 2 8(순검정 40%) — 색은 color/canvas-edge-delete-shadow 변수에 묶였다.
+    effects: { self: "DROP_SHADOW:2:8:0" },
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Hover"],
+        reason:
+          "Hover 는 CSS 상태다(`@media (hover: hover)` 안의 `:hover`) — 면 red-600 88% → 100%, 테두리 56% → 80%, 글리프 88% → fg-on-danger. 호버의 scale(1.12)과 누름 scale(0.94)은 크기가 아니라 동작이라 칸을 열지 않았다 — 사유는 measured 의 `$sizesNote` 가 갖는다.",
+      },
+    },
+    // Figma 여백 = CSS 여백 0 + 테두리 1(§10 — 획이 레이아웃 밖이라 테두리 두께만큼 안쪽 여백을 둔다).
+    geometry: {
+      measuredId: "canvas-edge-delete",
+      fields: {
+        width: "width",
+        height: "height",
+        cornerRadius: "radius",
+        paddingBlock: ["paddingBlock", "borderWidth"],
+        paddingBlockEnd: ["paddingBlock", "borderWidth"],
+        paddingInline: ["paddingInline", "borderWidth"],
+        paddingInlineEnd: ["paddingInline", "borderWidth"],
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Glyph: { fields: { width: "glyphSize", height: "glyphSize" } },
       },
     },
   },

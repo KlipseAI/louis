@@ -14,7 +14,7 @@ authority: normative
 ## Context
 
 2026-10-14 밤 manifest 의 `figma: partial` 은 다섯이었다 — `node-chrome-button` · `node-side-handle` · `media-card` · `step-tile` ·
-`canvas-edge`. 마지막 하나는 레시피를 세우지 않는다는 판정(DS-D-0061)을 다시 여는 일이라 DS-D-0100 이
+`canvas-edge`. 마지막 하나는 레시피를 세우지 않는다는 판정(DS-D-0061)을 다시 여는 일이라 [DS-D-0100](DS-D-0100-canvas-edge-recipe.md) 이
 따로 갖는다. 나머지 넷이 `partial` 에 남은 이유는 각자 달랐다.
 
 - **node-chrome-button** — `verify-figma-done` 의 기계 조건은 이미 섰는데 호버 틴트가 다크에서 4%p 갈렸다. 제품은 중립을

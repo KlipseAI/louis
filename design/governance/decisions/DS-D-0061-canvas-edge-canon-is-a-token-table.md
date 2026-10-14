@@ -6,7 +6,8 @@ authority: normative
 
 # DS-D-0061 연결선의 정본은 CSS 가 아니라 톤 표다 — canvas-edge 레시피를 세우지 않는다
 
-- Status: accepted (LOUIS · 계약 · 문서 2026-09-09. Figma 는 움직이지 않는다)
+- Status: partially superseded — 2026-10-14 [DS-D-0100](DS-D-0100-canvas-edge-recipe.md) 이 실선 · hover 잉크 · 히트 영역 · 삭제 버튼에 레시피를 세웠다. 이 결정의 두 근거(쉬머가 인스턴스 기하 · SMIL 주기)는 쉬머 한 겹에 대해 그대로 유효하다
+- 원래 상태: accepted (LOUIS · 계약 · 문서 2026-09-09. Figma 는 움직이지 않는다)
 - Date: 2026-09-09
 - Owners: design system maintainer
 - Affects: `component-canvas-edge`, `decision-figma-done-without-publish`

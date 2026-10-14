@@ -1573,6 +1573,63 @@
           }
         }
       },
+      "red-600-alpha": {
+        "$type": "color",
+        "56": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.886275,
+              0.211765,
+              0.270588
+            ],
+            "alpha": 0.56,
+            "hex": "#e23645"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-red-600-alpha-56",
+              "tier": "primitive"
+            }
+          }
+        },
+        "80": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.886275,
+              0.211765,
+              0.270588
+            ],
+            "alpha": 0.80,
+            "hex": "#e23645"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-red-600-alpha-80",
+              "tier": "primitive"
+            }
+          }
+        },
+        "88": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.886275,
+              0.211765,
+              0.270588
+            ],
+            "alpha": 0.88,
+            "hex": "#e23645"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-red-600-alpha-88",
+              "tier": "primitive"
+            }
+          }
+        }
+      },
       "red-alpha": {
         "$type": "color",
         "08": {
@@ -8132,6 +8189,94 @@
             }
           }
         },
+        "canvas-edge-default": {
+          "$value": "{primitive.color.palette-gray.500}",
+          "$description": "채널이 없는 연결선(Tone default)의 실선. 제품은 두 테마 다 palette-gray-000 인데 라이트 캔버스(palette-gray-025) 위에서 1.03:1 로 사라진다 — 라이트를 palette-gray-500(4.16:1)으로 고쳐 올린다(DS-D-0100 · DS-D-0084 3항). 다크는 제품 그대로.",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-default",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-edge-hover-ink": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$description": "연결선 hover 에서 실선에 12% 섞는 흰 잉크(제품 V2EdgeLayers 의 color-mix(채널 88%, palette-gray-000)). youtube · instagram · edit · audio 넷만 쓴다(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-hover-ink",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-edge-delete-surface": {
+          "$value": "{primitive.color.red-600-alpha.88}",
+          "$description": "연결선 삭제 버튼의 쉼 면 — 제품 DeletableEdge DELETE_BTN 의 red-600 88%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-edge-delete-surface-hover": {
+          "$value": "{primitive.color.red.600}",
+          "$description": "연결선 삭제 버튼의 호버 면 — red-600 100%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-surface-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-edge-delete-stroke": {
+          "$value": "{primitive.color.red-600-alpha.56}",
+          "$description": "연결선 삭제 버튼의 쉼 테두리 — red-600 56%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-stroke",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-edge-delete-stroke-hover": {
+          "$value": "{primitive.color.red-600-alpha.80}",
+          "$description": "연결선 삭제 버튼의 호버 테두리 — red-600 80%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-stroke-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-edge-delete-ink": {
+          "$value": "{primitive.color.static-white-alpha.88}",
+          "$description": "연결선 삭제 버튼의 쉼 글리프 — palette-gray-000 88%(DS-D-0100). 호버는 fg-on-danger(100%).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-ink",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-edge-delete-shadow": {
+          "$value": "{primitive.color.static-pure-black-alpha.40}",
+          "$description": "연결선 삭제 버튼의 그림자 색 — 0 2 8 순검정 40%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-shadow",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "asset-tile-well": {
           "$value": "{primitive.color.palette-gray.600}",
           "$extensions": {
@@ -10846,6 +10991,94 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-canvas-dot",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-edge-default": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$description": "채널이 없는 연결선(Tone default)의 실선. 제품은 두 테마 다 palette-gray-000 인데 라이트 캔버스(palette-gray-025) 위에서 1.03:1 로 사라진다 — 라이트를 palette-gray-500(4.16:1)으로 고쳐 올린다(DS-D-0100 · DS-D-0084 3항). 다크는 제품 그대로.",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-default",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-edge-hover-ink": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$description": "연결선 hover 에서 실선에 12% 섞는 흰 잉크(제품 V2EdgeLayers 의 color-mix(채널 88%, palette-gray-000)). youtube · instagram · edit · audio 넷만 쓴다(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-hover-ink",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-edge-delete-surface": {
+          "$value": "{primitive.color.red-600-alpha.88}",
+          "$description": "연결선 삭제 버튼의 쉼 면 — 제품 DeletableEdge DELETE_BTN 의 red-600 88%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-edge-delete-surface-hover": {
+          "$value": "{primitive.color.red.600}",
+          "$description": "연결선 삭제 버튼의 호버 면 — red-600 100%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-surface-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-edge-delete-stroke": {
+          "$value": "{primitive.color.red-600-alpha.56}",
+          "$description": "연결선 삭제 버튼의 쉼 테두리 — red-600 56%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-stroke",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-edge-delete-stroke-hover": {
+          "$value": "{primitive.color.red-600-alpha.80}",
+          "$description": "연결선 삭제 버튼의 호버 테두리 — red-600 80%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-stroke-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-edge-delete-ink": {
+          "$value": "{primitive.color.static-white-alpha.88}",
+          "$description": "연결선 삭제 버튼의 쉼 글리프 — palette-gray-000 88%(DS-D-0100). 호버는 fg-on-danger(100%).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-ink",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-edge-delete-shadow": {
+          "$value": "{primitive.color.static-pure-black-alpha.40}",
+          "$description": "연결선 삭제 버튼의 그림자 색 — 0 2 8 순검정 40%(DS-D-0100).",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-edge-delete-shadow",
               "tier": "semantic",
               "mode": "dark"
             }

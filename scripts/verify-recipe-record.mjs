@@ -523,6 +523,29 @@ const RECIPES = [
       [".louis-node-shell__generate-trailing", "var(--louis-color-node-generate-trailing)"],
     ],
   },
+  // 연결선(2026-10-14, DS-D-0100). `$noRecipe` 명부에서 나와 레시피가 섰다 — 판정을 뒤집는 일이라 이 표에 등록해 기록과 대조한다.
+  // 기하는 삭제 버튼 하나다(`canvas-edge-delete`). 선의 두께 · 히트 영역은 SVG 프레젠테이션 값이라 브라우저 시험
+  // (canvas-edge-recipe.browser.test.tsx)이 계산값으로 잰다.
+  {
+    component: "canvas-edge-delete",
+    recipe: "packages/css/src/component/canvas-edge.css",
+    geometry: [
+      [".louis-canvas-edge__delete", "inline-size", "Default", "width"],
+      [".louis-canvas-edge__delete", "block-size", "Default", "height"],
+      [".louis-canvas-edge__delete-glyph", "inline-size", "Default", "glyphSize"],
+      [".louis-canvas-edge__delete-glyph", "block-size", "Default", "glyphSize"],
+    ],
+    // **기본이 이미 붉다** — 연결선의 파괴적 동작임을 항상 말한다(제품 DELETE_BTN 주석). 실선은 채널 토큰을 문다 —
+    // 원반 색 = 전선 색 불변식을 토큰이 지킨다.
+    surfaces: [
+      [".louis-canvas-edge__delete", "var(--louis-color-canvas-edge-delete-surface)"],
+      [".louis-canvas-edge__delete", "var(--louis-color-canvas-edge-delete-stroke)"],
+      [".louis-canvas-edge__delete", "var(--louis-color-canvas-edge-delete-ink)"],
+      [".louis-canvas-edge", "var(--louis-color-canvas-edge-default)"],
+      ['.louis-canvas-edge[data-tone="image"]', "var(--louis-color-node-handle-icon-image)"],
+    ],
+    forbidden: ["--louis-color-palette-gray", "--louis-color-red-"],
+  },
 ];
 
 const errors = [];

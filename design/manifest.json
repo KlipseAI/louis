@@ -455,6 +455,15 @@
       "generated": false
     },
     {
+      "id": "decision-canvas-edge-recipe",
+      "path": "design/governance/decisions/DS-D-0100-canvas-edge-recipe.md",
+      "title": "DS-D-0100 연결선에 레시피를 세운다 — 실선 · hover 잉크 · 히트 영역 · 삭제 버튼은 LOUIS, 쉬머 한 겹은 제품 JS (DS-D-0061 재판정)",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -2090,6 +2099,7 @@
         "design/governance/decisions/DS-D-0097-color-picker.md",
         "design/governance/decisions/DS-D-0098-screen-surface-closes-on-filled-board.md",
         "design/governance/decisions/DS-D-0099-figma-partials-close.md",
+        "design/governance/decisions/DS-D-0100-canvas-edge-recipe.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -3122,11 +3132,15 @@
       "name": "Canvas Edge",
       "figmaName": "CanvasEdge",
       "doc": "design/components/canvas-edge.md",
-      "note": "캔버스의 연결선. 제품 V2EdgeLayers.tsx 가 정본이고 톤 어휘의 실행 가능한 SSOT 는 lib/edgeTone.ts 다 — LOUIS recipe 는 없다. 앵커에서 이 조형은 손으로 일곱 벌 복제돼 있고 그중 워크스루 오버레이 네 벌은 이미 주기(1.85초 대 1.45초)·번짐 색·image 하이라이트에서 정본과 갈려 있다. Figma 는 CanvasEdge 14 variant(Tone 7 × State 2)로 섰고 **실선만** 그린다: 흐르는 쉬머는 애니메이션이라 담기지 않고(Skeleton 스윕과 같은 한계), 번짐은 톤마다 반경이 달라 되읽기의 effect 역할(자손 이름 하나에 값 하나)이 담을 자리가 없다 — 한 값으로 적으면 일곱 중 여섯을 거짓으로 고정한다. 이 회차의 판정 둘: 실선 색의 정본을 accent 램프가 아니라 채널 토큰(node-handle-icon-*)으로 두고, 쉬머 하이라이트를 채널 램프의 200 칸으로 정했다(여섯 톤 중 edit·audio 는 제품 리터럴이 이미 그 칸과 같고 셋만 램프 밖이다). hover 가 일곱 톤 중 넷에서만 색을 바꾸는 것은 접지 않고 기록에 null 로 적어 고정했다. `partial` 인 이유는 쉬머·번짐·삭제 버튼이 Figma 에 없고 LOUIS recipe 가 아직 없어 evidence 가 한 방향이기 때문이다. **2026-09-09 판정(DS-D-0061): web 을 `not-ready` 에서 `not-planned` 로 옮겼다** — 이 컴포넌트의 정본은 CSS 가 아니라 톤 표이고, LOUIS 레시피는 세우지 않는다. 쉬머의 페인트가 인스턴스 기하(핸들 좌표에서 나오는 linearGradient)이고 주기는 SMIL 의 `dur` 이라 CSS 로 옮겨갈 수 없어, 레시피는 한 표를 CSS 와 JS 두 집에 살게 만든다 — 일곱 벌 복제가 이미 넷에서 갈린 이 조형에 여덟 번째 사본을 더하는 일이다. LOUIS 가 소유하는 것은 그 표가 부르는 **이름**(채널 토큰과 accent 램프)이고 canvas-edge.browser.test.tsx 가 그것을 잰다. 계약의 `$noRecipe` 가 사유를 갖고 verify-recipe-record 가 레시피 파일이 생기면 실패한다. `not-ready` 는 「아직」이라는 뜻이라 다음 사람이 매번 같은 질문을 하게 만들던 자리다.",
+      "note": "캔버스의 연결선과 호버하면 선 한가운데 뜨는 삭제 버튼. 제품 V2EdgeLayers.tsx · DeletableEdge.tsx 가 정본이고 톤 어휘의 실행 가능한 SSOT 는 lib/edgeTone.ts 다. **2026-10-14 판정(DS-D-0100 — DS-D-0061 재판정): LOUIS 레시피 packages/css/src/component/canvas-edge.css 를 세웠다** — 실선(두께 2 · 둥근 끝 · 톤마다 채널 토큰 node-handle-icon-*) · hover 의 흰 잉크(넷만 color-mix 88%) · 투명 히트 영역 44 · 라벨 감싸개 · 삭제 버튼(20 원 · 붉은 면 red-600 88% · 테두리 56% · 흰 X 8 · 그림자, 호버 1.12 · 누름 0.94 는 @media (hover: hover) 안). 쉬머 한 겹(그라디언트 좌표 · SMIL 1.45초 · 하이라이트 200 칸 · 번짐)은 DS-D-0061 의 근거가 여전히 참이라 제품 JS 의 톤 표에 남는다. 고쳐 올린 값 — 채널 없는 실선 라이트 palette-gray-000(1.03:1) → color-canvas-edge-default palette-gray-500(4.16:1), 삭제 버튼의 호버 가드 · 키보드 노출(:focus-within) · 포커스 링. 새 시맨틱 여덟(canvas-edge-default · -hover-ink · -delete-surface · -surface-hover · -stroke · -stroke-hover · -ink · -shadow)과 원시 셋(red-600-alpha 56 · 80 · 88). web 이 partial 인 이유는 React 표면이 없기 때문이다(경로 · 좌표는 React Flow 의 데이터). Figma 는 CanvasEdge 14 variant(Tone 7 × State 2)와 CanvasEdgeDelete 2 variant(State Default · Hover)이고 CanvasEdge 의 State=Hover 칸이 선 한가운데 CanvasEdgeDelete 인스턴스 Delete 를 품는다 — 제품 DeletableEdge 의 투영이다. 쉬머 · 번짐은 애니메이션 · 톤마다 다른 반경이라 Figma 에 없다. hover 가 일곱 톤 중 넷에서만 색을 바꾸는 것은 접지 않고 기록에 null 로 고정했다. 워크스루 오버레이 사본 넷이 주기 · 번짐 · image 하이라이트에서 정본과 갈려 있다. figma 는 2026-10-14 에 done 이다 — 두 세트 · parity 계약 · 기하 실측(canvas-edge · canvas-edge-delete) · 레시피 되재기(canvas-edge-recipe.browser.test.tsx)가 DS-D-0035 를 채운다(verify-figma-done).",
       "maturity": "experimental",
-      "figma": "partial",
-      "web": "not-planned",
-      "docs": "done"
+      "figma": "done",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "CanvasEdge",
+        "CanvasEdgeDelete"
+      ]
     },
     {
       "id": "inspector-row",

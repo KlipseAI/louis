@@ -161,6 +161,8 @@ const CAPTURE = {
   // `strokeWeight` 를 fields 에 넣지 않는다 — 채취 규칙 3 이 VECTOR 의 두께를 두께 집합에서
   // 빼기 때문이고(엣지는 테두리가 아니라 그림이다), 그래서 그 축은 역할로만 담긴다.
   "CanvasEdge": {"key":{"name":"base"},"fields":["width","height","layoutMode"],"parts":{"Line":["width","height"]},"strokes":["Line"]},
+  // 연결선 삭제 버튼(2026-10-14, DS-D-0100) — 20 원 · 테두리 1(self) · 그림자(self) · 글리프 8. CanvasEdge 의 Hover 칸이 이 세트의 인스턴스를 품는다.
+  "CanvasEdgeDelete": {"key":{"by":["State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Glyph":["width","height"]},"strokes":["self"],"effects":["self"]},
   "CarouselArrow": {"key":{"name":"base"},"parts":{"Caret":["width","height"],"glyph":["width","height"]},"strokes":["glyph"],"effects":["self"]},
   // **차트 부류의 첫 항목이다.** 51종에 차트가 하나도 없어서 이 명세에는 선례가 없다.
   // 키가 크기가 아니라 **차트가 붙는 자리**(`Chart`)인 것은 그 축이 안쪽 면의 방향·여백·

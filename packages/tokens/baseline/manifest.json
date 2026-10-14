@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "32970e71262342210768706c20adf6327e7c1dda93e7639b501c45b7c795bdd7"
+      "sha256": "1876b041037b3d948a5a941df1a962307a44ef90954576ee61b7fc8c26629b3d"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "2c1767687ee1759b437d98efc2a85d5f14d7201f24baed57782f9d6d798089aa"
+      "sha256": "9dd780039b2a7488802a972caa1b043a66c83b4598e27786d7afe903ffe59c95"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "1a43083df834009a01fa13c17911672b994bb3d2bfea0b0b167cadf1f2b572a3"
+      "sha256": "df540217d6d72f3380e8349e2a70b3a7dc026a9054df272a69d42731b5f6c898"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "864da6d31e646b0763ef1a08af498ce445cba09051f0e80aee9bb3bc16872786"
+      "sha256": "c0535e6b8d030f012e4ce7808d3c008705e82a96598e82258944bdee22b7801e"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "c7744407b168fdfd4ffa12c9f10b85d52db7857b249a5a794156309e51ea4ab9"
+      "sha256": "6a412adb1cb59770a21203bfc9e4d0e934c7e02aa7187a417c0b5be091ecd23f"
     }
   ],
   "contrastPairs": [
@@ -539,13 +539,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "69048da58dde039a61d47708cb2e19a1eec86492192ef26b689d238991ef993f"
+    "sha256": "3a5d5713795417367472e4594af02521d529f5dcbffa892f2093ffd3c7a3e0f0"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 996,
+  "tokenCount": 1015,
   "tokens": [
     {
       "aliasTarget": {
@@ -4688,6 +4688,422 @@
         ]
       },
       "sourcePath": "semantic.dark.color.canvas-dot",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-palette-gray-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-default": "color(srgb 0.447059 0.458824 0.482353 / 1)"
+      },
+      "deprecated": null,
+      "description": "채널이 없는 연결선(Tone default)의 실선. 제품은 두 테마 다 palette-gray-000 인데 라이트 캔버스(palette-gray-025) 위에서 1.03:1 로 사라진다 — 라이트를 palette-gray-500(4.16:1)으로 고쳐 올린다(DS-D-0100 · DS-D-0084 3항). 다크는 제품 그대로.",
+      "id": "color-canvas-edge-default",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.447059,
+          0.458824,
+          0.482353
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-edge-default",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-palette-gray-000",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-default": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": "채널이 없는 연결선(Tone default)의 실선. 제품은 두 테마 다 palette-gray-000 인데 라이트 캔버스(palette-gray-025) 위에서 1.03:1 로 사라진다 — 라이트를 palette-gray-500(4.16:1)으로 고쳐 올린다(DS-D-0100 · DS-D-0084 3항). 다크는 제품 그대로.",
+      "id": "color-canvas-edge-default",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.000}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-edge-default",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-88",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-ink": "color(srgb 0.980392 0.980392 0.980392 / 0.88)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 쉼 글리프 — palette-gray-000 88%(DS-D-0100). 호버는 fg-on-danger(100%).",
+      "id": "color-canvas-edge-delete-ink",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-white-alpha.88}",
+      "resolvedValue": {
+        "alpha": 0.88,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-edge-delete-ink",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-88",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-ink": "color(srgb 0.980392 0.980392 0.980392 / 0.88)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 쉼 글리프 — palette-gray-000 88%(DS-D-0100). 호버는 fg-on-danger(100%).",
+      "id": "color-canvas-edge-delete-ink",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.88}",
+      "resolvedValue": {
+        "alpha": 0.88,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-edge-delete-ink",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-pure-black-alpha-40",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-shadow": "color(srgb 0 0 0 / 0.4)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 그림자 색 — 0 2 8 순검정 40%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-shadow",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-pure-black-alpha.40}",
+      "resolvedValue": {
+        "alpha": 0.4,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-edge-delete-shadow",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-pure-black-alpha-40",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-shadow": "color(srgb 0 0 0 / 0.4)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 그림자 색 — 0 2 8 순검정 40%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-shadow",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-pure-black-alpha.40}",
+      "resolvedValue": {
+        "alpha": 0.4,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-edge-delete-shadow",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-600-alpha-56",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-stroke": "color(srgb 0.886275 0.211765 0.270588 / 0.56)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 쉼 테두리 — red-600 56%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-stroke",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-600-alpha.56}",
+      "resolvedValue": {
+        "alpha": 0.56,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-edge-delete-stroke",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-600-alpha-56",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-stroke": "color(srgb 0.886275 0.211765 0.270588 / 0.56)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 쉼 테두리 — red-600 56%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-stroke",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-600-alpha.56}",
+      "resolvedValue": {
+        "alpha": 0.56,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-edge-delete-stroke",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-600-alpha-80",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-stroke-hover": "color(srgb 0.886275 0.211765 0.270588 / 0.8)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 호버 테두리 — red-600 80%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-stroke-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-600-alpha.80}",
+      "resolvedValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-edge-delete-stroke-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-600-alpha-80",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-stroke-hover": "color(srgb 0.886275 0.211765 0.270588 / 0.8)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 호버 테두리 — red-600 80%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-stroke-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-600-alpha.80}",
+      "resolvedValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-edge-delete-stroke-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-600-alpha-88",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-surface": "color(srgb 0.886275 0.211765 0.270588 / 0.88)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 쉼 면 — 제품 DeletableEdge DELETE_BTN 의 red-600 88%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-600-alpha.88}",
+      "resolvedValue": {
+        "alpha": 0.88,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-edge-delete-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-600-alpha-88",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-surface": "color(srgb 0.886275 0.211765 0.270588 / 0.88)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 쉼 면 — 제품 DeletableEdge DELETE_BTN 의 red-600 88%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-600-alpha.88}",
+      "resolvedValue": {
+        "alpha": 0.88,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-edge-delete-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-surface-hover": "color(srgb 0.886275 0.211765 0.270588 / 1)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 호버 면 — red-600 100%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-surface-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.600}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-edge-delete-surface-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-delete-surface-hover": "color(srgb 0.886275 0.211765 0.270588 / 1)"
+      },
+      "deprecated": null,
+      "description": "연결선 삭제 버튼의 호버 면 — red-600 100%(DS-D-0100).",
+      "id": "color-canvas-edge-delete-surface-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.600}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-edge-delete-surface-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-palette-gray-000",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-hover-ink": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": "연결선 hover 에서 실선에 12% 섞는 흰 잉크(제품 V2EdgeLayers 의 color-mix(채널 88%, palette-gray-000)). youtube · instagram · edit · audio 넷만 쓴다(DS-D-0100).",
+      "id": "color-canvas-edge-hover-ink",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.000}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-edge-hover-ink",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-palette-gray-000",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-edge-hover-ink": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": "연결선 hover 에서 실선에 12% 섞는 흰 잉크(제품 V2EdgeLayers 의 color-mix(채널 88%, palette-gray-000)). youtube · instagram · edit · audio 넷만 쓴다(DS-D-0100).",
+      "id": "color-canvas-edge-hover-ink",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.000}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-edge-hover-ink",
       "tier": "semantic",
       "type": "color"
     },
@@ -15616,6 +16032,105 @@
         ]
       },
       "sourcePath": "primitive.color.red.600",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-red-600-alpha-56": "color(srgb 0.886275 0.211765 0.270588 / 0.56)",
+        "--louis-color-red-600-alpha-56-rgb": "226 54 69"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-600-alpha-56",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.56,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ],
+        "hex": "#e23645"
+      },
+      "resolvedValue": {
+        "alpha": 0.56,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "primitive.color.red-600-alpha.56",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-red-600-alpha-80": "color(srgb 0.886275 0.211765 0.270588 / 0.8)",
+        "--louis-color-red-600-alpha-80-rgb": "226 54 69"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-600-alpha-80",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ],
+        "hex": "#e23645"
+      },
+      "resolvedValue": {
+        "alpha": 0.8,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "primitive.color.red-600-alpha.80",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
+        "--louis-color-red-600-alpha-88": "color(srgb 0.886275 0.211765 0.270588 / 0.88)",
+        "--louis-color-red-600-alpha-88-rgb": "226 54 69"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-red-600-alpha-88",
+      "mode": "base",
+      "rawValue": {
+        "alpha": 0.88,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ],
+        "hex": "#e23645"
+      },
+      "resolvedValue": {
+        "alpha": 0.88,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.270588
+        ]
+      },
+      "sourcePath": "primitive.color.red-600-alpha.88",
       "tier": "primitive",
       "type": "color"
     },

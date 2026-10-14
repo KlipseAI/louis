@@ -1256,6 +1256,57 @@
           ]
         ],
         [
+          "color/red-600-alpha/56",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.886275,
+                0.211765,
+                0.270588,
+                0.56
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/red-600-alpha/80",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.886275,
+                0.211765,
+                0.270588,
+                0.8
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/red-600-alpha/88",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.886275,
+                0.211765,
+                0.270588,
+                0.88
+              ]
+            ]
+          ]
+        ],
+        [
           "color/red-alpha/08",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -6221,6 +6272,142 @@
             [
               "Dark",
               "Klipse Primitive::color/static-white-alpha/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-edge-default",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/palette-gray/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/000",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-edge-delete-ink",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-white-alpha/88",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/88",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-edge-delete-shadow",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-pure-black-alpha/40",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-pure-black-alpha/40",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-edge-delete-stroke",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red-600-alpha/56",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red-600-alpha/56",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-edge-delete-stroke-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red-600-alpha/80",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red-600-alpha/80",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-edge-delete-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red-600-alpha/88",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red-600-alpha/88",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-edge-delete-surface-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/600",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/600",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-edge-hover-ink",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/palette-gray/000",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/000",
               null
             ]
           ]
@@ -11872,9 +12059,9 @@
         }
       },
       "binding": {
-        "boundFills": 14,
+        "boundFills": 21,
         "rawFills": 0,
-        "boundStrokes": 18,
+        "boundStrokes": 25,
         "rawStrokes": 0,
         "textStyled": 0,
         "textUnstyled": 0
@@ -11911,6 +12098,129 @@
         ]
       },
       "effects": {}
+    },
+    "CanvasEdgeDelete": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                8
+              ],
+              "height": [
+                8
+              ]
+            }
+          },
+          "height": [
+            20
+          ],
+          "width": [
+            20
+          ],
+          "paddingBlock": [
+            1
+          ],
+          "paddingBlockEnd": [
+            1
+          ],
+          "paddingInline": [
+            1
+          ],
+          "paddingInlineEnd": [
+            1
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                8
+              ],
+              "height": [
+                8
+              ]
+            }
+          },
+          "height": [
+            20
+          ],
+          "width": [
+            20
+          ],
+          "paddingBlock": [
+            1
+          ],
+          "paddingBlockEnd": [
+            1
+          ],
+          "paddingInline": [
+            1
+          ],
+          "paddingInlineEnd": [
+            1
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {
+        "self": [
+          "DROP_SHADOW:2:8:0"
+        ]
+      }
     },
     "CanvasGuide": {
       "variantCount": 2,

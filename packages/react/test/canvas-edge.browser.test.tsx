@@ -4,12 +4,10 @@
 // 「states 표를 코드가 빠짐없이 읽는다」가 그 사실을 잡아 낸 자리이고, 그 가드의 뜻은
 // **기록만 있고 코드가 그것을 읽지 않으면 그 표는 계약이 아니다** 이다.
 //
-// **이 컴포넌트에는 LOUIS recipe 가 없다**(계약의 figmaAhead·$noProductRender 가 그 사실을
-// 적는다). alert·stat-tile 은 표면이 없어도 정본 CSS 가 있어 클래스 마크업을 렌더해 재지만,
-// 엣지는 CSS 한 줄도 없다 — 제품이 SVG 속성과 JS 문자열로 그린다. 그래서 여기서 재는 것은
-// 「LOUIS 가 이 조형을 그리는가」가 아니라 **「표가 부르는 이름이 LOUIS 토큰층에 실재하고,
-// 표가 스스로 선언한 규칙이 그 층에서 참인가」** 다. 재는 범위를 넓혀 적으면 이 파일이
-// 없는 것을 지키는 척하게 된다.
+// **이 파일은 레시피가 없던 시절의 근거다.** 2026-10-14 LOUIS 레시피(packages/css/src/component/canvas-edge.css,
+// DS-D-0100)가 서서 실선 · hover 잉크 · 히트 영역 · 삭제 버튼을 클래스 마크업으로 재는 일은
+// canvas-edge-recipe.browser.test.tsx 가 맡는다. 여기서 재는 것은 여전히 **「표가 부르는 이름이 LOUIS 토큰층에 실재하고,
+// 표가 스스로 선언한 규칙이 그 층에서 참인가」** 다 — 쉬머 하이라이트(200 칸)처럼 레시피 밖에 남은 칸이 이 표에만 있다.
 //
 // 그래서 다음 넷만 잰다. 넷 다 표에서 읽어 대조하며, 표를 코드에 베끼지 않는다.
 //
@@ -17,8 +15,9 @@
 //   2. 톤마다 실선이 **채널 램프의 500 칸**이고 쉬머가 **같은 램프의 200 칸**이다
 //      — 문서 Acceptance tests 2·4 다. edit 에 red-200 을 붙이면 여기서 걸린다.
 //   3. Hover 가 채널을 바꾸지 않는다 — 표가 톤마다 두 번 적은 그 이름이 같은 색을 칠한다.
-//   4. Hover 의 흰 잉크가 sizes 의 hoverLiftAlpha 와 같은 알파이고, 그 색이 채널 없는 톤의
-//      실선과 같다($hoverLiftAlpha 가 적는 「#fafafa = palette-gray 000」이다).
+//   4. Hover 의 흰 잉크가 sizes 의 hoverLiftAlpha 와 같은 알파이고, 그 색이 레시피의 흰 잉크
+//      `canvas-edge-hover-ink` 와 같다($hoverLiftAlpha 가 적는 「#fafafa = palette-gray 000」이다). 전에는 「채널 없는 톤의
+//      실선」과 같다고 쟀는데 그 실선이 라이트에서 palette-gray-500 으로 고쳐 올라가(DS-D-0100) 더는 흰색이 아니다.
 //
 // **색 이름을 역조회하지 않는다.** 같은 값을 갖는 토큰이 여럿이라(instagram 과 youtube 가
 // 지금 같은 값이다) 계산색 → 이름 역조회는 나중에 넣은 쪽으로 붙는다.
@@ -204,12 +203,10 @@ test("Hover 는 채널을 바꾸지 않는다", async () => {
   }
 });
 
-test("Hover 의 흰 잉크가 hoverLiftAlpha 이고 채널 없는 톤의 실선 색이다", () => {
+test("Hover 의 흰 잉크가 hoverLiftAlpha 이고 레시피의 흰 잉크 색이다", () => {
   const baseTone = tones[BASE_TONE];
   if (baseTone === undefined) throw new Error(`Tone 축에 ${BASE_TONE}가 없습니다`);
-  const baseStroke = baseTone[DEFAULT_STATE];
-  if (baseStroke === undefined) throw new Error(`${BASE_TONE}에 ${DEFAULT_STATE}가 없습니다`);
-  const paper = tokenColor(baseStroke.stroke);
+  const paper = tokenColor("color-canvas-edge-hover-ink");
 
   let lifted = 0;
   for (const [tone, group] of Object.entries(tones)) {
@@ -222,7 +219,7 @@ test("Hover 의 흰 잉크가 hoverLiftAlpha 이고 채널 없는 톤의 실선 
     if (lift === null || lift === undefined) continue;
     const ink = tokenColor(lift);
     expect(alphaOf(ink), `${tone} 흰 잉크의 알파`).toBe(sizeOf("hoverLiftAlpha"));
-    expect(rgbOf(ink), `${tone} 흰 잉크의 색 = ${BASE_TONE} 실선`).toBe(rgbOf(paper));
+    expect(rgbOf(ink), `${tone} 흰 잉크의 색 = canvas-edge-hover-ink`).toBe(rgbOf(paper));
     lifted += 1;
   }
   expect(lifted, "흰 잉크를 얹는 톤 수").toBeGreaterThan(0);

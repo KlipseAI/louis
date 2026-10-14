@@ -78,6 +78,14 @@
   --color-canvas-chip-surface: var(--louis-color-canvas-chip-surface);
   --color-canvas-chip-surface-hover: var(--louis-color-canvas-chip-surface-hover);
   --color-canvas-dot: var(--louis-color-canvas-dot);
+  --color-canvas-edge-default: var(--louis-color-canvas-edge-default);
+  --color-canvas-edge-delete-ink: var(--louis-color-canvas-edge-delete-ink);
+  --color-canvas-edge-delete-shadow: var(--louis-color-canvas-edge-delete-shadow);
+  --color-canvas-edge-delete-stroke: var(--louis-color-canvas-edge-delete-stroke);
+  --color-canvas-edge-delete-stroke-hover: var(--louis-color-canvas-edge-delete-stroke-hover);
+  --color-canvas-edge-delete-surface: var(--louis-color-canvas-edge-delete-surface);
+  --color-canvas-edge-delete-surface-hover: var(--louis-color-canvas-edge-delete-surface-hover);
+  --color-canvas-edge-hover-ink: var(--louis-color-canvas-edge-hover-ink);
   --color-canvas-guide: var(--louis-color-canvas-guide);
   --color-canvas-menu-surface: var(--louis-color-canvas-menu-surface);
   --color-canvas-section-tint-blue: var(--louis-color-canvas-section-tint-blue);

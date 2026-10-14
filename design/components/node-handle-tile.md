@@ -16,7 +16,7 @@ summary: 노드 채널을 24 타일 그림으로 보여 줍니다 — 누르는 
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS 레시피 `.louis-node-handle-tile` 만 있다(`packages/css/src/component/node-handle-tile.css`). React 표면은 없다 |
-| Figma         | `partial`      | `NodeHandleTile`(Channel 6). 계약 · 기하 · 되재기 시험이 선다 |
+| Figma         | `done`         | `NodeHandleTile`(Channel 6). 계약 · 기하 · 되재기 시험이 선다 — 2026-10-15 되재기 `node-handle-tile.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품 도움말 패널이 이 레시피를 물면 승격 후보 |
 

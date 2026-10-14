@@ -15,7 +15,7 @@ summary: 표 행을 펼치면 그 아래에 올린 면 · 머리 줄 · 두 번�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS 레시피 `.louis-table-drawer` 만 있다(`packages/css/src/component/table-drawer.css`). React 표면은 없다 |
-| Figma         | `partial`      | `TableDrawer`(640 폭 표본). 계약 · 기하 · 되재기 시험이 선다 |
+| Figma         | `done`         | `TableDrawer`(640 폭 표본). 계약 · 기하 · 되재기 시험이 선다 — 2026-10-15 되재기 `table-drawer.browser.test.tsx` 로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품 어드민이 이 레시피를 물면 승격 후보 |
 

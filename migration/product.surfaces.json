@@ -13,16 +13,16 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 191,
+    "mapped": 193,
     "scoped": 325,
     "needed": 94,
-    "unclear": 2,
+    "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 6,
-    "screen": 84,
-    "oneoff": 4,
+    "screen": 85,
+    "oneoff": 3,
     "unclear": 0,
     "kindless": 0
   },
@@ -152,12 +152,12 @@
       "file": "apps/web/app/admin/AdAttributionPanel.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "광고 줄을 펼치면 그 아래 colSpan 6 칸에 서는 계정 목록 판이다(AdAttributionPanel.tsx:462-467) — 본 상태에 없던 «종류»의 자식이 들어오므로 DS-D-0040 ① 의 별 표면이고 이 표면이 그 자리의 주인이다. 자기 면이 있다: DRAWER = ADMIN_SURFACE(--app-card-raised-bg + louis-hairline-inset) · rounded-16 · p-8 · gap-6(:95), 그 안에 머리 줄(제목 14 Medium + 「광고 ID」 12 Regular tertiary + CopyIconButton, :500-508), 두 번째 louis-table(PEOPLE_TABLE, :511 — 날짜 · AdminUserLink · 출처 · 인증 · 매출 열, 출처 열은 kind 에 따라 빠진다), 「더 보기」 secondary Button(:555-559). 안의 Table · Button · IconButton 은 Figma 에 있으나 올린 면 + 머리 줄 + 표를 묶는 판은 없다 — RecordCard(raised · Expanded)는 라벨/값 상세를 펼치는 카드라 표를 담는 이 판과 구성이 다르고, StatTile 은 같은 면을 쓰지만 KPI 타일이다.",
-      "weight": "low",
-      "kind": "oneoff",
-      "kindReason": "실측: 호출 자리 하나 — 같은 파일 GroupRows 안 AdAttributionPanel.tsx:465. 다른 파일에서 쓰는 곳 0. 같은 ADMIN_SURFACE 면을 쓰는 표면은 여럿이지만(AdminStatTile 등) 「올린 면 안에 표 + 더 보기」 구성은 이 자리뿐이라 되풀이 증거가 없다. 화면도 아니다 — 성과 지표 화면의 광고 표 펼침 상태 한 칸이다."
+      "verdict": "figma",
+      "figma": "TableDrawer",
+      "reason": "표 행을 펼치면 그 아래에 서는 서랍(올린 면 · 머리 줄 · 안쪽 표 · 더 보기)을 부품 table-drawer 로 올렸다(DS-D-0107). 안쪽 표 · 복사 단추 · 더 보기는 Table · IconButton · Button 을 그대로 문다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/admin/AdAttributionPanel.tsx#GroupRows": {
       "file": "apps/web/app/admin/AdAttributionPanel.tsx",
@@ -2151,12 +2151,12 @@
       "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "unclear",
+      "verdict": "needed",
       "figma": null,
       "reason": "앞선 사유가 든 세 질문 중 둘은 판례로 닫힌다. (1) 「보드 시안이 있으면 대응인가」 — 아니다. figma 판정의 후보는 readback 의 components 51 과 templates 9 뿐이고, 화면 보드가 있는 status-result 여덟 라우트도 figma 가 아니라 scoped 로 세어졌다(게다가 이 부스 화면은 figma/ 아래 app-screens 생성물조차 없다). (2) 「부스 조각 8개」 — 이미 전부 scoped 로 접혀 있어 이 판정에 딸려 흔들리지 않는다. 남는 질문 하나가 진짜로 소유자 몫이라 unclear 를 유지한다: **html[data-theme] 를 따르지 않는 고정 다크 스코프를 분모에 남길 것인가.** 이 1140줄 화면은 손님이 실제로 쓰는 3단계 모바일 화면이고 「레이아웃은 피그마 시안을 따른다」고 적혀 있지만, 테마 계약 밖이라 공용 Button 의 secondary/ghost 를 못 써 palette-* 고정 토큰 버튼을 따로 짰다 — 라이브러리에 세워도 테마 변수 모드로 표현할 자리가 없다. 라우트도 noindex·QR 전용·이벤트 활성 스위치로 꺼지는 행사 설치물이고 진입점 page.tsx 와 운영 콘솔은 이미 scoped 다. 소유자가 「테마 계약 밖 고정 다크 화면을 디자인 시스템이 소유하는가」를 한 번 정하면 이 건과 앞으로 나올 같은 성격의 화면이 함께 풀린다. 정하지 않은 채 scoped 로 넘기면 「테마를 안 타서 못 세운다」가 「범위 밖」으로 둔갑한다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
+      "weight": "medium",
+      "kind": "screen",
+      "kindReason": "DS-D-0109 가 unclear 를 닫았다 — html[data-theme] 를 따르지 않는 고정 다크 화면도 디자인 시스템이 소유한다(화면 상자에 data-theme=\"dark\" 를 걸면 LOUIS 가 고정된다, fixed-dark-scope.browser.test.tsx). 닫는 길은 DS-D-0098 화면 보드 screen:/creative-media(활성 행사 시드 · 다크 고정 · 늘림 통과)다. 2026-10-15 판정."
     },
     "apps/web/components/creative-media/CreativeMediaClient.tsx#CreativeMediaClosed": {
       "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
@@ -3874,9 +3874,9 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "unclear",
-      "figma": null,
-      "reason": "노드 쪽 입력 목록 앞에 붙는 채널 타일(24 · 반경 6 · 채널 면 `--node-handle-icon-*` 위 팔레트 흰색 글리프 14, CanvasHelpPanel.tsx:230-250). 캔버스 Node Side Handle 과 같은 재료를 다른 크기(28 → 24)와 리터럴 흰 잉크로 다시 그린 그림이다. Figma NodeSideHandle 은 Channel 3(image · text · edit, node-side-handle.md:30)인데 여기는 audio · youtube · instagram 까지 6 채널이라 그대로 인스턴스로 놓을 수 없다. editor-workspace.md:397-400 이 「잉크를 토큰으로 두고 그림용 작은 크기 축이 필요한지 판정 필요(낮은 우선순위)」로 남겨 두어, NodeSideHandle 에 크기 · 채널 축을 더할지 패널 보드 안의 그림으로 둘지는 소유자 판단이다.",
+      "verdict": "figma",
+      "figma": "NodeHandleTile",
+      "reason": "도움말 패널의 채널 타일(24 · 반경 6 · 채널 면 위 흰 글리프 14)을 부품 node-handle-tile 로 올렸다(DS-D-0108). 누르는 단추인 Node Side Handle 의 크기 축으로 넣지 않은 것은 단추의 상태 칸이 그림에서 실현되지 않기 때문이다. 글리프 잉크는 제품의 흰 리터럴을 fg-on-danger 로 옮겼다. 2026-10-15 대응.",
       "weight": null,
       "kind": null,
       "kindReason": null

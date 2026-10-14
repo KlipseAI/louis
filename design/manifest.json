@@ -3096,9 +3096,9 @@
       "id": "table-drawer",
       "name": "Table Drawer",
       "doc": "design/components/table-drawer.md",
-      "note": "표 행을 펼치면 그 아래 colSpan 칸에 서는 서랍(DS-D-0107, DS-D-0084). 정본은 어드민 광고 성과 표의 계정 목록(AdAttributionPanel.tsx 의 GroupDrawer)이고 레시피는 packages/css/src/component/table-drawer.css 다. 면 bg-raised + 헤어라인 · 반경 16 · 여백 16 · 간격 12, 머리(제목 · 보조 글 + 복사 IconButton sm), 안쪽 .louis-table, 「더 보기」 Button secondary. 대비 결함은 없다. Figma 는 TableDrawer 한 장 — 계약 · 기하 · 브라우저 되재기가 선다. web 이 partial 인 이유는 React 표면이 없기 때문이다.",
+      "note": "표 행을 펼치면 그 아래 colSpan 칸에 서는 서랍(DS-D-0107, DS-D-0084). 정본은 어드민 광고 성과 표의 계정 목록(AdAttributionPanel.tsx 의 GroupDrawer)이고 레시피는 packages/css/src/component/table-drawer.css 다. 면 bg-raised + 헤어라인 · 반경 16 · 여백 16 · 간격 12, 머리(제목 · 보조 글 + 복사 IconButton sm), 안쪽 .louis-table, 「더 보기」 Button secondary. 대비 결함은 없다. Figma 는 TableDrawer 한 장 — 계약 · 기하 · 브라우저 되재기가 선다. web 이 partial 인 이유는 React 표면이 없기 때문이다. figma 는 2026-10-15 에 done 이다 — 되재기 시험 packages/react/test/table-drawer.browser.test.tsx 가 실측 기록과 맞댄다(DS-D-0035).",
       "maturity": "experimental",
-      "figma": "partial",
+      "figma": "done",
       "figmaName": "TableDrawer",
       "web": "partial",
       "docs": "done"
@@ -3571,9 +3571,9 @@
       "id": "node-handle-tile",
       "name": "Node Handle Tile",
       "doc": "design/components/node-handle-tile.md",
-      "note": "노드 채널의 그림 타일(DS-D-0108, DS-D-0084). 정본은 캔버스 도움말 패널의 입력 목록 앞 타일(CanvasHelpPanel.tsx 의 HandleTile)이고 레시피는 packages/css/src/component/node-handle-tile.css 다. 24 · 반경 6 · 채널 면 color-node-handle-icon-* 여섯 위 흰 글리프 14. Node Side Handle(28 단추)과 면 토큰 · 채널 판정을 함께 쓰지만 누르지 않는 그림이라 크기 축으로 넣지 않았다. 글리프 잉크를 팔레트 흰색 리터럴에서 fg-on-danger 로 옮겼다. Figma 는 NodeHandleTile(Channel 6) — 계약 · 기하 · 브라우저 되재기가 선다. web 이 partial 인 이유는 React 표면이 없기 때문이다.",
+      "note": "노드 채널의 그림 타일(DS-D-0108, DS-D-0084). 정본은 캔버스 도움말 패널의 입력 목록 앞 타일(CanvasHelpPanel.tsx 의 HandleTile)이고 레시피는 packages/css/src/component/node-handle-tile.css 다. 24 · 반경 6 · 채널 면 color-node-handle-icon-* 여섯 위 흰 글리프 14. Node Side Handle(28 단추)과 면 토큰 · 채널 판정을 함께 쓰지만 누르지 않는 그림이라 크기 축으로 넣지 않았다. 글리프 잉크를 팔레트 흰색 리터럴에서 fg-on-danger 로 옮겼다. Figma 는 NodeHandleTile(Channel 6) — 계약 · 기하 · 브라우저 되재기가 선다. web 이 partial 인 이유는 React 표면이 없기 때문이다. figma 는 2026-10-15 에 done 이다 — 되재기 시험 packages/react/test/node-handle-tile.browser.test.tsx 가 실측 기록과 맞댄다(DS-D-0035).",
       "maturity": "experimental",
-      "figma": "partial",
+      "figma": "done",
       "figmaName": "NodeHandleTile",
       "web": "partial",
       "docs": "done"

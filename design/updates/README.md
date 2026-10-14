@@ -25,6 +25,14 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-15 (277) — 새 부품 둘(table-drawer · node-handle-tile)과 Figma done 둘, 판단 대기 0
+
+- **table-drawer** — 표 행을 펼치면 그 아래 서는 서랍(올린 면 · 머리 줄 · 안쪽 표 · 더 보기). 안쪽은 Table · IconButton · Button 을 그대로 문다. Figma `TableDrawer`([DS-D-0107](../governance/decisions/DS-D-0107-table-drawer.md)).
+- **node-handle-tile** — 도움말 패널의 채널 타일(24 · 반경 6 · 채널 면 위 글리프 14, Channel 6). Node Side Handle 의 크기 축으로 넣지 않았다 — 그쪽은 누르는 단추이고 이쪽은 그림이다. 글리프 잉크를 제품의 흰 리터럴에서 `fg-on-danger` 로 옮겼다. Figma `NodeHandleTile`([DS-D-0108](../governance/decisions/DS-D-0108-node-handle-tile.md)).
+- **고정 다크 화면** — html[data-theme] 를 따르지 않는 부스 화면(/creative-media)도 디자인 시스템이 소유한다. 화면 상자에 `data-theme="dark"` 를 걸면 LOUIS 가 고정된다(`fixed-dark-scope.browser.test.tsx`). 표면은 판단 대기에서 화면 needed 로 옮겼고, 닫는 길은 DS-D-0098 화면 보드다([DS-D-0109](../governance/decisions/DS-D-0109-fixed-dark-screens-are-in-scope.md)).
+- figma `partial` → `done` 둘 — manifest done 82 → 84. 표면 대응 191 → 193, 판단 대기 2 → 0, needed 94(그대로 — 하나 닫고 하나 들어왔다).
+- 알아 둘 것 — DS-D-0108 · 0109 의 판정은 초안 기본값이다. 소유자가 뒤집으면 판단 대기 기준선을 되돌린다. 채널 타일의 흰 글리프 대비(image 2.12 · text 1.73)는 옆 글이 뜻을 싣는 장식이라 재서 적기만 했다.
+
 ## 2026-10-15 (276) — 남은 partial 다섯을 닫아 컴포넌트 82 전부 Figma done, 캔버스 연결선에 레시피와 삭제 버튼
 
 - **node-chrome-button** — 호버 틴트를 라이트 · 다크 쌍으로 갖는 시맨틱 셋을 토큰 · Figma 변수 · CSS 한 변경으로 세웠다(중립 라이트 검정 8% · 다크 흰 12%, 삭제 red 8% · 12%, sm 8% · 16%). 다크에서 4%p 얕던 결손이 풀렸다([DS-D-0099](../governance/decisions/DS-D-0099-figma-partials-close.md)).

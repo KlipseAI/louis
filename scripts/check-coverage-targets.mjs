@@ -144,7 +144,9 @@ const NEEDED_BASELINE = 94; // 하락만 잠근다(상승은 발견) — 오르�
 // PhotoGrid#ImageStrip). 방향과 목표는 그대로다(↓ · 0).
 // 2026-10-09: 1 → 2 — 새 앵커 54b62a8a 재판정(ed650b2b)에서 판단 대기 하나가 더 들어왔다. 기준선이 지금 수와 같아야 하락 canary 가 문다
 // (verify-gates 「coverage targets unclear fell without locking」).
-const UNCLEAR_BASELINE = 2; // 하락만 잠근다(소유자만 줄일 수 있다)
+// 2026-10-15: 2 → 0 — HandleTile(DS-D-0108) · CreativeMediaClient(DS-D-0109)를 결정문의 초안 기본값으로 닫았다. 소유자 확인 대기 —
+// 뒤집히면 이 수를 되돌린다.
+const UNCLEAR_BASELINE = 0; // 하락만 잠근다(소유자만 줄일 수 있다)
 // 210 → 225. 표면 총수는 434 그대로이므로 이 상승은 천장이 허락한 것이 아니라 **판정이
 // 만든 것이다** — unclear 15 건이 「그릴 것이 없다」로 내려갔다(부모의 조각 · 순수 배치
 // 래퍼 · defs · 사용자 콘텐츠 슬롯). 그 15 건은 needed 에서 옮겨 온 것이 아니라 판단 대기에서
@@ -218,7 +220,8 @@ const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 같은 날 뒤: 77 → 82 — 남은 partial 다섯을 닫았다. node-chrome-button(호버 틴트 모드 쌍 시맨틱 셋) · node-side-handle(Channel 6 × State
 // Default · Disabled) · step-tile · media-card(CSS 레시피 · 되재기, DS-D-0099) · canvas-edge(레시피 · 삭제 버튼 CanvasEdgeDelete, DS-D-0100 —
 // DS-D-0061 재판정). 컴포넌트 82 가 전부 done 이다(Updates (276)).
-const MANIFEST_DONE_FLOOR = 82; // 바닥. 오르면 올려 이득을 잠근다
+// 같은 날 뒤: 82 → 84 — 새 부품 table-drawer · node-handle-tile 이 되재기와 함께 섰다(DS-D-0107 · 0108, Updates (277)).
+const MANIFEST_DONE_FLOOR = 84; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

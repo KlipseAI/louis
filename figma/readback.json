@@ -28160,6 +28160,119 @@
       "strokes": {},
       "effects": {}
     },
+    "PropertyStack": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            12
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "PropertyStackGroup": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Slider": {
+          "type": "BOOLEAN"
+        },
+        "Label": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Fields": {
+              "itemSpacing": [
+                12
+              ],
+              "counterAxisSpacing": [
+                12
+              ]
+            },
+            "SliderRow": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "SliderLabel": {
+              "minWidth": [
+                28
+              ]
+            },
+            "SliderValue": {
+              "minWidth": [
+                16
+              ]
+            }
+          },
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "RecordCard": {
       "variantCount": 8,
       "hasDescription": true,

@@ -504,6 +504,10 @@ const CAPTURE = {
   "CommentItem": {"key":{"name":"base"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","itemSpacing","layoutMode","strokeWeight"],"parts":{"Meta":["itemSpacing"],"Delete":["height","paddingInline"],"Author":["fontSize"],"Date":["fontSize"],"Content":["fontSize"]},"strokes":["self"]},
   // 빈 줄 — 위 25 = CSS 24 + 위 선 1 · 아래 24.
   "CommentEmpty": {"key":{"name":"base"},"fields":["paddingBlock","paddingBlockEnd","layoutMode","strokeWeight"],"parts":{"Text":["fontSize"]},"strokes":["self"]},
+  // Property Stack(2026-10-15, DS-D-0114). 묶음 — 안쪽 8 / 12 / 4 · 사이 12. 요소는 PropertyStackGroup 인스턴스. 면 bg-inset 은 패널 바닥의 표본이다.
+  "PropertyStack": {"key":{"name":"base"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","itemSpacing","layoutMode"],"parts":{"Label":["fontSize"]}},
+  // 요소 하나 — 사이 4, 칸 줄 가로 · 줄바꿈 사이 12(ColorSwatch stack 인스턴스), 슬라이더 줄 사이 8 · 라벨 최소 28 · 값 최소 16.
+  "PropertyStackGroup": {"key":{"name":"base"},"fields":["itemSpacing","layoutMode"],"parts":{"Label":["fontSize"],"Fields":["itemSpacing","counterAxisSpacing"],"SliderRow":["itemSpacing"],"SliderLabel":["minWidth"],"SliderValue":["minWidth"]}},
 };
 
 function usage(message) {

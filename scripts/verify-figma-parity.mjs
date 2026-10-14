@@ -6418,6 +6418,62 @@ const COMPONENT_CONTRACTS = [
       },
     },
   },
+  {
+    id: "property-stack",
+    figmaName: "PropertyStack",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/property-stack.css 가 정본이다(2026-10-15, DS-D-0114). 280 폭과 bg-inset 면은 편집 패널의 표본이다(레시피는 면을 칠하지 않는다). 요소는 PropertyStackGroup 인스턴스라 그 계약이 갖는다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Label: { type: "TEXT", reason: "묶음 이름 — 코드에서 `__label` 의 글자다." },
+    },
+    geometry: {
+      measuredId: "property-stack",
+      sizeKeys: ["base"],
+      fields: {
+        paddingBlock: "paddingTop",
+        paddingBlockEnd: "paddingBottom",
+        paddingInline: "paddingInline",
+        itemSpacing: "gap",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Label: { fields: { fontSize: "labelFontSize" } },
+      },
+    },
+  },
+  {
+    id: "property-stack",
+    figmaName: "PropertyStackGroup",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/property-stack.css 의 `__group` 이 정본이다(2026-10-15, DS-D-0114). 칸은 ColorSwatch(Layout=stack) 인스턴스, 슬라이더는 Slider md 인스턴스라 각자의 계약이 갖는다. 줄 라벨 · 값의 최소 폭은 Figma 에서 글자를 감싼 프레임의 minWidth 로 그린다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Slider: { type: "BOOLEAN", reason: "여백 슬라이더 줄 — 코드는 `__slider-row` 요소의 유무로 말한다(배경이 켜졌을 때만)." },
+      Label: { type: "TEXT", reason: "요소 이름 — 코드에서 `__group-label` 의 글자다." },
+    },
+    geometry: {
+      measuredId: "property-stack-group",
+      sizeKeys: ["base"],
+      fields: {
+        itemSpacing: "gap",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Label: { fields: { fontSize: "labelFontSize" } },
+        Fields: { fields: { itemSpacing: "fieldsGap", counterAxisSpacing: "fieldsGap" } },
+        SliderRow: { fields: { itemSpacing: "sliderRowGap" } },
+        SliderLabel: { fields: { minWidth: "sliderLabelMin" } },
+        SliderValue: { fields: { minWidth: "sliderValueMin" } },
+      },
+    },
+  },
 ];
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와

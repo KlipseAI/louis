@@ -2047,7 +2047,8 @@
         "design/components/copy-panel.md",
         "design/components/section-shell.md",
         "design/components/brand-bar.md",
-        "design/components/comment-thread.md"
+        "design/components/comment-thread.md",
+        "design/components/property-stack.md"
       ]
     },
     {
@@ -2211,7 +2212,8 @@
         "design/governance/decisions/DS-D-0110-copy-panel.md",
         "design/governance/decisions/DS-D-0111-section-shell.md",
         "design/governance/decisions/DS-D-0112-brand-bar.md",
-        "design/governance/decisions/DS-D-0113-comment-thread.md"
+        "design/governance/decisions/DS-D-0113-comment-thread.md",
+        "design/governance/decisions/DS-D-0114-property-stack.md"
       ]
     },
     {
@@ -2596,6 +2598,24 @@
       "id": "comment-thread",
       "path": "design/components/comment-thread.md",
       "title": "Comment Thread",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-property-stack",
+      "path": "design/governance/decisions/DS-D-0114-property-stack.md",
+      "title": "DS-D-0114 라벨이 컨트롤 위에 쌓이는 편집 패널 묶음을 새 부품 property-stack 으로 — 칸은 Color Swatch stack, 슬라이더는 Slider, Inspector Row 의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "property-stack",
+      "path": "design/components/property-stack.md",
+      "title": "Property Stack",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3719,6 +3739,20 @@
         "CommentForm",
         "CommentItem",
         "CommentEmpty"
+      ],
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "property-stack",
+      "name": "Property Stack",
+      "doc": "design/components/property-stack.md",
+      "note": "편집 패널의 세로 속성 묶음 — 묶음 라벨, 요소마다 이름 · 라벨 위 칸 줄 · (슬라이더 줄)(DS-D-0114). 하이라이트 숏츠 편집 모달의 자막 색 패널(CaptionColorPanel.tsx)을 한 레시피(packages/css/src/component/property-stack.css)로 옮겼다 — 칸은 Color Swatch stack, 슬라이더는 Slider md 그대로, 레시피는 흐름만. Inspector Row 가 받지 않은 「라벨 위」 행이다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. figma 는 2026-10-15 에 done 이다 — 컴포넌트 둘 · parity 기하 계약 · 실측 기록 · 브라우저 되재기가 DS-D-0035 를 채운다(verify-figma-done).",
+      "maturity": "experimental",
+      "figma": "done",
+      "figmaNames": [
+        "PropertyStack",
+        "PropertyStackGroup"
       ],
       "web": "partial",
       "docs": "done"

@@ -10181,7 +10181,7 @@ a.louis-breadcrumb__parent:hover {
  * 마크업:
  *   <div class="louis-news-card-track">
  *     <article class="louis-news-card" data-featured>
- *       <img class="louis-news-card__media" src="…" alt="" />
+ *       <img class="louis-news-card__media" alt="" />   (src 는 소비처가 준다)
  *       <div class="louis-news-card__scrim" aria-hidden="true"></div>
  *       <div class="louis-news-card__body">
  *         <time class="louis-news-card__date" datetime="2026-02-18">2026년 2월 18일</time>

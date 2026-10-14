@@ -4305,6 +4305,32 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "node-handle-tile",
+    figmaName: "NodeHandleTile",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/node-handle-tile.css 가 정본이다(2026-10-15, DS-D-0108). 누르는 단추가 아니라 그림이라 NodeSideHandle 과 따로 선다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Channel: { options: ["image", "text", "edit", "audio", "youtube", "instagram"], reason: "코드의 `data-channel` 이다 — 면이 `color/node/handle-icon-*` 로 갈린다(제품 getEdgeTone). 기하는 여섯이 같다." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "채널 글리프 자리(제품 HANDLE_GLYPH). 흰 잉크는 인스턴스 안 획을 fg-on-danger 로 덮어 그린다." },
+    },
+    geometry: {
+      measuredId: "node-handle-tile",
+      fields: {
+        width: "size",
+        height: "size",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Glyph: { fields: { width: "glyphSize", height: "glyphSize" } },
+      },
+    },
+  },
+  {
     id: "canvas-dots",
     figmaName: "CanvasDots",
     figmaAhead: "React 표면 없음 — packages/css/src/pattern/editor-workspace.css 의 .louis-canvas-dots 가 정본이다. Figma 패턴 채움이 변수를 받지 못해 한 칸 타일을 반복한다(2026-10-15, DS-D-0102).",

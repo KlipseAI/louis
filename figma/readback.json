@@ -22528,6 +22528,200 @@
         ]
       }
     },
+    "NodeHandleTile": {
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Channel": {
+          "type": "VARIANT",
+          "options": [
+            "image",
+            "text",
+            "edit",
+            "audio",
+            "youtube",
+            "instagram"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 7,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "image": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "text": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "edit": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "audio": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "youtube": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "instagram": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "NodeMedia": {
       "variantCount": 2,
       "hasDescription": true,

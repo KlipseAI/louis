@@ -2691,7 +2691,8 @@ Panel (aside, aria-label)
 - **채널 버튼 타일은 그림이다.** 24 · 반경 6 · 채널 면(`--node-handle-icon-*`) 위 흰 글리프 — 캔버스 왼쪽 버튼과 같은
   면 토큰이고 같은 판정(`getEdgeTone`)·같은 표(`HANDLE_GLYPH`)를 읽는다. [Node Side Handle](../components/node-side-handle.md)과 같은
   재료를 다른 크기(28 → 24)와 **팔레트 흰색 리터럴 잉크**로 다시 그렸다 — 잉크를 토큰으로 두고 그림용 작은 크기 축이
-  필요한지 **판정 필요**(낮은 우선순위).
+  필요한지 **판정 필요**(낮은 우선순위). → 2026-10-15 판정: 크기 축이 아니라 따로 선 그림 부품 [Node Handle Tile](../components/node-handle-tile.md)
+  (잉크 `fg-on-danger`, [DS-D-0108](../governance/decisions/DS-D-0108-node-handle-tile.md)).
 
 ##### 하지 않는 것
 

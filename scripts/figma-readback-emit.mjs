@@ -291,13 +291,14 @@ const CAPTURE = {
   "SegmentTrackBlock": {"key":{"by":["Look","Selected"]},"fields":["height","paddingInline","itemSpacing","cornerRadius","layoutMode"],"outsideParts":["Current ring"]},
   "SegmentTrackMapBar": {"key":{"by":["Look","Emphasis"]},"fields":["height","cornerRadius"]},
   "StageBar": {"key":{"by":["Layout"]},"fields":["height","paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
-  // R1 캔버스 · 편집기 부품(2026-10-15, DS-D-0102 · DS-D-0103 · DS-D-0104 · DS-D-0105 · DS-D-0107). 숨김 레이어(DrillPickerRow 의 Icon)는 채취가 건너뛰므로 parts 에 두지 않는다.
+  // R1 캔버스 · 편집기 부품(2026-10-15, DS-D-0102 · DS-D-0103 · DS-D-0104 · DS-D-0105 · DS-D-0107 · DS-D-0108). 숨김 레이어(DrillPickerRow 의 Icon)는 채취가 건너뛰므로 parts 에 두지 않는다.
   "CanvasDots": {"key":{"name":"tile"},"fields":["width","height"],"parts":{"Dot":["width","height"]}},
   "MenuMediaItem": {"key":{"name":"media"},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"parts":{"Media":["width","height","cornerRadius"],"Logo":["width","height"],"Text":["itemSpacing"],"Heading":["itemSpacing"],"Title":["fontSize"],"Description":["fontSize"]}},
   "GalleryPanel": {"key":{"name":"panel"},"fields":["itemSpacing","cornerRadius","layoutMode"],"parts":{"Head":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Title":["fontSize"],"Close":["width","height","cornerRadius"],"CloseGlyph":["width","height"],"Divider":["height"],"Body":["paddingBlock","paddingInline","itemSpacing"],"Hint":["fontSize"],"Grid":["itemSpacing"],"Cell":["cornerRadius"]}},
   "DrillPickerRow": {"key":{"name":"row"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"parts":{"Thumb":["width","cornerRadius"],"Meta":["itemSpacing"],"LabelRow":["itemSpacing"],"Label":["fontSize"]}},
   "DrillPicker": {"key":{"name":"picker"},"fields":["itemSpacing","layoutMode"],"parts":{"Head":["itemSpacing","minHeight"],"Back":["width","height","cornerRadius"],"BackGlyph":["width","height"],"Title":["fontSize"],"ListDivider":["height"],"List":["paddingBlock","itemSpacing"],"Footer":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"]}},
   "TableDrawer": {"key":{"name":"drawer"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"parts":{"Head":["itemSpacing"],"Title":["fontSize"],"Meta":["itemSpacing"],"MetaLabel":["fontSize"]},"effects":["self"]},
+  "NodeHandleTile": {"key":{"by":["Channel"]},"fields":["width","height","cornerRadius","layoutMode"],"parts":{"Glyph":["width","height"]}},
   "VideoPlayerChip": {"key":{"by":["State"]},"fields":["width","height","cornerRadius"]},
   // 볼륨 패널은 칩 위로 열려(틈 8 · 64 ~ 112) 칩 프레임 밖에 선다 — 패널과 그 자손 전부가 계약된 바깥 부품이다.
   "VideoPlayerVolume": {"key":{"by":["State"]},"fields":["width","height"],"outsideParts":["Panel","Surface","Slider","Track","Fill","Thumb"]},

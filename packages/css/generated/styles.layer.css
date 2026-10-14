@@ -11621,6 +11621,80 @@
 }
 
 @layer louis.component {
+  /* Node Handle Tile — design/components/node-handle-tile.md (DS-D-0108)
+   *
+   * 노드 채널의 **그림 타일**이다. 캔버스 도움말 패널의 입력 목록 앞에 붙어 「이 입력은 캔버스의 이 버튼이다」를 보인다(통합 판 `54b62a8aa`
+   * `components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx:217-237` 의 `HANDLE_TILE` · `HandleTile`). 누르는 단추가 아니다 —
+   * 그래서 [Node Side Handle](node-side-handle.md)(28 단추 · 디스크 · 안쪽 광 · 호버 필터)의 크기 변형이 아니라 따로 선 그림이다. 면 토큰과
+   * 채널 판정은 그쪽과 같다(`color-node-handle-icon-*`, 제품 `getEdgeTone` · `HANDLE_GLYPH`).
+   *
+   * 고쳐 올린 값: 글리프 잉크가 제품의 팔레트 흰색 리터럴(`--palette-gray-000-rgb`)에서 Node Side Handle 과 같은 `fg-on-danger`(두 테마 같은 흰색)로. */
+  .louis-node-handle-tile {
+    --louis-node-handle-tile-face: var(--louis-color-accent-primary);
+
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    /* 24 · 반경 6 — 제품 `w-12 h-12 rounded-6`(단위 2px). 반경 사다리에 6 이 없어 리터럴이다(menu 아이콘 타일의 5 와 같은 처리). */
+    inline-size: 24px;
+    block-size: 24px;
+    border-radius: 6px;
+    background: var(--louis-node-handle-tile-face);
+    color: var(--louis-color-fg-on-danger);
+  }
+
+  .louis-node-handle-tile[data-channel="image"] {
+    --louis-node-handle-tile-face: var(--louis-color-node-handle-icon-image);
+  }
+
+  .louis-node-handle-tile[data-channel="text"] {
+    --louis-node-handle-tile-face: var(--louis-color-node-handle-icon-text);
+  }
+
+  .louis-node-handle-tile[data-channel="edit"] {
+    --louis-node-handle-tile-face: var(--louis-color-node-handle-icon-edit);
+  }
+
+  .louis-node-handle-tile[data-channel="audio"] {
+    --louis-node-handle-tile-face: var(--louis-color-node-handle-icon-audio);
+  }
+
+  .louis-node-handle-tile[data-channel="youtube"] {
+    --louis-node-handle-tile-face: var(--louis-color-node-handle-icon-youtube);
+  }
+
+  .louis-node-handle-tile[data-channel="instagram"] {
+    --louis-node-handle-tile-face: var(--louis-color-node-handle-icon-instagram);
+  }
+
+  /* 글리프 14 — 제품 `NodeGlyphSvg size={14}`. 아이콘 사다리(16 · 20 · 24)에 없는 그림 크기다. */
+  .louis-node-handle-tile > :where(svg) {
+    display: block;
+    flex: none;
+    inline-size: 14px;
+    block-size: 14px;
+  }
+
+  /* 타일 여럿을 한 줄로 — 제품 `flex gap-1`(2). */
+  .louis-node-handle-tile-group {
+    display: inline-flex;
+    flex: none;
+    gap: var(--louis-space-overlay-item-gap);
+  }
+
+  @media (forced-colors: active) {
+    .louis-node-handle-tile {
+      border: var(--louis-border-width-default) solid CanvasText;
+      forced-color-adjust: none;
+      background: Canvas;
+      color: CanvasText;
+    }
+  }
+}
+
+@layer louis.component {
   /* Node shell — 캔버스 노드의 겉 (카드 위 헤더 한 줄 + 400px 카드)
    *
    * 규범: design/components/node-shell.md

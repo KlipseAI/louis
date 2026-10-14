@@ -8754,6 +8754,61 @@
           "$metaFontSize": "12 — 제품 type-caption-12-regular. 레시피 글자 단계는 caption-regular."
         }
       }
+    },
+    "node-handle-tile": {
+      "$doc": "design/components/node-handle-tile.md",
+      "$source": "packages/css/src/component/node-handle-tile.css — 제품 components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx 의 HANDLE_TILE · HANDLE_TILE_TONE · HandleTile (2026-10-15 DS-D-0108)",
+      "$why": "값은 CSS 가 만드는 값이다. packages/react/test/node-handle-tile.browser.test.tsx 가 채널마다 같은 키를 레시피의 계산값으로 되잰다(DS-D-0035 (c)). 채널은 면만 바꾸고 기하는 같다.",
+      "sizes": {
+        "image": {
+          "size": 24,
+          "$size": "24 — 제품 타일 w · h 열두 칸(단위 2px). 레시피 리터럴.",
+          "radius": 6,
+          "$radius": "6 — 제품 rounded-6. 반경 사다리에 6 이 없어 레시피 리터럴.",
+          "glyphSize": 14,
+          "$glyphSize": "14 — 제품 NodeGlyphSvg size 14. 레시피 리터럴."
+        },
+        "text": {
+          "size": 24,
+          "$size": "24 — 제품 타일 w · h 열두 칸(단위 2px). 레시피 리터럴.",
+          "radius": 6,
+          "$radius": "6 — 제품 rounded-6. 반경 사다리에 6 이 없어 레시피 리터럴.",
+          "glyphSize": 14,
+          "$glyphSize": "14 — 제품 NodeGlyphSvg size 14. 레시피 리터럴."
+        },
+        "edit": {
+          "size": 24,
+          "$size": "24 — 제품 타일 w · h 열두 칸(단위 2px). 레시피 리터럴.",
+          "radius": 6,
+          "$radius": "6 — 제품 rounded-6. 반경 사다리에 6 이 없어 레시피 리터럴.",
+          "glyphSize": 14,
+          "$glyphSize": "14 — 제품 NodeGlyphSvg size 14. 레시피 리터럴."
+        },
+        "audio": {
+          "size": 24,
+          "$size": "24 — 제품 타일 w · h 열두 칸(단위 2px). 레시피 리터럴.",
+          "radius": 6,
+          "$radius": "6 — 제품 rounded-6. 반경 사다리에 6 이 없어 레시피 리터럴.",
+          "glyphSize": 14,
+          "$glyphSize": "14 — 제품 NodeGlyphSvg size 14. 레시피 리터럴."
+        },
+        "youtube": {
+          "size": 24,
+          "$size": "24 — 제품 타일 w · h 열두 칸(단위 2px). 레시피 리터럴.",
+          "radius": 6,
+          "$radius": "6 — 제품 rounded-6. 반경 사다리에 6 이 없어 레시피 리터럴.",
+          "glyphSize": 14,
+          "$glyphSize": "14 — 제품 NodeGlyphSvg size 14. 레시피 리터럴."
+        },
+        "instagram": {
+          "size": 24,
+          "$size": "24 — 제품 타일 w · h 열두 칸(단위 2px). 레시피 리터럴.",
+          "radius": 6,
+          "$radius": "6 — 제품 rounded-6. 반경 사다리에 6 이 없어 레시피 리터럴.",
+          "glyphSize": 14,
+          "$glyphSize": "14 — 제품 NodeGlyphSvg size 14. 레시피 리터럴."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -8841,7 +8896,8 @@
     "gallery-panel": "제품 렌더 하네스의 명부에 이미지 편집 모달의 예시 패널(ExampleGallery.tsx)이 없다 — 패널이 편집 모달 안에서만 열리고 next/image · i18n 공급자 · 스티커 예시 데이터를 물어 단독 렌더가 서지 않는다. 값은 레시피 선언이고 제품 클래스는 소스(ExampleGallery.tsx:10-47)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15).",
     "drill-picker": "제품 렌더 하네스의 명부에 영상 편집기의 프로젝트 피커(VideoEditProjectPicker.tsx)가 없다 — 본문이 /api/projects 를 불러 목록을 채우고 에셋 패널 서브뷰 안에서만 열려 단독 렌더가 서지 않는다. 값은 레시피 선언이고 제품 클래스는 소스(VideoEditProjectPicker.tsx:21-168)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15).",
     "canvas-edge-delete": "canvas-edge 와 같은 이유다. 삭제 버튼은 캔버스에 노드 둘과 연결선이 있고 그 선을 호버해야 뜬다 — 라우트를 열어 클래스 상수를 컴파일하는 measure-product-components 가 그 상태에 닿지 못한다. DeletableEdge.tsx 의 DELETE_BTN 상수를 소스로 등록하면 면제를 지울 수 있다(클래스가 상수 하나로 뽑혀 있다).",
-    "table-drawer": "제품 렌더 하네스의 명부에 어드민 광고 성과 표(AdAttributionPanel.tsx)가 없다 — 서랍이 어드민 인증 · 광고 집계 데이터를 물고 줄을 펼쳤을 때만 선다. 값은 레시피 선언이고 제품 클래스는 소스(AdAttributionPanel.tsx:95 · :505-565)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15)."
+    "table-drawer": "제품 렌더 하네스의 명부에 어드민 광고 성과 표(AdAttributionPanel.tsx)가 없다 — 서랍이 어드민 인증 · 광고 집계 데이터를 물고 줄을 펼쳤을 때만 선다. 값은 레시피 선언이고 제품 클래스는 소스(AdAttributionPanel.tsx:95 · :505-565)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15).",
+    "node-handle-tile": "제품 렌더 하네스의 명부에 캔버스 도움말 패널(CanvasHelpPanel.tsx)이 없다 — 타일이 도움말 패널의 입력 목록 안에서만 서고 패널은 캔버스 셸 · i18n 공급자를 문다. 값은 레시피 선언이고 제품 클래스는 소스(CanvasHelpPanel.tsx:217-237)에서 읽었다. 실브라우저 시험이 레시피를 잰다(2026-10-15)."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다. **2026-10-14 canvas-edge 를 이 명부에서 뺐다(DS-D-0100)** — DS-D-0061 의 근거(쉬머가 인스턴스 기하 · SMIL 주기)는 지금도 참이지만, 그 근거가 덮는 것은 쉬머 한 겹뿐이다. 실선 · hover 잉크 · 히트 영역 · 삭제 버튼은 CSS 가 온전히 담아 레시피가 섰고 쉬머는 제품 JS 에 남는다. 명부가 비어도 이 장치는 남는다 — 다음 판정이 여기 들어온다."

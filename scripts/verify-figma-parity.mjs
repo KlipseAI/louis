@@ -577,6 +577,19 @@ const COMPONENT_CONTRACTS = [
     },
     strokes: {},
     effects: {},
+    // **기하(2026-10-14, DS-D-0035 (c)).** 기록 media-scrubber, 되재기는 video-player-geometry.browser.test.tsx. 키 base 에 Default · Hover 가
+    // 함께 담겨 트랙 높이는 집합 {3, 5} 로 맞댄다. 폭(200)은 하단 줄이 정하는 표본이라 담지 않는다.
+    geometry: {
+      measuredId: "media-scrubber",
+      sizeKeys: ["base"],
+      fields: { height: "height", layoutMode: { literal: "HORIZONTAL" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Track: { fields: { height: { set: ["trackHeight", "trackHeightHover"] } } },
+        Thumb: { fields: { width: "thumbSize", height: "thumbSize" } },
+      },
+    },
   },
   {
     id: "video-player",
@@ -627,6 +640,23 @@ const COMPONENT_CONTRACTS = [
     },
     // **확대 칩 `Expand` 는 2026-10-14 부터 `VideoPlayerChip` 인스턴스다** — 효과(헤어라인 · 흐림)가 인스턴스 안 `Surface` 에 있어 되읽기가 이 세트의
     // 역할로 잡지 않는다. 그 효과는 VideoPlayerChip 계약이 대조한다. Hidden 변형의 흐림 0 은 인스턴스 덮어쓰기다.
+    // **기하(2026-10-14, DS-D-0035 (c)).** 기록 video-player, 되재기는 video-player-geometry.browser.test.tsx. 하단 줄 높이(base 6 + 32 + 8 = 46 ·
+    // youtube 16 + 6 + 40 = 62, 둘 다 파생)를 건다. **판의 폭 · 높이 · 반경은 걸지 않는다** — 기본 판은 `inline-size: 100%` · `border-radius:
+    // inherit` 라 소비처가 정하고 Figma 의 320×180 · 640×360 · 12 는 표본이다. 영상 · 스크림 · 가운데 크롬은 판을 채우는 층이라 존재만 계약이다.
+    geometry: {
+      measuredId: "video-player",
+      sizeKeys: ["base", "youtube"],
+      fields: { layoutMode: { literal: "NONE" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        "Video (placeholder)": { fields: {} },
+        // youtube 판에는 스크림 · 가운데 크롬이 없다(재생 단추가 하단 줄에 선다) — 그 판에서는 없는 것이 맞다.
+        "Scrim (opacity 0)": { fields: {}, optional: true },
+        "Center chrome": { fields: {}, optional: true },
+        "Bottom chrome": { fields: { height: "bottomHeight" } },
+      },
+    },
   },
   // ── CSS 레시피는 있고 React 표면이 없는 것들 ────────────────────────────────
   // LOUIS 가 CSS 로 정의해 두고 **Figma 에도 문서에도 없던** 다섯이다(2026-08-26 확인).
@@ -915,6 +945,24 @@ const COMPONENT_CONTRACTS = [
     },
     strokes: {},
     effects: {},
+    // **기하(2026-10-14, DS-D-0035 (c)).** 기록 tab-item(레시피 선언과 그 파생), 되재기는 tabs-geometry.browser.test.tsx.
+    // 여덟 칸 전부 — 상태는 기하를 바꾸지 않는다. 폭은 라벨이 정해 담지 않는다.
+    geometry: {
+      measuredId: "tab-item",
+      sizeKeys: ["Default", "Hover", "Selected", "Disabled", "bar/Default", "bar/Hover", "bar/Selected", "bar/Disabled"],
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: { Label: { fields: { height: "labelLineHeight", fontSize: "labelFontSize" } } },
+    },
   },
   {
     id: "tabs",
@@ -935,6 +983,24 @@ const COMPONENT_CONTRACTS = [
     // `color/stroke-hairline`, 레이아웃 밖)으로 그린다. default 는 획이 없어 되읽기에 값을 보태지 않는다.
     strokes: { self: { weight: 0.5, align: "INSIDE" } },
     effects: {},
+    // **기하(2026-10-14, DS-D-0035 (c)).** 기록 tabs, 되재기는 tabs-geometry.browser.test.tsx. 간격(4 · 0 · 20) · 높이 · 탭 높이를 세 칸에서 건다.
+    // 폭은 탭 수와 라벨이 정해 담지 않는다.
+    geometry: {
+      measuredId: "tabs",
+      sizeKeys: ["default", "underline", "bar"],
+      fields: {
+        height: "height",
+        paddingBlock: { literal: 0 },
+        paddingBlockEnd: { literal: 0 },
+        paddingInline: { literal: 0 },
+        paddingInlineEnd: { literal: 0 },
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: { TabItem: { fields: { height: "tabHeight" } } },
+    },
   },
   {
     id: "table",
@@ -950,6 +1016,23 @@ const COMPONENT_CONTRACTS = [
     },
     strokes: {},
     effects: {},
+    // **기하(2026-10-14, DS-D-0035 (c)).** 기록 table-header-cell(레시피 `thead > tr > th` 선언과 그 파생), 되재기는
+    // table-geometry.browser.test.tsx. 폭은 열이 정해 담지 않는다.
+    geometry: {
+      measuredId: "table-header-cell",
+      sizeKeys: ["start", "center", "end"],
+      fields: {
+        height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: { Label: { fields: { height: "labelLineHeight", fontSize: "labelFontSize" } } },
+    },
   },
   {
     id: "table",
@@ -968,6 +1051,24 @@ const COMPONENT_CONTRACTS = [
     // 1 과 0 이 함께 나타난다.
     strokes: { self: { weight: 1, align: "INSIDE" } },
     effects: {},
+    // **기하(2026-10-14, DS-D-0035 (c)).** 기록 table-cell, 되재기는 table-geometry.browser.test.tsx.
+    // **높이는 대조하지 않는다 — 코드와 Figma 가 1 갈린다.** 코드의 행 구분선은 `border-block-end` 1px 라 레이아웃 상자에
+    // 들어가 칸이 8 + 21 + 8 + 1 = 38 이고(마지막 행만 37), Figma TableCell 은 획을 INSIDE 로 그려 37 이다. 어느 쪽을 옮길지는
+    // 소유자 판정이다(코드를 inset 헤어라인처럼 상자 밖으로 빼거나, Figma 아래 여백을 9 로 접거나). 여백 · 라벨 · 획 두께만 건다.
+    geometry: {
+      measuredId: "table-cell",
+      sizeKeys: ["start", "center", "end"],
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: { Label: { fields: { height: "labelLineHeight", fontSize: "labelFontSize" } } },
+    },
   },
   {
     id: "table",
@@ -986,6 +1087,25 @@ const COMPONENT_CONTRACTS = [
       },
     },
     effects: { HeaderRow: "INNER_SHADOW:0:0:0.5" },
+    // **기하(2026-10-14, DS-D-0035 (c)).** 기록 table, 되재기는 table-geometry.browser.test.tsx. 세로 쌓임 · 행 사이 0 · 머리 행 26 을
+    // 건다. **본문 행 높이(Row 1~3)는 대조하지 않는다** — 위 TableCell 주석의 1px 어긋남(코드 38 · 마지막 37, Figma 37 셋)과 같은 사실이다.
+    geometry: {
+      measuredId: "table",
+      sizeKeys: ["base"],
+      fields: {
+        itemSpacing: "rowGap",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        HeaderRow: { fields: { height: "headerRowHeight" } },
+        // 본문 행은 존재만 계약이다 — 높이는 위 사유로 대조 밖.
+        "Row 1": { fields: {} },
+        "Row 2": { fields: {} },
+        "Row 3": { fields: {} },
+      },
+    },
   },
   // ── Figma 선행 컴포넌트 ──────────────────────────────────────────────────
   // 제품 전수 인벤토리(2026-08-26)에서 「재사용되는데 DS 에 없다」로 확인된 것들을 Figma 에

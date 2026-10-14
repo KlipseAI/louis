@@ -435,20 +435,12 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   대상이 아니었다. 정본(`ContentTable.tsx:447-450`)은 행에 `onClick` 이 없어 이 문제가 없다.
 - **React 표면이 없다.** `packages/react/src/table` 이 없고 public export 0이라, 소비처가 클래스
   문자열과 data 속성 이름을 직접 적는다. 오타를 잡는 것이 타입이 아니라 사람이다.
-- **parity 게이트가 축·선·그림자는 대조하는데 기하만 빠져 있다.** `figma/readback.json` 과
-  `figma/snapshot.json` 에 `TableHeaderCell`·`TableCell`·`Table` 셋이 들어 있고
-  `design/manifest.json` 도 셋을 등재했다. `scripts/verify-figma-parity.mjs` 에도 셋이 다 있다
-  (`:405` · `:420` · `:438`) — 두 칸의 Align 3 값, TableCell 의 State 2 값,
-  `TableCell` 의 `strokes: { self: { weight: 1, align: "INSIDE" } }`, `Table` 의
-  `effects: { HeaderRow: "INNER_SHADOW:0:0:0.5" }` 와 `strokes.TableCell.weight: [1, 0]`
-  (마지막 행만 0)이 전부 계약으로 적혀 있다. **빠진 것은 `geometry` 하나다** — 세 항목 어디에도
-  `geometry.measuredId` 가 없고 `figma/components.measured.json` 의 45개 키에도 `table` 이 없다.
-  그래서 여백 4/8·8/8, 헤더 높이 26, 셀 높이 37/38, 반경 4 는 **아무도 대조하지 않는다.** 위
-  Specification 이 적은 1px 어긋남이 게이트를 통과하는 이유가 그것이다.
-  [DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)가 table 을 "선행
-  라이브러리에도 없고 실측 스펙조차 없다"는 다섯(`alert`·`node-chip`·`switch`·`table`·`tabs`) 중
-  하나로 적었는데, 컴포넌트가 서고 축·선·그림자 계약이 붙은 지금 **남아 있는 것은 실측 스펙뿐이다.**
-  그때까지 기하의 일치는 사람이 확인한다.
+- **기하 계약은 2026-10-14 에 섰다 — 본문 칸 높이만 대조 밖이다.** 기록 `table-header-cell` · `table-cell` · `table`
+  (`figma/components.measured.json`, 레시피 선언과 그 파생)을 `scripts/verify-figma-parity.mjs` 의 세 계약이 가리키고
+  `packages/react/test/table-geometry.browser.test.tsx` 가 코드에서 되잰다(DS-D-0035 (c)). 머리 칸 높이 26 · 여백 4/8,
+  본문 칸 여백 8/8, 라벨 크기 · 행 높이, 머리 행 26 · 행 사이 0 을 건다. **본문 칸 · 행 높이는 걸지 않는다** — 코드는 행
+  구분선이 `border-block-end` 1px 라 칸이 8 + 21 + 8 + 1 = 38(마지막 행 37)이고 Figma `TableCell` 은 획을 INSIDE 로 그려 37 이다.
+  위 Specification 이 적은 1px 어긋남이 그것이며, 어느 쪽을 옮길지는 소유자 판정이다(계약 주석).
 - **Figma 의 Align 축에는 `start` 가 있는데 CSS 에는 없다.** `TableHeaderCell`(Align 3) 과
   `TableCell`(Align 3 × State 2) 모두 `start`·`center`·`end` 를 variant 로 갖는다. CSS 에서
   `start` 는 셀렉터가 아니라 기본값이라 `data-align` 을 붙이지 않는 것이 그 상태다. Figma 에서

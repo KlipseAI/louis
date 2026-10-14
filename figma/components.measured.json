@@ -7937,6 +7937,331 @@
           "$motion": "reduced 는 흐름을 멈추고 글자 칠을 단색으로 둔다 — 기하는 flow 와 같다."
         }
       }
+    },
+    "table-header-cell": {
+      "$doc": "design/components/table.md",
+      "$source": "packages/css/src/component/table.css",
+      "$note": "표 머리 칸(`thead th`). 키는 Figma TableHeaderCell 의 Align 축 — 기하는 세 칸이 같다(정렬만 갈린다). 폭은 열이 정해 담지 않는다.",
+      "sizes": {
+        "start": {
+          "height": 26,
+          "$height": "4 + 18 + 4 = 26. 선언이 아니라 파생이다 — `thead > tr > th { padding-block: space-control-xs }` 와 caption-medium 행 높이 18.",
+          "paddingBlock": 4,
+          "$paddingBlock": "space-control-xs 4",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8",
+          "labelFontSize": 12,
+          "$labelFontSize": "caption-medium 12",
+          "labelLineHeight": 18,
+          "$labelLineHeight": "caption-medium line-height 18"
+        },
+        "center": {
+          "height": 26,
+          "$height": "4 + 18 + 4 = 26. 선언이 아니라 파생이다 — `thead > tr > th { padding-block: space-control-xs }` 와 caption-medium 행 높이 18.",
+          "paddingBlock": 4,
+          "$paddingBlock": "space-control-xs 4",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8",
+          "labelFontSize": 12,
+          "$labelFontSize": "caption-medium 12",
+          "labelLineHeight": 18,
+          "$labelLineHeight": "caption-medium line-height 18"
+        },
+        "end": {
+          "height": 26,
+          "$height": "4 + 18 + 4 = 26. 선언이 아니라 파생이다 — `thead > tr > th { padding-block: space-control-xs }` 와 caption-medium 행 높이 18.",
+          "paddingBlock": 4,
+          "$paddingBlock": "space-control-xs 4",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8",
+          "labelFontSize": 12,
+          "$labelFontSize": "caption-medium 12",
+          "labelLineHeight": 18,
+          "$labelLineHeight": "caption-medium line-height 18"
+        }
+      }
+    },
+    "table-cell": {
+      "$doc": "design/components/table.md",
+      "$source": "packages/css/src/component/table.css",
+      "$note": "표 본문 칸(`tbody td`). 키는 Figma TableCell 의 Align 축 — 기하는 세 칸이 같다. 폭은 열이 정해 담지 않는다.",
+      "sizes": {
+        "start": {
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8 — `tbody > tr > td { padding-block }`",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8",
+          "labelFontSize": 14,
+          "$labelFontSize": "body-sm-regular 14 (`.louis-table` 상속)",
+          "labelLineHeight": 21,
+          "$labelLineHeight": "body-sm-regular line-height 21",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1 — 행 구분선은 칸의 아래 한 변(`border-block-end`), 마지막 행만 0",
+          "height": 38,
+          "$height": "8 + 21 + 8 + 1 = 38. 파생 — 아래 변 1px 이 레이아웃 상자에 들어간다(테두리라서). 마지막 행은 그 변이 0 이라 37 이다(`lastRowHeight`). **Figma TableCell 은 37 이다** — 획을 INSIDE 로 그려 상자에 넣지 않는다. 그래서 parity 계약은 이 칸을 대조하지 않는다(2026-10-14 소유자 판정 대기)",
+          "lastRowHeight": 37,
+          "$lastRowHeight": "8 + 21 + 8 = 37 — `tbody:last-of-type > tr:last-child > td { border-block-end: 0 }`"
+        },
+        "center": {
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8 — `tbody > tr > td { padding-block }`",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8",
+          "labelFontSize": 14,
+          "$labelFontSize": "body-sm-regular 14 (`.louis-table` 상속)",
+          "labelLineHeight": 21,
+          "$labelLineHeight": "body-sm-regular line-height 21",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1 — 행 구분선은 칸의 아래 한 변(`border-block-end`), 마지막 행만 0",
+          "height": 38,
+          "$height": "8 + 21 + 8 + 1 = 38. 파생 — 아래 변 1px 이 레이아웃 상자에 들어간다(테두리라서). 마지막 행은 그 변이 0 이라 37 이다(`lastRowHeight`). **Figma TableCell 은 37 이다** — 획을 INSIDE 로 그려 상자에 넣지 않는다. 그래서 parity 계약은 이 칸을 대조하지 않는다(2026-10-14 소유자 판정 대기)",
+          "lastRowHeight": 37,
+          "$lastRowHeight": "8 + 21 + 8 = 37 — `tbody:last-of-type > tr:last-child > td { border-block-end: 0 }`"
+        },
+        "end": {
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8 — `tbody > tr > td { padding-block }`",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8",
+          "labelFontSize": 14,
+          "$labelFontSize": "body-sm-regular 14 (`.louis-table` 상속)",
+          "labelLineHeight": 21,
+          "$labelLineHeight": "body-sm-regular line-height 21",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1 — 행 구분선은 칸의 아래 한 변(`border-block-end`), 마지막 행만 0",
+          "height": 38,
+          "$height": "8 + 21 + 8 + 1 = 38. 파생 — 아래 변 1px 이 레이아웃 상자에 들어간다(테두리라서). 마지막 행은 그 변이 0 이라 37 이다(`lastRowHeight`). **Figma TableCell 은 37 이다** — 획을 INSIDE 로 그려 상자에 넣지 않는다. 그래서 parity 계약은 이 칸을 대조하지 않는다(2026-10-14 소유자 판정 대기)",
+          "lastRowHeight": 37,
+          "$lastRowHeight": "8 + 21 + 8 = 37 — `tbody:last-of-type > tr:last-child > td { border-block-end: 0 }`"
+        }
+      }
+    },
+    "table": {
+      "$doc": "design/components/table.md",
+      "$source": "packages/css/src/component/table.css",
+      "$note": "표 조립(`.louis-table`). Figma Table 의 키 base. 머리 행 높이와 행 사이(간격 0, 세로 쌓임)만 담는다 — 폭은 소비처가 정한다(`inline-size: 100%`).",
+      "sizes": {
+        "base": {
+          "headerRowHeight": 26,
+          "$headerRowHeight": "머리 칸 높이 26(위 table-header-cell 의 파생)",
+          "rowGap": 0,
+          "$rowGap": "0 — `border-spacing: 0`",
+          "rowHeight": 38,
+          "$rowHeight": "본문 행 38(마지막 행 37) — table-cell 의 `$height`. Figma 조립본은 세 행 다 37 이라 대조하지 않는다",
+          "lastRowHeight": 37,
+          "$lastRowHeight": "마지막 행 37"
+        }
+      }
+    },
+    "tab-item": {
+      "$doc": "design/components/tabs.md",
+      "$source": "packages/css/src/component/tabs.css",
+      "$note": "탭 하나(`.louis-tabs__tab`). 키는 Figma TabItem 의 Variant/State 축(default 는 Variant 칸을 생략). 상태는 불투명도 · 잉크만 바꿔 기하가 같다. 폭은 라벨이 정해 담지 않는다.",
+      "sizes": {
+        "Default": {
+          "height": 28,
+          "$height": "layout-tab-height 28 — `.louis-tabs__tab { block-size }`",
+          "paddingBlock": 0,
+          "$paddingBlock": "0",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12",
+          "radius": 999,
+          "$radius": "radius-pill 999",
+          "labelFontSize": 16,
+          "$labelFontSize": "body-md-medium 16",
+          "labelLineHeight": 24,
+          "$labelLineHeight": "body-md-medium line-height 24"
+        },
+        "Hover": {
+          "height": 28,
+          "$height": "layout-tab-height 28 — `.louis-tabs__tab { block-size }`",
+          "paddingBlock": 0,
+          "$paddingBlock": "0",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12",
+          "radius": 999,
+          "$radius": "radius-pill 999",
+          "labelFontSize": 16,
+          "$labelFontSize": "body-md-medium 16",
+          "labelLineHeight": 24,
+          "$labelLineHeight": "body-md-medium line-height 24"
+        },
+        "Selected": {
+          "height": 28,
+          "$height": "layout-tab-height 28 — `.louis-tabs__tab { block-size }`",
+          "paddingBlock": 0,
+          "$paddingBlock": "0",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12",
+          "radius": 999,
+          "$radius": "radius-pill 999",
+          "labelFontSize": 16,
+          "$labelFontSize": "body-md-medium 16",
+          "labelLineHeight": 24,
+          "$labelLineHeight": "body-md-medium line-height 24"
+        },
+        "Disabled": {
+          "height": 28,
+          "$height": "layout-tab-height 28 — `.louis-tabs__tab { block-size }`",
+          "paddingBlock": 0,
+          "$paddingBlock": "0",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12",
+          "radius": 999,
+          "$radius": "radius-pill 999",
+          "labelFontSize": 16,
+          "$labelFontSize": "body-md-medium 16",
+          "labelLineHeight": 24,
+          "$labelLineHeight": "body-md-medium line-height 24"
+        },
+        "bar/Default": {
+          "height": 47,
+          "$height": "12 + 21 + 12 + 2 = 47. 파생 — `[data-variant=\"bar\"] > .louis-tabs__tab { block-size: auto; padding-block: space-control-md }` 와 body-sm-medium 행 높이 21, 아래 막대 `border-block-end: border-width-ring` 2",
+          "paddingBlock": 12,
+          "$paddingBlock": "space-control-md 12",
+          "paddingInline": 0,
+          "$paddingInline": "0",
+          "radius": 0,
+          "$radius": "0",
+          "barWidth": 2,
+          "$barWidth": "border-width-ring 2 — 아래 막대(선택이면 잉크, 아니면 투명)",
+          "labelFontSize": 14,
+          "$labelFontSize": "body-sm-medium 14",
+          "labelLineHeight": 21,
+          "$labelLineHeight": "body-sm-medium line-height 21"
+        },
+        "bar/Hover": {
+          "height": 47,
+          "$height": "12 + 21 + 12 + 2 = 47. 파생 — `[data-variant=\"bar\"] > .louis-tabs__tab { block-size: auto; padding-block: space-control-md }` 와 body-sm-medium 행 높이 21, 아래 막대 `border-block-end: border-width-ring` 2",
+          "paddingBlock": 12,
+          "$paddingBlock": "space-control-md 12",
+          "paddingInline": 0,
+          "$paddingInline": "0",
+          "radius": 0,
+          "$radius": "0",
+          "barWidth": 2,
+          "$barWidth": "border-width-ring 2 — 아래 막대(선택이면 잉크, 아니면 투명)",
+          "labelFontSize": 14,
+          "$labelFontSize": "body-sm-medium 14",
+          "labelLineHeight": 21,
+          "$labelLineHeight": "body-sm-medium line-height 21"
+        },
+        "bar/Selected": {
+          "height": 47,
+          "$height": "12 + 21 + 12 + 2 = 47. 파생 — `[data-variant=\"bar\"] > .louis-tabs__tab { block-size: auto; padding-block: space-control-md }` 와 body-sm-medium 행 높이 21, 아래 막대 `border-block-end: border-width-ring` 2",
+          "paddingBlock": 12,
+          "$paddingBlock": "space-control-md 12",
+          "paddingInline": 0,
+          "$paddingInline": "0",
+          "radius": 0,
+          "$radius": "0",
+          "barWidth": 2,
+          "$barWidth": "border-width-ring 2 — 아래 막대(선택이면 잉크, 아니면 투명)",
+          "labelFontSize": 14,
+          "$labelFontSize": "body-sm-medium 14",
+          "labelLineHeight": 21,
+          "$labelLineHeight": "body-sm-medium line-height 21"
+        },
+        "bar/Disabled": {
+          "height": 47,
+          "$height": "12 + 21 + 12 + 2 = 47. 파생 — `[data-variant=\"bar\"] > .louis-tabs__tab { block-size: auto; padding-block: space-control-md }` 와 body-sm-medium 행 높이 21, 아래 막대 `border-block-end: border-width-ring` 2",
+          "paddingBlock": 12,
+          "$paddingBlock": "space-control-md 12",
+          "paddingInline": 0,
+          "$paddingInline": "0",
+          "radius": 0,
+          "$radius": "0",
+          "barWidth": 2,
+          "$barWidth": "border-width-ring 2 — 아래 막대(선택이면 잉크, 아니면 투명)",
+          "labelFontSize": 14,
+          "$labelFontSize": "body-sm-medium 14",
+          "labelLineHeight": 21,
+          "$labelLineHeight": "body-sm-medium line-height 21"
+        }
+      }
+    },
+    "tabs": {
+      "$doc": "design/components/tabs.md",
+      "$source": "packages/css/src/component/tabs.css",
+      "$note": "탭 줄(`.louis-tabs`). 키는 Figma Tabs 의 Variant 축. 폭은 탭 수와 라벨이 정해 담지 않는다.",
+      "sizes": {
+        "default": {
+          "height": 28,
+          "$height": "탭 높이 28 을 hug",
+          "gap": 4,
+          "$gap": "space-control-xs 4",
+          "tabHeight": 28,
+          "$tabHeight": "layout-tab-height 28"
+        },
+        "underline": {
+          "height": 28,
+          "$height": "탭 높이 28 을 hug — 밑선은 inset 헤어라인이라 상자에 들어가지 않는다",
+          "gap": 0,
+          "$gap": "0 — `[data-variant=\"underline\"] { gap: 0 }`",
+          "tabHeight": 28,
+          "$tabHeight": "layout-tab-height 28",
+          "borderWidth": 0.5,
+          "$borderWidth": "border-width-hairline 0.5 — 밑선(`--louis-hairline-inset-block-end`). Figma 는 아래 한 변 INSIDE 획으로 그린다(계약 주석)"
+        },
+        "bar": {
+          "height": 47,
+          "$height": "막대 탭 47 을 hug",
+          "gap": 20,
+          "$gap": "20px 리터럴 — `[data-variant=\"bar\"] { gap: 20px }`",
+          "tabHeight": 47,
+          "$tabHeight": "막대 탭 47(tab-item bar 칸의 파생)",
+          "borderWidth": 0.5,
+          "$borderWidth": "border-width-hairline 0.5 — 밑선"
+        }
+      }
+    },
+    "media-scrubber": {
+      "$doc": "design/components/video-player.md",
+      "$source": "packages/css/src/component/video-player.css",
+      "$note": "진행 막대(`.louis-video-player__scrubber`). Figma MediaScrubber 의 키 base 에 Default · Hover 두 상태가 함께 담긴다 — 트랙 높이가 3 · 5 둘이다. 폭은 하단 줄이 정해(flex 1) 담지 않는다.",
+      "sizes": {
+        "base": {
+          "height": 20,
+          "$height": "20px 리터럴 — `__scrubber { block-size: 20px }`(누르는 높이)",
+          "trackHeight": 3,
+          "$trackHeight": "3px — `__scrubber-track { block-size: 3px }`",
+          "trackHeightHover": 5,
+          "$trackHeightHover": "5px — `__scrubber:hover > __scrubber-track`(hover: hover) · `:active`",
+          "thumbSize": 12,
+          "$thumbSize": "12px — `__scrubber-thumb { inline-size · block-size }`. 쉬는 상태는 scale(0) 이라 상자 크기로 잰다"
+        }
+      }
+    },
+    "video-player": {
+      "$doc": "design/components/video-player.md",
+      "$source": "packages/css/src/component/video-player.css",
+      "$note": "플레이어 판(`.louis-video-player`). 키는 Figma VideoPlayer 의 Platform 축(default → base, youtube). 판의 폭 · 높이 · 반경은 담지 않는다 — 기본 판은 `inline-size: 100%` · `border-radius: inherit` 로 소비처가 정하고, Figma 의 320×180 · 반경 12 는 표본이다. 여기는 하단 줄 높이(파생)만 담는다.",
+      "sizes": {
+        "base": {
+          "bottomHeight": 46,
+          "$bottomHeight": "6 + 32 + 8 = 46. 파생 — `__bottom { padding: 6px space-control-sm space-control-sm }` 와 `__bar { block-size: layout-control-height-md }`",
+          "bottomPaddingTop": 6,
+          "$bottomPaddingTop": "6px 리터럴",
+          "bottomPaddingInline": 8,
+          "$bottomPaddingInline": "space-control-sm 8",
+          "bottomPaddingBottom": 8,
+          "$bottomPaddingBottom": "space-control-sm 8",
+          "barHeight": 32,
+          "$barHeight": "layout-control-height-md 32"
+        },
+        "youtube": {
+          "bottomHeight": 62,
+          "$bottomHeight": "16 + 6 + 40 = 62. 파생 — youtube `__bottom { flex-direction: column; gap: 6px; padding: 0 }`, `__scrubber { block-size: space-control-lg }`, `__controls { block-size: layout-control-height-lg }`",
+          "bottomInset": 12,
+          "$bottomInset": "space-control-md 12 — youtube `__bottom { inset-inline · inset-block-end }`",
+          "bottomGap": 6,
+          "$bottomGap": "6px 리터럴",
+          "scrubberHeight": 16,
+          "$scrubberHeight": "space-control-lg 16",
+          "controlsHeight": 40,
+          "$controlsHeight": "layout-control-height-lg 40"
+        }
+      }
     }
   },
   "$noProductRender": {

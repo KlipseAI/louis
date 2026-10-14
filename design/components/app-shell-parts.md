@@ -732,7 +732,8 @@ style이다.
 - **제품 제목은 `<span onClick>` 이라 키보드로 이름을 바꿀 수 없다**(`ProjectHeader.tsx:541-554`). 레시피는 `<button>`
   (`__title-button`)을 계약으로 둔다.
 - **캔버스 판의 React 표면이 없다.** `AppTopBar` 는 나머지 속성을 루트에 펼치므로 `data-surface="canvas"` 를 넘길 수는 있지만,
-  홈 · 제목 버튼 · 편집 입력은 prop 이 아니라 클래스 마크업이다. 브라우저 시험도 아직 이 판을 재지 않는다.
+  홈 · 제목 버튼 · 편집 입력은 prop 이 아니라 클래스 마크업이다. 판의 기하(위아래 8 · 좌우 12 · 사이 4 · 높이 48 파생)는 2026-10-14 부터
+  기록 `app-shell-parts.canvas` 와 `app-shell-parts-geometry.browser.test.tsx` 가 되잰다.
 - **`SidebarBrand` · `SidebarCta` 의 되읽기는 emitter 로 다시 떴다(2026-09-23).** 앵커 `2c6bdacf` 적용 때
   두 세트가 기록과 여러 축에서 갈려 펼친 폭만 옮겨 두었던 것을, 소유자 판정 「Figma 를 계약에 맞춘다」에
   따라 Figma 를 고친 뒤 통째로 다시 떴다. 브랜드는 28 레일을 `Mark` 로 이름 붙이고 그 안의 글리프를

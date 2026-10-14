@@ -7,6 +7,10 @@
   "recipes": [
     {
       "id": "/nodecanvas?project= panel.help",
+      "board": {
+        "desktop": "3549:23837",
+        "mobile": "3549:23838"
+      },
       "base": "/nodecanvas?project=",
       "description": "캔버스 툴바 오른쪽의 도움말 단추(aria 「Help」)로 연 도움말 패널 첫 쪽(CanvasHelpPanel — 검색 · 첫 영상 만들기). 데스크톱은 오른쪽 도킹, 모바일(<768)은 아래 시트 dialog. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
       "surfaces": [
@@ -85,6 +89,10 @@
     },
     {
       "id": "/nodecanvas?project= panel.analysis",
+      "board": {
+        "desktop": "3549:23839",
+        "mobile": "3549:23840"
+      },
       "base": "/nodecanvas?project=",
       "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0102",
       "description": "업로드를 마친 유튜브 노드에서 「Analyze」를 눌러 연 분석 모달(유튜브 갈래, 개요 탭 — KPI 카드와 스파크라인). R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
@@ -507,6 +515,10 @@
     },
     {
       "id": "/nodecanvas?project= panel.image-edit",
+      "board": {
+        "desktop": "3549:23841",
+        "mobile": "3549:23842"
+      },
       "base": "/nodecanvas?project=",
       "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0105",
       "description": "이미지 노드 우클릭 메뉴 「Edit image」로 연 이미지 편집 모달(ImageEditModal = CropModalInner stickerEnabled, 크롭 탭 · 비율 툴바 · 크롭 영역). R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
@@ -770,6 +782,10 @@
     },
     {
       "id": "/nodecanvas?project= panel.angle",
+      "board": {
+        "desktop": "3549:23843",
+        "mobile": "3549:23844"
+      },
       "base": "/nodecanvas?project=",
       "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0105",
       "description": "이미지 노드 메뉴(키보드 contextmenu) 「Camera angle」로 연 카메라 각도 모달(AngleModal — 아크볼 스테이지 · 방향 · 높이 · 거리 줄). 시드는 image-edit 와 같은 쇼케이스 이미지 노드다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",

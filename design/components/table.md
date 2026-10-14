@@ -31,7 +31,7 @@ Known deviations 첫 항목이 그 실측이다.
 | Surface       | 상태           | 근거                                                                                                          |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------- |
 | Web           | `partial`      | CSS 레시피 하나(`packages/css/src/component/table.css`, `@layer louis.component`)와 제품 소비처 2곳. **React 컴포넌트가 없다** — `packages/react/src/table` 디렉터리가 없고 `packages/react/src/index.ts` 에 export 0이다. acceptance test 는 행 hover 축 셋(10 · 11 · 17)만 `packages/css/test/table.browser.test.ts` 가 잰다. 셀 강조(`data-emphasis`)와 행 머리(`th scope="row"`)는 [Document](../patterns/document.md) 패턴이 문서 안의 표로 `packages/css/test/document.browser.test.ts` 에서 잰다(19 · 20). 셀 강조는 Figma 에 아직 없다. 문서용 규선 변형(`data-variant="ruled"`, 2026-09-21)은 2026-09-29 소유자 결정으로 걷어냈다 — 문서의 표도 이 표다 |
-| Figma         | `partial`      | TableHeaderCell(Align 3) · TableCell(Align × State = 6) · Table(조립 COMPONENT, 머리 행 + 몸 3행)              |
+| Figma         | `done`      | TableHeaderCell(Align 3) · TableCell(Align × State = 6) · Table(조립 COMPONENT, 머리 행 + 몸 3행) — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                                                                       |
 | Maturity      | `experimental` | 규범이 구현보다 늦게 선다 — CSS 가 먼저 있었고 이 문서가 그것을 사후에 규범화한다                             |
 

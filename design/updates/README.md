@@ -25,6 +25,17 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (271) — Figma done 열 더, Segmented Control xs 는 코드가 정본, Table 본문 칸 1px 판정 대기
+
+- **Segmented Control xs — 소유자 판정 「코드가 맞다」(2026-10-14).** Figma 의 xs 칸을 레시피에 맞췄다 — 트랙 여백 4 → 3 · 반경 12 → 10(변수
+  `radius/inspector-control` 에 묶음), 세그먼트 높이 28 → 22 · 반경 8 → 7, 트랙 안 인스턴스는 세로 채움. 계약이 xs 를 대조하고 기록 · 되재기에 xs 가 들어갔다.
+- **figma `partial` → `done` 열** — segmented-control · segmented-control-item · tabs · table · video-player · timeline · coverflow · node-shell · floating-shell · app-shell-parts.
+  기하 계약 · 레시피에서 잰 기록 · 되재기를 세우거나(tabs · table · video-player · node-shell 입력판 · floating-shell · 앱 셸 canvas 칸), 이미 있던 되재기가 기록을
+  직접 읽게 했다(timeline · coverflow). manifest done 57 → 67.
+- **판정 필요: Table 본문 칸 높이.** 코드는 행 구분선이 실제 테두리라 칸이 38(8 + 21 + 8 + 1, 마지막 행 37), Figma TableCell 은 구분선을 칸 안쪽에 그려 37 이다.
+  그 높이만 계약에서 빼고 사유를 table.md 에 적었다 — 코드의 선을 상자 밖으로 뺄지, Figma 아래 여백을 9 로 바꿀지.
+- 내용이나 소비처가 정하는 값(사이드바 워드마크 폭 · CTA 라벨 폭 · 비디오 판 크기)은 대조하지 않는다 — 시험이 자기가 넣은 수를 되읽는 것이 된다.
+
 ## 2026-10-14 (270) — 기하 계약을 넓히고 세워 Figma done 여덟, Segmented Control xs 의 코드 · Figma 불일치
 
 - **figma `partial` → `done` 여덟** — progress(ProgressRing `bipolar` 칸) · media-slot(`fill` 칸 넷, 높이는 폭 × 기록 비율) · color-swatch(Hover 다섯 · Active 셋) 는

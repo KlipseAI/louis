@@ -10,7 +10,7 @@ authority: normative
 
 | 항목 | 값 |
 | --- | --- |
-| Figma | `partial` — component set 발행됨 |
+| Figma | `done` — component set 발행됨 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | 코드 | 제품에 존재. LOUIS recipe 는 아직 없다 |
 
 ## 왜 있는가

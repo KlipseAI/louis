@@ -37,7 +37,7 @@ LOUIS `Slider` 가 아니라 이 컴포넌트의 부품이다 — 아래 「세�
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | `packages/css/src/component/video-player.css` 레시피와 실브라우저 시험 `packages/react/test/video-player-recipe.browser.test.tsx`(크롬 기하 · 상태 · 볼륨 · 홀로 선 칩 · YouTube 판 · 대비). **React 표면은 없다** — 행동은 제품 `VideoPlayer` 가 갖고 이 레시피의 클래스를 입는다. 2026-08-30 에 레시피가 없어 `not-ready` 로 내렸던 것을 레시피가 서서 다시 올렸다 |
-| Figma         | `partial`      | `MediaScrubber` 2 variant(State, ON_HOVER 프로토타입) · `VideoPlayer` 6 variant(Chrome × Tone × Platform — youtube 는 dark 에만, 2026-10-13) + BOOLEAN 슬롯 3 · INSTANCE_SWAP 1 · `VideoPlayerChip`(State × Standalone, 2026-10-13) · `VideoPlayerVolume`(Closed · Open · Muted, 2026-10-13). 유리 다섯에 흐림 `blur/media-control` 을 묶었다. 기존 변형의 확대 칩은 아직 새 칩 인스턴스가 아니다 |
+| Figma         | `done`      | `MediaScrubber` 2 variant(State, ON_HOVER 프로토타입) · `VideoPlayer` 6 variant(Chrome × Tone × Platform — youtube 는 dark 에만, 2026-10-13) + BOOLEAN 슬롯 3 · INSTANCE_SWAP 1 · `VideoPlayerChip`(State × Standalone, 2026-10-13) · `VideoPlayerVolume`(Closed · Open · Muted, 2026-10-13). 유리 다섯에 흐림 `blur/media-control` 을 묶었다. 기존 변형의 확대 칩은 아직 새 칩 인스턴스가 아니다 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 레시피 · Figma(볼륨 · 칩 hover · YouTube 판)는 섰고 React 표면이 아직이다 |
 

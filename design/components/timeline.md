@@ -69,7 +69,7 @@ summary: 화면 가운데 고정 재생헤드 아래로 트랙이 흐르는 편�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/timeline.css`(Timeline Ruler 포함) · 실브라우저 시험 `timeline.browser.test.tsx`. React 표면은 없다 — 스크롤 ↔ 시각 · 배율 · 끌기 · 자르기는 제품 컴포넌트가 갖는다(DS-D-0089) |
-| Figma         | `partial`      | 2026-10-14 — `TimelineClip`(Tone `video` · `caption` · `image` · `audio` × Selected `false` · `true` = 8, 코드 `data-tone` · `aria-pressed`), `TimelineTrimHandle`(Direction `prev` · `next` = 코드 `data-edge` start · end), `TimelineRuler`(Layout `base` · `compact`)와 시드 데이터 보드 `Timeline`(375 × 240, 재생헤드 0:04 — 레인 · 클립 자리는 데이터). 면 · 고리 · 괄호는 변수 `timeline/*` 넷, 길이는 Badge 인스턴스를 `media-badge` 변수로 덮었다. 예시 필름 타일 · 파형 봉우리는 자리표시다. 「+」 호버 · 스크롤 · 끌기는 그리지 않는다. 기록 `timeline-clip` · `timeline-trim-handle` · `timeline-ruler` · `timeline` 과 parity 기하 계약, 실브라우저 되재기(`timeline-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 |
+| Figma         | `done`      | 2026-10-14 — `TimelineClip`(Tone `video` · `caption` · `image` · `audio` × Selected `false` · `true` = 8, 코드 `data-tone` · `aria-pressed`), `TimelineTrimHandle`(Direction `prev` · `next` = 코드 `data-edge` start · end), `TimelineRuler`(Layout `base` · `compact`)와 시드 데이터 보드 `Timeline`(375 × 240, 재생헤드 0:04 — 레인 · 클립 자리는 데이터). 면 · 고리 · 괄호는 변수 `timeline/*` 넷, 길이는 Badge 인스턴스를 `media-badge` 변수로 덮었다. 예시 필름 타일 · 파형 봉우리는 자리표시다. 「+」 호버 · 스크롤 · 끌기는 그리지 않는다. 기록 `timeline-clip` · `timeline-trim-handle` · `timeline-ruler` · `timeline` 과 parity 기하 계약, 실브라우저 되재기(`timeline-geometry.browser.test.tsx`). 제품 렌더 대조는 없다 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

@@ -18,7 +18,7 @@ summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | 브랜드 행·CTA 포함. public export와 실브라우저 acceptance test 10건; 셸 composition은 없다. 상단 바 캔버스 판(`data-surface="canvas"`)은 CSS recipe만 섰다(2026-10-13) |
-| Figma         | `partial`      | component 둘 — SidebarNavItem 6 variant(State×Collapsed)와 AppTopBar. publish는 DS-F-008 |
+| Figma         | `done`      | component 둘 — SidebarNavItem 6 variant(State×Collapsed)와 AppTopBar. publish는 DS-F-008 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                     |
 

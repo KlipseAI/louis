@@ -20,7 +20,7 @@ summary: 한 줄에 놓인 두셋 중 하나를 고릅니다.
 | Surface       | 상태           | 근거                                                                                   |
 | ------------- | -------------- | -------------------------------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | 트랙 set 10 variant(Size: lg·md·sm·xs·settings × Disabled) · 세그먼트 set 20 variant(Size: lg·md·xs·settings × State 5 — 2026-10-06 Focus 를 걷었다, DS-D-0074). **세그먼트 쪽에 `sm`이 아직 없다** — 코드·CSS·브라우저 테스트에는 있고 Figma Item 에만 빠진 부채이며 verify-figma-parity 의 SegmentedControlItem 계약 주석이 그 사연을 갖는다. parity 게이트가 트랙은 lg·md·sm·xs·settings 다섯 칸, 세그먼트는 lg·md·xs·settings 네 칸의 기하를 Label까지 대조하며(xs 는 2026-10-14 소유자 판정 「코드가 정본」 뒤에 붙였다) raw fill·stroke 0이다. publish는 DS-F-008 |
+| Figma         | `done`      | 트랙 set 10 variant(Size: lg·md·sm·xs·settings × Disabled) · 세그먼트 set 20 variant(Size: lg·md·xs·settings × State 5 — 2026-10-06 Focus 를 걷었다, DS-D-0074). **세그먼트 쪽에 `sm`이 아직 없다** — 코드·CSS·브라우저 테스트에는 있고 Figma Item 에만 빠진 부채이며 verify-figma-parity 의 SegmentedControlItem 계약 주석이 그 사연을 갖는다. parity 게이트가 트랙은 lg·md·sm·xs·settings 다섯 칸, 세그먼트는 lg·md·xs·settings 네 칸의 기하를 Label까지 대조하며(xs 는 2026-10-14 소유자 판정 「코드가 정본」 뒤에 붙였다) raw fill·stroke 0이다. publish는 DS-F-008 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                                                |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                             |
 

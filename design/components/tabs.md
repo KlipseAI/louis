@@ -32,7 +32,7 @@ summary: 같은 화면 안에서 보이는 뷰를 바꿉니다.
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | CSS 레시피 `packages/css/src/component/tabs.css`. **React 표면이 없다** — `packages/react/src/`에 `tabs` 디렉터리가 없고 public export도 acceptance test도 없다. 제품 `design` 브랜치 4파일이 이 클래스를 소비한다 |
-| Figma         | `partial`      | TabItem(State 4개) · Tabs(`Variant` = `default` · `underline`, 2026-10-08). 둘 다 parity 계약(`scripts/verify-figma-parity.mjs`)에 등재돼 있고 게이트가 돈다 — **다만 기하 대조가 없다**. 아래 Known deviations |
+| Figma         | `done`      | TabItem(State 4개) · Tabs(`Variant` = `default` · `underline`, 2026-10-08). 둘 다 parity 계약(`scripts/verify-figma-parity.mjs`)에 등재돼 있고 게이트가 돈다 — **다만 기하 대조가 없다**. 아래 Known deviations — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범이 구현보다 뒤에 선다. React 표면과 parity 기하 대조가 서야 승격한다 |
 

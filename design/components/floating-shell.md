@@ -44,7 +44,7 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe(`packages/css/src/component/floating-shell.css`)가 섰다 — 셸 · 알약 · 툴 버튼(`__item[data-variant="ghost"]`) · 구분선(`__divider`). React 표면은 없고 제품은 아직 물지 않았다 — `Toolbar.tsx` · `index.tsx` 의 `TOOLBAR_WRAP` 과 `CanvasZoomControl.tsx` 의 `ZOOM_LABEL_BUTTON` 이 여전히 그리고 있다 |
-| Figma         | `partial`      | FloatingShell 2 variant(`Size` = `md` · `lg`, `lg` 가 compact) · PillTrigger 3 variant(State). 흐림 4 가 변수에 묶이지 않고 구분선·배지가 빠져 있다 |
+| Figma         | `done`      | FloatingShell 2 variant(`Size` = `md` · `lg`, `lg` 가 compact) · PillTrigger 3 variant(State). 흐림 4 가 변수에 묶이지 않고 구분선·배지가 빠져 있다 — 2026-10-14 기하 계약 · 실측 · 되재기로 done(DS-D-0035) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 계획서가 제안한 네 축 중 하나도 열지 않았고 그 이유가 전부 실측이다 |
 

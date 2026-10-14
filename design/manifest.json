@@ -2046,7 +2046,8 @@
         "design/components/node-handle-tile.md",
         "design/components/copy-panel.md",
         "design/components/section-shell.md",
-        "design/components/brand-bar.md"
+        "design/components/brand-bar.md",
+        "design/components/comment-thread.md"
       ]
     },
     {
@@ -2209,7 +2210,8 @@
         "design/updates/README.md",
         "design/governance/decisions/DS-D-0110-copy-panel.md",
         "design/governance/decisions/DS-D-0111-section-shell.md",
-        "design/governance/decisions/DS-D-0112-brand-bar.md"
+        "design/governance/decisions/DS-D-0112-brand-bar.md",
+        "design/governance/decisions/DS-D-0113-comment-thread.md"
       ]
     },
     {
@@ -2576,6 +2578,24 @@
       "id": "brand-bar",
       "path": "design/components/brand-bar.md",
       "title": "Brand Bar",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-comment-thread",
+      "path": "design/governance/decisions/DS-D-0113-comment-thread.md",
+      "title": "DS-D-0113 블로그 댓글을 새 부품 comment-thread 로 수렴한다 — 입력은 Text Field, 오류는 Form Message, 제출은 Button, 레시피는 묶음과 한 줄만",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "comment-thread",
+      "path": "design/components/comment-thread.md",
+      "title": "Comment Thread",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3684,6 +3704,22 @@
       "maturity": "experimental",
       "figma": "done",
       "figmaName": "BrandBar",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "comment-thread",
+      "name": "Comment Thread",
+      "doc": "design/components/comment-thread.md",
+      "note": "글 아래 댓글 묶음 — 제목 · 쓰기 폼 · 댓글 목록 · 빈 줄(DS-D-0113). 블로그 BlogComments(components/blog/BlogComments.tsx)를 수렴했다 — 입력은 Text Field lg, 오류는 Form Message error, 제출은 Button primary, 삭제는 Bare Button 이고 레시피(packages/css/src/component/comment-thread.css)는 묶음의 흐름과 댓글 한 줄만 갖는다. 날짜 · 빈 줄 40% → fg-tertiary, 삭제 red-500 → fg-danger-on-surface 로 대비를 고쳤다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. figma 는 2026-10-15 에 done 이다 — 컴포넌트 넷 · parity 기하 계약 · 실측 기록 · 브라우저 되재기가 DS-D-0035 를 채운다(verify-figma-done).",
+      "maturity": "experimental",
+      "figma": "done",
+      "figmaNames": [
+        "CommentThread",
+        "CommentForm",
+        "CommentItem",
+        "CommentEmpty"
+      ],
       "web": "partial",
       "docs": "done"
     }

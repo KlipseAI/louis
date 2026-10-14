@@ -6138,6 +6138,169 @@
 }
 
 @layer louis.component {
+  /* Comment Thread — design/components/comment-thread.md
+   *
+   * 글 아래 댓글 묶음 — 제목, 쓰기 폼, 댓글 목록 · 빈 줄(DS-D-0113). 제품 정본은 블로그 글의 `components/blog/BlogComments.tsx`
+   * (통합 판 `54b62a8aa`)의 `COMMENT_*` 상수다.
+   *
+   * **짓기가 아니라 수렴이다.** 이름 입력 · 본문은 [Text Field](text-field.md)(lg, 본문은 여러 줄 판 — 첨부 · 툴바 없이), 오류는
+   * [Form Message](form-message.md) error, 제출은 [Button](button.md) primary 다. 제품의 자기 테두리 · 포커스 색 두 벌을 걷는다.
+   * 레시피가 갖는 것은 묶음의 흐름(폼 면 · 목록 줄 · 빈 줄)과 댓글 한 줄의 조판뿐이다.
+   *
+   * **고쳐 올린 값**(DS-D-0084 3항) — 날짜 · 빈 줄 잉크 40% → `fg-tertiary`(라이트 2.4 대 → 6 대), 삭제 `accent-red-500`(라이트 3.3) →
+   * `fg-danger-on-surface`, 삭제 누름 자리 22 → 24. 폼 면은 Copy Panel 과 같은 면 사다리로 접는다(반경 14 → 16 · 안쪽 18 → 20 · 사이 10 → 12). */
+
+  .louis-comment-thread {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    margin: 0;
+  }
+
+  /* 제목 — 「댓글 N」. 아래 20(제품 `mb-10`). */
+  .louis-comment-thread__title {
+    margin: 0 0 var(--louis-space-media-inset);
+    color: var(--louis-color-fg-primary);
+    font-family: var(--louis-typography-body-lg-semibold-font-family);
+    font-size: var(--louis-typography-body-lg-semibold-font-size);
+    font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+    line-height: var(--louis-typography-body-lg-semibold-line-height);
+    letter-spacing: var(--louis-typography-body-lg-semibold-letter-spacing);
+  }
+
+  /* 쓰기 폼 — 랜딩 면 사다리(Copy Panel 과 같다). 아래 24(제품 `mb-14` 28 을 접음). */
+  .louis-comment-thread__form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--louis-space-stack-md);
+    margin: 0 0 var(--louis-space-layout-section);
+    padding: var(--louis-space-media-inset);
+    border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-08);
+    border-radius: var(--louis-radius-overlay);
+    background: var(--louis-color-landing-panel);
+  }
+
+  /* 이름 — 줄 전체가 아니라 240 까지(제품 `self-start w-[min(240px,100%)]`). */
+  .louis-comment-thread__name {
+    align-self: flex-start;
+    inline-size: min(240px, 100%);
+  }
+
+  /* 본문 — 세 줄 자리(96)에서 시작해 세로로만 늘린다(제품 `min-h-48 resize-y`). */
+  .louis-comment-thread__body .louis-text-field__control {
+    min-block-size: 96px;
+    resize: vertical;
+  }
+
+  .louis-comment-thread__form-foot {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .louis-comment-thread__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* 댓글 한 줄 — 위 헤어라인 · 위아래 16(제품 `py-9` 18 을 접음). */
+  .louis-comment-thread__item {
+    padding-block: var(--louis-space-control-lg);
+    border-block-start: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-08);
+  }
+
+  /* 머리 — 작성자 · 날짜 · (삭제). 사이 8 · 아래 4(제품 `gap-5 mb-3` 10 · 6 을 접음). */
+  .louis-comment-thread__item-head {
+    display: flex;
+    align-items: center;
+    gap: var(--louis-space-control-sm);
+    min-inline-size: 0;
+    margin-block-end: var(--louis-space-stack-xs);
+  }
+
+  .louis-comment-thread__author {
+    min-inline-size: 0;
+    overflow: hidden;
+    color: var(--louis-color-fg-primary);
+    font-family: var(--louis-typography-body-sm-medium-font-family);
+    font-size: var(--louis-typography-body-sm-medium-font-size);
+    font-weight: var(--louis-typography-body-sm-medium-font-weight);
+    line-height: var(--louis-typography-body-sm-medium-line-height);
+    letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .louis-comment-thread__date {
+    flex: none;
+    color: var(--louis-color-fg-tertiary);
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* 삭제(관리자) — 오른쪽 끝의 글자 버튼. Bare Button 위에 잉크 · 크기만 얹는다. 누름 자리 24(WCAG 2.5.8). */
+  .louis-comment-thread__delete {
+    flex: none;
+    min-block-size: var(--louis-layout-control-height-sm);
+    margin-inline-start: auto;
+    padding-inline: var(--louis-space-control-xs);
+    color: var(--louis-color-fg-danger-on-surface);
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+    cursor: pointer;
+  }
+
+  .louis-comment-thread__delete:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  /* 본문 — 줄바꿈 · 공백 그대로(제품 `whitespace-pre-wrap`). */
+  .louis-comment-thread__content {
+    margin: 0;
+    color: var(--louis-color-landing-text-soft);
+    font-family: var(--louis-typography-body-md-regular-font-family);
+    font-size: var(--louis-typography-body-md-regular-font-size);
+    font-weight: var(--louis-typography-body-md-regular-font-weight);
+    line-height: var(--louis-typography-body-md-regular-line-height);
+    letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* 빈 줄 — 첫 댓글을 부른다. 위 헤어라인 · 위아래 24 · 가운데(제품 `py-12`). */
+  .louis-comment-thread__empty {
+    padding-block: var(--louis-space-layout-section);
+    border-block-start: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-08);
+    color: var(--louis-color-fg-tertiary);
+    font-family: var(--louis-typography-body-sm-regular-font-family);
+    font-size: var(--louis-typography-body-sm-regular-font-size);
+    font-weight: var(--louis-typography-body-sm-regular-font-weight);
+    line-height: var(--louis-typography-body-sm-regular-line-height);
+    letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+    text-align: center;
+  }
+
+  /* forced-colors — 4% 폼 면이 사라져도 테두리가 상자를 남긴다. */
+  @media (forced-colors: active) {
+    .louis-comment-thread__form {
+      border-color: CanvasText;
+    }
+  }
+}
+
+@layer louis.component {
   /* Content Card — design/components/content-card.md
    *
    * 커버 그림과 그 **밖**의 제목 · 설명을 통째로 누르는 링크 카드(DS-D-0084, DS-D-0088). 제품 정본은 통합 판 `54b62a8aa` 의

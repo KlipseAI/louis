@@ -15326,6 +15326,243 @@
       "strokes": {},
       "effects": {}
     },
+    "CommentEmpty": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Text": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Text": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "paddingBlock": [
+            25
+          ],
+          "paddingBlockEnd": [
+            24
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
+    },
+    "CommentForm": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Error": {
+          "type": "BOOLEAN"
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Name": {
+              "width": [
+                240
+              ]
+            }
+          },
+          "paddingBlock": [
+            21
+          ],
+          "paddingInline": [
+            21
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
+    },
+    "CommentItem": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Deletable": {
+          "type": "BOOLEAN"
+        },
+        "Author": {
+          "type": "TEXT"
+        },
+        "Date": {
+          "type": "TEXT"
+        },
+        "Content": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Meta": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Author": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Date": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Delete": {
+              "height": [
+                24
+              ],
+              "paddingInline": [
+                4
+              ]
+            },
+            "Content": {
+              "fontSize": [
+                16
+              ]
+            }
+          },
+          "paddingBlock": [
+            17
+          ],
+          "paddingBlockEnd": [
+            16
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
+    },
+    "CommentThread": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "TitleRow": {
+              "paddingBlockEnd": [
+                20
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                20
+              ]
+            },
+            "FormRow": {
+              "paddingBlockEnd": [
+                24
+              ]
+            }
+          },
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "CompositePopover": {
       "variantCount": 1,
       "hasDescription": true,

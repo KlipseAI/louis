@@ -6309,6 +6309,115 @@ const COMPONENT_CONTRACTS = [
       },
     },
   },
+  {
+    id: "comment-thread",
+    figmaName: "CommentThread",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/comment-thread.css 가 정본이다(2026-10-15, DS-D-0113). 720 폭은 블로그 글 칼럼의 표본이다. CSS 의 margin(제목 아래 20 · 폼 아래 24)은 Figma 에 없어 TitleRow · FormRow 의 아래 패딩으로 그린다. 폼 · 댓글 줄은 CommentForm · CommentItem 인스턴스라 각자의 계약이 갖는다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Title: { type: "TEXT", reason: "「댓글 N」 — 코드에서 `__title` 의 글자다." },
+    },
+    geometry: {
+      measuredId: "comment-thread",
+      sizeKeys: ["base"],
+      fields: { layoutMode: { literal: "VERTICAL" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        TitleRow: { fields: { paddingBlockEnd: "titleGap" } },
+        Title: { fields: { fontSize: "titleFontSize" } },
+        FormRow: { fields: { paddingBlockEnd: "formGap" } },
+      },
+    },
+  },
+  {
+    id: "comment-thread",
+    figmaName: "CommentForm",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/comment-thread.css 의 `__form` 이 정본이다(2026-10-15, DS-D-0113). 입력은 TextField lg 인스턴스(이름 base · 본문 multiline 의 첨부 · 툴바 끔), 오류 FormMessage error, 제출 Button primary lg 다 — 각자의 계약이 갖는다. 라벨은 코드에서 시각적으로 감춘 `<label>` 이라 Figma 에서는 끈다.",
+    variantProperties: {},
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    effects: {},
+    figmaOnlyProperties: {
+      Error: { type: "BOOLEAN", reason: "오류 — 코드는 Form Message error 요소의 유무로 말한다." },
+    },
+    geometry: {
+      measuredId: "comment-thread-form",
+      sizeKeys: ["base"],
+      fields: {
+        paddingBlock: ["padding", "borderWidth"],
+        paddingInline: ["padding", "borderWidth"],
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Name: { fields: { width: "nameWidth" } },
+      },
+    },
+  },
+  {
+    id: "comment-thread",
+    figmaName: "CommentItem",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/comment-thread.css 의 `__item` 이 정본이다(2026-10-15, DS-D-0113). 위 헤어라인은 CSS border-top 1, Figma 위 변만 INSIDE 획 1(strokesIncludedInLayout false) — Figma 위 패딩 = CSS 16 + 1. 삭제의 `margin-inline-start: auto` 는 Head 의 SPACE_BETWEEN(Meta · Delete)으로 그린다.",
+    variantProperties: {},
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    effects: {},
+    figmaOnlyProperties: {
+      Deletable: { type: "BOOLEAN", reason: "관리자에게만 서는 삭제 — 코드는 `__delete` 요소의 유무로 말한다." },
+      Author: { type: "TEXT", reason: "작성자 — 코드에서 `__author` 의 글자다." },
+      Date: { type: "TEXT", reason: "날짜 — 코드에서 `__date` 의 글자다." },
+      Content: { type: "TEXT", reason: "본문 — 코드에서 `__content` 의 글자다." },
+    },
+    geometry: {
+      measuredId: "comment-thread-item",
+      sizeKeys: ["base"],
+      fields: {
+        paddingBlock: ["paddingBlock", "borderWidth"],
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: { literal: 0 },
+        itemSpacing: "headGap",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Meta: { fields: { itemSpacing: "metaGap" } },
+        Author: { fields: { fontSize: "authorFontSize" } },
+        Date: { fields: { fontSize: "dateFontSize" } },
+        Delete: { fields: { height: "deleteHeight", paddingInline: "deletePaddingInline" } },
+        Content: { fields: { fontSize: "contentFontSize" } },
+      },
+    },
+  },
+  {
+    id: "comment-thread",
+    figmaName: "CommentEmpty",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/comment-thread.css 의 `__empty` 가 정본이다(2026-10-15, DS-D-0113). 위 헤어라인은 위 변만 INSIDE 획 1 — Figma 위 패딩 = CSS 24 + 1.",
+    variantProperties: {},
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    effects: {},
+    figmaOnlyProperties: {
+      Text: { type: "TEXT", reason: "빈 줄 문구 — 코드에서 `__empty` 의 글자다." },
+    },
+    geometry: {
+      measuredId: "comment-thread-empty",
+      sizeKeys: ["base"],
+      fields: {
+        paddingBlock: ["paddingBlock", "borderWidth"],
+        paddingBlockEnd: "paddingBlock",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Text: { fields: { fontSize: "fontSize" } },
+      },
+    },
+  },
 ];
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와

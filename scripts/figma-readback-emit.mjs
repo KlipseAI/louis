@@ -496,6 +496,14 @@ const CAPTURE = {
   "SectionShell": {"key":{"by":["Viewport","Bleed"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"parts":{"Content":["maxWidth"]}},
   // Brand Bar(2026-10-15, DS-D-0112). 막대 사이 16, 락업 자리 높이 28 · 반경 8, 링크 묶음 가로 24 · 세로(줄바꿈) 8. 링크는 TextLink 인스턴스라 훑기가 들어가지 않는다. 1240 폭과 락업 그림(워드마크 + Deck)은 표본이다.
   "BrandBar": {"key":{"name":"base"},"fields":["itemSpacing","layoutMode"],"parts":{"Brand":["height","cornerRadius"],"Links":["itemSpacing","counterAxisSpacing","layoutMode"]}},
+  // Comment Thread(2026-10-15, DS-D-0113). 묶음 — 제목 아래 20 · 폼 아래 24(CSS margin 을 줄 프레임의 아래 패딩으로 그린다). 폼 · 댓글 줄은 인스턴스라 각자의 세트가 갖는다.
+  "CommentThread": {"key":{"name":"base"},"fields":["layoutMode"],"parts":{"TitleRow":["paddingBlockEnd"],"FormRow":["paddingBlockEnd"],"Title":["fontSize"]}},
+  // 폼 면 — 안쪽 21 = CSS 20 + 테두리 1(§10) · 사이 12 · 반경 16 · 선 1, 이름 TextField 폭 240. 입력 · 오류 · 제출은 인스턴스다.
+  "CommentForm": {"key":{"name":"base"},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Name":["width"]},"strokes":["self"]},
+  // 댓글 한 줄 — 위 17 = CSS 16 + 위 선 1(§10) · 아래 16 · 머리 아래 4, 작성자 · 날짜 사이 8, 삭제 높이 24 · 좌우 4.
+  "CommentItem": {"key":{"name":"base"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","itemSpacing","layoutMode","strokeWeight"],"parts":{"Meta":["itemSpacing"],"Delete":["height","paddingInline"],"Author":["fontSize"],"Date":["fontSize"],"Content":["fontSize"]},"strokes":["self"]},
+  // 빈 줄 — 위 25 = CSS 24 + 위 선 1 · 아래 24.
+  "CommentEmpty": {"key":{"name":"base"},"fields":["paddingBlock","paddingBlockEnd","layoutMode","strokeWeight"],"parts":{"Text":["fontSize"]},"strokes":["self"]},
 };
 
 function usage(message) {

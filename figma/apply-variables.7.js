@@ -1,5 +1,5 @@
 // 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.
-// use_figma에 그대로 넘긴다. 7/11 — Klipse Semantic 3/3 (변수 22개).
+// use_figma에 그대로 넘긴다. 7/12 — Klipse Semantic 3/3 (변수 22개).
 // **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.
 // idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.
 const NAME={"space-20":"Klipse Primitive::spacing/20","space-2":"Klipse Primitive::spacing/2","font-size-body-sm":"Klipse Primitive::font-size/body-sm","font-size-body-md":"Klipse Primitive::font-size/body-md","font-size-body-lg":"Klipse Primitive::font-size/body-lg","font-size-caption":"Klipse Primitive::font-size/caption","font-size-heading-sm":"Klipse Primitive::font-size/heading-sm","font-size-heading-md":"Klipse Primitive::font-size/heading-md","font-size-heading-lg":"Klipse Primitive::font-size/heading-lg","line-height-percent-150":"Klipse Primitive::line-height/percent-150","line-height-percent-135":"Klipse Primitive::line-height/percent-135","line-height-percent-120":"Klipse Primitive::line-height/percent-120","font-weight-medium":"Klipse Primitive::font-weight/medium","font-weight-regular":"Klipse Primitive::font-weight/regular","font-weight-semibold":"Klipse Primitive::font-weight/semibold"};

@@ -104,7 +104,8 @@ test("sm 칩은 16 · 반경 4 이고 칠은 소비처 값이다", async () => {
   expect(rect.height).toBe(16);
   const style = getComputedStyle(chip);
   expect(px(style.borderTopLeftRadius)).toBe(4);
-  expect(parseColor(style.backgroundColor).slice(0, 3)).toEqual([0, 0, 0]);
+  // 칠은 값 한 겹 + 체크무늬(DS-D-0097) — 값이 위 겹이다.
+  expect(style.backgroundImage).toMatch(/^linear-gradient\(rgb\(0, 0, 0\), rgb\(0, 0, 0\)\), repeating-conic-gradient/);
   expect(px(getComputedStyle(find("sm")).columnGap)).toBe(6);
 });
 

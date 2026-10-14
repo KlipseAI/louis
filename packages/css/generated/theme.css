@@ -254,6 +254,14 @@
   --color-segment-track-clip: var(--louis-color-segment-track-clip);
   --color-segment-track-clip-hover: var(--louis-color-segment-track-clip-hover);
   --color-segment-track-clip-stroke: var(--louis-color-segment-track-clip-stroke);
+  --color-spectrum-black: var(--louis-color-spectrum-black);
+  --color-spectrum-blue: var(--louis-color-spectrum-blue);
+  --color-spectrum-cyan: var(--louis-color-spectrum-cyan);
+  --color-spectrum-green: var(--louis-color-spectrum-green);
+  --color-spectrum-magenta: var(--louis-color-spectrum-magenta);
+  --color-spectrum-red: var(--louis-color-spectrum-red);
+  --color-spectrum-white: var(--louis-color-spectrum-white);
+  --color-spectrum-yellow: var(--louis-color-spectrum-yellow);
   --color-stroke-control: var(--louis-color-stroke-control);
   --color-stroke-danger: var(--louis-color-stroke-danger);
   --color-stroke-default: var(--louis-color-stroke-default);

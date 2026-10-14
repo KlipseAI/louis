@@ -588,6 +588,28 @@
       }
     },
     {
+      "name": "eyedropper",
+      "symbol": "IconEyedropper",
+      "figmaName": "icon/eyedropper",
+      "source": "packages/react/src/icons/svg/eyedropper.svg",
+      "geometryHash": "44cfdd8661044330",
+      "elementCount": 2,
+      "keywords": [
+        "eyedropper",
+        "picker",
+        "color",
+        "스포이드",
+        "색 집기",
+        "색 추출",
+        "컬러 피커"
+      ],
+      "provenance": {
+        "origin": "upstream",
+        "set": "phosphor",
+        "icon": "eyedropper"
+      }
+    },
+    {
       "name": "fade-curve",
       "symbol": "IconFadeCurve",
       "figmaName": "icon/fade-curve",

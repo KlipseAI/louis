@@ -15,6 +15,8 @@
   /* 크기 · 반경 — 크기 축만 바꾼다. 32 · 8 — 제품 `w-16 h-16 rounded-8`(CTM:309). */
   --louis-color-swatch-size: 32px;
   --louis-color-swatch-radius: var(--louis-radius-control-sm);
+  /* 체크무늬 — 알파가 있는 값 아래(color-picker 칸과 같은 타일, DS-D-0097). 불투명 값과 네이티브 견본은 덮어서 보이지 않는다. */
+  --louis-color-swatch-checker: repeating-conic-gradient(var(--louis-color-gray-000-alpha-16) 0 25%, transparent 0 50%) 0 0 / 8px 8px;
 
   display: inline-flex;
   align-items: center;
@@ -71,12 +73,40 @@
   padding: 0;
   border: var(--louis-border-width-default) solid var(--louis-color-stroke-strong);
   border-radius: var(--louis-color-swatch-radius);
-  background: var(--louis-color-swatch-value);
+  /* 값 한 겹 + 체크무늬(제품 색 팝오버 트리거 `ColorPopover.tsx:41` · `:86`). */
+  background:
+    linear-gradient(var(--louis-color-swatch-value), var(--louis-color-swatch-value)),
+    var(--louis-color-swatch-checker);
   color: var(--louis-color-fg-tertiary);
+  forced-color-adjust: none;
 }
 
 .louis-color-swatch__chip:is(input, button) {
   cursor: pointer;
+}
+
+/* 누르는 칩 — Color Picker 를 여는 트리거(ColorPopover.tsx:42-45). 호버 테두리 · 누름 0.96. 제품 120ms 는 컨트롤 호버 토큰으로. */
+.louis-color-swatch__chip:is(button) {
+  transition-property: border-color, scale;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+@media (hover: hover) {
+  /* `fg-tertiary` — `stroke-strong` 에서 한 칸 진하게(면 위 6.05 · 5.25). 제품은 라이트에서 덮개에 져 서지 않았다. */
+  .louis-color-swatch__chip:is(button, input):where(:not(:disabled)):hover {
+    border-color: var(--louis-color-fg-tertiary);
+  }
+}
+
+.louis-color-swatch__chip:is(button):where(:not(:disabled)):active {
+  scale: 0.96;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-color-swatch__chip:is(button) {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
 }
 
 /* 브라우저 기본 견본 틀(안쪽 여백 · 회색 테두리)을 걷어 칩 전체가 값으로 칠해지게 한다. 제품은 걷지 않았다 — 「제품에서 발견한 것」. */

@@ -428,6 +428,15 @@
       "generated": false
     },
     {
+      "id": "decision-color-picker",
+      "path": "design/governance/decisions/DS-D-0097-color-picker.md",
+      "title": "DS-D-0097 색 하나를 채도 · 밝기 면, 색조 · 불투명도 띠, 헥스 입력, 페이지 색 격자로 고르는 판을 새 부품 color-picker 로 — 면은 Popover, 슬라이더의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1923,6 +1932,7 @@
         "design/components/chat-panel.md",
         "design/components/command-palette.md",
         "design/components/date-picker.md",
+        "design/components/color-picker.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -2011,6 +2021,7 @@
         "design/governance/decisions/DS-D-0094-chat-panel.md",
         "design/governance/decisions/DS-D-0095-command-palette.md",
         "design/governance/decisions/DS-D-0096-date-picker.md",
+        "design/governance/decisions/DS-D-0097-color-picker.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2273,6 +2284,15 @@
       "id": "date-picker",
       "path": "design/components/date-picker.md",
       "title": "Date Picker",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "color-picker",
+      "path": "design/components/color-picker.md",
+      "title": "Color Picker",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3276,6 +3296,20 @@
         "DatePickerCell",
         "DatePickerCalendar",
         "DatePickerTime"
+      ]
+    },
+    {
+      "id": "color-picker",
+      "name": "Color Picker",
+      "doc": "design/components/color-picker.md",
+      "note": "색 하나를 고르는 판(DS-D-0097, DS-D-0084). 영상 편집기 인스펙터 색 팝오버 ColorPopover 의 상수 열여덟을 한 레시피(packages/css/src/component/color-picker.css)로 옮겼다 — 면이 없는 내용 부품이고 면은 .louis-popover 다. 머리(닫기 Icon Button sm ghost) · 채도 · 밝기 면(256 × 220 · 반경 10 · 지금 색조 위 흰 · 검정 겹, 표식 14) · 색조 · 불투명도 띠(네이티브 range, 12 알약 · 손잡이 14 · 정지점을 손잡이 반지름만큼 당김) · 입력 줄(스포이드 28 + icon/eyedropper · 헥스 · 불투명도 64, 높이 28 알약 · 사이 6) · 「이 페이지에서」 격자(28 칸 여섯 열 양 끝 정렬 · 체크무늬 · 경계 stroke-strong · 지금 값 aria-pressed 링). 색 공간은 새 시맨틱 color-spectrum-* 여덟(원시 color-pure-* 여섯, 두 테마 같은 값)이고 그라디언트는 in srgb 보간. 값(색조 · 지금 색 · 채도 · 밝기 · 불투명도)은 소비처가 루트 변수로 준다 — 색 변환 · 끌기 · 2차원 면 키보드는 소비처. Slider 의 변형이 아니고, 섹션 노드 팔레트는 canvas-section 의 몫(DS-D-0093 판정 11). 트리거는 Color Swatch sm <button> 칩(체크무늬 · 호버 · 누름). 고쳐 올린 값 — 라벨 · 퍼센트 접미 3.19 · 2.93 → fg-tertiary, 칸 경계 1.88 · 1.31 → stroke-strong, 표식 헤어라인 2.23 → 56%. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 ColorPickerOption 세트(Selected — 코드 aria-pressed, 체크무늬 · 펼침 그림자 링)와 판 ColorPicker(BOOLEAN Eyedropper · Swatches, TEXT Label · Hex · Alpha — 면 그라디언트 · 색조 띠 정지점이 color/spectrum-* 에 묶임, 시드 FF0000 60%), 예시 보드 하나(인스펙터 팝오버 268 × 426, 면 bg-menu · 안쪽 6)로 섰다 — 닫기는 IconButton ghost sm + icon/x, 스포이드는 icon/eyedropper 인스턴스. 원시 칠 0. 기록 color-picker · color-picker-option 과 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "ColorPicker",
+        "ColorPickerOption"
       ]
     },
     {

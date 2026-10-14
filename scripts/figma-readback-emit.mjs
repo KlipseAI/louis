@@ -357,6 +357,11 @@ const CAPTURE = {
   "DatePickerCalendar": {"key":{"by":["Layout"]},"fields":["itemSpacing","layoutMode"],"parts":{"Header":["height","itemSpacing"],"Grid":["paddingTop","itemSpacing"],"Weekdays":["paddingBottom","itemSpacing"],"Footer":["paddingTop"]}},
   // 시각 세 열 — 폭 240, 열 사이 8, 열 안 머리 18 → 우물 4, 시 열 높이 218(18 + 4 + 196), 우물 안쪽 2 · 사이 4 · 반경 control(12). 항목은 칸 인스턴스다 — 우물이 자르는 구르는 목록이라 항목(Option)이 프레임 밖으로 이어지는 것이 의도다(outsideParts).
   "DatePickerTime": {"key":{"name":"base"},"fields":["width","itemSpacing","layoutMode"],"parts":{"Hour":["height","itemSpacing"],"ColumnLabel":["height"],"Listbox":["paddingBlock","paddingInline","itemSpacing","cornerRadius"]},"outsideParts":["Option"]},
+  // Color Picker(2026-10-14, DS-D-0097). 칸 하나 — 28 · 반경 4 · 경계 stroke-strong 1. 고른 칸(aria-pressed)의 링은 펼침 그림자라 기하가 같다.
+  "ColorPickerOption": {"key":{"by":["Selected"]},"fields":["width","height","cornerRadius"]},
+  // 판 — 폭 256 · 칸 사이 12, 면 220 · 반경 10, 띠 사이 8 · 띠 요소 14 · 띠 12, 입력 줄 사이 6 · 28 알약(스포이드 28 · 헥스 좌우 10 · 불투명도 64 좌우 8), 라벨 + 격자 사이 12.
+  // 면 표식(Thumb)은 채도 · 밝기 1 · 1 에서 면 모서리에 중심이 서 반이 판 밖으로 나간다 — 코드가 자르지 않는 것이 의도라(제품 overflow-hidden 이 결함) outsideParts 다.
+  "ColorPicker": {"key":{"name":"base"},"fields":["width","itemSpacing","layoutMode"],"parts":{"Area":["height","cornerRadius"],"Channels":["itemSpacing"],"Hue":["height"],"Alpha":["height"],"Track":["height"],"Thumb":["width","height"],"Fields":["itemSpacing"],"Tool":["width","height"],"Hex":["height","paddingInline"],"AlphaField":["width","height","paddingInline"],"Swatches":["itemSpacing"]},"outsideParts":["Thumb"]},
   // Chat Panel(2026-10-14, DS-D-0094). 셸 — 알약(Expanded=false: 높이 40 · 안 0 · 반경 12) ↔ 창(Expanded=true: 560 · 안 8 · 반경 22). 머리 높이 40 → 48 · 안 0 16 → 8 · 사이 8,
   // 글리프 18(아이콘 인스턴스), 제목 14. 폭은 제목(알약) · 창 크기 변수(데이터)라 담지 않는다. 빛 · 고리는 Glow · Ring 층이라 계약 밖 — 시험이 코드를 잰다.
   "ChatPanel": {"key":{"by":["Expanded","State"]},"fields":["height","paddingBlock","paddingInline","cornerRadius","layoutMode"],"parts":{"Header":["height","paddingBlock","paddingInline","itemSpacing"],"Glyph":["width","height"],"Title":["fontSize"]}},

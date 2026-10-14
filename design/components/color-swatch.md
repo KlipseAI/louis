@@ -11,6 +11,7 @@ summary: 색 값 하나를 칩으로 보이고, 누르면 고르게 합니다.
 누르면 브라우저 색 고르개가 열리고(`<input type="color">`), 읽기 전용이면 값만 보인다.
 값 옆에 헥스를 적어 고치게 하려면 [Text Field](text-field.md) md 를 칩 옆에 끼운다.
 팔레트에서 미리 정한 색 중 하나를 고르는 것은 이 부품이 아니다 — 그것은 고르기 컨트롤이다.
+sm `<button>` 칩은 [Color Picker](color-picker.md) 판을 여는 트리거다(DS-D-0097).
 
 제품 정본은 두 화면의 사본 셋이다(통합 판 `54b62a8aa`) — 어드민 자막 템플릿 모달의 필드 옆 32 칩(`CaptionTemplateManagement.tsx:296-316`)과
 표 칸 16 칩(`CaptionTemplateManagement.tsx:940-944`), 하이라이트 숏츠 편집 모달 자막 색 패널의 라벨 위 30 칩 · 빈 칸 · 지우기
@@ -50,7 +51,8 @@ summary: 색 값 하나를 칩으로 보이고, 누르면 고르게 합니다.
 | 부분 | 값 |
 | --- | --- |
 | 칩 md(기본) | 32 × 32 · 반경 8(`radius-control-sm`) · 테두리 1 `stroke-strong` · 안쪽 0. 브라우저 견본 틀(안쪽 여백 · 회색 선)을 걷는다 |
-| 칩 sm | 16 × 16 · 반경 4 — 읽기 전용(`<span>`, 칠은 `--louis-color-swatch-value`) |
+| 칩 sm | 16 × 16 · 반경 4 — 읽기 전용(`<span>`) 또는 Color Picker 를 여는 `<button>`(`aria-haspopup="dialog"` · `aria-expanded`). 칠은 `--louis-color-swatch-value` |
+| 체크무늬 | 칩 칠 아래 8 칸 타일(잉크 16% · 투명) — 알파가 있는 값이 비친다. 불투명 값은 덮어서 보이지 않는다 |
 | 한 줄 | 칩 ↔ 헥스 필드 · 값 글자 사이 6. 헥스 필드는 Text Field md(32)라 칩과 높이가 같다 |
 | stack | 라벨 위 칩 · 사이 4 · 최소 폭 44. 라벨 caption regular `fg-tertiary` |
 | 빈 칸 | 점선 · 투명 면 · `icon/plus` 16 `fg-tertiary` |
@@ -72,7 +74,7 @@ summary: 색 값 하나를 칩으로 보이고, 누르면 고르게 합니다.
 
 | 이름 | 값 | 뜻 |
 | --- | --- | --- |
-| 루트 `data-size` | 없음 · `md`(기본 32) · `sm`(16, 읽기 전용) | 칩 크기 |
+| 루트 `data-size` | 없음 · `md`(기본 32) · `sm`(16, 읽기 전용 또는 판 트리거) | 칩 크기 |
 | 루트 `data-layout` | 없음(한 줄) · `stack`(라벨 위) | 배치 |
 | 칩 `data-empty` | `true` | 점선 + 더하기. 누르면 소비처가 기본 색을 넣는다 |
 | `--louis-color-swatch-value` | 색 | 읽기 전용 칩의 칠 |
@@ -85,6 +87,9 @@ summary: 색 값 하나를 칩으로 보이고, 누르면 고르게 합니다.
 | 값 있음 | 칩 전체가 값으로 칠해지고 `stroke-strong` 선이 두른다 |
 | 빈 칸 | 점선 · 가운데 더하기 |
 | 지우기 있음 | 칩 오른쪽 위 모서리에 16 원이 걸친다 |
+| 반투명 값 | 칩 아래 체크무늬가 비친다 |
+| hover(누르는 칩) | 테두리 `stroke-strong` → `fg-tertiary`(호버 기기만) |
+| active(`<button>` 칩) | 0.96 배. 줄인 모션에서는 전환 0 |
 
 ## Content
 
@@ -104,6 +109,7 @@ summary: 색 값 하나를 칩으로 보이고, 누르면 고르게 합니다.
 `packages/react/test/color-swatch.browser.test.tsx` 가 클래스 마크업을 실브라우저로 렌더해 잰다 — md 칩 32 · 반경 8 · 테두리 1 · 안쪽 0 과
 헥스 필드 높이 · 사이 6, sm 16 · 반경 4 · 소비처 칠, stack 의 라벨 아래 4 · 최소 폭 44, 지우기 16 원 · 모서리 밖 6 · 누르는 자리 24
 (원 밖 3px 은 받고 5px 은 받지 않는다), 빈 칸 점선 · 더하기 16, 두 테마의 칩 경계 3:1 · 라벨 · 지우기 글리프 4.5:1.
+판 트리거(sm `<button>` 칩의 체크무늬 · 호버 테두리 · 누름 0.96)는 `color-picker.browser.test.tsx` 가 잰다.
 
 ## Known deviations
 

@@ -7258,6 +7258,66 @@
         }
       }
     },
+    "color-picker": {
+      "$doc": "design/components/color-picker.md",
+      "$source": "packages/css/src/component/color-picker.css — 2026-10-14 DS-D-0097",
+      "$note": "Color Picker 판(`.louis-color-picker`). 축이 없어 키는 base. 면 표식은 채도 · 밝기 자리의 데이터라 계약이 아니다. color-picker-geometry.browser.test.tsx 가 되잰다. 약칭 CP = components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "base": {
+          "width": 256,
+          "$width": "판 256. `--louis-color-picker-inline-size: 256px` — 제품 CP:252 `w-[268px]` − 면 안쪽 6 × 2.",
+          "gap": 12,
+          "$gap": "space-control-md 12. 루트 `gap` — 제품 CP:252 `gap-6`.",
+          "areaHeight": 220,
+          "$areaHeight": "면 높이 220. `__area { block-size: 220px }` — 제품 CP:423 `PICKER_SIZE`. 폭은 판을 채운다(DS-D-0097 판정 4 — 제품은 220 정사각이 왼쪽에 붙어 오른쪽 36 이 비었다).",
+          "areaRadius": 10,
+          "$areaRadius": "radius-overlay-item 10. `__area { border-radius }` — 제품 CP:280 `rounded-10`.",
+          "channelGap": 8,
+          "$channelGap": "space-control-sm 8. `__channels { gap }` — 제품 CP:301-303 `gap-4`.",
+          "channelHeight": 14,
+          "$channelHeight": "띠 요소 14 = 손잡이. `__channel { block-size: var(--louis-color-picker-thumb-size) }` — 네이티브 range 의 요소 높이.",
+          "trackHeight": 12,
+          "$trackHeight": "띠 12. `--louis-color-picker-track-size: 12px`(runnable-track) — 제품 CP:306 · :311 `h-6`.",
+          "thumbSize": 14,
+          "$thumbSize": "손잡이 · 표식 14. `--louis-color-picker-thumb-size: 14px` — 제품 CP:294 · :315 `w-7 h-7`.",
+          "fieldGap": 6,
+          "$fieldGap": "6. `__fields { gap: 6px }` — 제품 CP:322 `gap-3`(color-swatch 의 6 과 같은 처리).",
+          "controlHeight": 28,
+          "$controlHeight": "layout-inspector-control-height 28. 스포이드 · 헥스 · 불투명도 칸의 block-size — 제품 CP:324 · :343 · :356 `h-14`.",
+          "hexPaddingInline": 10,
+          "$hexPaddingInline": "10. `__field { padding-inline: 10px }` — 제품 CP:346 `px-5`.",
+          "alphaWidth": 64,
+          "$alphaWidth": "64. `__field[data-field=\"alpha\"] { inline-size: 64px }` — 제품 CP:357 `w-32`.",
+          "alphaPaddingInline": 8,
+          "$alphaPaddingInline": "space-control-sm 8. 알파 칸 `padding-inline` — 제품 CP:357 `pl-4`(오른쪽 `pr-13` 26 은 absolute 접미 자리였다 — 접미를 흐름 안에 두어 8 로 맞췄다).",
+          "swatchesGap": 12,
+          "$swatchesGap": "12. 라벨 → 격자 = 루트 `gap` 12(Figma 는 라벨 + 격자를 Swatches 묶음으로 숨기려고 한 틀에 담아 같은 12 를 그 틀의 사이로 둔다)."
+        }
+      }
+    },
+    "color-picker-option": {
+      "$doc": "design/components/color-picker.md",
+      "$source": "packages/css/src/component/color-picker.css — 2026-10-14 DS-D-0097",
+      "$note": "Color Picker 격자의 칸 하나(`__option`). 키는 Figma ColorPickerOption 의 Selected — 고른 칸(aria-pressed)은 펼침 그림자 링만 더해 기하가 같다. color-picker-geometry.browser.test.tsx 가 되잰다. 약칭 CP = components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "false": {
+          "width": 28,
+          "$width": "칸 28. `--louis-color-picker-option-size: 28px`(`__option` 의 inline-size) — 제품 CP:391 `w-14`(단위당 2px).",
+          "height": 28,
+          "$height": "칸 28. `--louis-color-picker-option-size`(`__option` 의 block-size) — 제품 CP:391 `h-14`.",
+          "radius": 4,
+          "$radius": "4. `__option { border-radius: 4px }` — 제품 CP:392 `rounded-4`. 사다리의 4 는 표 머리 이름이라 리터럴이다(color-swatch sm 과 같은 값)."
+        },
+        "true": {
+          "width": 28,
+          "$width": "칸 28. `--louis-color-picker-option-size: 28px`(`__option` 의 inline-size) — 제품 CP:391 `w-14`(단위당 2px).",
+          "height": 28,
+          "$height": "칸 28. `--louis-color-picker-option-size`(`__option` 의 block-size) — 제품 CP:391 `h-14`.",
+          "radius": 4,
+          "$radius": "4. `__option { border-radius: 4px }` — 제품 CP:392 `rounded-4`. 사다리의 4 는 표 머리 이름이라 리터럴이다(color-swatch sm 과 같은 값)."
+        }
+      }
+    },
     "chat-panel": {
       "$doc": "design/components/chat-panel.md",
       "$source": "packages/css/src/component/chat-panel.css — 2026-10-14 DS-D-0094",
@@ -7617,7 +7677,9 @@
     "command-palette-empty": "위(command-palette)와 같은 이유다.",
     "date-picker-cell": "제품 렌더 하네스가 이 조형에 닿지 못한다. 예약 날짜 · 시각 팝오버는 노드 캔버스(로그인 뒤 /create)에 유튜브 노드를 놓고 예약을 켠 뒤 트리거를 눌러야 열리고, measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스인데 components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 YoutubeSchedulePickers.tsx 를 소스로 등록하고 DAY_BTN_BASE · TIME_COL_SCROLL · TIME_OPTION_BASE 탐침을 세우면 이 면제를 지운다.",
     "date-picker-calendar": "위(date-picker-cell)와 같은 이유다.",
-    "date-picker-time": "위(date-picker-cell)와 같은 이유다."
+    "date-picker-time": "위(date-picker-cell)와 같은 이유다.",
+    "color-picker": "제품 렌더 하네스가 이 조형에 닿지 못한다. 색 팝오버는 영상 편집 모달(노드 캔버스의 영상 노드 → 편집, 로그인 뒤 /create)에서 오버레이를 고르고 인스펙터의 색 칩을 눌러야 열리고, measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스인데 components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 게다가 제품은 아직 이 레시피를 물지 않아 면 220 정사각 같은 제품 값이 LOUIS 값(256 × 220)과 다르다 — 대조할 것은 이관 뒤의 렌더다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 ColorPopover.tsx 를 소스로 등록하고 판 · 면 · 칸 탐침을 세우면 이 면제를 지운다.",
+    "color-picker-option": "위(color-picker)와 같은 이유다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

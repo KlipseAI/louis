@@ -25,6 +25,32 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (263) — 색 하나를 채도 · 밝기 면, 색조 · 불투명도 띠, 헥스 입력, 페이지 색 격자로 고르는 판을 새 부품 `color-picker` 로, Color Swatch 에 판 트리거 변형(DS-D-0097, DS-D-0084)
+
+- **새 부품 `color-picker`.** 영상 편집기 인스펙터의 색 팝오버(`ColorPopover`)의 상수 열여덟을 한 레시피로 옮겼다(`.louis-color-picker` · `__head` · `__area` ·
+  `__area-thumb` · `__channels` · `__channel` · `__fields` · `__tool` · `__field` · `__input` · `__suffix` · `__label` · `__swatches` · `__option`).
+  **면이 없는 내용 부품**이고 면은 `.louis-popover`(안쪽 6, 바깥 268)다. 판 256 · 칸 사이 12 — 머리(닫기 Icon Button sm ghost) · 채도 · 밝기 면 256 × 220 · 반경 10
+  (지금 색조 위 흰 · 검정 겹, 표식 14) · 색조 · 불투명도 띠(네이티브 range, 띠 12 알약 · 손잡이 14 · 사이 8) · 입력 줄(스포이드 28 + `icon/eyedropper` · 헥스 ·
+  불투명도 64, 높이 28 알약 · 사이 6) · 「이 페이지에서」 격자(28 칸 여섯 열 양 끝 정렬 · 체크무늬 · 경계 `stroke-strong` · 지금 값 `aria-pressed` 링). Slider 의 변형이 아니다.
+- **값은 소비처가 준다** — 루트 변수 `--louis-color-picker-hue` · `-color` · `-saturation` · `-brightness` · `-alpha`, 칸마다 `-option-value`. 색 변환 · 끌기 ·
+  2차원 면 키보드(`role="slider"` + `aria-valuetext`, 방향키 계약은 문서) · 열고 닫기는 소비처. 숫자 z-index 없음 — 겹은 overlay branch.
+- **새 토큰 여덟 — 시맨틱 `color-spectrum-red` · `-yellow` · `-green` · `-cyan` · `-blue` · `-magenta` · `-white` · `-black`**(두 테마 같은 값, 데이터 색).
+  원시는 `color-pure-*` 여섯을 새로 두고 흰 · 검정은 `static.white` · `static.black` 을 가리킨다. 색 공간을 그리는 그라디언트는 `in srgb` 보간이다
+  (`color(srgb …)` 토큰이 섞이면 기본 보간이 oklab 이 된다).
+- **새 아이콘 `eyedropper`**(Phosphor) — 키워드 · 출처 · 고지문.
+- **Color Swatch 에 판 트리거 변형.** 칩 칠 아래 체크무늬(잉크 16% · 투명, 8 칸), `<button>` 칩 호버 테두리 `fg-tertiary`(호버 기기만) · 누름 0.96. 불투명 값 칩의
+  모양은 그대로다. B2 의 `color-picker__swatch` 는 세우지 않았다.
+- **섹션 노드 팔레트는 이 부품이 아니다** — DS-D-0093 판정 11 대로 Canvas Section 의 짝 블록이다(초안의 `data-variant="palette"` 는 세우지 않았다).
+- **고쳐 올린 값(DS-D-0084 3항)** — 라벨 · `%` `gray-500` 88%(3.19 · 2.93) → `fg-tertiary`, 칸 경계 1.88 · 1.31 → `stroke-strong`, 표식 헤어라인 32%(흰 바닥 2.23) → 56%,
+  흰 겹 `#fafafa` → FFFFFF, 표식이 면 가장자리에서 잘리던 것, 격자 칸이 1fr 열 안에서 왼쪽에 붙던 것.
+- **보이는 변화(제품이 클래스를 물 때)** — 면이 내용 폭을 채움(오른쪽 36 사라짐), 라벨 · `%` · 칸 테두리가 진해짐, 칸 아래 체크무늬, 칸 호버가 들림 → 1.08 배, 닫기 글리프
+  12 → 16, 띠 손잡이 중심이 7 ~ 폭−7.
+- 소유자 판정 열둘은 초안의 기본값으로 — DS-D-0097 표(판정 10 만 앞선 결정을 따랐다). 실브라우저 시험 `color-picker.browser.test.tsx`(면 픽셀 · 색조 띠 sRGB 보간 포함).
+- **Figma** — 새 변수 열넷(Klipse Primitive `color/pure/*` 여섯 · Semantic Color `color/spectrum-*` 여덟, 두 모드 같은 별칭), 아이콘 `icon/eyedropper`(DS · Icons).
+  세트 `ColorPickerOption`(Selected — 코드 `aria-pressed`, 체크무늬 · 펼침 그림자 링) · 판 `ColorPicker`(BOOLEAN `Eyedropper` · `Swatches`, TEXT `Label` · `Hex` · `Alpha`,
+  면 그라디언트 · 색조 띠 정지점을 `color/spectrum-*` 에 묶음), 예시 보드 「인스펙터 팝오버」(268 × 426). 원시 칠 0. 되읽기 명세 둘 · parity 기하 계약 둘 · 기록
+  `color-picker` · `color-picker-option`(`$noProductRender` 사유), 되재기 `color-picker-geometry.browser.test.tsx`. figma `partial`(제품 렌더 대조 전).
+
 ## 2026-10-14 (262) — 날짜는 달력에서, 시각은 세 열에서 고르는 칸들을 새 부품 `date-picker` 로(DS-D-0096, DS-D-0084)
 
 - **새 부품 `date-picker`.** 캔버스 유튜브 노드 예약 팝오버(`YoutubeSchedulePickers`)의 상수 서른과 게시 흐름 인라인 달력(`PublishFlow`)의 상수 열을 한 레시피로

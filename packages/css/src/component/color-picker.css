@@ -1,0 +1,441 @@
+/* Color Picker — design/components/color-picker.md
+ *
+ * 색 하나를 HSV 로 고르는 판(DS-D-0084 · DS-D-0097). 제품 정본은 영상 편집기의 색 팝오버
+ * `components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx:243-404`(통합 판 `54b62a8aa`)다.
+ * 섹션 노드의 프리셋 팔레트는 이 부품이 아니다 — canvas-section 의 짝 블록이다(DS-D-0093 판정 11).
+ *
+ * **면은 이 부품이 아니다.** 바깥 면(배경 · 반경 · 그림자 · 안쪽 6)은 `.louis-popover` 가 소유하고, 이 블록은 그 안의 내용이다
+ * (menu-popover.md 「표면은 공유하고 안은 각자」). 겹 순서도 overlay 의 것이다 — 숫자 z-index 를 쓰지 않는다.
+ *
+ * **색 공간은 데이터 색이다.** 면 · 띠의 무지개 · 흰 · 검정은 테마를 따르지 않는 `color-spectrum-*` 토큰이고, 지금 색조 · 지금 색은
+ * 소비처가 변수로 준다. 토큰이 `color(srgb …)` 라 그라디언트 기본 보간이 oklab 이 된다 — 색 공간을 그리는 띠는 모두 `in srgb` 를 적어
+ * HSV 의 선형 보간과 같게 한다.
+ *
+ * **색조 · 알파 띠는 네이티브 `<input type="range">` 다**(slider.css 머리말과 같은 이유 — 키보드 · role · 터치 · RTL 이 브라우저 몫).
+ * 2차원 면만 `role="slider"` div 이고 키보드 · `aria-valuetext` 는 소비처다(slider ruler 변형과 같은 경계). */
+
+.louis-color-picker {
+  /* ── 소비처가 주는 값(데이터) ── 기본값은 CSS 만 실은 정적 마크업(Figma 캡처 fixture)에서도 판이 깨지지 않게 하는 자리다. */
+  /* 지금 색조의 순색(채도 1 · 밝기 1). 면의 바탕 · 색조 손잡이 칠. 제품 `--hue-color`(ColorPopover.tsx:620). */
+  --louis-color-picker-hue: var(--louis-color-spectrum-red);
+  /* 지금 색(불투명). 면 표식 칠 · 알파 띠의 끝 색. 제품 `#${hex}` · `--current-color`(:665 · :700). */
+  --louis-color-picker-color: var(--louis-color-spectrum-white);
+  /* 채도 · 밝기 0~1 — 면 표식의 자리. */
+  --louis-color-picker-saturation: 0;
+  --louis-color-picker-brightness: 1;
+  /* 알파 0~1 — 알파 손잡이의 칠. 손잡이 자리는 range 의 value 가 정한다. */
+  --louis-color-picker-alpha: 1;
+  /* 색 칸 하나의 칠 — 칸마다 인라인으로 덮는다. */
+  --louis-color-picker-option-value: transparent;
+
+  /* ── 레시피 내부 ── */
+  /* 256 — 제품 면 268(`w-[268px]`, :252) − 안쪽 6 × 2. 판의 폭이 곧 면의 폭을 정한다. */
+  --louis-color-picker-inline-size: 256px;
+  /* 고른 칸 링 안쪽 틈 — 놓인 면과 같아야 한다. 캔버스 범위는 아래 블록이 덮는다. */
+  --louis-color-picker-surface: var(--louis-color-bg-menu);
+  /* 체크무늬 — 알파가 있는 값 아래에 깐다. 8 칸 · 4 사각, 테마 잉크 16% 와 투명(DS-D-0097 판정 7). 제품 conic 꼴(:312)을 그대로 쓴다. */
+  --louis-color-picker-checker: repeating-conic-gradient(var(--louis-color-gray-000-alpha-16) 0 25%, transparent 0 50%) 0 0 / 8px 8px;
+  /* 손잡이 — 14 원 · 흰 고리 2 · 바깥 검정 56% 헤어라인 + 그림자. 사진 위 잉크처럼 두 테마 같다(media 색). */
+  --louis-color-picker-thumb-size: 14px;
+  --louis-color-picker-thumb-half: 7px;
+  --louis-color-picker-thumb-ring: var(--louis-color-media-foreground-dark);
+  /* 56% — 제품 32%(:297)는 흰 바닥에서 2.23. 56% 면 4.89(#fafafa) · 4.94(#fff). */
+  --louis-color-picker-thumb-halo: color-mix(in srgb, var(--louis-color-media-scrim-dark) 56%, transparent);
+  --louis-color-picker-thumb-shadow: color-mix(in srgb, var(--louis-color-media-scrim-dark) 24%, transparent);
+  /* 띠 높이 12 — 제품 `h-6`(:306 · :311). */
+  --louis-color-picker-track-size: 12px;
+  /* 띠 — 정지점을 손잡이 반지름만큼 안으로 당긴다. 네이티브 range 의 손잡이 중심은 7 ~ 폭−7 을 가므로, 그래야 손잡이 아래 색이 곧 값이다. */
+  --louis-color-picker-hue-track: linear-gradient(
+    to right in srgb,
+    var(--louis-color-spectrum-red) var(--louis-color-picker-thumb-half),
+    var(--louis-color-spectrum-yellow) calc(var(--louis-color-picker-thumb-half) + (100% - var(--louis-color-picker-thumb-size))/6),
+    var(--louis-color-spectrum-green) calc(var(--louis-color-picker-thumb-half) + (100% - var(--louis-color-picker-thumb-size))/3),
+    var(--louis-color-spectrum-cyan) calc(var(--louis-color-picker-thumb-half) + (100% - var(--louis-color-picker-thumb-size))/2),
+    var(--louis-color-spectrum-blue) calc(var(--louis-color-picker-thumb-half) + (100% - var(--louis-color-picker-thumb-size))*2/3),
+    var(--louis-color-spectrum-magenta) calc(var(--louis-color-picker-thumb-half) + (100% - var(--louis-color-picker-thumb-size))*5/6),
+    var(--louis-color-spectrum-red) calc(100% - var(--louis-color-picker-thumb-half))
+  );
+  --louis-color-picker-alpha-track: linear-gradient(
+      to right in srgb,
+      transparent var(--louis-color-picker-thumb-half),
+      var(--louis-color-picker-color) calc(100% - var(--louis-color-picker-thumb-half))
+    ),
+    var(--louis-color-picker-checker);
+  /* 칸 28 · 여섯 열(제품 `w-14` · `repeat(6,1fr)`, :389-392). */
+  --louis-color-picker-option-size: 28px;
+  --louis-color-picker-columns: 6;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* 12 — 제품 `gap-6`(:252). */
+  gap: var(--louis-space-control-md);
+  inline-size: var(--louis-color-picker-inline-size);
+  max-inline-size: 100%;
+  color: var(--louis-color-fg-primary);
+}
+
+/* 캔버스 안에서 열면 면이 `canvas-menu-surface` 다(menu-popover.css 의 캔버스 범위와 같다). 고른 칸 링 틈이 그 면을 따라간다. */
+:where([data-louis-scope="canvas"]) .louis-color-picker {
+  --louis-color-picker-surface: var(--louis-color-canvas-menu-surface);
+}
+
+/* ── 머리 — 닫기 하나 ────────────────────────────────────────────────────────
+ * 닫기는 `.louis-icon-button[data-size="sm"][data-variant="ghost"]`(24 · 글리프 16)를 그대로 끼운다. 제품 24 · 반경 6 · 글리프 12(:265 · :813). */
+.louis-color-picker__head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ── 채도 · 밝기 면 ─────────────────────────────────────────────────────────
+ * 가로 = 채도(왼 0 → 오 1), 세로 = 밝기(위 1 → 아래 0). 바탕은 지금 색조, 그 위에 흰 → 투명(가로) · 검정 → 투명(세로) 두 겹.
+ * **좌표는 물리(left · top)다** — 색 공간의 지도라 쓰기 방향이 바뀌어도 뒤집지 않는다(slider ruler 와 같은 판정).
+ * 제품의 `overflow-hidden`(:280)은 쓰지 않는다 — 표식이 가장자리에서 잘렸다. 겹은 배경이라 반경이 그대로 깎는다. */
+.louis-color-picker__area {
+  position: relative;
+  box-sizing: border-box;
+  /* 220 — 제품 `PICKER_SIZE`(:423). 폭은 내용 폭을 채운다(DS-D-0097 판정 4). */
+  block-size: 220px;
+  /* 10 — 제품 `rounded-10`(:280). 면 반경 16 − 안쪽 6 과 같은 값이라 overlay 항목 반경이 맞는 이름이다. */
+  border-radius: var(--louis-radius-overlay-item);
+  background:
+    linear-gradient(to top in srgb, var(--louis-color-spectrum-black), transparent),
+    linear-gradient(to right in srgb, var(--louis-color-spectrum-white), transparent),
+    var(--louis-color-picker-hue);
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+  /* 데이터 색이다 — 강제 색이 바탕을 덮으면 고를 것이 사라진다. */
+  forced-color-adjust: none;
+}
+
+.louis-color-picker__area-thumb {
+  position: absolute;
+  left: calc(var(--louis-color-picker-saturation)*100%);
+  top: calc((1 - var(--louis-color-picker-brightness))*100%);
+  box-sizing: border-box;
+  inline-size: var(--louis-color-picker-thumb-size);
+  block-size: var(--louis-color-picker-thumb-size);
+  translate: -50% -50%;
+  border: var(--louis-border-width-ring) solid var(--louis-color-picker-thumb-ring);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-picker-color);
+  /* 제품 `0 0 0 1px …/32%, 0 1px 4px …/24%`(:297). 헤어라인만 56% 로 올렸다. */
+  box-shadow:
+    0 0 0 var(--louis-border-width-default) var(--louis-color-picker-thumb-halo),
+    0 1px 4px var(--louis-color-picker-thumb-shadow);
+  pointer-events: none;
+}
+
+/* ── 색조 · 알파 띠 ─────────────────────────────────────────────────────────
+ * 네이티브 range. 요소 높이는 손잡이 14, 띠는 그 안의 12 알약. 사이 8(제품 `gap-4`, :301-303).
+ * WebKit 과 Firefox 의 pseudo 를 나란히 적되 선택자를 합치지 않는다(slider.css 머리말 — 모르는 pseudo 가 섞이면 규칙 전체가 버려진다). */
+.louis-color-picker__channels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+}
+
+.louis-color-picker__channel {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: var(--louis-color-picker-thumb-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+  forced-color-adjust: none;
+}
+
+.louis-color-picker__channel::-webkit-slider-runnable-track {
+  block-size: var(--louis-color-picker-track-size);
+  border-radius: var(--louis-radius-pill);
+}
+
+.louis-color-picker__channel::-moz-range-track {
+  block-size: var(--louis-color-picker-track-size);
+  border-radius: var(--louis-radius-pill);
+}
+
+.louis-color-picker__channel[data-channel="hue"]::-webkit-slider-runnable-track {
+  background: var(--louis-color-picker-hue-track);
+}
+
+.louis-color-picker__channel[data-channel="hue"]::-moz-range-track {
+  background: var(--louis-color-picker-hue-track);
+}
+
+.louis-color-picker__channel[data-channel="alpha"]::-webkit-slider-runnable-track {
+  background: var(--louis-color-picker-alpha-track);
+}
+
+.louis-color-picker__channel[data-channel="alpha"]::-moz-range-track {
+  background: var(--louis-color-picker-alpha-track);
+}
+
+/* 손잡이 — 면 표식과 같은 모양. WebKit 은 손잡이를 띠 위 가장자리에 붙이므로 (12 − 14) / 2 만큼 올린다(slider.css 와 같은 계산). */
+.louis-color-picker__channel::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  inline-size: var(--louis-color-picker-thumb-size);
+  block-size: var(--louis-color-picker-thumb-size);
+  margin-block-start: calc((var(--louis-color-picker-track-size) - var(--louis-color-picker-thumb-size)) / 2);
+  border: var(--louis-border-width-ring) solid var(--louis-color-picker-thumb-ring);
+  border-radius: var(--louis-radius-pill);
+  box-shadow:
+    0 0 0 var(--louis-border-width-default) var(--louis-color-picker-thumb-halo),
+    0 1px 3px var(--louis-color-picker-thumb-shadow);
+}
+
+.louis-color-picker__channel::-moz-range-thumb {
+  box-sizing: border-box;
+  inline-size: var(--louis-color-picker-thumb-size);
+  block-size: var(--louis-color-picker-thumb-size);
+  border: var(--louis-border-width-ring) solid var(--louis-color-picker-thumb-ring);
+  border-radius: var(--louis-radius-pill);
+  box-shadow:
+    0 0 0 var(--louis-border-width-default) var(--louis-color-picker-thumb-halo),
+    0 1px 3px var(--louis-color-picker-thumb-shadow);
+}
+
+.louis-color-picker__channel[data-channel="hue"]::-webkit-slider-thumb {
+  background: var(--louis-color-picker-hue);
+}
+
+.louis-color-picker__channel[data-channel="hue"]::-moz-range-thumb {
+  background: var(--louis-color-picker-hue);
+}
+
+/* 알파 손잡이 — 지금 색에 알파를 곱한 칠(제품 `rgba(…, alpha)`, :709). 밑에 깔린 띠가 비친다. */
+.louis-color-picker__channel[data-channel="alpha"]::-webkit-slider-thumb {
+  background: color-mix(in srgb, var(--louis-color-picker-color) calc(var(--louis-color-picker-alpha)*100%), transparent);
+}
+
+.louis-color-picker__channel[data-channel="alpha"]::-moz-range-thumb {
+  background: color-mix(in srgb, var(--louis-color-picker-color) calc(var(--louis-color-picker-alpha)*100%), transparent);
+}
+
+/* ── 입력 줄 — 스포이드 · 헥스 · 알파 ────────────────────────────────────────
+ * 높이 28 = `layout-inspector-control-height`(이 팝오버가 열리는 인스펙터 줄의 컨트롤 높이와 같다). 반경은 알약 — 제품은
+ * `var(--node-input-radius,16px)` 이 포털 밖에서 폴백 16 이 되어 28 에서 알약으로 그려졌다. */
+.louis-color-picker__fields {
+  display: flex;
+  align-items: center;
+  /* 6 — 제품 `gap-3`(:322). color-swatch 의 6 과 같은 처리로 8 에 접지 않는다. */
+  gap: 6px;
+}
+
+/* 스포이드 — 28 원. 면 4% · 잉크 secondary, 호버 8% · primary(제품 80% · 100% 잉크, :327-331). */
+.louis-color-picker__tool {
+  box-sizing: border-box;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: var(--louis-layout-inspector-control-height);
+  block-size: var(--louis-layout-inspector-control-height);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-fg-secondary);
+  cursor: pointer;
+  /* 제품 120ms ease(:329). 컨트롤 호버 토큰을 읽는다. */
+  transition-property: background-color, color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 16 — 제품 15(:801)를 아이콘 사다리 sm 으로 접는다. 글리프는 `icon/eyedropper`. */
+.louis-color-picker__tool > :where(svg) {
+  display: block;
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+}
+
+/* 입력 칸 — 헥스는 남는 폭을 먹고, 알파는 64 고정. 면 4% → 입력 중 8%(제품은 라이트에서 이 상태가 덮개에 져서 안 섰다, :13-21). */
+.louis-color-picker__field {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  min-inline-size: 0;
+  block-size: var(--louis-layout-inspector-control-height);
+  /* 10 — 제품 `px-5`(:346). 간격 사다리(8 · 12)에 없다. */
+  padding-inline: 10px;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-fg-primary);
+  cursor: text;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  transition-property: background-color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-color-picker__field:focus-within {
+  background: var(--louis-color-gray-000-alpha-08);
+}
+
+/* 알파 — 64 × 28 · 좌우 8(제품 `w-32 pl-4`, :357). 접미는 흐름 안에 둔다 — 제품의 absolute + 오른 26(:357 · :374)과 같은 자리(오른 8 · 입력 끝과 8). */
+.louis-color-picker__field[data-field="alpha"] {
+  flex: none;
+  inline-size: 64px;
+  padding-inline: var(--louis-space-control-sm);
+}
+
+.louis-color-picker__input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  font-variant-numeric: tabular-nums;
+  /* 강제 색의 링은 칸이 그린다(아래). base.css 의 링이 글자 둘레에 또 뜨면 두 겹이 된다 — text-field.css 와 같은 처리. */
+  outline: none;
+}
+
+/* 헥스 — 대문자 · 자간 0.04em(제품 `tracking-[0.04em] uppercase`, :349). 여섯 글자의 자리를 고르게 벌리는 값이라 caption 자간을 덮는다. */
+.louis-color-picker__field[data-field="hex"] .louis-color-picker__input {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.louis-color-picker__field[data-field="alpha"] .louis-color-picker__input {
+  text-align: end;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.louis-color-picker__input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.louis-color-picker__input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* `%` — 제품 `gray-500` 88%(:375)는 입력 면 위 2.93 · 3.14. `fg-tertiary` 4.74 · 5.54. */
+.louis-color-picker__suffix {
+  flex: none;
+  color: var(--louis-color-fg-tertiary);
+  pointer-events: none;
+}
+
+/* ── 「이 페이지에서」 격자 ──────────────────────────────────────────────────── */
+/* 라벨 — 제품 `gray-500` 88%(:382)는 3.19 · 3.37. `fg-tertiary` 5.25 · 6.05. */
+.louis-color-picker__label {
+  margin: 0;
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 칸 폭이 고정이고 열 사이가 남는 폭을 나눠 갖는다 — 제품 `repeat(6,1fr)` 의 1fr 열 안에서 28 칸이 왼쪽에 붙어 마지막 칸 뒤 10 이 비던 것을
+ * 양 끝 정렬로 바로잡는다(칸 사이 15.67 → 17.6). */
+.louis-color-picker__swatches {
+  display: grid;
+  grid-template-columns: repeat(var(--louis-color-picker-columns), var(--louis-color-picker-option-size));
+  justify-content: space-between;
+  /* 6 — 제품 `gap-3`(:389). 줄 사이다. */
+  gap: 6px;
+  user-select: none;
+}
+
+/* 칸 — 값 아래 체크무늬, 경계 `stroke-strong`(값과 무관하게 3:1 — color-swatch 와 같은 판정). */
+.louis-color-picker__option {
+  box-sizing: border-box;
+  display: block;
+  inline-size: var(--louis-color-picker-option-size);
+  block-size: var(--louis-color-picker-option-size);
+  margin: 0;
+  padding: 0;
+  border: var(--louis-border-width-default) solid var(--louis-color-stroke-strong);
+  /* 4 — 제품 `rounded-4`(:392). 사다리의 4 는 표 머리 이름이라 리터럴이다(color-swatch sm 과 같은 값). */
+  border-radius: 4px;
+  background:
+    linear-gradient(var(--louis-color-picker-option-value), var(--louis-color-picker-option-value)),
+    var(--louis-color-picker-checker);
+  cursor: pointer;
+  forced-color-adjust: none;
+  /* 제품 translateY(−1) 120ms(:395-396)를 canvas-section 팔레트 칸과 같은 1.08 배로(DS-D-0097 판정 9). */
+  transition-property: scale;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 칸 확대는 호버 기기이면서 줄인 모션이 아닐 때만 — 줄인 모션에서는 크기가 변하지 않는다. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .louis-color-picker__option:where(:not(:disabled)):hover {
+    scale: 1.08;
+  }
+}
+
+@media (hover: hover) {
+  .louis-color-picker__tool:where(:not(:disabled)):hover {
+    background: var(--louis-color-gray-000-alpha-08);
+    color: var(--louis-color-fg-primary);
+  }
+}
+
+/* 지금 값과 같은 칸 — 면색 틈 1 + 주색 2(canvas-section 팔레트의 고른 칸과 같은 링). 주색 대비 bg-menu 라이트 3.17 · 다크 4.90 · 캔버스 흰 면 3.52. */
+.louis-color-picker__option[aria-pressed="true"] {
+  box-shadow:
+    0 0 0 var(--louis-border-width-default) var(--louis-color-picker-surface),
+    0 0 0 calc(var(--louis-border-width-default) + var(--louis-border-width-ring)) var(--louis-color-accent-primary);
+}
+
+/* ── 줄인 모션 ── */
+@media (prefers-reduced-motion: reduce) {
+  .louis-color-picker__option,
+  .louis-color-picker__tool,
+  .louis-color-picker__field {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* ── 강제 색 ── 데이터 색(면 · 띠 · 칸)은 `forced-color-adjust: none` 으로 그대로 두고, 경계와 입력 칸만 시스템 색 실선으로 되살린다. */
+@media (forced-colors: active) {
+  .louis-color-picker__area,
+  .louis-color-picker__option {
+    outline: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  .louis-color-picker__option[aria-pressed="true"] {
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: var(--louis-border-width-default);
+  }
+
+  .louis-color-picker__field,
+  .louis-color-picker__tool {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  .louis-color-picker__field:focus-within {
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: 2px;
+  }
+}

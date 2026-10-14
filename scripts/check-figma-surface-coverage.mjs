@@ -136,7 +136,9 @@ const UNCLASSIFIED_BASELINE = 0;
 // Dialog compare · 어드민 서브탭 ← Tabs bar · 스티커 팔레트 ← AssetTile · 유튜브 미리보기 플레이어 ← VideoPlayer youtube).
 // 같은 날 뒤: 170 → 173 — DS-D-0098 첫 화면 셋(영상 편집 목록 · 캔버스 홈 · 단체 구매 완료, 아래 MAPPED_SCREEN_BASELINE).
 // 같은 날 뒤: 173 → 174 — PricingSection(/pricing, 랜딩 늘림 수정 run 2026-10-14a 뒤 모바일 실패 0).
-const MAPPED_BASELINE = 174;
+// 같은 날 뒤: 174 → 179 — 노드캔버스 노드 카드 나머지 다섯(TtsNode · BgmNode · EditNode · YoutubeNode · InstagramNode)이 제품 세트
+// `Product/Canvas TTS · BGM · Edit · YouTube · Instagram Node` 가 됐다(아래 MAPPED_PRODUCT_BASELINE). 세션 원장의 두 번째 노드캔버스 프로젝트에서 잰다.
+const MAPPED_BASELINE = 179;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 const MAPPED_COMPONENT_BASELINE = 124;
@@ -158,7 +160,9 @@ const MAPPED_COMPONENT_BASELINE = 124;
 // 2026-10-13: 53 → 41 — **LOUIS 로 옮겨 간 몫(후퇴 아님).** DS-D-0084 로 기본값이 바뀌어 제품 세트만 있던 열하나(인증 입력 · 가입 약관 ·
 // 어드민 섹션 머리 · 페이지 머리 · 테마 순환 · 셀렉트 · 줌 트리거 · 노드 머리 동작 · 제목 · 연결점 · 생성 버튼)가 같은 조형의 LOUIS 부품
 // 대응이 됐다(표면 12). 위 MAPPED_COMPONENT_BASELINE 이 그만큼 올랐다.
-const MAPPED_PRODUCT_BASELINE = 41;
+// 2026-10-14: 41 → 46 — 보드 생성기 PRODUCT_PARTS 의 노드 카드 세트 다섯(TTS · BGM · Edit · YouTube · Instagram, 데스크톱 하나씩)이 세션 원장
+// `/nodecanvas?project= more-nodes`(첫 프로젝트의 맞춤 줌을 흔들지 않게 따로 둔 두 번째 프로젝트) 측정 서브트리로 섰다.
+const MAPPED_PRODUCT_BASELINE = 46;
 // **화면 보드 대응(DS-D-0098, 2026-10-14).** 채운 보드 · 늘림 통과 · 안의 부품 needed 0 을 만족한 화면. 따로 잠근다.
 // 2026-10-14: 0 → 3 — VideoEditScene(/videoeditor seeded) · NodeCanvasHomeScene(/nodecanvas seeded.loading-more) ·
 // BulkSuccessContent(/mypage/upgrade/bulk-success?preview=success). 채움이 비어 남긴 것: SubscriptionScene(크레딧 이력 없음) · AdminClient(사용자 없음).

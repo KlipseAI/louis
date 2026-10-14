@@ -13,14 +13,14 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 174,
+    "mapped": 179,
     "scoped": 324,
-    "needed": 112,
+    "needed": 107,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 13,
+    "primitive": 8,
     "screen": 89,
     "oneoff": 10,
     "unclear": 0,
@@ -4905,12 +4905,12 @@
         "louis-slider",
         "louis-slider-fill"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 노드 타입 — 원장이 적은 「노드 타입 9종」의 하나다. 헤더(아이콘·제목·더보기)·본문·프롬프트 셸·사이드 채널 버튼·선택/생성/오류 상태를 갖는 캔버스의 가장 큰 반복 시각 단위이고 51종 어디에도 대응이 없다. BGM 노드는 오디오 결과의 재생/일시정지·루프·진행 게이지(스크럽)까지 갖는다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Slider, SegmentedControl] NODE_TYPES 레지스트리(index.tsx:844 `bgm: memo(BgmNode)`) 등록 1 — 그러나 이것은 부품 9종 중 하나이지 화면이 아니다. 같은 셸을 9 노드가 공유하는 것을 실측했다: NodeHeaderActions 9/9, NodePromptGenerateButton·CopyButton·ResizeHandle 각 5. 즉 지어야 할 것은 `NodeShell` 하나 + type 변형 9이고 BgmNode 는 그 변형이다. BGM 고유분은 재생/일시정지·루프·진행 게이지(스크럽)이며 `louis-slider`·`louis-segmented-control` 을 이미 문다."
+      "verdict": "figma",
+      "figma": "Product/Canvas BGM Node",
+      "reason": "Figma 제품 세트 `Product/Canvas BGM Node` 가 이 표면이다 — 세션 원장 `/nodecanvas?project= more-nodes`(두 번째 노드캔버스 프로젝트, 시드 `scripts/lib/fixture-seeds.mjs` FIXTURE_CANVAS_MORE_PROJECT_ID) 데스크톱(캔버스 맞춤 줌 0.775 배) 노드 카드 층 .1(음악 탭의 생성 전 상태: 음악 · 효과음 · 업로드 탭 · 프롬프트 · 보컬 · 길이 · 볼륨 · 생성 단추 · 좌우 연결 버튼). 효과음 · 업로드 탭, 생성 중 · 생성 결과(재생 · 루프 · 진행 게이지) · 오류 상태와 모바일 variant 는 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(54b62a8a) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx#LoopIcon": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
@@ -5048,12 +5048,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 노드 타입 — 원장이 적은 「노드 타입 9종」의 하나다. 헤더(아이콘·제목·더보기)·본문·프롬프트 셸·사이드 채널 버튼·선택/생성/오류 상태를 갖는 캔버스의 가장 큰 반복 시각 단위이고 51종 어디에도 대응이 없다. 편집 노드는 결과 영상 플레이어와 편집 모달 진입, 처리 중 단계 표시를 품는다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "NODE_TYPES 등록 1 (index.tsx:842 `edit: memo(EditNode)`). BgmNode 와 같은 판정 — 노드 9종이 한 셸의 변형이라는 것을 NodeHeaderActions 9/9 실측이 보증한다. 편집 노드 고유분은 결과 영상 플레이어 · 편집 모달 진입 · 처리 중 단계 표시이고, 제목은 NodeTitleEditableLabel(3 파일 공용)을 문다. 파일 이름이 icons/*·lib/* 주석에 자주 나오지만 그건 참조 주석이지 사용이 아니다."
+      "verdict": "figma",
+      "figma": "Product/Canvas Edit Node",
+      "reason": "Figma 제품 세트 `Product/Canvas Edit Node` 가 이 표면이다 — 세션 원장 `/nodecanvas?project= more-nodes`(두 번째 노드캔버스 프로젝트, 시드 `scripts/lib/fixture-seeds.mjs` FIXTURE_CANVAS_MORE_PROJECT_ID) 데스크톱(캔버스 맞춤 줌 0.775 배) 노드 카드 층 .2(연결된 영상이 없는 상태: 빈 상태 안내 · 영상 · 오디오 · 이미지 입력 연결 버튼). 소스가 연결된 상태 · 처리 중 단계 · 결과 영상 플레이어와 모바일 variant 는 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(54b62a8a) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx#ProcessingState": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
@@ -5136,12 +5136,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/InstagramNode.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 노드 타입 — 원장이 적은 「노드 타입 9종」의 하나다. 헤더(아이콘·제목·더보기)·본문·프롬프트 셸·사이드 채널 버튼·선택/생성/오류 상태를 갖는 캔버스의 가장 큰 반복 시각 단위이고 51종 어디에도 대응이 없다. 인스타그램 노드는 계정 연결·캡션·공개 설정 등 발행 폼을 카드 안에 담는다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "앵커 실측: index.tsx:836 의 NODE_TYPES 아홉 칸 중 하나로 등록된다(video·image·text·youtube·instagram·edit·tts·bgm·section). 나머지 여덟 중 일곱이 이미 primitive 판정이고, 이 파일도 형제들과 같은 셸 부품(NodeHeaderActions·ChromeTooltip)을 물며 헤더·핸들·툴바 글리프를 같은 모듈에서 가져온다. 앞 회차가 순위 ⑥ 으로 적은 「노드 셸 한 벌 + 타입 9」의 아홉 번째 칸이 바로 이것이다. 앞 회차에서 판정이 빠진 이유는 B 묶음이 자기 범위를 36–72 로 적고 실제로 37–73 을 판정해 74번이 어느 묶음에도 안 들어갔기 때문이다."
+      "verdict": "figma",
+      "figma": "Product/Canvas Instagram Node",
+      "reason": "Figma 제품 세트 `Product/Canvas Instagram Node` 가 이 표면이다 — 세션 원장 `/nodecanvas?project= more-nodes`(두 번째 노드캔버스 프로젝트, 시드 `scripts/lib/fixture-seeds.mjs` FIXTURE_CANVAS_MORE_PROJECT_ID) 데스크톱(캔버스 맞춤 줌 0.775 배) 노드 카드 층 .4(계정을 잇지 않은 상태: 캡션 · 비활성 게시 단추 · 입력 연결 버튼). 계정 연결 · 게시 중 · 게시 완료 · 확인 모달 상태와 모바일 variant 는 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(54b62a8a) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx#NodeSideButtons": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx",
@@ -5237,12 +5237,12 @@
       "louis": [
         "louis-slider-fill"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 노드 타입 — 원장이 적은 「노드 타입 9종」의 하나다. 헤더(아이콘·제목·더보기)·본문·프롬프트 셸·사이드 채널 버튼·선택/생성/오류 상태를 갖는 캔버스의 가장 큰 반복 시각 단위이고 51종 어디에도 대응이 없다. TTS 노드는 화자 선택과 생성된 음성의 재생·스크럽 게이지를 갖는다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: slider] reuse=2 라우트, 위 노드 카드 한 벌의 하나. 원장 louis 필드가 `[\"louis-slider-fill\"]` 하나만 적었지만 실측하면 louis-slider · louis-slider__control · louis-node-chip · louis-popover · louis-menu__item · louis-blur-panel · louis-hairline-inset 까지 문다 — 재생 게이지는 이미 LOUIS Slider 위에 서 있다. 새로 세울 것은 노드 카드 셸이지 슬라이더가 아니다."
+      "verdict": "figma",
+      "figma": "Product/Canvas TTS Node",
+      "reason": "Figma 제품 세트 `Product/Canvas TTS Node` 가 이 표면이다 — 세션 원장 `/nodecanvas?project= more-nodes`(두 번째 노드캔버스 프로젝트, 시드 `scripts/lib/fixture-seeds.mjs` FIXTURE_CANVAS_MORE_PROJECT_ID) 데스크톱(캔버스 맞춤 줌 0.775 배) 노드 카드 층 .0(생성 전 상태: 대본 입력 · 음성(대체 목록 첫 항목) · 속도 · 볼륨 · 생성 단추 · 좌우 연결 버튼). 생성 중 · 생성 결과(재생 · 스크럽 게이지) · 오류 상태와 모바일 variant 는 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(54b62a8a) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx#VideoEditModal": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
@@ -5980,12 +5980,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 노드 타입 — 원장이 적은 「노드 타입 9종」의 하나다. 헤더(아이콘·제목·더보기)·본문·프롬프트 셸·사이드 채널 버튼·선택/생성/오류 상태를 갖는 캔버스의 가장 큰 반복 시각 단위이고 51종 어디에도 대응이 없다. 유튜브 노드는 제목·설명·태그·공개 설정과 예약 발행 픽커 트리거까지 담는 발행 폼 카드다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "reuse=2 라우트, 노드 카드 한 벌의 하나. 이미 louis-popover · louis-menu__item(-icon) · louis-hairline-inset 을 문다(원장 louis 는 []). 발행 폼(제목·설명·태그·공개 설정)은 TextField 정본 축이라 새로 셀 것이 아니고, 새로 서야 할 것은 「폼을 담는 노드 카드」다."
+      "verdict": "figma",
+      "figma": "Product/Canvas YouTube Node",
+      "reason": "Figma 제품 세트 `Product/Canvas YouTube Node` 가 이 표면이다 — 세션 원장 `/nodecanvas?project= more-nodes`(두 번째 노드캔버스 프로젝트, 시드 `scripts/lib/fixture-seeds.mjs` FIXTURE_CANVAS_MORE_PROJECT_ID) 데스크톱(캔버스 맞춤 줌 0.775 배) 노드 카드 층 .3(계정을 잇지 않은 상태: 제목 · 설명 · 태그 · 업로드 시점 · 비활성 업로드 단추 · 입력 연결 버튼). 계정 연결 · 예약 픽커 · 업로드 중 · 업로드 완료 · 확인 모달 상태와 모바일 variant 는 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(54b62a8a) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas/primitives.tsx#MinusIcon": {
       "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",

@@ -18103,6 +18103,19 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-14 (267) — 노드캔버스 노드 카드 나머지 다섯을 제품 세트로 — 표면 대응 174 → 179
+
+- 세션 원장에 두 번째 노드캔버스 프로젝트(`/nodecanvas?project= more-nodes`, 시드 `scripts/lib/fixture-seeds.mjs`
+  FIXTURE_CANVAS_MORE_PROJECT_ID)를 더했다. 윗줄 TTS · 사운드 · 편집, 아랫줄 YouTube · Instagram 두 줄이고 엣지는 없다. 첫 프로젝트에
+  노드를 더하면 맞춤 줌(0.815)이 바뀌어 그 화면의 측정과 세트가 모두 흔들려 프로젝트를 따로 뒀다. 이 프로젝트의 맞춤 줌은 0.775 배다.
+  생성 결과(오디오 · 영상)는 넣지 않았고(서명하러 바깥으로 간다) YouTube · Instagram 은 계정을 잇지 않은 상태다. 기존 화면 26개의 원장은
+  그대로다(트리 · 스타일 대조).
+- 제품 세트 다섯(LOUIS 90 · 자산 「S · product/Parts」, 데스크톱 하나씩): `Product/Canvas TTS Node` 3418:3681 · `BGM Node` 3418:3683 ·
+  `Edit Node` 3418:3685 · `YouTube Node` 3418:3687 · `Instagram Node` 3418:3689. 이 화면은 보드가 없어 보드 인스턴스는 0 이다.
+- 글리프 조인표에 새 서명 아홉: 파형 · YouTube · Instagram · 두 음표 · 슬레이트 · 말하는 사람 · 화면 위 화살표(LOUIS 같은 그림, bespoke),
+  업로드 화살표 · 마이크(LOUIS 에 없음, missing).
+- 표면 원장: TtsNode · BgmNode · EditNode · YoutubeNode · InstagramNode 를 figma 로 — 대응 174 → 179(제품 세트 41 → 46), 필요 112 → 107(같은 날 앞선 Updates (264) · (265) 뒤의 수).
+
 #### 2026-10-14 (266) — 하이라이트 선 아이콘 `highlight` 를 LOUIS 아이콘으로, 아이콘 요소에 알파 16단 투명도
 
 - **새 아이콘 `highlight`.** 제품 작업 브랜치 `feat/highlight-line-icon`(`d1e547c93`)이 하이라이트 메뉴 글리프를 브랜드 심볼(칸 25개를 채운 그림)에서

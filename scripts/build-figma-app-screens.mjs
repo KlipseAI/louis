@@ -826,6 +826,35 @@ const PRODUCT_PARTS = [
     about: "캔버스 비디오 노드 카드(node-canvas-v2/nodes/VideoNode.tsx — 머리 · 빈 결과 자리 · 연결 이미지 줄 · 프롬프트 · 모델 · 길이 · 비율 · 해상도 · 생성 알약). 측정은 생성 전 상태이고 캔버스 줌 0.815 배다.",
     variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project=", context: "desktop-1920x1080", path: `${NODE_CANVAS}.2`, fixture: "session", anchor: ["Video", "Your generated video will appear here.", "0 chars", "Describe the video you want to create.", "Seedance 2.0 Mini", "8s", "9:16", "1080p", "2250"], component: "2949:3621" }],
   },
+  // **2026-10-14 — 나머지 노드 카드 다섯.** 세션 원장의 두 번째 노드캔버스 프로젝트(`/nodecanvas?project= more-nodes`, 시드 `lib/fixture-seeds.mjs`
+  // FIXTURE_CANVAS_MORE_PROJECT_ID)에서 찍는다 — 첫 프로젝트에 노드를 더하면 맞춤 줌이 바뀌어 위 세트 · 보드가 모두 흔들린다. 노드 층의 자리는
+  // 첫 프로젝트와 같다(NODE_CANVAS). 윗줄 TTS · 사운드 · 편집, 아랫줄 YouTube · Instagram 두 줄이라 맞춤 줌은 0.775 배(카드 310 폭)다.
+  // 이 화면은 보드를 세우지 않아(PRODUCT_SCREENS 에 없다) 보드 인스턴스가 0 이다. 모바일 variant 는 위 카드 셋과 같은 사정으로 세우지 않는다.
+  {
+    set: "Product/Canvas TTS Node",
+    about: "캔버스 TTS 노드 카드(node-canvas-v2/nodes/TtsNode.tsx — 머리 · 대본 입력 · 음성 · 속도 · 볼륨 · 생성 단추 · 좌우 연결 버튼). 측정은 생성 전 상태이고 캔버스 줌 0.775 배다.",
+    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project= more-nodes", context: "desktop-1920x1080", path: `${NODE_CANVAS}.0`, fixture: "session", anchor: ["TTS", "31 / 5,000 chars", "Placeholder narration sentence.", "Achernar (Chirp3 HD)", "1x", "100%"], component: "3418:3681" }],
+  },
+  {
+    set: "Product/Canvas BGM Node",
+    about: "캔버스 사운드(BGM) 노드 카드(node-canvas-v2/nodes/BgmNode.tsx — 머리 · 음악 · 효과음 · 업로드 탭 · 프롬프트 · 보컬 · 길이 · 볼륨 · 생성 단추 · 좌우 연결 버튼). 측정은 음악 탭의 생성 전 상태이고 캔버스 줌 0.775 배다.",
+    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project= more-nodes", context: "desktop-1920x1080", path: `${NODE_CANVAS}.1`, fixture: "session", anchor: ["Sound", "Music", "SFX", "Upload", "23 / 2,000 chars", "Placeholder music mood.", "Instrumental", "30s", "100%", "120"], component: "3418:3683" }],
+  },
+  {
+    set: "Product/Canvas Edit Node",
+    about: "캔버스 편집(Composition) 노드 카드(node-canvas-v2/nodes/EditNode.tsx — 머리 · 빈 상태 안내 · 입력 연결 버튼 셋). 측정은 연결된 영상이 없는 상태이고 캔버스 줌 0.775 배다.",
+    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project= more-nodes", context: "desktop-1920x1080", path: `${NODE_CANVAS}.2`, fixture: "session", anchor: ["Composition", "Connect video nodes to start editing.", "No videos connected. Connect completed video nodes to edit."], component: "3418:3685" }],
+  },
+  {
+    set: "Product/Canvas YouTube Node",
+    about: "캔버스 YouTube 업로드 노드 카드(node-canvas-v2/nodes/YoutubeNode.tsx — 머리 · 제목 · 설명 · 태그 · 업로드 시점 · 업로드 단추 · 입력 연결 버튼). 측정은 계정을 잇지 않은 상태이고 캔버스 줌 0.775 배다.",
+    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project= more-nodes", context: "desktop-1920x1080", path: `${NODE_CANVAS}.3`, fixture: "session", anchor: ["YouTube", "Placeholder video title", "Placeholder video description.", "Type a tag and press Enter", "Upload immediately", "Upload"], component: "3418:3687" }],
+  },
+  {
+    set: "Product/Canvas Instagram Node",
+    about: "캔버스 Instagram 업로드 노드 카드(node-canvas-v2/nodes/InstagramNode.tsx — 머리 · 캡션 · 게시 단추 · 입력 연결 버튼). 측정은 계정을 잇지 않은 상태이고 캔버스 줌 0.775 배다.",
+    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project= more-nodes", context: "desktop-1920x1080", path: `${NODE_CANVAS}.4`, fixture: "session", anchor: ["Instagram", "Caption", "Placeholder caption sentence.", "Post to Instagram"], component: "3418:3689" }],
+  },
   {
     set: "Product/Project Header",
     about: "캔버스 상단 프로젝트 머리(scenes/create/ProjectHeader.tsx — 진행형 블러 띠 · 뒤로 · 구분선 · 프로젝트 이름 · 저장 · 프로필). 줌을 타지 않는 크롬이라 두 뷰포트다.",
@@ -2624,6 +2653,12 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Canvas Text Node": 1,
   "Product/Canvas Image Node": 1,
   "Product/Canvas Video Node": 1,
+  // 2026-10-14 — 나머지 노드 카드 다섯은 두 번째 노드캔버스 프로젝트에서 찍는데 그 화면은 보드가 없다(PRODUCT_PARTS 의 주석) — 0 이다.
+  "Product/Canvas TTS Node": 0,
+  "Product/Canvas BGM Node": 0,
+  "Product/Canvas Edit Node": 0,
+  "Product/Canvas YouTube Node": 0,
+  "Product/Canvas Instagram Node": 0,
   "Product/Project Header": 2,
   "Product/Mobile Timeline": 1,
   // 같은 날 뒤: 줌 비율 트리거 — 노드캔버스 프로젝트 데스크톱 보드 하나(모바일 캔버스에는 이 컨트롤이 없다).

@@ -45,6 +45,30 @@ const canvasDocument = {
   ],
 };
 
+// `/nodecanvas?project=<id>` 두 번째 프로젝트 — 나머지 노드 다섯(2026-10-14). 캔버스는 노드 묶음에 줌을 맞추므로 위 프로젝트에 노드를 더하면
+// 그 화면의 모든 측정(줌 0.815)과 세트가 함께 흔들린다 — 그래서 프로젝트를 따로 둔다. 노드는 윗줄 TTS · 사운드(음악) · 편집, 아랫줄 YouTube ·
+// Instagram 두 줄(미디어 폭 400 + 간격 160)이고 엣지는 없다 — 다섯을 한 줄에 두면 맞춤 줌이 0.52 배라(2026-10-14 캡처) 첫 프로젝트(0.815)와
+// 비슷한 배율이 되게 두 줄로 접었다. data 는 제품이 툴바로 노드를 더할 때 넣는 기본값(`index.tsx` addStandaloneAudioNode ·
+// addNodeFromToolbarVideoEdit)에 자리표시 글자만 얹었다. 생성 결과(오디오 · 영상)는 넣지 않는다 — 넣으면 재생 주소를 서명하러 바깥으로 간다.
+// TTS 음성은 서버가 음성 목록을 못 받을 때 돌려주는 대체 목록의 첫 항목(`app/lib/providers/tts/google/index.ts` FALLBACK_KO_VOICES)이라
+// 목록이 와도 안 와도 칩 글자가 같다. YouTube · Instagram 은 계정을 잇지 않은 상태다(가짜 Supabase 에 연결 행이 없다).
+export const FIXTURE_CANVAS_MORE_PROJECT_ID = "00000000-0000-4000-8000-0000000c0002";
+const canvasMoreDocument = {
+  version: 2,
+  globalState: { prompt: "", videoModelId: "seedance-2.0-mini", videoAspectRatio: "9:16", videoDuration: 8, videoSound: true, videoResolution: "1080p" },
+  textNodeState: { texts: {}, inputTexts: {}, assistModels: {}, assistReasoning: {} },
+  nodes: [
+    { id: "seed-tts", type: "tts", position: { x: 0, y: 0 },
+      data: { provider: "google", speed: 1, volume: 1, language: "ko-KR", voiceId: "ko-KR-Chirp3-HD-Achernar", voiceName: "Achernar (Chirp3 HD)", text: "Placeholder narration sentence." } },
+    { id: "seed-bgm", type: "bgm", position: { x: 560, y: 0 },
+      data: { provider: "elevenlabs", mode: "music", durationSec: 30, vocals: false, promptInfluence: 0.5, loop: false, volume: 1, prompt: "Placeholder music mood." } },
+    { id: "seed-edit", type: "edit", position: { x: 1120, y: 0 }, data: { sources: [], clips: [] } },
+    { id: "seed-youtube", type: "youtube", position: { x: 0, y: 480 }, data: { title: "Placeholder video title", description: "Placeholder video description." } },
+    { id: "seed-instagram", type: "instagram", position: { x: 560, y: 480 }, data: { caption: "Placeholder caption sentence." } },
+  ],
+  edges: [],
+};
+
 // `/videoeditor/[projectId]` — 편집기(2026-10-07). `/api/editor/projects/[projectId]` 가 `editor_projects` 한 행(`id` · `user_id` eq · maybeSingle)을
 // 읽는다 — 없으면 빈 편집기(「Untitled Project」)다. 소스 둘 · 클립 둘. 소스 영상 주소는 스토리지 참조가 아닌 절대 URL(`https://fixture.invalid/…`) —
 // 참조로 읽히면 서명하러 가고, 측정기는 바깥 요청을 끊어 미리보기 영상은 검은 면이다(크롭 비율은 소스 메타의 width · height 가 정한다).
@@ -85,6 +109,8 @@ export const FIXTURE_SEEDS = Object.freeze({
     rows: [
       { id: FIXTURE_CANVAS_PROJECT_ID, user_id: FIXTURE_USER, name: "Fixture canvas project", status: "draft", node_canvas_thumbnail_url: null,
         created_at: "2026-01-01T00:00:00.000Z", updated_at: "2026-01-01T00:00:00.000Z" },
+      { id: FIXTURE_CANVAS_MORE_PROJECT_ID, user_id: FIXTURE_USER, name: "Fixture canvas nodes project", status: "draft", node_canvas_thumbnail_url: null,
+        created_at: "2026-01-01T00:00:00.000Z", updated_at: "2026-01-01T00:00:00.000Z" },
       { id: FIXTURE_HIGHLIGHT_PROJECT_ID, user_id: FIXTURE_USER, name: "Fixture highlight project", status: "draft", node_canvas_thumbnail_url: null,
         created_at: "2026-01-01T00:00:00.000Z", updated_at: "2026-01-01T00:00:00.000Z" },
     ],
@@ -109,7 +135,9 @@ export const FIXTURE_SEEDS = Object.freeze({
     }],
   },
   canvas_sessions: [{ id: "00000000-0000-4000-8000-0000000c5001", project_id: FIXTURE_CANVAS_PROJECT_ID, user_id: FIXTURE_USER,
-    updated_at: "2026-01-01T00:00:00.000Z", document: canvasDocument }],
+    updated_at: "2026-01-01T00:00:00.000Z", document: canvasDocument },
+  { id: "00000000-0000-4000-8000-0000000c5002", project_id: FIXTURE_CANVAS_MORE_PROJECT_ID, user_id: FIXTURE_USER,
+    updated_at: "2026-01-01T00:00:00.000Z", document: canvasMoreDocument }],
   editor_projects: {
     requireFilter: "id",
     rows: [{

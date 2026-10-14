@@ -15,7 +15,7 @@ import { resolveProductRef } from "./lib/product-ref.mjs";
 import { productAriaLabels } from "./lib/product-aria-labels.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
 import { checkCites, createRecipeRouter, loadArea, readRecipeCss, recipeAssertProblems, recipeDigest, runRecipeSteps, specFromRecipe, supabaseOverlayOf, validateRecipes } from "./lib/state-recipes.mjs";
-import { FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
+import { FIXTURE_CANVAS_MORE_PROJECT_ID, FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
 // 보호 route의 로그인 후 shell과 실패/빈 기본 상태를 렌더한다. API 401/500도 숨기지 않고 함께
@@ -303,6 +303,9 @@ const SESSION_ROUTES = [
   { pattern: "/admin/coupons/[id]/print", url: `/admin/coupons/${FIXTURE_COUPON_CAMPAIGN_ID}/print`, id: "/admin/coupons/[id]/print" },
   // 노드캔버스 편집기(2026-10-07) — 프로젝트 한 행과 캔버스 문서(노드 셋 · 엣지 둘)를 시드로 연다(`lib/fixture-seeds.mjs`). 허브 목록은 그대로 빈 상태다.
   { pattern: "/nodecanvas", url: `/nodecanvas?project=${FIXTURE_CANVAS_PROJECT_ID}`, id: "/nodecanvas?project=" },
+  // 노드캔버스 두 번째 프로젝트(2026-10-14) — 위 프로젝트에 없는 노드 다섯(TTS · 사운드 · 편집 · YouTube · Instagram)을 두 줄로 연다. 위 프로젝트에
+  // 노드를 더하면 맞춤 줌이 바뀌어 그 화면의 측정과 세트가 모두 흔들려 프로젝트를 따로 둔다(`lib/fixture-seeds.mjs`). 보드는 세우지 않고 노드 카드 세트만 잰다.
+  { pattern: "/nodecanvas", url: `/nodecanvas?project=${FIXTURE_CANVAS_MORE_PROJECT_ID}`, id: "/nodecanvas?project= more-nodes" },
   // 편집기(2026-10-07) — 소스 둘 · 클립 둘의 편집 프로젝트를 시드로 연다. 미리보기 영상은 바깥 주소라 검은 면이다(크롭 비율은 소스 메타).
   { pattern: "/videoeditor/[projectId]", url: `/videoeditor/${FIXTURE_EDITOR_PROJECT_ID}`, id: "/videoeditor/[projectId]" },
   // 하이라이트 완료 격자(2026-10-07) — 클립 다섯의 추출 완료 작업을 시드로 연다. 카드 영상은 검은 면 · 비율은 CSS 기본값(4:3)이다.

@@ -2265,6 +2265,315 @@
       "boardInstances": 1
     },
     {
+      "setName": "Product/Canvas TTS Node",
+      "about": "캔버스 TTS 노드 카드(node-canvas-v2/nodes/TtsNode.tsx — 머리 · 대본 입력 · 음성 · 속도 · 볼륨 · 생성 단추 · 좌우 연결 버튼). 측정은 생성 전 상태이고 캔버스 줌 0.775 배다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project= more-nodes",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0",
+          "componentId": "3418:3681",
+          "frameSize": [
+            310.04,
+            157.35
+          ],
+          "signature": {
+            "texts": [
+              "TTS",
+              "31 / 5,000 chars",
+              "Placeholder narration sentence.",
+              "Achernar (Chirp3 HD)",
+              "1x",
+              "100%"
+            ],
+            "structure": [
+              6
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 56,
+            "unresolved": [],
+            "sizingReconciled": 2,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.3.0.0.2",
+                "margin": [
+                  6.2008,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.3.0.0.2.0.1",
+                "margin": [
+                  0,
+                  0,
+                  0,
+                  6.2008
+                ]
+              }
+            ],
+            "negativeGapsPaired": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.0~pair",
+                "pair": [
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.0",
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0"
+                ],
+                "gap": 3.1,
+                "overlap": -4.6506
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-tts-node-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Canvas BGM Node",
+      "about": "캔버스 사운드(BGM) 노드 카드(node-canvas-v2/nodes/BgmNode.tsx — 머리 · 음악 · 효과음 · 업로드 탭 · 프롬프트 · 보컬 · 길이 · 볼륨 · 생성 단추 · 좌우 연결 버튼). 측정은 음악 탭의 생성 전 상태이고 캔버스 줌 0.775 배다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project= more-nodes",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1",
+          "componentId": "3418:3683",
+          "frameSize": [
+            310.04,
+            188.35
+          ],
+          "signature": {
+            "texts": [
+              "Sound",
+              "Music",
+              "SFX",
+              "Upload",
+              "23 / 2,000 chars",
+              "Placeholder music mood.",
+              "Instrumental",
+              "30s",
+              "100%",
+              "120"
+            ],
+            "structure": [
+              10
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 70,
+            "unresolved": [],
+            "sizingReconciled": 1,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.1.0.4.0.0.2",
+                "margin": [
+                  6.2008,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.1.0.4.0.0.2.0.1",
+                "margin": [
+                  0,
+                  0,
+                  0,
+                  6.2008
+                ]
+              }
+            ],
+            "negativeGapsPaired": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.0~pair",
+                "pair": [
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.0",
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.1.0"
+                ],
+                "gap": 3.1,
+                "overlap": -4.6506
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-bgm-node-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Canvas Edit Node",
+      "about": "캔버스 편집(Composition) 노드 카드(node-canvas-v2/nodes/EditNode.tsx — 머리 · 빈 상태 안내 · 입력 연결 버튼 셋). 측정은 연결된 영상이 없는 상태이고 캔버스 줌 0.775 배다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project= more-nodes",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2",
+          "componentId": "3418:3685",
+          "frameSize": [
+            310.04,
+            242.41
+          ],
+          "signature": {
+            "texts": [
+              "Composition",
+              "Connect video nodes to start editing.",
+              "No videos connected. Connect completed video nodes to edit."
+            ],
+            "structure": [
+              3
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 39,
+            "unresolved": [],
+            "sizingReconciled": 3,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.0.1",
+                "margin": [
+                  0,
+                  0,
+                  0,
+                  148.7587
+                ],
+                "auto": [
+                  "left"
+                ]
+              }
+            ],
+            "negativeGapsPaired": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.0~pair",
+                "pair": [
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.0",
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1"
+                ],
+                "gap": 3.1,
+                "overlap": -4.6506
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-edit-node-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Canvas YouTube Node",
+      "about": "캔버스 YouTube 업로드 노드 카드(node-canvas-v2/nodes/YoutubeNode.tsx — 머리 · 제목 · 설명 · 태그 · 업로드 시점 · 업로드 단추 · 입력 연결 버튼). 측정은 계정을 잇지 않은 상태이고 캔버스 줌 0.775 배다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project= more-nodes",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.3",
+          "componentId": "3418:3687",
+          "frameSize": [
+            310.04,
+            282.91
+          ],
+          "signature": {
+            "texts": [
+              "YouTube",
+              "Placeholder video title",
+              "Placeholder video description.",
+              "Type a tag and press Enter",
+              "Upload immediately",
+              "Upload"
+            ],
+            "structure": [
+              6
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 48,
+            "unresolved": [],
+            "sizingReconciled": 0,
+            "lineBoxSlack": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.3.0.1.0.1",
+                "top": 0,
+                "bottom": 2.33,
+                "lineHeight": "18.6024px"
+              }
+            ],
+            "negativeGapsPaired": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.3.0.0~pair",
+                "pair": [
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.3.0.0",
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.3.0.1"
+                ],
+                "gap": 3.1,
+                "overlap": -4.6506
+              }
+            ],
+            "stackingMoved": [
+              "body.1.0.0.0.7.0.0.0.0.0.0.0.2.3.0.1.1.0.0.0"
+            ]
+          },
+          "runner": "figma/product-parts.canvas-youtube-node-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Canvas Instagram Node",
+      "about": "캔버스 Instagram 업로드 노드 카드(node-canvas-v2/nodes/InstagramNode.tsx — 머리 · 캡션 · 게시 단추 · 입력 연결 버튼). 측정은 계정을 잇지 않은 상태이고 캔버스 줌 0.775 배다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project= more-nodes",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.4",
+          "componentId": "3418:3689",
+          "frameSize": [
+            310.04,
+            399.95
+          ],
+          "signature": {
+            "texts": [
+              "Instagram",
+              "Caption",
+              "Placeholder caption sentence.",
+              "Post to Instagram"
+            ],
+            "structure": [
+              4
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 30,
+            "unresolved": [],
+            "sizingReconciled": 1,
+            "negativeGapsPaired": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.4.0.0~pair",
+                "pair": [
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.4.0.0",
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.4.0.1"
+                ],
+                "gap": 3.1,
+                "overlap": -4.6506
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-instagram-node-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
       "setName": "Product/Project Header",
       "about": "캔버스 상단 프로젝트 머리(scenes/create/ProjectHeader.tsx — 진행형 블러 띠 · 뒤로 · 구분선 · 프로젝트 이름 · 저장 · 프로필). 줌을 타지 않는 크롬이라 두 뷰포트다.",
       "variants": [

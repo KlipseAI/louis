@@ -11741,6 +11741,44 @@
         ]
       }
     },
+    "CanvasDots": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "tile": {
+          "slots": {},
+          "parts": {
+            "Dot": {
+              "width": [
+                2
+              ],
+              "height": [
+                2
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "CanvasEdge": {
       "variantCount": 14,
       "hasDescription": true,

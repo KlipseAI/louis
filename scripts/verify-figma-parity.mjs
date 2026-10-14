@@ -4077,6 +4077,26 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "canvas-dots",
+    figmaName: "CanvasDots",
+    figmaAhead: "React 표면 없음 — packages/css/src/pattern/editor-workspace.css 의 .louis-canvas-dots 가 정본이다. Figma 패턴 채움이 변수를 받지 못해 한 칸 타일을 반복한다(2026-10-15, DS-D-0102).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "canvas-dots",
+      sizeKeys: ["tile"],
+      // 타일 한 칸이 격자 간격이고 그 가운데 점 하나가 점 지름이다.
+      fields: { width: "pitch", height: "pitch" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Dot: { fields: { width: "dot", height: "dot" } },
+      },
+    },
+  },
+  {
     id: "prompt-variant",
     figmaName: "PromptVariant",
     figmaAhead: "React 표면 없음 — packages/css/src/component/prompt-variant.css 가 정본이다(2026-10-13, DS-D-0083 2c · DS-D-0084).",

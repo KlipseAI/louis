@@ -18,8 +18,8 @@
         "effect": 11
       },
       "components": {
-        "sets": 136,
-        "variants": 1158
+        "sets": 137,
+        "variants": 1159
       },
       "icons": 74,
       "templates": 9
@@ -9376,6 +9376,46 @@
           "INNER_SHADOW:0:0:0.5"
         ]
       }
+    },
+    "CanvasDots": {
+      "outsideParts": [],
+      "tokenId": "canvas-dots",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "tile": {
+          "slots": {},
+          "parts": {
+            "Dot": {
+              "width": [
+                2
+              ],
+              "height": [
+                2
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "height": [
+            24
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "CanvasEdge": {
       "outsideParts": [],

@@ -8352,6 +8352,19 @@
           "$tone": "기본 — fg-secondary(도움말)."
         }
       }
+    },
+    "canvas-dots": {
+      "$doc": "design/components/canvas-dots.md",
+      "$source": "packages/css/src/pattern/editor-workspace.css 의 --louis-canvas-dots-pitch(24) · --louis-canvas-dots-radius(1) — 제품 CanvasBackground.tsx:5-6 DEFAULT_CANVAS_DOT_GAP 24 · DEFAULT_CANVAS_DOT_SIZE 2 (2026-10-15 DS-D-0102)",
+      "$note": "캔버스 바닥 점 격자 한 칸. Figma 패턴 채움이 변수를 받지 못해 타일 컴포넌트를 반복한다. 칸 크기가 격자 간격, 가운데 점이 점 지름이다.",
+      "sizes": {
+        "tile": {
+          "pitch": 24,
+          "$pitch": "24. `--louis-canvas-dots-pitch: 24px` — 제품 xyflow `<Background gap={24}>`.",
+          "dot": 2,
+          "$dot": "2. `--louis-canvas-dots-radius: 1px` × 2 — 제품 `size={2}`(xyflow 는 반지름을 size / 2 로 그린다)."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -8433,7 +8446,8 @@
     "date-picker-calendar": "위(date-picker-cell)와 같은 이유다.",
     "date-picker-time": "위(date-picker-cell)와 같은 이유다.",
     "color-picker": "제품 렌더 하네스가 이 조형에 닿지 못한다. 색 팝오버는 영상 편집 모달(노드 캔버스의 영상 노드 → 편집, 로그인 뒤 /create)에서 오버레이를 고르고 인스펙터의 색 칩을 눌러야 열리고, measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스인데 components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 게다가 제품은 아직 이 레시피를 물지 않아 면 220 정사각 같은 제품 값이 LOUIS 값(256 × 220)과 다르다 — 대조할 것은 이관 뒤의 렌더다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 ColorPopover.tsx 를 소스로 등록하고 판 · 면 · 칸 탐침을 세우면 이 면제를 지운다.",
-    "color-picker-option": "위(color-picker)와 같은 이유다."
+    "color-picker-option": "위(color-picker)와 같은 이유다.",
+    "canvas-dots": "제품 렌더 하네스가 이 조형을 하나의 노드로 잴 수 없다 — 제품 바닥은 xyflow `<Background>` 의 SVG pattern 이고 간격 · 점 크기가 props 숫자(CanvasBackground.tsx:5-6)다. 값은 레시피 선언 `--louis-canvas-dots-pitch: 24px` · `--louis-canvas-dots-radius: 1px` 이고 실브라우저 시험이 그 선언을 잰다(2026-10-15)."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

@@ -1787,6 +1787,24 @@
       "generated": false
     },
     {
+      "id": "decision-canvas-dots",
+      "path": "design/governance/decisions/DS-D-0102-canvas-dots.md",
+      "title": "DS-D-0102 노드 캔버스 바닥의 점 격자를 부품 canvas-dots 로 — 패턴의 채움이 아니라 Figma 가 인스턴스로 까는 한 칸이다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-canvas-editor-surfaces-map-to-existing-parts",
+      "path": "design/governance/decisions/DS-D-0106-canvas-editor-surfaces-map-to-existing-parts.md",
+      "title": "DS-D-0106 캔버스 · 편집기 표면 셋은 새 부품이 아니다 — 효과 절 머리는 Inspector Section Head, 스티커 캔버스는 Transform Frame, 캔버스 FAB 는 죽은 코드",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -1948,7 +1966,8 @@
         "design/components/floating-shell.md",
         "design/components/chart-card.md",
         "design/components/select.md",
-        "design/components/stat-tile.md"
+        "design/components/stat-tile.md",
+        "design/components/canvas-dots.md"
       ]
     },
     {
@@ -2097,6 +2116,8 @@
         "design/governance/decisions/DS-D-0051-rename-underline-is-canonical.md",
         "design/governance/decisions/DS-D-0052-joined-fields-are-an-axis.md",
         "design/governance/decisions/DS-D-0053-select-is-not-a-menu.md",
+        "design/governance/decisions/DS-D-0102-canvas-dots.md",
+        "design/governance/decisions/DS-D-0106-canvas-editor-surfaces-map-to-existing-parts.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
@@ -2366,6 +2387,15 @@
       "id": "stat-tile",
       "path": "design/components/stat-tile.md",
       "title": "Stat Tile",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "canvas-dots",
+      "path": "design/components/canvas-dots.md",
+      "title": "Canvas Dots",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3141,6 +3171,17 @@
       "maturity": "experimental",
       "figma": "done",
       "figmaName": "CanvasGuide",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "canvas-dots",
+      "name": "Canvas Dots",
+      "doc": "design/components/canvas-dots.md",
+      "note": "노드 캔버스 바닥의 점 격자(DS-D-0102, DS-D-0084). 지름 2 점 · 24 격자 · 면 bg-canvas · 점 canvas-dot 이고 줌 배율 · 이동량을 지역 변수로 받는다. 레시피는 2026-10-13 의 .louis-canvas-dots(packages/css/src/pattern/editor-workspace.css) 그대로이고 이 항목이 그것을 컴포넌트 축에 등록했다. Figma 는 한 칸 타일 CanvasDots(24 × 24) — 패턴 채움이 변수를 받지 못해 ChartCardDotTile 과 같은 기법을 쓴다. 계약 · 기하(격자 · 점 지름) · 브라우저 되재기가 선다. web 이 partial 인 이유는 React 표면이 없고 제품 캔버스가 xyflow SVG 로 같은 값을 그리기 때문이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "figmaName": "CanvasDots",
       "web": "partial",
       "docs": "done"
     },

@@ -369,6 +369,13 @@ withCanary(
 
 withCanary(
   GLYPH,
+  (source) => source.replace("<polyline ", '<polyline opacity="0.45" '),
+  "opacity 알파 사다리 이탈",
+  "알파 16단(DS-D-0026) 밖입니다",
+);
+
+withCanary(
+  GLYPH,
   (source) => source.replace("<polyline ", '<polyline id="clip0_234_1854" '),
   "id 잔재",
   "문서 전역에서 충돌",

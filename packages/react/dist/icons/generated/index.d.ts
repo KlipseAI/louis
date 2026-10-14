@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import type { IconProps } from "../types.js";
 export type { IconComponent, IconProps, IconSize } from "../types.js";
-export type IconName = "arrow-down" | "arrow-elbow-down-left" | "arrow-right" | "arrow-u-up-left" | "arrow-u-up-right" | "arrow-up" | "arrows-left-right" | "book-open" | "burst" | "caret-down" | "caret-left" | "caret-right" | "chat-bubbles" | "check" | "check-circle" | "clip-split" | "cloud-arrow-up" | "cloud-check" | "cloud-warning" | "copy" | "copy-check" | "desktop" | "dots-three-vertical" | "download-simple" | "eye" | "eye-slash" | "eyedropper" | "fade-curve" | "file-zip" | "film-slate" | "folder" | "frame-corners" | "frame-inset" | "frames-arrow" | "gauge" | "globe" | "graph" | "hand" | "house" | "image" | "info" | "instagram-logo" | "list-bullets" | "lock" | "magnifying-glass" | "minus" | "monitor-arrow-up" | "moon" | "music-notes-simple" | "nodes-linked" | "pause" | "pause-fill" | "play" | "play-fill" | "plus" | "question-circle" | "scissors" | "shield-check" | "sliders-horizontal" | "sparkle-fill" | "speaker-high" | "speaker-x" | "sun" | "text" | "text-aa" | "trash-simple" | "user-sound" | "video-camera" | "video-stack" | "waveform" | "x" | "x-circle" | "youtube-logo";
+export type IconName = "arrow-down" | "arrow-elbow-down-left" | "arrow-right" | "arrow-u-up-left" | "arrow-u-up-right" | "arrow-up" | "arrows-left-right" | "book-open" | "burst" | "caret-down" | "caret-left" | "caret-right" | "chat-bubbles" | "check" | "check-circle" | "clip-split" | "cloud-arrow-up" | "cloud-check" | "cloud-warning" | "copy" | "copy-check" | "desktop" | "dots-three-vertical" | "download-simple" | "eye" | "eye-slash" | "eyedropper" | "fade-curve" | "file-zip" | "film-slate" | "folder" | "frame-corners" | "frame-inset" | "frames-arrow" | "gauge" | "globe" | "graph" | "hand" | "highlight" | "house" | "image" | "info" | "instagram-logo" | "list-bullets" | "lock" | "magnifying-glass" | "minus" | "monitor-arrow-up" | "moon" | "music-notes-simple" | "nodes-linked" | "pause" | "pause-fill" | "play" | "play-fill" | "plus" | "question-circle" | "scissors" | "shield-check" | "sliders-horizontal" | "sparkle-fill" | "speaker-high" | "speaker-x" | "sun" | "text" | "text-aa" | "trash-simple" | "user-sound" | "video-camera" | "video-stack" | "waveform" | "x" | "x-circle" | "youtube-logo";
 export declare function IconArrowDown(props: IconProps): JSX.Element;
 export declare function IconArrowElbowDownLeft(props: IconProps): JSX.Element;
 export declare function IconArrowRight(props: IconProps): JSX.Element;
@@ -40,6 +40,7 @@ export declare function IconGauge(props: IconProps): JSX.Element;
 export declare function IconGlobe(props: IconProps): JSX.Element;
 export declare function IconGraph(props: IconProps): JSX.Element;
 export declare function IconHand(props: IconProps): JSX.Element;
+export declare function IconHighlight(props: IconProps): JSX.Element;
 export declare function IconHouse(props: IconProps): JSX.Element;
 export declare function IconImage(props: IconProps): JSX.Element;
 export declare function IconInfo(props: IconProps): JSX.Element;

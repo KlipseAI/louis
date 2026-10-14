@@ -855,6 +855,8 @@ const plan = {
       "/icons/Canvas.svg": "icon/Canvas",
       "/icons/FilmSlate.svg": "icon/FilmSlate",
       "/highlight_symbol.svg": "root/highlight_symbol",
+      // 2026-10-14: 작업 브랜치 feat/highlight-line-icon 의 메뉴 · 검색 · 새로 만들기 글리프(앵커가 그 판으로 옮겨 가면 이 줄이 쓰인다).
+      "/icons/Highlight.svg": "icon/Highlight",
       "/icons/youtube.svg": "icon/youtube",
       "/klipse-light.svg": "logo/klipse-light (291×85 · 라이트 서피스용 · 워드마크 black)",
       "/klipse-dark.svg": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",

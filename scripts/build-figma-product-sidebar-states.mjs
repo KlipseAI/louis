@@ -252,7 +252,9 @@ const plan = {
       // 통합 판(DS-D-0079)의 사이드바는 Canvas.svg · FilmSlate.svg 를 쓴다(2026-10-08 LOUIS 마스터 icon/Canvas · icon/FilmSlate 를 세움).
       Canvas: "icon/Canvas",
       Composition: "icon/FilmSlate",
-      Highlight: "root/highlight_symbol",
+      // 2026-10-14: 작업 브랜치 feat/highlight-line-icon(d1e547c93)이 메뉴 글리프를 브랜드 심볼에서 선 아이콘 `/icons/Highlight.svg` 로 바꿨다 —
+      // 앵커(54b62a8a)는 아직 브랜드 심볼이지만 작업 중 브랜치를 먼저 받는다. 자산 `icon/Highlight`(90 · 자산 C 섹션)가 그 원본이다.
+      Highlight: "icon/Highlight",
       YouTube: "icon/youtube",
       logo: "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",
       upgrade: "State=Current",

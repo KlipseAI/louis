@@ -71,6 +71,15 @@ const ATTRIBUTE_MAP = new Map([
   ["stroke-width", "strokeWidth"],
   ["stroke-linecap", "strokeLinecap"],
   ["stroke-linejoin", "strokeLinejoin"],
+  // 요소 하나의 투명도 — 한 색(currentColor) 안의 농담. 값은 알파 16단(DS-D-0026)만 받는다(아래 ICON_OPACITIES).
+  // 2026-10-14: 하이라이트 선 아이콘(아홉 칸이 가운데로 갈수록 진하다)이 첫 소비처다.
+  ["opacity", "opacity"],
+]);
+
+// 요소 투명도의 허용 집합 — 알파 16단(DS-D-0026: 32 까지 4 씩, 그 위 8 씩). 1 은 적지 않는다(기본값).
+export const ICON_OPACITIES = new Set([
+  "0.04", "0.08", "0.12", "0.16", "0.2", "0.24", "0.28", "0.32",
+  "0.4", "0.48", "0.56", "0.64", "0.72", "0.8", "0.88", "0.96",
 ]);
 
 // 지오메트리 해시와 속성 방출의 결정론적 순서. Map 삽입 순서에 기대지 않는다.
@@ -99,6 +108,7 @@ const PRESENTATION_KEYS = [
   "strokeWidth",
   "strokeLinecap",
   "strokeLinejoin",
+  "opacity",
 ];
 
 // 색 슬롯에서 currentColor로 접히는 값. 그 외 색 리터럴은 실패다.
@@ -298,6 +308,13 @@ function normalizeColors(element, name, issues) {
         `upstream의 배경 rect 같은 잔재는 정본에 남기지 않습니다.`,
     );
     return;
+  }
+
+  const opacity = element.attributes.get("opacity");
+  if (opacity !== undefined && !ICON_OPACITIES.has(opacity)) {
+    issues.push(
+      `${name}: opacity="${opacity}"는 알파 16단(DS-D-0026) 밖입니다. 허용: ${[...ICON_OPACITIES].join(", ")}.`,
+    );
   }
 
   if (stroke === "currentColor") {

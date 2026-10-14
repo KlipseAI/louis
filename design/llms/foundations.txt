@@ -1167,6 +1167,9 @@ generated 셋은 직접 수정하지 않는다. 정본을 고치고 `pnpm build:
 - `stroke="currentColor"`, `fill="none"`, `stroke-linecap="round"`, `stroke-linejoin="round"`를
   **요소마다** 명시한다.
 - `stroke-width`는 **1.5** 하나만 허용한다.
+- **요소마다 `opacity` 를 둘 수 있다 — 값은 알파 16단([DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md))만.** 한 색(`currentColor`) 안의
+  농담이다 — 색을 둘로 가르지 않는다. 1 은 적지 않는다. 첫 소비처는 `highlight`(아홉 칸이 가운데로 갈수록 진하다 — 가운데 1 · 옆 0.72 · 모서리 0.48,
+  2026-10-14). Figma 는 같은 값을 벡터의 레이어 불투명도로 갖는다.
 - **채운 글리프는 이름 끝이 `-fill` 이다**([DS-D-0085](../governance/decisions/DS-D-0085-filled-glyphs-and-monochrome-brand.md)). 채운 요소는
   `fill="currentColor"` 이고 획을 갖지 않는다. 같은 모양의 외곽선 글리프가 있으면 짝으로 둔다(`play` · `play-fill`).
 - 요소는 `path` `circle` `rect` `ellipse` `line` `polyline` `polygon` `g`만 허용한다.

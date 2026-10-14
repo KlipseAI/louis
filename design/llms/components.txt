@@ -7668,6 +7668,10 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 (위 라벨 대응표), 행 3 · 4 의 「+」가 `658ece13` 에서 걷혀 일반 내비 행이 됐다(아래 「복합 내비 행」).
 같은 커밋이 행 5 의 베타 칩을 라벨 옆으로 옮겼다. 행 6(「분석」 구획 라벨)은 `2c6bdacf` 에서 걷혀 레일은 여섯 행이다
 (위 SidebarSectionLabel).
+행 5 의 아이콘은 작업 브랜치 `feat/highlight-line-icon`(`d1e547c93`, 2026-10-14)에서 브랜드 심볼 `/highlight_symbol.svg`(칸 25개를 채운 그림 — 선 아이콘
+사이에서 혼자 면으로 읽혔다)에서 선 아이콘 `/icons/Highlight.svg` 로 바뀌었다. LOUIS 는 그 그림을 아이콘 `highlight`(`icon/highlight`)로 받았다 — 아홉 칸 ·
+가운데 1 · 옆 0.72 · 모서리 0.48(제품 0.75 · 0.45 를 알파 16단으로 접었다, [Iconography](../foundations/iconography.md)). 사이드바 · 검색 창 · 홈 「새로 만들기」 ·
+하이라이트 구간 트랙 머리가 같은 아이콘을 쓴다. 랜딩 하이라이트 장면은 브랜드 심볼을 그대로 쓴다.
 
 **`/analytics/instagram`은 레일에 서지 않는다.** 라우트도 아이콘(`/icons/InstagramLogo.svg`)도 라벨도
 코드에 있지만 `INSTAGRAM_ANALYTICS_HIDDEN = true`가 그 행을 렌더 직전에 걷어낸다. 위 라벨 표에 한 줄로

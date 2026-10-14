@@ -45,6 +45,7 @@ export type IconName =
   | "globe"
   | "graph"
   | "hand"
+  | "highlight"
   | "house"
   | "image"
   | "info"
@@ -444,6 +445,22 @@ export function IconHand(props: IconProps): JSX.Element {
     <IconRoot {...props} name="hand">
       <path d="M15.75 7.125a1.875 1.875 0 0 1 3.75 0v7.125a7.5 7.5 0 0 1-7.5 7.5c-4.141875 0-5.6953125-1.995-8.74875-8.4375a1.875 1.875 0 0 1 3.2475-1.875L8.25 14.25V5.625a1.875 1.875 0 0 1 3.75 0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M12 11.25V4.125a1.875 1.875 0 0 1 3.75 0v7.125" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconHighlight(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="highlight">
+      <rect rx="1.5" x="2.25" y="2.25" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.48" />
+      <rect rx="1.5" x="9.75" y="2.25" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.72" />
+      <rect rx="1.5" x="17.25" y="2.25" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.48" />
+      <rect rx="1.5" x="2.25" y="9.75" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.72" />
+      <rect rx="1.5" x="9.75" y="9.75" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <rect rx="1.5" x="17.25" y="9.75" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.72" />
+      <rect rx="1.5" x="2.25" y="17.25" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.48" />
+      <rect rx="1.5" x="9.75" y="17.25" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.72" />
+      <rect rx="1.5" x="17.25" y="17.25" width="4.5" height="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.48" />
     </IconRoot>
   );
 }

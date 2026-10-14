@@ -297,7 +297,11 @@ const UNCLASSIFIED_BASELINE = 0;
 // fixture). 옛 보드의 instance 는 하나도 바뀌지 않았다. 공개 모바일 일곱의 missing −1 · structural −3 은 닫힌 모바일 메뉴 판(`clip-path:
 // inset(0 0 100%)`)을 더는 그리지 않아서다(figma-tree-spec 의 clipPathHidesAll).
 // 2026-10-15: 332 → 359. 분석 연결 상태 보드 열여덟(상태 레시피 analytics)이 셸 인스턴스 27(데스크톱 아홉 × 상단 바 · GNB 둘 + 모바일 아홉 × 상단 바)을 새로 얻었다.
-const INSTANCE_FLOOR = 359;
+// 2026-10-15 새벽: (332 기준으로는 −2) 후퇴가 아니라 그려진 상태가 바뀐 것이다 — auth 원장을 프로필 시드 · 세션 쿠키로 다시 재자
+// `/highlight/[projectId]?__phase=loading` 두 보드가 「Couldn't load this project. · Reload」 오류(프로젝트 조회 401)에서 「Loading」
+// (조회 200)으로 바뀌어 Reload Button 인스턴스가 보드마다 하나씩 빠졌다. 불러오기 단계의 제품 화면에는 단추가 없다.
+// 합본: 359 − 2 = 357.
+const INSTANCE_FLOOR = 357;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.

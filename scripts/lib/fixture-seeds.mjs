@@ -201,4 +201,32 @@ export const FIXTURE_PUBLIC_SEEDS = Object.freeze({
     created_at: "2026-01-01T00:00:00.000Z",
     updated_at: "2026-01-01T00:00:00.000Z",
   }],
+  // **모델 페이지 둘(2026-10-14, `/models` · `/models/[slug]`).** 제품 `app/lib/models/landingModelCards.ts` `loadLandingModelCards` 가
+  // `landing_models` 를 `select(id, name, description, description_en, description_ja, media_url, media_type, video_playback, logo_url, badge,
+  // display_order) · eq(is_active, true) · order(display_order)` 로 읽는다. 카드가 없으면 목록의 최신 모델 배너 · 상세의 한 줄 소개와 결과 영상 ·
+  // 「다른 모델」 격자가 통째로 빠져(`app/models/page.tsx` · `app/models/[slug]/page.tsx`) 채운 상태가 아니다. 카드 이름은 제품
+  // `PUBLIC_MODELS` 의 `landingName` 과 글자 그대로 같아야 붙는다(`sameCardName`) — 이름은 그 목록을 옮긴 것이고 한 줄 소개만 자리표시다.
+  // **미디어는 그림 + 측정용 CDN 주소다.** `toServingUrl` 이 http(s) 만 그대로 두고(상대 경로는 「알 수 없는 키」로 null), `next/image` 는
+  // `NEXT_PUBLIC_CDN_BASE_URL`(측정기가 `https://cdn.fixture.invalid` 로 세운다)의 호스트만 받는다(next.config.js remotePatterns). 그래서
+  // 그 호스트 밑에 제품 public 의 예시 그림 경로(`/image-edit/examples/example-N.jpg`)를 붙인다 — 바깥 요청은 끊겨 브라우저에는 빈 칸이지만,
+  // 측정기는 `/_next/image?url=` 의 원본 주소를 적고 생성기는 그 주소를 같은 예시 그림 자산 컴포넌트로 잇는다(build-figma-app-screens
+  // IMAGE_COMPONENTS). 처음에 영상(`https://fixture.invalid/…mp4`)으로 시드했더니 영상 칸이 바탕 없는 빈 면이라 「다른 모델」 카드가 흰
+  // 글자만 남았다 — 영상 모델의 카드도 그림 카드와 같은 상자(정사각 · object-cover)라 그림으로 둔다. 로고는 비운다 — 제품 `ModelLogo` 의
+  // 이름 첫 글자 분기다(바깥 주소의 마스크는 그려지지 않는다). 첫 카드에만 「New」를 달아 목록 배너가 그 모델(Seedance 2.5)을 고른다(`newest` 산식).
+  landing_models: [
+    "Seedance 2.5", "Veo 3.1", "Kling 3.0", "Gemini Omni 1.1", "Seedance 2.0", "Minimax H3", "Kling 3.0 Omni", "GPT Image 2.5", "Nano Banana 2", "ElevenLabs",
+  ].map((name, index) => ({
+    id: `00000000-0000-4000-8000-0000000d${String(index + 1).padStart(4, "0")}`,
+    name,
+    description: "Placeholder one-line model description.",
+    description_en: "Placeholder one-line model description.",
+    description_ja: null,
+    media_url: `https://cdn.fixture.invalid/image-edit/examples/example-${(index % 5) + 1}.jpg`,
+    media_type: "image",
+    video_playback: "loop",
+    logo_url: null,
+    badge: index === 0 ? "new" : null,
+    display_order: index + 1,
+    is_active: true,
+  })),
 });

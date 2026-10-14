@@ -336,6 +336,13 @@ const PUBLIC_ROUTES = [
   // 닿지 않아(`http://127.0.0.1:9`) 페이지가 던지고 루트 오류 경계가 선다(「Something went wrong」 · 다시 시도 · 홈으로). 그 화면을 `error`
   // 로 싣는다 — 오류 경계를 띄우려고 제품 코드를 바꿀 필요가 없다. 부스 체험 본 화면은 세션 모드(가짜 Supabase)가 잰다.
   { pattern: "/creative-media", id: "error", file: "apps/web/app/error.tsx", fullPage: true },
+  // **`/ambassador` 는 이 앵커(54b62a8a)에서 재지 않는다(2026-10-14).** 재어 보니 유틸리티 CSS 가 하나도 닿지 않은 맨 HTML 이었다 — GNB 가
+  // `display:block`, 버튼이 UA 회색(#efefef), 문서 82650(데스크톱). 앵커의 `app/ambassador/` 에 `layout.tsx` 가 없어서다: 유틸리티는
+  // 최상위 경로의 레이아웃이 `utilities-app.css` · `utilities-important.css` 를 실어야 닿는다(제품 `app/tailwind.css` 머리 주석 · 게이트
+  // `app/utilitiesSplit.test.ts`). 통합 판이 그 규칙보다 먼저 갈라진 앰버서더 브랜치를 합치며 레이아웃을 빠뜨렸고, 제품은 뒤에 같은 두 줄의
+  // 레이아웃을 더했다(klipse-web 2289e60fa · 통합 저장소 fca74d3ba — 둘 다 앵커의 조상이 아니다). 앵커가 그 레이아웃을 품으면 아래 줄을 살린다
+  // (동작 줄이기 — 히어로 · 협업 유형의 sticky 무대를 도착 상태로).
+  // { pattern: "/ambassador", fullPage: true, reducedMotion: true },
 ];
 
 // **공개 시드 모드가 재는 화면(`--public-seeded`, 2026-10-07).** 발행된 한 행이 있어야 서는 공개 상세 — 가짜 Supabase 의 자리표시 시드
@@ -343,6 +350,11 @@ const PUBLIC_ROUTES = [
 const PUBLIC_SEEDED_ROUTES = [
   { pattern: "/blog/[slug]", url: "/blog/fixture-post", id: "/blog/[slug]", fullPage: true },
   { pattern: "/templates/[slug]", url: "/templates/filter", id: "/templates/[slug]", fullPage: true },
+  // **모델 목록 · 상세(2026-10-14).** 사양과 크레딧은 코드 상수(`app/lib/models/publicModels.ts`)라 데이터 없이도 서지만, 배너 · 한 줄 소개 ·
+  // 결과 영상 · 「다른 모델」은 랜딩 모델 카드(`landing_models`)가 있어야 선다 — 시드(`lib/fixture-seeds.mjs`)로 채운 상태를 잰다. 상세는 버전이
+  // 셋인 Veo 3.1 이다(버전 줄 셋 · 계산기 버전 토글).
+  { pattern: "/models", fullPage: true },
+  { pattern: "/models/[slug]", url: "/models/veo-3-1", id: "/models/[slug]", fullPage: true },
 ];
 
 // 문자열·객체 항목을 하나의 모양으로 편다. `expectedSearch` 는 redirect 판정에 쓴다 —
@@ -552,6 +564,9 @@ const startFixtureServer = async () => {
         // 관리자 Supabase 클라이언트(`app/lib/supabase/admin.ts`)는 `SUPABASE_SECRET_KEY` 가 없으면 던진다 — 어드민 유저 목록 · 부스 운영 ·
         // 결제수단 API 가 본문 없는 500 으로 끝나 화면에 「Failed to execute 'json'」 원문이 찍혔다. 가짜 Supabase 는 키를 보지 않는다.
         ...(session ? { ADMIN_EMAILS: "fixture@klipse.test", CREATIVE_MEDIA_ADMIN_KEY: "fixture-booth-key", SUPABASE_SECRET_KEY: "fixture-secret-key" } : {}),
+        // 공개 시드 모드(2026-10-14): 모델 페이지는 랜딩 모델 카드를 관리자 클라이언트로 읽는다(`app/lib/models/landingModelCards.ts`) — 키가 없으면
+        // 던지고 「실패하면 null」로 카드 없이 서서 시드가 닿지 않았다. 블로그 · 템플릿 상세는 관리자 클라이언트를 `?preview` 에서만 쓴다.
+        ...(publicSeeded ? { SUPABASE_SECRET_KEY: "fixture-secret-key" } : {}),
       },
       stdio: ["ignore", "pipe", "pipe"],
     },

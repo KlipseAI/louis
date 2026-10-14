@@ -517,6 +517,8 @@ const buildNode = (spec, parent) => {
     // 줄바꿈 없이 잘리는 글자(`white-space: nowrap` + `overflow: hidden`) — 한 줄에서 말줄임으로 자른다.
     if (isText && spec.tt && h !== "HUG") { try { node.textTruncation = "ENDING"; node.maxLines = 1; } catch (error) {} }
     // **제품에서 실제로 잘린 내용 맞춤 글자(`tt` 2, 2026-10-12 오후)** — 측정 폭을 최대 폭으로 두고 끝을 자른다(영상 노드 모델 칩 「Seedance 2.0 …」).
+    // 줄 수를 자르는 글자(`lc`, `-webkit-line-clamp`) — 칸 폭 글자를 그 줄 수에서 말줄임으로 자른다(조립 규칙 15조의 10).
+    if (isText && spec.lc && h !== "HUG") { try { node.textTruncation = "ENDING"; node.maxLines = spec.lc; } catch (error) {} }
     if (isText && spec.tt === 2 && h === "HUG") { try { node.maxWidth = Math.max(0.01, spec.r[0]); node.textTruncation = "ENDING"; node.maxLines = 1; } catch (error) {} }
   }
 

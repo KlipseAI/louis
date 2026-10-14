@@ -1073,6 +1073,8 @@ const typographyKeys = (node) => {
     ...(typography.align ? { ta: typography.align } : {}),
     // 1 = 말줄임 글자, 2 = 제품에서 실제로 잘린 말줄임 글자(측정기 truncated) — 렌더러가 2 면 측정 폭을 최대 폭으로 둔다.
     ...(typography.truncate ? { tt: typography.truncated ? 2 : 1 } : {}),
+    // 줄 수를 자르는 글자(`-webkit-line-clamp`, figma-tree-spec lineClampOf) — 렌더러가 칸 폭 글자에 그 줄 수로 끝을 자른다(조립 규칙 15조의 10).
+    ...(typography.lineClamp ? { lc: typography.lineClamp } : {}),
     // 글자 모양으로 오린 그라디언트(figma-tree-spec clippedTextPaint) — [각도, [색, 위치], …].
     ...(typography.gradient ? { tg: [round(typography.gradient.angle), ...typography.gradient.stops.map((stop) => [stop.color, round(stop.position)])] } : {}),
   };
@@ -2005,13 +2007,16 @@ function hoistBleed(spec) {
  * FILL + 같은 줄 나눔」은 측정 폭 parity 를 지키지 못한다 — 다시 감기는 위험은 상자 여유가 아니라 «줄» 여유로 정해지고, 원장에는 줄마다의 폭이
  * 없다. 이 규칙을 낳은 개인정보 데스크톱 문단이 바로 폭 720 = 부모 720(모바일 483.61 = 483.61)이라 그 조건이 이 사고를 그대로 되살린다.
  * Figma 에서 옮긴 줄의 폭을 재기 전(탐침)에는 HUG 로 둔다.
+ * **예외 — 줄 수를 자르는 글자(`typography.lineClamp`, 2026-10-14 조립 규칙 15조의 10).** `line-clamp` 상자는 블록 폭이고 N 줄보다 길어질 수 없어
+ * (렌더러가 `maxLines` 로 자른다) 다시 감겨도 높이가 바뀌지 않는다 — 판정 폭(FILL) 그대로 둔다. 랜딩 모바일 뉴스 카드 제목이 HUG 145 로 360 의 129 칸
+ * 밖으로 16 나가던 것이다.
  */
 function hugCarriedLines(spec) {
   const changed = [];
   const walk = (node, parent) => {
     if (node.instance) return;
     const carried = Array.isArray(node.wrapLines) && node.wrapLines.length > 1;
-    if (carried && node.text && parent && !node.splitWrapLine && !node.typography?.align && node.positioning !== "ABSOLUTE"
+    if (carried && node.text && parent && !node.splitWrapLine && !node.typography?.align && !node.typography?.lineClamp && node.positioning !== "ABSOLUTE"
       && node.sizing?.layoutSizingHorizontal !== "HUG" && parent.sizing?.layoutSizingHorizontal !== "HUG") {
       const layout = parent.layout ?? {};
       const flow = flowChildren(parent);
@@ -2193,6 +2198,26 @@ function centreAutoMargins(spec) {
           margin: auto.map((child) => ((child.margin?.left ?? 0) > HALF_PIXEL ? child.margin.left : Math.round(offsetOf(child) * 100) / 100)) });
         node.layout = { ...node.layout, align: { ...node.layout.align, counterAxis: "CENTER" } };
         for (const child of auto) child.margin = { ...child.margin, left: 0, right: 0 };
+      }
+    }
+    // **가로 줄의 외동 항목도 같다 — 주축 가운데(2026-10-14, 조립 규칙 15조의 12).** 홈 배너 슬라이드(`article` 가로 flex)의 글 상자
+    // (`width: min(540px, 100%); margin-inline: auto`)는 측정기 선언 목록에 `margin-inline` 이 없어 auto 를 잃고 계산값 550 / 550 이
+    // 부모 padding 으로 굳었다 — /archive 데스크톱을 1440 으로 줄이자 슬라이드 1160 에서 padding 1100 이 남아 글 상자가 60 으로 접혔다.
+    // 위와 같은 수의 닫힘(최대 폭에 닿은 FILL · 좌우 여백이 같고 (안쪽 폭 − 폭) / 2)이면 auto 이고, 외동 흐름 항목이라 주축 정렬
+    // CENTER 가 같은 자리다(측정 폭에서 자리 · 크기 그대로).
+    if (node.layout?.layoutMode === "HORIZONTAL" && !node.layout.wrap) {
+      const children = flowChildren(node);
+      const child = children.length === 1 ? children[0] : null;
+      const inner = node.rect.width - node.layout.padding.left - node.layout.padding.right;
+      const margin = child?.margin ?? { left: 0, right: 0 };
+      const slack = child ? (inner - child.rect.width) / 2 : 0;
+      const fillAtMax = child && child.sizing.layoutSizingHorizontal === "FILL" && child.sizing.maxWidth != null
+        && Math.abs(child.rect.width - child.sizing.maxWidth) <= HALF_PIXEL;
+      if (fillAtMax && slack > HALF_PIXEL && margin.left > HALF_PIXEL && Math.abs(margin.left - margin.right) <= HALF_PIXEL
+        && Math.abs(margin.left - slack) <= HALF_PIXEL) {
+        centred.push({ path: node.path, from: node.layout.align.primaryAxis ?? null, children: [child.path], margin: [margin.left], axis: "primary" });
+        node.layout = { ...node.layout, align: { ...node.layout.align, primaryAxis: "CENTER" } };
+        child.margin = { ...child.margin, left: 0, right: 0 };
       }
     }
     for (const child of node.children ?? []) walk(child);

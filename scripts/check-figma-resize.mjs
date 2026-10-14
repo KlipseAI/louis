@@ -79,10 +79,20 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 글자가 폭마다 바뀐다(크로미움 실측 앵커 54b62a8a: 1920 은 「00:29」 x 1908, 1440 은 눈금자 1272 에 「00:21」 x 1428 — 둘 다 잘린다). 랜딩 모바일
 // 360 하나는 뉴스 카드 제목 둘(`h3` line-clamp-2, 줄을 옮긴 HUG 145 / 칸 129)이다 — 15 조 「줄을 옮긴 글자」의 2026-10-12 판단(Figma 에서 줄 폭을
 // 재기 전에는 FILL 로 돌리지 않는다)에 걸려 남겼다. 나머지 둘은 /blog/[slug] 모바일 360(본문 그림 · 표 +26)과 /terms 모바일 360(목록 글자) — 조사 전.
+// run 2026-10-14b(01-public · 03-app 만 다시 쟀다 — `merge --pages 01-public,03-app`, 02 · 04 · 05 는 2026-10-12b 그대로): 01-public 부모 밖 10 → 9 ·
+// 03-app 21 → 17. 고친 셋 — ① 랜딩 모바일 360 의 뉴스 카드 제목(`line-clamp-2`)이 줄을 옮긴 HUG 145 로 129 칸 밖으로 16 → 줄 수를 자르는 글자는 칸 폭
+// FILL + `maxLines` 말줄임(조립 규칙 15조의 10, 줄을 옮긴 글자 HUG 의 예외 — N 줄보다 길어질 수 없어 다시 감겨도 높이가 바뀌지 않는다). ② 하이라이트 완료
+// 모바일 360 의 시간 눈금 「1:30」 · 끝 구간 막대가 MIN 으로 324 줄 밖에 6 · 42 → 백분율 시작 변의 절대 배치는 SCALE, 글자는 가까운 닻(15조의 11).
+// ③ /archive seeded 데스크톱 1440 의 홈 배너 글 상자(`margin-inline: auto` 를 측정기가 잃어 padding 550 / 550 으로 굳음)가 60 으로 접혀 제목 · 버튼이 밖으로
+// → 가로 줄 외동 항목의 auto 여백은 주축 CENTER(15조의 12). 보낸 보드: 랜딩 모바일 · 데스크톱 조각 01, 하이라이트 완료 데스크톱 · 모바일, /archive seeded
+// 데스크톱, 편집기 데스크톱 조각 01 · 02(타임라인 구간 · 눈금의 SCALE). 03-app 의 나머지 둘(하이라이트 분석 중 · 업로드 중 모바일 360, 1 → 0)은 이 변경이 아니라
+// 2026-10-12b 이후 다른 작업이 보낸 보드에서 줄었다. 같은 run 에서 시험 수는 그대로이고 보드 안 넘친 자식 수만 는 것: 노드캔버스 · 편집기 시드 모바일
+// 360(2909:19790 · 19792 · 19794 — 카드 제목 nowrap, 제품 같음) · 편집기 모바일 360(39:1520) · 편집기 데스크톱 1440(39:3 — 타임라인 트랙 1888 고정 폭 둘 ·
+// 미리보기 1216, 이 변경의 제약은 아니다).
 const BASELINE = {
-  "01-public": { overflow: 5, childOutside: 10, textClip: 1, heightFollow: 17, baseOverflow: 2 },
+  "01-public": { overflow: 5, childOutside: 9, textClip: 1, heightFollow: 17, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
-  "03-app": { childOutside: 21, heightFollow: 2 },
+  "03-app": { childOutside: 17, heightFollow: 2 },
   "04-billing": { childOutside: 8, heightFollow: 2 },
   "05-ops": { overflow: 4, childOutside: 4 },
 };

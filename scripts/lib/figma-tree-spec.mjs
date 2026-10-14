@@ -1224,7 +1224,9 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
           const clipped = typography ? clippedTextPaint(style, node.rect) : null;
           const painted = clipped ? { ...typography, color: clipped.color ?? null, ...(clipped.gradient ? { gradient: clipped.gradient } : {}) } : typography;
           // 측정기가 본 실제 말줄임(`truncated`, 넘친 말줄임 글자) — 렌더러가 측정 폭을 최대 폭으로 걸고 끝을 자른다.
-          return painted && painted.truncate && node.truncated ? { ...painted, truncated: true } : painted;
+          const truncated = painted && painted.truncate && node.truncated ? { ...painted, truncated: true } : painted;
+          const clamp = truncated && !truncated.truncate ? lineClampOf(style, node.rect, truncated) : null;
+          return clamp ? { ...truncated, lineClamp: clamp } : truncated;
         })()
         : null,
       // **절대 배치는 spec에 반드시 남긴다.** 안 남기면 Figma에서 일반 auto-layout 자식이 되어
@@ -1251,7 +1253,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null, parent ? {
           viewport: viewportStage(parent, byPath),
           siblings: (childrenOf.get(parent.path) ?? []).filter((sibling) => sibling !== node),
-        } : null)
+        } : null, { text: Boolean(node.ownText) })
         : null,
       why: { horizontal: decision.h, vertical: decision.v },
       // **자동 배치 없는 글자 상자의 안쪽 여백(2026-10-12 오후).** 입력칸처럼 자식 없이 글자(placeholder)를 그리는 면은 layout 이 null 이라
@@ -1410,7 +1412,7 @@ export function collapseWrappers(node, stats = null) {
  * stage.width - 40 }` 이다. 선언으로는 고정 폭이지만, 계산값의 양쪽 여백이 같으면(왼쪽 20 · 오른쪽 20) 무대 폭에서 여백을 뺀 폭이라
  * 그 축을 STRETCH 로 둔다. 데스크톱 제목(왼쪽 192 · 오른쪽 1128)은 여백이 달라 그대로 MIN 이다.
  */
-export function constraintsFor(declared, computed = null, parentComputed = null, stage = null) {
+export function constraintsFor(declared, computed = null, parentComputed = null, stage = null, self = {}) {
   const has = (value) => value != null && value !== "auto" && value !== "";
   const position = computed?.position;
   const zero = (value) => px(value) === 0;
@@ -1430,16 +1432,38 @@ export function constraintsFor(declared, computed = null, parentComputed = null,
   const crossAlign = /^(auto|normal)$/.test(ownAlign) ? parentComputed?.alignItems : ownAlign;
   const staticCentre = (cross, start, end) => cross && position === "absolute" && !has(declared[start]) && !has(declared[end])
     && /^(safe\s+|unsafe\s+)?center$/.test(String(crossAlign ?? "").trim());
+  // 백분율 시작 변(15조의 11) — 글자가 아니면 SCALE(자리가 부모에 비례한다), 글자는 SCALE 이 폭을 줄여 다시 감으므로(라이브 탐침:
+  // 「1:30」 23 → 20.4 · 두 줄) 크기도 백분율이 아닌 한 비율 p 에 가장 가까운 닻(MIN · CENTER · MAX). 판정 밖이면 null.
+  const percentAnchor = (start, end, size, borderStart, borderEnd) => {
+    if (position !== "absolute" || !percentOf(declared[start]) || has(declared[end]) || centred(declared[start])) return null;
+    const box = (px(parentComputed?.[size]) ?? 0) - (px(parentComputed?.[borderStart]) ?? 0) - (px(parentComputed?.[borderEnd]) ?? 0);
+    const offset = px(computed?.[start]);
+    if (!(box > 0) || offset == null) return null;
+    const p = offset / box;
+    // 부모 안에서 시작하는 것만 — `top: 100%` 아래로 펼친 메뉴 · `left: 0%` 는 비율 자리가 아니다(옛 판정 그대로).
+    if (!(p > 0.001 && p < 0.999)) return null;
+    if (percentOf(declared[size]) || !self.text) return "SCALE";
+    return p <= 0.25 ? "MIN" : p >= 0.75 ? "MAX" : "CENTER";
+  };
+  const horizontalPercent = percentAnchor("left", "right", "width", "borderLeftWidth", "borderRightWidth");
+  const verticalPercent = percentAnchor("top", "bottom", "height", "borderTopWidth", "borderBottomWidth");
   return {
     horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") || equalInsets("left", "right", "width") ? "STRETCH"
       : centred(declared.left) || (centred(declared.right) && !has(declared.left)) || staticCentre(flexColumn, "left", "right") ? "CENTER"
         : placed.horizontal ? "SCALE"
-          : has(declared.right) ? "MAX" : "MIN",
+          : horizontalPercent ? horizontalPercent
+            : has(declared.right) ? "MAX" : "MIN",
     vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") || equalInsets("top", "bottom", "height") ? "STRETCH"
       : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) || staticCentre(flexRow, "top", "bottom") ? "CENTER"
         : placed.vertical ? "SCALE"
-          : has(declared.bottom) ? "MAX" : "MIN",
+          : verticalPercent ? verticalPercent
+            : has(declared.bottom) ? "MAX" : "MIN",
   };
+}
+
+/** 선언이 포함 블록의 백분율인가 — `5%` · `calc(var(--tick, 0) * 1%)` 처럼 `%` 를 품은 길이(15조의 11). `50%` 가운데 맞춤은 위 CENTER 가 먼저 받는다. */
+function percentOf(value) {
+  return /%/.test(String(value ?? "").replace(/\s*!\s*important\s*$/i, ""));
 }
 
 /**
@@ -1782,6 +1806,24 @@ function typographyOf(style) {
     // (`textTruncation = "ENDING"` · `maxLines = 1`)를 건다.
     ...(/^(nowrap|pre)$/.test(style.whiteSpace ?? "") && /hidden|clip/.test(`${style.overflow ?? ""} ${style.overflowX ?? ""}`) ? { truncate: true } : {}),
   };
+}
+
+/**
+ * **줄 수를 자르는 글자 상자(`-webkit-line-clamp`)의 보이는 줄 수(2026-10-14, 조립 규칙 15조의 10).** Tailwind `line-clamp-N` 은
+ * `overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: N` 이고, 크로미움(151)은 그 `display` 를
+ * 계산값 `flow-root` 로 낸다(실측: 같은 h3 에 line-clamp 를 걸면 `flow-root` · 150 × 48, 걸지 않으면 `block` · 150 × 96). 원장의 축에는
+ * `-webkit-line-clamp` 가 없어 계산값 `display: flow-root` + `overflow: hidden` 인 글자 상자를 그것으로 읽고, 줄 수 N 은 측정 높이 / 줄 높이다
+ * (안쪽 높이가 줄 높이의 정수배일 때만 — 아니면 null). 이 상자는 블록 폭(포함 블록 · stretch 된 칸 폭)이지 글자 폭이 아니다.
+ */
+function lineClampOf(style, rect, typography) {
+  if (style.display !== "flow-root" || !/hidden|clip/.test(`${style.overflow ?? ""} ${style.overflowY ?? ""}`)) return null;
+  if (/^(nowrap|pre)$/.test(style.whiteSpace ?? "")) return null;
+  const lineHeight = typography?.lineHeight;
+  if (!lineHeight || !rect?.height) return null;
+  const inner = rect.height - (px(style.paddingTop) ?? 0) - (px(style.paddingBottom) ?? 0)
+    - (px(style.borderTopWidth) ?? 0) - (px(style.borderBottomWidth) ?? 0);
+  const lines = Math.round(inner / lineHeight);
+  return lines >= 1 && Math.abs(inner - lines * lineHeight) <= 0.5 ? lines : null;
 }
 
 /**

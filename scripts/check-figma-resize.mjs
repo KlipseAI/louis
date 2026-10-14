@@ -34,7 +34,7 @@ const TYPES = ["overflow", "childOutside", "textClip", "heightFollow", "widthFol
 const FOLLOW_MIN = 0.99;
 
 // 2026-10-08 run 2026-10-08a 실측(보드 142장 · 시험 426). 줄면 여기를 같은 수로 내린다.
-const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34, "05-ops": 14 };
+const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 56, "04-billing": 34, "05-ops": 14 };
 // 무엇이 들어 있나: heightFollow 는 거의 전부다 — 보드 루트가 세로 HUG 라 보드 높이를 따라오지 않는다(루트 높이 / 보드 높이
 // 0.769 = 1/1.3). overflow 의 뿌리는 대부분 고정 폭 상단 바(`header`, 1920 · 402 에 묶여 1440 에서 +480, 360 에서 +42)다.
 // clamped 6 은 랜딩 · /privacy · /terms 의 데스크톱 2560 · 모바일 430(보드가 넓어지지 않는다), noRoot 16 은 03 앱의
@@ -102,8 +102,16 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // RESIZE_PRODUCT_SAME(React Flow 뷰포트 상자 · 필름 칸). 04-billing 의 두 보드(199:2782 · 2108:2510)는 같은 시험 안에서 넘친 자식 수만 늘었다(시험 수 그대로).
 // 보낸 보드: 39:3 조각 00 · 01 · 02, 39:1520, 38:3, 38:3843 조각 00 · 01 · 02, 같은 규칙이 같이 걸린 2909:19786(/archive seeded 모바일) · 359:2032 조각 01 ·
 // 359:2986(랜딩 — 01-public 수는 그대로). /terms 데스크톱 조각 03 · 04 는 렌더러 길이가 바뀌어 조각 경계만 옮겨졌고 내용이 같아 보내지 않았다.
+// run 2026-10-14s(01-public 만 다시 쟀다 — `merge --pages 01-public`): 보드 20 → 24 — /models · /models/[slug] 데스크톱 · 모바일(3471:9267 ·
+// 9268 · 9269 · 9270)이 섰다. 늘어난 실패 일곱은 모두 새 보드 몫이고 옛 보드는 하나도 바뀌지 않았다. ① 높이 따름 17 → 21: 넷 다 문서 길이 보드라
+// 뿌리가 세로 HUG(기대값, 위 공개 17 과 같다). ② 부모 밖 9 → 11: 데스크톱 1440 둘은 푸터 눈금자 끝 글자로 **제품도 그렇다**(위 2026-10-14a 의
+// 일곱과 같은 노드 — Product/Landing Footer 안 `span AA` dx 24). ③ 넘침 5 → 6: /models 모바일 360 의 추천 「가장 중요한 것」 세그먼트 토글(내용 폭
+// 371, `[&>*]:w-max`)이 칸 328 밖으로 43 · 보드 밖으로 27. 제품은 그 칸이 `overflow-x-auto` 라 늘 자르는데, 측정기는 스크롤 칸을 «측정 폭에서
+// 자식이 실제로 넘칠 때만» 자른다(figma-tree-spec.mjs clipsContent — 402 에서 토글 370 이 칸 370 에 딱 닿아 넘침 0). 「끝에 닿은 자식도 자른다」로
+// 고치면 맞지만 그 규칙이 다른 보드 · 부품 러너 스물을 바꿔(분석 · 업그레이드 · 노드캔버스 · 약관 · 편집기 · 요금 비교표 부품) 동시 재생성 작업과
+// 겹치므로 이 run 에서는 남기고 기준선에 넣는다 — 다음 생성기 정리 때 그 규칙으로 고친다.
 const BASELINE = {
-  "01-public": { overflow: 5, childOutside: 9, textClip: 1, heightFollow: 17, baseOverflow: 2 },
+  "01-public": { overflow: 6, childOutside: 11, textClip: 1, heightFollow: 21, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
   "03-app": { childOutside: 16, heightFollow: 2 },
   "04-billing": { childOutside: 7, heightFollow: 2 },

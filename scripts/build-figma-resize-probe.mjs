@@ -55,7 +55,8 @@ const PAGES = [
   { slug: "05-ops", id: "246:3451", limit: 14 },
 ];
 // 페이지별 보드 수(2026-10-08 실측). 조각 파일을 이만큼 덮게 쓴다 — 응답의 total 이 다르면 merge 가 멈춘다.
-const BOARD_COUNT = { "246:3447": 20, "246:3448": 18, "246:3449": 56, "246:3450": 34, "246:3451": 14 };
+// 2026-10-14: 01-public 20 → 24 — /models · /models/[slug] 보드 넷(데스크톱 · 모바일)이 섰다.
+const BOARD_COUNT = { "246:3447": 24, "246:3448": 18, "246:3449": 56, "246:3450": 34, "246:3451": 14 };
 
 function fail(message) {
   console.error(`[figma-resize-probe] ${message}`);

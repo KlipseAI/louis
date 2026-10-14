@@ -13,15 +13,15 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 202,
+    "mapped": 203,
     "scoped": 327,
-    "needed": 83,
+    "needed": 82,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 0,
-    "screen": 83,
+    "screen": 82,
     "oneoff": 0,
     "unclear": 0,
     "kindless": 0
@@ -2152,12 +2152,13 @@
       "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "앞선 사유가 든 세 질문 중 둘은 판례로 닫힌다. (1) 「보드 시안이 있으면 대응인가」 — 아니다. figma 판정의 후보는 readback 의 components 51 과 templates 9 뿐이고, 화면 보드가 있는 status-result 여덟 라우트도 figma 가 아니라 scoped 로 세어졌다(게다가 이 부스 화면은 figma/ 아래 app-screens 생성물조차 없다). (2) 「부스 조각 8개」 — 이미 전부 scoped 로 접혀 있어 이 판정에 딸려 흔들리지 않는다. 남는 질문 하나가 진짜로 소유자 몫이라 unclear 를 유지한다: **html[data-theme] 를 따르지 않는 고정 다크 스코프를 분모에 남길 것인가.** 이 1140줄 화면은 손님이 실제로 쓰는 3단계 모바일 화면이고 「레이아웃은 피그마 시안을 따른다」고 적혀 있지만, 테마 계약 밖이라 공용 Button 의 secondary/ghost 를 못 써 palette-* 고정 토큰 버튼을 따로 짰다 — 라이브러리에 세워도 테마 변수 모드로 표현할 자리가 없다. 라우트도 noindex·QR 전용·이벤트 활성 스위치로 꺼지는 행사 설치물이고 진입점 page.tsx 와 운영 콘솔은 이미 scoped 다. 소유자가 「테마 계약 밖 고정 다크 화면을 디자인 시스템이 소유하는가」를 한 번 정하면 이 건과 앞으로 나올 같은 성격의 화면이 함께 풀린다. 정하지 않은 채 scoped 로 넘기면 「테마를 안 타서 못 세운다」가 「범위 밖」으로 둔갑한다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "DS-D-0109 가 unclear 를 닫았다 — html[data-theme] 를 따르지 않는 고정 다크 화면도 디자인 시스템이 소유한다(화면 상자에 data-theme=\"dark\" 를 걸면 LOUIS 가 고정된다, fixed-dark-scope.browser.test.tsx). 닫는 길은 DS-D-0098 화면 보드 screen:/creative-media(활성 행사 시드 · 다크 고정 · 늘림 통과)다. 2026-10-15 판정."
+      "verdict": "figma",
+      "figma": "screen:/creative-media",
+      "reason": "부스 체험 화면의 보드다(DS-D-0098 · DS-D-0109). 고정 다크 화면이고 palette 고정 토큰만 써서 보드도 다크로 그려진다. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 모드에 따로 얹은 부스 시드(FIXTURE_CREATIVE_MEDIA_SEEDS — 활성 행사 하나 · 템플릿 넷)가 채운다 — 로고 · 「Klipse AI Photo Booth」 제목 · 안내 · 「Choose a style」 · 템플릿 카드 넷(예시 그림 · 「0 generated」) · 개인정보 안내. 닫힘 화면이 아니다. 늘림 run 2026-10-15r2 에서 두 보드 실패 0."
     },
     "apps/web/components/creative-media/CreativeMediaClient.tsx#CreativeMediaClosed": {
       "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",

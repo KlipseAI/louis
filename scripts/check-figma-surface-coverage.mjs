@@ -146,7 +146,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 같은 날 뒤: 193 → 195 — 모델 상세 화면 · 버전 행(보드 /models/[slug], run 2026-10-14s, 아래 MAPPED_SCREEN_BASELINE).
 // 같은 날 뒤: 195 → 202 — 공개 · 덱 · 하이라이트 새 부품 일곱(CopyPanel · SectionShell · BrandBar · CommentThread · PropertyStack · CaptionThumb ·
 // TimelineFooter, DS-D-0110 ~ 0116). 부품 · 한 자리 needed 가 0 이 됐다 — 남은 needed 는 화면뿐이다.
-const MAPPED_BASELINE = 202;
+// 같은 날 뒤: 202 → 203 — 부스 체험 /creative-media 화면(DS-D-0109, 활성 행사 시드 · 늘림 run 2026-10-15r2 실패 0).
+const MAPPED_BASELINE = 203;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 // 2026-10-15: 124 → 130 — 위 여섯이 모두 컴포넌트 대응이다.
@@ -180,7 +181,8 @@ const MAPPED_PRODUCT_BASELINE = 46;
 // 채운 보드가 아니다 — 랜딩 절은 아직이다.
 // 같은 날 뒤: 6 → 9 — BulkFailContent(/mypage/upgrade/bulk-fail) · EditorProjectWorkspace(/videoeditor/[projectId]) · CreateScene(/nodecanvas?project=).
 // 2026-10-15: 9 → 11 — /models/[slug] 보드 둘(공개 시드 landing_models)이 모델 상세 · 버전 행을 채워 그리고 늘림을 통과한다.
-const MAPPED_SCREEN_BASELINE = 11;
+// 같은 날 뒤: 11 → 12 — /creative-media.
+const MAPPED_SCREEN_BASELINE = 12;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

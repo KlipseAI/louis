@@ -6689,6 +6689,7 @@ const TAMPERS = [
   tamperComponentEffectType,
   tamperComponentBlurUnbound,
   tamperComponentExtraEffect,
+  tamperComponentUnboundSwap,
   tamperComponentPartPadding,
   tamperComponentPartTypography,
   tamperComponentPartRatio,
@@ -8132,6 +8133,26 @@ function compareComponents(actualComponents) {
         );
       }
     }
+    // **INSTANCE_SWAP 속성이 안쪽 인스턴스에 물려 있다(2026-10-15).** 세트 안 `clone()` 이 컴포넌트 속성 참조를 떨궈
+    // IconButton sm 스무 변형 · Button 370 변형 · TextField 열여섯 변형의 글리프가 속성을 바꿔도 따라오지 않았고, Badge 의
+    // IconGlyph 는 아무 인스턴스에도 물려 있지 않았다(글리프 자리가 빈 프레임이었다). 원시 칠과 같은 종류의 결함이라 같은
+    // 자리에서 잠근다. 수는 되읽기(`scripts/figma-readback-emit.mjs`)가 센다 — 속성에 물린 인스턴스와 같은 경로인데 물리지
+    // 않은 인스턴스(`unboundSwaps`)와 어디에도 물리지 않은 속성(`danglingSwaps`). 스왑 속성이 있는데 두 수가 없으면 되읽기가
+    // 이 검사 전 판이다 — 다시 떠야 한다.
+    const hasSwap = Object.values(got.properties ?? {}).some((property) => property?.type === "INSTANCE_SWAP");
+    if (hasSwap) {
+      for (const field of ["unboundSwaps", "danglingSwaps"]) {
+        if (typeof binding[field] !== "number") {
+          issues.push(
+            `${contract.figmaName}: INSTANCE_SWAP 속성이 있는데 되읽기에 ${field} 가 없습니다 — 스왑 바인딩을 세는 판으로 다시 떠야 합니다.`,
+          );
+        } else if (binding[field] !== 0) {
+          issues.push(
+            `${contract.figmaName}: INSTANCE_SWAP 속성이 안쪽 인스턴스에 물려 있지 않습니다: ${field}=${binding[field]}`,
+          );
+        }
+      }
+    }
     if (exempt !== undefined) {
       if (typeof exempt.reason !== "string" || exempt.reason.length < 20) {
         issues.push(`${contract.figmaName}: textStyleExempt에 20자 이상의 사유가 필요합니다.`);
@@ -8567,6 +8588,17 @@ function tamperComponentBinding(document) {
     if (!target?.binding) continue;
     target.binding.rawFills = 3;
     return `component raw 값 변조 ${contract.figmaName}`;
+  }
+  return null;
+}
+
+/** 스왑 속성의 바인딩이 끊긴 경우 — 세트 안 clone() 이 참조를 떨군 IconButton sm 의 그 사고(2026-10-15). */
+function tamperComponentUnboundSwap(document) {
+  for (const contract of COMPONENT_CONTRACTS) {
+    const target = document.components?.[contract.figmaName];
+    if (!target?.binding || typeof target.binding.unboundSwaps !== "number") continue;
+    target.binding.unboundSwaps = 20;
+    return `component 스왑 바인딩 끊김 변조 ${contract.figmaName}`;
   }
   return null;
 }

@@ -10550,7 +10550,9 @@
         "boundStrokes": 4,
         "rawStrokes": 0,
         "textStyled": 24,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "block": {
@@ -10725,7 +10727,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 1,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "topBar": {
@@ -10844,7 +10848,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "Default": {
@@ -11041,7 +11047,9 @@
         "boundStrokes": 3,
         "rawStrokes": 0,
         "textStyled": 3,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "Default": {
@@ -11411,16 +11419,6 @@
       "variantCount": 5,
       "hasDescription": true,
       "properties": {
-        "Tone": {
-          "type": "VARIANT",
-          "options": [
-            "neutral",
-            "success",
-            "warning",
-            "danger",
-            "info"
-          ]
-        },
         "Icon": {
           "type": "BOOLEAN"
         },
@@ -11432,25 +11430,37 @@
         },
         "Label": {
           "type": "TEXT"
+        },
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "neutral",
+            "success",
+            "warning",
+            "danger",
+            "info"
+          ]
         }
       },
       "binding": {
-        "boundFills": 20,
+        "boundFills": 15,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 5,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "base": {
-          "slots": {
-            "Icon": [
-              "12x12"
-            ],
-            "Dot": [
-              "6x6"
-            ]
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            }
           },
           "height": [
             26
@@ -11481,14 +11491,7 @@
           ],
           "strokeWeight": [],
           "overflowingParts": [],
-          "offCenterMarks": [],
-          "parts": {
-            "Label": {
-              "fontSize": [
-                12
-              ]
-            }
-          }
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -12053,7 +12056,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 420,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "lg": {
@@ -13172,7 +13177,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 8,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "false/base": {
@@ -17790,7 +17797,9 @@
         "boundStrokes": 2,
         "rawStrokes": 0,
         "textStyled": 16,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "base": {
@@ -17942,7 +17951,9 @@
         "boundStrokes": 3,
         "rawStrokes": 0,
         "textStyled": 5,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "base": {
@@ -18772,7 +18783,9 @@
         "boundStrokes": 8,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "md/Default": {
@@ -19674,7 +19687,9 @@
         "boundStrokes": 15,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "lg": {
@@ -20233,7 +20248,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 4,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "head": {
@@ -20490,7 +20507,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "Default": {
@@ -20807,7 +20826,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 3,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "base": {
@@ -21432,7 +21453,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 8,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "media": {
@@ -21912,7 +21935,9 @@
         "boundStrokes": 2,
         "rawStrokes": 0,
         "textStyled": 2,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "md": {
@@ -22015,7 +22040,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 6,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "default/default": {
@@ -22225,7 +22252,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "md/neutral/Default": {
@@ -23212,7 +23241,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "image": {
@@ -23405,7 +23436,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 1,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "Empty": {
@@ -23542,7 +23575,9 @@
         "boundStrokes": 1,
         "rawStrokes": 0,
         "textStyled": 3,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "empty": {
@@ -23648,7 +23683,9 @@
         "boundStrokes": 14,
         "rawStrokes": 0,
         "textStyled": 14,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "video/false": {
@@ -25553,7 +25590,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "image/Default": {
@@ -27900,7 +27939,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 4,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "base": {
@@ -31450,7 +31491,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 9,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "navItem": {
@@ -34349,7 +34392,9 @@
         "boundStrokes": 42,
         "rawStrokes": 0,
         "textStyled": 86,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "lg/stacked": {
@@ -36719,7 +36764,9 @@
         "boundStrokes": 18,
         "rawStrokes": 0,
         "textStyled": 12,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "base": {
@@ -36889,7 +36936,9 @@
         "boundStrokes": 0,
         "rawStrokes": 0,
         "textStyled": 0,
-        "textUnstyled": 0
+        "textUnstyled": 0,
+        "unboundSwaps": 0,
+        "danglingSwaps": 0
       },
       "geometry": {
         "Default": {

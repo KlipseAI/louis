@@ -591,6 +591,12 @@ Button 은 `border: 0` 이고 헤어라인은 레이아웃을 건드리지 않�
 - `preferredValues` 가 비어 있으면 **인스턴스에서 아이콘을 고를 수가 없다.** 스왑 목록이 안 뜬다.
   `editComponentProperty(key, { preferredValues })` 로 아이콘 컴포넌트를 채운다. 이때는 반대로
   `{type:"COMPONENT", key}` 형태의 **key** 를 쓴다. 둘이 다르다는 것을 기억할 것.
+- **세트 안에서 변형을 `clone()` 하면 컴포넌트 속성 참조(`componentPropertyReferences`)가 떨어진다.** 복제한 변형의
+  글리프 인스턴스는 `Glyph` 를 바꿔도 따라오지 않는다 — 2026-10-15 에 IconButton sm 스무 변형 · Button 370 변형 ·
+  TextField 열여섯 변형 · Alert · DropZone · NodeChip · NodeChannel 이 그랬고, Badge 의 `IconGlyph` 는 글리프 자리가 빈
+  프레임이라 어디에도 물려 있지 않았다. 복제한 뒤에는 **같은 경로의 노드에 참조를 다시 건다**(스왑 · 가시성 · 글자 —
+  글자는 그 변형의 문구가 속성 기본값과 같을 때만. Placeholder 처럼 문구가 다른 변형은 그대로 둔다).
+  되읽기가 `binding.unboundSwaps` · `danglingSwaps` 로 세고 `verify-figma-parity` 가 0 을 요구한다.
 
 ## 상호작용은 **그것을 받는 요소**가 소유한다 — 그리고 거기 프로토타입을 건다
 

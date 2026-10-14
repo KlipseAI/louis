@@ -837,6 +837,54 @@ for (const name of Object.keys(SPEC)) {
   // set 프레임 자신도 센다 — 여기에 원시 fill 이 남아 있으면 라이브러리에 그대로 실린다.
   if (set.type === "COMPONENT_SET") countNode(set);
 
+  // **INSTANCE_SWAP 속성이 안쪽 인스턴스에 물려 있는가(2026-10-15).** 세트 안 \`clone()\` 은 컴포넌트 속성 참조를 떨군다
+  // (figma-component-authoring.md) — IconButton sm 스무 변형 · Button 370 변형의 글리프가 \`Glyph\` 를 바꿔도 따라오지 않았다.
+  // 원시 칠과 같은 자리의 결함인데 되읽기가 참조를 담지 않아 어떤 게이트도 보지 못했다. 둘을 센다(인스턴스 안으로는 들어가지 않는다):
+  //   unboundSwaps  어느 변형에서 속성에 물린 인스턴스와 **같은 경로**에 있는데 이 변형에서는 물리지 않은 인스턴스 수.
+  //   danglingSwaps 어느 변형의 어느 인스턴스에도 물리지 않은 INSTANCE_SWAP 속성 수(바꿔도 아무것도 바뀌지 않는다).
+  // 경로는 변형 루트부터의 이름 사슬이다 — 같은 이름의 형제가 있으면 순번을 붙인다.
+  const swapKeys = Object.keys(set.componentPropertyDefinitions || {}).filter(
+    (raw) => set.componentPropertyDefinitions[raw].type === "INSTANCE_SWAP",
+  );
+  if (swapKeys.length > 0) {
+    const pathOf = (node, root) => {
+      const parts = [];
+      for (let n = node; n && n !== root; n = n.parent) {
+        const same = n.parent.children.filter((c) => c.name === n.name);
+        parts.unshift(n.name + (same.length > 1 ? "[" + same.indexOf(n) + "]" : ""));
+      }
+      return parts.join("/");
+    };
+    const outerInstances = (root) => {
+      const found = [];
+      const walk = (n) => {
+        for (const c of n.children || []) {
+          if (c.type === "INSTANCE") found.push(c);
+          else walk(c);
+        }
+      };
+      walk(root);
+      return found;
+    };
+    const boundPaths = new Set();
+    const usedKeys = new Set();
+    for (const variant of variants) {
+      for (const inst of outerInstances(variant)) {
+        const ref = inst.componentPropertyReferences && inst.componentPropertyReferences.mainComponent;
+        if (ref) { boundPaths.add(pathOf(inst, variant)); usedKeys.add(ref); }
+      }
+    }
+    let unbound = 0;
+    for (const variant of variants) {
+      for (const inst of outerInstances(variant)) {
+        const ref = inst.componentPropertyReferences && inst.componentPropertyReferences.mainComponent;
+        if (!ref && boundPaths.has(pathOf(inst, variant))) unbound += 1;
+      }
+    }
+    binding.unboundSwaps = unbound;
+    binding.danglingSwaps = swapKeys.filter((raw) => !usedKeys.has(raw)).length;
+  }
+
   const geometry = {};
   for (const key of order) {
     const bag = bags[key];

@@ -1,0 +1,1067 @@
+{
+  "$schema": "./_schema.json",
+  "area": "vem-panels",
+  "mode": "session",
+  "authoredAgainst": "54b62a8a",
+  "description": "비디오 편집기(/videoeditor/[projectId])의 패널 상태를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). videoeditor 영역의 같은 상태 레시피는 데스크톱 전용이고 인용이 앵커 54b62a8a 와 어긋나 있으며 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다. 모바일(≤719)은 같은 aside.vem-propertiesPanel · div.vem-assets-panel 을 아래 시트로 쓰고, 고르기만으로는 시트가 열리지 않아(VideoEditModal 「Properties」 · 「Adjust」 · 「Assets」 단추가 시트를 연다) stepsByContext 로 그 단추를 누른다. 닫힌 시트는 translateY 로 화면 밖에 있을 뿐 DOM 에 남아 글자 assert 만으로는 열림을 증명하지 못한다 — 모바일의 마지막 waitFor 는 data-vem-sheet-open 이 선 시트다. CompositionInspector 는 넣지 않았다 — 앵커에서 selId 를 \"__composition__\" 으로 두는 코드가 없어(VideoEditModal.tsx 15065 비교 한 곳뿐) 여는 길이 없다.",
+  "recipes": [
+    {
+      "id": "/videoeditor/[projectId] panel.assets",
+      "base": "/videoeditor/[projectId]",
+      "description": "에셋 패널(AssetPanel) — 데스크톱은 도킹 왼쪽 칸에 늘 서 있고, 모바일은 아래 막대 「Assets」로 연 시트다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx#AssetPanel"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 219,
+          "expect": "aria-label={vem.assetsPanelAria}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 220,
+          "expect": "data-vem-sheet-open={sheetOpen ? \"\" : undefined}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2977,
+          "expect": "assetsFilterAria: \"Asset type filter\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2942,
+          "expect": "mobileTabAssets: \"Assets\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11716,
+          "expect": "label: vem.mobileTabAssets,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 371,
+          "expect": "\"vem-assets-panel\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tablist",
+            "name": "Asset type filter",
+            "exact": true
+          },
+          "description": "에셋 종류 탭(데스크톱 도킹 칸)"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "click": {
+              "role": "button",
+              "name": "Assets",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "아래 막대 「Assets」(레일 탭과 이름이 같아 막대 안으로 좁힌다)"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-assets-panel[data-vem-sheet-open]"
+            },
+            "description": "에셋 시트가 열렸다"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "Import from project",
+          "Assets"
+        ]
+      }
+    },
+    {
+      "id": "/videoeditor/[projectId] panel.clip",
+      "base": "/videoeditor/[projectId]",
+      "description": "타임라인 Clip A 를 고른 클립 인스펙터(ClipInspector, 머리 「Output clips」). 모바일은 비디오 레인 첫 클립을 누르고 「Properties」로 시트를 연다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx#ClipInspector"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 13967,
+          "expect": "data-timeline-clip-id={"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 14160,
+          "expect": "title={`${source.src.name || \"Video\"}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 5696,
+          "expect": "selectClip(clipId);"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 4359,
+          "expect": "\"vem-timeline-clip-region\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 4319,
+          "expect": "\"vem-timeline-clip-center-label\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 15038,
+          "expect": "<ClipInspector"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx",
+          "line": 145,
+          "expect": "{vem.outputClips}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2895,
+          "expect": "outputClips: \"Output clips\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx",
+          "line": 188,
+          "expect": "<InspectorMetric"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx",
+          "line": 227,
+          "expect": "<InspectorSectionHead"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx",
+          "line": 973,
+          "expect": "data-vem-lane-track={track.id}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts",
+          "line": 90,
+          "expect": "\"vem-mobile-timeline-clip\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx",
+          "line": 1019,
+          "expect": "onClick={() => onSelectClip(clip, track)}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11780,
+          "expect": "label: vem.mobileTabProperties,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 14976,
+          "expect": "mobileSheet === \"properties\" ? \"\" : undefined"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2972,
+          "expect": "mobileTabProperties: \"Properties\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 3381,
+          "expect": "\"vem-propertiesPanel\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        }
+      ],
+      "steps": [
+        {
+          "click": {
+            "css": ".vem-timeline-clip-region:has(> .vem-timeline-clip-center-label[title=\"Clip A\"])"
+          },
+          "description": "타임라인 Clip A 영역 클릭 → onClipPointerDown → (움직임 없이 뗌) selectClip"
+        },
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Output clips",
+            "exact": true
+          },
+          "description": "ClipInspector 머리(vem.outputClips)"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "click": {
+              "css": "[data-vem-lane-track] > button.vem-mobile-timeline-clip",
+              "nth": 0
+            },
+            "description": "비디오 레인 첫 클립 → onSelectClip(선택만)"
+          },
+          {
+            "click": {
+              "role": "button",
+              "name": "Properties",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "선택 층의 「Properties」 — 고르기만으로는 시트가 열리지 않는다"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-propertiesPanel[data-vem-sheet-open]"
+            },
+            "description": "모바일 속성 시트가 열렸다(data-vem-sheet-open 은 시트가 properties 일 때만 선다)"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "Output clips",
+          "Summary"
+        ]
+      }
+    },
+    {
+      "id": "/videoeditor/[projectId] panel.clip-color",
+      "base": "/videoeditor/[projectId]",
+      "description": "클립 인스펙터의 색 조정(ClipColorControls) — 필터 프리셋 Vivid 를 골라 강도 눈금자가 선 상태. 모바일은 클립을 고르고 「Adjust」(시트를 그 칸으로 연다)를 누른다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipColorControls.tsx#ClipColorControls"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 13967,
+          "expect": "data-timeline-clip-id={"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 14160,
+          "expect": "title={`${source.src.name || \"Video\"}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 5696,
+          "expect": "selectClip(clipId);"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 4359,
+          "expect": "\"vem-timeline-clip-region\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 4319,
+          "expect": "\"vem-timeline-clip-center-label\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 15038,
+          "expect": "<ClipInspector"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx",
+          "line": 145,
+          "expect": "{vem.outputClips}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2895,
+          "expect": "outputClips: \"Output clips\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx",
+          "line": 449,
+          "expect": "<ClipColorControls"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipColorControls.tsx",
+          "line": 173,
+          "expect": "{copy.filterPresets[id] ?? id}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipColorControls.tsx",
+          "line": 179,
+          "expect": "{presetId ? ("
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipColorControls.tsx",
+          "line": 186,
+          "expect": "label={copy.colorIntensity}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx",
+          "line": 263,
+          "expect": "role=\"slider\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx",
+          "line": 265,
+          "expect": "aria-label={label}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2832,
+          "expect": "vivid: \"Vivid\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2842,
+          "expect": "colorIntensity: \"Strength\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx",
+          "line": 973,
+          "expect": "data-vem-lane-track={track.id}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts",
+          "line": 90,
+          "expect": "\"vem-mobile-timeline-clip\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx",
+          "line": 1019,
+          "expect": "onClick={() => onSelectClip(clip, track)}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11780,
+          "expect": "label: vem.mobileTabProperties,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 14976,
+          "expect": "mobileSheet === \"properties\" ? \"\" : undefined"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2972,
+          "expect": "mobileTabProperties: \"Properties\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 3381,
+          "expect": "\"vem-propertiesPanel\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11836,
+          "expect": "label: vem.mobileActionAdjust,"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2955,
+          "expect": "mobileActionAdjust: \"Adjust\""
+        }
+      ],
+      "steps": [
+        {
+          "click": {
+            "css": ".vem-timeline-clip-region:has(> .vem-timeline-clip-center-label[title=\"Clip A\"])"
+          },
+          "description": "타임라인 Clip A 영역 클릭 → onClipPointerDown → (움직임 없이 뗌) selectClip"
+        },
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Output clips",
+            "exact": true
+          },
+          "description": "ClipInspector 머리(vem.outputClips)"
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Vivid",
+            "exact": true
+          },
+          "description": "필터 프리셋 Vivid(인스펙터 패널이 그 자리로 스크롤된다)"
+        },
+        {
+          "waitFor": {
+            "role": "slider",
+            "name": "Strength",
+            "exact": true
+          },
+          "description": "프리셋 강도 눈금자"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "click": {
+              "css": "[data-vem-lane-track] > button.vem-mobile-timeline-clip",
+              "nth": 0
+            },
+            "description": "비디오 레인 첫 클립 → onSelectClip(선택만)"
+          },
+          {
+            "click": {
+              "role": "button",
+              "name": "Adjust",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "선택 층 「Adjust」 → openPropertiesAt(\"adjust\")"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-propertiesPanel[data-vem-sheet-open]"
+            },
+            "description": "모바일 속성 시트가 열렸다(data-vem-sheet-open 은 시트가 properties 일 때만 선다)"
+          },
+          {
+            "click": {
+              "role": "button",
+              "name": "Vivid",
+              "exact": true
+            },
+            "description": "필터 프리셋 Vivid"
+          },
+          {
+            "waitFor": {
+              "role": "slider",
+              "name": "Strength",
+              "exact": true
+            },
+            "description": "프리셋 강도 눈금자"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "Strength",
+          "100%"
+        ]
+      }
+    },
+    {
+      "id": "/videoeditor/[projectId] panel.audio",
+      "base": "/videoeditor/[projectId]",
+      "description": "BGM 오디오 클립을 고른 오디오 인스펙터(AudioClipInspector). 모바일은 오디오 레인 클립을 누르고 「Properties」로 시트를 연다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "contentNote": "오디오 클립 값은 제품이 BGM 소스를 트랙으로 바꿀 때의 기본값(timelineModel.ts audioSourceToTrack: 트랙 이름 A1 · 볼륨 0.3 · 페이드 1/2초)이고, 길이 4초만 정했다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AudioClipInspector.tsx#AudioClipInspector"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 578,
+          "expect": "fetch(`/api/editor/projects/${projectId}`)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 580,
+          "expect": "if (cancelled || !json.ok || !json.data)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 585,
+          "expect": "parseUnsignedDocumentRefs(p.unsignedRefs)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 614,
+          "expect": "if (state.overlays) setOverlays(state.overlays);"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 617,
+          "expect": "if (state.audioTracks) setAudioTracks(state.audioTracks);"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 78,
+          "expect": "ok: true,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 81,
+          "expect": "state: served.document,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 82,
+          "expect": "unsignedRefs: served.unsignedRefs,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 86,
+          "expect": "resultUnsigned:"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
+          "line": 1810,
+          "expect": "sourceType: \"tts\" | \"bgm\";"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
+          "line": 1835,
+          "expect": "export interface AudioTrack {"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/lib/videoEdit/timelineModel.ts",
+          "line": 1289,
+          "expect": "name: `A${order + 1}`,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/lib/videoEdit/timelineModel.ts",
+          "line": 1300,
+          "expect": "volume: src.volume ?? (src.nodeType === \"bgm\" ? 0.3 : 1.0),"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 14654,
+          "expect": "className={`${VEM_CLASS.audioClip}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 418,
+          "expect": "\"vem-audio-clip\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 9944,
+          "expect": "setSelectedAudioClipId(clip.id);"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 15059,
+          "expect": "<AudioClipInspector"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AudioClipInspector.tsx",
+          "line": 160,
+          "expect": ": \"♪ BGM\"}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AudioClipInspector.tsx",
+          "line": 173,
+          "expect": "aria-label={vem.deleteAudioClipAria}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 3012,
+          "expect": "deleteAudioClipAria: \"Delete audio clip\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts",
+          "line": 231,
+          "expect": "\"vem-mobile-timeline-audio-clip\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11780,
+          "expect": "label: vem.mobileTabProperties,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 14976,
+          "expect": "mobileSheet === \"properties\" ? \"\" : undefined"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2972,
+          "expect": "mobileTabProperties: \"Properties\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 3381,
+          "expect": "\"vem-propertiesPanel\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/editor/projects/00000000-0000-4000-8000-0000000ed170",
+          "status": 200,
+          "jsonFile": "data/vem-panels/project-overlays-audio.json",
+          "description": "편집 프로젝트 조회를 가로채 state 에 text · image 오버레이와 BGM 오디오 클립 하나를 더한다(소스 · 클립은 fixture-seeds.mjs editor_projects 행과 같음)"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "css": ".vem-audio-clip"
+          },
+          "description": "가로챈 state 의 오디오 클립(데스크톱 타임라인 전용 훅 클래스 — 모바일은 vem-mobile-timeline-audio-clip)"
+        },
+        {
+          "click": {
+            "css": ".vem-audio-clip"
+          },
+          "description": "오디오 클립 → onAudioClipPointerDown → setSelectedAudioClipId"
+        },
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Delete audio clip",
+            "exact": true
+          },
+          "description": "AudioClipInspector 머리의 삭제"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "waitFor": {
+              "css": ".vem-mobile-timeline-audio-clip"
+            },
+            "description": "가로챈 state 의 오디오 클립(모바일 레인)"
+          },
+          {
+            "click": {
+              "css": ".vem-mobile-timeline-audio-clip"
+            },
+            "description": "오디오 클립 → onSelectAudioClip(선택만)"
+          },
+          {
+            "click": {
+              "role": "button",
+              "name": "Properties",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "선택 층의 「Properties」 — 고르기만으로는 시트가 열리지 않는다"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-propertiesPanel[data-vem-sheet-open]"
+            },
+            "description": "모바일 속성 시트가 열렸다(data-vem-sheet-open 은 시트가 properties 일 때만 선다)"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "♪ BGM",
+          "♪ 30%"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/videoeditor/[projectId] panel.overlay",
+      "base": "/videoeditor/[projectId]",
+      "description": "텍스트 오버레이를 고른 오버레이 인스펙터(OverlayInspector, 머리 「Subtitle」). 모바일은 자막 레인 클립을 누르고 「Properties」로 시트를 연다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "contentNote": "오버레이 둘의 위치 · 크기 · 스타일은 제품의 「새 오버레이」 기본값(VideoEditModal addOverlay · DEFAULT_OVERLAY_STYLE)을 그대로 쓰고, 텍스트 내용도 제품 기본값 「Text」다. 이미지 내용은 제품 public 의 같은 출처 예시 /image-edit/examples/example-1.jpg. 지어낸 것은 id 뿐.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx#OverlayInspector"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 578,
+          "expect": "fetch(`/api/editor/projects/${projectId}`)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 580,
+          "expect": "if (cancelled || !json.ok || !json.data)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 585,
+          "expect": "parseUnsignedDocumentRefs(p.unsignedRefs)"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 614,
+          "expect": "if (state.overlays) setOverlays(state.overlays);"
+        },
+        {
+          "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+          "line": 617,
+          "expect": "if (state.audioTracks) setAudioTracks(state.audioTracks);"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 78,
+          "expect": "ok: true,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 81,
+          "expect": "state: served.document,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 82,
+          "expect": "unsignedRefs: served.unsignedRefs,"
+        },
+        {
+          "path": "apps/web/app/api/editor/projects/[projectId]/route.ts",
+          "line": 86,
+          "expect": "resultUnsigned:"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
+          "line": 1337,
+          "expect": "export interface VideoOverlay {"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7075,
+          "expect": "const baseX = type === \"text\" ? 0.25 : 0.1;"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7076,
+          "expect": "const baseY = type === \"text\" ? 0.82 : 0.05;"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7080,
+          "expect": "content: type === \"text\" ? vem.text : \"\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7089,
+          "expect": "width: type === \"text\" ? 0.12 : 0.15,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7090,
+          "expect": "height: type === \"text\" ? 0.05 : 0.08,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 7091,
+          "expect": "style: { ...DEFAULT_OVERLAY_STYLE },"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/lib/videoEdit/overlayStyle.ts",
+          "line": 22,
+          "expect": "fontColor: \"white\","
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2638,
+          "expect": "text: \"Text\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+          "line": 153,
+          "expect": "role=\"group\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+          "line": 156,
+          "expect": "? vem.textOverlayAria"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+          "line": 157,
+          "expect": ": vem.imageOverlayAria"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/PreviewOverlayLayer.tsx",
+          "line": 205,
+          "expect": "onFocus={() => {"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2676,
+          "expect": "textOverlayAria: \"Text overlay\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2677,
+          "expect": "imageOverlayAria: \"Image overlay\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 15023,
+          "expect": "<OverlayInspector"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+          "line": 278,
+          "expect": "? vem.subtitle"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+          "line": 279,
+          "expect": ": vem.image}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2894,
+          "expect": "subtitle: \"Subtitle\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
+          "line": 330,
+          "expect": "role=\"spinbutton\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+          "line": 334,
+          "expect": "ariaLabel={vem.xCoordAria}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
+          "line": 664,
+          "expect": "ariaLabel={vem.fontColor}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts",
+          "line": 213,
+          "expect": "\"vem-mobile-timeline-overlay-clip-text\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11780,
+          "expect": "label: vem.mobileTabProperties,"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 14976,
+          "expect": "mobileSheet === \"properties\" ? \"\" : undefined"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2972,
+          "expect": "mobileTabProperties: \"Properties\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 3381,
+          "expect": "\"vem-propertiesPanel\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/editor/projects/00000000-0000-4000-8000-0000000ed170",
+          "status": 200,
+          "jsonFile": "data/vem-panels/project-overlays-audio.json",
+          "description": "편집 프로젝트 조회를 가로채 state 에 text · image 오버레이와 BGM 오디오 클립 하나를 더한다(소스 · 클립은 fixture-seeds.mjs editor_projects 행과 같음)"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "group",
+            "name": "Text overlay",
+            "exact": true
+          },
+          "description": "가로챈 state 의 텍스트 오버레이가 미리보기에 섰다(0초에 보임)"
+        },
+        {
+          "click": {
+            "role": "group",
+            "name": "Text overlay",
+            "exact": true
+          },
+          "description": "미리보기 텍스트 오버레이 → onOverlayPointerDown + focus → setSelectedOverlayId"
+        },
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Subtitle",
+            "exact": true
+          },
+          "description": "OverlayInspector 머리(vem.subtitle)"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "waitFor": {
+              "css": ".vem-mobile-timeline-overlay-clip-text"
+            },
+            "description": "가로챈 state 의 텍스트 오버레이(모바일 자막 레인)"
+          },
+          {
+            "click": {
+              "css": ".vem-mobile-timeline-overlay-clip-text"
+            },
+            "description": "자막 클립 → onSelectOverlay(선택만)"
+          },
+          {
+            "click": {
+              "role": "button",
+              "name": "Properties",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "선택 층의 「Properties」 — 고르기만으로는 시트가 열리지 않는다"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-propertiesPanel[data-vem-sheet-open]"
+            },
+            "description": "모바일 속성 시트가 열렸다(data-vem-sheet-open 은 시트가 properties 일 때만 선다)"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "Subtitle",
+          "Position"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/videoeditor/[projectId] panel.settings",
+      "base": "/videoeditor/[projectId]",
+      "description": "에셋 레일의 「Editor settings」 탭으로 연 편집기 설정 몸통(EditorSettingsPanelBody — AssetPanel 안에 그려진다). 모바일은 「Assets」 시트를 먼저 연다(레일의 설정 탭은 ≤719 에서도 남는다). R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx#EditorSettingsPanelBody"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 382,
+          "expect": "aria-selected={showSettings}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 389,
+          "expect": "aria-label={vem.settings.menuLabel}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
+          "line": 463,
+          "expect": "<EditorSettingsPanelBody"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx",
+          "line": 120,
+          "expect": "label={vem.settings.snapLabel}"
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx",
+          "line": 178,
+          "expect": "<input"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2707,
+          "expect": "menuLabel: \"Editor settings\""
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2709,
+          "expect": "snapLabel: \"Magnetic snapping\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
+          "line": 11716,
+          "expect": "label: vem.mobileTabAssets,"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2942,
+          "expect": "mobileTabAssets: \"Assets\""
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+          "line": 1511,
+          "expect": "\"vem-mobile-tab-bar\","
+        }
+      ],
+      "steps": [
+        {
+          "click": {
+            "role": "tab",
+            "name": "Editor settings",
+            "exact": true
+          },
+          "description": "레일의 설정 칸(role=tab)"
+        },
+        {
+          "waitFor": {
+            "role": "checkbox",
+            "name": "Magnetic snapping",
+            "exact": true
+          },
+          "description": "설정 몸통의 스냅 체크 행"
+        }
+      ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          {
+            "click": {
+              "role": "button",
+              "name": "Assets",
+              "exact": true,
+              "within": {
+                "css": ".vem-mobile-tab-bar"
+              }
+            },
+            "description": "아래 막대 「Assets」"
+          },
+          {
+            "waitFor": {
+              "css": ".vem-assets-panel[data-vem-sheet-open]"
+            },
+            "description": "에셋 시트가 열렸다"
+          },
+          {
+            "click": {
+              "role": "tab",
+              "name": "Editor settings",
+              "exact": true
+            },
+            "description": "레일의 설정 칸(role=tab)"
+          },
+          {
+            "waitFor": {
+              "role": "checkbox",
+              "name": "Magnetic snapping",
+              "exact": true
+            },
+            "description": "설정 몸통의 스냅 체크 행"
+          }
+        ]
+      },
+      "assert": {
+        "text": [
+          "Magnetic snapping",
+          "Composition guides"
+        ]
+      }
+    }
+  ]
+}

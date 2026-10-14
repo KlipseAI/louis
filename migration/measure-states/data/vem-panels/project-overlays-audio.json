@@ -1,0 +1,135 @@
+{
+  "ok": true,
+  "data": {
+    "id": "00000000-0000-4000-8000-0000000ed170",
+    "user_id": "00000000-0000-4000-8000-00000000f1c5",
+    "name": "Fixture edit project",
+    "source_type": "upload",
+    "source_ref_id": null,
+    "status": "draft",
+    "result_url": null,
+    "thumbnail_url": "https://fixture.invalid/editor-thumbnail.webp?tv=4",
+    "created_at": "2026-01-01T00:00:00.000Z",
+    "updated_at": "2026-01-01T00:00:00.000Z",
+    "state": {
+      "aspectRatio": "16:9",
+      "fitMode": "fit",
+      "sources": [
+        {
+          "nodeId": "ep-fixture-a",
+          "origin": "upload",
+          "name": "Clip A",
+          "url": "https://fixture.invalid/ep-fixture-a.mp4",
+          "fps": 30,
+          "totalFrames": 300,
+          "durationSec": 10,
+          "width": 1920,
+          "height": 1080,
+          "thumbnails": [
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8+P9/PQAJYwN4d1E2KAAAAABJRU5ErkJggg=="
+          ]
+        },
+        {
+          "nodeId": "ep-fixture-b",
+          "origin": "import",
+          "name": "Clip B",
+          "url": "https://fixture.invalid/ep-fixture-b.mp4",
+          "fps": 30,
+          "totalFrames": 240,
+          "durationSec": 8,
+          "width": 1920,
+          "height": 1080,
+          "thumbnails": [
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8+P9/PQAJYwN4d1E2KAAAAABJRU5ErkJggg=="
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "clip-1",
+          "sourceVideoNodeId": "ep-fixture-a",
+          "startFrame": 0,
+          "endFrame": 150
+        },
+        {
+          "id": "clip-2",
+          "sourceVideoNodeId": "ep-fixture-b",
+          "startFrame": 0,
+          "endFrame": 120
+        }
+      ],
+      "sourceRegions": [],
+      "overlays": [
+        {
+          "id": "ov-fixture-text",
+          "type": "text",
+          "content": "Text",
+          "startSec": 0,
+          "endSec": 3,
+          "x": 0.25,
+          "y": 0.82,
+          "width": 0.12,
+          "height": 0.05,
+          "style": {
+            "fontSize": 36,
+            "fontColor": "white",
+            "fontFamily": "Pretendard",
+            "opacity": 1,
+            "fadeIn": 0,
+            "fadeOut": 0,
+            "letterSpacing": 0,
+            "lineHeight": 1.08
+          }
+        },
+        {
+          "id": "ov-fixture-image",
+          "type": "image",
+          "content": "/image-edit/examples/example-1.jpg",
+          "startSec": 0,
+          "endSec": 3,
+          "x": 0.1,
+          "y": 0.05,
+          "width": 0.15,
+          "height": 0.08,
+          "style": {
+            "fontSize": 36,
+            "fontColor": "white",
+            "fontFamily": "Pretendard",
+            "opacity": 1,
+            "fadeIn": 0,
+            "fadeOut": 0,
+            "letterSpacing": 0,
+            "lineHeight": 1.08
+          }
+        }
+      ],
+      "audioTracks": [
+        {
+          "id": "audio-track-fixture",
+          "kind": "audio",
+          "order": 0,
+          "name": "A1",
+          "clips": [
+            {
+              "id": "audio-clip-fixture",
+              "sourceNodeId": "fixture-bgm",
+              "sourceType": "bgm",
+              "audioUrl": "https://fixture.invalid/fixture-bgm.mp3",
+              "timelineStartSec": 0,
+              "timelineEndSec": 4,
+              "originalDurationSec": 4,
+              "playbackRate": 1,
+              "volume": 0.3,
+              "fadeIn": 1,
+              "fadeOut": 2
+            }
+          ]
+        }
+      ],
+      "transitions": [],
+      "markers": []
+    },
+    "unsignedRefs": [],
+    "resultUnsigned": false
+  }
+}

@@ -35,6 +35,7 @@ authority: normative
   선다고 하지만 manifest 메모가 적은 Figma 쪽 결손이 남아 있다.
 - **표면 원장** — 새 부품과 변형(slider `ruler` · progress `bipolar` · segmented 알약 · chart-card `spark` · section-header `display` · 리사이즈 손잡이)의 출처였던
   needed 28 을 Figma 대응으로 옮겼다. 대응 137 → 165(대상 288 대비 47.6% → 57.3%) · 컴포넌트 대응 91 → 119 · needed 149 → 121(부품 41 → 14).
+  기존 부품 변형의 출처 다섯(도움말 이동 행 · 프롬프트 비교 · 어드민 서브탭 · 스티커 팔레트 · 유튜브 미리보기 플레이어)을 더해 대응 170(59.0%) · needed 116.
 - 부품 문서의 Figma 줄과 manifest 메모의 낡은 문장(「Figma 부품은 아직 없어 not-ready」 · 「기하 계약 · 기록은 아직 없다」)을 고쳤다. 코드 · 토큰 변화 없음.
 
 ## 2026-10-14 (263) — 색 하나를 채도 · 밝기 면, 색조 · 불투명도 띠, 헥스 입력, 페이지 색 격자로 고르는 판을 새 부품 `color-picker` 로, Color Swatch 에 판 트리거 변형(DS-D-0097, DS-D-0084)

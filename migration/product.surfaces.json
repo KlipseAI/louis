@@ -13,16 +13,16 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 165,
+    "mapped": 170,
     "scoped": 324,
-    "needed": 121,
+    "needed": 116,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 14,
+    "primitive": 13,
     "screen": 93,
-    "oneoff": 14,
+    "oneoff": 10,
     "unclear": 0,
     "kindless": 0
   },
@@ -507,12 +507,12 @@
       "file": "apps/web/app/admin/AmbassadorAdmin.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "63줄 탭 셸(렌더 AdminClient.tsx:1466). 머리는 AdminSectionHeader(figma), 자식 둘은 각자 표면이고 자기 시각은 SUB_TAB 밑줄 서브탭 바 하나다(AmbassadorAdmin.tsx:30-56). Figma Tabs Variant=underline 에는 활성 2px 밑줄 · px0 · 14px · gap20 이 없어 대응이 없다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "SUB_TAB 소비처가 ContentManagement.tsx:33 과 이 파일 둘로 늘어 되풀이가 실측된다. 세울 것은 새 컴포넌트가 아니라 Tabs underline 에 활성 밑줄 축을 더하거나 louis-tabs 로 수렴시키는 일이다. ContentManagement 의 「소비처 한 곳」 kindReason 과 낡은 알약 서술(현 SUB_TAB 은 밑줄형, contentListStyles.ts:171-174)도 함께 고칠 것."
+      "verdict": "figma",
+      "figma": "Tabs",
+      "reason": "needed 사유가 「Tabs underline 에 활성 2px 밑줄 · px0 · 14px · gap20 이 없다」였다. Tabs 에 하위 묶음 줄 `bar` 변형이 이 서브탭(`contentListStyles.ts:171-174`, 소비 `AmbassadorAdmin.tsx:30`)을 출처로 섰다(design/components/tabs.md). Figma `Tabs` · `TabItem` 의 `Variant=bar` 가 그린다. 어드민 제품 (나)는 feat/admin-ops-review 뒤다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/admin/AmbassadorApplications.tsx#AmbassadorApplications": {
       "file": "apps/web/app/admin/AmbassadorApplications.tsx",
@@ -3880,12 +3880,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "도움말 패널의 이동 행 — 사방 8 · 간격 10 · 반경 radius-overlay-item · 호버 bg-inset, 제목 body-14 medium + 부제 caption-12 fg-tertiary + 오른쪽 부가 글자와 뒤집힌 체브론 16(CanvasHelpPanel.tsx:128-132 · :193-216). 처음 쪽 할 일 · 찾아보기 · 검색 결과 · 노드 목록이 모두 이 행이다(:560 · :629 · :639-642 · :687). 가장 가까운 Figma SelectableListRow 는 선택용 행이라 체브론 · 부가 글자 · 이동 의미가 없다. editor-workspace.md:375 가 「선택 행의 변형으로 둘지 새 부품으로 둘지 판정 필요」로 적었는데 어느 쪽이든 Figma 에 지금 그릴 것이 없다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: SelectableListRow] 소비자는 이 파일 하나다 — 같은 패널 안 네 쪽에서 되풀이되지만 다른 소비처 · 다른 그림의 실측이 없어 primitive 근거가 아직 없다. 둘째 드릴다운 목록이 생기면 SelectableListRow 의 이동 변형으로 올리는 후보다."
+      "verdict": "figma",
+      "figma": "SelectableListRow",
+      "reason": "selectable-list-row 의 이동 행 `data-layout=\"link\"` 가 이 LinkRow 를 출처로 섰다(design/components/selectable-list-row.md 「이동 행」 — `CanvasHelpPanel.tsx:131-135` · 위 정렬 · 사방 8). Figma `SelectableListRow` 의 `Layout=link` 칸이 그린다. 간격 10 → 8 · 호버 면 bg-inset → accent-ghost-hover 는 문서가 적은 접힘이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx#Section": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx",
@@ -4304,12 +4304,12 @@
         "louis-overlay-panel",
         "louis-state"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "프롬프트 변형 2열 비교 모달. 셸은 LOUIS dialog 레시피지만 폭 880 이 Dialog 정본의 최대 large(720) 밖이라 Size 축을 넘고, 2열 비교 본문(스타일 배지 + 프롬프트 열)은 정본이 없다. Dialog 에 xlarge 를 더하고 본문을 세우는 결정이 필요하다.",
-      "weight": "low",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: Dialog] JSX 실측 1 (TextNode). 셸은 이미 `louis-dialog`·`louis-overlay-mode`·`louis-overlay-panel`·`louis-state` 를 물고 있다(원장 `louis` 필드). 남는 건 폭 880 이 Dialog 정본 최대 large(720) 밖이라는 Size 축 하나와, 다른 화면에 다시 없는 2열 비교 본문이다. Dialog 에 xlarge 를 더하는 것이 실제 산출물."
+      "verdict": "figma",
+      "figma": "Dialog",
+      "reason": "needed 사유가 「폭 880 이 Dialog Size 축 밖, 2열 비교 본문은 정본이 없다」였다. Dialog 에 넓은 판 `data-size=\"compare\"` 가 이 모달을 출처로 섰고(design/components/dialog.md 「넓은 판」 — `PromptVariantCompareModal.tsx:34-38`), 두 열은 prompt-variant 의 열 배치다(prompt-variant.md). Figma `Dialog` 의 `Size=compare` 칸과 `PromptVariant` 가 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx#SmartGuideOverlay": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx",
@@ -5090,12 +5090,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "스티커 고르는 팔레트(233줄)다. `IMAGE_STICKER_ASSETS` 를 격자로 깔고 고른 것을 표시한다. SelectableListRow·Menu 어느 쪽으로도 접히지 않는다 — 행이 아니라 격자이고 항목이 글자가 아니라 그림이다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "한 자리다 — 이미지 편집 모달 안에서만 선다."
+      "verdict": "figma",
+      "figma": "AssetTile",
+      "reason": "asset-tile 의 제품 정본이 이 스티커 팔레트다(design/components/asset-tile.md — `StickerPalette.tsx:30-56`). 고를 수 있는 그림 칸 격자를 Figma `AssetTile`(State Default · Hover · Active, INSTANCE_SWAP Media)이 그린다. 격자 배치는 조립이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx#GeneratingState": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx",
@@ -7021,12 +7021,12 @@
       "file": "apps/web/components/youtube/YoutubeUploadModal.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "유튜브 재생기를 모사한 플레이어다 — 글래스 pill 크롬, 자체 스크러버, 시간 pill, HD 배지, 볼륨 패널. Figma VideoPlayer(Chrome shown/hidden · Tone dark/bright · skip/expand/download)와 크롬 구성이 달라 그 변형으로는 표현되지 않는다. VideoPlayer 옆에 나란히 세우거나 VideoPlayer 에 유튜브 크롬 변형을 더하는 일이 된다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "같은 파일 안의 로컬 컴포넌트(378행), 소비처 1. 51 의 VideoPlayer 가 있지만 원장이 「크롬 구성이 달라 그 변형으로는 표현되지 않는다」고 이미 판정했다 — 즉 기존 계열의 변형 축으로 접히지도 않고 재사용 실측도 1 이다. 유튜브 UI 를 «모사»하는 것이 목적이라 다른 화면에서 되풀이될 성질도 아니다. 진짜 재생은 VideoPlayer 가 맡는다. 세우지 않는다."
+      "verdict": "figma",
+      "figma": "VideoPlayer",
+      "reason": "needed 사유가 「VideoPlayer 에 유튜브 크롬 변형을 더하는 일」이었다. video-player 가 YouTube 미리보기 판 `data-platform=\"youtube\"` 를 가졌고(design/components/video-player.md 「플랫폼 미리보기」), Figma `VideoPlayer` 의 Platform=youtube 칸(2026-10-13, dark)과 `VideoPlayerVolume` 이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/youtube/YoutubeUploadModal.tsx#YoutubeUploadModal": {
       "file": "apps/web/components/youtube/YoutubeUploadModal.tsx",

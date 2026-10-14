@@ -125,7 +125,8 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // (check-figma-surface-coverage 의 MAPPED_BASELINE 주석). Figma 에 새로 세운 것이 아니라 대응을 바로잡은 몫이다.
 // 2026-10-14: 149 → 121 — DS-D-0084 의 새 부품(DS-D-0086 ~ 0097 과 작은 부품 아홉 · 변형)이 Figma 세트로 서며 그 출처 28 을 대응(figma)으로
 // 옮겼다(check-figma-surface-coverage 의 MAPPED_BASELINE 주석). 이번 것은 Figma 에 새로 세운 몫이다.
-const NEEDED_BASELINE = 121; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 같은 날 뒤: 121 → 116 — 기존 부품 변형의 출처 다섯(check-figma-surface-coverage 의 MAPPED_BASELINE 주석).
+const NEEDED_BASELINE = 116; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.

@@ -132,10 +132,12 @@ const UNCLASSIFIED_BASELINE = 0;
 // progress bipolar · segmented 알약 · chart-card spark · section-header display · node-shell 리사이즈 손잡이)이 Figma 세트로 서며, 그 출처였던
 // needed 28 이 대응이 됐다(콘텐츠 카드 둘 · 요금 카드 · 색 견본 셋 · 색 판 · 날짜 팝오버 둘 · 캔버스 섹션 · 라이트박스 · 채널 헤더 · 커맨드 팔레트 ·
 // 대화 패널 · 구간 트랙 · 볼륨 · 차트 둘 등). 연결선 삭제 단추(Figma CanvasEdge 밖) · 캔버스 바닥 점 격자 · 덱 머리 막대 · 새 푸터는 needed 그대로다.
-const MAPPED_BASELINE = 165;
+// 같은 날 뒤: 165 → 170 · 컴포넌트 119 → 124 — 기존 부품 변형이 출처로 삼은 다섯(도움말 이동 행 ← SelectableListRow link · 프롬프트 비교 ←
+// Dialog compare · 어드민 서브탭 ← Tabs bar · 스티커 팔레트 ← AssetTile · 유튜브 미리보기 플레이어 ← VideoPlayer youtube).
+const MAPPED_BASELINE = 170;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
-const MAPPED_COMPONENT_BASELINE = 119;
+const MAPPED_COMPONENT_BASELINE = 124;
 // **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
 // 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
 // 제품 세트 대응으로 바꿔치기해도 수가 유지된다.

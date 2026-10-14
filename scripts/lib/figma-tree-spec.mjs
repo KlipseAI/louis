@@ -469,6 +469,9 @@ const GLYPH_GEOMETRY = ["d", "cx", "cy", "r", "rx", "ry", "x", "y", "width", "he
 function glyphColour(value) {
   const text = String(value ?? "").trim();
   if (!text || text === "none" || text === "transparent") return { colour: "none" };
+  // **그레이디언트 · 패턴 참조 칠(2026-10-15).** `url(#…)` 은 `<defs>` 의 정지점을 가리키는데 측정기가 정지점을 싣지 않는다. 그 도형 하나 때문에
+  // svg 전체를 버리면(종전 null) 분석 KPI 스파크라인처럼 「곡선 + 그 아래 그레이디언트 면」인 그림이 통째로 빈 상자가 됐다 — 면만 비우고 선은 그린다.
+  if (/^url\(/.test(text)) return { colour: "none" };
   const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\)$/.exec(text);
   const rgb = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\s*\)$/.exec(text);
   const channels = srgb ? srgb.slice(1, 4).map((c) => Number.parseFloat(c) * 255) : rgb ? rgb.slice(1, 4).map(Number) : null;
@@ -500,7 +503,12 @@ function glyphMarkup(node, childrenOf) {
         if (width != null) attrs.push(`stroke-width='${width}'`);
         if (style.strokeLinecap && style.strokeLinecap !== "butt") attrs.push(`stroke-linecap='${style.strokeLinecap}'`);
         if (style.strokeLinejoin && style.strokeLinejoin !== "miter") attrs.push(`stroke-linejoin='${style.strokeLinejoin}'`);
-        if (style.strokeDasharray && style.strokeDasharray !== "none") attrs.push(`stroke-dasharray='${quote(style.strokeDasharray.replace(/px/g, ""))}'`);
+        // 그려 나타나기 애니메이션의 끝 상태(2026-10-15) — `pathLength` 와 같거나 긴 대시 하나에 오프셋 0 이면 실선이다. `pathLength` 는 마크업에
+        // 싣지 않으므로(Figma SVG 가져오기가 읽지 않는다) 그대로 두면 사용자 좌표 100 마다 끊긴 점선이 된다.
+        const dashes = String(style.strokeDasharray ?? "none").replace(/px/g, "").trim().split(/[\s,]+/).map(Number);
+        const pathLength = Number.parseFloat(child.vector?.pathLength ?? "");
+        const fullDash = Number.isFinite(pathLength) && dashes.length === 1 && dashes[0] >= pathLength && (px(style.strokeDashoffset) ?? 0) === 0;
+        if (style.strokeDasharray && style.strokeDasharray !== "none" && !fullDash) attrs.push(`stroke-dasharray='${quote(style.strokeDasharray.replace(/px/g, ""))}'`);
       }
       const opacity = Number.parseFloat(style.opacity ?? "1");
       if (opacity < 1) attrs.push(`opacity='${opacity}'`);

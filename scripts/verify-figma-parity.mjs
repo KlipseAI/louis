@@ -6648,7 +6648,24 @@ function tamperComponentBySize(snapshot) {
   return "Tooltip base 의 위 패딩을 옛 접기 값 4.5 로 바꿈";
 }
 
+// 속성 묶임의 검출력. Dialog 의 한 변형에서 Title 참조가 떨어진 것처럼 꾸민다 — 세트 안 clone() 이 참조를 떨군 그 결손이다.
+function tamperComponentPropertyUnbound(snapshot) {
+  const bindings = snapshot.components?.Dialog?.propertyBindings;
+  if (!bindings) return null;
+  bindings.unbound = [...(bindings.unbound ?? []), "Title/characters@Size=sheet, Tone=neutral, Layout=base, Dividers=false"];
+  return "Dialog sheet 변형의 Title 참조를 떨군 것처럼 바꿈";
+}
+
+// 속성 묶임 되읽기가 빠진 컴포넌트의 검출력 — 블록을 뜨지 않은 채 새 세트를 더하면 여기서 문다.
+function tamperComponentPropertyBindingsMissing(snapshot) {
+  if (!snapshot.components?.Button) return null;
+  snapshot.components.Button.propertyBindings = null;
+  return "Button 의 속성 묶임 되읽기를 지움";
+}
+
 const TAMPERS = [
+  tamperComponentPropertyUnbound,
+  tamperComponentPropertyBindingsMissing,
   tamperComponentBySize,
   tamperComponentAtLeast,
   tamperValue,
@@ -6821,6 +6838,53 @@ function styleAttributes(representation, resolved) {
   return layer(resolved);
 }
 
+/**
+ * **BOOLEAN · TEXT 속성이 변형마다 레이어에 묶였는가**(2026-10-15).
+ *
+ * set 에 속성을 정의해 두고 어떤 변형에서 그 레이어에 참조가 없으면, 인스턴스에서 속성을 바꿔도 그 변형만 반응하지 않는다. 세트 안
+ * `clone()` 이 참조를 떨구므로 복제로 늘린 변형마다 생겼다(TextField floating · Slider Disabled · Dialog 크기 셋 · Tooltip coachmark ·
+ * Toast callout 등 열한 세트 82칸). `properties` 대조는 «정의»만 보므로 이 결손을 보지 못했다.
+ *
+ * 되읽기 `propertyBindings`(`figma-readback-emit.mjs --property-bindings`)가 결손을 `unbound` 로 담는다 — 그 변형에 같은 이름 · 종류의
+ * 레이어가 있는데 참조가 없는 칸이다. 레이어 자체가 없는 변형은 결손이 아니다. 아래 면제는 «같은 레이어가 다른 데이터를 보이는» 자리다.
+ */
+// 함수 선언인 이유: compare() 가 모듈 위쪽에서 먼저 불려 const 는 아직 초기화 전이다(TDZ).
+function propertyBindingExempt() {
+  return [
+    {
+    set: "SelectTrigger",
+    entry: /^Value\/characters@.*Placeholder=true/,
+    reason: "Placeholder=true 의 Value 레이어는 값이 아니라 안내 문구(placeholder)를 보인다 — 값 속성에 묶으면 빈 칸에 기본 값이 찍힌다.",
+    },
+    {
+    set: "TextField",
+    entry: /^Value\/characters@.*State=Placeholder/,
+    reason: "State=Placeholder 의 Value 레이어는 안내 문구를 보인다 — SelectTrigger 와 같은 사유.",
+    },
+    {
+    set: "InlineLoadingLabel",
+    entry: /^(Label\/characters@.*Loading=true|LoadingLabel\/characters@.*Loading=false)$/,
+    reason: "한 Label 레이어가 Loading=false 에서는 Label, true 에서는 LoadingLabel 을 보인다 — 이름이 같아 서로의 칸으로 잡힐 뿐 결손이 아니다.",
+    },
+];
+}
+
+function comparePropertyBindings(components) {
+  const issues = [];
+  for (const [name, component] of Object.entries(components)) {
+    const bindings = component.propertyBindings;
+    if (bindings === null || bindings === undefined) {
+      issues.push(`${name}: 속성 묶임 되읽기(propertyBindings)가 없습니다 — figma-readback-emit.mjs --property-bindings 로 다시 뜨세요.`);
+      continue;
+    }
+    for (const entry of bindings.unbound ?? []) {
+      if (propertyBindingExempt().some((rule) => rule.set === name && rule.entry.test(entry))) continue;
+      issues.push(`${name}: 속성이 이 변형의 레이어에 묶이지 않았습니다 — ${entry}`);
+    }
+  }
+  return issues;
+}
+
 function compare(document, expected) {
   const issues = [];
   const actualCollections = document.collections ?? {};
@@ -6953,6 +7017,7 @@ function compare(document, expected) {
   }
 
   issues.push(...compareComponents(document.components ?? {}));
+  issues.push(...comparePropertyBindings(document.components ?? {}));
   issues.push(...compareIcons(document.icons ?? {}));
   issues.push(...compareOverflow(document.components));
   issues.push(...compareOpticalCentering(document.components));

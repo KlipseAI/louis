@@ -39775,5 +39775,969 @@
       "Elevation"
     ]
   },
-  "iconInstances": {}
+  "iconInstances": {},
+  "propertyBindings": {
+    "Alert": {
+      "properties": 5,
+      "variants": 12,
+      "absent": 0,
+      "unbound": []
+    },
+    "AppTopBar": {
+      "properties": 3,
+      "variants": 2,
+      "absent": 1,
+      "unbound": []
+    },
+    "AppTopBarHome": {
+      "properties": 0,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "AppTopBarTitle": {
+      "properties": 1,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "AssetTile": {
+      "properties": 1,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "AudioCell": {
+      "properties": 2,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "Avatar": {
+      "properties": 1,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "Badge": {
+      "properties": 3,
+      "variants": 5,
+      "absent": 0,
+      "unbound": []
+    },
+    "BannerCarousel": {
+      "properties": 4,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "BareButton": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "BrandBar": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "Breadcrumb": {
+      "properties": 2,
+      "variants": 2,
+      "absent": 1,
+      "unbound": []
+    },
+    "Button": {
+      "properties": 1,
+      "variants": 420,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasDots": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasEdge": {
+      "properties": 0,
+      "variants": 14,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasEdgeDelete": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasGuide": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasSection": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasSectionColorButton": {
+      "properties": 0,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasSectionPalette": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasSectionTintOption": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "CanvasSectionTitleBar": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "CaptionThumb": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CarouselArrow": {
+      "properties": 0,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "ChannelHeader": {
+      "properties": 7,
+      "variants": 4,
+      "absent": 8,
+      "unbound": []
+    },
+    "ChannelHeaderDescription": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "ChartCard": {
+      "properties": 5,
+      "variants": 6,
+      "absent": 12,
+      "unbound": []
+    },
+    "ChartCardDotTile": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "ChatBubble": {
+      "properties": 3,
+      "variants": 3,
+      "absent": 7,
+      "unbound": []
+    },
+    "ChatDock": {
+      "properties": 2,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "ChatGate": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "ChatPanel": {
+      "properties": 2,
+      "variants": 4,
+      "absent": 2,
+      "unbound": []
+    },
+    "ChatSuggestion": {
+      "properties": 1,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "Checkbox": {
+      "properties": 2,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "ChoiceCard": {
+      "properties": 3,
+      "variants": 74,
+      "absent": 88,
+      "unbound": []
+    },
+    "ColorPicker": {
+      "properties": 5,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "ColorPickerOption": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "ColorSwatch": {
+      "properties": 3,
+      "variants": 13,
+      "absent": 29,
+      "unbound": []
+    },
+    "CommandPalette": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CommandPaletteEmpty": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CommentEmpty": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CommentForm": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CommentItem": {
+      "properties": 4,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CommentThread": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "CompositePopover": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "ContentCard": {
+      "properties": 7,
+      "variants": 4,
+      "absent": 6,
+      "unbound": []
+    },
+    "CopyPanel": {
+      "properties": 2,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "Coverflow": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "CoverflowCard": {
+      "properties": 1,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "CoverflowDot": {
+      "properties": 0,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "CoverflowNav": {
+      "properties": 0,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "DatePickerCalendar": {
+      "properties": 2,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "DatePickerCell": {
+      "properties": 2,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "DatePickerTime": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "Dialog": {
+      "properties": 3,
+      "variants": 8,
+      "absent": 0,
+      "unbound": []
+    },
+    "DrillPicker": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "DrillPickerRow": {
+      "properties": 3,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "DropZone": {
+      "properties": 4,
+      "variants": 8,
+      "absent": 0,
+      "unbound": []
+    },
+    "EmptyState": {
+      "properties": 5,
+      "variants": 3,
+      "absent": 5,
+      "unbound": []
+    },
+    "FaqRow": {
+      "properties": 2,
+      "variants": 4,
+      "absent": 2,
+      "unbound": []
+    },
+    "FloatingShell": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "FloatingShellDivider": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "FloatingShellItem": {
+      "properties": 1,
+      "variants": 8,
+      "absent": 0,
+      "unbound": []
+    },
+    "FormMessage": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "GalleryPanel": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "GnbMenuItem": {
+      "properties": 1,
+      "variants": 8,
+      "absent": 0,
+      "unbound": []
+    },
+    "IconButton": {
+      "properties": 0,
+      "variants": 60,
+      "absent": 0,
+      "unbound": []
+    },
+    "InlineLoadingLabel": {
+      "properties": 2,
+      "variants": 4,
+      "absent": 0,
+      "unbound": [
+        "Label/characters@Size=md, Loading=true",
+        "Label/characters@Size=sm, Loading=true",
+        "LoadingLabel/characters@Size=md, Loading=false",
+        "LoadingLabel/characters@Size=sm, Loading=false"
+      ]
+    },
+    "InspectorRow": {
+      "properties": 2,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "InspectorSectionHead": {
+      "properties": 2,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "Keycap": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "Lightbox": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "LightboxAction": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "LoadingWord": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "LogoTile": {
+      "properties": 1,
+      "variants": 6,
+      "absent": 3,
+      "unbound": []
+    },
+    "MediaCard": {
+      "properties": 6,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "MediaScrubber": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "MediaSlot": {
+      "properties": 1,
+      "variants": 7,
+      "absent": 2,
+      "unbound": []
+    },
+    "Menu": {
+      "properties": 3,
+      "variants": 21,
+      "absent": 0,
+      "unbound": []
+    },
+    "MenuMediaItem": {
+      "properties": 3,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "MenuPanel": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "MenuSeparator": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "MenuTrigger": {
+      "properties": 1,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "NewsCard": {
+      "properties": 2,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeChannel": {
+      "properties": 2,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeChip": {
+      "properties": 2,
+      "variants": 9,
+      "absent": 3,
+      "unbound": []
+    },
+    "NodeChromeButton": {
+      "properties": 0,
+      "variants": 9,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeComposer": {
+      "properties": 2,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeComposerError": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeCountRow": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeGenerateButton": {
+      "properties": 2,
+      "variants": 6,
+      "absent": 8,
+      "unbound": []
+    },
+    "NodeHandleTile": {
+      "properties": 0,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeMedia": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 1,
+      "unbound": []
+    },
+    "NodeResizeHandle": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeResponse": {
+      "properties": 2,
+      "variants": 4,
+      "absent": 5,
+      "unbound": []
+    },
+    "NodeShell": {
+      "properties": 2,
+      "variants": 14,
+      "absent": 0,
+      "unbound": []
+    },
+    "NodeSideHandle": {
+      "properties": 0,
+      "variants": 12,
+      "absent": 0,
+      "unbound": []
+    },
+    "NoticePill": {
+      "properties": 2,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "PaneDivider": {
+      "properties": 0,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "PillTrigger": {
+      "properties": 1,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "PlanComparison": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "PlanComparisonColumn": {
+      "properties": 2,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "PlanComparisonItem": {
+      "properties": 2,
+      "variants": 6,
+      "absent": 4,
+      "unbound": []
+    },
+    "PlanTierCard": {
+      "properties": 10,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "PlanTierCardFeature": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "PlanTierCardNotice": {
+      "properties": 2,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "ProgressBar": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "ProgressRing": {
+      "properties": 1,
+      "variants": 5,
+      "absent": 1,
+      "unbound": []
+    },
+    "ProjectCard": {
+      "properties": 3,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "PromptVariant": {
+      "properties": 5,
+      "variants": 4,
+      "absent": 6,
+      "unbound": []
+    },
+    "PropertyStack": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "PropertyStackGroup": {
+      "properties": 2,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "RecordCard": {
+      "properties": 2,
+      "variants": 8,
+      "absent": 0,
+      "unbound": []
+    },
+    "SectionHeader": {
+      "properties": 6,
+      "variants": 6,
+      "absent": 16,
+      "unbound": []
+    },
+    "SectionShell": {
+      "properties": 0,
+      "variants": 10,
+      "absent": 0,
+      "unbound": []
+    },
+    "SegmentTrack": {
+      "properties": 0,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "SegmentTrackBlock": {
+      "properties": 3,
+      "variants": 8,
+      "absent": 0,
+      "unbound": []
+    },
+    "SegmentTrackMapBar": {
+      "properties": 0,
+      "variants": 9,
+      "absent": 0,
+      "unbound": []
+    },
+    "SegmentedCodeInput": {
+      "properties": 0,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "SegmentedControl": {
+      "properties": 1,
+      "variants": 10,
+      "absent": 0,
+      "unbound": []
+    },
+    "SegmentedControlItem": {
+      "properties": 1,
+      "variants": 20,
+      "absent": 0,
+      "unbound": []
+    },
+    "SelectTrigger": {
+      "properties": 1,
+      "variants": 24,
+      "absent": 0,
+      "unbound": [
+        "Value/characters@Size=lg, State=Default, Placeholder=true",
+        "Value/characters@Size=lg, State=Disabled, Placeholder=true",
+        "Value/characters@Size=lg, State=Hover, Placeholder=true",
+        "Value/characters@Size=lg, State=Open, Placeholder=true",
+        "Value/characters@Size=md, State=Default, Placeholder=true",
+        "Value/characters@Size=md, State=Disabled, Placeholder=true",
+        "Value/characters@Size=md, State=Hover, Placeholder=true",
+        "Value/characters@Size=md, State=Open, Placeholder=true",
+        "Value/characters@Size=sm, State=Default, Placeholder=true",
+        "Value/characters@Size=sm, State=Disabled, Placeholder=true",
+        "Value/characters@Size=sm, State=Hover, Placeholder=true",
+        "Value/characters@Size=sm, State=Open, Placeholder=true"
+      ]
+    },
+    "SelectableListRow": {
+      "properties": 4,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "SidebarBrand": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "SidebarCta": {
+      "properties": 0,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "SidebarNavItem": {
+      "properties": 2,
+      "variants": 6,
+      "absent": 3,
+      "unbound": []
+    },
+    "SidebarNavRow": {
+      "properties": 1,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "Skeleton": {
+      "properties": 0,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "Slider": {
+      "properties": 2,
+      "variants": 14,
+      "absent": 0,
+      "unbound": []
+    },
+    "SliderRulerTicks": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "Spinner": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "StageBar": {
+      "properties": 2,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "StartCard": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "StatTile": {
+      "properties": 5,
+      "variants": 8,
+      "absent": 2,
+      "unbound": []
+    },
+    "StepTile": {
+      "properties": 3,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "Switch": {
+      "properties": 0,
+      "variants": 4,
+      "absent": 0,
+      "unbound": []
+    },
+    "TabItem": {
+      "properties": 1,
+      "variants": 8,
+      "absent": 0,
+      "unbound": []
+    },
+    "Table": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "TableCell": {
+      "properties": 1,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "TableDrawer": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "TableHeaderCell": {
+      "properties": 1,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "Tabs": {
+      "properties": 0,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    },
+    "TextField": {
+      "properties": 9,
+      "variants": 27,
+      "absent": 54,
+      "unbound": [
+        "Value/characters@Size=lg, State=Placeholder, LabelBehavior=floating, Join=end, Layout=base",
+        "Value/characters@Size=lg, State=Placeholder, LabelBehavior=floating, Join=middle, Layout=base",
+        "Value/characters@Size=lg, State=Placeholder, LabelBehavior=floating, Join=none, Layout=base",
+        "Value/characters@Size=lg, State=Placeholder, LabelBehavior=floating, Join=start, Layout=base",
+        "Value/characters@Size=lg, State=Placeholder, LabelBehavior=stacked, Join=none, Layout=base",
+        "Value/characters@Size=md, State=Placeholder, LabelBehavior=stacked, Join=none, Layout=base",
+        "Value/characters@Size=sm, State=Placeholder, LabelBehavior=stacked, Join=none, Layout=base"
+      ]
+    },
+    "TextLink": {
+      "properties": 0,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "Timeline": {
+      "properties": 0,
+      "variants": 1,
+      "absent": 0,
+      "unbound": []
+    },
+    "TimelineClip": {
+      "properties": 0,
+      "variants": 8,
+      "absent": 0,
+      "unbound": []
+    },
+    "TimelineFooter": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "TimelineFooterClip": {
+      "properties": 3,
+      "variants": 16,
+      "absent": 0,
+      "unbound": []
+    },
+    "TimelineRuler": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "TimelineTrimHandle": {
+      "properties": 0,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "Toast": {
+      "properties": 3,
+      "variants": 4,
+      "absent": 4,
+      "unbound": []
+    },
+    "Tooltip": {
+      "properties": 2,
+      "variants": 8,
+      "absent": 4,
+      "unbound": []
+    },
+    "TransformFrame": {
+      "properties": 1,
+      "variants": 2,
+      "absent": 0,
+      "unbound": []
+    },
+    "VideoPlayer": {
+      "properties": 3,
+      "variants": 6,
+      "absent": 10,
+      "unbound": []
+    },
+    "VideoPlayerChip": {
+      "properties": 0,
+      "variants": 6,
+      "absent": 0,
+      "unbound": []
+    },
+    "VideoPlayerVolume": {
+      "properties": 0,
+      "variants": 3,
+      "absent": 0,
+      "unbound": []
+    }
+  }
 }

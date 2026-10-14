@@ -777,6 +777,32 @@ withCanary(
   "geometry 가 없습니다",
 );
 
+// **속성 묶임**(2026-10-15). set 에 정의된 BOOLEAN · TEXT 속성이 어떤 변형의 레이어에 묶이지 않으면(세트 안 clone() 이 참조를
+// 떨군 결손) 인스턴스에서 그 변형만 속성에 반응하지 않는다. 되읽기 `propertyBindings` 가 그 칸을 `unbound` 로 담고 parity 가 문다.
+// 하나 — snapshot 의 Dialog 에 묶이지 않은 칸을 심으면 parity 가 멈춰야 한다.
+withCanary(
+  "figma/snapshot.json",
+  (source) => {
+    const snapshot = JSON.parse(source);
+    const bindings = snapshot.components?.Dialog?.propertyBindings;
+    if (!bindings) throw new Error("속성 묶임 canary 의 재료가 없습니다 — snapshot 의 Dialog 에 propertyBindings 가 없습니다.");
+    bindings.unbound = [...(bindings.unbound ?? []), "Title/characters@Size=sheet, Tone=neutral, Layout=base, Dividers=false"];
+    return `${JSON.stringify(snapshot, null, 2)}\n`;
+  },
+  "figma property binding",
+  "scripts/verify-figma-parity.mjs",
+  "속성이 이 변형의 레이어에 묶이지 않았습니다",
+  "--no-canary",
+);
+// 둘 — parity 가 그 대조를 부르지 않게 되면 자기 변조 canary 가 「잡지 못했습니다」로 멈춰야 한다.
+withCanary(
+  "scripts/verify-figma-parity.mjs",
+  (source) => source.replace("  issues.push(...comparePropertyBindings(document.components ?? {}));\n", ""),
+  "figma property binding compare dropped",
+  "scripts/verify-figma-parity.mjs",
+  "canary가 변조를 잡지 못했습니다: Dialog sheet 변형의 Title 참조를 떨군 것처럼 바꿈",
+);
+
 // **빈 목록으로 조용히 통과하는 경로**를 막는다. 계약 배열을 못 읽으면 검사할 것이 0개가 되어
 // exit 0 이 되는데, 그것이 이 저장소가 가장 비싸게 배운 실패 방식이다.
 withCanary(

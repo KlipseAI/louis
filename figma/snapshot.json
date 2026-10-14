@@ -8183,7 +8183,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 5,
+        "variants": 12,
+        "unbound": []
+      }
     },
     "AppTopBar": {
       "outsideParts": [],
@@ -8315,7 +8320,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "AppTopBarHome": {
       "outsideParts": [],
@@ -8409,7 +8419,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "AppTopBarTitle": {
       "outsideParts": [],
@@ -8513,7 +8528,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "AssetTile": {
       "outsideParts": [],
@@ -8610,7 +8630,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "AudioCell": {
       "outsideParts": [],
@@ -8738,6 +8763,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 3,
+        "unbound": []
       }
     },
     "Avatar": {
@@ -8910,7 +8940,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "Badge": {
       "outsideParts": [],
@@ -8999,7 +9034,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 5,
+        "unbound": []
+      }
     },
     "BannerCarousel": {
       "outsideParts": [],
@@ -9207,7 +9247,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 4,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "BareButton": {
       "outsideParts": [],
@@ -9305,7 +9350,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "BrandBar": {
       "outsideParts": [],
@@ -9360,7 +9410,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "Breadcrumb": {
       "outsideParts": [],
@@ -9507,7 +9562,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "Button": {
       "outsideParts": [],
@@ -9757,6 +9817,11 @@
           "INNER_SHADOW:1:1:-0.5 + INNER_SHADOW:-1:1:-0.5",
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 420,
+        "unbound": []
       }
     },
     "CanvasDots": {
@@ -9797,7 +9862,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "CanvasEdge": {
       "outsideParts": [],
@@ -9864,7 +9934,12 @@
           "2|CENTER"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 14,
+        "unbound": []
+      }
     },
     "CanvasEdgeDelete": {
       "outsideParts": [],
@@ -9989,6 +10064,11 @@
         "self": [
           "DROP_SHADOW:2:8:0"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
       }
     },
     "CanvasGuide": {
@@ -10040,7 +10120,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "CanvasSection": {
       "outsideParts": [],
@@ -10135,7 +10220,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "CanvasSectionColorButton": {
       "outsideParts": [],
@@ -10301,7 +10391,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "CanvasSectionPalette": {
       "outsideParts": [],
@@ -10347,7 +10442,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "CanvasSectionTintOption": {
       "outsideParts": [],
@@ -10407,7 +10507,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "CanvasSectionTitleBar": {
       "outsideParts": [],
@@ -10509,7 +10614,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "CaptionThumb": {
       "outsideParts": [],
@@ -10566,6 +10676,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
       }
     },
     "CarouselArrow": {
@@ -10660,6 +10775,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 6,
+        "unbound": []
       }
     },
     "ChannelHeader": {
@@ -10960,7 +11080,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 7,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "ChannelHeaderDescription": {
       "outsideParts": [],
@@ -11026,7 +11151,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "ChartCard": {
       "outsideParts": [],
@@ -11293,6 +11423,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 5,
+        "variants": 6,
+        "unbound": []
       }
     },
     "ChartCardDotTile": {
@@ -11324,7 +11459,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "ChatBubble": {
       "outsideParts": [],
@@ -11424,7 +11564,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "ChatDock": {
       "outsideParts": [],
@@ -11499,7 +11644,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "ChatGate": {
       "outsideParts": [],
@@ -11593,7 +11743,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "ChatPanel": {
       "outsideParts": [],
@@ -11829,7 +11984,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "ChatSuggestion": {
       "outsideParts": [],
@@ -11923,7 +12083,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "Checkbox": {
       "outsideParts": [],
@@ -12044,7 +12209,12 @@
           "2|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "ChoiceCard": {
       "outsideParts": [],
@@ -12476,6 +12646,11 @@
           "INNER_SHADOW:0:0:0.5",
           "INNER_SHADOW:0:0:2"
         ]
+      },
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 74,
+        "unbound": []
       }
     },
     "ColorPicker": {
@@ -12604,7 +12779,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 5,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "ColorPickerOption": {
       "outsideParts": [],
@@ -12661,7 +12841,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "ColorSwatch": {
       "outsideParts": [],
@@ -12875,7 +13060,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 13,
+        "unbound": []
+      }
     },
     "CommandPalette": {
       "outsideParts": [],
@@ -12990,7 +13180,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "CommandPaletteEmpty": {
       "outsideParts": [],
@@ -13034,7 +13229,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "CommentEmpty": {
       "outsideParts": [],
@@ -13085,7 +13285,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "CommentForm": {
       "outsideParts": [],
@@ -13142,7 +13347,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "CommentItem": {
       "outsideParts": [],
@@ -13231,7 +13441,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 4,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "CommentThread": {
       "outsideParts": [],
@@ -13279,7 +13494,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "CompositePopover": {
       "outsideParts": [],
@@ -13335,6 +13555,11 @@
         "self": [
           "DROP_SHADOW:8:15:0 + INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
       }
     },
     "ContentCard": {
@@ -13612,7 +13837,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 7,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "CopyPanel": {
       "outsideParts": [],
@@ -13735,7 +13965,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "Coverflow": {
       "outsideParts": [
@@ -13836,7 +14071,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "CoverflowCard": {
       "outsideParts": [],
@@ -13974,6 +14214,11 @@
           "DROP_SHADOW:24:60:0",
           "DROP_SHADOW:32:80:0"
         ]
+      },
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 4,
+        "unbound": []
       }
     },
     "CoverflowDot": {
@@ -14056,7 +14301,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "CoverflowNav": {
       "outsideParts": [],
@@ -14193,7 +14443,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "DatePickerCalendar": {
       "outsideParts": [],
@@ -14310,7 +14565,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "DatePickerCell": {
       "outsideParts": [],
@@ -14513,7 +14773,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "DatePickerTime": {
       "outsideParts": [
@@ -14579,7 +14844,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "Dialog": {
       "outsideParts": [],
@@ -15163,6 +15433,11 @@
         "self": [
           "DROP_SHADOW:16:48:-8"
         ]
+      },
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 8,
+        "unbound": []
       }
     },
     "DrillPicker": {
@@ -15254,7 +15529,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "DrillPickerRow": {
       "outsideParts": [],
@@ -15348,7 +15628,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "DropZone": {
       "outsideParts": [],
@@ -15507,7 +15792,12 @@
           "2|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 4,
+        "variants": 8,
+        "unbound": []
+      }
     },
     "EmptyState": {
       "outsideParts": [],
@@ -15789,7 +16079,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 5,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "FaqRow": {
       "outsideParts": [],
@@ -16173,6 +16468,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 4,
+        "unbound": []
       }
     },
     "FloatingShell": {
@@ -16318,6 +16618,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:4"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
       }
     },
     "FloatingShellDivider": {
@@ -16349,7 +16654,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "FloatingShellItem": {
       "outsideParts": [],
@@ -16567,7 +16877,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 8,
+        "unbound": []
+      }
     },
     "FormMessage": {
       "outsideParts": [],
@@ -16689,7 +17004,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "GalleryPanel": {
       "outsideParts": [],
@@ -16796,7 +17116,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "GnbMenuItem": {
       "outsideParts": [],
@@ -17251,7 +17576,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 8,
+        "unbound": []
+      }
     },
     "IconButton": {
       "outsideParts": [],
@@ -17425,7 +17755,12 @@
           "0.5|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 60,
+        "unbound": []
+      }
     },
     "InlineLoadingLabel": {
       "outsideParts": [],
@@ -17685,7 +18020,17 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 4,
+        "unbound": [
+          "Label/characters@Size=md, Loading=true",
+          "Label/characters@Size=sm, Loading=true",
+          "LoadingLabel/characters@Size=md, Loading=false",
+          "LoadingLabel/characters@Size=sm, Loading=false"
+        ]
+      }
     },
     "InspectorRow": {
       "outsideParts": [],
@@ -17830,7 +18175,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "InspectorSectionHead": {
       "outsideParts": [],
@@ -17929,7 +18279,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "Keycap": {
       "outsideParts": [],
@@ -18051,7 +18406,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "Lightbox": {
       "outsideParts": [],
@@ -18099,7 +18459,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "LightboxAction": {
       "outsideParts": [],
@@ -18185,7 +18550,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "LoadingWord": {
       "outsideParts": [],
@@ -18283,7 +18653,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "LogoTile": {
       "outsideParts": [],
@@ -18411,7 +18786,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "MediaCard": {
       "outsideParts": [],
@@ -18596,6 +18976,11 @@
         "InfoBar": [
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
+      },
+      "propertyBindings": {
+        "properties": 6,
+        "variants": 1,
+        "unbound": []
       }
     },
     "MediaScrubber": {
@@ -18675,7 +19060,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "MediaSlot": {
       "outsideParts": [],
@@ -18858,7 +19248,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 7,
+        "unbound": []
+      }
     },
     "Menu": {
       "outsideParts": [],
@@ -19044,7 +19439,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 21,
+        "unbound": []
+      }
     },
     "MenuMediaItem": {
       "outsideParts": [],
@@ -19155,7 +19555,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "MenuPanel": {
       "outsideParts": [],
@@ -19213,6 +19618,11 @@
         "self": [
           "DROP_SHADOW:8:15:0 + INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
       }
     },
     "MenuSeparator": {
@@ -19266,7 +19676,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "MenuTrigger": {
       "outsideParts": [],
@@ -19340,7 +19755,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "NewsCard": {
       "outsideParts": [],
@@ -19539,7 +19959,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "NodeChannel": {
       "outsideParts": [],
@@ -19629,7 +20054,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "NodeChip": {
       "outsideParts": [],
@@ -19847,6 +20277,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 9,
+        "unbound": []
       }
     },
     "NodeChromeButton": {
@@ -20342,7 +20777,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 9,
+        "unbound": []
+      }
     },
     "NodeComposer": {
       "outsideParts": [],
@@ -20454,6 +20894,11 @@
         "Field": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 1,
+        "unbound": []
       }
     },
     "NodeComposerError": {
@@ -20512,6 +20957,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
       }
     },
     "NodeCountRow": {
@@ -20550,7 +21000,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "NodeGenerateButton": {
       "outsideParts": [],
@@ -20855,6 +21310,11 @@
         "self": [
           "INNER_SHADOW:0:8:0"
         ]
+      },
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 6,
+        "unbound": []
       }
     },
     "NodeHandleTile": {
@@ -21051,7 +21511,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "NodeMedia": {
       "outsideParts": [],
@@ -21114,7 +21579,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "NodeResizeHandle": {
       "outsideParts": [
@@ -21186,7 +21656,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "NodeResponse": {
       "outsideParts": [],
@@ -21284,7 +21759,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "NodeShell": {
       "outsideParts": [],
@@ -23198,7 +23678,12 @@
           "2|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 14,
+        "unbound": []
+      }
     },
     "NodeSideHandle": {
       "outsideParts": [],
@@ -23939,6 +24424,11 @@
         "Facet": [
           "INNER_SHADOW:0:8:0"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 12,
+        "unbound": []
       }
     },
     "NoticePill": {
@@ -24033,7 +24523,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "PaneDivider": {
       "outsideParts": [],
@@ -24263,7 +24758,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "PillTrigger": {
       "outsideParts": [],
@@ -24442,6 +24942,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:4"
         ]
+      },
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 3,
+        "unbound": []
       }
     },
     "PlanComparison": {
@@ -24540,7 +25045,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "PlanComparisonColumn": {
       "outsideParts": [],
@@ -24703,7 +25213,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "PlanComparisonItem": {
       "outsideParts": [],
@@ -24920,7 +25435,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "PlanTierCard": {
       "outsideParts": [],
@@ -25332,6 +25852,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 10,
+        "variants": 4,
+        "unbound": []
       }
     },
     "PlanTierCardFeature": {
@@ -25424,7 +25949,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "PlanTierCardNotice": {
       "outsideParts": [],
@@ -25484,7 +26014,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "ProgressBar": {
       "outsideParts": [],
@@ -25561,7 +26096,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "ProgressRing": {
       "outsideParts": [],
@@ -25702,7 +26242,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 5,
+        "unbound": []
+      }
     },
     "ProjectCard": {
       "outsideParts": [],
@@ -25902,6 +26447,11 @@
         "Title overlay": [
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
+      },
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 3,
+        "unbound": []
       }
     },
     "PromptVariant": {
@@ -26005,7 +26555,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 5,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "PropertyStack": {
       "outsideParts": [],
@@ -26055,7 +26610,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "PropertyStackGroup": {
       "outsideParts": [],
@@ -26122,7 +26682,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "RecordCard": {
       "outsideParts": [],
@@ -26443,6 +27008,11 @@
           "INNER_SHADOW:-0.5:0:0",
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 8,
+        "unbound": []
       }
     },
     "SectionHeader": {
@@ -26846,7 +27416,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 6,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "SectionShell": {
       "outsideParts": [],
@@ -27123,7 +27698,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 10,
+        "unbound": []
+      }
     },
     "SegmentTrack": {
       "outsideParts": [],
@@ -27253,7 +27833,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "SegmentTrackBlock": {
       "outsideParts": [
@@ -27476,7 +28061,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 8,
+        "unbound": []
+      }
     },
     "SegmentTrackMapBar": {
       "outsideParts": [],
@@ -27620,7 +28210,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 9,
+        "unbound": []
+      }
     },
     "SegmentedCodeInput": {
       "outsideParts": [],
@@ -27859,7 +28454,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "SegmentedControl": {
       "outsideParts": [],
@@ -28248,6 +28848,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 10,
+        "unbound": []
       }
     },
     "SegmentedControlItem": {
@@ -28474,7 +29079,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 20,
+        "unbound": []
+      }
     },
     "SelectTrigger": {
       "outsideParts": [],
@@ -28677,6 +29287,24 @@
       "effects": {
         "self": [
           "INNER_SHADOW:0:0:0.5"
+        ]
+      },
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 24,
+        "unbound": [
+          "Value/characters@Size=lg, State=Default, Placeholder=true",
+          "Value/characters@Size=lg, State=Disabled, Placeholder=true",
+          "Value/characters@Size=lg, State=Hover, Placeholder=true",
+          "Value/characters@Size=lg, State=Open, Placeholder=true",
+          "Value/characters@Size=md, State=Default, Placeholder=true",
+          "Value/characters@Size=md, State=Disabled, Placeholder=true",
+          "Value/characters@Size=md, State=Hover, Placeholder=true",
+          "Value/characters@Size=md, State=Open, Placeholder=true",
+          "Value/characters@Size=sm, State=Default, Placeholder=true",
+          "Value/characters@Size=sm, State=Disabled, Placeholder=true",
+          "Value/characters@Size=sm, State=Hover, Placeholder=true",
+          "Value/characters@Size=sm, State=Open, Placeholder=true"
         ]
       }
     },
@@ -28909,7 +29537,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 4,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "SidebarBrand": {
       "outsideParts": [],
@@ -29030,7 +29663,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "SidebarCta": {
       "outsideParts": [],
@@ -29149,6 +29787,11 @@
         "self": [
           "INNER_SHADOW:0:0:1 + DROP_SHADOW:1:2:0"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 6,
+        "unbound": []
       }
     },
     "SidebarNavItem": {
@@ -29279,7 +29922,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "SidebarNavRow": {
       "outsideParts": [],
@@ -29354,7 +30002,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "Skeleton": {
       "outsideParts": [],
@@ -29519,7 +30172,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 4,
+        "unbound": []
+      }
     },
     "Slider": {
       "outsideParts": [],
@@ -30113,7 +30771,12 @@
           "2|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 14,
+        "unbound": []
+      }
     },
     "SliderRulerTicks": {
       "outsideParts": [],
@@ -30144,7 +30807,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "Spinner": {
       "outsideParts": [],
@@ -30231,7 +30899,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "StageBar": {
       "outsideParts": [],
@@ -30337,7 +31010,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "StartCard": {
       "outsideParts": [],
@@ -30473,6 +31151,11 @@
         "Blur": [
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,1:0.5,0.55"
         ]
+      },
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
       }
     },
     "StatTile": {
@@ -30678,6 +31361,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 5,
+        "variants": 8,
+        "unbound": []
       }
     },
     "StepTile": {
@@ -30797,7 +31485,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "Switch": {
       "outsideParts": [],
@@ -30921,6 +31614,11 @@
         "Thumb": [
           "DROP_SHADOW:1:3:0"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 4,
+        "unbound": []
       }
     },
     "TabItem": {
@@ -31328,7 +32026,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 8,
+        "unbound": []
+      }
     },
     "Table": {
       "outsideParts": [],
@@ -31423,6 +32126,11 @@
         "HeaderRow": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
       }
     },
     "TableCell": {
@@ -31609,7 +32317,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "TableDrawer": {
       "outsideParts": [],
@@ -31680,6 +32393,11 @@
         "self": [
           "INNER_SHADOW:0:0:0.5"
         ]
+      },
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
       }
     },
     "TableHeaderCell": {
@@ -31849,7 +32567,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "Tabs": {
       "outsideParts": [],
@@ -32032,7 +32755,12 @@
           "0.5|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 3,
+        "unbound": []
+      }
     },
     "TextField": {
       "outsideParts": [],
@@ -33033,7 +33761,20 @@
           "2|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 9,
+        "variants": 27,
+        "unbound": [
+          "Value/characters@Size=lg, State=Placeholder, LabelBehavior=floating, Join=end, Layout=base",
+          "Value/characters@Size=lg, State=Placeholder, LabelBehavior=floating, Join=middle, Layout=base",
+          "Value/characters@Size=lg, State=Placeholder, LabelBehavior=floating, Join=none, Layout=base",
+          "Value/characters@Size=lg, State=Placeholder, LabelBehavior=floating, Join=start, Layout=base",
+          "Value/characters@Size=lg, State=Placeholder, LabelBehavior=stacked, Join=none, Layout=base",
+          "Value/characters@Size=md, State=Placeholder, LabelBehavior=stacked, Join=none, Layout=base",
+          "Value/characters@Size=sm, State=Placeholder, LabelBehavior=stacked, Join=none, Layout=base"
+        ]
+      }
     },
     "TextLink": {
       "outsideParts": [],
@@ -33198,7 +33939,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "Timeline": {
       "outsideParts": [
@@ -33275,7 +34021,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 1,
+        "unbound": []
+      }
     },
     "TimelineClip": {
       "outsideParts": [
@@ -33494,7 +34245,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 8,
+        "unbound": []
+      }
     },
     "TimelineFooter": {
       "outsideParts": [
@@ -33732,7 +34488,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "TimelineFooterClip": {
       "outsideParts": [],
@@ -33836,7 +34597,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 16,
+        "unbound": []
+      }
     },
     "TimelineRuler": {
       "outsideParts": [],
@@ -33899,7 +34665,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "TimelineTrimHandle": {
       "outsideParts": [],
@@ -33972,7 +34743,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "Toast": {
       "outsideParts": [],
@@ -34129,6 +34905,11 @@
         "self": [
           "DROP_SHADOW:8:20:0 + BACKGROUND_BLUR:NORMAL:var(blur/toast)"
         ]
+      },
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 4,
+        "unbound": []
       }
     },
     "Tooltip": {
@@ -34295,6 +35076,11 @@
         "self": [
           "DROP_SHADOW:12:24:0"
         ]
+      },
+      "propertyBindings": {
+        "properties": 2,
+        "variants": 8,
+        "unbound": []
       }
     },
     "TransformFrame": {
@@ -34460,7 +35246,12 @@
           "1|INSIDE"
         ]
       },
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 1,
+        "variants": 2,
+        "unbound": []
+      }
     },
     "VideoPlayer": {
       "outsideParts": [],
@@ -34647,6 +35438,11 @@
           "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
           "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0"
         ]
+      },
+      "propertyBindings": {
+        "properties": 3,
+        "variants": 6,
+        "unbound": []
       }
     },
     "VideoPlayerChip": {
@@ -34730,7 +35526,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 6,
+        "unbound": []
+      }
     },
     "VideoPlayerVolume": {
       "outsideParts": [
@@ -34808,7 +35609,12 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {},
+      "propertyBindings": {
+        "properties": 0,
+        "variants": 3,
+        "unbound": []
+      }
     }
   },
   "icons": {

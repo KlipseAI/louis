@@ -272,6 +272,15 @@ for (const [figmaName, component] of Object.entries(readback.components ?? {})) 
     // effect는 **종류와 순서**까지 담는다. 개수만 보면 INNER_SHADOW가 DROP_SHADOW로 바뀌어도
     // 통과한다. blur는 radius가 변수에 묶였는지도 담는다.
     effects: sortByKey(component.effects ?? {}),
+    // BOOLEAN · TEXT 속성이 변형마다 레이어에 묶였는가(2026-10-15). 되읽기 `propertyBindings` 블록이 따로 뜨는 값이라
+    // 없으면 null 로 남기고 parity 가 「뜨지 않았다」로 문다. `absent` 는 그 자리가 없는 변형이라 계약이 아니다.
+    propertyBindings: readback.propertyBindings?.[figmaName]
+      ? {
+          properties: readback.propertyBindings[figmaName].properties,
+          variants: readback.propertyBindings[figmaName].variants,
+          unbound: [...(readback.propertyBindings[figmaName].unbound ?? [])].sort(),
+        }
+      : null,
   };
 }
 

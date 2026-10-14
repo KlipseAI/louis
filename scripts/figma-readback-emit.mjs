@@ -19,6 +19,10 @@
 //   node scripts/figma-readback-emit.mjs --variables --only color/a,color/b   # 변수 행만 뜬다
 //   node scripts/figma-readback-emit.mjs --merge-variables <결과.json>
 //       채취 명세만 낸다(디버그용).
+//   node scripts/figma-readback-emit.mjs --property-bindings
+//   node scripts/figma-readback-emit.mjs --merge-property-bindings <결과.json>
+//       DS · Components 의 모든 component(set)에서 BOOLEAN · TEXT 속성이 변형마다 레이어에 묶였는지 뜬다(아래
+//       `propertyBindingsPluginSource` 머리말). 결과는 `readback.json` 의 `propertyBindings` 블록이다.
 //
 // **채취 명세(`CAPTURE`)가 왜 필요한가.** 되읽기는 「Figma 를 전부 덤프한 것」이 아니라
 // **계약이 보는 축만** 담는다. 어느 자손을 `parts` 로 뜨는지, 그중 어느 필드를 뜨는지, 어느
@@ -526,6 +530,8 @@ function usage(message) {
       "  node scripts/figma-readback-emit.mjs --spec [--only Name1,Name2]",
       "  node scripts/figma-readback-emit.mjs --variables --only color/a,color/b",
       "  node scripts/figma-readback-emit.mjs --merge-variables <결과.json>",
+      "  node scripts/figma-readback-emit.mjs --property-bindings",
+      "  node scripts/figma-readback-emit.mjs --merge-property-bindings <결과.json>",
       "  node scripts/figma-readback-emit.mjs --remove-variables 'Klipse Primitive::color/a,…'",
       "  node scripts/figma-readback-emit.mjs --templates [--only app-shell,home]",
       "  node scripts/figma-readback-emit.mjs --templates-spec [--only …]",
@@ -887,6 +893,84 @@ function mergeInto(resultPath) {
   );
 }
 
+
+/** 속성 묶임 채취 — BOOLEAN · TEXT 속성이 **변형마다** 레이어에 묶였는가.
+ *
+ * **왜 있는가(2026-10-15).** set 에 속성을 정의해 두고 어떤 변형에서는 그 레이어에 `componentPropertyReferences` 가 없으면
+ * 인스턴스에서 그 속성을 바꿔도 그 변형만 반응하지 않는다. 세트 안 `clone()` 이 참조를 떨구므로(조립 절차 §3) 나중에 복제로
+ * 늘린 변형마다 이 결손이 생겼다 — 한 번에 센 결과 TextField floating 열 · Slider Disabled · Dialog 크기 셋 · Tooltip coachmark ·
+ * Toast callout 등 열한 세트 82칸. 되읽기 `components` 블록은 속성 «정의»만 담아 이 결손이 parity 에 보이지 않았다.
+ *
+ * **결손의 정의.** 변형 V 에 속성 P 를 참조하는 레이어가 하나도 없는데, 다른 변형에서 P 를 참조하는 레이어와 **이름 · 종류가 같은
+ * 레이어**가 V 안에 있다. 그런 레이어가 아예 없는 변형(접힌 내비의 라벨, 빈 상태의 결과 칸)은 «그 변형에 그 자리가 없다»이지 결손이
+ * 아니다 — `absent` 로 세기만 한다. INSTANCE 안으로는 들어가지 않는다(그 값은 원본 컴포넌트의 것이다). INSTANCE_SWAP 은 담지 않는다.
+ *
+ * 결과 모양: `{ "<set>": { properties, variants, absent, unbound: ["<속성>/<필드>@<변형 이름>", …] } }` — 한 번에 전 세트(20KB 안). */
+function propertyBindingsPluginSource() {
+  return `// 생성물 — \`node scripts/figma-readback-emit.mjs --property-bindings\` 가 낸 코드다. 손으로 고치지 않는다.
+const PAGE = "DS · Components";
+const page = figma.root.children.find((p) => p.name === PAGE);
+if (!page) throw new Error("페이지를 찾지 못했습니다: " + PAGE);
+await figma.setCurrentPageAsync(page);
+const tops = page
+  .findAllWithCriteria({ types: ["COMPONENT_SET", "COMPONENT"] })
+  .filter((n) => n.parent && n.parent.type !== "COMPONENT_SET" && n.name.indexOf("icon/") !== 0);
+const walk = (n, f) => { f(n); if (n.type !== "INSTANCE" && "children" in n) for (const c of n.children) walk(c, f); };
+const result = {};
+for (const set of tops) {
+  const defs = set.componentPropertyDefinitions || {};
+  const keys = Object.keys(defs).filter((k) => defs[k].type === "BOOLEAN" || defs[k].type === "TEXT");
+  const variants = set.type === "COMPONENT_SET" ? set.children : [set];
+  const bound = {};
+  for (const v of variants) walk(v, (n) => {
+    const r = n.componentPropertyReferences;
+    if (!r) return;
+    for (const field of Object.keys(r)) {
+      const k = r[field];
+      if (keys.indexOf(k) === -1) continue;
+      (bound[k] = bound[k] || {})[field + "¦" + n.name + "¦" + n.type] = true;
+    }
+  });
+  const unbound = [];
+  let absent = 0;
+  for (const v of variants) {
+    const used = {};
+    walk(v, (n) => { const r = n.componentPropertyReferences; if (r) for (const f of Object.keys(r)) used[r[f]] = true; });
+    for (const k of keys) {
+      if (used[k]) continue;
+      const hits = [];
+      for (const sig of Object.keys(bound[k] || {})) {
+        const parts = sig.split("¦");
+        walk(v, (n) => { if (n !== v && n.name === parts[1] && n.type === parts[2]) hits.push(parts[0]); });
+      }
+      if (hits.length === 0) { absent += 1; continue; }
+      unbound.push(k.split("#")[0] + "/" + hits[0] + "@" + v.name);
+    }
+  }
+  result[set.name] = { properties: keys.length, variants: variants.length, absent: absent, unbound: unbound.sort() };
+}
+return result;
+`;
+}
+
+/** `--property-bindings` 결과를 `readback.json` 의 `propertyBindings` 블록으로 **통째로** 바꾼다 — 한 번에 전 세트를 뜨므로
+ *  부분 병합이 없다(일부만 덮으면 낡은 칸이 섞인다). */
+function mergePropertyBindings(resultPath) {
+  const readbackFile = resolve(repoRoot, READBACK_PATH);
+  const readback = JSON.parse(readFileSync(readbackFile, "utf8"));
+  const incoming = JSON.parse(readFileSync(resolve(process.cwd(), resultPath), "utf8"));
+  const names = Object.keys(incoming);
+  if (names.length === 0) {
+    console.error("[readback-emit] property-bindings 결과가 비었습니다.");
+    process.exit(1);
+  }
+  const sorted = {};
+  for (const name of names.sort()) sorted[name] = incoming[name];
+  readback.propertyBindings = sorted;
+  writeFileSync(readbackFile, `${JSON.stringify(readback, null, 2)}\n`);
+  const defects = names.reduce((sum, name) => sum + (incoming[name].unbound || []).length, 0);
+  console.error(`[readback-emit] property-bindings ${names.length}세트를 바꿨습니다 — 묶이지 않은 칸 ${defects}.`);
+}
 
 /** 변수 부분 채취 — 이름을 지정한 변수의 행만 뜬다.
  *
@@ -2051,6 +2135,12 @@ if (argv.includes("--components")) {
   const only = argv[argv.indexOf("--only") + 1];
   if (!argv.includes("--only") || !only) usage("--variables 에는 --only <이름,이름> 이 필요합니다.");
   process.stdout.write(variablesPluginSource(only.split(",").map((n) => n.trim()).filter(Boolean)));
+} else if (argv.includes("--property-bindings")) {
+  process.stdout.write(propertyBindingsPluginSource());
+} else if (argv.includes("--merge-property-bindings")) {
+  const path = argv[argv.indexOf("--merge-property-bindings") + 1];
+  if (!path || path.startsWith("--")) usage("--merge-property-bindings 뒤에 결과 파일 경로가 필요합니다.");
+  mergePropertyBindings(path);
 } else if (argv.includes("--merge-variables")) {
   const path = argv[argv.indexOf("--merge-variables") + 1];
   if (!path) usage("--merge-variables 뒤에 결과 파일 경로가 필요합니다.");

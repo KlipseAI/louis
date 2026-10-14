@@ -13,15 +13,15 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 203,
+    "mapped": 205,
     "scoped": 327,
-    "needed": 82,
+    "needed": 80,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 0,
-    "screen": 82,
+    "screen": 80,
     "oneoff": 0,
     "unclear": 0,
     "kindless": 0
@@ -1246,12 +1246,13 @@
         "louis-alert",
         "louis-badge"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "1,382줄짜리 숏츠 편집 화면이다. 모듈 CSS 5벌을 요소별 승자로 접어 넣은 셸 위에 자막 템플릿 선택·레이아웃 프리셋 목록·유튜브 업로드 모달 조합을 얹는다. 보드에 그려진 highlight 상태 12프레임은 `/highlight/[projectId]` 의 __phase 축이라 이 화면이 아니다 — 라우트 축과 컴포넌트 축 양쪽에서 비어 있는 가장 큰 면이다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "1,382줄짜리 라우트 본체. 모듈 CSS 5벌의 요소별 승자를 접어 넣은 셸에 자막 템플릿 선택·레이아웃 프리셋 목록·업로드 모달 조합을 얹는 «그림»이다. 보드의 highlight 12프레임은 `/highlight/[projectId]` 의 __phase 축이라 이 화면이 아니다(auth-fixture routes 목록에서 확인). 안에서 뽑을 부품은 CaptionColorPanel·Swatch·LayoutThumb 로 이미 따로 세어진다 — 남는 것은 보드 한 장."
+      "verdict": "figma",
+      "figma": "screen:/highlight/[projectId]/shorts/[shortId]",
+      "reason": "하이라이트 쇼츠 상세 화면의 보드다(DS-D-0098). 보드 221:3234 · 221:3504. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "fixture 시드 하이라이트 작업의 완성된 쇼츠 하나(「자리표시 쇼츠 제목」, 「Source 0:05 – 0:20」)가 채운다 — 「Done」 딱지 · 세로 미리보기 플레이어 · 내보내기 두 줄(「YouTube Shorts」 연결 · 「Save to device」) · 「Make changes」 「Re-edit」 · 「4 clips without a short · Next」 다음 클립. 렌더 중 · 실패 상태가 아니다."
     },
     "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx#LayoutThumb": {
       "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
@@ -6470,12 +6471,13 @@
       "file": "apps/web/components/scenes/HighlightProjectScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "하이라이트 프로젝트 상세 화면. 업로드 드롭존·분석 상태 카드·테마 칩 행·클립 카드 그리드·클립 모달·리뷰 카드·리파인 확장 위젯이 전부 이 파일 안에서만 정의된다. LOUIS 정본을 무는 것은 progress-bar·segmented-control·selectable-list-row·slider·checkbox 뿐이고 나머지 면은 미모델이다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/highlight/[projectId]/page.tsx), JSX 1곳. 3676줄 — 이 묶음에서 가장 큰 화면. auth-fixture 는 이 라우트를 6개 __phase 로 크롤하지만 그건 한 화면의 상태 축이지 재사용이 아니다. 드롭존·분석 상태 카드·테마 칩 행·클립 카드 그리드·리뷰 카드가 전부 이 파일 안에만 있다."
+      "verdict": "figma",
+      "figma": "screen:/highlight/[projectId] completed",
+      "reason": "하이라이트 프로젝트 완료 단계 화면의 보드다(DS-D-0098). 보드 220:3452 · 220:3759, 같은 라우트의 단계 보드 열둘도 늘림 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "fixture 시드 하이라이트 프로젝트(Fixture highlight project, 상태 extracted)의 완료 단계 — 상단 바(뒤로 · 프로젝트 이름 · 「Download all (5)」)와 클립 다섯의 판 · 구간 트랙 · 시간 눈금 · 「Why it was picked」 이유가 채운다. 업로드 · 분석 단계 보드가 아니다."
     },
     "apps/web/components/scenes/HighlightScene.tsx#HighlightScene": {
       "file": "apps/web/components/scenes/HighlightScene.tsx",

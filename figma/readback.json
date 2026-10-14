@@ -14383,7 +14383,7 @@
       "effects": {}
     },
     "ColorSwatch": {
-      "variantCount": 5,
+      "variantCount": 13,
       "hasDescription": true,
       "properties": {
         "Clear": {
@@ -14415,14 +14415,22 @@
             "filled",
             "empty"
           ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Active"
+          ]
         }
       },
       "binding": {
-        "boundFills": 7,
+        "boundFills": 161,
         "rawFills": 0,
-        "boundStrokes": 5,
+        "boundStrokes": 13,
         "rawStrokes": 0,
-        "textStyled": 3,
+        "textStyled": 8,
         "textUnstyled": 0
       },
       "geometry": {
@@ -14475,6 +14483,102 @@
           "offCenterMarks": []
         },
         "stack/md/empty": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row/md/filled/Hover": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row/md/empty/Hover": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row/sm/filled/Hover": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "stack/md/filled/Hover": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "stack/md/empty/Hover": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row/md/empty/Active": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row/sm/filled/Active": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "stack/md/empty/Active": {
           "slots": {},
           "parts": {},
           "itemSpacing": [

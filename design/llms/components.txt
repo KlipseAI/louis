@@ -16570,7 +16570,7 @@ sm `<button>` 칩은 [Color Picker](../components/color-picker.md) 판을 여는
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/color-swatch.css`. React 표면은 없다 — 소비처가 클래스를 물면 된다 |
-| Figma         | `partial`      | 2026-10-13 — `ColorSwatch` — Layout(row · stack) × Size(md · sm) × Content(filled · empty) 다섯 칸, BOOLEAN Clear, TEXT Label · Value. 칩 칠은 사용자 색이라 변수가 없다(시드). row 는 Figma TextField 의 위아래 4 때문에 높이 40(CSS 32). 기하 계약 · 기록은 아직 없다 |
+| Figma         | `partial`      | 2026-10-13 — `ColorSwatch` — Layout(row · stack) × Size(md · sm) × Content(filled · empty) × State(Default · Hover · Active — 2026-10-14) 열세 칸, BOOLEAN Clear, TEXT Label · Value. filled 칩 안에 체크무늬 바탕(반투명 값이 비친다)이 있고 Active 의 0.96 축소는 그리지 않는다. 칩 칠은 사용자 색이라 예시 색을 변수에 묶었다(시드). row 는 Figma TextField 의 위아래 4 때문에 높이 40(CSS 32). 기하 계약 · 기록은 아직 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

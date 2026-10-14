@@ -3994,6 +3994,7 @@ const COMPONENT_CONTRACTS = [
       Layout: { options: ["row", "stack"], reason: "코드의 `data-layout` — row 는 칩 + 헥스 필드, stack 은 칩 위 · 라벨 아래로 배치가 바뀐다." },
       Size: { options: ["md", "sm"], reason: "코드의 `data-size` — 칩 32 · 반경 8 / 16 · 반경 4." },
       Content: { options: ["filled", "empty"], reason: "코드의 칩 `data-empty` — 빈 칩은 사선 · 점선으로 담기는 것이 바뀐다. 상호작용 상태가 아니라 State 가 아니다." },
+      State: { options: ["Default", "Hover", "Active"], reason: "누르는 칩(input · button)의 CSS 상태 — 호버 · 누름에서 칩 선이 fg-tertiary 로 진해진다(2026-10-14, color-picker 회차 레시피). Active 는 button 칩에만 서는 희소 축이고 0.96 축소는 그리지 않는다." },
       Clear: { type: "BOOLEAN", reason: "지우기 단추(16 원 + 누르는 자리 24) 가시성." },
       Label: { type: "TEXT", reason: "속성 이름." },
       Value: { type: "TEXT", reason: "sm 의 값 글자(헥스)." },

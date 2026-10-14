@@ -293,7 +293,7 @@ const CAPTURE = {
   // 볼륨 패널은 칩 위로 열려(틈 8 · 64 ~ 112) 칩 프레임 밖에 선다 — 패널과 그 자손 전부가 계약된 바깥 부품이다.
   "VideoPlayerVolume": {"key":{"by":["State"]},"fields":["width","height"],"outsideParts":["Panel","Surface","Slider","Track","Fill","Thumb"]},
   "AssetTile": {"key":{"by":["State"]},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
-  "ColorSwatch": {"key":{"by":["Layout","Size","Content"]},"fields":["itemSpacing","layoutMode"]},
+  "ColorSwatch": {"key":{"by":["Layout","Size","Content","State"],"omit":{"State":"Default"}},"fields":["itemSpacing","layoutMode"]},
   "LogoTile": {"key":{"by":["Size","Content"]},"fields":["width","height","cornerRadius"]},
   "NoticePill": {"key":{"by":["Interactive","State"]},"fields":["height","paddingInline","cornerRadius","layoutMode"]},
   "CanvasGuide": {"key":{"by":["Orientation"]},"fields":["width","height"]},

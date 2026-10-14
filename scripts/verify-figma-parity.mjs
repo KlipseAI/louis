@@ -6222,6 +6222,39 @@ const COMPONENT_CONTRACTS = [
       },
     },
   },
+  {
+    id: "copy-panel",
+    figmaName: "CopyPanel",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/copy-panel.css 가 정본이다(2026-10-15, DS-D-0110). Figma 는 base 860 · compact 343 폭의 표본이다 — 면의 폭은 소비처(글 칼럼)가 정하는 데이터라 계약이 아니다. 동작은 Button secondary md 인스턴스라 이 계약이 들어가지 않는다(Button 계약이 갖는다). 「복사됨」은 글리프 · 라벨 교체라 축이 없다(DS-D-0110 판정 4).",
+    variantProperties: {},
+    // 선 — CSS border 1(gray-000-alpha-08), Figma INSIDE 획 1(strokesIncludedInLayout false, §10).
+    strokes: { self: { weight: "borderWidth", align: "INSIDE" } },
+    effects: {},
+    figmaOnlyProperties: {
+      Layout: { options: ["base", "compact"], reason: "너비 대역 — compact 는 719 이하(머리가 위아래로 쌓이고 왼쪽에 붙는다). 코드에는 속성이 없고 뷰포트가 고른다(copy-panel.browser.test.tsx 시험 4)." },
+      Title: { type: "TEXT", reason: "원문의 이름 — 코드에서 `__title` 의 글자다." },
+      Body: { type: "TEXT", reason: "원문 — 코드에서 `__body` 의 글자다(pre-wrap)." },
+    },
+    geometry: {
+      measuredId: "copy-panel",
+      sizeKeys: ["base", "compact"],
+      fields: {
+        // 테두리 1 을 패딩에 접는다(strokesIncludedInLayout false, §10).
+        paddingBlock: ["padding", "borderWidth"],
+        paddingInline: ["padding", "borderWidth"],
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Head: { fields: { itemSpacing: "headGap", layoutMode: "headDirection" } },
+        Title: { fields: { fontSize: "titleFontSize" } },
+        Body: { fields: { fontSize: "bodyFontSize" } },
+      },
+    },
+  },
 ];
 
 // 아이콘 계약 (DS-D-0008). component set이 아니라 개별 component이므로 COMPONENT_CONTRACTS와

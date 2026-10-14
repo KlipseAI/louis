@@ -6339,6 +6339,86 @@ a.louis-breadcrumb__parent:hover {
   }
 }
 
+/* Copy Panel — design/components/copy-panel.md
+ *
+ * 제목 · 복사 동작 · 원문 한 덩이를 담는 옅은 면(DS-D-0110). 제품 정본은 템플릿 상세의 프롬프트 상자
+ * `app/templates/[slug]/page.tsx` 의 `PROMPT_SECTION_CLASS` · `PROMPT_HEAD_CLASS` · `PROMPT_TITLE_CLASS` · `PROMPT_BOX_CLASS`
+ * (통합 판 `54b62a8aa`)이고, 복사 버튼은 `components/templates/CopyPromptButton.tsx` 의 Button secondary md 다.
+ *
+ * **면은 랜딩 면 사다리를 따른다** — 4% 면 · 8% 선 · 원문 잉크 72%(`landing-panel` · `gray-000-alpha-08` · `landing-text-soft`).
+ * 두 테마에서 같은 관계라 테마를 따른다.
+ * **복사 버튼은 Button 그대로다**(`.louis-button[data-variant="secondary"][data-size="md"]`) — 레시피는 줄어들지 않게만 한다.
+ * 「복사됨」은 변형이 아니라 글리프 · 라벨 교체다(DS-D-0084 노드 캔버스 묶음 「복사됨」 판단과 같다). */
+
+.louis-copy-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* 12 — 제품 머리 줄 `mb-6`. 원문과 머리 사이 한 칸이라 flex gap 으로 둔다. */
+  gap: var(--louis-space-stack-md);
+  margin: 0;
+  /* 20 — 제품 `p-10`. */
+  padding: var(--louis-space-media-inset);
+  /* 16 — 제품 `rounded-16`. 사다리에서 같은 값이 radius-overlay 다. */
+  border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-08);
+  border-radius: var(--louis-radius-overlay);
+  background: var(--louis-color-landing-panel);
+  color: var(--louis-color-fg-primary);
+}
+
+/* 머리 — 제목과 동작이 양끝에 선다. 좁은 화면에서는 위아래로 쌓인다. */
+.louis-copy-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* 12 — 제품 `gap-6`. */
+  gap: var(--louis-space-stack-md);
+  min-inline-size: 0;
+}
+
+.louis-copy-panel__title {
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-lg-semibold-font-family);
+  font-size: var(--louis-typography-body-lg-semibold-font-size);
+  font-weight: var(--louis-typography-body-lg-semibold-font-weight);
+  line-height: var(--louis-typography-body-lg-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-lg-semibold-letter-spacing);
+}
+
+.louis-copy-panel__action {
+  flex: none;
+}
+
+/* 원문 — 줄바꿈 · 공백을 그대로 보이고, 긴 낱말은 칸 안에서 끊는다(제품 `whitespace-pre-wrap` · `[word-break:break-word]`). */
+.louis-copy-panel__body {
+  margin: 0;
+  color: var(--louis-color-landing-text-soft);
+  font-family: var(--louis-typography-body-md-regular-font-family);
+  font-size: var(--louis-typography-body-md-regular-font-size);
+  font-weight: var(--louis-typography-body-md-regular-font-weight);
+  line-height: var(--louis-typography-body-md-regular-line-height);
+  letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* 719 이하 — 머리가 위아래로 쌓이고 왼쪽에 붙는다. 제품 경계 640 을 LOUIS 의 compact 경계 719 로 접는다(DS-D-0110 판정 3). */
+@media (max-width: 719px) {
+  .louis-copy-panel__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* forced-colors — 4% 면이 사라져도 테두리가 상자를 남긴다. */
+@media (forced-colors: active) {
+  .louis-copy-panel {
+    border-color: CanvasText;
+  }
+}
+
 /* Coverflow — design/components/coverflow.md
  *
  * 카드 여럿을 3D 로 늘어놓고 가운데 한 장을 정면으로 세우는 넘김 묶음(DS-D-0090 · DS-D-0084). 제품 정본은

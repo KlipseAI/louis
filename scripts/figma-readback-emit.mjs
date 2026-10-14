@@ -490,6 +490,8 @@ const CAPTURE = {
   // 몇 px 을 손가락이 덮는다. 그래서 셋 다 `outsideParts` 다.
   "TransformFrame": {"key":{"by":["Handles"]},"fields":["cornerRadius","layoutMode","strokeWeight"],"parts":{"Grid":["width","height"],"GridLineV":["width"],"GridLineH":["height"],"HandleCorner":["width","height","cornerRadius"],"HandleEdgeH":["width","height","cornerRadius"],"HandleEdgeV":["width","height","cornerRadius"]},"strokes":["self","HandleCorner","HandleEdgeH","HandleEdgeV"],"outsideParts":["HandleCorner","HandleEdgeH","HandleEdgeV"]},
   "VideoPlayer": {"key":{"by":["Platform"],"map":{"default":"base"}},"parts":{"Video (placeholder)":["width","height"],"Scrim (opacity 0)":["width","height"],"Center chrome":["width","height"],"Bottom chrome":["width","height"]},"strokes":["Vector"],"effects":["Skip back 10s","Play","Skip forward 10s","Progress pill","Expand"]},
+  // Copy Panel(2026-10-15, DS-D-0110). 면 — 안쪽 21 = CSS 20 + 테두리 1(strokesIncludedInLayout false, §10) · 사이 12 · 반경 16 · 선 1. 머리는 base 가로 · compact 세로. 동작은 Button 인스턴스라 훑기가 들어가지 않는다.
+  "CopyPanel": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Head":["itemSpacing","layoutMode"],"Title":["fontSize"],"Body":["fontSize"]},"strokes":["self"]},
 };
 
 function usage(message) {

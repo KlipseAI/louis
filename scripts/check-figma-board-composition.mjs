@@ -230,7 +230,8 @@ const REPLACEABLE_BASELINE = 0;
 // 2026-10-08 밤: 114 → **296.** 바닥이 늘어져 있었다(커밋된 원장도 265). 앵커 54b62a8a 의 지금 수로 조인다 — 상위는 IconButton/md 63 · Button/md 49 ·
 // icon/plus 33 · Avatar/sm 26(검사 출력의 bespoke 표).
 // 2026-10-15: 296 → 302 — **발견이다.** 새 보드 /models · /models/[slug] 데스크톱 · 모바일 넷(2 · 1 · 2 · 1, Button/md 둘 포함). 옛 보드는 그대로.
-const BESPOKE_BASELINE = 302; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 같은 날 뒤: 302 → 310 — **발견이다.** /creative-media 보드가 활성 행사 · 템플릿 넷으로 채워지며 +8(DS-D-0109).
+const BESPOKE_BASELINE = 310; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서

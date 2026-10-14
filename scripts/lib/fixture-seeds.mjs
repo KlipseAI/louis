@@ -276,3 +276,46 @@ export const FIXTURE_DECK_S3_OBJECTS = Object.freeze({
   [`shared/decks/releases/${DECK_RELEASE_CURRENT}.json`]: deckRelease(DECK_RELEASE_CURRENT, "2026-10-01T09:00:00.000Z", "Placeholder release note", deckManifest({ withPresenterDeck: true })),
   [`shared/decks/releases/${DECK_RELEASE_PREVIOUS}.json`]: deckRelease(DECK_RELEASE_PREVIOUS, "2026-09-15T09:00:00.000Z", "Placeholder earlier release note", deckManifest({ withPresenterDeck: false })),
 });
+
+// **부스 체험(2026-10-15, `/creative-media`, DS-D-0109).** 세션 모드 가짜 Supabase 에 **따로 얹는** 시드다 — 공용 `FIXTURE_SEEDS` 는 건드리지
+// 않는다(측정기가 세션 모드에서만 합친다). 제품 `app/creative-media/page.tsx` 는 활성 행사가 없으면 닫힘 화면만 그린다 —
+// `app/lib/creative-media/events.ts` `getActiveEvent` 가 `creative_media_events` 를 `select(id, max_generations, generation_count, per_device_limit)
+// · eq(is_active, true) · or(starts_at.is.null, starts_at.lte.<지금>) · or(ends_at.is.null, ends_at.gte.<지금>) · order(created_at.desc) · limit(1)
+// · maybeSingle()` 로 읽고, `app/lib/creative-media/templates.ts` `listActiveTemplates` 가 `creative_media_templates` 를 `select(id, slug, title,
+// title_en, description, description_en, example_image_urls) · eq(is_active, true) · order(display_order)` 로 읽는다(템플릿마다 완료 생성 수는
+// `creative_media_generations` 의 head 개수 — 시드가 없어 0).
+// **둘 다 `requireFilter: "is_active"`** — 같은 세션 측정의 부스 운영 화면(`/creative-media-admin`)이 같은 표를 활성 필터 없이 읽으므로 그
+// 보드의 빈 상태를 바꾸지 않는다. 행사 기간은 비워(null) `or` 의 `is.null` 갈래로 통과한다. 예시 그림은 측정용 CDN 호스트 밑의 제품 public
+// 예시 그림 경로다(`toServingUrl` 은 http(s) 를 그대로 둔다 — 생성기 IMAGE_COMPONENTS 가 같은 예시 그림 자산으로 잇는다). 글자는 자리표시다.
+export const FIXTURE_CREATIVE_MEDIA_SEEDS = Object.freeze({
+  creative_media_events: {
+    requireFilter: "is_active",
+    rows: [{
+      id: "00000000-0000-4000-8000-00000000c3e1",
+      max_generations: 500,
+      generation_count: 128,
+      per_device_limit: 3,
+      is_active: true,
+      starts_at: null,
+      ends_at: null,
+      created_at: "2026-01-01T00:00:00.000Z",
+    }],
+  },
+  creative_media_templates: {
+    requireFilter: "is_active",
+    rows: [1, 2, 3, 4].map((n) => ({
+      id: `00000000-0000-4000-8000-00000000c3${String(n).padStart(2, "0")}`,
+      slug: `fixture-template-${n}`,
+      title: `자리표시 템플릿 ${n}`,
+      title_en: `Placeholder template ${n}`,
+      description: "자리표시 템플릿 설명 한 줄.",
+      description_en: "Placeholder one-line template description.",
+      example_image_urls: [
+        `https://cdn.fixture.invalid/image-edit/examples/example-${n}.jpg`,
+        `https://cdn.fixture.invalid/image-edit/examples/example-${(n % 5) + 1}.jpg`,
+      ],
+      display_order: n,
+      is_active: true,
+    })),
+  },
+});

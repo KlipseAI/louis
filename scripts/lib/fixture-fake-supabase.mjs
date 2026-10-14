@@ -62,10 +62,34 @@ export const sessionCookie = (supabaseUrl, cookieUrl) => ({
 // `order=<열>.asc|desc`(쉼표로 여럿), `limit` · `offset`, `select` 의 평범한 열 목록. 모르는 연산자나 관계 조회(`select` 에 괄호)를
 // 만나면 **추측하지 않고 400 으로 답한다** — 조용히 거르지 않은 행을 돌려주면 제품이 그리지 않을 화면을 재게 된다. 요청 기록에 남는다.
 const RESERVED = new Set(["select", "order", "limit", "offset", "on_conflict", "columns"]);
+// **`or=(조건,조건)` (2026-10-15, 부스 체험 `getActiveEvent`).** 안쪽 조건은 `<열>.<연산>.<값>` 이고 받는 연산은 `is.null` · `eq` · `lte` · `gte`
+// 뿐이다 — 행사 기간 열(`starts_at` · `ends_at`)이 ISO 문자열이라 문자열 비교가 시각 비교와 같다. 모르는 연산은 위와 같이 400 이다.
+const orMatches = (row, raw) => {
+  if (!raw.startsWith("(") || !raw.endsWith(")")) return { error: `unsupported or ${raw}` };
+  const terms = raw.slice(1, -1).split(",");
+  let any = false;
+  for (const term of terms) {
+    const [column, op, ...rest] = term.split(".");
+    const value = rest.join(".");
+    const cell = row[column];
+    if (op === "is" && value === "null") any ||= cell == null;
+    else if (op === "eq") any ||= String(cell) === value;
+    else if (op === "lte") any ||= cell != null && String(cell) <= value;
+    else if (op === "gte") any ||= cell != null && String(cell) >= value;
+    else return { error: `unsupported or term ${term}` };
+  }
+  return { any };
+};
 const queryRows = (rows, params) => {
   let out = [...rows];
   for (const [column, raw] of params) {
     if (RESERVED.has(column)) continue;
+    if (column === "or") {
+      const probe = orMatches({}, raw);
+      if (probe.error) return { error: probe.error };
+      out = out.filter((row) => orMatches(row, raw).any);
+      continue;
+    }
     const dot = raw.indexOf(".");
     const op = raw.slice(0, dot);
     const value = raw.slice(dot + 1);

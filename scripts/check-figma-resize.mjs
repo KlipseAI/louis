@@ -34,7 +34,7 @@ const TYPES = ["overflow", "childOutside", "textClip", "heightFollow", "widthFol
 const FOLLOW_MIN = 0.99;
 
 // 2026-10-08 run 2026-10-08a 실측(보드 142장 · 시험 426). 줄면 여기를 같은 수로 내린다.
-const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 56, "04-billing": 34, "05-ops": 14 };
+const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 56, "04-billing": 34, "05-ops": 48 };
 // 무엇이 들어 있나: heightFollow 는 거의 전부다 — 보드 루트가 세로 HUG 라 보드 높이를 따라오지 않는다(루트 높이 / 보드 높이
 // 0.769 = 1/1.3). overflow 의 뿌리는 대부분 고정 폭 상단 바(`header`, 1920 · 402 에 묶여 1440 에서 +480, 360 에서 +42)다.
 // clamped 6 은 랜딩 · /privacy · /terms 의 데스크톱 2560 · 모바일 430(보드가 넓어지지 않는다), noRoot 16 은 03 앱의
@@ -110,12 +110,18 @@ const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 자식이 실제로 넘칠 때만» 자른다(figma-tree-spec.mjs clipsContent — 402 에서 토글 370 이 칸 370 에 딱 닿아 넘침 0). 「끝에 닿은 자식도 자른다」로
 // 고치면 맞지만 그 규칙이 다른 보드 · 부품 러너 스물을 바꿔(분석 · 업그레이드 · 노드캔버스 · 약관 · 편집기 · 요금 비교표 부품) 동시 재생성 작업과
 // 겹치므로 이 run 에서는 남기고 기준선에 넣는다 — 다음 생성기 정리 때 그 규칙으로 고친다.
+// run 2026-10-15r2(05-ops 만 다시 쟀다 — `merge --pages 05-ops`, 나머지 넷은 그대로): 보드 14 → 48. /creative-media 데스크톱 · 모바일(224:3455 · 3504)이
+// 행사 · 템플릿 시드로 채운 고르기 첫 화면으로 다시 섰고(DS-D-0109) 실패 0 이다 — 처음 보낸 판(run 2026-10-15r1)은 모바일 360 에서 템플릿 카드 아래 글 상자
+// (`absolute inset-x-0 bottom-0`, 측정 높이 FIXED)가 제목이 두 줄로 감기자 카드 아래로 5 나갔다. 제품은 그 상자가 내용 높이라 위로 자란다 → 아래 변에 붙은
+// 절대 배치 자동 배치 상자는 세로 HUG(조립 규칙 15조의 18)로 고쳐 다시 보냈다. 옛 열네 보드의 넘침 4 · 부모 밖 4 는 그대로다. **늘어난 서른넷은 다른 작업이
+// 세운 빈 틀이다** — 「10.12.2 · /admin?view= · 어드민 탭」 섹션의 레시피 측정 보드(3521:225 ~ 258)가 아직 자식이 없어 뿌리 없음(noRoot) 34 로 잡힌다. 채우면
+// 그 작업이 05-ops 를 다시 재고 이 수를 내린다.
 const BASELINE = {
   "01-public": { overflow: 6, childOutside: 11, textClip: 1, heightFollow: 21, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
   "03-app": { childOutside: 16, heightFollow: 2 },
   "04-billing": { childOutside: 7, heightFollow: 2 },
-  "05-ops": { overflow: 4, childOutside: 4 },
+  "05-ops": { overflow: 4, childOutside: 4, noRoot: 34 },
 };
 
 const fail = (message) => {

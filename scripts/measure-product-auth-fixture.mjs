@@ -15,7 +15,7 @@ import { resolveProductRef } from "./lib/product-ref.mjs";
 import { productAriaLabels } from "./lib/product-aria-labels.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
 import { checkCites, createRecipeRouter, loadArea, readRecipeCss, recipeAssertProblems, recipeDigest, runRecipeSteps, specFromRecipe, supabaseOverlayOf, validateRecipes } from "./lib/state-recipes.mjs";
-import { FIXTURE_CANVAS_MORE_PROJECT_ID, FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_DECK_COURSE, FIXTURE_DECK_S3_OBJECTS, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
+import { FIXTURE_CANVAS_MORE_PROJECT_ID, FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_DECK_COURSE, FIXTURE_DECK_S3_OBJECTS, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS, FIXTURE_CREATIVE_MEDIA_SEEDS } from "./lib/fixture-seeds.mjs";
 import { startFakeS3 } from "./lib/fixture-fake-s3.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
@@ -301,7 +301,9 @@ const SESSION_ROUTES = [
   // 결제 진행은 `?plan=` 의 요금제로 연다(`mypage/upgrade/checkout/page.tsx:180-181`, 정적 요금제 표). 결제창(Toss)은 바깥 요청이라 막힌다.
   { pattern: "/mypage/upgrade/checkout", url: "/mypage/upgrade/checkout?plan=pro", id: "/mypage/upgrade/checkout" },
   // 부스 체험 — 공개 화면이지만 행사 설정을 DB 에서 읽는다. 공개 모드(Supabase 닿지 않음)에서는 「Something went wrong」만 그려져, 가짜 Supabase
-  // (행사 없음 — 빈 목록)가 있는 세션 모드에서 잰다.
+  // 가 있는 세션 모드에서 잰다. 2026-10-15 부터 활성 행사 하나 · 템플릿 넷 시드(`lib/fixture-seeds.mjs` FIXTURE_CREATIVE_MEDIA_SEEDS)로 **열린
+  // 체험의 첫 화면**(템플릿 고르기)을 잰다 — 그 전에는 행사가 없어 닫힘 화면만 재고 있었다(DS-D-0109). 쿠키 · 저장소의 테마는 다른 화면과 같은
+  // light 이지만 이 화면은 palette-* 고정 토큰만 써 고정 다크로 그려진다(제품 파일 머리 주석).
   { pattern: "/creative-media", fullPage: true },
   // 쿠폰 인쇄(2026-10-07) — 관리자 클라이언트로 캠페인 한 행과 코드 목록을 읽는다. 빈 목록이면 `notFound()` 라 가짜 Supabase 의
   // 자리표시 시드(`lib/fixture-seeds.mjs`, 캠페인 하나 · 코드 10장 · 묶음 둘)로 연다. 글자는 자리표시이고 크기 · 색 · 간격은 잰 값이다.
@@ -856,7 +858,10 @@ if (recordedForOnly) {
   for (const id of onlyIds) if (!SCREEN_SPECS.some((spec) => spec.id === id)) unavailable("--only 의 화면이 이 모드에 없습니다: " + id);
 }
 // 세션 모드만 가짜 Supabase 를 띄운다 — 서버 기동 환경(`NEXT_PUBLIC_SUPABASE_URL`)이 이 주소를 쓴다.
-const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS })
+// **세션 모드 시드 = 공용 + 부스 체험(2026-10-15, DS-D-0109).** 부스 시드는 따로 둔 상수라 공용 `FIXTURE_SEEDS` 를 고치지 않고 여기서만 합친다
+// (`lib/fixture-seeds.mjs` FIXTURE_CREATIVE_MEDIA_SEEDS 주석 — 활성 필터로 집을 때만 행을 내 부스 운영 보드는 그대로다).
+const SESSION_SEEDS = { ...FIXTURE_SEEDS, ...FIXTURE_CREATIVE_MEDIA_SEEDS };
+const fakeSupabase = session ? await startFakeSupabase({ seeds: SESSION_SEEDS })
   : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS }) : null;
 // 덱 세션 모드만 가짜 S3 를 띄운다(`lib/fixture-fake-s3.mjs`) — 서버 기동 환경(`S3_ENDPOINT`)이 이 주소를 쓴다.
 const fakeS3 = sessionDeck && !dumpStatic ? await startFakeS3({ objects: FIXTURE_DECK_S3_OBJECTS }) : null;
@@ -875,7 +880,7 @@ if (fixtureLock) {
 const louisCss = louisExamples || dumpStatic ? null : overlayLouisCss({ repoRoot, fixtureRoot, fail: unavailable });
 const fixtureServer = dumpStatic ? { url: "http://127.0.0.1:0", stop: async () => {} } : await startFixtureServer();
 // 레시피 화면의 가짜 Supabase 오버레이가 늘리는 기본 시드 — 그 모드가 가짜 Supabase 에 준 시드와 같다.
-const recipeBaseSeeds = session ? FIXTURE_SEEDS : publicSeeded ? FIXTURE_PUBLIC_SEEDS : null;
+const recipeBaseSeeds = session ? SESSION_SEEDS : publicSeeded ? FIXTURE_PUBLIC_SEEDS : null;
 // 예시 모드의 글꼴 — 예시 CSS 가 쓰는 이름(`Pretendard Variable`)으로 제품 글꼴 파일을 싣는다.
 const LOUIS_EXAMPLE_FONT_CSS = louisExamples
   ? '@font-face{font-family:"Pretendard Variable";src:url(data:font/woff2;base64,' + productFontFile(productRoot, commit).toString("base64") +
@@ -1864,7 +1869,7 @@ const payload = JSON.stringify({
     devAuthBypass: !anonymous && !publicMode && !louisExamples,
     mockSupabase: louisExamples ? "none-static-example" : session ? "local-fake-auth-seeded-tables" : publicSeeded ? "local-fake-no-session-seeded-tables" : "unreachable-localhost",
     // 시드가 든 표 — 그 표에서 온 글자는 제품 문구가 아니라 자리표시다(`lib/fixture-seeds.mjs`).
-    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : FIXTURE_SEEDS).map(([table, rows]) => [table, (Array.isArray(rows) ? rows : rows.rows).length])) } : {}),
+    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : SESSION_SEEDS).map(([table, rows]) => [table, (Array.isArray(rows) ? rows : rows.rows).length])) } : {}),
     ...(fakeSupabase ? { supabaseRequests: [...new Set([...(recordedForOnly?.fixture?.supabaseRequests ?? []),
       ...fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`)])].sort() } : {}),
     ...(louisCss ? { louisCss: louisCss.record } : {}),

@@ -442,6 +442,17 @@ Figma 는 **제약으로 크기가 바뀐 자동 배치 프레임의 FILL 자식
   `/models` · `/blog/[slug]` 모바일 캡처로 확인. 고친 뒤 공개 모바일 일곱(/ · /pricing · /templates · /templates/[slug] · /blog · /blog/[slug] · /inquiry)을 다시 보냈고,
   보드마다 판의 노드 4(missing 1 · structural 3)가 빠졌다(`migration/figma-board-composition.json`).
 
+### 15조의 18. 아래 변에 붙은 절대 배치 상자는 내용 높이다 — 세로 HUG 로 위로 자란다
+
+- **판정.** 절대 배치 · 자동 배치(GRID 아님) · 제약 세로 MAX(`bottom` 만 선언) · 높이 · 최소 · 최대 높이 선언 없음 · 흐름 자식이 있고 세로 FILL 이 없음 · 측정 높이가 흐름 자식의
+  범위 + 안쪽 여백과 1 안에서 같다(`figma-tree-spec.mjs` 의 `bottomHug`). 세로 HUG 다 — 측정 크기에서 HUG 높이는 측정 높이와 같다. 렌더러는 측정 크기 · 자리를 다시 건 뒤
+  (`settleAbsolute`) HUG 로 돌리고, 내용 높이가 다르면 아래 변을 측정 자리에 맞춘다.
+- **근거(제품).** 높이 선언이 없는 절대 배치 상자는 CSS 에서 내용 높이이고, `bottom` 만 걸렸으면 내용이 늘 때 위로 자란다. 부스 체험 템플릿 카드의 글 상자
+  (`CreativeMediaClient.tsx` — `absolute inset-x-0 bottom-0 px-8 pb-8`, 제목 · 생성 수)가 그렇다.
+- **실측 사고(2026-10-15).** 절대 배치는 늘 측정 높이(FIXED)로 서서, /creative-media 모바일 360 에서 제목이 두 줄로 감기자 둘째 줄 「0 generated」 가 글 상자 밖 · 카드 아래로
+  5 나갔다(카드가 잘라 반쯤 가려진다). Figma 의 세로 HUG 자동 배치 프레임은 아래(MAX) 제약이면 위로 자란다(라이브 탐침: y 163.5 → 142.5, 아래 변 222.5 그대로).
+- **같이 바뀐 보드.** 같은 모양의 글 상자가 하이라이트 숏츠 상세 · 완료, /models/[slug] 데스크톱 · 모바일 러너에도 있다(크기 코드만 바뀌고 측정 크기의 모양은 같다).
+
 ## 16. 획 규칙은 단색 UI 아이콘에만 적용한다
 
 4번의 「획 = 표시 크기 / 16」은 `currentColor` 를 따르는 **단색 선 아이콘**의 규칙이다.

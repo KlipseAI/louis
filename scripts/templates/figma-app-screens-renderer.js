@@ -274,11 +274,19 @@ const placeGridChild = (node, spec) => {
 
 // **절대 배치는 트리를 다 지은 뒤 측정 크기 · 자리를 한 번 더 건다(2026-09-30).** 부모가 HUG 로 잠시 줄었다가 최소 높이로 돌아오는
 // 동안 늘이기 제약(STRETCH)이 걸린 절대 자식의 크기가 틀어졌다 — 랜딩 후기 밴드의 배경 사진이 1920×800 대신 1920×106 으로 섰다.
+// **아래 변에 붙은 절대 배치 자동 배치 상자는 세로 HUG 로 끝낸다(2026-10-15, 조립 규칙 15조의 18).** 측정 크기 · 자리를 건 뒤 HUG 로 돌리고,
+// 내용 높이가 측정과 다르면 아래 변을 측정 자리에 맞춘다 — 아래(MAX) 제약의 HUG 프레임은 내용이 늘면 위로 자란다.
 const pendingAbsolute = [];
 const settleAbsolute = () => {
-  for (const [node, size, offset] of pendingAbsolute) {
+  for (const [node, size, offset, hugVertical] of pendingAbsolute) {
     try { node.resize(Math.max(0.01, size[0]), Math.max(0.01, size[1])); } catch (error) {}
     if (offset) { try { node.x = offset[0]; node.y = offset[1]; } catch (error) {} }
+    if (hugVertical) {
+      try {
+        node.layoutSizingVertical = "HUG";
+        if (offset) node.y = offset[1] + size[1] - node.height;
+      } catch (error) {}
+    }
   }
   pendingAbsolute.length = 0;
 };
@@ -497,7 +505,9 @@ const buildNode = (spec, parent) => {
   // **자동 배치가 없는 부모 안의 자식도 측정 자리에 둔다(2026-09-30).** 절대 자식만 모인 부모는 자동 배치 없이(NONE) 서는데, 그 안의
   // 자식에 자리를 걸지 않아 모두 원점에 섰다 — 랜딩 노드 캔버스 목업의 월드(363.79, 24)가 부모 원점에 서서 목업 안 글자가 −370 옮겨졌다.
   if (!parentAuto && parent && spec.o) { node.x = spec.o[0]; node.y = spec.o[1]; }
-  if ((isAbsolute || (!parentAuto && parent && spec.o)) && !isText) pendingAbsolute.push([node, spec.r, spec.o]);
+  if ((isAbsolute || (!parentAuto && parent && spec.o)) && !isText) {
+    pendingAbsolute.push([node, spec.r, spec.o, isAbsolute && v === "HUG" && "layoutMode" in node && node.layoutMode && node.layoutMode !== "NONE"]);
+  }
   // 비율 잠금(`ar`, 조립 규칙 15조의 15) — 측정 크기로 깐 뒤, FILL 을 걸기 전에 그 비율을 잠근다. 폭이 바뀌면 높이가 비율을 따른다.
   if (spec.ar && !isText) { try { node.lockAspectRatio(); } catch (error) {} }
 

@@ -14,22 +14,22 @@
   "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 144,
-  "rawNodesBeforePruning": 10005,
+  "rawNodesBeforePruning": 10079,
   "counts": {
-    "total": 10001,
+    "total": 10027,
     "instance": 332,
     "replaceable": 0,
-    "bespoke": 302,
+    "bespoke": 310,
     "blocked": 26,
     "missing": 1908,
-    "structural": 7433,
+    "structural": 7451,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
     "instanceOverCandidates": 12.9,
     "target": 332,
-    "candidates": 2568
+    "candidates": 2576
   },
   "byInstanceSet": {
     "Button": 99,
@@ -67,6 +67,7 @@
     "IconButton/md": 63,
     "Avatar/sm": 26,
     "Button/lg": 8,
+    "DropZone/base": 8,
     "Avatar/lg": 2,
     "Button/sm": 5,
     "IconButton/sm": 1
@@ -91,8 +92,8 @@
   },
   "structuralByKind": {
     "surface": 1316,
-    "frame": 3764,
-    "text": 2227,
+    "frame": 3776,
+    "text": 2233,
     "image": 126
   },
   "missingByCandidateClause": {
@@ -744,13 +745,13 @@
         "figma/app-screens.creative-media.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 15,
+        "total": 28,
         "instance": 0,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 5,
         "blocked": 0,
         "missing": 3,
-        "structural": 11,
+        "structural": 20,
         "unclassified": 0
       }
     },
@@ -763,13 +764,13 @@
         "figma/app-screens.creative-media.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 15,
+        "total": 28,
         "instance": 0,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 5,
         "blocked": 0,
         "missing": 3,
-        "structural": 11,
+        "structural": 20,
         "unclassified": 0
       }
     },
@@ -25000,10 +25001,10 @@
     },
     "/creative-media@desktop-1920x1080#0.0.0.1": {
       "board": "figma/app-screens.creative-media.desktop.00.draw.js",
-      "tag": "div",
+      "tag": "margin",
       "rect": [
         440,
-        984
+        57.8
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -25013,19 +25014,178 @@
       "board": "figma/app-screens.creative-media.desktop.00.draw.js",
       "tag": "h1",
       "rect": [
-        264.72,
-        30
+        440,
+        37.8
       ],
       "verdict": "structural",
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/creative-media@desktop-1920x1080#0.0.0.1.1": {
+    "/creative-media@desktop-1920x1080#0.0.0.2": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        440,
+        27
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.2.0": {
       "board": "figma/app-screens.creative-media.desktop.00.draw.js",
       "tag": "p",
       "rect": [
-        279.38,
+        440,
         21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.3": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        440,
+        22
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.3.0": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "p",
+      "rect": [
+        440,
+        18
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.4": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        440,
+        52
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.4.0": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "h2",
+      "rect": [
+        440,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.5": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        440,
+        576.5
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.5.0": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        440,
+        560.5
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.5.0.0": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        217,
+        271.25
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.5.0.1": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        217,
+        271.25
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.5.0.2": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        217,
+        271.25
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.5.0.3": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        217,
+        271.25
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.6": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        440,
+        52
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.6.0": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "p",
+      "rect": [
+        440,
+        36
       ],
       "verdict": "structural",
       "rule": "text",
@@ -25172,10 +25332,10 @@
     },
     "/creative-media@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.creative-media.mobile.00.draw.js",
-      "tag": "div",
+      "tag": "margin",
       "rect": [
         362,
-        778
+        57.8
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -25185,19 +25345,178 @@
       "board": "figma/app-screens.creative-media.mobile.00.draw.js",
       "tag": "h1",
       "rect": [
-        264.72,
-        30
+        362,
+        37.8
       ],
       "verdict": "structural",
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/creative-media@mobile-402x874#0.0.0.1.1": {
+    "/creative-media@mobile-402x874#0.0.0.2": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        362,
+        27
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.2.0": {
       "board": "figma/app-screens.creative-media.mobile.00.draw.js",
       "tag": "p",
       "rect": [
-        279.38,
+        362,
         21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.3": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        362,
+        22
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.3.0": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        362,
+        18
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.4": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        362,
+        49
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.4.0": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "h2",
+      "rect": [
+        362,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.5": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        362,
+        479
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.5.0": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        362,
+        463
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.5.0.0": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        178,
+        222.5
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
+    },
+    "/creative-media@mobile-402x874#0.0.0.5.0.1": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        178,
+        222.5
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
+    },
+    "/creative-media@mobile-402x874#0.0.0.5.0.2": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        178,
+        222.5
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
+    },
+    "/creative-media@mobile-402x874#0.0.0.5.0.3": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        178,
+        222.5
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
+    },
+    "/creative-media@mobile-402x874#0.0.0.6": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        362,
+        52
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.6.0": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        362,
+        36
       ],
       "verdict": "structural",
       "rule": "text",

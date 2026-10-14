@@ -57,6 +57,11 @@ authority: normative
 ## Consequences
 
 - 원장의 `CreativeMediaClient` 는 `unclear` 를 벗는다. 이 회차에서 Figma 대응(`figma:`)으로 닫히지는 않는다 — 화면 보드가 서야 닫힌다.
+- **2026-10-15 후속 — 화면 보드가 섰다.** 세션 fixture 에 부스 시드(활성 행사 하나 · 템플릿 넷, `scripts/lib/fixture-seeds.mjs` 의 따로 둔 상수)를 넣어
+  고르기 첫 화면을 재고, `05 · 운영` 의 `/creative-media` 데스크톱 · 모바일 보드(224:3455 · 224:3504)를 생성 러너로 다시 그렸다. 머리 · 제목 · 부제 · 횟수 안내 ·
+  「Choose a style」 · 템플릿 카드 넷(예시 그림 · 제목 · 생성 수) · 개인정보 안내가 채워져 있고, 늘림 시험(run 2026-10-15r2)에서 두 보드 모두 실패 0 이다.
+  측정 테마는 다른 화면과 같은 light 이고 화면이 palette 고정 토큰만 써 다크로 그려진다 — 보드의 변수 모드 고정(Dark)은 생성기가 한 테마만 그려 걸지 않았다.
+  카드 아래 그라디언트 막(`h-[45%]` 선형 그라디언트)은 보드에 빈 상자로만 선다(생성기가 이 그라디언트를 옮기지 않는다 — /models 카드와 같다).
 - 제품 쪽 일: 부스 화면 루트에 `data-theme="dark"` 를 걸고 고정 토큰 버튼을 LOUIS Button · IconButton · Tabs 로 바꾼다(제품 저장소 몫).
 
 ## Rollback

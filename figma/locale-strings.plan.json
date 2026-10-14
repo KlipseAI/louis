@@ -26,8 +26,8 @@
     "source": "apps/web/components/landing/system/messages",
     "commit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
     "keys": 5276,
-    "i18n": 348,
-    "measured": 899,
+    "i18n": 384,
+    "measured": 964,
     "disagreements": [
       {
         "key": "subscription.upgradeSuccess.order",
@@ -642,12 +642,12 @@
     },
     {
       "key": "/creative-media @ desktop-1920x1080",
-      "texts": 2,
+      "texts": 13,
       "labels": 0
     },
     {
       "key": "/creative-media @ mobile-402x874",
-      "texts": 2,
+      "texts": 13,
       "labels": 0
     },
     {
@@ -789,6 +789,26 @@
       "key": "/templates/[slug] @ mobile-402x874",
       "texts": 7,
       "labels": 0
+    },
+    {
+      "key": "/models @ desktop-1920x1080",
+      "texts": 107,
+      "labels": 4
+    },
+    {
+      "key": "/models @ mobile-402x874",
+      "texts": 74,
+      "labels": 4
+    },
+    {
+      "key": "/models/[slug] @ desktop-1920x1080",
+      "texts": 52,
+      "labels": 2
+    },
+    {
+      "key": "/models/[slug] @ mobile-402x874",
+      "texts": 44,
+      "labels": 2
     },
     {
       "key": "part:Product/Auth Floating Field Shape=Top, State=Focused, Viewport=Desktop",
@@ -1002,11 +1022,11 @@
     }
   ],
   "stats": {
-    "boundTexts": 2024,
-    "boundLabels": 122,
+    "boundTexts": 2225,
+    "boundLabels": 134,
     "boundVisible": 48,
-    "literalSameAcrossLocales": 597,
-    "variables": 1247,
+    "literalSameAcrossLocales": 695,
+    "variables": 1348,
     "presenceVariables": 1
   },
   "variables": [
@@ -1858,24 +1878,57 @@
       "uses": 2
     },
     {
-      "id": "7e3e3a52e103",
-      "name": "i18n/creativeMedia/closedDesc",
+      "id": "7c4146c1b8d8",
+      "name": "i18n/creativeMedia/privacyNotice~7c4146c1",
       "type": "STRING",
       "values": {
-        "en": "Please visit the Klipse booth during the event.",
-        "ko": "행사 기간에 Klipse 부스를 방문해 주세요.",
-        "ja": "Please visit the Klipse booth during the event."
+        "en": "Your uploaded photo is never stored. Generated images are deleted after the\nevent.",
+        "ko": "업로드한 사진은 저장하지 않으며, 생성된 이미지는 행사 종료 후 삭제됩니다.",
+        "ja": "Your uploaded photo is never stored. Generated images are deleted after the\nevent."
+      },
+      "uses": 1
+    },
+    {
+      "id": "cf326304dd74",
+      "name": "i18n/creativeMedia/privacyNotice~cf326304",
+      "type": "STRING",
+      "values": {
+        "en": "Your uploaded photo is never stored. Generated images are deleted\nafter the event.",
+        "ko": "업로드한 사진은 저장하지 않으며, 생성된 이미지는 행사 종료 후 삭제됩니다.",
+        "ja": "Your uploaded photo is never stored. Generated images are deleted\nafter the event."
+      },
+      "uses": 1
+    },
+    {
+      "id": "63ce27d4d9f9",
+      "name": "i18n/creativeMedia/selectTitle",
+      "type": "STRING",
+      "values": {
+        "en": "Choose a style",
+        "ko": "스타일을 골라주세요",
+        "ja": "Choose a style"
       },
       "uses": 2
     },
     {
-      "id": "ddd6153421d3",
-      "name": "i18n/creativeMedia/closedTitle",
+      "id": "74e84c15a795",
+      "name": "i18n/creativeMedia/subtitle",
       "type": "STRING",
       "values": {
-        "en": "No event is running right now",
-        "ko": "지금은 진행 중인 체험이 없습니다",
-        "ja": "No event is running right now"
+        "en": "Pick a style and turn your photo into an AI image.",
+        "ko": "스타일을 고르면 내 사진이 AI 이미지로 바뀌어요.",
+        "ja": "Pick a style and turn your photo into an AI image."
+      },
+      "uses": 2
+    },
+    {
+      "id": "83ee0f4c4ece",
+      "name": "i18n/creativeMedia/title",
+      "type": "STRING",
+      "values": {
+        "en": "Klipse AI Photo Booth",
+        "ko": "Klipse AI 포토 부스",
+        "ja": "Klipse AI Photo Booth"
       },
       "uses": 2
     },
@@ -2661,6 +2714,358 @@
       "uses": 1
     },
     {
+      "id": "c63de5a61d8b",
+      "name": "i18n/modelPages/calculatorLeadVideo",
+      "type": "STRING",
+      "values": {
+        "en": "Pick a version, resolution, and length to see the credits for one video.",
+        "ko": "버전, 해상도, 길이를 고르면 영상 한 편에 드는 크레딧을 계산합니다.",
+        "ja": "バージョン、解像度、長さを選ぶと、動画1本に必要なクレジットを計算します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "17615103a4dc",
+      "name": "i18n/modelPages/calculatorLeadVideo~17615103",
+      "type": "STRING",
+      "values": {
+        "en": "Pick a version, resolution, and length\nto see the credits for one video.",
+        "ko": "버전, 해상도, 길이를 고르면 영상 한 편에 드는 크레딧을 계산합니다.",
+        "ja": "バージョン、解像度、長さを選ぶと、\n動画1本に必要なクレジットを計算します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "191401af2fef",
+      "name": "i18n/modelPages/calculatorNote",
+      "type": "STRING",
+      "values": {
+        "en": "Same calculation as the canvas estimate. Reference images or video inputs can change it.",
+        "ko": "캔버스 견적과 같은 방식으로 계산합니다. 참조 이미지나 영상을 넣으면 달라질 수 있습니다.",
+        "ja": "キャンバスの見積もりと同じ方法で計算します。参照画像や動画を入れると変わることがあります。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "9d4eb804fb16",
+      "name": "i18n/modelPages/calculatorNote~9d4eb804",
+      "type": "STRING",
+      "values": {
+        "en": "Same calculation as the canvas estimate.\nReference images or video inputs can change it.",
+        "ko": "캔버스 견적과 같은 방식으로 계산합니다. 참조\n이미지나 영상을 넣으면 달라질 수 있습니다.",
+        "ja": "キャンバスの見積もりと同じ方法で計算します。\n参照画像や動画を入れると変わることがあります。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "41c3264693c7",
+      "name": "i18n/modelPages/calculatorTitle",
+      "type": "STRING",
+      "values": {
+        "en": "Credit calculator",
+        "ko": "크레딧 계산",
+        "ja": "クレジット計算"
+      },
+      "uses": 2
+    },
+    {
+      "id": "dec3bc48a8cc",
+      "name": "i18n/modelPages/columns/maxDuration",
+      "type": "STRING",
+      "values": {
+        "en": "Max length",
+        "ko": "최대 길이",
+        "ja": "最大の長さ"
+      },
+      "uses": 1
+    },
+    {
+      "id": "11bb1326411f",
+      "name": "i18n/modelPages/columns/topResolution",
+      "type": "STRING",
+      "values": {
+        "en": "Top resolution",
+        "ko": "최고 해상도",
+        "ja": "最高解像度"
+      },
+      "uses": 1
+    },
+    {
+      "id": "53805af2285d",
+      "name": "i18n/modelPages/compareLead",
+      "type": "STRING",
+      "values": {
+        "en": "Credits are for one second at the lowest resolution. See each model page's calculator for other lengths and resolutions.",
+        "ko": "크레딧은 가장 낮은 해상도의 1초 값입니다. 길이와 해상도별 값은 모델 페이지의 계산기에서 볼 수 있습니다.",
+        "ja": "クレジットは最も低い解像度での1秒あたりの値です。長さや解像度ごとの値は各モデルページの計算機で確認できます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d908909cbaec",
+      "name": "i18n/modelPages/compareLead~d908909c",
+      "type": "STRING",
+      "values": {
+        "en": "Credits are for one second at the lowest\nresolution. See each model page's\ncalculator for other lengths and resolutions.",
+        "ko": "크레딧은 가장 낮은 해상도의 1초 값입니다. 길이와\n해상도별 값은 모델 페이지의 계산기에서 볼 수 있습니다.",
+        "ja": "クレジットは最も低い解像度での1秒あたりの値です。\n長さや解像度ごとの値は各モデルページの計算機で確認できま\nす。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "adf2ce868bfc",
+      "name": "i18n/modelPages/compareTitle",
+      "type": "STRING",
+      "values": {
+        "en": "Compare all models",
+        "ko": "모든 모델 비교",
+        "ja": "すべてのモデルを比較"
+      },
+      "uses": 2
+    },
+    {
+      "id": "956c12030291",
+      "name": "i18n/modelPages/creditsFrom",
+      "type": "STRING",
+      "values": {
+        "en": "and up",
+        "ko": "크레딧부터",
+        "ja": "クレジットから"
+      },
+      "uses": 7
+    },
+    {
+      "id": "284f6687d51b",
+      "name": "i18n/modelPages/ctaCreate",
+      "type": "STRING",
+      "values": {
+        "en": "Create with this model",
+        "ko": "이 모델로 만들기",
+        "ja": "このモデルで作る"
+      },
+      "uses": 6
+    },
+    {
+      "id": "ae91abb275e4",
+      "name": "i18n/modelPages/ctaPricing",
+      "type": "STRING",
+      "values": {
+        "en": "See pricing",
+        "ko": "가격 보기",
+        "ja": "料金を見る"
+      },
+      "uses": 2
+    },
+    {
+      "id": "7d12209defd1",
+      "name": "i18n/modelPages/detailLink",
+      "type": "STRING",
+      "values": {
+        "en": "See details",
+        "ko": "자세히 보기",
+        "ja": "詳しく見る"
+      },
+      "uses": 4
+    },
+    {
+      "id": "8da14150d5b3",
+      "name": "i18n/modelPages/indexDescription",
+      "type": "STRING",
+      "values": {
+        "en": "Video and image models you can use in Klipse.",
+        "ko": "Klipse에서 쓸 수 있는 영상 모델과 이미지 모델입니다.",
+        "ja": "Klipseで使える動画モデルと画像モデルです。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "85599d254062",
+      "name": "i18n/modelPages/lengthQuestion",
+      "type": "STRING",
+      "values": {
+        "en": "How long is the video?",
+        "ko": "영상 길이는 얼마나 되나요?",
+        "ja": "動画の長さは？"
+      },
+      "uses": 2
+    },
+    {
+      "id": "d4a6b76c8a13",
+      "name": "i18n/modelPages/otherModels",
+      "type": "STRING",
+      "values": {
+        "en": "Other models",
+        "ko": "다른 모델",
+        "ja": "ほかのモデル"
+      },
+      "uses": 2
+    },
+    {
+      "id": "02a0d342dbe1",
+      "name": "i18n/modelPages/plan/free",
+      "type": "STRING",
+      "values": {
+        "en": "All plans",
+        "ko": "모든 플랜",
+        "ja": "すべてのプラン"
+      },
+      "uses": 2
+    },
+    {
+      "id": "59053f3a28ae",
+      "name": "i18n/modelPages/plan/lite",
+      "type": "STRING",
+      "values": {
+        "en": "Lite and up",
+        "ko": "Lite 이상",
+        "ja": "Lite以上"
+      },
+      "uses": 4
+    },
+    {
+      "id": "3bcef908b1d3",
+      "name": "i18n/modelPages/planNote/free",
+      "type": "STRING",
+      "values": {
+        "en": "Available on all plans.",
+        "ko": "모든 플랜에서 쓸 수 있습니다.",
+        "ja": "すべてのプランで使えます。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "d0c450d811e2",
+      "name": "i18n/modelPages/planNote/lite",
+      "type": "STRING",
+      "values": {
+        "en": "Available on Lite and up.",
+        "ko": "Lite 이상 플랜에서 쓸 수 있습니다.",
+        "ja": "Lite以上のプランで使えます。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "2596c9465e7d",
+      "name": "i18n/modelPages/priorityOptions/credits",
+      "type": "STRING",
+      "values": {
+        "en": "Fewer credits",
+        "ko": "크레딧 절약",
+        "ja": "クレジットを節約"
+      },
+      "uses": 2
+    },
+    {
+      "id": "0a5f57ad52cf",
+      "name": "i18n/modelPages/priorityOptions/references",
+      "type": "STRING",
+      "values": {
+        "en": "More reference images",
+        "ko": "참조 이미지 여러 장",
+        "ja": "参照画像を多く"
+      },
+      "uses": 2
+    },
+    {
+      "id": "8a875ecc50a4",
+      "name": "i18n/modelPages/priorityOptions/resolution",
+      "type": "STRING",
+      "values": {
+        "en": "Higher resolution",
+        "ko": "높은 해상도",
+        "ja": "高い解像度"
+      },
+      "uses": 2
+    },
+    {
+      "id": "50a840c1a0bc",
+      "name": "i18n/modelPages/priorityQuestion",
+      "type": "STRING",
+      "values": {
+        "en": "What matters most?",
+        "ko": "가장 중요한 것은 무엇인가요?",
+        "ja": "いちばん大事なことは？"
+      },
+      "uses": 2
+    },
+    {
+      "id": "9b54e7ca7323",
+      "name": "i18n/modelPages/recommenderLead",
+      "type": "STRING",
+      "values": {
+        "en": "Pick three things and we'll suggest a model and estimate the credits.",
+        "ko": "세 가지를 고르면 맞는 모델과 예상 크레딧을 알려 드립니다.",
+        "ja": "3つ選ぶと、合うモデルと予想クレジットをお知らせします。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "61f97a419eaf",
+      "name": "i18n/modelPages/recommenderLead~61f97a41",
+      "type": "STRING",
+      "values": {
+        "en": "Pick three things and we'll suggest\na model and estimate the credits.",
+        "ko": "세 가지를 고르면 맞는 모델과 예상 크레딧을 알려 드립니다.",
+        "ja": "3つ選ぶと、合うモデルと予想クレジットをお知らせします。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "ef527d99f82e",
+      "name": "i18n/modelPages/recommenderTitle",
+      "type": "STRING",
+      "values": {
+        "en": "Which model should I use?",
+        "ko": "어떤 모델을 쓸까요?",
+        "ja": "どのモデルを使えばいいですか？"
+      },
+      "uses": 2
+    },
+    {
+      "id": "d7ad14b6bd7a",
+      "name": "i18n/modelPages/startOptions/image",
+      "type": "STRING",
+      "values": {
+        "en": "An image",
+        "ko": "이미지",
+        "ja": "画像"
+      },
+      "uses": 2
+    },
+    {
+      "id": "c10bc8316bee",
+      "name": "i18n/modelPages/startOptions/text",
+      "type": "STRING",
+      "values": {
+        "en": "Text only",
+        "ko": "글만",
+        "ja": "テキストのみ"
+      },
+      "uses": 2
+    },
+    {
+      "id": "20368a70520f",
+      "name": "i18n/modelPages/startOptions/video",
+      "type": "STRING",
+      "values": {
+        "en": "A video",
+        "ko": "영상",
+        "ja": "動画"
+      },
+      "uses": 2
+    },
+    {
+      "id": "5f86d8013e04",
+      "name": "i18n/modelPages/startQuestion",
+      "type": "STRING",
+      "values": {
+        "en": "What are you starting from?",
+        "ko": "무엇으로 시작하시나요?",
+        "ja": "何から始めますか？"
+      },
+      "uses": 2
+    },
+    {
       "id": "1af1abef8588",
       "name": "i18n/modelPages/versionLabel",
       "type": "STRING",
@@ -2669,7 +3074,18 @@
         "ko": "버전",
         "ja": "バージョン"
       },
-      "uses": 4
+      "uses": 6
+    },
+    {
+      "id": "c54ec1233664",
+      "name": "i18n/modelPages/versionsTitle",
+      "type": "STRING",
+      "values": {
+        "en": "Versions",
+        "ko": "버전",
+        "ja": "バージョン"
+      },
+      "uses": 2
     },
     {
       "id": "1574eec2783f",
@@ -2680,7 +3096,7 @@
         "ko": "문서",
         "ja": "ドキュメント"
       },
-      "uses": 9
+      "uses": 11
     },
     {
       "id": "3e309ad8a2ed",
@@ -5191,6 +5607,105 @@
       "uses": 2
     },
     {
+      "id": "0bcaad8e767a",
+      "name": "screen/creative-media/0bcaad8e",
+      "type": "STRING",
+      "values": {
+        "en": "Placeholder template 2",
+        "ko": "자리표시 템플릿 2",
+        "ja": "Placeholder template 2"
+      },
+      "uses": 1
+    },
+    {
+      "id": "1bb0dba09538",
+      "name": "screen/creative-media/1bb0dba0",
+      "type": "STRING",
+      "values": {
+        "en": "You can generate only 3 times in total.",
+        "ko": "총 3회만 생성할 수 있어요.",
+        "ja": "You can generate only 3 times in total."
+      },
+      "uses": 2
+    },
+    {
+      "id": "347c47d605e0",
+      "name": "screen/creative-media/347c47d6",
+      "type": "STRING",
+      "values": {
+        "en": "0 generated",
+        "ko": "생성수 0",
+        "ja": "0 generated"
+      },
+      "uses": 8
+    },
+    {
+      "id": "73a751166933",
+      "name": "screen/creative-media/73a75116",
+      "type": "STRING",
+      "values": {
+        "en": "Placeholder template 4",
+        "ko": "자리표시 템플릿 4",
+        "ja": "Placeholder template 4"
+      },
+      "uses": 1
+    },
+    {
+      "id": "7e5f15b77d78",
+      "name": "screen/creative-media/7e5f15b7",
+      "type": "STRING",
+      "values": {
+        "en": "Placeholder template\n3",
+        "ko": "자리표시 템플릿 3",
+        "ja": "Placeholder template\n3"
+      },
+      "uses": 1
+    },
+    {
+      "id": "842a80ac4438",
+      "name": "screen/creative-media/842a80ac",
+      "type": "STRING",
+      "values": {
+        "en": "Placeholder template\n4",
+        "ko": "자리표시 템플릿 4",
+        "ja": "Placeholder template\n4"
+      },
+      "uses": 1
+    },
+    {
+      "id": "939ce733fc3c",
+      "name": "screen/creative-media/939ce733",
+      "type": "STRING",
+      "values": {
+        "en": "Placeholder template\n2",
+        "ko": "자리표시 템플릿 2",
+        "ja": "Placeholder template\n2"
+      },
+      "uses": 1
+    },
+    {
+      "id": "e2833f7f927a",
+      "name": "screen/creative-media/e2833f7f",
+      "type": "STRING",
+      "values": {
+        "en": "Placeholder template 3",
+        "ko": "자리표시 템플릿 3",
+        "ja": "Placeholder template 3"
+      },
+      "uses": 1
+    },
+    {
+      "id": "ed1e81c345e2",
+      "name": "screen/creative-media/ed1e81c3",
+      "type": "STRING",
+      "values": {
+        "en": "Placeholder template 1",
+        "ko": "자리표시 템플릿 1",
+        "ja": "Placeholder template 1"
+      },
+      "uses": 2
+    },
+    {
       "id": "1b005d7c8408",
       "name": "screen/highlight--projectId-__phase-failed/1b005d7c",
       "type": "STRING",
@@ -5463,7 +5978,7 @@
         "ko": "가격",
         "ja": "料金"
       },
-      "uses": 9
+      "uses": 11
     },
     {
       "id": "831ffbce82ff",
@@ -5474,7 +5989,7 @@
         "ko": "모델",
         "ja": "モデル"
       },
-      "uses": 9
+      "uses": 13
     },
     {
       "id": "92cffb32ea98",
@@ -5496,7 +6011,7 @@
         "ko": "시작하기",
         "ja": "始める"
       },
-      "uses": 7
+      "uses": 9
     },
     {
       "id": "c433a032dd99",
@@ -5540,7 +6055,7 @@
         "ko": "리소스",
         "ja": "リソース"
       },
-      "uses": 8
+      "uses": 10
     },
     {
       "id": "df9bf26613a2",
@@ -5684,6 +6199,622 @@
         "ja": "新規登録"
       },
       "uses": 5
+    },
+    {
+      "id": "14b9bd7946a4",
+      "name": "screen/models--slug-/14b9bd79",
+      "type": "STRING",
+      "values": {
+        "en": "4 to 8 seconds, 720p, 1080p",
+        "ko": "4초에서 8초, 720p, 1080p",
+        "ja": "4〜8秒、720p、1080p"
+      },
+      "uses": 6
+    },
+    {
+      "id": "34db8170fd87",
+      "name": "screen/models--slug-/34db8170",
+      "type": "STRING",
+      "values": {
+        "en": "Generates sound, End frame",
+        "ko": "소리 생성, 끝 프레임",
+        "ja": "音声生成、終了フレーム"
+      },
+      "uses": 2
+    },
+    {
+      "id": "44fbe335e0d5",
+      "name": "screen/models--slug-/44fbe335",
+      "type": "STRING",
+      "values": {
+        "en": "credits",
+        "ko": "크레딧",
+        "ja": "クレジット"
+      },
+      "uses": 2
+    },
+    {
+      "id": "47d869adcbbe",
+      "name": "screen/models--slug-/47d869ad",
+      "type": "STRING",
+      "values": {
+        "en": "Aspect ratio 9:16, 16:9",
+        "ko": "비율 9:16, 16:9",
+        "ja": "アスペクト比 9:16、16:9"
+      },
+      "uses": 6
+    },
+    {
+      "id": "7d6579952b49",
+      "name": "screen/models--slug-/7d657995",
+      "type": "STRING",
+      "values": {
+        "en": "← Models",
+        "ko": "← 모델",
+        "ja": "← モデル"
+      },
+      "uses": 2
+    },
+    {
+      "id": "8f790c156ae8",
+      "name": "screen/models--slug-/8f790c15",
+      "type": "STRING",
+      "values": {
+        "en": "1080p and above: Lite and up",
+        "ko": "1080p부터 Lite 이상",
+        "ja": "1080pからLite以上"
+      },
+      "uses": 2
+    },
+    {
+      "id": "9a95c70e2e9e",
+      "name": "screen/models--slug-/9a95c70e",
+      "type": "STRING",
+      "values": {
+        "en": "On",
+        "ko": "켬",
+        "ja": "オン"
+      },
+      "uses": 2
+    },
+    {
+      "id": "a05c206d6a18",
+      "name": "screen/models--slug-/a05c206d",
+      "type": "STRING",
+      "values": {
+        "en": "4s",
+        "ko": "4초",
+        "ja": "4秒"
+      },
+      "uses": 2
+    },
+    {
+      "id": "a733c2b8f646",
+      "name": "screen/models--slug-/a733c2b8",
+      "type": "STRING",
+      "values": {
+        "en": "Generates sound, End frame, Up to 3 reference images",
+        "ko": "소리 생성, 끝 프레임, 참조 이미지 최대 3장",
+        "ja": "音声生成、終了フレーム、参照画像 最大3枚"
+      },
+      "uses": 4
+    },
+    {
+      "id": "ba7ce42d2b4a",
+      "name": "screen/models--slug-/ba7ce42d",
+      "type": "STRING",
+      "values": {
+        "en": "Off",
+        "ko": "끔",
+        "ja": "オフ"
+      },
+      "uses": 2
+    },
+    {
+      "id": "eaf063300e0c",
+      "name": "screen/models--slug-/eaf06330",
+      "type": "STRING",
+      "values": {
+        "en": "Resolution",
+        "ko": "해상도",
+        "ja": "解像度"
+      },
+      "uses": 2
+    },
+    {
+      "id": "ec88315d9686",
+      "name": "screen/models--slug-/ec88315d",
+      "type": "STRING",
+      "values": {
+        "en": "A video model by Google. Choose one\nof 3 versions in the canvas video node.",
+        "ko": "Google의 영상 모델입니다. 캔버스의 비디오\n노드에서 버전 3개 중 하나를 골라 씁니다.",
+        "ja": "Googleの動画モデルです。 キャンバスの動画ノードで、\n3つのバージョンから選んで使います。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "f8fd5c8f87e0",
+      "name": "screen/models--slug-/f8fd5c8f",
+      "type": "STRING",
+      "values": {
+        "en": "Length",
+        "ko": "길이",
+        "ja": "長さ"
+      },
+      "uses": 2
+    },
+    {
+      "id": "002fb1af2477",
+      "name": "screen/models/002fb1af",
+      "type": "STRING",
+      "values": {
+        "en": "From 57 per second",
+        "ko": "초당 57부터",
+        "ja": "1秒あたり57から"
+      },
+      "uses": 1
+    },
+    {
+      "id": "032fe341b525",
+      "name": "screen/models/032fe341",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 15s, 4K, sound",
+        "ko": "최대 15초, 4K, 소리",
+        "ja": "最大15秒、4K、音声"
+      },
+      "uses": 3
+    },
+    {
+      "id": "03cfdff1ec60",
+      "name": "screen/models/03cfdff1",
+      "type": "STRING",
+      "values": {
+        "en": "Image 2",
+        "ko": "이미지 2",
+        "ja": "画像 2"
+      },
+      "uses": 2
+    },
+    {
+      "id": "187a9cd5214b",
+      "name": "screen/models/187a9cd5",
+      "type": "STRING",
+      "values": {
+        "en": "credits for one 15s 480p video",
+        "ko": "크레딧, 15초 480p 한 편",
+        "ja": "クレジット、15秒 480pの動画1本"
+      },
+      "uses": 2
+    },
+    {
+      "id": "2912ca6ad2b5",
+      "name": "screen/models/2912ca6a",
+      "type": "STRING",
+      "values": {
+        "en": "Next option: Minimax H3, 1,980\ncredits for one 15s 768p video",
+        "ko": "다음 후보: Minimax H3, 15초 768p 한 편 1,980 크레딧",
+        "ja": "次の候補: Minimax H3、15秒\n768pの動画1本 1,980クレジット"
+      },
+      "uses": 2
+    },
+    {
+      "id": "2a6f4c626f1d",
+      "name": "screen/models/2a6f4c62",
+      "type": "STRING",
+      "values": {
+        "en": "15s",
+        "ko": "15초",
+        "ja": "15秒"
+      },
+      "uses": 4
+    },
+    {
+      "id": "2a704214ca37",
+      "name": "screen/models/2a704214",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 15s, 2K, sound",
+        "ko": "최대 15초, 2K, 소리",
+        "ja": "最大15秒、2K、音声"
+      },
+      "uses": 1
+    },
+    {
+      "id": "2bc5a797573a",
+      "name": "screen/models/2bc5a797",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 9",
+        "ko": "최대 9장",
+        "ja": "最大9枚"
+      },
+      "uses": 2
+    },
+    {
+      "id": "32e769d4c821",
+      "name": "screen/models/32e769d4",
+      "type": "STRING",
+      "values": {
+        "en": "From 170 per second",
+        "ko": "초당 170부터",
+        "ja": "1秒あたり170から"
+      },
+      "uses": 1
+    },
+    {
+      "id": "3caf0be7ca8f",
+      "name": "screen/models/3caf0be7",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 30s",
+        "ko": "30초까지",
+        "ja": "30秒まで"
+      },
+      "uses": 2
+    },
+    {
+      "id": "46827fc6c9be",
+      "name": "screen/models/46827fc6",
+      "type": "STRING",
+      "values": {
+        "en": "10s",
+        "ko": "10초",
+        "ja": "10秒"
+      },
+      "uses": 1
+    },
+    {
+      "id": "46cfe86886ba",
+      "name": "screen/models/46cfe868",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 8s",
+        "ko": "8초까지",
+        "ja": "8秒まで"
+      },
+      "uses": 2
+    },
+    {
+      "id": "58c1ee67dfb6",
+      "name": "screen/models/58c1ee67",
+      "type": "STRING",
+      "values": {
+        "en": "Audio 1",
+        "ko": "오디오 1",
+        "ja": "オーディオ 1"
+      },
+      "uses": 2
+    },
+    {
+      "id": "5e8fcb38935e",
+      "name": "screen/models/5e8fcb38",
+      "type": "STRING",
+      "values": {
+        "en": "Sound",
+        "ko": "소리",
+        "ja": "音声"
+      },
+      "uses": 3
+    },
+    {
+      "id": "616445623092",
+      "name": "screen/models/61644562",
+      "type": "STRING",
+      "values": {
+        "en": "From 80 per second",
+        "ko": "초당 80부터",
+        "ja": "1秒あたり80から"
+      },
+      "uses": 1
+    },
+    {
+      "id": "6848420d9f06",
+      "name": "screen/models/6848420d",
+      "type": "STRING",
+      "values": {
+        "en": "58 credits/s",
+        "ko": "초당 58",
+        "ja": "1秒 58"
+      },
+      "uses": 1
+    },
+    {
+      "id": "6f129a0cc8d6",
+      "name": "screen/models/6f129a0c",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 7",
+        "ko": "최대 7장",
+        "ja": "最大7枚"
+      },
+      "uses": 1
+    },
+    {
+      "id": "6fa783faa89c",
+      "name": "screen/models/6fa783fa",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 15s",
+        "ko": "15초까지",
+        "ja": "15秒まで"
+      },
+      "uses": 2
+    },
+    {
+      "id": "79d6ee670c36",
+      "name": "screen/models/79d6ee67",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 6",
+        "ko": "최대 6장",
+        "ja": "最大6枚"
+      },
+      "uses": 1
+    },
+    {
+      "id": "8788e9d411f2",
+      "name": "screen/models/8788e9d4",
+      "type": "STRING",
+      "values": {
+        "en": "From 133 per second",
+        "ko": "초당 133부터",
+        "ja": "1秒あたり133から"
+      },
+      "uses": 1
+    },
+    {
+      "id": "87c94dacdb58",
+      "name": "screen/models/87c94dac",
+      "type": "STRING",
+      "values": {
+        "en": "Of the models that make videos up to\n15s, this one uses the fewest credits.",
+        "ko": "15초까지 만들 수 있는 모델\n중 크레딧이 가장 적게 듭니다.",
+        "ja": "15秒まで作れるモデルの中で、\nクレジットがいちばん少なく済みます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "8e8518f83001",
+      "name": "screen/models/8e8518f8",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 30s, 1080p, sound",
+        "ko": "최대 30초, 1080p, 소리",
+        "ja": "最大30秒、1080p、音声"
+      },
+      "uses": 1
+    },
+    {
+      "id": "95208c1a9fa6",
+      "name": "screen/models/95208c1a",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 8s, 1080p, sound",
+        "ko": "최대 8초, 1080p, 소리",
+        "ja": "最大8秒、1080p、音声"
+      },
+      "uses": 1
+    },
+    {
+      "id": "975439b22986",
+      "name": "screen/models/975439b2",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 10s, 4K, sound",
+        "ko": "최대 10초, 4K, 소리",
+        "ja": "最大10秒、4K、音声"
+      },
+      "uses": 1
+    },
+    {
+      "id": "9bf769455f9d",
+      "name": "screen/models/9bf76945",
+      "type": "STRING",
+      "values": {
+        "en": "Model",
+        "ko": "모델",
+        "ja": "モデル"
+      },
+      "uses": 1
+    },
+    {
+      "id": "9ec7aec7770f",
+      "name": "screen/models/9ec7aec7",
+      "type": "STRING",
+      "values": {
+        "en": "Of the models that make videos up to\n15s, this one uses the fewest credits.",
+        "ko": "15초까지 만들 수 있는 모델 중 크레딧이 가장 적게 듭니다.",
+        "ja": "15秒まで作れるモデルの中で、\nクレジットがいちばん少なく済みます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "a9c160688dd9",
+      "name": "screen/models/a9c16068",
+      "type": "STRING",
+      "values": {
+        "en": "Video 7",
+        "ko": "영상 7",
+        "ja": "動画 7"
+      },
+      "uses": 2
+    },
+    {
+      "id": "ace627254d32",
+      "name": "screen/models/ace62725",
+      "type": "STRING",
+      "values": {
+        "en": "From 150 per second",
+        "ko": "초당 150부터",
+        "ja": "1秒あたり150から"
+      },
+      "uses": 2
+    },
+    {
+      "id": "b8e1585f3e23",
+      "name": "screen/models/b8e1585f",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 3",
+        "ko": "최대 3장",
+        "ja": "最大3枚"
+      },
+      "uses": 1
+    },
+    {
+      "id": "ba2d77a85f4f",
+      "name": "screen/models/ba2d77a8",
+      "type": "STRING",
+      "values": {
+        "en": "ByteDance , Up to 30s, 1080p, sound",
+        "ko": "ByteDance , 최대 30초, 1080p, 소리",
+        "ja": "ByteDance 、 最大30秒、1080p、音声"
+      },
+      "uses": 2
+    },
+    {
+      "id": "bfd316fdc1d5",
+      "name": "screen/models/bfd316fd",
+      "type": "STRING",
+      "values": {
+        "en": "Reference images",
+        "ko": "참조 이미지",
+        "ja": "参照画像"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c09762bbd521",
+      "name": "screen/models/c09762bb",
+      "type": "STRING",
+      "values": {
+        "en": "ByteDance, 3 versions",
+        "ko": "ByteDance, 버전 3개",
+        "ja": "ByteDance、3バージョン"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c73f87da69cb",
+      "name": "screen/models/c73f87da",
+      "type": "STRING",
+      "values": {
+        "en": "150 credits/s",
+        "ko": "초당 150",
+        "ja": "1秒 150"
+      },
+      "uses": 2
+    },
+    {
+      "id": "c7be85469791",
+      "name": "screen/models/c7be8546",
+      "type": "STRING",
+      "values": {
+        "en": "Google, 3 versions",
+        "ko": "Google, 버전 3개",
+        "ja": "Google、3バージョン"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c89ddbbf8001",
+      "name": "screen/models/c89ddbbf",
+      "type": "STRING",
+      "values": {
+        "en": "80 credits/s",
+        "ko": "초당 80",
+        "ja": "1秒 80"
+      },
+      "uses": 1
+    },
+    {
+      "id": "cefae1d0ead5",
+      "name": "screen/models/cefae1d0",
+      "type": "STRING",
+      "values": {
+        "en": "170 credits/s",
+        "ko": "초당 170",
+        "ja": "1秒 170"
+      },
+      "uses": 1
+    },
+    {
+      "id": "cf1f61eec19a",
+      "name": "screen/models/cf1f61ee",
+      "type": "STRING",
+      "values": {
+        "en": "133 credits/s",
+        "ko": "초당 133",
+        "ja": "1秒 133"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d06503e770c0",
+      "name": "screen/models/d06503e7",
+      "type": "STRING",
+      "values": {
+        "en": "57 credits/s",
+        "ko": "초당 57",
+        "ja": "1秒 57"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d5f26434e2e7",
+      "name": "screen/models/d5f26434",
+      "type": "STRING",
+      "values": {
+        "en": "Generated",
+        "ko": "생성",
+        "ja": "あり"
+      },
+      "uses": 7
+    },
+    {
+      "id": "d70f0a2918a2",
+      "name": "screen/models/d70f0a29",
+      "type": "STRING",
+      "values": {
+        "en": "None",
+        "ko": "없음",
+        "ja": "なし"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d8f9b502f338",
+      "name": "screen/models/d8f9b502",
+      "type": "STRING",
+      "values": {
+        "en": "From 58 per second",
+        "ko": "초당 58부터",
+        "ja": "1秒あたり58から"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d98fcbd9ae51",
+      "name": "screen/models/d98fcbd9",
+      "type": "STRING",
+      "values": {
+        "en": "30s",
+        "ko": "30초",
+        "ja": "30秒"
+      },
+      "uses": 1
+    },
+    {
+      "id": "f977703355b4",
+      "name": "screen/models/f9777033",
+      "type": "STRING",
+      "values": {
+        "en": "Up to 30",
+        "ko": "최대 30장",
+        "ja": "最大30枚"
+      },
+      "uses": 1
     },
     {
       "id": "22a3c40eb2de",
@@ -6002,7 +7133,7 @@
         "ko": "8초",
         "ja": "8秒"
       },
-      "uses": 2
+      "uses": 3
     },
     {
       "id": "c7f9c65b1d01",
@@ -11040,7 +12171,7 @@
         "ko": "문의",
         "ja": "お問い合わせ"
       },
-      "uses": 11
+      "uses": 13
     },
     {
       "id": "4e726ba3ec16",
@@ -14230,7 +15361,7 @@
         "ko": "크레딧",
         "ja": "クレジット"
       },
-      "uses": 4
+      "uses": 5
     },
     {
       "id": "e32125092f55",
@@ -16412,19 +17543,85 @@
       }
     },
     "/creative-media @ desktop-1920x1080": {
-      "body.1.0.0.0.1.0": {
-        "xv": "i18n/creativeMedia/closedTitle"
+      "body.1.0.0.0.2": {
+        "xv": "i18n/creativeMedia/title"
       },
-      "body.1.0.0.0.1.1": {
-        "xv": "i18n/creativeMedia/closedDesc"
+      "body.1.0.0.0.3": {
+        "xv": "i18n/creativeMedia/subtitle"
+      },
+      "body.1.0.0.0.4": {
+        "xv": "screen/creative-media/1bb0dba0"
+      },
+      "body.1.0.0.0.5": {
+        "xv": "i18n/creativeMedia/selectTitle"
+      },
+      "body.1.0.0.0.6.0.2.0": {
+        "xv": "screen/creative-media/ed1e81c3"
+      },
+      "body.1.0.0.0.6.0.2.1": {
+        "xv": "screen/creative-media/347c47d6"
+      },
+      "body.1.0.0.0.6.1.2.0": {
+        "xv": "screen/creative-media/0bcaad8e"
+      },
+      "body.1.0.0.0.6.1.2.1": {
+        "xv": "screen/creative-media/347c47d6"
+      },
+      "body.1.0.0.0.6.2.2.0": {
+        "xv": "screen/creative-media/e2833f7f"
+      },
+      "body.1.0.0.0.6.2.2.1": {
+        "xv": "screen/creative-media/347c47d6"
+      },
+      "body.1.0.0.0.6.3.2.0": {
+        "xv": "screen/creative-media/73a75116"
+      },
+      "body.1.0.0.0.6.3.2.1": {
+        "xv": "screen/creative-media/347c47d6"
+      },
+      "body.1.0.0.0.7": {
+        "xv": "i18n/creativeMedia/privacyNotice~7c4146c1"
       }
     },
     "/creative-media @ mobile-402x874": {
-      "body.1.0.0.0.1.0": {
-        "xv": "i18n/creativeMedia/closedTitle"
+      "body.1.0.0.0.2": {
+        "xv": "i18n/creativeMedia/title"
       },
-      "body.1.0.0.0.1.1": {
-        "xv": "i18n/creativeMedia/closedDesc"
+      "body.1.0.0.0.3": {
+        "xv": "i18n/creativeMedia/subtitle"
+      },
+      "body.1.0.0.0.4": {
+        "xv": "screen/creative-media/1bb0dba0"
+      },
+      "body.1.0.0.0.5": {
+        "xv": "i18n/creativeMedia/selectTitle"
+      },
+      "body.1.0.0.0.6.0.2.0": {
+        "xv": "screen/creative-media/ed1e81c3"
+      },
+      "body.1.0.0.0.6.0.2.1": {
+        "xv": "screen/creative-media/347c47d6"
+      },
+      "body.1.0.0.0.6.1.2.0": {
+        "xv": "screen/creative-media/939ce733"
+      },
+      "body.1.0.0.0.6.1.2.1": {
+        "xv": "screen/creative-media/347c47d6"
+      },
+      "body.1.0.0.0.6.2.2.0": {
+        "xv": "screen/creative-media/7e5f15b7"
+      },
+      "body.1.0.0.0.6.2.2.1": {
+        "xv": "screen/creative-media/347c47d6"
+      },
+      "body.1.0.0.0.6.3.2.0": {
+        "xv": "screen/creative-media/842a80ac"
+      },
+      "body.1.0.0.0.6.3.2.1": {
+        "xv": "screen/creative-media/347c47d6"
+      },
+      "body.1.0.0.0.7": {
+        "xv": "i18n/creativeMedia/privacyNotice~cf326304"
       }
     },
     "/admin/coupons/[id]/print @ desktop-1920x1080": {
@@ -20540,6 +21737,587 @@
       },
       "body.1.0.0.2.0.0.4.0.1.1": {
         "xv": "i18n/templates/copyPrompt"
+      }
+    },
+    "/models @ desktop-1920x1080": {
+      "body.1.0.0.1.0.2.0.0.t": {
+        "xv": "screen/home/831ffbce"
+      },
+      "body.1.0.0.1.0.2.1.0.t": {
+        "xv": "i18n/nav/docs"
+      },
+      "body.1.0.0.1.0.2.2.0.t": {
+        "xv": "screen/home/7efe7e2a"
+      },
+      "body.1.0.0.1.0.2.3.0.t": {
+        "xv": "screen/settings/48621a1b"
+      },
+      "body.1.0.0.1.0.2.4.0.t": {
+        "xv": "screen/home/dbb4cde1"
+      },
+      "body.1.0.0.1.0.3.2.0": {
+        "xv": "screen/home/a4a04b69"
+      },
+      "body.1.0.0.2.0.0.0.0": {
+        "xv": "screen/home/831ffbce"
+      },
+      "body.1.0.0.2.0.0.0.1": {
+        "xv": "i18n/modelPages/indexDescription"
+      },
+      "body.1.0.0.2.0.0.1.0.2": {
+        "xv": "screen/models/ba2d77a8"
+      },
+      "body.1.0.0.2.0.0.1.0.3.0": {
+        "iv": "i18n/modelPages/ctaCreate"
+      },
+      "body.1.0.0.2.0.0.1.0.3.1": {
+        "iv": "i18n/modelPages/detailLink"
+      },
+      "body.1.0.0.2.0.0.2.0": {
+        "xv": "i18n/modelPages/recommenderTitle"
+      },
+      "body.1.0.0.2.0.0.2.1": {
+        "xv": "i18n/modelPages/recommenderLead"
+      },
+      "body.1.0.0.2.0.0.2.2.0.0.0": {
+        "xv": "i18n/modelPages/startQuestion"
+      },
+      "body.1.0.0.2.0.0.2.2.0.0.1.0.1.0": {
+        "xv": "i18n/modelPages/startOptions/text"
+      },
+      "body.1.0.0.2.0.0.2.2.0.0.1.0.2.0": {
+        "xv": "i18n/modelPages/startOptions/image"
+      },
+      "body.1.0.0.2.0.0.2.2.0.0.1.0.3.0": {
+        "xv": "i18n/modelPages/startOptions/video"
+      },
+      "body.1.0.0.2.0.0.2.2.0.1.0": {
+        "xv": "i18n/modelPages/lengthQuestion"
+      },
+      "body.1.0.0.2.0.0.2.2.0.1.1.0.1.0": {
+        "xv": "screen/models/46cfe868"
+      },
+      "body.1.0.0.2.0.0.2.2.0.1.1.0.2.0": {
+        "xv": "screen/models/6fa783fa"
+      },
+      "body.1.0.0.2.0.0.2.2.0.1.1.0.3.0": {
+        "xv": "screen/models/3caf0be7"
+      },
+      "body.1.0.0.2.0.0.2.2.0.2.0": {
+        "xv": "i18n/modelPages/priorityQuestion"
+      },
+      "body.1.0.0.2.0.0.2.2.0.2.1.0.1.0": {
+        "xv": "i18n/modelPages/priorityOptions/credits"
+      },
+      "body.1.0.0.2.0.0.2.2.0.2.1.0.2.0": {
+        "xv": "i18n/modelPages/priorityOptions/resolution"
+      },
+      "body.1.0.0.2.0.0.2.2.0.2.1.0.3.0": {
+        "xv": "i18n/modelPages/priorityOptions/references"
+      },
+      "body.1.0.0.2.0.0.2.2.1.0.0.1": {
+        "xv": "screen/models/87c94dac"
+      },
+      "body.1.0.0.2.0.0.2.2.1.0.0.2.1": {
+        "xv": "screen/models/187a9cd5"
+      },
+      "body.1.0.0.2.0.0.2.2.1.0.0.3": {
+        "xv": "i18n/modelPages/planNote/lite"
+      },
+      "body.1.0.0.2.0.0.2.2.1.1.0": {
+        "xv": "screen/models/2912ca6a"
+      },
+      "body.1.0.0.2.0.0.2.2.1.2.0": {
+        "iv": "i18n/modelPages/ctaCreate"
+      },
+      "body.1.0.0.2.0.0.2.2.1.2.1": {
+        "iv": "i18n/modelPages/detailLink"
+      },
+      "body.1.0.0.2.0.0.3.0": {
+        "xv": "i18n/modelPages/compareTitle"
+      },
+      "body.1.0.0.2.0.0.3.1": {
+        "xv": "i18n/modelPages/compareLead"
+      },
+      "body.1.0.0.2.0.0.3.2.0.1.0": {
+        "xv": "screen/models/a9c16068"
+      },
+      "body.1.0.0.2.0.0.3.2.0.2.0": {
+        "xv": "screen/models/03cfdff1"
+      },
+      "body.1.0.0.2.0.0.3.2.0.3.0": {
+        "xv": "screen/models/58c1ee67"
+      },
+      "body.1.0.0.2.0.0.3.3.0.0.0": {
+        "xv": "screen/models/9bf76945"
+      },
+      "body.1.0.0.2.0.0.3.3.0.0.1": {
+        "xv": "i18n/modelPages/columns/maxDuration"
+      },
+      "body.1.0.0.2.0.0.3.3.0.0.2": {
+        "xv": "i18n/modelPages/columns/topResolution"
+      },
+      "body.1.0.0.2.0.0.3.3.0.0.3": {
+        "xv": "screen/models/5e8fcb38"
+      },
+      "body.1.0.0.2.0.0.3.3.0.0.4": {
+        "xv": "screen/models/bfd316fd"
+      },
+      "body.1.0.0.2.0.0.3.3.0.0.5": {
+        "xv": "screen/terms/e2d6fc75"
+      },
+      "body.1.0.0.2.0.0.3.3.1.0.1": {
+        "xv": "screen/models/d98fcbd9"
+      },
+      "body.1.0.0.2.0.0.3.3.1.0.3": {
+        "xv": "screen/models/d5f26434"
+      },
+      "body.1.0.0.2.0.0.3.3.1.0.4": {
+        "xv": "screen/models/f9777033"
+      },
+      "body.1.0.0.2.0.0.3.3.1.0.5": {
+        "xv": "screen/models/32e769d4"
+      },
+      "body.1.0.0.2.0.0.3.3.1.1.0.0.1.1": {
+        "xv": "screen/models/c7be8546"
+      },
+      "body.1.0.0.2.0.0.3.3.1.1.1": {
+        "xv": "screen/nodecanvas-project-/a3c0065a"
+      },
+      "body.1.0.0.2.0.0.3.3.1.1.3": {
+        "xv": "screen/models/d5f26434"
+      },
+      "body.1.0.0.2.0.0.3.3.1.1.4": {
+        "xv": "screen/models/b8e1585f"
+      },
+      "body.1.0.0.2.0.0.3.3.1.1.5": {
+        "xv": "screen/models/61644562"
+      },
+      "body.1.0.0.2.0.0.3.3.1.2.1": {
+        "xv": "screen/models/2a6f4c62"
+      },
+      "body.1.0.0.2.0.0.3.3.1.2.3": {
+        "xv": "screen/models/d5f26434"
+      },
+      "body.1.0.0.2.0.0.3.3.1.2.4": {
+        "xv": "screen/models/d70f0a29"
+      },
+      "body.1.0.0.2.0.0.3.3.1.2.5": {
+        "xv": "screen/models/ace62725"
+      },
+      "body.1.0.0.2.0.0.3.3.1.3.1": {
+        "xv": "screen/models/46827fc6"
+      },
+      "body.1.0.0.2.0.0.3.3.1.3.3": {
+        "xv": "screen/models/d5f26434"
+      },
+      "body.1.0.0.2.0.0.3.3.1.3.4": {
+        "xv": "screen/models/79d6ee67"
+      },
+      "body.1.0.0.2.0.0.3.3.1.3.5": {
+        "xv": "screen/models/002fb1af"
+      },
+      "body.1.0.0.2.0.0.3.3.1.4.0.0.1.1": {
+        "xv": "screen/models/c09762bb"
+      },
+      "body.1.0.0.2.0.0.3.3.1.4.1": {
+        "xv": "screen/models/2a6f4c62"
+      },
+      "body.1.0.0.2.0.0.3.3.1.4.3": {
+        "xv": "screen/models/d5f26434"
+      },
+      "body.1.0.0.2.0.0.3.3.1.4.4": {
+        "xv": "screen/models/2bc5a797"
+      },
+      "body.1.0.0.2.0.0.3.3.1.4.5": {
+        "xv": "screen/models/d8f9b502"
+      },
+      "body.1.0.0.2.0.0.3.3.1.5.1": {
+        "xv": "screen/models/2a6f4c62"
+      },
+      "body.1.0.0.2.0.0.3.3.1.5.3": {
+        "xv": "screen/models/d5f26434"
+      },
+      "body.1.0.0.2.0.0.3.3.1.5.4": {
+        "xv": "screen/models/2bc5a797"
+      },
+      "body.1.0.0.2.0.0.3.3.1.5.5": {
+        "xv": "screen/models/8788e9d4"
+      },
+      "body.1.0.0.2.0.0.3.3.1.6.1": {
+        "xv": "screen/models/2a6f4c62"
+      },
+      "body.1.0.0.2.0.0.3.3.1.6.3": {
+        "xv": "screen/models/d5f26434"
+      },
+      "body.1.0.0.2.0.0.3.3.1.6.4": {
+        "xv": "screen/models/6f129a0c"
+      },
+      "body.1.0.0.2.0.0.3.3.1.6.5": {
+        "xv": "screen/models/ace62725"
+      }
+    },
+    "/models @ mobile-402x874": {
+      "body.1.0.0.2.0.0.0.0": {
+        "xv": "screen/home/831ffbce"
+      },
+      "body.1.0.0.2.0.0.0.1": {
+        "xv": "i18n/modelPages/indexDescription"
+      },
+      "body.1.0.0.2.0.0.1.0.2": {
+        "xv": "screen/models/ba2d77a8"
+      },
+      "body.1.0.0.2.0.0.1.0.3.0": {
+        "iv": "i18n/modelPages/ctaCreate"
+      },
+      "body.1.0.0.2.0.0.1.0.3.1": {
+        "iv": "i18n/modelPages/detailLink"
+      },
+      "body.1.0.0.2.0.0.2.0": {
+        "xv": "i18n/modelPages/recommenderTitle"
+      },
+      "body.1.0.0.2.0.0.2.1": {
+        "xv": "i18n/modelPages/recommenderLead~61f97a41"
+      },
+      "body.1.0.0.2.0.0.2.2.0.0.0": {
+        "xv": "i18n/modelPages/startQuestion"
+      },
+      "body.1.0.0.2.0.0.2.2.0.0.1.0.1.0": {
+        "xv": "i18n/modelPages/startOptions/text"
+      },
+      "body.1.0.0.2.0.0.2.2.0.0.1.0.2.0": {
+        "xv": "i18n/modelPages/startOptions/image"
+      },
+      "body.1.0.0.2.0.0.2.2.0.0.1.0.3.0": {
+        "xv": "i18n/modelPages/startOptions/video"
+      },
+      "body.1.0.0.2.0.0.2.2.0.1.0": {
+        "xv": "i18n/modelPages/lengthQuestion"
+      },
+      "body.1.0.0.2.0.0.2.2.0.1.1.0.1.0": {
+        "xv": "screen/models/46cfe868"
+      },
+      "body.1.0.0.2.0.0.2.2.0.1.1.0.2.0": {
+        "xv": "screen/models/6fa783fa"
+      },
+      "body.1.0.0.2.0.0.2.2.0.1.1.0.3.0": {
+        "xv": "screen/models/3caf0be7"
+      },
+      "body.1.0.0.2.0.0.2.2.0.2.0": {
+        "xv": "i18n/modelPages/priorityQuestion"
+      },
+      "body.1.0.0.2.0.0.2.2.0.2.1.0.1.0": {
+        "xv": "i18n/modelPages/priorityOptions/credits"
+      },
+      "body.1.0.0.2.0.0.2.2.0.2.1.0.2.0": {
+        "xv": "i18n/modelPages/priorityOptions/resolution"
+      },
+      "body.1.0.0.2.0.0.2.2.0.2.1.0.3.0": {
+        "xv": "i18n/modelPages/priorityOptions/references"
+      },
+      "body.1.0.0.2.0.0.2.2.1.0.0.1": {
+        "xv": "screen/models/9ec7aec7"
+      },
+      "body.1.0.0.2.0.0.2.2.1.0.0.2.1": {
+        "xv": "screen/models/187a9cd5"
+      },
+      "body.1.0.0.2.0.0.2.2.1.0.0.3": {
+        "xv": "i18n/modelPages/planNote/lite"
+      },
+      "body.1.0.0.2.0.0.2.2.1.1.0": {
+        "xv": "screen/models/2912ca6a"
+      },
+      "body.1.0.0.2.0.0.2.2.1.2.0": {
+        "iv": "i18n/modelPages/ctaCreate"
+      },
+      "body.1.0.0.2.0.0.2.2.1.2.1": {
+        "iv": "i18n/modelPages/detailLink"
+      },
+      "body.1.0.0.2.0.0.3.0": {
+        "xv": "i18n/modelPages/compareTitle"
+      },
+      "body.1.0.0.2.0.0.3.1": {
+        "xv": "i18n/modelPages/compareLead~d908909c"
+      },
+      "body.1.0.0.2.0.0.3.2.0.1.0": {
+        "xv": "screen/models/a9c16068"
+      },
+      "body.1.0.0.2.0.0.3.2.0.2.0": {
+        "xv": "screen/models/03cfdff1"
+      },
+      "body.1.0.0.2.0.0.3.2.0.3.0": {
+        "xv": "screen/models/58c1ee67"
+      },
+      "body.1.0.0.2.0.0.3.4.0.1.2": {
+        "xv": "screen/models/8e8518f8"
+      },
+      "body.1.0.0.2.0.0.3.4.0.2.0": {
+        "xv": "screen/models/cefae1d0"
+      },
+      "body.1.0.0.2.0.0.3.4.0.2.1": {
+        "xv": "i18n/modelPages/creditsFrom"
+      },
+      "body.1.0.0.2.0.0.3.4.1.1.2": {
+        "xv": "screen/models/95208c1a"
+      },
+      "body.1.0.0.2.0.0.3.4.1.2.0": {
+        "xv": "screen/models/c89ddbbf"
+      },
+      "body.1.0.0.2.0.0.3.4.1.2.1": {
+        "xv": "i18n/modelPages/creditsFrom"
+      },
+      "body.1.0.0.2.0.0.3.4.2.1.2": {
+        "xv": "screen/models/032fe341"
+      },
+      "body.1.0.0.2.0.0.3.4.2.2.0": {
+        "xv": "screen/models/c73f87da"
+      },
+      "body.1.0.0.2.0.0.3.4.2.2.1": {
+        "xv": "i18n/modelPages/creditsFrom"
+      },
+      "body.1.0.0.2.0.0.3.4.3.1.2": {
+        "xv": "screen/models/975439b2"
+      },
+      "body.1.0.0.2.0.0.3.4.3.2.0": {
+        "xv": "screen/models/d06503e7"
+      },
+      "body.1.0.0.2.0.0.3.4.3.2.1": {
+        "xv": "i18n/modelPages/creditsFrom"
+      },
+      "body.1.0.0.2.0.0.3.4.4.1.2": {
+        "xv": "screen/models/032fe341"
+      },
+      "body.1.0.0.2.0.0.3.4.4.2.0": {
+        "xv": "screen/models/6848420d"
+      },
+      "body.1.0.0.2.0.0.3.4.4.2.1": {
+        "xv": "i18n/modelPages/creditsFrom"
+      },
+      "body.1.0.0.2.0.0.3.4.5.1.2": {
+        "xv": "screen/models/2a704214"
+      },
+      "body.1.0.0.2.0.0.3.4.5.2.0": {
+        "xv": "screen/models/cf1f61ee"
+      },
+      "body.1.0.0.2.0.0.3.4.5.2.1": {
+        "xv": "i18n/modelPages/creditsFrom"
+      },
+      "body.1.0.0.2.0.0.3.4.6.1.2": {
+        "xv": "screen/models/032fe341"
+      },
+      "body.1.0.0.2.0.0.3.4.6.2.0": {
+        "xv": "screen/models/c73f87da"
+      },
+      "body.1.0.0.2.0.0.3.4.6.2.1": {
+        "xv": "i18n/modelPages/creditsFrom"
+      }
+    },
+    "/models/[slug] @ desktop-1920x1080": {
+      "body.1.0.0.1.0.2.0.0.t": {
+        "xv": "screen/home/831ffbce"
+      },
+      "body.1.0.0.1.0.2.1.0.t": {
+        "xv": "i18n/nav/docs"
+      },
+      "body.1.0.0.1.0.2.2.0.t": {
+        "xv": "screen/home/7efe7e2a"
+      },
+      "body.1.0.0.1.0.2.3.0.t": {
+        "xv": "screen/settings/48621a1b"
+      },
+      "body.1.0.0.1.0.2.4.0.t": {
+        "xv": "screen/home/dbb4cde1"
+      },
+      "body.1.0.0.1.0.3.2.0": {
+        "xv": "screen/home/a4a04b69"
+      },
+      "body.1.0.0.2.0.0.0": {
+        "xv": "screen/models--slug-/7d657995"
+      },
+      "body.1.0.0.2.0.0.1.0.2": {
+        "xv": "screen/models--slug-/ec88315d"
+      },
+      "body.1.0.0.2.0.0.1.2.0.0": {
+        "iv": "i18n/modelPages/ctaCreate"
+      },
+      "body.1.0.0.2.0.0.1.2.0.1": {
+        "iv": "i18n/modelPages/ctaPricing"
+      },
+      "body.1.0.0.2.0.0.2.0": {
+        "xv": "i18n/modelPages/versionsTitle"
+      },
+      "body.1.0.0.2.0.0.2.1.0.1.0": {
+        "xv": "screen/models--slug-/34db8170"
+      },
+      "body.1.0.0.2.0.0.2.1.0.1.1": {
+        "xv": "screen/models--slug-/47d869ad"
+      },
+      "body.1.0.0.2.0.0.2.1.0.1.2": {
+        "xv": "screen/models--slug-/8f790c15"
+      },
+      "body.1.0.0.2.0.0.2.1.0.1.t": {
+        "xv": "screen/models--slug-/14b9bd79"
+      },
+      "body.1.0.0.2.0.0.2.1.0.2": {
+        "xv": "i18n/modelPages/plan/free"
+      },
+      "body.1.0.0.2.0.0.2.1.1.1.0": {
+        "xv": "screen/models--slug-/a733c2b8"
+      },
+      "body.1.0.0.2.0.0.2.1.1.1.1": {
+        "xv": "screen/models--slug-/47d869ad"
+      },
+      "body.1.0.0.2.0.0.2.1.1.1.t": {
+        "xv": "screen/models--slug-/14b9bd79"
+      },
+      "body.1.0.0.2.0.0.2.1.1.2": {
+        "xv": "i18n/modelPages/plan/lite"
+      },
+      "body.1.0.0.2.0.0.2.1.2.1.0": {
+        "xv": "screen/models--slug-/a733c2b8"
+      },
+      "body.1.0.0.2.0.0.2.1.2.1.1": {
+        "xv": "screen/models--slug-/47d869ad"
+      },
+      "body.1.0.0.2.0.0.2.1.2.1.t": {
+        "xv": "screen/models--slug-/14b9bd79"
+      },
+      "body.1.0.0.2.0.0.2.1.2.2": {
+        "xv": "i18n/modelPages/plan/lite"
+      },
+      "body.1.0.0.2.0.0.3.0": {
+        "xv": "i18n/modelPages/calculatorTitle"
+      },
+      "body.1.0.0.2.0.0.3.1": {
+        "xv": "i18n/modelPages/calculatorLeadVideo"
+      },
+      "body.1.0.0.2.0.0.3.2.0.0": {
+        "xv": "i18n/modelPages/versionLabel"
+      },
+      "body.1.0.0.2.0.0.3.2.1.0": {
+        "xv": "screen/models--slug-/eaf06330"
+      },
+      "body.1.0.0.2.0.0.3.2.2.0": {
+        "xv": "screen/models--slug-/f8fd5c8f"
+      },
+      "body.1.0.0.2.0.0.3.2.2.1.1": {
+        "xv": "screen/models--slug-/a05c206d"
+      },
+      "body.1.0.0.2.0.0.3.2.3.0": {
+        "xv": "screen/models/5e8fcb38"
+      },
+      "body.1.0.0.2.0.0.3.2.3.1.0.1.0": {
+        "xv": "screen/models--slug-/ba7ce42d"
+      },
+      "body.1.0.0.2.0.0.3.2.3.1.0.2.0": {
+        "xv": "screen/models--slug-/9a95c70e"
+      },
+      "body.1.0.0.2.0.0.3.2.4.0.1": {
+        "xv": "screen/models--slug-/44fbe335"
+      },
+      "body.1.0.0.2.0.0.3.2.4.1.0": {
+        "xv": "i18n/modelPages/planNote/free"
+      },
+      "body.1.0.0.2.0.0.3.3": {
+        "xv": "i18n/modelPages/calculatorNote"
+      },
+      "body.1.0.0.2.0.0.4.0": {
+        "xv": "i18n/modelPages/otherModels"
+      }
+    },
+    "/models/[slug] @ mobile-402x874": {
+      "body.1.0.0.2.0.0.0": {
+        "xv": "screen/models--slug-/7d657995"
+      },
+      "body.1.0.0.2.0.0.1.0.2": {
+        "xv": "screen/models--slug-/ec88315d"
+      },
+      "body.1.0.0.2.0.0.1.2.0.0": {
+        "iv": "i18n/modelPages/ctaCreate"
+      },
+      "body.1.0.0.2.0.0.1.2.0.1": {
+        "iv": "i18n/modelPages/ctaPricing"
+      },
+      "body.1.0.0.2.0.0.2.0": {
+        "xv": "i18n/modelPages/versionsTitle"
+      },
+      "body.1.0.0.2.0.0.2.1.0.1.0": {
+        "xv": "screen/models--slug-/34db8170"
+      },
+      "body.1.0.0.2.0.0.2.1.0.1.1": {
+        "xv": "screen/models--slug-/47d869ad"
+      },
+      "body.1.0.0.2.0.0.2.1.0.1.2": {
+        "xv": "screen/models--slug-/8f790c15"
+      },
+      "body.1.0.0.2.0.0.2.1.0.1.t": {
+        "xv": "screen/models--slug-/14b9bd79"
+      },
+      "body.1.0.0.2.0.0.2.1.0.2": {
+        "xv": "i18n/modelPages/plan/free"
+      },
+      "body.1.0.0.2.0.0.2.1.1.1.0": {
+        "xv": "screen/models--slug-/a733c2b8"
+      },
+      "body.1.0.0.2.0.0.2.1.1.1.1": {
+        "xv": "screen/models--slug-/47d869ad"
+      },
+      "body.1.0.0.2.0.0.2.1.1.1.t": {
+        "xv": "screen/models--slug-/14b9bd79"
+      },
+      "body.1.0.0.2.0.0.2.1.1.2": {
+        "xv": "i18n/modelPages/plan/lite"
+      },
+      "body.1.0.0.2.0.0.2.1.2.1.0": {
+        "xv": "screen/models--slug-/a733c2b8"
+      },
+      "body.1.0.0.2.0.0.2.1.2.1.1": {
+        "xv": "screen/models--slug-/47d869ad"
+      },
+      "body.1.0.0.2.0.0.2.1.2.1.t": {
+        "xv": "screen/models--slug-/14b9bd79"
+      },
+      "body.1.0.0.2.0.0.2.1.2.2": {
+        "xv": "i18n/modelPages/plan/lite"
+      },
+      "body.1.0.0.2.0.0.3.0": {
+        "xv": "i18n/modelPages/calculatorTitle"
+      },
+      "body.1.0.0.2.0.0.3.1": {
+        "xv": "i18n/modelPages/calculatorLeadVideo~17615103"
+      },
+      "body.1.0.0.2.0.0.3.2.0.0": {
+        "xv": "i18n/modelPages/versionLabel"
+      },
+      "body.1.0.0.2.0.0.3.2.1.0": {
+        "xv": "screen/models--slug-/eaf06330"
+      },
+      "body.1.0.0.2.0.0.3.2.2.0": {
+        "xv": "screen/models--slug-/f8fd5c8f"
+      },
+      "body.1.0.0.2.0.0.3.2.2.1.1": {
+        "xv": "screen/models--slug-/a05c206d"
+      },
+      "body.1.0.0.2.0.0.3.2.3.0": {
+        "xv": "screen/models/5e8fcb38"
+      },
+      "body.1.0.0.2.0.0.3.2.3.1.0.1.0": {
+        "xv": "screen/models--slug-/ba7ce42d"
+      },
+      "body.1.0.0.2.0.0.3.2.3.1.0.2.0": {
+        "xv": "screen/models--slug-/9a95c70e"
+      },
+      "body.1.0.0.2.0.0.3.2.4.0.1": {
+        "xv": "screen/models--slug-/44fbe335"
+      },
+      "body.1.0.0.2.0.0.3.2.4.1.0": {
+        "xv": "i18n/modelPages/planNote/free"
+      },
+      "body.1.0.0.2.0.0.3.3": {
+        "xv": "i18n/modelPages/calculatorNote~9d4eb804"
+      },
+      "body.1.0.0.2.0.0.4.0": {
+        "xv": "i18n/modelPages/otherModels"
       }
     },
     "part:Product/Auth Floating Field Shape=Top, State=Focused, Viewport=Desktop": {
@@ -27412,34 +29190,42 @@
       },
       {
         "target": "/creative-media @ desktop-1920x1080",
-        "path": "body.1.0.0.0.1.0",
+        "path": "body.1.0.0.0.7",
         "locale": "ko",
-        "dw": -7.3,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/creative-media @ desktop-1920x1080",
-        "path": "body.1.0.0.0.1.1",
-        "locale": "ko",
-        "dw": -54.91,
-        "dh": 0,
+        "dw": 0,
+        "dh": -18,
         "fixedAncestor": null
       },
       {
         "target": "/creative-media @ mobile-402x874",
-        "path": "body.1.0.0.0.1.0",
+        "path": "body.1.0.0.0.6.1.2.0",
         "locale": "ko",
-        "dw": -7.3,
-        "dh": 0,
-        "fixedAncestor": null
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": "body.1.0.0.0.6.1.2"
       },
       {
         "target": "/creative-media @ mobile-402x874",
-        "path": "body.1.0.0.0.1.1",
+        "path": "body.1.0.0.0.6.2.2.0",
         "locale": "ko",
-        "dw": -54.91,
-        "dh": 0,
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": "body.1.0.0.0.6.2.2"
+      },
+      {
+        "target": "/creative-media @ mobile-402x874",
+        "path": "body.1.0.0.0.6.3.2.0",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": "body.1.0.0.0.6.3.2"
+      },
+      {
+        "target": "/creative-media @ mobile-402x874",
+        "path": "body.1.0.0.0.7",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -18,
         "fixedAncestor": null
       },
       {
@@ -46055,6 +47841,2254 @@
         "path": "body.1.0.0.2.0.0.4.0.1.1",
         "locale": "ko",
         "dw": -6.45,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.1.0",
+        "locale": "ko",
+        "dw": -32.62,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.1.0",
+        "locale": "ja",
+        "dw": 21.37,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.2.0",
+        "locale": "ko",
+        "dw": -23.34,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.2.0",
+        "locale": "ja",
+        "dw": -33.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.3.0",
+        "locale": "ko",
+        "dw": -22.95,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.3.0",
+        "locale": "ja",
+        "dw": -20.89,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.1.0",
+        "locale": "ko",
+        "dw": -8.12,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.1.0",
+        "locale": "ja",
+        "dw": -5.05,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.2.0",
+        "locale": "ko",
+        "dw": -8.11,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.2.0",
+        "locale": "ja",
+        "dw": -5.03,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.3.0",
+        "locale": "ko",
+        "dw": -8.12,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.3.0",
+        "locale": "ja",
+        "dw": -5.05,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.1.0",
+        "locale": "ko",
+        "dw": -21.19,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.1.0",
+        "locale": "ja",
+        "dw": 19.63,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.2.0",
+        "locale": "ko",
+        "dw": -43.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.2.0",
+        "locale": "ja",
+        "dw": -41.73,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.3.0",
+        "locale": "ko",
+        "dw": -39.09,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.3.0",
+        "locale": "ja",
+        "dw": -53.7,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.1.0.0.2.1",
+        "locale": "ko",
+        "dw": -50.31,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.2.2.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.1.0.0.2.1",
+        "locale": "ja",
+        "dw": 15.69,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.2.2.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.2.2.1.1.0",
+        "locale": "ko",
+        "dw": 115.09,
+        "dh": -21,
+        "fixedAncestor": "body.1.0.0.2.0.0.2.2.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.0.1.0",
+        "locale": "ko",
+        "dw": -12.23,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.0.1.0",
+        "locale": "ja",
+        "dw": -10.19,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.0.2.0",
+        "locale": "ko",
+        "dw": -3.28,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.0.2.0",
+        "locale": "ja",
+        "dw": -13.19,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.0.3.0",
+        "locale": "ja",
+        "dw": 28.67,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.0",
+        "locale": "ko",
+        "dw": 77.75,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.0",
+        "locale": "ja",
+        "dw": 79.63,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.1",
+        "locale": "ko",
+        "dw": 6.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.1",
+        "locale": "ja",
+        "dw": 12.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.2",
+        "locale": "ko",
+        "dw": 4.02,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.2",
+        "locale": "ja",
+        "dw": -10.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.3",
+        "locale": "ko",
+        "dw": -41.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.3",
+        "locale": "ja",
+        "dw": -47.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.4",
+        "locale": "ko",
+        "dw": -25.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.4",
+        "locale": "ja",
+        "dw": -43.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.5",
+        "locale": "ko",
+        "dw": -36.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.0.0.5",
+        "locale": "ja",
+        "dw": 2.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.0.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.1",
+        "locale": "ko",
+        "dw": 6.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.1",
+        "locale": "ja",
+        "dw": 12.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.2",
+        "locale": "ko",
+        "dw": 4.02,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.2",
+        "locale": "ja",
+        "dw": -10.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.3",
+        "locale": "ko",
+        "dw": -41.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.3",
+        "locale": "ja",
+        "dw": -47.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.4",
+        "locale": "ko",
+        "dw": -25.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.4",
+        "locale": "ja",
+        "dw": -43.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.5",
+        "locale": "ko",
+        "dw": -36.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.5",
+        "locale": "ja",
+        "dw": 2.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.6",
+        "locale": "ko",
+        "dw": 14.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.0.6",
+        "locale": "ja",
+        "dw": 7.39,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.0.0.1.1",
+        "locale": "ko",
+        "dw": -15.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.0.0.1.1",
+        "locale": "ja",
+        "dw": 16.42,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.1",
+        "locale": "ko",
+        "dw": 6.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.1",
+        "locale": "ja",
+        "dw": 12.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.2",
+        "locale": "ko",
+        "dw": 4.02,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.2",
+        "locale": "ja",
+        "dw": -10.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.3",
+        "locale": "ko",
+        "dw": -41.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.3",
+        "locale": "ja",
+        "dw": -47.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.4",
+        "locale": "ko",
+        "dw": -25.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.4",
+        "locale": "ja",
+        "dw": -43.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.5",
+        "locale": "ko",
+        "dw": -36.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.5",
+        "locale": "ja",
+        "dw": 2.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.6",
+        "locale": "ko",
+        "dw": 14.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.1.6",
+        "locale": "ja",
+        "dw": 7.39,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.1",
+        "locale": "ko",
+        "dw": 6.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.1",
+        "locale": "ja",
+        "dw": 12.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.2",
+        "locale": "ko",
+        "dw": 4.02,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.2",
+        "locale": "ja",
+        "dw": -10.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.3",
+        "locale": "ko",
+        "dw": -41.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.3",
+        "locale": "ja",
+        "dw": -47.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.4",
+        "locale": "ko",
+        "dw": -25.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.4",
+        "locale": "ja",
+        "dw": -43.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.5",
+        "locale": "ko",
+        "dw": -36.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.5",
+        "locale": "ja",
+        "dw": 2.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.6",
+        "locale": "ko",
+        "dw": 14.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.2.6",
+        "locale": "ja",
+        "dw": 7.39,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.2"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.1",
+        "locale": "ko",
+        "dw": 6.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.1",
+        "locale": "ja",
+        "dw": 12.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.2",
+        "locale": "ko",
+        "dw": 4.02,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.2",
+        "locale": "ja",
+        "dw": -10.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.3",
+        "locale": "ko",
+        "dw": -41.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.3",
+        "locale": "ja",
+        "dw": -47.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.4",
+        "locale": "ko",
+        "dw": -25.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.4",
+        "locale": "ja",
+        "dw": -43.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.5",
+        "locale": "ko",
+        "dw": -36.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.5",
+        "locale": "ja",
+        "dw": 2.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.6",
+        "locale": "ko",
+        "dw": 14.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.3.6",
+        "locale": "ja",
+        "dw": 7.39,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.3"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.0.0.1.1",
+        "locale": "ko",
+        "dw": -15.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.0.0.1.1",
+        "locale": "ja",
+        "dw": 16.42,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4.0"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.1",
+        "locale": "ko",
+        "dw": 6.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.1",
+        "locale": "ja",
+        "dw": 12.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.2",
+        "locale": "ko",
+        "dw": 4.02,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.2",
+        "locale": "ja",
+        "dw": -10.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.3",
+        "locale": "ko",
+        "dw": -41.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.3",
+        "locale": "ja",
+        "dw": -47.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.4",
+        "locale": "ko",
+        "dw": -25.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.4",
+        "locale": "ja",
+        "dw": -43.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.5",
+        "locale": "ko",
+        "dw": -36.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.5",
+        "locale": "ja",
+        "dw": 2.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.6",
+        "locale": "ko",
+        "dw": 14.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.4.6",
+        "locale": "ja",
+        "dw": 7.39,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.4"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.1",
+        "locale": "ko",
+        "dw": 6.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.1",
+        "locale": "ja",
+        "dw": 12.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.2",
+        "locale": "ko",
+        "dw": 4.02,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.2",
+        "locale": "ja",
+        "dw": -10.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.3",
+        "locale": "ko",
+        "dw": -41.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.3",
+        "locale": "ja",
+        "dw": -47.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.4",
+        "locale": "ko",
+        "dw": -25.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.4",
+        "locale": "ja",
+        "dw": -43.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.5",
+        "locale": "ko",
+        "dw": -36.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.5",
+        "locale": "ja",
+        "dw": 2.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.6",
+        "locale": "ko",
+        "dw": 14.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.5.6",
+        "locale": "ja",
+        "dw": 7.39,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.5"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.1",
+        "locale": "ko",
+        "dw": 6.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.1",
+        "locale": "ja",
+        "dw": 12.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.2",
+        "locale": "ko",
+        "dw": 4.02,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.2",
+        "locale": "ja",
+        "dw": -10.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.3",
+        "locale": "ko",
+        "dw": -41.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.3",
+        "locale": "ja",
+        "dw": -47.44,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.4",
+        "locale": "ko",
+        "dw": -25.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.4",
+        "locale": "ja",
+        "dw": -43.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.5",
+        "locale": "ko",
+        "dw": -36.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.5",
+        "locale": "ja",
+        "dw": 2.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.6",
+        "locale": "ko",
+        "dw": 14.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.3.1.6.6",
+        "locale": "ja",
+        "dw": 7.39,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.0.0.3.3.1.6"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.0.0.t",
+        "locale": "ko",
+        "dw": -21.95,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.0.0.t",
+        "locale": "ja",
+        "dw": -6.91,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.1.0.t",
+        "locale": "ko",
+        "dw": -7.95,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.1.0.t",
+        "locale": "ja",
+        "dw": 46.05,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.2.0.t",
+        "locale": "ko",
+        "dw": -19,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.2.0.t",
+        "locale": "ja",
+        "dw": -16.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.3.0.t",
+        "locale": "ko",
+        "dw": -26.66,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.3.0.t",
+        "locale": "ja",
+        "dw": 27.34,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.4.0.t",
+        "locale": "ko",
+        "dw": -29.77,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.4.0.t",
+        "locale": "ja",
+        "dw": -13.7,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.3.2.0",
+        "locale": "ko",
+        "dw": -23.7,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.3.2.0",
+        "locale": "ja",
+        "dw": -32.58,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.1.0",
+        "locale": "ko",
+        "dw": -32.62,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.1.0",
+        "locale": "ja",
+        "dw": 21.37,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.2.0",
+        "locale": "ko",
+        "dw": -23.34,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.2.0",
+        "locale": "ja",
+        "dw": -33.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.3.0",
+        "locale": "ko",
+        "dw": -22.95,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.0.1.0.3.0",
+        "locale": "ja",
+        "dw": -20.89,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.1.0",
+        "locale": "ko",
+        "dw": -8.12,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.1.0",
+        "locale": "ja",
+        "dw": -5.05,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.2.0",
+        "locale": "ko",
+        "dw": -8.11,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.2.0",
+        "locale": "ja",
+        "dw": -5.03,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.3.0",
+        "locale": "ko",
+        "dw": -8.12,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.1.1.0.3.0",
+        "locale": "ja",
+        "dw": -5.05,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.1.0",
+        "locale": "ko",
+        "dw": -9.75,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.1.0",
+        "locale": "ja",
+        "dw": 31.06,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.2.0",
+        "locale": "ko",
+        "dw": -29.11,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.2.0",
+        "locale": "ja",
+        "dw": -27.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.3.0",
+        "locale": "ko",
+        "dw": -19.47,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.0.2.1.0.3.0",
+        "locale": "ja",
+        "dw": -34.08,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.1.0.0.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.1.0.0.2.1",
+        "locale": "ko",
+        "dw": -50.31,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.1.0.0.2.1",
+        "locale": "ja",
+        "dw": 15.69,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.2.1.1.0",
+        "locale": "ko",
+        "dw": 115.09,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.0.1.0",
+        "locale": "ko",
+        "dw": -12.23,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.0.1.0",
+        "locale": "ja",
+        "dw": -10.19,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.0.2.0",
+        "locale": "ko",
+        "dw": -3.28,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.0.2.0",
+        "locale": "ja",
+        "dw": -13.19,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.0.3.0",
+        "locale": "ja",
+        "dw": 28.67,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.1.0",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.1.0",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.1.1",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.1.1",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.1.2",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.1.2",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.2.0",
+        "locale": "ko",
+        "dw": -30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.2.0",
+        "locale": "ja",
+        "dw": -5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.2.1",
+        "locale": "ko",
+        "dw": -30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.0.2.1",
+        "locale": "ja",
+        "dw": -5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.1.0",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.1.0",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.1.1",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.1.1",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.1.2",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.1.2",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.2.0",
+        "locale": "ko",
+        "dw": -23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.2.0",
+        "locale": "ja",
+        "dw": 2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.2.1",
+        "locale": "ko",
+        "dw": -23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.1.2.1",
+        "locale": "ja",
+        "dw": 2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.1.0",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.1.0",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.1.1",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.1.1",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.1.2",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.1.2",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.2.0",
+        "locale": "ko",
+        "dw": -30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.2.0",
+        "locale": "ja",
+        "dw": -5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.2.1",
+        "locale": "ko",
+        "dw": -30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.2.2.1",
+        "locale": "ja",
+        "dw": -5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.1.0",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.1.0",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.1.1",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.1.1",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.1.2",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.1.2",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.2.0",
+        "locale": "ko",
+        "dw": -23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.2.0",
+        "locale": "ja",
+        "dw": 2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.2.1",
+        "locale": "ko",
+        "dw": -23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.3.2.1",
+        "locale": "ja",
+        "dw": 2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.1.0",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.1.0",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.1.1",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.1.1",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.1.2",
+        "locale": "ko",
+        "dw": 23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.1.2",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.2.0",
+        "locale": "ko",
+        "dw": -23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.2.0",
+        "locale": "ja",
+        "dw": 2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.2.1",
+        "locale": "ko",
+        "dw": -23.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.4.2.1",
+        "locale": "ja",
+        "dw": 2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.1.0",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.1.0",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.1.1",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.1.1",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.1.2",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.1.2",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.2.0",
+        "locale": "ko",
+        "dw": -30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.2.0",
+        "locale": "ja",
+        "dw": -5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.2.1",
+        "locale": "ko",
+        "dw": -30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.5.2.1",
+        "locale": "ja",
+        "dw": -5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.1.0",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.1.0",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.1.1",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.1.1",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.1.2",
+        "locale": "ko",
+        "dw": 30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.1.2",
+        "locale": "ja",
+        "dw": 5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.2.0",
+        "locale": "ko",
+        "dw": -30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.2.0",
+        "locale": "ja",
+        "dw": -5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.2.1",
+        "locale": "ko",
+        "dw": -30.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.4.6.2.1",
+        "locale": "ja",
+        "dw": -5.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.0",
+        "locale": "ko",
+        "dw": -21.95,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.0",
+        "locale": "ja",
+        "dw": -6.91,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.3.1.0.1.0",
+        "locale": "ko",
+        "dw": -7.64,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.3.1.0.1.0",
+        "locale": "ja",
+        "dw": 6.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.3.1.0.2.0",
+        "locale": "ko",
+        "dw": -6.03,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.3.1.0.2.0",
+        "locale": "ja",
+        "dw": 7.98,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.4.0.1",
+        "locale": "ko",
+        "dw": -7.91,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.4.0.1",
+        "locale": "ja",
+        "dw": 25.28,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.4.1.0",
+        "locale": "ko",
+        "dw": 28.34,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.2.0.0.3.2.4.1.0",
+        "locale": "ja",
+        "dw": 36.72,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.0.0.t",
+        "locale": "ko",
+        "dw": -21.95,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.0.0.t",
+        "locale": "ja",
+        "dw": -6.91,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.1.0.t",
+        "locale": "ko",
+        "dw": -7.95,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.1.0.t",
+        "locale": "ja",
+        "dw": 46.05,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.2.0.t",
+        "locale": "ko",
+        "dw": -19,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.2.0.t",
+        "locale": "ja",
+        "dw": -16.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.3.0.t",
+        "locale": "ko",
+        "dw": -26.66,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.3.0.t",
+        "locale": "ja",
+        "dw": 27.34,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.4.0.t",
+        "locale": "ko",
+        "dw": -29.77,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.4.0.t",
+        "locale": "ja",
+        "dw": -13.7,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.3.2.0",
+        "locale": "ko",
+        "dw": -23.7,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.3.2.0",
+        "locale": "ja",
+        "dw": -32.58,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.0",
+        "locale": "ko",
+        "dw": -21.95,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.0",
+        "locale": "ja",
+        "dw": -6.91,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.0.0",
+        "locale": "ja",
+        "dw": -39.34,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.0.2",
+        "locale": "ja",
+        "dw": 39.34,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.1.0",
+        "locale": "ko",
+        "dw": 18.94,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.1.0",
+        "locale": "ja",
+        "dw": 20.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.1.2",
+        "locale": "ko",
+        "dw": -18.94,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.1.2",
+        "locale": "ja",
+        "dw": -20.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.2.0",
+        "locale": "ko",
+        "dw": 18.94,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.2.0",
+        "locale": "ja",
+        "dw": 20.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.2.2",
+        "locale": "ko",
+        "dw": -18.94,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.2.1.2.2",
+        "locale": "ja",
+        "dw": -20.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.3.1.0.1.0",
+        "locale": "ko",
+        "dw": -7.64,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.3.1.0.1.0",
+        "locale": "ja",
+        "dw": 6.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.3.1.0.2.0",
+        "locale": "ko",
+        "dw": -6.03,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.3.1.0.2.0",
+        "locale": "ja",
+        "dw": 7.98,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.4.0.1",
+        "locale": "ko",
+        "dw": -6.91,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.4.0.1",
+        "locale": "ja",
+        "dw": 22.14,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.4.1.0",
+        "locale": "ko",
+        "dw": 28.34,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/models/[slug] @ mobile-402x874",
+        "path": "body.1.0.0.2.0.0.3.2.4.1.0",
+        "locale": "ja",
+        "dw": 36.72,
         "dh": 0,
         "fixedAncestor": null
       },

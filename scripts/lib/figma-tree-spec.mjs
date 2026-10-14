@@ -1243,6 +1243,33 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", maxWidth: fit.heightLimited ? node.rect.width : nodeSizing.maxWidth };
       stats.containFit = (stats.containFit ?? 0) + 1;
     }
+    const absConstraints = decision.absolute
+      ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null, parent ? {
+        viewport: viewportStage(parent, byPath),
+        siblings: (childrenOf.get(parent.path) ?? []).filter((sibling) => sibling !== node),
+      } : null, { text: Boolean(node.ownText) })
+      : null;
+    // **아래 변에 붙은 절대 배치 상자는 내용 높이다 — 위로 자란다(2026-10-15, 조립 규칙 15조의 18).** 높이 선언이 없는 절대 배치 상자는 CSS 에서
+    // 내용 높이이고, `bottom` 만 걸렸으면 내용이 늘 때 위로 자란다. 절대 배치는 늘 측정 높이(FIXED)로 서서, 카드 아래 글 상자(`absolute inset-x-0
+    // bottom-0`)의 제목이 폭 360 에서 두 줄로 감기자 둘째 줄이 상자 밖 · 카드 아래로 5 나갔다(/creative-media 모바일 템플릿 카드). Figma 의 세로 HUG
+    // 자동 배치 프레임은 아래(MAX) 제약이면 위로 자란다(라이브 탐침: y 163.5 → 142.5, 아래 변 222.5 그대로). 판정: 절대 배치 · 자동 배치(GRID 아님) ·
+    // 제약 세로 MAX · 높이 · 최소 · 최대 높이 선언 없음 · 흐름 자식이 있고 세로 FILL 이 없음 · 측정 높이가 흐름 자식의 범위 + 안쪽 여백과 1 안에서 같다
+    // (HUG 로 풀어도 측정 크기 그대로).
+    if (absConstraints?.vertical === "MAX" && layoutMode !== "NONE" && layoutMode !== "GRID" && !floatingLine
+      && nodeSizing.layoutSizingVertical === "FIXED" && !nodeSizing.minHeight && !nodeSizing.maxHeight) {
+      const declaredHeight = String(node.declared?.height ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+      const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+      const top = node.rect.y + (px(style.paddingTop) ?? 0) + (px(style.borderTopWidth) ?? 0);
+      const bottom = node.rect.y + node.rect.height - (px(style.paddingBottom) ?? 0) - (px(style.borderBottomWidth) ?? 0);
+      const first = Math.min(...flow.map((child) => child.rect.y - Math.max(0, child.margin?.top ?? 0)));
+      const last = Math.max(...flow.map((child) => child.rect.y + child.rect.height + Math.max(0, child.margin?.bottom ?? 0)));
+      if ((!declaredHeight || declaredHeight === "auto") && flow.length > 0
+        && flow.every((child) => child.sizing?.layoutSizingVertical !== "FILL")
+        && Math.abs(first - top) <= 1 && Math.abs(last - bottom) <= 1) {
+        nodeSizing = { ...nodeSizing, layoutSizingVertical: "HUG" };
+        stats.bottomHug = (stats.bottomHug ?? 0) + 1;
+      }
+    }
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren)
       : layoutMode === "VERTICAL" && !split && !stackedText && !padded
         ? flowSlack(node, style, children, rawChildren, nodeSizing, options.recordedBottom ?? null, parent, parent ? (childrenOf.get(parent.path) ?? []) : []) : null;
@@ -1315,12 +1342,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       offset: decision.absolute && parent
         ? { x: node.rect.x - parent.rect.x, y: node.rect.y - parent.rect.y }
         : null,
-      constraints: decision.absolute
-        ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null, parent ? {
-          viewport: viewportStage(parent, byPath),
-          siblings: (childrenOf.get(parent.path) ?? []).filter((sibling) => sibling !== node),
-        } : null, { text: Boolean(node.ownText) })
-        : null,
+      constraints: absConstraints,
       why: { horizontal: decision.h, vertical: decision.v },
       // **자동 배치 없는 글자 상자의 안쪽 여백(2026-10-12 오후).** 입력칸처럼 자식 없이 글자(placeholder)를 그리는 면은 layout 이 null 이라
       // padding 이 실리지 않아, 렌더러가 글자를 면 전체에 펼쳤다 — 노드캔버스 레이어 검색칸(pl 28)의 「Search layers」 가 x 0 에서 돋보기와 겹쳤다.

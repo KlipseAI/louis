@@ -16530,6 +16530,187 @@
         ]
       }
     },
+    "DrillPicker": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 6,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "picker": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "itemSpacing": [
+                6
+              ],
+              "minHeight": [
+                28
+              ]
+            },
+            "Back": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "BackGlyph": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            },
+            "ListDivider": {
+              "height": [
+                1
+              ]
+            },
+            "List": {
+              "paddingBlock": [
+                6
+              ],
+              "itemSpacing": [
+                2
+              ]
+            },
+            "Footer": {
+              "paddingBlock": [
+                10
+              ],
+              "paddingBlockEnd": [
+                4
+              ],
+              "paddingInline": [
+                4
+              ],
+              "paddingInlineEnd": [
+                4
+              ]
+            }
+          },
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "DrillPickerRow": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "Badge": {
+          "type": "BOOLEAN"
+        },
+        "Icon": {
+          "type": "BOOLEAN"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        },
+        "Checked": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 15,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "row": {
+          "slots": {},
+          "parts": {
+            "Thumb": {
+              "width": [
+                92
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Meta": {
+              "itemSpacing": [
+                4
+              ]
+            },
+            "LabelRow": {
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            6
+          ],
+          "paddingInlineEnd": [
+            6
+          ],
+          "itemSpacing": [
+            10
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "DropZone": {
       "variantCount": 8,
       "hasDescription": true,

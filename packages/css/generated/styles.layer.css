@@ -7166,6 +7166,219 @@
 }
 
 @layer louis.component {
+  /* Drill Picker — design/components/drill-picker.md (DS-D-0105)
+   *
+   * 폴더(프로젝트)를 열고 그 안의 항목(영상)을 여럿 골라 가져오는 Finder 식 피커 본문이다. 정본은 영상 편집기의 「프로젝트에서 가져오기」
+   * (통합 판 `54b62a8aa` `components/scenes/VideoEditProjectPicker.tsx:23-171`). 두 단계다.
+   *
+   * 1. 폴더 목록 — 행은 [Selectable List Row](selectable-list-row.md) 이동 행(`data-layout="link"`)을 그대로 쓴다. 이 레시피는 목록 상자만 갖는다.
+   * 2. 항목 목록 — 머리(뒤로 · 폴더 이름) + 고르기 행(`__check-row`, 체크박스 · 16:9 썸네일 · 종류 배지 · 이름) + 가져오기 발(`__footer`).
+   *
+   * 고르기 행이 Selectable List Row 가 아닌 이유: 선택을 **체크박스**가 갖는 여럿 고르기 목록이다(그 문서 「쓰지 않는 자리」). 행은 `<label>` 이라
+   * 컨트롤이 중첩되지 않는다.
+   *
+   * 고쳐 올린 값(DS-D-0084 3항): 실패 · 빈 목록 글 rgb(251 146 150) 96%(라이트 메뉴 면 위 1.91:1) → `fg-danger-on-surface`, 뒤로 · 행 잉크의 고정
+   * 팔레트 알파 → `fg-secondary` · `fg-primary`. 수렴(대비 결함 아님): 가져오기 버튼의 primary 32% 면 → `.louis-button` primary(DS-D-0105 판정 4),
+   * 종류 배지의 primary 16% 면 → `.louis-badge` info. */
+  .louis-drill-picker {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--louis-space-overlay-item-content-gap);
+    min-inline-size: 0;
+    min-block-size: 0;
+    color: var(--louis-color-fg-secondary);
+  }
+
+  /* 머리 — 뒤로 28 + 폴더 이름. 제품 `min-h-14 gap-3`. */
+  .louis-drill-picker__head {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--louis-space-overlay-item-content-gap);
+    min-block-size: 28px;
+    min-inline-size: 0;
+  }
+
+  .louis-drill-picker__back {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: 28px;
+    block-size: 28px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--louis-radius-control-sm);
+    background: var(--louis-color-accent-secondary);
+    color: var(--louis-color-fg-secondary);
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .louis-drill-picker__back > :where(svg) {
+    inline-size: var(--louis-icon-size-sm);
+    block-size: var(--louis-icon-size-sm);
+  }
+
+  @media (hover: hover) {
+    .louis-drill-picker__back:hover {
+      background: var(--louis-color-accent-secondary-hover);
+      color: var(--louis-color-fg-primary);
+    }
+  }
+
+  .louis-drill-picker__title {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--louis-color-fg-primary);
+    font-family: var(--louis-typography-body-sm-semibold-font-family);
+    font-size: var(--louis-typography-body-sm-semibold-font-size);
+    font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+    line-height: var(--louis-typography-body-sm-semibold-line-height);
+    letter-spacing: var(--louis-typography-body-sm-semibold-letter-spacing);
+  }
+
+  /* 목록 상자 — 위 경계 하나, 남는 높이를 채우고 넘치면 스크롤. 위 여백 6 은 항목 목록(제품 `ROW_LIST pt-3`)의 값이다 — 폴더 목록의
+   * `pt-1`(2)은 한 값으로 접었다(문서 Known deviations 2). */
+  .louis-drill-picker__list {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--louis-space-overlay-item-gap);
+    min-block-size: 0;
+    margin: 0;
+    padding: var(--louis-space-overlay-item-content-gap) 0 0;
+    overflow-y: auto;
+    list-style: none;
+    border-block-start: var(--louis-border-width-default) solid var(--louis-color-stroke-subtle);
+  }
+
+  /* 고르기 행 — `<label>` 하나가 체크박스 · 썸네일 · 글을 품는다. 여백 8 · 6, 간격 10(제품 `py-4 px-3 gap-5`). */
+  .louis-drill-picker__check-row {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    inline-size: 100%;
+    margin: 0;
+    padding: var(--louis-space-control-sm) var(--louis-space-overlay-item-content-gap);
+    border-radius: var(--louis-radius-control-sm);
+    color: var(--louis-color-fg-secondary);
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+    font-family: var(--louis-typography-body-sm-regular-font-family);
+    font-size: var(--louis-typography-body-sm-regular-font-size);
+    font-weight: var(--louis-typography-body-sm-regular-font-weight);
+    line-height: var(--louis-typography-body-sm-regular-line-height);
+    letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  }
+
+  @media (hover: hover) {
+    .louis-drill-picker__check-row:hover {
+      background: var(--louis-color-accent-ghost-hover);
+      color: var(--louis-color-fg-primary);
+    }
+  }
+
+  /* 썸네일 — 92 폭 16:9(제품 `w-46 aspect-[16/9] rounded-8`), 경계 1. */
+  .louis-drill-picker__thumb {
+    box-sizing: border-box;
+    display: block;
+    flex: none;
+    inline-size: 92px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: var(--louis-border-width-default) solid var(--louis-color-stroke-subtle);
+    border-radius: var(--louis-radius-control-sm);
+    background: var(--louis-color-accent-secondary);
+  }
+
+  .louis-drill-picker__thumb > :where(img, video) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* 글 묶음 — 배지(또는 아이콘 줄) 위 · 이름 아래. 제품 `gap-2` = 4. */
+  .louis-drill-picker__meta {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--louis-space-control-xs);
+    min-inline-size: 0;
+  }
+
+  /* 아이콘 + 이름 한 줄(노드에서 온 영상). 제품 `gap-4` = 8, 아이콘 `mt-1` = 2. */
+  .louis-drill-picker__label-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--louis-space-control-sm);
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+
+  .louis-drill-picker__label-row > :where(svg) {
+    flex: none;
+    inline-size: var(--louis-icon-size-sm);
+    block-size: var(--louis-icon-size-sm);
+    margin-block-start: var(--louis-space-overlay-item-gap);
+  }
+
+  .louis-drill-picker__label {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* 실패 · 빈 목록 글. */
+  .louis-drill-picker__message {
+    flex: none;
+    margin: 0;
+    color: var(--louis-color-fg-danger-on-surface);
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  }
+
+  /* 가져오기 발 — 위 경계 + 여백 10 · 4 · 4(제품 `pt-5 px-2 pb-2`). 버튼은 `.louis-button` 이 그린다. */
+  .louis-drill-picker__footer {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    padding: 10px var(--louis-space-control-xs) var(--louis-space-control-xs);
+    border-block-start: var(--louis-border-width-default) solid var(--louis-color-stroke-subtle);
+  }
+
+  .louis-drill-picker__footer > .louis-button {
+    inline-size: 100%;
+  }
+
+  @media (forced-colors: active) {
+    .louis-drill-picker__list,
+    .louis-drill-picker__footer {
+      border-block-start-color: CanvasText;
+    }
+  }
+}
+
+@layer louis.component {
   /* Drop Zone — design/components/drop-zone.md
    *
    * 파일을 받는 큰 눌림 면이다. 누르면 파일 선택 창이 열리고, 파일을 끌어다 놓아도 받는다.

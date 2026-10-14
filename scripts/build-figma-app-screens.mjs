@@ -706,7 +706,7 @@ const PRODUCT_PARTS = [
   },
   {
     set: "Product/Admin Section Header",
-    about: "어드민 머리(app/admin/AdminSection.tsx AdminSectionHeader — level=page · 제목 · 메타 · 오른쪽 아이콘 동작). 측정은 /admin 유저 관리 탭(빈 목록)이다. section · label 단계와 설명 칸은 측정되지 않은 탭 · 모달에만 있다.",
+    about: "어드민 머리(app/admin/AdminSection.tsx AdminSectionHeader — level=page · 제목 · 메타 · 오른쪽 아이콘 동작). 측정은 /admin 유저 관리 탭(시드 사용자 한 명 — 2026-10-15 프로필 시드부터, 전에는 빈 목록 「0 users」)이다. section · label 단계와 설명 칸은 측정되지 않은 탭 · 모달에만 있다.",
     // 통합 판(2026-10-08): 어드민 글자가 영어가 되고(「유저 관리」 → 「Users」) 필터 칩 · 정렬 · 새로고침 막대가 머리 밖의 검색 · 필터 줄로 갈라졌다.
     // 머리는 제목 · 메타 · 새로고침 아이콘 버튼(inlineActions)만 남아 옛 자리 body.1.0.0.1.0.0.0.1.1 이 아니라 그 형 .1.0 이다.
     variants: [
@@ -714,7 +714,7 @@ const PRODUCT_PARTS = [
       ["Viewport=Mobile", "mobile-402x874", "2683:4189"],
     ].map(([variant, context, component]) => ({
       variant, route: "/admin", context, path: "body.1.0.0.1.0.0.0.1.0", fixture: "session", component,
-      anchor: ["Users", "0 users"],
+      anchor: ["Users", "1 users"],
     })),
   },
   {

@@ -562,7 +562,7 @@
     },
     {
       "setName": "Product/Admin Section Header",
-      "about": "어드민 머리(app/admin/AdminSection.tsx AdminSectionHeader — level=page · 제목 · 메타 · 오른쪽 아이콘 동작). 측정은 /admin 유저 관리 탭(빈 목록)이다. section · label 단계와 설명 칸은 측정되지 않은 탭 · 모달에만 있다.",
+      "about": "어드민 머리(app/admin/AdminSection.tsx AdminSectionHeader — level=page · 제목 · 메타 · 오른쪽 아이콘 동작). 측정은 /admin 유저 관리 탭(시드 사용자 한 명 — 2026-10-15 프로필 시드부터, 전에는 빈 목록 「0 users」)이다. section · label 단계와 설명 칸은 측정되지 않은 탭 · 모달에만 있다.",
       "variants": [
         {
           "variant": "Viewport=Desktop",
@@ -577,7 +577,7 @@
           "signature": {
             "texts": [
               "Users",
-              "0 users"
+              "1 users"
             ],
             "structure": [
               2
@@ -604,7 +604,7 @@
           "signature": {
             "texts": [
               "Users",
-              "0 users"
+              "1 users"
             ],
             "structure": [
               2

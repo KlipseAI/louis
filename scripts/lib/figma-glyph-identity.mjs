@@ -1010,6 +1010,12 @@ export const PRODUCT_GLYPHS = Object.freeze([
     louis: null,
     verdict: "missing",
     why: "분석 「데이터 부족」 안내의 느낌표 원(`components/scenes/analytics/shared.tsx:531-541` InsufficientNotice — 20 상자 원 · 세로 선 · 점)이다. LOUIS 에는 점이 위 · 선이 아래인 `icon/info` 뿐이고 선이 위 · 점이 아래인 경고 원은 없다(하이라이트 스튜디오의 `alert-circle-studio` 와 같은 뜻의 다른 좌표).",
+  {
+    id: "admin-sort-arrow-down-10",
+    signature: "0 0 10 10|path(d=M5 1.5v7M2 5.5l3 3 3-3)",
+    louis: null,
+    verdict: "missing",
+    why: "어드민 사용자 표 머리의 정렬 단추(`aria-label` 「Sort by Joined, descending」)가 활성 열 옆에 그리는 내림차순 화살표다 — 10 상자에 세로 선 하나와 아래 화살촉, 1.4 획(`app/admin/AdminClient.tsx:626-633`, 오름차순이면 같은 자리에 위 화살표). 표에 사용자가 한 명이라도 있어야 머리가 서므로 프로필 시드(2026-10-15)부터 재졌다. LOUIS 화살표는 `arrow-up` 뿐이고 방향을 축으로 두지 않는다(위 `arrow-left` 와 같은 판정).",
   },
 ]);
 

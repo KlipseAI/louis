@@ -13,15 +13,15 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 179,
+    "mapped": 181,
     "scoped": 324,
-    "needed": 107,
+    "needed": 105,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 8,
-    "screen": 89,
+    "screen": 87,
     "oneoff": 10,
     "unclear": 0,
     "kindless": 0
@@ -3672,12 +3672,13 @@
         "louis-banner",
         "louis-glass-surface"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "홈(/archive) 화면 전체. 배너 캐러셀 마크업(Figma BannerCarousel 의 실측 정본이 이 파일과 appHomeSceneStyles 에 있다)·아카이브 카드 그리드·제목 인라인 이름변경·확인 모달·토스트를 한 화면에 담는데, 카드가 LOUIS project-card 정본을 쓰지 않고 archiveCard 계열로 자체 복제돼 있다. ProjectCard 확장 + 홈 화면 보드가 함께 필요하다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/archive/page.tsx), JSX 1곳. 라우트 /archive 하나뿐. 1427줄에 배너 캐러셀·카드 그리드·인라인 이름변경·확인 모달·토스트를 다 담은 화면 자체다. 단어 grep 은 20+ 로 나오지만 전부 다른 파일의 주석 언급이라 실사용이 아니다. 다만 이 화면의 archiveCard 는 HighlightScene·VideoEditScene 과 같은 그리드의 사본이라, 보드보다 ProjectCard 확장이 먼저다."
+      "verdict": "figma",
+      "figma": "screen:/archive seeded",
+      "reason": "홈(/archive) 화면의 시드 보드다(DS-D-0098). 배너 캐러셀 · 「최근 프로젝트」 카드 그리드 · 「새로 만들기」를 그린다(카드 · 메뉴 · 확인 모달 · 토스트는 각자 LOUIS 대응). 같은 파일에 needed 가 없고, 데스크톱 · 모바일 보드가 늘림 시험을 통과한다(run 2026-10-14b — 배너 글 상자의 auto 여백을 가운데 정렬로, 조립 규칙 15조의 12).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "auth fixture 시드가 배너(Placeholder banner A)와 캔버스 · 편집 프로젝트 카드(Hydra Glow Launch · Texture Cutdown · Daily Routine Edit …)를 채운다 — 「No projects yet」 빈 상태가 아니다."
     },
     "apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx#ListCardSkeleton": {
       "file": "apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
@@ -6341,12 +6342,13 @@
         "louis-selectable-list",
         "louis-selectable-list-row"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "/highlight/[projectId] 의 새 화면으로 리뷰와 결과를 한 판에 합쳤다. 무대 · 막대 · 트랙 · 인스펙터(탭, 체크박스, 정렬)와 폰 판(:319-1557)을 그린다. 판이 서기 전 단계(loading · uploading · analyzing · stopped, :59-91)까지 맡아 옛 업로드 · 분석 · 리뷰 · 완료 격자를 모두 대체한다. louis 12종을 물지만 판 배치는 Figma 에 없고, 기존 단계 보드는 옛 레이아웃이다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "운영 소비처는 HighlightProjectScene.tsx:2568 한 곳, 라우트도 하나다. HighlightStudioBoardPreview.tsx:191 은 개발 전용이라 되풀이 근거가 아니다. 1559줄짜리 화면 한 장이므로 상태별 보드로 그린다."
+      "verdict": "figma",
+      "figma": "screen:/highlight/[projectId] completed",
+      "reason": "하이라이트 스튜디오 판의 완료 상태 보드다(DS-D-0098). 무대 · 재생 막대 · 구간 트랙(segment-track) · 클립 목록 인스펙터를 그린다. 같은 파일의 StudioAlert 는 Alert 대응, StageMoreMenu 는 범위 밖이라 needed 가 없고, 두 보드가 늘림 시험을 통과한다(run 2026-10-14b — 백분율 시작 변 절대 배치를 부모에 비례, 조립 규칙 15조의 11).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "fixture 시드 하이라이트 작업(상태 extracted)의 클립 다섯(Placeholder clip title 1 ~ 5)과 구간 트랙 · 시간 눈금이 판을 채운다 — 업로드 · 분석 이전 단계 보드가 아니다."
     },
     "apps/web/components/scenes/highlight/HighlightStudioBoard.tsx#StageMoreMenu": {
       "file": "apps/web/components/scenes/highlight/HighlightStudioBoard.tsx",

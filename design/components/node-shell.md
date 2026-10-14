@@ -44,8 +44,8 @@ summary: 캔버스 노드의 겉 — 카드 위에 얹힌 헤더 한 줄과 그 
 
 | Surface       | 상태             | 근거 |
 | ------------- | ---------------- | ---- |
-| Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 **브라우저 시험이 아직 없다** |
-| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. 입력판은 2026-10-08 에 단일 컴포넌트 둘로 섰다 — NodeComposer(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 NodeComposerError(TEXT `Message`). 입력판 값은 레시피 선언 기록(`node-composer`)과 맞대고 브라우저 되재기는 없다(아래 「입력판 — Figma」) |
+| Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 기하는 `node-composer-geometry.browser.test.tsx` 가 기록 `node-composer` 두 칸을 레시피 마크업으로 되잰다(2026-10-14) |
+| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. 입력판은 2026-10-08 에 단일 컴포넌트 둘로 섰다 — NodeComposer(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 NodeComposerError(TEXT `Message`). 입력판 값은 레시피 선언 기록(`node-composer`)과 맞대고 그 기록을 브라우저가 되잰다(아래 「입력판 — Figma」) |
 | Documentation | `done`           | 이 문서 |
 | Maturity      | `experimental`   | Figma 가 코드보다 앞서 있다. 카드 테두리는 2026-10-08 에 캔버스 토큰 `color-node-card-stroke` 로 제품과 맞췄고(DS-D-0082) Figma 결합도 2026-10-09 에 옮겼다(아래 Known deviations 1) |
 
@@ -212,7 +212,7 @@ NodeShell (세로, 간격 4, 폭 400)
   `typography/caption-regular` 대표값(레시피가 글자 크기를 선언하지 않는다 — 상속), 잉크 `color/accent-danger`, 최대 3줄 말줄임이다.
 - 계약은 parity 의 `NodeComposer` · `NodeComposerError`(manifest 항목 `node-shell` 의 `figmaNames` 셋)이고 값은 기록
   `figma/components.measured.json` 의 `node-composer`(`composer` · `error` 두 칸, 레시피 선언)다 — `verify-recipe-record` 가 레시피와
-  맞댄다. 입력판을 렌더하는 브라우저 시험은 아직 없다.
+  맞댄다. 그 기록을 코드가 여전히 만드는지는 `packages/react/test/node-composer-geometry.browser.test.tsx` 가 입력판 마크업을 렌더해 잰다(2026-10-14, DS-D-0035 (c)).
 
 ## When to use
 

@@ -20,7 +20,7 @@ summary: 한 줄에 놓인 두셋 중 하나를 고릅니다.
 | Surface       | 상태           | 근거                                                                                   |
 | ------------- | -------------- | -------------------------------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | 트랙 set 10 variant(Size: lg·md·sm·xs·settings × Disabled) · 세그먼트 set 20 variant(Size: lg·md·xs·settings × State 5 — 2026-10-06 Focus 를 걷었다, DS-D-0074). **세그먼트 쪽에 `sm`이 아직 없다** — 코드·CSS·브라우저 테스트에는 있고 Figma Item 에만 빠진 부채이며 verify-figma-parity 의 SegmentedControlItem 계약 주석이 그 사연을 갖는다. parity 게이트가 lg·md·settings 세 칸의 기하를 Label·FocusRing까지 대조하며 raw fill·stroke 0이다. publish는 DS-F-008 |
+| Figma         | `partial`      | 트랙 set 10 variant(Size: lg·md·sm·xs·settings × Disabled) · 세그먼트 set 20 variant(Size: lg·md·xs·settings × State 5 — 2026-10-06 Focus 를 걷었다, DS-D-0074). **세그먼트 쪽에 `sm`이 아직 없다** — 코드·CSS·브라우저 테스트에는 있고 Figma Item 에만 빠진 부채이며 verify-figma-parity 의 SegmentedControlItem 계약 주석이 그 사연을 갖는다. parity 게이트가 트랙은 lg·md·sm·xs·settings 다섯 칸, 세그먼트는 lg·md·xs·settings 네 칸의 기하를 Label까지 대조하며(xs 는 2026-10-14 소유자 판정 「코드가 정본」 뒤에 붙였다) raw fill·stroke 0이다. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                                                |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                             |
 
@@ -335,7 +335,7 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
   `"lg" | "md" | "sm" | "xs"` · `components.measured.json`의 `sizes.sm` · 브라우저 테스트의
   `SIZES` 넷이 모두 그 커밋에서 섰다. 미룬 날이 이미 지났다는 뜻이며, 판정은 미래가 아니라
   **밀린 것**이다.
-- **`xs` 칸이 세 곳에서 서로 다르다.** 이름 문제와 별개로 값이 갈려 있다.
+- ~~**`xs` 칸이 세 곳에서 서로 다르다.**~~ **2026-10-14 해소 — 소유자 판정: 코드가 정본.** 아래 표는 판정 전의 기록이다.
 
   | 축 | 제품 정본 | LOUIS CSS | Figma |
   | --- | --- | --- | --- |
@@ -350,10 +350,11 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
   값을 그대로 물려받은 것이고, 세그먼트 28은 트랙 높이를 그대로 쓴 것이라 padding 3과 양립하지
   않는다(28 + 3×2 = 34 ≠ 28).
 
-  **어느 게이트도 이 칸을 보지 않는다.** `components.measured.json`에 `xs` 단이 아예 없어
-  (`grep -c '"xs"'` → 0) 브라우저 테스트도 `SIZES`에서 빼 두었고, parity 계약도 `xs`를 대조하지
-  않는다. 닫는 순서는 **값 확정 → measured에 `xs` 단 추가 → 두 계약에 그 단 부착 → Figma 수정 →
-  브라우저 테스트 `SIZES`에 추가**이며, 첫 단계가 위 이름 판정과 같은 자리에서 나야 한다.
+  **닫은 순서(2026-10-14).** 소유자가 LOUIS CSS 열(28 · 3 · 10 · 세그먼트 22 · 반경 7 · 좌우 8)을 정본으로 골랐고, Figma 를
+  그 값으로 옮긴 뒤(SegmentedControl Size=xs 두 칸 · SegmentedControlItem Size=xs 다섯 칸) `components.measured.json` 의
+  `segmented-control.sizes.xs` 를 레시피 선언에서 세우고, parity 의 두 계약(`SegmentedControl` · `SegmentedControlItem`)에
+  `xs` 를 붙이고, 브라우저 테스트 `SIZES` 에 `xs` 를 더했다. 제품 정본(반경 8 · 좌우 10)과의 차이는 남는다 — 제품이
+  LOUIS 를 물 때 레시피 값으로 옮겨 간다. 이름(`xs` 가 `sm` 보다 크다) 판정은 위 항목대로 별개로 남아 있다.
 - **`SegmentedControlItem`의 `Size`에만 `sm`이 없다.** 트랙 쪽은 그 뒤 Figma에 그려져
   `SegmentedControl.Size`가 `[lg, md, xs, sm]` 넷이 됐고 parity의 그 줄은 닫혔다. **세그먼트
   set은 아직 셋이다** — 18변형 = `lg`·`md`·`xs` × 6상태. 그래서 `sm` 여섯 변형이 Figma에 없고,

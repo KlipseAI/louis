@@ -2329,6 +2329,29 @@
           "borderWidth": 0.5,
           "$borderWidth": "0.5px. hairline 선언 토큰"
         },
+        "xs": {
+          "$size": "비디오 에디터 인스펙터의 지역 예외(사다리 칸이 아니다 — segmented-control.css 의 xs 주석). **2026-10-14 소유자 판정 — 코드가 정본.** 코드 · Figma · 제품이 세 갈래로 갈려 있었고(Figma 트랙 여백 4 · 반경 12 · 세그먼트 28, 제품 세그먼트 반경 8 · 좌우 10) 소유자가 레시피를 정본으로 골랐다. Figma 는 같은 날 이 값으로 옮겼다(SegmentedControl Size=xs 771:858 · 771:866, SegmentedControlItem Size=xs 다섯 칸). 값은 전부 `.louis-segmented-control[data-size=\"xs\"]` 선언과 그 파생이다.",
+          "trackHeight": 28,
+          "$trackHeight": "layout-inspector-control-height 28",
+          "trackPadding": 3,
+          "$trackPadding": "3px 리터럴 — `.louis-segmented-control[data-size=\"xs\"] { padding: 3px }`. 간격 계단(4 · 8 · 12)에 없는 값이고 인스펙터 한 곳의 밀도라 계단을 늘리지 않는다(CSS 주석)",
+          "trackRadius": 10,
+          "$trackRadius": "radius-inspector-control 10",
+          "segmentHeight": 22,
+          "$segmentHeight": "28 − 3×2. 트랙에서 padding 두 겹을 뺀 값(세그먼트는 높이를 선언하지 않고 트랙 안을 채운다)",
+          "segmentRadius": 7,
+          "$segmentRadius": "7px 리터럴 — 파생식(바깥 10 − padding 3). sm 의 6 과 같은 성질이다",
+          "segmentPaddingInline": 8,
+          "$segmentPaddingInline": "space-control-sm 8. 제품 정본은 좌우 10 이었으나 소유자 판정(2026-10-14)으로 레시피의 8 이 정본이다",
+          "segmentGap": 8,
+          "$segmentGap": "space-control-sm 8. 사다리 상수(기본 세그먼트 규칙을 그대로 받는다)",
+          "fontSize": 12,
+          "$fontSize": "caption-medium 12px",
+          "lineHeight": 18,
+          "$lineHeight": "caption-medium line-height 18px",
+          "borderWidth": 0.5,
+          "$borderWidth": "0.5px. hairline 선언 토큰"
+        },
         "settings": {
           "$size": "사다리가 아니라 **컴포넌트 지역 예외**다(`xs` 가 간 길). 설정·구독 화면의 토글에서 쓴다 — 제품 정본은 `apps/web/components/scenes/myPageSceneStyles.ts` 의 `settingsToggleWrap`·`settingsToggleBtn`·`settingsToggleThumb` 이고, 그 파일이 스스로 SSOT 라 적는다. 소비처는 SettingsScene 의 KOR/ENG·시스템/라이트/다크 토글, 구독 화면의 크레딧 이력 카테고리 필터, 프로필 팝오버의 테마 토글이다. **이름이 쓰임새인 것은 일부러다** — 사다리 어휘로 부르면 40·36·32·28·24 다섯 값에 순서를 다시 매겨야 하고, 이 축에는 이미 순서를 거짓말하는 `xs` 가 있어 거짓이 둘로 는다. 쓰임새 이름은 순서를 주장하지 않는다.",
           "trackHeight": 36,
@@ -2608,6 +2631,8 @@
           "borderWidth": 0,
           "$height": "layout-app-shell-top-bar-height 40 (DS-D-0018). 정렬의 기준이 40이다. 제품의 카드 안 바는 높이를 선언하지 않아(Gnb.tsx:460 `[min-block-size:0]` · :483 `[padding:8px_var(--mainchrome-pad-x)]`) 세로 패딩 + 가장 큰 자식 + 세로 패딩 + 아래 헤어라인으로 계산된다 — 그 결과는 가장 큰 자식을 따라 움직이므로(제품 6f6282c1 이 프로필 버튼을 줄이자 함께 낮아졌다) 이 기록에 수로 두지 않는다. 측정은 figma/product-app-shell.plan.json 의 component.variants[].rect 가 갖는다",
           "$paddingInline": "layout-app-shell-content-inset 16. 본문과 같은 원천을 읽는다",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 기본 바는 padding-block 을 선언하지 않는다(app-shell.css `.louis-app-top-bar`) — 높이는 하한 `min-block-size` 40 이 정한다. 캔버스 판(아래 `canvas`)만 위아래 8 을 갖는다.",
           "$borderWidth": "0. 경계선은 기본이 아니다 — 제품의 것은 스크롤 진행률에 따라 색이 변하는 런타임 계약이다",
           "titleFontSize": 16,
           "$titleFontSize": "body-md 16. 배포본 mainChromePageNavTitle이 --type-body-16-*를 쓴다(16/24/500).",
@@ -2616,6 +2641,18 @@
           "$leadingSlot": "**선행 슬롯의 높이도 이 기록에 없다(2026-09-14).** 후행과 같은 CSS 규칙이다 — app-shell.css 의 .louis-app-top-bar__leading, .louis-app-top-bar__trailing 은 display · flex · align-items · gap 뿐이고, .louis-app-top-bar__leading 은 gap 만 다시 선언한다. 제품의 선행 클러스터(Gnb.tsx:317-320 mainChromeLeadingCluster)도 그 클래스만 달고 높이를 선언하지 않아, 담은 사이드바 토글의 선언(Gnb.tsx:386 `[height:32px]`)을 받는다. 그 토글은 IconButton md 칸이므로 verify-figma-parity 의 AppTopBar 계약은 Leading 자손 높이를 icon-button.sizes.md.height 에서 읽는다. 여기 있던 `leadingSlotHeight` 32 는 그 선언의 사본이었다 — 값은 지금 IconButton 기록과 같지만, 후행 슬롯의 사본이 ProgressRing 이 옮긴 뒤에도 남았던 것과 같은 자리라 함께 걷었다(figma-screen-assembly.md 28번 「기록 사이의 사본」).",
           "$trailingSlot": "**후행 슬롯의 높이는 이 기록에 없다(2026-09-14).** 슬롯은 높이를 선언하지 않는다 — app-shell.css 의 .louis-app-top-bar__trailing 은 display · flex · align-items · gap 뿐이라 담은 것의 높이를 hug 한다. 제품도 같다: 후행 클러스터는 높이를 선언하지 않고 프로필 버튼의 --profile-ring-size(Gnb.tsx:1476, 아바타 + (링 간격 + 링 두께) × 2)를 받는다. 그래서 verify-figma-parity 의 AppTopBar 계약은 Trailing 자손 높이를 progress-ring.sizes.base.size 에서 읽는다. 여기 있던 `trailingSlotHeight` 36 은 그 계산 결과의 사본이었고, 제품 6f6282c1 에서 ProgressRing 기록이 32 로 옮긴 뒤에도 사본만 36 으로 남았다 — 계산된 크기를 두 곳에 숫자로 두면 한쪽만 낡는다.",
           "$slots": "선행 슬롯은 사이드바 토글(제품 선언 `[height:32px]` — IconButton md 칸, 위 $leadingSlot), 후행은 프로필 사용량 링(ProgressRing 이 아바타를 감싼 크기, 위 $trailingSlot)이다. 두 슬롯 모두 높이를 선언하지 않고 담은 것을 hug 한다. 코드 API에는 leading·trailing이 처음부터 있었는데 Figma에는 제목 하나뿐이었다 — 표현하지 못하는 API는 없는 것과 같아 조립할 때 화면이 비어 보였다."
+        },
+        "canvas": {
+          "height": 48,
+          "$height": "8 + 32 + 8 = 48. 선언이 아니라 파생이다 — app-shell.css `.louis-app-top-bar[data-surface=\"canvas\"]` 의 padding-block 8 과 담은 32 칸(IconButton md · 툴 버튼 · 홈)의 합이고, 기본 바의 하한 40 보다 커서 하한이 이기지 않는다. 제품 CreateScene.tsx:134 `py-4`(@54b62a8a). 2026-10-13 DS-D-0084 캔버스 판.",
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8. `.louis-app-top-bar[data-surface=\"canvas\"] { padding-block }` — 제품 `py-4`(단위당 2px).",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12. `.louis-app-top-bar[data-surface=\"canvas\"] { padding-inline }` — 제품 `px-6`. 기본 바의 content-inset 16 이 아니다.",
+          "gap": 4,
+          "$gap": "space-control-xs 4. `.louis-app-top-bar[data-surface=\"canvas\"] { gap }` — 앞 묶음(홈 · 구분선 · 제목 · 저장)이 4 로 붙는다. 기본 바의 8 이 아니다.",
+          "borderWidth": 0,
+          "$borderWidth": "0. 캔버스 판도 경계선이 없다 — 면 대신 `::before` 흐림 띠가 글자를 받친다."
         },
         "navRow": {
           "gap": 4,

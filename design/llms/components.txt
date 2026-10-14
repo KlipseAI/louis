@@ -6539,7 +6539,7 @@ Figma 는 `Level=list` 로 2026-10-13 에 섰다(아래 「Figma」).
 | Surface       | 상태           | 근거                                                                                   |
 | ------------- | -------------- | -------------------------------------------------------------------------------------- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | 트랙 set 10 variant(Size: lg·md·sm·xs·settings × Disabled) · 세그먼트 set 20 variant(Size: lg·md·xs·settings × State 5 — 2026-10-06 Focus 를 걷었다, DS-D-0074). **세그먼트 쪽에 `sm`이 아직 없다** — 코드·CSS·브라우저 테스트에는 있고 Figma Item 에만 빠진 부채이며 verify-figma-parity 의 SegmentedControlItem 계약 주석이 그 사연을 갖는다. parity 게이트가 lg·md·settings 세 칸의 기하를 Label·FocusRing까지 대조하며 raw fill·stroke 0이다. publish는 DS-F-008 |
+| Figma         | `partial`      | 트랙 set 10 variant(Size: lg·md·sm·xs·settings × Disabled) · 세그먼트 set 20 variant(Size: lg·md·xs·settings × State 5 — 2026-10-06 Focus 를 걷었다, DS-D-0074). **세그먼트 쪽에 `sm`이 아직 없다** — 코드·CSS·브라우저 테스트에는 있고 Figma Item 에만 빠진 부채이며 verify-figma-parity 의 SegmentedControlItem 계약 주석이 그 사연을 갖는다. parity 게이트가 트랙은 lg·md·sm·xs·settings 다섯 칸, 세그먼트는 lg·md·xs·settings 네 칸의 기하를 Label까지 대조하며(xs 는 2026-10-14 소유자 판정 「코드가 정본」 뒤에 붙였다) raw fill·stroke 0이다. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                                                |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                             |
 
@@ -6854,7 +6854,7 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
   `"lg" | "md" | "sm" | "xs"` · `components.measured.json`의 `sizes.sm` · 브라우저 테스트의
   `SIZES` 넷이 모두 그 커밋에서 섰다. 미룬 날이 이미 지났다는 뜻이며, 판정은 미래가 아니라
   **밀린 것**이다.
-- **`xs` 칸이 세 곳에서 서로 다르다.** 이름 문제와 별개로 값이 갈려 있다.
+- ~~**`xs` 칸이 세 곳에서 서로 다르다.**~~ **2026-10-14 해소 — 소유자 판정: 코드가 정본.** 아래 표는 판정 전의 기록이다.
 
   | 축 | 제품 정본 | LOUIS CSS | Figma |
   | --- | --- | --- | --- |
@@ -6869,10 +6869,11 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
   값을 그대로 물려받은 것이고, 세그먼트 28은 트랙 높이를 그대로 쓴 것이라 padding 3과 양립하지
   않는다(28 + 3×2 = 34 ≠ 28).
 
-  **어느 게이트도 이 칸을 보지 않는다.** `components.measured.json`에 `xs` 단이 아예 없어
-  (`grep -c '"xs"'` → 0) 브라우저 테스트도 `SIZES`에서 빼 두었고, parity 계약도 `xs`를 대조하지
-  않는다. 닫는 순서는 **값 확정 → measured에 `xs` 단 추가 → 두 계약에 그 단 부착 → Figma 수정 →
-  브라우저 테스트 `SIZES`에 추가**이며, 첫 단계가 위 이름 판정과 같은 자리에서 나야 한다.
+  **닫은 순서(2026-10-14).** 소유자가 LOUIS CSS 열(28 · 3 · 10 · 세그먼트 22 · 반경 7 · 좌우 8)을 정본으로 골랐고, Figma 를
+  그 값으로 옮긴 뒤(SegmentedControl Size=xs 두 칸 · SegmentedControlItem Size=xs 다섯 칸) `components.measured.json` 의
+  `segmented-control.sizes.xs` 를 레시피 선언에서 세우고, parity 의 두 계약(`SegmentedControl` · `SegmentedControlItem`)에
+  `xs` 를 붙이고, 브라우저 테스트 `SIZES` 에 `xs` 를 더했다. 제품 정본(반경 8 · 좌우 10)과의 차이는 남는다 — 제품이
+  LOUIS 를 물 때 레시피 값으로 옮겨 간다. 이름(`xs` 가 `sm` 보다 크다) 판정은 위 항목대로 별개로 남아 있다.
 - **`SegmentedControlItem`의 `Size`에만 `sm`이 없다.** 트랙 쪽은 그 뒤 Figma에 그려져
   `SegmentedControl.Size`가 `[lg, md, xs, sm]` 넷이 됐고 parity의 그 줄은 닫혔다. **세그먼트
   set은 아직 셋이다** — 18변형 = `lg`·`md`·`xs` × 6상태. 그래서 `sm` 여섯 변형이 Figma에 없고,
@@ -19306,8 +19307,8 @@ TTS 노드와 BGM 노드가 결과 오디오를 카드 위쪽 미디어 띠에 �
 
 | Surface       | 상태             | 근거 |
 | ------------- | ---------------- | ---- |
-| Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 **브라우저 시험이 아직 없다** |
-| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. 입력판은 2026-10-08 에 단일 컴포넌트 둘로 섰다 — NodeComposer(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 NodeComposerError(TEXT `Message`). 입력판 값은 레시피 선언 기록(`node-composer`)과 맞대고 브라우저 되재기는 없다(아래 「입력판 — Figma」) |
+| Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 기하는 `node-composer-geometry.browser.test.tsx` 가 기록 `node-composer` 두 칸을 레시피 마크업으로 되잰다(2026-10-14) |
+| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. 입력판은 2026-10-08 에 단일 컴포넌트 둘로 섰다 — NodeComposer(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 NodeComposerError(TEXT `Message`). 입력판 값은 레시피 선언 기록(`node-composer`)과 맞대고 그 기록을 브라우저가 되잰다(아래 「입력판 — Figma」) |
 | Documentation | `done`           | 이 문서 |
 | Maturity      | `experimental`   | Figma 가 코드보다 앞서 있다. 카드 테두리는 2026-10-08 에 캔버스 토큰 `color-node-card-stroke` 로 제품과 맞췄고(DS-D-0082) Figma 결합도 2026-10-09 에 옮겼다(아래 Known deviations 1) |
 
@@ -19474,7 +19475,7 @@ NodeShell (세로, 간격 4, 폭 400)
   `typography/caption-regular` 대표값(레시피가 글자 크기를 선언하지 않는다 — 상속), 잉크 `color/accent-danger`, 최대 3줄 말줄임이다.
 - 계약은 parity 의 `NodeComposer` · `NodeComposerError`(manifest 항목 `node-shell` 의 `figmaNames` 셋)이고 값은 기록
   `figma/components.measured.json` 의 `node-composer`(`composer` · `error` 두 칸, 레시피 선언)다 — `verify-recipe-record` 가 레시피와
-  맞댄다. 입력판을 렌더하는 브라우저 시험은 아직 없다.
+  맞댄다. 그 기록을 코드가 여전히 만드는지는 `packages/react/test/node-composer-geometry.browser.test.tsx` 가 입력판 마크업을 렌더해 잰다(2026-10-14, DS-D-0035 (c)).
 
 #### When to use
 
@@ -20352,9 +20353,9 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
    은 상태가 없는 자리**이고(위 4번) 그 상태를 가진 툴바 버튼의 레시피가 아직 없다. 일시 강조를
    `data-spotlight` 같은 상태로 세울지, 세운다면 포커스 링과 **다른 두께 · 간격**으로 가를지는 소유자
    판정이다. 이번에 레시피는 열지 않았다.
-9. **compact 와 높이 파생값.** (a) compact 크기 40 은 **브라우저 시험이 아직 재지 않는다** —
-   `floating-shell.browser.test.tsx` 는 기본 32 만 안다. 높이 48 과 누르는 영역 44 도 파생값이라 시험에서만
-   재진다. Figma 는 `Size=lg` 변형으로 섰다(2026-10-08 — 조각 40 · 높이 48 을 되읽기가 잰다). (b) 제품은 툴바 높이를 `canvasChromeInsets.ts` 에서 `4×2 + 32` 로 직접
+9. **compact 와 높이 파생값.** (a) compact 크기 40 과 높이 48(파생)은 2026-10-14 부터
+   `floating-shell-geometry.browser.test.tsx` 가 기록 `floating-shell.compact` 칸으로 되잰다(`floating-shell.browser.test.tsx` 는
+   기본 32 만 안다). 누르는 영역 44 는 파생값이라 시험에서만 재진다. Figma 는 `Size=lg` 변형으로 섰다(2026-10-08 — 조각 40 · 높이 48 을 되읽기가 잰다). (b) 제품은 툴바 높이를 `canvasChromeInsets.ts` 에서 `4×2 + 32` 로 직접
    계산한다. 높이를 토큰(`--louis-layout-floating-shell-height` 40 · compact 48)으로 **발행하면 제품이
    계산을 걷고 읽을 수 있다** — 하지만 소비처(빈 캔버스 · 도움말 패널 · 콜아웃)가 셸의 **자손이 아니라**
    CSS 변수 상속으로는 닿지 않고 TypeScript 상수를 거쳐야 한다. 토큰 생성물과 Figma 변수를 함께 열어야

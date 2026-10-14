@@ -77,16 +77,11 @@ beforeEach(async () => {
   await page.viewport(1440, 900);
 });
 
-const all = measured.components as unknown as Record<string, { sizes: Sizes } | undefined>;
-function sizesOf(id: string): Sizes {
-  const entry = all[id];
-  if (entry === undefined) throw new Error(`기록에 ${id} 가 없습니다`);
-  return entry.sizes;
-}
-const cardSizes = sizesOf("coverflow-card");
-const navSizes = sizesOf("coverflow-nav");
-const dotSizes = sizesOf("coverflow-dot");
-const boardSizes = sizesOf("coverflow");
+// 기록을 id 문자열 인덱스로 **직접** 읽는다(간접 함수를 거치지 않는다) — verify-figma-done 이 그 모양으로 (c) 의 되재기를 센다.
+const cardSizes = measured.components["coverflow-card"].sizes as Sizes;
+const navSizes = measured.components["coverflow-nav"].sizes as Sizes;
+const dotSizes = measured.components["coverflow-dot"].sizes as Sizes;
+const boardSizes = measured.components["coverflow"].sizes as Sizes;
 const widthOf = (layout: string): number => (layout === "compact" ? 600 : 1120);
 const rect = (id: string): DOMRect => find(id).getBoundingClientRect();
 

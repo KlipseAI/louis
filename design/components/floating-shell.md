@@ -406,9 +406,9 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
    은 상태가 없는 자리**이고(위 4번) 그 상태를 가진 툴바 버튼의 레시피가 아직 없다. 일시 강조를
    `data-spotlight` 같은 상태로 세울지, 세운다면 포커스 링과 **다른 두께 · 간격**으로 가를지는 소유자
    판정이다. 이번에 레시피는 열지 않았다.
-9. **compact 와 높이 파생값.** (a) compact 크기 40 은 **브라우저 시험이 아직 재지 않는다** —
-   `floating-shell.browser.test.tsx` 는 기본 32 만 안다. 높이 48 과 누르는 영역 44 도 파생값이라 시험에서만
-   재진다. Figma 는 `Size=lg` 변형으로 섰다(2026-10-08 — 조각 40 · 높이 48 을 되읽기가 잰다). (b) 제품은 툴바 높이를 `canvasChromeInsets.ts` 에서 `4×2 + 32` 로 직접
+9. **compact 와 높이 파생값.** (a) compact 크기 40 과 높이 48(파생)은 2026-10-14 부터
+   `floating-shell-geometry.browser.test.tsx` 가 기록 `floating-shell.compact` 칸으로 되잰다(`floating-shell.browser.test.tsx` 는
+   기본 32 만 안다). 누르는 영역 44 는 파생값이라 시험에서만 재진다. Figma 는 `Size=lg` 변형으로 섰다(2026-10-08 — 조각 40 · 높이 48 을 되읽기가 잰다). (b) 제품은 툴바 높이를 `canvasChromeInsets.ts` 에서 `4×2 + 32` 로 직접
    계산한다. 높이를 토큰(`--louis-layout-floating-shell-height` 40 · compact 48)으로 **발행하면 제품이
    계산을 걷고 읽을 수 있다** — 하지만 소비처(빈 캔버스 · 도움말 패널 · 콜아웃)가 셸의 **자손이 아니라**
    CSS 변수 상속으로는 닿지 않고 TypeScript 상수를 거쳐야 한다. 토큰 생성물과 Figma 변수를 함께 열어야

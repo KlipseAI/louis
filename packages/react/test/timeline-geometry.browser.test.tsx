@@ -62,16 +62,11 @@ beforeEach(async () => {
   await page.viewport(1440, 900);
 });
 
-const all = measured.components as unknown as Record<string, { sizes: Sizes } | undefined>;
-function sizesOf(id: string): Sizes {
-  const entry = all[id];
-  if (entry === undefined) throw new Error(`기록에 ${id} 가 없습니다`);
-  return entry.sizes;
-}
-const clipSizes = sizesOf("timeline-clip");
-const handleSizes = sizesOf("timeline-trim-handle");
-const rulerSizes = sizesOf("timeline-ruler");
-const shellSizes = sizesOf("timeline");
+// 기록을 id 문자열 인덱스로 **직접** 읽는다(간접 함수를 거치지 않는다) — verify-figma-done 이 그 모양으로 (c) 의 되재기를 센다.
+const clipSizes = measured.components["timeline-clip"].sizes as Sizes;
+const handleSizes = measured.components["timeline-trim-handle"].sizes as Sizes;
+const rulerSizes = measured.components["timeline-ruler"].sizes as Sizes;
+const shellSizes = measured.components["timeline"].sizes as Sizes;
 function at(sizes: Sizes, key: string): Record<string, unknown> {
   const spec = sizes[key];
   if (spec === undefined) throw new Error(`기록에 ${key} 칸이 없습니다`);

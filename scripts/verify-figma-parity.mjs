@@ -2065,7 +2065,7 @@ const COMPONENT_CONTRACTS = [
     //   · `sm` — measured 에 있고(20/6/8) CSS·React·브라우저 테스트도 판다. **Figma Item 에만 없다**
     //     (18변형 = lg·md·xs × 6상태). 여기 넣으면 「기하가 snapshot 에 없습니다」가 되므로 뺐다 —
     //     Figma 에 sm 여섯 변형을 세우는 것이 닫는 방법이다.
-    //   · `xs` — measured 에 아예 없다(인스펙터 전용 지역 예외라 계약을 세운 적이 없다). 게다가
+    //   · `xs` — **2026-10-14 해소(아래 xs 문단).** 당시 기록이 measured 에 아예 없었다(인스펙터 전용 지역 예외라 계약을 세운 적이 없다). 게다가
     //     세 곳이 갈린다: 제품 정본(`migration/product-screens/10.10.md:823-824`)이 세그먼트 22/r8/
     //     padding 0 10, CSS 가 22/r7(트랙 10 − padding 3 파생식)/padding-inline 8, Figma Item 이
     //     **28**/r8/8 이다. Figma 의 28 은 트랙 높이를 그대로 쓴 것이라 padding 3 과 양립하지 않는다.
@@ -2075,9 +2075,11 @@ const COMPONENT_CONTRACTS = [
     // 하나다 — 넣지 않으면 새 칸이 **게이트 밖에서** 산다. 위 sm 의 사연이 그것을 보여 준다:
     // 값은 CSS·React·브라우저 테스트에 다 있는데 Figma Item 에만 없어 계약에서 뺐고, 그
     // 상태가 계속 부채로 남았다. `settings` 는 Figma 변형을 함께 세워 그 길을 피한다.
+    // **`xs` 를 붙인다(2026-10-14 소유자 판정 — 코드가 정본).** 위 `xs` 항목의 세 갈래(제품 22/r8/좌우 10 · CSS 22/r7/8 · Figma 28/r8/8)를
+    // 소유자가 CSS 로 닫았고, Figma Item Size=xs 다섯 칸을 높이 22 · 반경 7 로 옮겼다. 기록 `xs` 는 레시피 선언과 그 파생이다.
     geometry: {
       measuredId: "segmented-control",
-      sizeKeys: ["lg", "md", "settings"],
+      sizeKeys: ["lg", "md", "xs", "settings"],
       fields: {
         height: "segmentHeight",
         cornerRadius: "segmentRadius",
@@ -2380,9 +2382,13 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     geometry: {
       measuredId: "app-shell-parts",
-      sizeKey: "topBar",
+      // **캔버스 판도 건다(2026-10-14, DS-D-0035 (c)).** Figma `Layout` 축의 canvas 칸(코드 `data-surface="canvas"`)이
+      // 되읽기에 있는데 대조 밖이었다 — 위아래 8 · 좌우 12 · 사이 4 · 높이 48(파생)을 기록 `canvas` 칸과 맞댄다.
+      sizeKeys: ["topBar", "canvas"],
       fields: {
         height: "height",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
         paddingInline: "paddingInline",
         paddingInlineEnd: "paddingInline",
         itemSpacing: "gap",
@@ -2451,15 +2457,14 @@ const COMPONENT_CONTRACTS = [
     // INSIDE stroke는 안쪽 콘텐츠 박스를 줄여 세그먼트 높이가 32에서 31이 되어 parts가 실패한다.
     strokes: {},
     effects: { self: "INNER_SHADOW:0:0:0.5" },
-    // **트랙 기하(2026-10-14, DS-D-0035 (c)).** 높이 · 여백 · 반경과 세그먼트 높이를 lg · md · sm · settings 네 칸에서 건다
+    // **트랙 기하(2026-10-14, DS-D-0035 (c)).** 높이 · 여백 · 반경과 세그먼트 높이를 lg · md · sm · xs · settings 다섯 칸에서 건다
     // (기록 segmented-control, 되재기는 segmented-control.browser.test.tsx 의 「구조값」 시험). 세그먼트 폭은 라벨이 정해 걸지 않는다.
-    // **`xs` 는 뺐다 — 코드와 Figma 가 갈린다.** 레시피는 트랙 28 · 여백 3 · 반경 10(`layout-inspector-control-height` ·
-    // `radius-inspector-control`) · 세그먼트 22 · 세그먼트 반경 7 인데, Figma xs 는 트랙 28 · 여백 4 · 반경 12 · 세그먼트 **28** 이다 —
-    // 28 트랙에 여백 4 로 28 세그먼트가 들어가 Figma 쪽이 기하적으로 서지 않는다. 어느 쪽을 옮길지는 DS-D-0032 의 xs 판정에 딸려
-    // 여기서 열지 않는다. 그래서 이 세트는 done 게이트의 범위 검사에서 xs 로 partial 에 남는다(SegmentedControlItem 도 같다).
+    // **`xs` 를 넣었다 — 2026-10-14 소유자 판정: 코드가 정본.** 레시피는 트랙 28 · 여백 3 · 반경 10(`layout-inspector-control-height` ·
+    // `radius-inspector-control`) · 세그먼트 22 · 세그먼트 반경 7 이고, Figma xs 가 트랙 28 · 여백 4 · 반경 12 · 세그먼트 28 로 갈려 있던 것을
+    // 같은 날 Figma 쪽을 레시피 값으로 옮겼다(771:858 · 771:866 — 여백 3, 반경 변수 radius/inspector-control, 세그먼트 세로 FILL 22).
     geometry: {
       measuredId: "segmented-control",
-      sizeKeys: ["lg", "md", "sm", "settings"],
+      sizeKeys: ["lg", "md", "sm", "xs", "settings"],
       fields: {
         height: "trackHeight",
         paddingInline: "trackPadding",
@@ -2483,9 +2488,8 @@ const COMPONENT_CONTRACTS = [
     //
     // **이 위임은 2026-09-01 까지 받는 쪽이 비어 있었다.** SegmentedControlItem 계약에도 geometry 가
     // 없어 두 계약을 합쳐도 대조되는 칸이 0 이었다. 지금은 Item 이 lg·md 를 대조한다(그 주석에
-    // sm·xs 를 왜 못 넣는지 적었다). 트랙 자신의 축(trackHeight·trackPadding·trackRadius)은 여전히
-    // 어느 계약도 보지 않는다 — 라이브 xs 트랙이 padding 4 · radius 12(= md 값)라 CSS 의 3 · 10 과
-    // 어긋나 있고, 그것을 게이트로 올리려면 measured 에 xs 단을 세우는 판정이 먼저다.
+    // sm·xs 를 왜 못 넣는지 적었다). 트랙 자신의 축(trackHeight·trackPadding·trackRadius)은 2026-10-14 부터 위 geometry 가
+    // 다섯 칸 전부 대조한다 — xs 는 소유자가 「코드가 정본」으로 판정해 Figma 를 3 · 10 으로 옮긴 뒤 넣었다.
   },
   {
     id: "selectable-list-row",

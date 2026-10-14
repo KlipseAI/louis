@@ -87,15 +87,10 @@ function Fixture({
   );
 }
 
-// 사다리의 세 칸(lg 40 · md 32 · sm 24)과 지역 예외 하나(`settings` 36)다. `xs` 는 타입에는
-// 있지만 `components.measured.json` 에 계약이 없다(인스펙터 전용 지역 예외인데 세 곳이 갈려
-// 있어 계약을 세운 적이 없다) — 즉 시스템이 파는 크기인데 대조되지 않는다. 여기서
-// `readonly SegmentedControlSize[]` 로 넓게 선언하면 `size` 가 `xs` 를 포함해 measured 색인이
-// 타입 오류를 낸다. 넓힌 타입이 거짓이므로 **실제로 대조하는 것만 적는다.**
-//
-// `settings` 는 계약과 함께 섰으므로 처음부터 여기 있다 — 「계약이 생기면 더한다」던 문장이
-// `xs` 에서 아직 안 지켜지고 있고, 새 칸이 같은 자리에 또 쌓이지 않게 한다.
-const SIZES = ["lg", "md", "sm", "settings"] as const satisfies readonly SegmentedControlSize[];
+// 사다리의 세 칸(lg 40 · md 32 · sm 24)과 지역 예외 둘(`xs` 28 · `settings` 36)이다. `xs` 는 인스펙터 전용 지역 예외로
+// 코드 · Figma · 제품이 갈려 있어 계약이 없었는데, 2026-10-14 소유자가 「코드가 정본」으로 판정해 기록과 계약이 섰다 —
+// 이제 여기서 다른 칸과 같이 되잰다.
+const SIZES = ["lg", "md", "sm", "xs", "settings"] as const satisfies readonly SegmentedControlSize[];
 
 for (const size of SIZES) {
   const spec = measured.components["segmented-control"].sizes[size];

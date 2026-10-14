@@ -291,7 +291,10 @@ const UNCLASSIFIED_BASELINE = 0;
 // (데스크톱 상단 바 · 사이드바 각 6, 모바일 상단 바 6)과 완료 두 보드의 셸 3이 스튜디오 판(Figma 세트 없음)으로 바뀌어 빠졌고, 업로드 단계의
 // 테마 칩 줄(`Product/Highlight Theme Chips`) 2가 제품에서 걷혔다. 쇼츠 결과 두 보드의 상단 바 2는 **후퇴다** — 출처를 옮기려면 Figma 글리프
 // 경계가 필요하다(아래 SHELL_INSTANCES_BY_BOARD 의 쇼츠 주석). 나머지 +1 은 새 판 보드 안에서 새로 붙은 LOUIS 인스턴스다.
-const INSTANCE_FLOOR = 316;
+// 2026-10-14: 316 → **332.** **이득이다.** 새 보드 넷 — `/models` 데스크톱 · 모바일 각 5, `/models/[slug]` 데스크톱 · 모바일 각 3(공개 시드
+// fixture). 옛 보드의 instance 는 하나도 바뀌지 않았다. 공개 모바일 일곱의 missing −1 · structural −3 은 닫힌 모바일 메뉴 판(`clip-path:
+// inset(0 0 100%)`)을 더는 그리지 않아서다(figma-tree-spec 의 clipPathHidesAll).
+const INSTANCE_FLOOR = 332;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.

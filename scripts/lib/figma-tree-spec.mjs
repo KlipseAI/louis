@@ -29,7 +29,30 @@ export function isVisible(node) {
   // **화면에서 숨긴 스크린리더 전용 요소(2026-09-30).** `sr-only`(1×1 · overflow hidden · clip)는 보조 기술만 읽는다 — 옮기면 1px 폭
   // 글자 상자가 되어 한 글자씩 세로로 늘어섰다(랜딩 후기 밴드의 「“ Klipse reviews ”」).
   if (node.rect.width <= 1 && node.rect.height <= 1 && /hidden|clip/.test(`${style.overflow ?? ""} ${style.overflowX ?? ""}`)) return false;
+  if (clipPathHidesAll(style.clipPath, node.rect)) return false;
   return node.rect.width > 0 && node.rect.height > 0;
+}
+
+/**
+ * **상자를 다 깎는 `clip-path: inset(…)` 은 보이지 않는 것이다(2026-10-14).** 랜딩 GNB 의 모바일 메뉴 시트는 닫힌 상태를
+ * `clip-path: inset(0 0 100%)` 로 숨긴다(열릴 때 아래로 펼쳐지는 애니메이션의 출발 상태) — 투명도 · display · visibility 는 그대로라
+ * 측정에는 보이는 노드로 남았고, 보드는 공개 화면 모바일마다 상단을 회색 시트(#dcdee1, 402×874)로 덮었다(모델 목록 · 블로그 글 모바일
+ * 캡처로 확인). 위+아래 또는 왼쪽+오른쪽 깎기가 상자 크기 이상이면 남는 면이 없다. `round` · 다른 도형은 보지 않는다.
+ */
+function clipPathHidesAll(clipPath, rect) {
+  const match = /^inset\(([^)]*)\)$/.exec(String(clipPath ?? "").trim());
+  if (!match) return false;
+  const parts = match[1].split(/\s+round\s+/)[0].trim().split(/\s+/);
+  if (parts.length < 1 || parts.length > 4) return false;
+  const [top, right = top, bottom = top, left = right] = parts;
+  const length = (value, size) => {
+    if (/%$/.test(value)) return (parseFloat(value) / 100) * size;
+    const pixels = px(value);
+    return pixels == null ? null : pixels;
+  };
+  const [t, r, b, l] = [length(top, rect.height), length(right, rect.width), length(bottom, rect.height), length(left, rect.width)];
+  if ([t, r, b, l].some((value) => value == null || Number.isNaN(value))) return false;
+  return t + b >= rect.height || l + r >= rect.width;
 }
 
 /** 이 노드가 스스로 그릴 것을 가졌는가(면·테두리·그림자·텍스트·이미지). */
@@ -2028,8 +2051,11 @@ function gridPlacements(node, style, children) {
   const placements = [];
   for (const child of flow) {
     const margin = child.margin ?? {};
-    const x0 = child.rect.x - Math.max(0, margin.left ?? 0), x1 = child.rect.x + child.rect.width + Math.max(0, margin.right ?? 0) - 0.01;
-    const y0 = child.rect.y - Math.max(0, margin.top ?? 0), y1 = child.rect.y + child.rect.height + Math.max(0, margin.bottom ?? 0) - 0.01;
+    // 시작 좌표는 칸 안으로 0.01 들인다 — 끝 좌표를 0.01 빼는 것과 짝이다(2026-10-14). 간격 0 인 grid 에서 둘째 행의 시작(539)은 첫 행의 끝과
+    // 같은 값이라 「정확히 드는 칸」이 첫 행으로 잡혀, 두 행에 걸친 미디어(모델 상세 머리 'text media' / 'actions media')와 겹친다고 보고
+    // 되짚기를 통째로 버렸다 — 버튼 줄이 자동 배치로 셋째 칸에 서서 머리가 64 길어졌다.
+    const x0 = child.rect.x - Math.max(0, margin.left ?? 0) + 0.01, x1 = child.rect.x + child.rect.width + Math.max(0, margin.right ?? 0) - 0.01;
+    const y0 = child.rect.y - Math.max(0, margin.top ?? 0) + 0.01, y1 = child.rect.y + child.rect.height + Math.max(0, margin.bottom ?? 0) - 0.01;
     const [c0, c1, r0, r1] = [cellOf(columnLines, x0), cellOf(columnLines, x1), cellOf(rowLines, y0), cellOf(rowLines, y1)];
     if (c0 < 0 || c1 < c0 || r0 < 0 || r1 < r0) return null;
     placements.push([r0, c0, r1 - r0 + 1, c1 - c0 + 1]);

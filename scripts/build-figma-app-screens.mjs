@@ -155,6 +155,9 @@ const IMAGE_COMPONENTS = {
   "/image-edit/examples/example-3.jpg": "image/examples/example-3",
   "/image-edit/examples/example-4.jpg": "image/examples/example-4",
   "/image-edit/examples/example-5.jpg": "image/examples/example-5",
+  // 2026-10-14 — 공개 시드의 랜딩 모델 카드(모델 목록 · 상세) 미디어. `next/image` 가 받는 측정용 CDN 호스트 밑에 같은 예시 그림 경로를 붙였다
+  // (`lib/fixture-seeds.mjs` landing_models 주석) — 측정기가 적는 원본 주소가 이 꼴이다.
+  ...Object.fromEntries([1, 2, 3, 4, 5].map((n) => [`https://cdn.fixture.invalid/image-edit/examples/example-${n}.jpg`, `image/examples/example-${n}`])),
 };
 const liveAssets = JSON.parse(readFileSync(resolve(repoRoot, "figma/live-assets.json"), "utf8"));
 const imageComponentBySrc = new Map(Object.entries(IMAGE_COMPONENTS).map(([src, name]) => {
@@ -553,6 +556,10 @@ const PRODUCT_SCREENS = [
   ...(LEDGERS.publicSeeded ? [
     { route: "/blog/[slug]", desktop: "216:2824", mobile: "216:2940", fixture: "publicSeeded" },
     { route: "/templates/[slug]", desktop: "217:2868", mobile: "217:2978", fixture: "publicSeeded" },
+    // 모델 목록 · 상세(2026-10-14) — 랜딩 모델 카드 10장 자리표시 시드(배너 · 한 줄 소개 · 결과 영상 검은 면 · 다른 모델). 사양 · 크레딧은 제품 코드
+    // 상수다. 01 · 공개 의 ⚠ 미등록 섹션(3471:9265)에 새로 세운 프레임이다.
+    { route: "/models", desktop: "3471:9267", mobile: "3471:9268", fixture: "publicSeeded" },
+    { route: "/models/[slug]", desktop: "3471:9269", mobile: "3471:9270", fixture: "publicSeeded" },
   ].filter((screen) => LEDGERS.publicSeeded.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...STATE_RECIPE_SCREENS,
 ];
@@ -2653,7 +2660,8 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   // fixture 에 CDN 주소를 세워 다시 재자 랜딩 데스크톱 푸터가 돌아왔다(+1).
   // 같은 날 뒤: 7 → 14 — 모바일 variant 를 되살렸다(감기는 줄에서 혼자 한 줄을 차지한 감긴 글자 규칙, PRODUCT_PARTS 의 주석). 데스크톱과 같은
   // 일곱 화면(랜딩 · 문의 · 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세)의 모바일 푸터가 인스턴스가 됐다(+7).
-  "Product/Landing Footer": 14,
+  // 2026-10-14: 14 → 18 — 모델 목록 · 상세(공개 시드) × 두 뷰포트에 같은 푸터가 선다(+4).
+  "Product/Landing Footer": 18,
   // 같은 날 뒤: 앱 허브 머리(/videoeditor) · 어드민 머리(/admin) × 두 뷰포트, 선택 칸 — 문의(Field) · 부스 운영(Admin) × 두 뷰포트,
   // 요금제 비교표(/pricing) × 두 뷰포트. /mypage/upgrade 의 비교표는 측정 화면 밖이라(노드 2) 인스턴스가 아니다.
   // 2026-10-08: 2 → 6 — 셸 상태 레시피 `/videoeditor seeded` · `/videoeditor seeded.more-menu` × 두 뷰포트에도 같은 허브 머리가 선다.

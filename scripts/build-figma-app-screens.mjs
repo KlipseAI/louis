@@ -2762,9 +2762,10 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   // 2026-10-15(R2): 1 → 2 — 패널 상태 레시피 `/nodecanvas?project= panel.help` 데스크톱 보드(같은 캔버스 위 도움말 패널)에도 같은 트리거가 선다.
   "Product/Canvas Zoom Trigger": 2,
   // 카드 안 부품은 카드 인스턴스가 서브트리를 통째로 가져가 보드에 따로 서지 않는다(생성 알약 · 제목 · LLM 결과 — 글자는 있다).
-  // 2026-10-15(R2): 0 → 2 — 패널 상태 레시피 `/nodecanvas?project= panel.image-edit` · `panel.angle` 데스크톱의 이미지 노드(쇼케이스 시드 — 프롬프트 ·
-  // GPT Image 2 · 9:16)는 카드 세트와 서명이 달라 카드가 날노드로 남고, 그 안의 「Regenerate」 생성 알약만 이 세트의 인스턴스가 된다.
-  "Product/Node Generate Button": 2,
+  // 2026-10-15(R2): 0 → 3 — 패널 상태 레시피 `/nodecanvas?project= panel.image-edit` · `panel.angle` 데스크톱의 이미지 노드(쇼케이스 시드 — 프롬프트 ·
+  // GPT Image 2 · 9:16)와 `panel.analysis` 데스크톱의 비디오 노드(쇼케이스 영상 · 720p)는 카드 세트와 서명이 달라 카드가 날노드로 남고, 그 안의
+  // 「Regenerate」 생성 알약만 이 세트의 인스턴스가 된다.
+  "Product/Node Generate Button": 3,
   "Product/Node Title Label": 0,
   "Product/LLM Response Area": 0,
   // 글자가 없는 부품(aria-label · svg · img 뿐)은 매처가 보지 않는다 — 테마 순환 버튼과 같은 사정.
@@ -2805,7 +2806,9 @@ const NODE_CANVAS_MOBILE_SKIPPED = ["/nodecanvas?project=", "/nodecanvas?project
   ["0.0", "0.0.0.0.0.1", "0.0.1.0.4.0.0", "0.0.1.0.5.0.0.2.1.0.1", "1.0", "1.0.1.0.5.0.0.1.0.1.0.0.1", "2.0", "2.0.1.0.5.0.0.3.0.1.0.0.1"]
     .map((tail) => `${route} @ mobile-402x874 · ${NODE_CANVAS}.${tail}`))
   // 같은 결 — 쇼케이스 이미지 노드 하나를 연 이미지 편집 · 카메라 각도 보드의 모바일 생성 알약(「Regenerate」, 줌 축소판).
-  .concat(["/nodecanvas?project= panel.image-edit", "/nodecanvas?project= panel.angle"].map((route) => `${route} @ mobile-402x874 · ${NODE_CANVAS}.0.0.1.0.5.0.0.2.0.1.0.0.1`));
+  .concat(["/nodecanvas?project= panel.image-edit", "/nodecanvas?project= panel.angle"].map((route) => `${route} @ mobile-402x874 · ${NODE_CANVAS}.0.0.1.0.5.0.0.2.0.1.0.0.1`))
+  // 분석 모달 보드 — 모달이 캔버스 앞 형제로 서서 캔버스 경로가 한 칸 밀린다(`…7.0.0.1…`). 비디오 노드의 같은 생성 알약이다.
+  .concat(["/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.7.0.0.1.0.0.0.0.2.0.0.1.0.5.0.0.2.0.1.0.0.1"]);
 const CONTENT_SKIPPED_ALLOWED = new Set([...[1, 2, 3, 4].map((index) => `/pricing @ mobile-402x874 · body.1.0.0.2.0.0.1.${index}`), ...NODE_CANVAS_MOBILE_SKIPPED]);
 const contentSkippedUnexpected = contentSkipped.filter((line) => !CONTENT_SKIPPED_ALLOWED.has(line.split(":")[0]));
 if (contentSkippedUnexpected.length > 0) fail(`본문 세트 치환이 사유와 함께 보류됐습니다 — 세트 plan 이나 매처가 제품과 어긋났습니다:\n  ${contentSkippedUnexpected.join("\n  ")}`);
@@ -2852,6 +2855,7 @@ const PALETTE_PENDING_WHY = "커맨드 팔레트 대화 상자 · 행 · 플라�
 const ANALYTICS_PENDING_WHY = "분석 연결 상태 보드(시청자 탭 행 · 로딩 스켈레톤 막대)의 stretch 자식 — 2026-10-15 새 상태 보드, 캡처 대조 전";
 const SHORT_RESULT_PLAYER_WHY ="쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const VEM_INSPECTOR_PENDING_WHY = "편집기 클립 인스펙터 섹션(Adjustments · Source crop)의 stretch 자식 — 2026-10-15 새 패널 상태 보드(인스펙터를 처음 그린다), 캡처 대조 전";
+const CANVAS_PANEL_PENDING_WHY = "노드캔버스 분석 모달 몸통 · 분석 시드 유튜브 노드 미리보기의 stretch 자식 — 2026-10-15 새 패널 상태 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
   // 되살림(2026-10-08): 아래 자리는 통합 판(DS-D-0079)에서 세션 `/videoeditor/[projectId]` 가 오류 경계로 재져 잠시 빠졌다가, fixture 에
   // CDN 주소를 세워 다시 재자 서브트리가 돌아와 되살렸다. 같이 빠졌던 공개 `/` 데스크톱 `body.1.0.0.2.1.0.1 · vertical`(LANDING_PENDING_WHY)은
@@ -2901,6 +2905,11 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   "/videoeditor/[projectId] panel.clip-color @ desktop-1920x1080 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.5 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
   "/videoeditor/[projectId] panel.clip-color @ desktop-1920x1080 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.6.1 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
   "/videoeditor/[projectId] panel.clip-color @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.5 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
+  // 2026-10-15(R2): 패널 상태 레시피 `/nodecanvas?project= panel.analysis` — 분석 시드 유튜브 노드의 영상 미리보기 상자(재생 시간 「0:00 / −0:06」,
+  // 두 뷰포트)와 모바일 분석 모달 몸통(탭 · 지연 안내 · KPI 카드 열, 370 × 565.5)의 stretch 자식이다. 기준 화면에는 없던 자리다.
+  "/nodecanvas?project= panel.analysis @ desktop-1920x1080 · body.1.0.0.0.7.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
+  "/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.7.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
+  "/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.7.0.0.0.0.1 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
 };
 {
   const actual = {};

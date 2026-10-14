@@ -1117,6 +1117,55 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "bespoke",
     why: "비디오 편집기 모바일 선택 층 막대의 「Duplicate」 칸 글리프(`videoEditParts/mobileActionGlyphs.tsx:141-146` `GlyphDuplicate` — 24 상자 겹친 사각 둘)다. LOUIS `icon/copy` 와 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
   },
+  {
+    id: "external-link-24",
+    signature: "0 0 24 24|path(d=M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3)",
+    louis: null,
+    verdict: "missing",
+    why: "노드캔버스 분석 모달 머리의 「View on platform」 링크 단추 아이콘(`components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx:818-822` — 24 상자 상자 · 바깥 화살표)이다. 캔버스 툴바 글리프 `ToolbarIconExternalLink`(`lib/nodeToolbarGlyphs.tsx:140`)와 같은 경로다. LOUIS 아이콘에 바깥 링크 그림이 없다(`icon/arrow-up` · `icon/arrow-right` 는 상자가 없다).",
+  },
+  {
+    id: "toolbar-pencil-32",
+    signature: "0 0 32 32|path(d=M11.586 27H6a1 1 0 01-1-1v-5.586a1 1 0 01.293-.707L20.707 4.293a1 1 0 011.414 0l5.586 5.586a1 1 0 010 1.414L12.293 26.707a1 1 0 01-.707.293z)|path(d=M17 8l7 7)",
+    louis: null,
+    verdict: "missing",
+    why: "노드캔버스 노드의 「Edit」 단추 연필 글리프(`components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx:82-110` `ToolbarIconPencil` — 32 상자 연필 · 지우개 경계선)다. 분석 시드의 유튜브 노드 메타 줄이 쓴다. LOUIS 아이콘에 연필 그림이 없다.",
+  },
+  {
+    id: "analysis-kpi-sparkline-views",
+    signature: "0 0 800 200|path(d=M0,86.5 C66.67,48.5 133.33,20 200,20 C266.67,20 333.33,48.5 400,48.5 C466.67,48.5 533.33,34.25 600,34.25 C666.67,34.25 733.33,55.63 800,81.75 L800,172 L0,172 Z)|path(d=M0,86.5 C66.67,48.5 133.33,20 200,20 C266.67,20 333.33,48.5 400,48.5 C466.67,48.5 533.33,34.25 600,34.25 C666.67,34.25 733.33,55.63 800,81.75)",
+    louis: null,
+    verdict: "missing",
+    why: "아이콘이 아니라 노드캔버스 분석 모달(유튜브 갈래, 개요 탭) KPI 카드 「Views 1.2K」의 스파크라인(`components/scenes/analytics/shared.tsx:463-483` `KpiSparkline` — 800×200 viewBox 영역 채움 + 곡선, 좌표는 `analyticsUtils.ts` areaD · pathD 가 시계열에서 만든다)이다. 레시피가 가로챈 5일 시계열(data/canvas-analysis/youtube-video-analytics.json)이 그린 데이터 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
+  {
+    id: "analysis-kpi-sparkline-watch-time",
+    signature: "0 0 800 200|path(d=M0,86.5 C66.67,48.5 133.33,20 200,20 C266.67,20 333.33,48.5 400,48.5 C466.67,48.5 533.33,39 600,39 C666.67,39 733.33,56.42 800,77 L800,172 L0,172 Z)|path(d=M0,86.5 C66.67,48.5 133.33,20 200,20 C266.67,20 333.33,48.5 400,48.5 C466.67,48.5 533.33,39 600,39 C666.67,39 733.33,56.42 800,77)",
+    louis: null,
+    verdict: "missing",
+    why: "아이콘이 아니라 노드캔버스 분석 모달(유튜브 갈래, 개요 탭) KPI 카드 「Watch time 1h 2m」의 스파크라인(`components/scenes/analytics/shared.tsx:463-483` `KpiSparkline` — 800×200 viewBox 영역 채움 + 곡선, 좌표는 `analyticsUtils.ts` areaD · pathD 가 시계열에서 만든다)이다. 레시피가 가로챈 5일 시계열(data/canvas-analysis/youtube-video-analytics.json)이 그린 데이터 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
+  {
+    id: "analysis-kpi-sparkline-likes",
+    signature: "0 0 800 200|path(d=M0,89.09 C66.67,49.94 133.33,20 200,20 C266.67,20 333.33,47.64 400,47.64 C466.67,47.64 533.33,33.82 600,33.82 C666.67,33.82 733.33,52.24 800,75.27 L800,172 L0,172 Z)|path(d=M0,89.09 C66.67,49.94 133.33,20 200,20 C266.67,20 333.33,47.64 400,47.64 C466.67,47.64 533.33,33.82 600,33.82 C666.67,33.82 733.33,52.24 800,75.27)",
+    louis: null,
+    verdict: "missing",
+    why: "아이콘이 아니라 노드캔버스 분석 모달(유튜브 갈래, 개요 탭) KPI 카드 「Likes 86」의 스파크라인(`components/scenes/analytics/shared.tsx:463-483` `KpiSparkline` — 800×200 viewBox 영역 채움 + 곡선, 좌표는 `analyticsUtils.ts` areaD · pathD 가 시계열에서 만든다)이다. 레시피가 가로챈 5일 시계열(data/canvas-analysis/youtube-video-analytics.json)이 그린 데이터 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
+  {
+    id: "analysis-kpi-sparkline-comments",
+    signature: "0 0 800 200|path(d=M0,70.67 C66.67,45.33 133.33,20 200,20 C266.67,20 333.33,20 400,20 C466.67,20 533.33,70.67 600,70.67 C666.67,70.67 733.33,70.67 800,70.67 L800,172 L0,172 Z)|path(d=M0,70.67 C66.67,45.33 133.33,20 200,20 C266.67,20 333.33,20 400,20 C466.67,20 533.33,70.67 600,70.67 C666.67,70.67 733.33,70.67 800,70.67)",
+    louis: null,
+    verdict: "missing",
+    why: "아이콘이 아니라 노드캔버스 분석 모달(유튜브 갈래, 개요 탭) KPI 카드 「Comments 12」의 스파크라인(`components/scenes/analytics/shared.tsx:463-483` `KpiSparkline` — 800×200 viewBox 영역 채움 + 곡선, 좌표는 `analyticsUtils.ts` areaD · pathD 가 시계열에서 만든다)이다. 레시피가 가로챈 5일 시계열(data/canvas-analysis/youtube-video-analytics.json)이 그린 데이터 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
+  {
+    id: "analysis-kpi-sparkline-shares",
+    signature: "0 0 800 200|path(d=M0,121.33 C66.67,62.22 133.33,20 200,20 C266.67,20 333.33,70.67 400,70.67 C466.67,70.67 533.33,70.67 600,70.67 C666.67,70.67 733.33,96 800,121.33 L800,172 L0,172 Z)|path(d=M0,121.33 C66.67,62.22 133.33,20 200,20 C266.67,20 333.33,70.67 400,70.67 C466.67,70.67 533.33,70.67 600,70.67 C666.67,70.67 733.33,96 800,121.33)",
+    louis: null,
+    verdict: "missing",
+    why: "아이콘이 아니라 노드캔버스 분석 모달(유튜브 갈래, 개요 탭) KPI 카드 「Shares 9」의 스파크라인(`components/scenes/analytics/shared.tsx:463-483` `KpiSparkline` — 800×200 viewBox 영역 채움 + 곡선, 좌표는 `analyticsUtils.ts` areaD · pathD 가 시계열에서 만든다)이다. 레시피가 가로챈 5일 시계열(data/canvas-analysis/youtube-video-analytics.json)이 그린 데이터 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

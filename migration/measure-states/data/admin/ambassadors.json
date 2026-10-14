@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "data": {
+    "available": true,
+    "range": { "from": "2025-12-16T09:00:00.000Z", "to": "2026-01-15T09:00:00.000Z" },
+    "generatedAt": "2026-01-15T09:00:00.000Z",
+    "truncated": false,
+    "rowLimit": 5000,
+    "partialResults": false,
+    "benefits": { "available": true, "defaultSetting": { "type": "credit", "amount": 300, "validDays": 30 } },
+    "benefitIssues": { "failed": 0, "alreadyPaid": 0, "stuck": 0 },
+    "ambassadors": [
+      {
+        "id": "00000000-0000-4000-8000-0000ad000401",
+        "name": "Placeholder ambassador A",
+        "email": "ambassador.a@klipse.test",
+        "isAmbassador": true,
+        "benefit": null,
+        "links": [
+          { "id": "00000000-0000-4000-8000-0000ad000411", "code": "placeholdera", "label": "Placeholder link A1", "destination": "/", "createdAt": "2025-12-20T09:00:00.000Z",
+            "visitors": 420, "clicks": 512, "signups": 38, "verified": 30, "activated": 18, "payers": 4, "revenue": 199600, "blocked": 0, "suspicion": null },
+          { "id": "00000000-0000-4000-8000-0000ad000412", "code": "placeholdera2", "label": "Placeholder link A2", "destination": "/pricing", "createdAt": "2026-01-05T09:00:00.000Z",
+            "visitors": 96, "clicks": 110, "signups": 7, "verified": 6, "activated": 3, "payers": 0, "revenue": 0, "blocked": 0, "suspicion": null }
+        ],
+        "totals": { "visitors": 516, "clicks": 622, "signups": 45, "verified": 36, "activated": 21, "payers": 4, "revenue": 199600 }
+      },
+      {
+        "id": "00000000-0000-4000-8000-0000ad000402",
+        "name": "Placeholder ambassador B",
+        "email": "ambassador.b@klipse.test",
+        "isAmbassador": true,
+        "benefit": { "type": "plan", "planCode": "lite", "months": 1 },
+        "links": [
+          { "id": "00000000-0000-4000-8000-0000ad000421", "code": "placeholderb", "label": "Placeholder link B1", "destination": "/", "createdAt": "2025-12-28T09:00:00.000Z",
+            "visitors": 64, "clicks": 75, "signups": 5, "verified": 4, "activated": 2, "payers": 1, "revenue": 12900, "blocked": 0, "suspicion": null }
+        ],
+        "totals": { "visitors": 64, "clicks": 75, "signups": 5, "verified": 4, "activated": 2, "payers": 1, "revenue": 12900 }
+      },
+      {
+        "id": "00000000-0000-4000-8000-0000ad000403",
+        "name": "Placeholder ambassador C",
+        "email": "ambassador.c@klipse.test",
+        "isAmbassador": false,
+        "benefit": null,
+        "links": [
+          { "id": "00000000-0000-4000-8000-0000ad000431", "code": "placeholderc", "label": "Placeholder link C1", "destination": "/", "createdAt": "2025-11-02T09:00:00.000Z",
+            "visitors": 0, "clicks": 0, "signups": 0, "verified": 0, "activated": 0, "payers": 0, "revenue": 0, "blocked": 0, "suspicion": null }
+        ],
+        "totals": { "visitors": 0, "clicks": 0, "signups": 0, "verified": 0, "activated": 0, "payers": 0, "revenue": 0 }
+      }
+    ]
+  }
+}

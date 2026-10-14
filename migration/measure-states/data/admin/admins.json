@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "data": {
+    "superadmins": ["fixture@klipse.test"],
+    "assignments": [
+      { "user_id": "00000000-0000-4000-8000-0000ad000201", "email": "placeholder.ops@klipse.test", "capability": "users", "granted_at": "2026-01-12T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000201", "email": "placeholder.ops@klipse.test", "capability": "bulk-grant", "granted_at": "2026-01-12T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000201", "email": "placeholder.ops@klipse.test", "capability": "inquiries", "granted_at": "2026-01-12T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000201", "email": "placeholder.ops@klipse.test", "capability": "refunds", "granted_at": "2026-01-12T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000202", "email": "placeholder.cs@klipse.test", "capability": "users", "granted_at": "2026-01-08T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000202", "email": "placeholder.cs@klipse.test", "capability": "inquiries", "granted_at": "2026-01-08T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000202", "email": "placeholder.cs@klipse.test", "capability": "refunds", "granted_at": "2026-01-08T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000203", "email": "placeholder.content@klipse.test", "capability": "banners", "granted_at": "2026-01-05T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000203", "email": "placeholder.content@klipse.test", "capability": "captions", "granted_at": "2026-01-05T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000203", "email": "placeholder.content@klipse.test", "capability": "templates", "granted_at": "2026-01-05T09:00:00.000Z", "note": null },
+      { "user_id": "00000000-0000-4000-8000-0000ad000203", "email": "placeholder.content@klipse.test", "capability": "blog", "granted_at": "2026-01-05T09:00:00.000Z", "note": null }
+    ]
+  }
+}

@@ -27,12 +27,12 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 890,
+          "line": 892,
           "expect": "`/api/admin/users?limit="
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 404,
+          "line": 406,
           "expect": "type UsersListResponse"
         },
         {
@@ -42,7 +42,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1734,
+          "line": 1738,
           "expect": "<PlanBadge status="
         }
       ],
@@ -94,12 +94,12 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 890,
+          "line": 892,
           "expect": "`/api/admin/users?limit="
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1757,
+          "line": 1761,
           "expect": "title={copy.users.loading}"
         },
         {
@@ -154,7 +154,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1463,
+          "line": 1467,
           "expect": "{activeTab === \"metrics\""
         },
         {
@@ -237,7 +237,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1471,
+          "line": 1475,
           "expect": "{activeTab === \"usage\" && <UsageByModelDashboard"
         },
         {
@@ -305,7 +305,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1460,
+          "line": 1463,
           "expect": "{activeTab === \"refunds\" && ("
         },
         {
@@ -468,7 +468,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1457,
+          "line": 1460,
           "expect": "{activeTab === \"inquiries\" && ("
         },
         {
@@ -557,7 +557,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1465,
+          "line": 1469,
           "expect": "{activeTab === \"coupons\" && <CouponManagement"
         },
         {
@@ -727,7 +727,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1466,
+          "line": 1470,
           "expect": "{activeTab === \"banners\" && <ContentManagement"
         },
         {
@@ -977,7 +977,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1469,
+          "line": 1473,
           "expect": "{activeTab === \"templates\" && <TemplateManagement"
         },
         {
@@ -1041,7 +1041,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1467,
+          "line": 1471,
           "expect": "{activeTab === \"captions\" && <CaptionTemplateManagement"
         },
         {
@@ -1275,7 +1275,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1468,
+          "line": 1472,
           "expect": "{activeTab === \"blog\" && <BlogManagement"
         },
         {
@@ -1414,7 +1414,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1470,
+          "line": 1474,
           "expect": "{activeTab === \"jobs\" && <JobMonitor"
         },
         {
@@ -1479,6 +1479,270 @@
           "Placeholder user A",
           "Failed",
           "Placeholder prompt"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin payments",
+      "base": "/admin",
+      "url": "/admin?view=payments",
+      "description": "결제 내역 — 기본 기간 30일에 결제 넷(구독 · 크레딧 충전 · 쿠폰 대량 구매 결제 완료, 구독 환불)과 유형별 가로 막대 셋 · 합계 줄이 선다. 기간 끝은 브라우저 지금이라 clock 으로 고정한다.",
+      "contentNote": "결제 유형 키(subscription · topup · bulk_coupon) · 상태 키(paid · refunded) · 요금제 이름(Pro · Lite) · 충전 상품 이름(Bronze)은 제품 표기, 이메일 · 이름 · 금액 · 주문 번호는 지어낸 내용.",
+      "surfaces": [
+        "apps/web/app/admin/PaymentManagement.tsx#PaymentManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1468,
+          "expect": "{activeTab === \"payments\" && <PaymentManagement"
+        },
+        {
+          "path": "apps/web/app/admin/PaymentManagement.tsx",
+          "line": 292,
+          "expect": "fetch(`/api/admin/payments?"
+        },
+        {
+          "path": "apps/web/app/admin/PaymentManagement.tsx",
+          "line": 65,
+          "expect": "type PaymentsResponse ="
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/payments",
+          "jsonFile": "data/admin/payments.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "placeholder.a@klipse.test",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Credit top-up"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin roles",
+      "base": "/admin",
+      "url": "/admin?view=roles",
+      "description": "권한 관리 — 슈퍼어드민 줄(세션 사용자), 권한 부여 폼(이메일 칸 · 역할 프리셋 · 권한 카드 격자), 부여 목록 셋(운영 · 상담 · 콘텐츠 프리셋과 같은 묶음)이 선다.",
+      "contentNote": "권한 키 · 프리셋 묶음은 제품 상수(adminCapabilities.ts), 이메일 · 부여 시각은 지어낸 내용. 슈퍼어드민 이메일은 측정 세션 사용자다.",
+      "surfaces": [
+        "apps/web/app/admin/AdminRoleManagement.tsx#AdminRoleManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1476,
+          "expect": "{activeTab === \"roles\" && <AdminRoleManagement"
+        },
+        {
+          "path": "apps/web/app/admin/AdminRoleManagement.tsx",
+          "line": 120,
+          "expect": "const response = await fetch(\"/api/admin/admins\");"
+        },
+        {
+          "path": "apps/web/app/admin/AdminRoleManagement.tsx",
+          "line": 35,
+          "expect": "type Assignment = {"
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/admins",
+          "jsonFile": "data/admin/admins.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "placeholder.ops@klipse.test",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Superadmins",
+          "Grant permissions"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin ambassador",
+      "base": "/admin",
+      "url": "/admin?view=ambassador",
+      "description": "앰버서더 — 기본 하위 탭 「Applications」에 지원서 카드 셋(접수 · 검토 중 · 반려)이 접힌 채 선다.",
+      "contentNote": "상태 키 · 플랫폼 키 · 형식 키는 제품 상수(lib/ambassador/review.ts · application.ts), 이름 · 이메일 · 채널 · 수는 지어낸 내용. 채널 주소는 example.invalid.",
+      "surfaces": [
+        "apps/web/app/admin/AmbassadorApplications.tsx#AmbassadorApplications"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1466,
+          "expect": "{activeTab === \"ambassador\" && <AmbassadorAdmin"
+        },
+        {
+          "path": "apps/web/app/admin/AmbassadorAdmin.tsx",
+          "line": 25,
+          "expect": "useState<AmbassadorTab>(\"applications\")"
+        },
+        {
+          "path": "apps/web/app/admin/AmbassadorApplications.tsx",
+          "line": 570,
+          "expect": "`/api/admin/ambassador-applications?${params.toString()}`"
+        },
+        {
+          "path": "apps/web/app/admin/AmbassadorApplications.tsx",
+          "line": 296,
+          "expect": "type ListResponse = {"
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/ambassador-applications",
+          "jsonFile": "data/admin/ambassador-applications.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Placeholder applicant A",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder applicant A"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin ambassador.links",
+      "base": "/admin",
+      "url": "/admin?view=ambassador",
+      "description": "하위 탭 「Links and results」를 눌러 앰버서더 셋(지금 앰버서더 둘 · 해제된 사람 하나)의 링크와 성과 표를 세운다. 하위 탭은 메모리 상태라 클릭한다.",
+      "contentNote": "기간 키 · 혜택 꼴은 제품 상수(lib/ambassador/periods.ts · benefits.ts), 이름 · 이메일 · 코드 · 수는 지어낸 내용. /api/plans(혜택 편집 창 드롭다운 전용)는 가로채지 않는다.",
+      "surfaces": [
+        "apps/web/app/admin/AmbassadorManagement.tsx#AmbassadorManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AmbassadorAdmin.tsx",
+          "line": 36,
+          "expect": "id={`ambassador-tab-${t.id}`}"
+        },
+        {
+          "path": "apps/web/app/admin/AmbassadorManagement.tsx",
+          "line": 177,
+          "expect": "fetch(`/api/admin/ambassadors?${params.toString()}`"
+        },
+        {
+          "path": "apps/web/app/admin/AmbassadorManagement.tsx",
+          "line": 55,
+          "expect": "type AmbassadorPayload ="
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/ambassadors",
+          "jsonFile": "data/admin/ambassadors.json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/ambassador-applications",
+          "jsonFile": "data/admin/ambassador-applications.json",
+          "description": "기본 하위 탭이 먼저 마운트되며 부른다 — 서버로 보내지 않게 같은 본문으로 답한다."
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tab",
+            "name": "Links and results"
+          }
+        },
+        {
+          "click": {
+            "role": "tab",
+            "name": "Links and results"
+          },
+          "expectResponse": {
+            "method": "GET",
+            "path": "/api/admin/ambassadors"
+          }
+        },
+        {
+          "waitFor": {
+            "text": "Placeholder ambassador A",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder ambassador A"
         ],
         "apiHit": "all"
       }

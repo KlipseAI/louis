@@ -96,6 +96,15 @@ const shotsDir = shotsArg ? resolve(shotsArg.slice("--shots=".length)) : null;
 const sceneShotsArg = process.argv.find((arg) => arg.startsWith("--scene-shots="));
 const sceneShotsDir = sceneShotsArg ? resolve(sceneShotsArg.slice("--scene-shots=".length)) : null;
 const onlyIds = new Set(process.argv.filter((arg) => arg.startsWith("--only=")).map((arg) => arg.slice("--only=".length)));
+const onlyContext = process.argv.find((arg) => arg.startsWith("--context="))?.slice("--context=".length) ?? null;
+if (onlyContext && !["desktop-1920x1080", "mobile-402x874"].includes(onlyContext)) {
+  console.error("[product-auth-fixture] --context 는 desktop-1920x1080 · mobile-402x874 가운데 하나입니다: " + onlyContext);
+  process.exit(1);
+}
+if (onlyContext && (!process.argv.some((arg) => arg.startsWith("--states=")) || onlyIds.size === 0)) {
+  console.error("[product-auth-fixture] --context 는 상태 레시피(--states)의 --only 실행에만 씁니다");
+  process.exit(1);
+}
 if (onlyIds.size > 0 && checkOnly) {
   console.error("[product-auth-fixture] --only 와 --check 는 함께 쓸 수 없습니다");
   process.exit(1);
@@ -420,7 +429,15 @@ const localeRecordedIds = localePartial && existsSync(outputPath)
 if (localePartial && [...onlyIds].some((id) => !MODE_SCREEN_SPECS.some((spec) => spec.id === id))) {
   throw new Error("[product-auth-fixture] --only 의 화면이 이 모드에 없습니다: " + [...onlyIds].filter((id) => !MODE_SCREEN_SPECS.some((spec) => spec.id === id)).join(", "));
 }
+// **상태 레시피의 첫 `--only`(2026-10-15).** 영역 원장이 아직 없으면 합칠 기록이 없다 — 로캘 첫 측정처럼 고른 레시피만 재서 원장을 시작한다
+// (어드민 영역 23개 전부를 한 번에 재면 부하 높은 기계에서 3시간 반이 걸리고, 레시피 하나의 검증 실패가 그 실행 전체를 버린다).
+// 원장이 있으면 기록된 레시피와 고른 레시피의 합이다 — 아직 재지 않은 레시피는 「다시 재야 한다」로 멈추지 않고 빠진다(로캘 부분 실행과 같다).
+const statesPartial = Boolean(statesArea) && onlyIds.size > 0;
+const statesRecordedIds = statesPartial && existsSync(outputPath)
+  ? new Set(Object.values(JSON.parse(readFileSync(outputPath, "utf8")).screens ?? {}).flatMap((byId) => Object.keys(byId)))
+  : new Set();
 const SCREEN_SPECS = statesArea ? statesArea.recipes.map((recipe) => specFromRecipe(recipe, MODE_SCREEN_SPECS))
+  .filter((spec) => !statesPartial || onlyIds.has(spec.id) || statesRecordedIds.has(spec.id))
   : localePartial ? MODE_SCREEN_SPECS.filter((spec) => onlyIds.has(spec.id) || localeRecordedIds.has(spec.id))
   : MODE_SCREEN_SPECS;
 if (statesArea) {
@@ -997,7 +1014,7 @@ const firstDifference = (recorded, measured, path = "$") => {
 // **서버를 띄우기 전에 본다(2026-10-08).** 서버를 띄운 뒤 여기서 측정 불가로 끝나면 `process.exit` 가 개발 서버를 남겨 두어
 // 그 fixture 의 다음 측정이 `.next/dev/lock` 에 막혔다(앵커 54b62a8a 이동 중 로캘 원장이 옛 앵커여서).
 // 로캘 원장을 처음 잴 때는 합칠 기록이 없다 — 화면 목록이 이미 `--only` 로 좁혀져 있다(SCREEN_SPECS 주석).
-const recordedForOnly = onlyIds.size > 0 && (!localeMode || existsSync(outputPath)) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
+const recordedForOnly = onlyIds.size > 0 && ((!localeMode && !statesArea) || existsSync(outputPath)) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
 if (recordedForOnly) {
   if (recordedForOnly.productCommit !== commit) unavailable(`--only 는 같은 앵커의 원장에만 합친다: 원장 ${recordedForOnly.productCommit} · 지금 ${commit}`);
   for (const id of onlyIds) if (!SCREEN_SPECS.some((spec) => spec.id === id)) unavailable("--only 의 화면이 이 모드에 없습니다: " + id);
@@ -1067,6 +1084,13 @@ try {
         const recorded = recordedForOnly.screens?.[contextSpec.id]?.[spec.id];
         if (!recorded) unavailable(`--only: 기록된 원장에 ${spec.id} @ ${contextSpec.id} 가 없어 다시 재야 합니다`);
         screens[contextSpec.id][spec.id] = rehydrate(recorded);
+        continue;
+      }
+      // **`--context=<문맥 id>`(2026-10-15, 상태 레시피만).** 그 뷰포트만 재고 다른 뷰포트는 기록된 원장에서 싣는다(없으면 비운다 — 데스크톱
+      // 전용 레시피처럼 원장 머리 집계가 빈 칸을 건너뛴다). 데스크톱을 먼저 재 보드를 보내는 동안 모바일을 따로 잰다.
+      if (onlyContext && contextSpec.id !== onlyContext) {
+        const recorded = recordedForOnly?.screens?.[contextSpec.id]?.[spec.id];
+        if (recorded) screens[contextSpec.id][spec.id] = rehydrate(recorded);
         continue;
       }
       // 진행을 stderr 로 찍는다(2026-10-07) — 측정기는 끝날 때까지 아무것도 내지 않아, 한 화면이 안정화 한도(180초)를 몇 번씩 돌며 멈춰도

@@ -52,7 +52,7 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/media-slot.css`. React 표면은 없다 — 소비처가 클래스를 물면 된다 |
-| Figma         | `partial`      | MediaSlot — Size(md · video · fill) × Layout(base · empty) × State, BOOLEAN RemoveButton. 기하 계약 · 실브라우저 시험은 아직이다 |
+| Figma         | `partial`      | MediaSlot — Size(md · video · fill) × Layout(base · empty) × State, BOOLEAN RemoveButton. 기하 계약은 일곱 키 전부를 건다(2026-10-14 — fill 키는 폭이 표본 칸, 높이는 폭 × 비율), 실브라우저 시험은 `media-audio-geometry.browser.test.tsx` |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

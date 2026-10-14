@@ -783,6 +783,23 @@ const COMPONENT_CONTRACTS = [
     strokes: {},
     // 썸의 그림자는 elevation/switch-thumb 다. 트랙에는 그림자가 없다.
     effects: { Thumb: "DROP_SHADOW:1:3:0" },
+    // **기하(2026-10-14, DS-D-0035 (c)).** 켜짐은 트랙 색과 썸 translate 만 바꿔 두 칸의 레이아웃 기하가 같다.
+    geometry: {
+      measuredId: "switch",
+      fields: {
+        width: "width",
+        height: "height",
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        cornerRadius: "radius",
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: { Thumb: { fields: { width: "thumbSize", height: "thumbSize" } } },
+    },
   },
   {
     id: "node-chip",
@@ -809,6 +826,28 @@ const COMPONENT_CONTRACTS = [
     strokes: {},
     // 헤어라인은 테두리가 아니라 inset 그림자다 — 레이아웃을 건드리지 않는다.
     effects: { self: "INNER_SHADOW:0:0:0.5" },
+    // **기하(2026-10-14, DS-D-0035 (c)).** 글자 칩의 폭은 내용이 정해(hug) 표본 칸이다. square 는 32 정사각이라 수로 맞댄다.
+    geometry: {
+      measuredId: "node-chip",
+      fields: {
+        width: { field: "width", sampleIn: ["default/default", "ghost/default"] },
+        height: "height",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        paddingBlock: { literal: 0 },
+        paddingBlockEnd: { literal: 0 },
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+      },
+      slots: { Glyph: "glyphSize" },
+      extraStrokeWeights: [],
+      parts: {
+        Glyph: { fields: { width: "glyphSize", height: "glyphSize" } },
+        // 글자 폭은 담지 않는다($whyNotTextWidth). square 에는 글자가 없다 — 기록에도 lineHeight 가 없어 optional 이 통과한다.
+        Label: { fields: { height: "lineHeight", fontSize: "fontSize" }, optional: true },
+      },
+    },
   },
   {
     id: "pane-divider",
@@ -832,14 +871,32 @@ const COMPONENT_CONTRACTS = [
     // 그림자가 없다. 구분자는 면이 아니라 선이고, 그립은 배경색 하나로 선다.
     effects: {},
     /* **이 컴포넌트의 계약은 불투명도다.** 쉴 때 그립이 아예 보이지 않고(0) 얹으면 나타난다(1).
-       기하는 `components.measured.json` 에 항목이 없어 대조되지 않으므로, 계약이 실제로 잡는
-       것은 여기뿐이다. 값은 자손(`Grip`)에 있으므로 `part` 를 함께 적는다 — 루트만 읽던
+       기하는 2026-10-14 까지 `components.measured.json` 에 항목이 없어 이것이 계약의 전부였다(아래 geometry 가
+       이제 트랙 · 그립 치수를 건다). 값은 자손(`Grip`)에 있으므로 `part` 를 함께 적는다 — 루트만 읽던
        비교기를 그 때문에 넓혔다. */
     opacity: {
       "vertical/Default": { part: "Grip", value: 0 },
       "vertical/Hover": { part: "Grip", value: 1 },
       "horizontal/Default": { part: "Grip", value: 0 },
       "horizontal/Hover": { part: "Grip", value: 1 },
+    },
+    // **기하(2026-10-14, DS-D-0035 (c)).** 뻗는 축의 길이는 나누는 판이 정해 표본 칸이고(세로는 높이, 가로는 폭),
+    // 트랙 굵기 4 · 그립 길이 60 → 얹으면 80 · 그립 반경을 수로 맞댄다. 그립 불투명도는 위 opacity 가 갖는다.
+    geometry: {
+      measuredId: "pane-divider",
+      fields: {
+        width: { field: "width", sampleIn: ["horizontal/Default", "horizontal/Hover"] },
+        height: { field: "height", sampleIn: ["vertical/Default", "vertical/Hover"] },
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        cornerRadius: "radius",
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: { Grip: { fields: { width: "gripWidth", height: "gripHeight", cornerRadius: "gripRadius" } } },
     },
   },
   {
@@ -951,6 +1008,24 @@ const COMPONENT_CONTRACTS = [
     figmaOnlyProperties: {
       Label: { type: "TEXT", reason: "키캡 글자. 코드에서는 children 이다." },
       Kind: { options: ["glyph", "text"], reason: "글리프 키캡과 글자 키캡은 자간·굵기만 다르다(KEY vs KEY_TEXT)." },
+    },
+    // **기하(2026-10-14, DS-D-0035 (c)).** 폭은 `min-inline-size: 22` 라 하한 칸이다 — 긴 글자 키캡은 늘어난다.
+    geometry: {
+      measuredId: "keycap",
+      fields: {
+        width: { atLeast: "minWidth" },
+        height: "height",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        cornerRadius: "radius",
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      // 글자 폭은 담지 않는다($whyNotTextWidth).
+      parts: { Label: { fields: { height: "lineHeight", fontSize: "fontSize" } } },
     },
   },
   // ── 랜딩에서 올라온 여섯 ──────────────────────────────────────────────────
@@ -1496,7 +1571,7 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     // **기하 계약이 없다(2026-10-08).** 크기와 글꼴은 호출부가 정하고(블록 로딩은 타이포 클래스, 버튼 안은 버튼의 글자),
     // 레시피에 여백 · 반경 · 간격이 하나도 없다 — 표본 글자 「분석 중」의 40×21 은 문구가 정한 값이라 계약이 아니다.
-    // 그래서 이 계약이 고정하는 것은 축과 바인딩뿐이고, manifest 의 Figma 상태는 DS-D-0035 (c) 를 채우지 못해 partial 이다.
+    // 그래서 폭 · 높이는 걸지 않는다. 2026-10-14 에 아래 geometry 가 「여백 · 모서리가 없다」만 걸어 DS-D-0035 (c) 를 채운다.
     figmaOnlyProperties: {
       Label: { type: "TEXT", reason: "흐르는 문구. 코드에서는 span 의 텍스트이고 호출부가 말줄임표 없는 진행 문구를 넘긴다." },
       Motion: {
@@ -1504,6 +1579,21 @@ const COMPONENT_CONTRACTS = [
         reason:
           "**코드의 축이 아니다 — Figma 가 흐름(background-position 이동)을 그리지 못해 연 정지 상태 둘이다.** flow 는 흐름의 0프레임(`0% 50%`)으로 200% 폭 그라디언트의 앞 절반이 글자 상자에 보인다. reduced 는 `prefers-reduced-motion` 의 모양으로 그라디언트 없이 잉크 88% 단색이다. 두 모양은 CSS 가 실제로 그리는 두 상태라 디자이너가 둘 다 놓을 수 있어야 한다. forced-colors(`CanvasText`)는 시스템 색이라 Figma 변형을 두지 않는다(loading-word.md Known deviations 7).",
       },
+    },
+    // **기하(2026-10-14, DS-D-0035 (c)).** 위 「기하 계약이 없다」의 뜻은 그대로다 — 크기는 호출부의 글자가 정해 폭 · 높이를 걸지
+    // 않는다. 거는 것은 레시피가 실제로 주장하는 하나, **여백 · 모서리가 없다**뿐이다. 두 정지 상태의 기하는 같다.
+    geometry: {
+      measuredId: "loading-word",
+      fields: {
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        cornerRadius: "radius",
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -2361,6 +2451,33 @@ const COMPONENT_CONTRACTS = [
     // INSIDE stroke는 안쪽 콘텐츠 박스를 줄여 세그먼트 높이가 32에서 31이 되어 parts가 실패한다.
     strokes: {},
     effects: { self: "INNER_SHADOW:0:0:0.5" },
+    // **트랙 기하(2026-10-14, DS-D-0035 (c)).** 높이 · 여백 · 반경과 세그먼트 높이를 lg · md · sm · settings 네 칸에서 건다
+    // (기록 segmented-control, 되재기는 segmented-control.browser.test.tsx 의 「구조값」 시험). 세그먼트 폭은 라벨이 정해 걸지 않는다.
+    // **`xs` 는 뺐다 — 코드와 Figma 가 갈린다.** 레시피는 트랙 28 · 여백 3 · 반경 10(`layout-inspector-control-height` ·
+    // `radius-inspector-control`) · 세그먼트 22 · 세그먼트 반경 7 인데, Figma xs 는 트랙 28 · 여백 4 · 반경 12 · 세그먼트 **28** 이다 —
+    // 28 트랙에 여백 4 로 28 세그먼트가 들어가 Figma 쪽이 기하적으로 서지 않는다. 어느 쪽을 옮길지는 DS-D-0032 의 xs 판정에 딸려
+    // 여기서 열지 않는다. 그래서 이 세트는 done 게이트의 범위 검사에서 xs 로 partial 에 남는다(SegmentedControlItem 도 같다).
+    geometry: {
+      measuredId: "segmented-control",
+      sizeKeys: ["lg", "md", "sm", "settings"],
+      fields: {
+        height: "trackHeight",
+        paddingInline: "trackPadding",
+        paddingInlineEnd: "trackPadding",
+        paddingBlock: "trackPadding",
+        paddingBlockEnd: "trackPadding",
+        itemSpacing: { literal: 0 },
+        cornerRadius: "trackRadius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        "Item 1": { fields: { height: "segmentHeight" } },
+        "Item 2": { fields: { height: "segmentHeight" } },
+        "Item 3": { fields: { height: "segmentHeight" } },
+      },
+    },
     // 기하 대조는 **세그먼트 쪽(SegmentedControlItem)** 이 갖는다. 트랙은 인스턴스를 담기만 하고
     // measured 에 xs 단이 없어(제품 인스펙터 전용) 여기서 대조하면 그 단이 통째로 빠진다.
     //
@@ -6499,8 +6616,8 @@ function compareComponentGeometry(contract, got) {
         }
         expected[field] = spec[rule.field];
       } else if (typeof rule?.field === "string" && Array.isArray(rule.sampleIn)) {
-        // **표본 칸 `{ field, sampleIn: [size…] }`(2026-10-14).** 열 폭을 받는 칸(MediaSlot fill)은 코드에 폭이 없다 — 소비처의
-        // 열이 정한다. 기록은 수 대신 `$<field>` 규칙을 갖고(채움 칸과 같은 규약), Figma 의 값은 **표본**이라 수로 맞대지
+        // **표본 칸 `{ field, sampleIn: [size…] }`(2026-10-14).** 열 폭을 받는 칸(MediaSlot fill) · 내용이 정하는 폭(NodeChip 글자 칩) ·
+        // 나누는 판이 정하는 길이(PaneDivider)는 코드에 수가 없다 — 소비처 · 내용이 정한다. 기록은 수 대신 `$<field>` 규칙을 갖고(채움 칸과 같은 규약), Figma 의 값은 **표본**이라 수로 맞대지
         // 않는다. 대신 그 표본이 한 값이어야 한다 — 아래 `perWidth` 칸이 그 값을 받아 높이를 비율로 잰다. 건너뛴 사실은
         // 출력에 남긴다.
         if (rule.sampleIn.includes(size)) {

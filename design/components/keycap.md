@@ -10,7 +10,7 @@ authority: normative
 
 | 항목 | 값 |
 | --- | --- |
-| Figma | `partial` — component set 발행됨. **아래 값(22×22)으로 아직 따라오지 않았다** |
+| Figma | `partial` — component set 발행됨. 2026-10-14 되읽기가 아래 값(22×22 · 좌우 4 · 반경 10 · 그림자 없음)과 같다 |
 | 코드 | CSS recipe `.louis-keycap` ([`keycap.css`](../../packages/css/src/component/keycap.css), 2026-10-07). React 표면은 없다 |
 
 ## 왜 있는가
@@ -50,7 +50,7 @@ authority: normative
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
 | Web | `not-ready` | CSS recipe 만 있다. React 표면·실브라우저 테스트·제품 소비 증거 없음 |
-| Figma | `partial` | component set 은 발행돼 있으나 20×20 · 안쪽 그림자 기준이라 이 문서의 값과 어긋난다. 계약에 geometry 가 없어 두 쪽이 만나지 않는다. **Figma 는 아직 이 레시피로 고치지 않았다** |
+| Figma | `partial` | component set 은 발행돼 있으나 20×20 · 안쪽 그림자 기준이라 이 문서의 값과 어긋난다. 2026-10-14 되읽기는 22×22 · 좌우 4 · 반경 10 · 그림자 없음으로 이 레시피와 같고, 계약의 geometry 가 기록 `keycap` 과 맞댄다(`recipe-parts-geometry.browser.test.tsx` 가 되잰다) |
 | Documentation | `partial` | 이 문서 |
 | Maturity | `experimental` | |
 
@@ -92,8 +92,8 @@ authority: normative
 - [x] LOUIS CSS recipe 작성 (2026-10-07)
 - [ ] React 표면 (`Keycap`) — 필요한지 먼저 판정한다. `<kbd class="louis-keycap">` 한 줄이라 CSS 로 충분할 수 있다
 - [ ] 제품을 그 recipe 로 이관 (팔레트 `KEY` · 도움말 `KBD`)
-- [ ] Figma component set 을 22×22 · `bg-inset` · 안쪽 그림자 없음으로 고친다 — **아직 안 했다**
-- [ ] parity 계약(`scripts/verify-figma-parity.mjs`) 의 keycap 칸을 geometry 와 함께 갱신 (`Kind` 축 · 안쪽 그림자 계약 포함)
+- [x] Figma component set 이 22×22 · 안쪽 그림자 없음이다 — 2026-10-14 되읽기로 확인(면 색 바인딩 이름은 되읽기가 담지 않는다)
+- [x] parity 계약(`scripts/verify-figma-parity.mjs`) 의 keycap 칸을 geometry 와 함께 갱신 (2026-10-14 — `Kind` 축 두 칸, effects 없음)
 
 ## 출처
 

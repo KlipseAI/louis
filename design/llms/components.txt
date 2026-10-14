@@ -3229,7 +3229,8 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 - **양(+) 호가 라이트에서 제품보다 짙다(DS-D-0084 §3)** — yellow-500 1.73:1 → `inspector-adjust-accent` yellow-700 3.57:1. 다크는 제품 값 그대로다.
 - **양방향 링의 `scale` 전이가 `motion-control-hover` 의 선언 property 밖이다.** `node-chrome-button` · `icon-button` 과 같은 방식이고, 전이는
   keyframe 게이트가 보지 않는다(소유자 판정 10).
-- **양방향 링에 React 표면 · 실브라우저 시험이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `ProgressRing` 이 세트가 되어 `Mode`(`determinate` ·
+- **양방향 링에 React 표면(타입 있는 prop)이 아직 없다.** 실브라우저 시험은 2026-10-14 에 섰다 — `progress.browser.test.tsx` 가
+  `data-mode` 를 rest 로 넘겨 기록 `progress-ring.sizes.bipolar`(상자 32 · 패딩 0 · 링 안쪽 2)를 잰다. Figma 는 2026-10-13 에 섰다 — `ProgressRing` 이 세트가 되어 `Mode`(`determinate` ·
   `bipolar`) · `Direction`(`next` · `prev`) · `Selected` · TEXT `Glyph` 를 갖는다. Figma 가 희소 세트를 받지 않아 determinate 칸에도
   `Direction=next, Selected=false` 가 붙는다. 고른 링의 1.1배 확대는 CSS `scale` 이라 변형 기하로 옮기지 않았다.
 
@@ -8846,7 +8847,7 @@ breaking API와 사용자 동작 변경은 decision과 [Updates](../updates/READ
 
 | 항목 | 값 |
 | --- | --- |
-| Figma | `partial` — component set 발행됨. **아래 값(22×22)으로 아직 따라오지 않았다** |
+| Figma | `partial` — component set 발행됨. 2026-10-14 되읽기가 아래 값(22×22 · 좌우 4 · 반경 10 · 그림자 없음)과 같다 |
 | 코드 | CSS recipe `.louis-keycap` ([`keycap.css`](../../packages/css/src/component/keycap.css), 2026-10-07). React 표면은 없다 |
 
 #### 왜 있는가
@@ -8886,7 +8887,7 @@ breaking API와 사용자 동작 변경은 decision과 [Updates](../updates/READ
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
 | Web | `not-ready` | CSS recipe 만 있다. React 표면·실브라우저 테스트·제품 소비 증거 없음 |
-| Figma | `partial` | component set 은 발행돼 있으나 20×20 · 안쪽 그림자 기준이라 이 문서의 값과 어긋난다. 계약에 geometry 가 없어 두 쪽이 만나지 않는다. **Figma 는 아직 이 레시피로 고치지 않았다** |
+| Figma | `partial` | component set 은 발행돼 있으나 20×20 · 안쪽 그림자 기준이라 이 문서의 값과 어긋난다. 2026-10-14 되읽기는 22×22 · 좌우 4 · 반경 10 · 그림자 없음으로 이 레시피와 같고, 계약의 geometry 가 기록 `keycap` 과 맞댄다(`recipe-parts-geometry.browser.test.tsx` 가 되잰다) |
 | Documentation | `partial` | 이 문서 |
 | Maturity | `experimental` | |
 
@@ -8928,8 +8929,8 @@ breaking API와 사용자 동작 변경은 decision과 [Updates](../updates/READ
 - [x] LOUIS CSS recipe 작성 (2026-10-07)
 - [ ] React 표면 (`Keycap`) — 필요한지 먼저 판정한다. `<kbd class="louis-keycap">` 한 줄이라 CSS 로 충분할 수 있다
 - [ ] 제품을 그 recipe 로 이관 (팔레트 `KEY` · 도움말 `KBD`)
-- [ ] Figma component set 을 22×22 · `bg-inset` · 안쪽 그림자 없음으로 고친다 — **아직 안 했다**
-- [ ] parity 계약(`scripts/verify-figma-parity.mjs`) 의 keycap 칸을 geometry 와 함께 갱신 (`Kind` 축 · 안쪽 그림자 계약 포함)
+- [x] Figma component set 이 22×22 · 안쪽 그림자 없음이다 — 2026-10-14 되읽기로 확인(면 색 바인딩 이름은 되읽기가 담지 않는다)
+- [x] parity 계약(`scripts/verify-figma-parity.mjs`) 의 keycap 칸을 geometry 와 함께 갱신 (2026-10-14 — `Kind` 축 두 칸, effects 없음)
 
 #### 출처
 
@@ -9624,7 +9625,7 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | CSS 레시피 `packages/css/src/component/switch.css`가 서고 제품이 한 자리에서 소비한다. **React 컴포넌트가 없다** — `packages/react/src`에 `switch` 디렉터리가 없고, `packages/react/test`에 `switch.browser.test.tsx`도 없다. 소비처가 마크업을 손으로 쓴다 |
-| Figma         | `partial`      | Switch — VARIANT 속성 Checked × Disabled로 4벌. 소비자가 그 드롭다운으로 상태를 바꾼다. `figma/components.measured.json`에 항목이 없어 기하가 대조되지 않는다 |
+| Figma         | `partial`      | Switch — VARIANT 속성 Checked × Disabled로 4벌. 소비자가 그 드롭다운으로 상태를 바꾼다. 기하는 2026-10-14 부터 대조된다 — 기록 `switch`(트랙 44×24 · 여백 2 · 썸 20)를 계약이 Figma 와 맞대고 `recipe-parts-geometry.browser.test.tsx` 가 레시피에서 되잰다 |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범이 구현보다 먼저 서고, React 표면과 acceptance test가 아직 없다 |
 
@@ -14718,7 +14719,7 @@ prop 으로 숨어 [Loading](../patterns/loading.md) 의 선택 기준이 컴포
 | Surface       | 상태           | 근거                                                                                                                                                                  |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `partial`      | `packages/css/src/component/loading-word.css` 레시피가 선다. **acceptance test 0건 · React 표면 없음 · 제품이 이 클래스를 무는 증거 없음** — 제품은 아직 자기 Tailwind 리터럴로 그린다 |
-| Figma         | `partial`      | component set `LoadingWord`(2026-10-08) — `Motion=flow`(흐름의 0프레임) · `reduced`(단색 88%) 두 정지 상태, `Label` 텍스트 속성. 되읽기 등재 + parity 계약(축 · 바인딩)이 있다. 흐름 자체는 표현하지 못하고([Skeleton](../components/skeleton.md) 과 같은 한계) 기하 계약이 없어(크기와 글꼴은 호출부 몫) `done` 이 아니다 |
+| Figma         | `partial`      | component set `LoadingWord`(2026-10-08) — `Motion=flow`(흐름의 0프레임) · `reduced`(단색 88%) 두 정지 상태, `Label` 텍스트 속성. 되읽기 등재 + parity 계약(축 · 바인딩)이 있다. 흐름 자체는 표현하지 못하고([Skeleton](../components/skeleton.md) 과 같은 한계) 기하 계약은 2026-10-14 에 「여백 · 모서리가 없다」 하나로 섰다(크기와 글꼴은 호출부 몫이라 걸지 않는다) — 기록 `loading-word` 를 `recipe-parts-geometry.browser.test.tsx` 가 되잰다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                               |
 | Maturity      | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다                                                                  |
 
@@ -15991,7 +15992,7 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/media-slot.css`. React 표면은 없다 — 소비처가 클래스를 물면 된다 |
-| Figma         | `partial`      | MediaSlot — Size(md · video · fill) × Layout(base · empty) × State, BOOLEAN RemoveButton. 기하 계약 · 실브라우저 시험은 아직이다 |
+| Figma         | `partial`      | MediaSlot — Size(md · video · fill) × Layout(base · empty) × State, BOOLEAN RemoveButton. 기하 계약은 일곱 키 전부를 건다(2026-10-14 — fill 키는 폭이 표본 칸, 높이는 폭 × 비율), 실브라우저 시험은 `media-audio-geometry.browser.test.tsx` |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 
@@ -16574,7 +16575,7 @@ sm `<button>` 칩은 [Color Picker](../components/color-picker.md) 판을 여는
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/color-swatch.css`. React 표면은 없다 — 소비처가 클래스를 물면 된다 |
-| Figma         | `partial`      | 2026-10-13 — `ColorSwatch` — Layout(row · stack) × Size(md · sm) × Content(filled · empty) × State(Default · Hover · Active — 2026-10-14) 열세 칸, BOOLEAN Clear, TEXT Label · Value. filled 칩 안에 체크무늬 바탕(반투명 값이 비친다)이 있고 Active 의 0.96 축소는 그리지 않는다. 칩 칠은 사용자 색이라 예시 색을 변수에 묶었다(시드). row 는 Figma TextField 의 위아래 4 때문에 높이 40(CSS 32). 기하 계약 · 기록은 아직 없다 |
+| Figma         | `partial`      | 2026-10-13 — `ColorSwatch` — Layout(row · stack) × Size(md · sm) × Content(filled · empty) × State(Default · Hover · Active — 2026-10-14) 열세 칸, BOOLEAN Clear, TEXT Label · Value. filled 칩 안에 체크무늬 바탕(반투명 값이 비친다)이 있고 Active 의 0.96 축소는 그리지 않는다. 칩 칠은 사용자 색이라 예시 색을 변수에 묶었다(시드). row 는 Figma TextField 의 위아래 4 때문에 높이 40(CSS 32). 기하 계약 · 기록은 열세 칸 전부를 건다(2026-10-14 — 상태 칸은 칸 기하가 Default 와 같다), 실브라우저 시험은 `small-parts-geometry.browser.test.tsx` |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

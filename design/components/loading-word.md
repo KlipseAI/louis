@@ -40,7 +40,7 @@ prop 으로 숨어 [Loading](../patterns/loading.md) 의 선택 기준이 컴포
 | Surface       | 상태           | 근거                                                                                                                                                                  |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `partial`      | `packages/css/src/component/loading-word.css` 레시피가 선다. **acceptance test 0건 · React 표면 없음 · 제품이 이 클래스를 무는 증거 없음** — 제품은 아직 자기 Tailwind 리터럴로 그린다 |
-| Figma         | `partial`      | component set `LoadingWord`(2026-10-08) — `Motion=flow`(흐름의 0프레임) · `reduced`(단색 88%) 두 정지 상태, `Label` 텍스트 속성. 되읽기 등재 + parity 계약(축 · 바인딩)이 있다. 흐름 자체는 표현하지 못하고([Skeleton](./skeleton.md) 과 같은 한계) 기하 계약이 없어(크기와 글꼴은 호출부 몫) `done` 이 아니다 |
+| Figma         | `partial`      | component set `LoadingWord`(2026-10-08) — `Motion=flow`(흐름의 0프레임) · `reduced`(단색 88%) 두 정지 상태, `Label` 텍스트 속성. 되읽기 등재 + parity 계약(축 · 바인딩)이 있다. 흐름 자체는 표현하지 못하고([Skeleton](./skeleton.md) 과 같은 한계) 기하 계약은 2026-10-14 에 「여백 · 모서리가 없다」 하나로 섰다(크기와 글꼴은 호출부 몫이라 걸지 않는다) — 기록 `loading-word` 를 `recipe-parts-geometry.browser.test.tsx` 가 되잰다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                               |
 | Maturity      | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다                                                                  |
 

@@ -110,6 +110,10 @@ export const FIXTURE_AUTH_SEEDS = Object.freeze({ profiles: [fixtureProfile] });
 
 export const FIXTURE_SEEDS = Object.freeze({
   profiles: [fixtureProfile],
+  // **설문을 끝낸 사용자(2026-10-15).** 프로필 행이 생기자 `/api/onboarding` 이 401 대신 200 eligible 을 내 `/highlight` 허브 위에 첫 방문
+  // 설문 대화상자(「Question 1 of 5」, 전체 화면)가 덮였다 — 허브 보드가 설문 보드가 된다. 제품은 `submitted` · `skipped` 를 끝낸 설문으로
+  // 친다(앵커 lib/product-insights/research.ts:394). 설문 화면을 따로 그릴 때는 이 행을 빼는 상태 레시피로 연다.
+  product_research_profiles: [{ user_id: FIXTURE_USER, status: "submitted" }],
   coupon_campaigns: [{ id: FIXTURE_COUPON_CAMPAIGN_ID, code: "FIXTURE2026", name: "픽스처 쿠폰 캠페인" }],
   coupon_codes: couponCodes,
   projects: {

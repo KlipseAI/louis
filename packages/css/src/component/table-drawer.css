@@ -1,0 +1,69 @@
+/* Table Drawer — design/components/table-drawer.md (DS-D-0107)
+ *
+ * 표 행을 펼치면 그 아래 `colSpan` 칸 하나에 서는 서랍이다. 올린 면 안에 머리 줄(제목 · 보조 글 + 복사 단추) · 두 번째 표 · 「더 보기」가 선다.
+ * 정본은 어드민 광고 성과 표의 계정 목록(통합 판 `54b62a8aa` `app/admin/AdAttributionPanel.tsx:95` 의 `DRAWER` · `:505-565`).
+ *
+ * 면은 제품 `ADMIN_SURFACE`(`AdminSection.tsx:69-70`) 그대로 — `bg-raised` + 헤어라인 inset. Stat Tile 과 같은 면이다.
+ * 안쪽 표는 `.louis-table`, 복사는 IconButton sm(ghost), 더 보기는 `.louis-button` secondary 를 그대로 문다 — 이 레시피는 면 · 머리 · 배치만 갖는다. */
+.louis-table-drawer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-control-md);
+  min-inline-size: 0;
+  /* 16 · 12 · 16 — 제품 `p-8 gap-6 rounded-16`. */
+  padding: var(--louis-space-control-lg);
+  border-radius: var(--louis-radius-overlay);
+  background: var(--louis-color-bg-raised);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
+}
+
+.louis-table-drawer__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--louis-space-control-md);
+}
+
+.louis-table-drawer__title {
+  min-inline-size: 0;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* 보조 글 + 복사 단추 한 묶음. 제품 `gap-2` = 4. */
+.louis-table-drawer__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--louis-space-control-xs);
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 좁은 화면에서 열을 숨기지 않고 가로로 민다 — 제품 `TABLE_WRAP`(`overflow-x-auto`). */
+.louis-table-drawer__body {
+  min-inline-size: 0;
+  overflow-x: auto;
+}
+
+/* 「더 보기」는 왼쪽에 선다(제품 `self-start`). */
+.louis-table-drawer > .louis-button {
+  align-self: flex-start;
+}
+
+@media (forced-colors: active) {
+  .louis-table-drawer {
+    border: var(--louis-border-width-default) solid CanvasText;
+    box-shadow: none;
+  }
+}

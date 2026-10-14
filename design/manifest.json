@@ -1850,6 +1850,15 @@
       "generated": false
     },
     {
+      "id": "decision-table-drawer",
+      "path": "design/governance/decisions/DS-D-0107-table-drawer.md",
+      "title": "DS-D-0107 표 행 아래 펼치는 계정 목록을 새 부품 table-drawer 로 — Record Card 의 상세도 Stat Tile 도 아닌 「올린 면 안의 표」",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "governance-product-confirmations",
       "path": "design/governance/product-confirmations.md",
       "title": "제품 확인 대기 목록",
@@ -2014,7 +2023,8 @@
         "design/components/stat-tile.md",
         "design/components/canvas-dots.md",
         "design/components/gallery-panel.md",
-        "design/components/drill-picker.md"
+        "design/components/drill-picker.md",
+        "design/components/table-drawer.md"
       ]
     },
     {
@@ -2170,6 +2180,7 @@
         "design/governance/decisions/DS-D-0103-menu-media-item.md",
         "design/governance/decisions/DS-D-0104-gallery-panel.md",
         "design/governance/decisions/DS-D-0105-drill-picker.md",
+        "design/governance/decisions/DS-D-0107-table-drawer.md",
         "design/governance/product-confirmations.md",
         "design/updates/README.md"
       ]
@@ -2466,6 +2477,15 @@
       "id": "drill-picker",
       "path": "design/components/drill-picker.md",
       "title": "Drill Picker",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "table-drawer",
+      "path": "design/components/table-drawer.md",
+      "title": "Table Drawer",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3041,6 +3061,17 @@
         "TableCell",
         "Table"
       ]
+    },
+    {
+      "id": "table-drawer",
+      "name": "Table Drawer",
+      "doc": "design/components/table-drawer.md",
+      "note": "표 행을 펼치면 그 아래 colSpan 칸에 서는 서랍(DS-D-0107, DS-D-0084). 정본은 어드민 광고 성과 표의 계정 목록(AdAttributionPanel.tsx 의 GroupDrawer)이고 레시피는 packages/css/src/component/table-drawer.css 다. 면 bg-raised + 헤어라인 · 반경 16 · 여백 16 · 간격 12, 머리(제목 · 보조 글 + 복사 IconButton sm), 안쪽 .louis-table, 「더 보기」 Button secondary. 대비 결함은 없다. Figma 는 TableDrawer 한 장 — 계약 · 기하 · 브라우저 되재기가 선다. web 이 partial 인 이유는 React 표면이 없기 때문이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "figmaName": "TableDrawer",
+      "web": "partial",
+      "docs": "done"
     },
     {
       "id": "record-card",

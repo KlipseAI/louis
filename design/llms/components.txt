@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 84
+- Documents: 85
 - Purpose: 컴포넌트 사용·상태·접근성 계약
 
 ## Sources
@@ -94,6 +94,7 @@
 - design/components/canvas-dots.md
 - design/components/gallery-panel.md
 - design/components/drill-picker.md
+- design/components/table-drawer.md
 
 ---
 ## TransformFrame
@@ -400,6 +401,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Step Tile](../components/step-tile.md) | `experimental` | `done` | `partial` | `done` | 순서가 있는 3-스텝 안내의 한 칸. 비어 있는 정사각 면 하나와 그 밑의 한 줄 캡션이 전부다. 제품 구현(StepTiles.tsx)이 정본이고 랜딩 한 자리에서 쓴다. 2026-10-14 LOUIS recipe packages/css/src/component/step-tile.css 가 섰다(DS-D-0099) — 목록 .louis-step-tile-list(3열 · 사이 6 · 720 미만 한 열 · role="list")와 칸 .louis-step-tile(타일 · 캡션 · 라벨 · 설명). web 이 partial 인 이유는 React 표면이 없기 때문이다. 변형 축이 0 이고 슬롯 셋(Label TEXT · Description BOOLEAN · DescriptionLabel TEXT)이 전부라 닫힌 축 표를 벗어나는 축이 없다 — Description BOOLEAN + DescriptionLabel TEXT 짝은 2026-10-14 §3 명부에 올랐다(DS-D-0099). 타일 면은 gray-* 램프가 아니라 landing/panel-strong 에서, 라벨은 landing/text-strong(gray-200 과 같은 값)에서 받는다 — 램프에서 고를 만한 gray-900 이 라이트에서 랜딩 바닥과 같은 #f1f1f3 이 되어 대비 1:1 로 사라진다. 테두리도 그림자도 없다. **캡션의 층이 두 매체에서 다르다** — Figma 는 가로 auto-layout(itemSpacing 4)이고 제품은 문단 하나의 인라인 흐름에 진짜 공백 문자(실측 4.69)다. flex 로 두면 복사·접근성 트리에서 라벨과 설명이 붙기 때문이다 — DS-D-0099 가 제품의 인라인 흐름을 정본으로 정했고 Figma 오토레이아웃은 그 투영이다. 줄 높이 150% 를 따른 결과 설명이 있는 한 줄 카드가 랜딩 목업보다 6 높다 — 되읽기의 StepTile 은 이미 150% 라 Figma 컴포넌트와 제품 사이에는 차이가 없다. 되읽기의 462.7(목업 계산값 462.667)은 한 폭에서 나온 FILL 분배값이라 고정 폭 축을 만들지 않았다. 타일 콘텐츠와 문구(카드 1·2 설명 중복 · JA 번역 없음)는 아직 미결이다. figma 는 2026-10-14 에 done 이다 — 세트 · parity 계약 · 기하 실측에 레시피 되재기(packages/react/test/step-tile.browser.test.tsx)가 붙어 DS-D-0035 를 채운다(verify-figma-done). |
 | [Switch](../components/switch.md) | `experimental` | `done` | `partial` | `done` | CSS 레시피(.louis-switch)는 있고 React 표면은 없다. Figma component set 4 variant(Checked × Disabled). 44×24 는 제품 실측을 채택한 값이다. 2026-08-26 Figma 등재. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. figma 는 2026-10-14 에 done 이다 — parity 기하 계약 · 실측 기록 · 실브라우저 되재기가 DS-D-0035 를 채운다. |
 | [Table](../components/table.md) | `experimental` | `done` | `partial` | `done` | CSS 레시피(.louis-table)는 있고 React 표면은 없다. Figma 는 셋으로 나뉜다 — TableHeaderCell(Align 3) · TableCell(Align × State 6) · 그 둘을 조립하는 Table. 머리 칸과 몸 칸은 패딩·타이포·글자색·테두리가 모두 달라 한 set 으로 묶으면 절반이 거짓 조합이 된다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. 2026-09-17 DS-D-0065: 행 hover 는 면 사다리 칸이 아니라 상태 레이어다 — `color-table-row-hover` 가 light 검정 8% · dark 흰색 8% 를 물고, `packages/css/test/table.browser.test.ts` 가 사다리 바닥 넷 × 테마 둘에서 합성색으로 잰다(Acceptance 10 · 11 · 17). 2026-09-21 DS-D-0067: 셀 강조 `data-emphasis="total\|lead"` 가 섰고 Figma 에 없다. 같은 날 세운 문서용 규선 변형 `data-variant="ruled"` 는 2026-09-29 소유자 결정으로 걷어냈다 — 문서의 표도 기본 표이고, 문서는 열 폭 정책(`table-layout: auto`)만 소비처로서 정한다. 행 머리 `th scope="row"` 는 기본 표의 몸 칸 규칙을 받는다(굵기 400 · 시작 정렬, Figma TableCell 과 같은 칸). `packages/css/test/document.browser.test.ts` 가 문서 안의 표로 잰다(Acceptance 19 · 20). `lead` 초록은 라이트 대비 2.12:1 로 delta-pill 과 같은 결함을 진다. figma 는 2026-10-14 에 done 이다 — parity 기하 계약 · 실측 기록 · 실브라우저 되재기가 DS-D-0035 를 채운다. |
+| [Table Drawer](../components/table-drawer.md) | `experimental` | `partial` | `partial` | `done` | 표 행을 펼치면 그 아래 colSpan 칸에 서는 서랍(DS-D-0107, DS-D-0084). 정본은 어드민 광고 성과 표의 계정 목록(AdAttributionPanel.tsx 의 GroupDrawer)이고 레시피는 packages/css/src/component/table-drawer.css 다. 면 bg-raised + 헤어라인 · 반경 16 · 여백 16 · 간격 12, 머리(제목 · 보조 글 + 복사 IconButton sm), 안쪽 .louis-table, 「더 보기」 Button secondary. 대비 결함은 없다. Figma 는 TableDrawer 한 장 — 계약 · 기하 · 브라우저 되재기가 선다. web 이 partial 인 이유는 React 표면이 없기 때문이다. |
 | [Record Card](../components/record-card.md) | `experimental` | `done` | `not-ready` | `partial` | 어드민 기록 하나를 머리 두 줄로 접고 눌러서 라벨/값 상세를 펼치는 카드. 제품 어드민 세 파일(AmbassadorApplications · InquiryManagement · RefundManagement)이 같은 형태를 복제했고 지표 해설 접기(ProductMetricsDashboard)가 details/summary 로 다시 짠다. 2026-10-07 CSS 레시피 `.louis-record-card` 가 섰다(면 없는 줄이 기본, `data-surface="raised"` 가 올린 면 카드). 제품 흰색 알파 56·40·28% 를 fg 세 단으로 옮겼고 40·28 은 한 단으로 합쳐졌다. 포커스 링은 그리지 않는다(DS-D-0074) — 카드 overflow 가 링을 자르던 `outline-offset:-3px` 처방이 필요 없어졌다. 소비처가 이 클래스를 물지 않고 브라우저 시험이 없다. Figma 는 2026-10-08 에 component set RecordCard(8 변형 — Layout base · raised × Expanded × State Default · Hover)가 섰고 되읽기 등재 + parity 계약(축 · 효과 · 기하 두 칸)이 있다. 기하 기록은 브라우저 실측이 아니라 레시피 선언이고 verify-recipe-record 가 레시피와 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다. 판정 필요: 면 없는 줄과 올린 면 카드를 하나로 합칠지. figma 는 2026-10-14 에 done 이다 — 되재기 시험 packages/react/test/record-card-geometry.browser.test.tsx 가 실측 기록을 코드에서 다시 재 DS-D-0035 (c) 를 채운다. |
 | [Text Link](../components/text-link.md) | `experimental` | `done` | `not-ready` | `partial` | 문장이나 표 칸 안의 글자 링크 — 면도 여백도 없고 호버에만 밑줄이 선다. 제품 feat/admin-ops-review 의 USER_LINK(소비처 3) · RECEIPT 와 feat/deck 의 BACK_LINK(블로그 · 템플릿 상세 포함 3)가 같은 뼈대의 조합이다. 2026-10-07 CSS 레시피 `.louis-text-link` 가 섰다(`data-tone="inherit"` 색 상속, `data-underline="none"` 밑줄 없는 이동 링크). 글꼴은 쥐지 않는다. 포커스 링은 그리지 않아 호버 밑줄이 유일한 시각 단서다. 소비처가 이 클래스를 물지 않고 브라우저 시험이 없다. Figma 는 2026-10-08 에 component set TextLink(6 변형 — Tone default · inherit × Underline hover · none × State Default · Hover, inherit × none 은 세우지 않음)가 섰고 되읽기 등재 + parity 계약(축 · 여백 · 밑줄 네 칸)이 있다. 기록은 레시피 선언이고 verify-recipe-record 가 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다. 판정 필요: BACK_LINK 의 밑줄 없음을 남길지. figma 는 2026-10-14 에 done 이다 — 되재기 시험 packages/react/test/text-link-geometry.browser.test.tsx 가 실측 기록을 코드에서 다시 재 DS-D-0035 (c) 를 채운다. |
 | [Bare Button](../components/bare-button.md) | `experimental` | `done` | `not-ready` | `partial` | button 의 UA 면을 걷어내되 글꼴과 색을 건드리지 않는 초기화 클래스 `.louis-bare-button` 과 그 위에 서는 목록 행 제목 `.louis-row-title`(14 medium fg-primary). 제품 ROW_TITLE 이 네 파일에 복제됐고 `[font:inherit]` 속기가 유틸리티 층에서 type 클래스를 이겨 행 제목이 16px 400 이 된 층 순서 사고가 났다(ce9af3491). 2026-10-07 CSS 레시피가 섰다. 소비처가 이 클래스를 물지 않고 브라우저 시험이 없다. Figma 는 2026-10-08 에 component set BareButton(2 변형 — Layout base · row-title, 상태 축 없음)이 섰고 되읽기 등재 + parity 계약(축 · 여백 · 반경 · 글자 크기 두 칸)이 있다. 기록은 레시피 선언이고 verify-recipe-record 가 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다. 판정 필요: CaptionTemplateManagement 처럼 부모 글꼴을 물려받는 자리를 어떻게 받을지. figma 는 2026-10-14 에 done 이다 — 되재기 시험 packages/react/test/bare-button-geometry.browser.test.tsx 가 실측 기록을 코드에서 다시 재 DS-D-0035 (c) 를 채운다. |
@@ -21718,3 +21720,131 @@ Figma 타일 `CanvasDots` 에는 속성이 없다. 라이트 · 다크는 `Klips
 #### Migration and changelog
 
 2026-10-15 — 새 부품([DS-D-0105](../governance/decisions/DS-D-0105-drill-picker.md)).
+
+## Table Drawer
+
+- Source: design/components/table-drawer.md
+- Maturity: experimental
+
+### Table Drawer
+
+표의 한 줄을 펼치면 그 아래 `colSpan` 칸 하나에 서는 서랍이다. 올린 면 안에 머리 줄(제목 · 보조 글 + 복사 단추), 두 번째 표, 「더 보기」가 선다.
+표를 **담는** 면이고 표 자신의 문법(칸 · 머리 · 행)은 [Table](../components/table.md) 이 갖는다([DS-D-0107](../governance/decisions/DS-D-0107-table-drawer.md)).
+
+#### Availability
+
+| Surface       | 상태           | 근거 |
+| ------------- | -------------- | ---- |
+| Web           | `partial`      | CSS 레시피 `.louis-table-drawer` 만 있다(`packages/css/src/component/table-drawer.css`). React 표면은 없다 |
+| Figma         | `partial`      | `TableDrawer`(640 폭 표본). 계약 · 기하 · 되재기 시험이 선다 |
+| Documentation | `done`         | 이 문서 |
+| Maturity      | `experimental` | 제품 어드민이 이 레시피를 물면 승격 후보 |
+
+#### When to use
+
+- 요약 표의 한 줄이 **자기 아래 목록**을 가질 때 — 광고 한 줄 아래의 가입 계정들.
+- 쓰지 말아야 할 때: 한 기록의 라벨/값 상세를 펼치는 자리. 그것은 [Record Card](../components/record-card.md) 다.
+- 쓰지 말아야 할 때: 숫자 하나를 크게 보이는 자리. 그것은 [Stat Tile](../components/stat-tile.md) 이다.
+- 쓰지 말아야 할 때: 펼친 내용이 한두 줄의 글뿐일 때. 표 행 아래 글 한 줄이면 된다.
+
+#### Anatomy
+
+1. **Drawer** — `.louis-table-drawer`. 면 `bg-raised` + 헤어라인 · 반경 16 · 여백 16 · 세로 간격 12. 펼친 행의 `<td colspan>` 안에 둔다.
+2. **Head** — `__head`. 제목(`__title`)과 보조 묶음(`__meta`, 보조 글 + IconButton sm)이 양 끝. 좁으면 줄을 바꾼다.
+3. **Body** — `__body`. 안쪽 `.louis-table` 을 담고 좁은 화면에서 가로로 민다.
+4. **More** — `.louis-button` secondary, 왼쪽 정렬. 남은 것이 없으면 그리지 않는다.
+
+#### Properties
+
+속성이 없다. 담기는 표 · 열 · 「더 보기」 묶음 수는 소비처 데이터다.
+
+| 클래스 | 뜻 |
+| --- | --- |
+| `.louis-table-drawer` | 서랍 면 |
+| `__head` · `__title` · `__meta` | 머리 · 제목 · 보조 묶음 |
+| `__body` | 안쪽 표의 가로 스크롤 상자 |
+
+#### Variants, sizes, and states
+
+변형 · 크기 축이 없다. 서랍 자신은 상태가 없다 — 열림 · 닫힘은 표 행 끝 트리거의 `aria-expanded` 가 갖고 서랍은 열렸을 때만 DOM 에 선다.
+
+#### States
+
+| 상태 | 무엇이 바뀌나 | 어디가 소유하나 |
+| --- | --- | --- |
+| 닫힘 | 서랍 행이 없다 | 소비처(트리거 `aria-expanded="false"`) |
+| 열림 | 펼친 행 아래 `colspan` 행에 서랍이 선다 | 소비처 |
+| 더 보기 | 다음 묶음이 표에 붙고 포커스가 새로 열린 첫 줄로 간다 | 소비처 |
+| 남은 것 없음 | 「더 보기」를 그리지 않는다 | 소비처 |
+
+#### Interaction and responsive behavior
+
+- 트리거는 표 행 끝의 IconButton(셰브론)이다 — `aria-expanded` · `aria-controls` 가 서랍의 `id` 를 가리킨다.
+- 「더 보기」를 누르면 새로 열린 첫 줄로 포커스를 옮긴다. 마지막 묶음을 열면 버튼이 사라져 포커스가 문서 처음으로 튀기 때문이다(제품 `AdAttributionPanel.tsx:484-498`).
+- 안쪽 표는 열을 숨기지 않고 가로로 민다 — 열마다 뜻이 달라 한 칸에 뭉치면 읽을 수 없다.
+
+#### Content
+
+- 제목은 무엇의 목록인지와 개수를 담는다 — 「여름 세일 · 릴스 광고 — 가입 계정 24」.
+- 보조 글은 복사할 식별자 하나다 — 「광고 ID 1202…」, 복사 단추의 이름은 「광고 ID 복사」.
+- 「더 보기」는 다음 묶음 수를 말한다 — 「10명 더 보기」 · 「Show 10 more」.
+
+#### Accessibility
+
+- 서랍은 트리거가 가리키는 `id` 를 갖는다. 표는 `<th scope="col">` 머리를 갖는다(Table 계약).
+- 대비: 제목 `fg-primary` · 보조 글 `fg-tertiary` 가 두 테마의 `bg-raised` 위 4.5:1 을 넘는다(시험 2).
+- 강제 색에서는 헤어라인 그림자 대신 시스템 색 실선 경계를 긋는다.
+
+#### Specification
+
+| Part/state | Token or recipe | 구현 근거 |
+| --- | --- | --- |
+| 면 | `color-bg-raised` + `hairline-inset` | 제품 `ADMIN_SURFACE`(`AdminSection.tsx:69-70`) |
+| 반경 · 여백 · 간격 | `radius-overlay` 16 · `space-control-lg` 16 · `space-control-md` 12 | 제품 `rounded-16 p-8 gap-6`(`AdAttributionPanel.tsx:95`) |
+| 머리 | 양 끝 · 간격 12 · 줄바꿈 | 제품 `justify-between gap-6 flex-wrap`(`:506`) |
+| 제목 | `body-sm-medium` · `fg-primary` | 제품 `type-body-14-medium`(`:507`) |
+| 보조 묶음 | 간격 4 · `caption-regular` · `fg-tertiary` | 제품 `gap-2 type-caption-12-regular text-fg-tertiary`(`:509`) |
+| 더 보기 | `.louis-button` secondary · 왼쪽 정렬 | 제품 `Button variant="secondary" className="self-start"`(`:562`) |
+
+#### Implementation
+
+- Web source: packages/css/src/component/table-drawer.css
+- Public import: `@klipse-design/css` (레시피 클래스). React 표면 없음
+- Figma component: `TableDrawer` — DS · Components 의 「R1 · 캔버스 · 편집기 부품 (2026-10-15)」 섹션
+- Tests/visual evidence: packages/react/test/table-drawer.browser.test.tsx 가 figma/components.measured.json 의 table-drawer 를 되잰다
+
+##### Usage
+
+```html
+<tr>
+  <td colspan="6">
+    <div class="louis-table-drawer" id="drawer-ad-1">
+      <div class="louis-table-drawer__head">
+        <span class="louis-table-drawer__title">여름 세일 · 릴스 광고 — 가입 계정 24</span>
+        <span class="louis-table-drawer__meta">광고 ID 120210000000000 <button class="louis-icon-button" data-size="sm" aria-label="광고 ID 복사">…</button></span>
+      </div>
+      <div class="louis-table-drawer__body">
+        <table class="louis-table">…</table>
+      </div>
+      <button type="button" class="louis-button" data-variant="secondary">10명 더 보기</button>
+    </div>
+  </td>
+</tr>
+```
+
+#### Acceptance tests
+
+1. 여백 16 · 간격 12 · 반경 16 · 머리 간격 12 · 보조 묶음 간격 4 · 제목 14 · 보조 글 12 가 `figma/components.measured.json` 의 `table-drawer.drawer` 와 같고,
+   「더 보기」가 왼쪽에 선다.
+2. 두 테마에서 면이 `bg-raised` 이고 헤어라인 그림자가 있으며, 제목 · 보조 글이 그 면 위 4.5:1 을 넘는다.
+3. Figma 되읽기에서 `TableDrawer` 의 `rawFills` 가 0 이고 효과가 헤어라인 하나다(parity 게이트).
+
+1~2 는 `packages/react/test/table-drawer.browser.test.tsx` 가 실브라우저에서 잰다.
+
+#### Known deviations
+
+1. **제품이 아직 이 레시피를 물지 않는다.** 대응은 제품이 클래스를 바꿔 물 때 선다.
+
+#### Migration and changelog
+
+2026-10-15 — 새 부품([DS-D-0107](../governance/decisions/DS-D-0107-table-drawer.md)).

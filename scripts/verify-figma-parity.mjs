@@ -4273,6 +4273,38 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "table-drawer",
+    figmaName: "TableDrawer",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/table-drawer.css 가 정본이다(2026-10-15, DS-D-0107). 안쪽 표 · 복사 · 더 보기는 Table · IconButton · Button 인스턴스다.",
+    variantProperties: {},
+    strokes: {},
+    // 면의 경계는 헤어라인 inset 그림자다(DS-D-0023) — Stat Tile 과 같은 효과.
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "table-drawer",
+      sizeKeys: ["drawer"],
+      // 서랍 폭은 펼친 행(colSpan 칸)이 정한다 — 640 폭 표본은 계약이 아니다.
+      fields: {
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Head: { fields: { itemSpacing: "headGap" } },
+        Title: { fields: { fontSize: "titleFontSize" } },
+        Meta: { fields: { itemSpacing: "metaGap" } },
+        MetaLabel: { fields: { fontSize: "metaFontSize" } },
+      },
+    },
+  },
+  {
     id: "canvas-dots",
     figmaName: "CanvasDots",
     figmaAhead: "React 표면 없음 — packages/css/src/pattern/editor-workspace.css 의 .louis-canvas-dots 가 정본이다. Figma 패턴 채움이 변수를 받지 못해 한 칸 타일을 반복한다(2026-10-15, DS-D-0102).",

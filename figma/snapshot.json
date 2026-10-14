@@ -30400,6 +30400,77 @@
       },
       "effects": {}
     },
+    "TableDrawer": {
+      "outsideParts": [],
+      "tokenId": "table-drawer",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "drawer": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "itemSpacing": [
+                12
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Meta": {
+              "itemSpacing": [
+                4
+              ]
+            },
+            "MetaLabel": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            16
+          ],
+          "paddingBlockEnd": [
+            16
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
+    },
     "TableHeaderCell": {
       "outsideParts": [],
       "tokenId": "table",

@@ -1075,6 +1075,48 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "missing",
     why: "아이콘이 아니라 카메라 각도 모달 스테이지의 앞쪽 카메라 표식(`components/scenes/create/node-canvas-v2/nodes/AngleModal.tsx:140-168` `CameraMarker` — 궤도면 발자국 r 1.4 · 표식 r 4.4, 높이 Eye level 이라 수직선 길이 0, 728 의 앞 레이어 svg 안)이다. 각도 값으로 좌표가 정해지는 조작 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
   },
+  {
+    id: "vem-mobile-split",
+    signature: "0 0 24 24|path(d=M12 3v18)|rect(rx=1 x=3 y=7 width=6 height=10)|rect(rx=1 x=15 y=7 width=6 height=10)",
+    louis: "icon/clip-split",
+    verdict: "bespoke",
+    why: "비디오 편집기 모바일(≤719) 선택 층 막대의 「Split」 칸 글리프(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx:68-74` `GlyphSplit` — 24 상자 점선 세로 칼날 · 양쪽 클립 둘)다. LOUIS `icon/clip-split` 과 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
+  },
+  {
+    id: "vem-mobile-speed",
+    signature: "0 0 24 24|path(d=M12 2a10 10 0 1 0 10 10)|path(d=m16 8-4 4)|circle(cx=12 cy=12 r=1.5)",
+    louis: "icon/gauge",
+    verdict: "bespoke",
+    why: "비디오 편집기 모바일 선택 층 막대의 「Speed」 칸 글리프(`videoEditParts/mobileActionGlyphs.tsx:76-82` `GlyphSpeed` — 24 상자 열린 원호 · 바늘 · 축)다. LOUIS `icon/gauge` 와 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
+  },
+  {
+    id: "vem-mobile-volume",
+    signature: "0 0 24 24|path(d=M11 5 6 9H2v6h4l5 4V5Z)|path(d=M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14)",
+    louis: "icon/speaker-high",
+    verdict: "bespoke",
+    why: "비디오 편집기 모바일 선택 층 막대의 「Volume」 칸 글리프(`videoEditParts/mobileActionGlyphs.tsx:84-96` `GlyphVolume` 켜짐 — 24 상자 스피커 · 음파 둘)다. LOUIS `icon/speaker-high` 와 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
+  },
+  {
+    id: "vem-mobile-motion",
+    signature: "0 0 24 24|rect(rx=2 x=3 y=5 width=18 height=14)|rect(rx=1 x=8 y=9 width=8 height=6)|path(d=M3 5l5 4M21 5l-5 4M3 19l5-4M21 19l-5-4)",
+    louis: null,
+    verdict: "missing",
+    why: "비디오 편집기 모바일 선택 층 막대의 「Animation」 칸 글리프(`videoEditParts/mobileActionGlyphs.tsx:105-111` `GlyphMotion` — 24 상자 바깥 화면 · 안쪽 화면 · 네 모서리 사선, 줌 · 팬 뜻)다. LOUIS 아이콘에 같은 그림이 없다(`icon/frame-inset` 은 모서리 사선이 없다).",
+  },
+  {
+    id: "vem-mobile-adjust",
+    signature: "0 0 24 24|path(d=M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0)|circle(cx=16 cy=6 r=2)|circle(cx=10 cy=12 r=2)|circle(cx=18 cy=18 r=2)",
+    louis: "icon/sliders-horizontal",
+    verdict: "bespoke",
+    why: "비디오 편집기 모바일 선택 층 막대의 「Adjust」 칸 글리프(`videoEditParts/mobileActionGlyphs.tsx:156-163` `GlyphAdjust` — 24 상자 가로 줄 셋 · 손잡이 셋)다. LOUIS `icon/sliders-horizontal` 과 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
+  },
+  {
+    id: "vem-mobile-duplicate",
+    signature: "0 0 24 24|rect(rx=2 x=8 y=8 width=13 height=13)|path(d=M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3)",
+    louis: "icon/copy",
+    verdict: "bespoke",
+    why: "비디오 편집기 모바일 선택 층 막대의 「Duplicate」 칸 글리프(`videoEditParts/mobileActionGlyphs.tsx:141-146` `GlyphDuplicate` — 24 상자 겹친 사각 둘)다. LOUIS `icon/copy` 와 같은 뜻이지만 제품이 제 인라인 경로를 그린다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

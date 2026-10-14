@@ -2756,7 +2756,8 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Canvas Instagram Node": 0,
   // 2026-10-15(R2): 2 → 4 — 패널 상태 레시피 `/nodecanvas?project= panel.help` × 두 뷰포트에도 같은 프로젝트 머리가 선다.
   "Product/Project Header": 4,
-  "Product/Mobile Timeline": 1,
+  // 2026-10-15(R2): 1 → 2 — 패널 상태 레시피 `/videoeditor/[projectId] panel.clip-color` 모바일 보드(클립을 고른 같은 편집기)에도 타임라인이 선다.
+  "Product/Mobile Timeline": 2,
   // 같은 날 뒤: 줌 비율 트리거 — 노드캔버스 프로젝트 데스크톱 보드 하나(모바일 캔버스에는 이 컨트롤이 없다).
   // 2026-10-15(R2): 1 → 2 — 패널 상태 레시피 `/nodecanvas?project= panel.help` 데스크톱 보드(같은 캔버스 위 도움말 패널)에도 같은 트리거가 선다.
   "Product/Canvas Zoom Trigger": 2,
@@ -2850,6 +2851,7 @@ const PALETTE_PENDING_WHY = "커맨드 팔레트 대화 상자 · 행 · 플라�
 // 2026-10-15 — 분석 상태 레시피(연결된 채널)의 처음 보드. 시청자 탭 지역 행의 stretch 자식 · 로딩 스켈레톤 막대. 보낸 뒤 캡처로 대조한다.
 const ANALYTICS_PENDING_WHY = "분석 연결 상태 보드(시청자 탭 행 · 로딩 스켈레톤 막대)의 stretch 자식 — 2026-10-15 새 상태 보드, 캡처 대조 전";
 const SHORT_RESULT_PLAYER_WHY ="쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
+const VEM_INSPECTOR_PENDING_WHY = "편집기 클립 인스펙터 섹션(Adjustments · Source crop)의 stretch 자식 — 2026-10-15 새 패널 상태 보드(인스펙터를 처음 그린다), 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
   // 되살림(2026-10-08): 아래 자리는 통합 판(DS-D-0079)에서 세션 `/videoeditor/[projectId]` 가 오류 경계로 재져 잠시 빠졌다가, fixture 에
   // CDN 주소를 세워 다시 재자 서브트리가 돌아와 되살렸다. 같이 빠졌던 공개 `/` 데스크톱 `body.1.0.0.2.1.0.1 · vertical`(LANDING_PENDING_WHY)은
@@ -2893,6 +2895,12 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   "/ @ mobile-402x874 · body.1.0.0.2.8.0.2.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
   "/ @ desktop-1920x1080 · body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.2.0.0.1.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
   "/ @ mobile-402x874 · body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.2.0.0.1.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
+  // 2026-10-15(R2): 패널 상태 레시피 `/videoeditor/[projectId] panel.clip-color` — 클립 인스펙터의 「Adjustments」 섹션(ClipColorControls 의 필터
+  // 프리셋 격자 · 강도 눈금자, `videoEditParts/ClipInspector.tsx:434-449`)과 「Source crop」 비율 칩 묶음(같은 파일)이 세로 HUG 부모 안의 stretch 자식이다.
+  // 기준 화면에는 인스펙터가 「Nothing selected yet」 빈 상태라 없던 자리다. 보드는 측정 크기로 그리고, 캡처 대조로 풀 규칙을 고른다.
+  "/videoeditor/[projectId] panel.clip-color @ desktop-1920x1080 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.5 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
+  "/videoeditor/[projectId] panel.clip-color @ desktop-1920x1080 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.6.1 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
+  "/videoeditor/[projectId] panel.clip-color @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.5 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
 };
 {
   const actual = {};

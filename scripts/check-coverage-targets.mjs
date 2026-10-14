@@ -130,7 +130,8 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 같은 날 뒤: 113 → 112 — PricingSection 화면.
 // 같은 날 뒤: 112 → 107 — 노드캔버스 노드 카드 다섯이 제품 세트가 됐다(check-figma-surface-coverage 의 MAPPED_PRODUCT_BASELINE 주석).
 // 같은 날 뒤: 107 → 105 — 홈 · 하이라이트 스튜디오 판 화면.
-const NEEDED_BASELINE = 105; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 같은 날 뒤: 105 → 102 — 단체 구매 실패 · 편집기 작업 화면 · 캔버스 스테이지 프레임.
+const NEEDED_BASELINE = 102; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.

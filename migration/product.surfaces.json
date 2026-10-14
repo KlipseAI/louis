@@ -13,15 +13,15 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 181,
+    "mapped": 184,
     "scoped": 324,
-    "needed": 105,
+    "needed": 102,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 8,
-    "screen": 87,
+    "screen": 84,
     "oneoff": 10,
     "unclear": 0,
     "kindless": 0
@@ -1502,12 +1502,13 @@
       "file": "apps/web/app/mypage/upgrade/bulk-fail/page.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "자기 마크업이 있다. 그런데 **status-result 계열이 아니다** — 그 패턴을 쓰는 화면은 STATUS_* 상수 벌을 공유하는데(`git grep -l STATUS_CARD f19cc41c` 가 topup 둘·billing 넷·upgrade/fail·shorts 여덟 파일을 주고 이 파일은 없다), 이 화면은 구독 화면 셸(myPageSceneStyles)에 자기 PANEL 을 얹는다. 축마다 계약과 어긋난다: 폭 720 ↔ 계약 min(520px,100%)(status-result.md:33), 면 있음(app-main-card-bg + louis-hairline-inset) ↔ 「컬럼은 투명하다」(:37) 그리고 「카드를 또 그리면 이중 면」(:40), 제목 heading-28-semibold ↔ heading-36 medium, 설명 body-14 ↔ body-16, 액션 가로 wrap ↔ 「버튼이 전폭이라 세로로 쌓인다」(:149). 보드도 없다 — figma/app-screens.plan.json 이 같은 앵커 f19cc41c 에서 만든 18라우트 36보드에 /mypage/upgrade/bulk-fail 이 없다. 65 컴포넌트에도 이 판을 담는 것이 없다. 화면 한 장으로 세워야 한다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "단체구매 실패 화면 본체다. status-result 계열이 아니어서(STATUS_* 상수를 안 쓴다) 기존 결과 화면 보드에 얹히지 않고, 구독 셸 위에 자기 PANEL 을 그린다 — 화면 한 장으로 세울 자리다."
+      "verdict": "figma",
+      "figma": "screen:/mypage/upgrade/bulk-fail",
+      "reason": "단체 구매 실패 화면의 보드다(DS-D-0098). 실패 안내 문장과 재시도 · 구독으로 돌아가기 행을 이 파일이 자체로 그린다. 같은 파일에 needed 가 없고, 데스크톱 · 모바일 보드가 늘림 시험을 통과한다(run 2026-10-14c — 04-billing 재측정).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "이 라우트는 결제 실패 결과 한 상태만 갖고 보드가 그 내용을 그린다 — 「Payment didn't go through」 제목 · 쿠폰 미발행 · 청구 없음 안내와 두 행동 단추. 빈 상태가 없는 결과 화면이다."
     },
     "apps/web/app/mypage/upgrade/bulk-fail/page.tsx#BulkPurchaseFailPage": {
       "file": "apps/web/app/mypage/upgrade/bulk-fail/page.tsx",
@@ -1821,12 +1822,13 @@
       "file": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "1,320줄짜리 라우트 에디터 본체다. 모듈 CSS 4벌(MyPageScene·AppHomeScene·VideoEditScene·Gnb)의 승자를 요소마다 계산해 옮긴 셸을 자기가 들고 있다. Figma 의 editor-workspace 패턴은 pane 골격(Assets·PaneDivider·Preview·Properties·Timeline 폭과 간격)까지만 계약하고, 이 화면이 실제로 그리는 상단 크롬·에셋 목록·타임라인 내부·모달 조합은 어느 컴포넌트에도 없다. 라우트 축의 미등록 면적이 가장 큰 자리 둘 중 하나다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: PaneDivider (pane 골격 몫)] 1,320줄짜리 라우트 에디터 본체. Figma editor-workspace 패턴이 pane 골격(Assets·PaneDivider·Preview·Properties·Timeline 폭과 간격)까지 계약하므로 남는 것은 이 화면이 실제로 그리는 상단 크롬·에셋 목록·타임라인 내부·모달 조합 — 즉 «그림»이다. 실측으로 이 파일은 `videoEditParts` 의 인스펙터 계열을 import 하지 않는다(grep 0) — node-canvas 쪽 인스펙터와 부품을 공유하지 않으므로 여기서 프리미티브를 뽑을 근거도 약하다. 라우트 축 미등록 면적이 가장 큰 자리 둘 중 하나."
+      "verdict": "figma",
+      "figma": "screen:/videoeditor/[projectId]",
+      "reason": "영상 편집기 작업 화면의 보드다(DS-D-0098). 상단 바 · 에셋 레일 · 미리보기 출력 틀 · 시퀀스 눈금자 · 타임라인 줄을 이 셸이 들고, 안의 부품(타임라인 · 인스펙터 행 · 비디오 플레이어 크롬)은 각자 LOUIS 대응이다. 같은 파일에 needed 가 없고, 두 보드가 늘림 시험을 통과한다(run 2026-10-14c, 조립 규칙 15조의 13 · 14 · 15 — 데스크톱 1440 의 필름 칸 끝 걸침은 제품도 같다, RESIZE_PRODUCT_SAME).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "auth fixture 시드 편집 프로젝트(Fixture edit project)의 소스 둘 · 클립 둘(Clip A 00:10:00 · Clip B 00:08:00)이 에셋 목록과 타임라인을 채운다 — 빈 편집기가 아니다."
     },
     "apps/web/app/videoeditor/[projectId]/page.tsx#EditorProjectPage": {
       "file": "apps/web/app/videoeditor/[projectId]/page.tsx",
@@ -6260,12 +6262,13 @@
       "file": "apps/web/components/scenes/CreateScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스를 담는 create 라우트의 스테이지 프레임이다. 스테이지 곡률·오버행·드래그오버 상태·하단 progressive blur 그라디언트는 이 화면 고유 크롬인데 모델이 없다. 캔버스 내부 부품은 scenes/create 도메인 소관이라 여기서는 프레임만 대상이다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/nodecanvas/NodeCanvasWorkspace.tsx), JSX 1곳. 캔버스를 담는 스테이지 프레임 — 곡률·오버행·드래그오버·하단 progressive blur 는 이 화면 고유 크롬이다. 되풀이되는 부품이 아니라 보드다."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas?project=",
+      "reason": "캔버스를 담는 create 라우트의 스테이지 프레임 보드다(DS-D-0098). 스테이지 곡률 · 오버행 · 아래 진행형 흐림과 캔버스 크롬(프로젝트 머리 · 툴바 · 줌 트리거 — 각자 제품 세트)을 그린다. 같은 파일에 needed 가 없고, 두 보드가 늘림 시험을 통과한다(run 2026-10-14c, 조립 규칙 15조의 13 — React Flow 뷰포트가 캔버스 좌표에 머물러 노드가 상자 밖으로 나가는 것은 제품도 같다, RESIZE_PRODUCT_SAME).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "session fixture 시드 캔버스 프로젝트의 텍스트 · 이미지 · 비디오 노드 셋과 엣지 둘이 캔버스를 채운다 — 빈 캔버스가 아니다."
     },
     "apps/web/components/scenes/ExploreScene.tsx#ExploreScene": {
       "file": "apps/web/components/scenes/ExploreScene.tsx",

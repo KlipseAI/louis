@@ -139,7 +139,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 같은 날 뒤: 174 → 179 — 노드캔버스 노드 카드 나머지 다섯(TtsNode · BgmNode · EditNode · YoutubeNode · InstagramNode)이 제품 세트
 // `Product/Canvas TTS · BGM · Edit · YouTube · Instagram Node` 가 됐다(아래 MAPPED_PRODUCT_BASELINE). 세션 원장의 두 번째 노드캔버스 프로젝트에서 잰다.
 // 같은 날 뒤: 179 → 181 — 홈(/archive seeded) · 하이라이트 스튜디오 판(/highlight/[projectId] completed) 화면(run 2026-10-14b 늘림 수정 뒤).
-const MAPPED_BASELINE = 181;
+// 같은 날 뒤: 181 → 184 — 단체 구매 실패 · 편집기 작업 화면 · 캔버스 스테이지 프레임(run 2026-10-14c 늘림 수정 뒤, 아래 MAPPED_SCREEN_BASELINE).
+const MAPPED_BASELINE = 184;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 const MAPPED_COMPONENT_BASELINE = 124;
@@ -170,7 +171,8 @@ const MAPPED_PRODUCT_BASELINE = 46;
 // 같은 날 뒤: 3 → 4 — PricingSection(/pricing). 「/」 모바일은 뉴스 카드 제목 둘(줄을 옮긴 HUG 145)이 360 에서 남아 랜딩 절은 아직이다.
 // 같은 날 뒤: 4 → 6 — AppHomeScene · HighlightStudioBoard. 「/」 는 늘림을 통과했지만(run 2026-10-14b) 보드가 스크롤 장면 대부분을 그리지 않아
 // 채운 보드가 아니다 — 랜딩 절은 아직이다.
-const MAPPED_SCREEN_BASELINE = 6;
+// 같은 날 뒤: 6 → 9 — BulkFailContent(/mypage/upgrade/bulk-fail) · EditorProjectWorkspace(/videoeditor/[projectId]) · CreateScene(/nodecanvas?project=).
+const MAPPED_SCREEN_BASELINE = 9;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

@@ -8262,6 +8262,96 @@
           "$controlsHeight": "layout-control-height-lg 40"
         }
       }
+    },
+    "breadcrumb": {
+      "$doc": "design/components/breadcrumb.md",
+      "$source": "packages/css/src/component/breadcrumb.css — 2026-10-14",
+      "$note": "앱 상단 페이지 내비(`.louis-breadcrumb`). 값은 레시피 선언이고 packages/react/test/breadcrumb-geometry.browser.test.tsx 가 계산값으로 되잰다. 키는 Figma Breadcrumb 의 Kind 축 — nested 는 부모 · 구분자 자손이 더해질 뿐 칸의 기하는 같다. 글자 폭은 담지 않는다($whyNotTextWidth).",
+      "sizes": {
+        "single": {
+          "$width": "글자가 정한다 — `.louis-breadcrumb` 은 inline-flex hug 라 폭에 수를 두지 않는다. Figma 의 61 · 144 는 표본 문구가 정한 값이다.",
+          "height": 24,
+          "$height": "body-md medium line-height 24. 칸에 block-size 가 없어 글자 한 줄이 높이를 정한다.",
+          "padding": 0,
+          "$padding": "0. `.louis-breadcrumb { padding: 0 }` — 상단 바 제목 칸 안에 그대로 선다.",
+          "gap": 4,
+          "$gap": "space-control-xs 4. 제품 구분자 `margin: 0 4px`(Gnb.tsx mainChromePageNavSep)를 간격으로 옮겼다.",
+          "radius": 0,
+          "$radius": "0. 면이 없어 모서리도 없다.",
+          "direction": "row",
+          "$direction": "`display: inline-flex` 의 기본 row.",
+          "lineHeight": 24,
+          "$lineHeight": "body-md medium line-height 1.5 × 16 = 24px. 부모 · 구분자 · 현재 칸이 같은 글자를 상속한다.",
+          "fontSize": 16,
+          "$fontSize": "body-md medium 16px — 제품 `--type-body-16-size`.",
+          "$kind": "현재 하나. `__current` 만 있다."
+        },
+        "nested": {
+          "$width": "글자가 정한다 — `.louis-breadcrumb` 은 inline-flex hug 라 폭에 수를 두지 않는다. Figma 의 61 · 144 는 표본 문구가 정한 값이다.",
+          "height": 24,
+          "$height": "body-md medium line-height 24. 칸에 block-size 가 없어 글자 한 줄이 높이를 정한다.",
+          "padding": 0,
+          "$padding": "0. `.louis-breadcrumb { padding: 0 }` — 상단 바 제목 칸 안에 그대로 선다.",
+          "gap": 4,
+          "$gap": "space-control-xs 4. 제품 구분자 `margin: 0 4px`(Gnb.tsx mainChromePageNavSep)를 간격으로 옮겼다.",
+          "radius": 0,
+          "$radius": "0. 면이 없어 모서리도 없다.",
+          "direction": "row",
+          "$direction": "`display: inline-flex` 의 기본 row.",
+          "lineHeight": 24,
+          "$lineHeight": "body-md medium line-height 1.5 × 16 = 24px. 부모 · 구분자 · 현재 칸이 같은 글자를 상속한다.",
+          "fontSize": 16,
+          "$fontSize": "body-md medium 16px — 제품 `--type-body-16-size`.",
+          "trailLineHeight": 24,
+          "$trailLineHeight": "body-md medium line-height 24 — 부모 · 구분자 칸. single 에는 그 칸이 없어 이 값도 없다(계약의 optional 은 근거 값이 함께 없을 때만 통과한다).",
+          "trailFontSize": 16,
+          "$trailFontSize": "body-md medium 16px — 부모 · 구분자 칸은 칸의 글자를 상속한다.",
+          "$kind": "부모 / 현재. `__parent` · `__separator`(aria-hidden) · `__current`."
+        }
+      }
+    },
+    "form-message": {
+      "$doc": "design/components/form-message.md",
+      "$source": "packages/css/src/component/form-message.css — 2026-10-14",
+      "$note": "폼 아래 한 줄 메시지(`.louis-form-message`). 값은 레시피 선언이고 packages/react/test/form-message-geometry.browser.test.tsx 가 계산값으로 되잰다. 키는 Figma FormMessage 의 Tone 축 — 톤은 글자색(fg-danger · fg-secondary)만 바꿔 두 칸의 기하가 같다.",
+      "sizes": {
+        "error": {
+          "$width": "폼이 정한다 — `.louis-form-message` 는 블록이라 부모 폭을 받는다. Figma 의 320 은 표본 폭이다.",
+          "height": 18,
+          "$height": "caption regular line-height 18. 한 줄 메시지의 높이다.",
+          "paddingInlineStart": 4,
+          "$paddingInlineStart": "space-control-xs 4. 제품 `pl-2`(간격 격자 `--spacing: 2px`).",
+          "paddingInlineEnd": 0,
+          "$paddingInlineEnd": "0. 시작 쪽에만 여백이 있다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0.",
+          "radius": 0,
+          "$radius": "0. 면이 없어 모서리도 없다.",
+          "lineHeight": 18,
+          "$lineHeight": "caption regular line-height 1.5 × 12 = 18px.",
+          "fontSize": 12,
+          "$fontSize": "caption regular 12px — 제품 `type-caption-12-regular`.",
+          "$tone": "`data-tone=\"error\"` — fg-danger, 마크업은 role=alert."
+        },
+        "neutral": {
+          "$width": "폼이 정한다 — `.louis-form-message` 는 블록이라 부모 폭을 받는다. Figma 의 320 은 표본 폭이다.",
+          "height": 18,
+          "$height": "caption regular line-height 18. 한 줄 메시지의 높이다.",
+          "paddingInlineStart": 4,
+          "$paddingInlineStart": "space-control-xs 4. 제품 `pl-2`(간격 격자 `--spacing: 2px`).",
+          "paddingInlineEnd": 0,
+          "$paddingInlineEnd": "0. 시작 쪽에만 여백이 있다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0.",
+          "radius": 0,
+          "$radius": "0. 면이 없어 모서리도 없다.",
+          "lineHeight": 18,
+          "$lineHeight": "caption regular line-height 1.5 × 12 = 18px.",
+          "fontSize": 12,
+          "$fontSize": "caption regular 12px — 제품 `type-caption-12-regular`.",
+          "$tone": "기본 — fg-secondary(도움말)."
+        }
+      }
     }
   },
   "$noProductRender": {

@@ -1,0 +1,29 @@
+/* FormMessage — design/components/form-message.md
+ *
+ * 폼 아래 한 줄 메시지 — error · neutral. 제품 정본은 로그인 화면의 인라인 `<p>`
+ * (`app/(auth-brand)/login/page.tsx` 의 `ERROR_TEXT` · `type-caption-12-regular`).
+ *
+ * - 글자는 caption regular(12/18/400).
+ * - 시작 쪽 여백만 4 — 제품 `pl-2`(제품 간격 격자 `--spacing: 2px`)를 `space-control-xs` 로. 끝 · 위아래 여백은 0.
+ * - 톤: error 는 `fg-danger`(제품 `accent-red-500`), neutral 은 `fg-secondary`(도움말).
+ * - 오류를 알리는 일은 마크업이 진다 — error 는 `role="alert"`, 칸과는 `aria-describedby` 로 잇는다. */
+
+.louis-form-message {
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--louis-space-control-xs) 0;
+  text-align: start;
+  overflow-wrap: anywhere;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  color: var(--louis-color-fg-secondary);
+}
+
+.louis-form-message[data-tone="error"] {
+  color: var(--louis-color-fg-danger);
+}

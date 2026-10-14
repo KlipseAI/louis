@@ -2154,6 +2154,60 @@
 }
 
 @layer louis.component {
+  /* Breadcrumb — design/components/breadcrumb.md
+   *
+   * 앱 상단 바의 페이지 내비 — single(현재 하나) · nested(부모 / 현재). 제품 정본은 `components/navigation/Gnb.tsx`
+   * 의 `mainChromePageNav*`(통합 판 kds-integration :313-345 · :5395-5420).
+   *
+   * - 글자는 body-md medium(16/24/500) — 제품 `mainChromePageNavTitle` 이 `--type-body-16-*` 를 쓴다.
+   * - 부모 · 구분자 · 현재 사이는 4 — 제품 구분자 `margin: 0 4px` 를 간격으로 옮긴다(Figma itemSpacing 4).
+   * - 현재 위치는 색이 아니라 `aria-current="page"` 가 소유한다. 제품의 잉크 80 · 48 · 32% 는 글자 토큰 계단에
+   *   없어서 의미 토큰으로 접는다: 현재 `fg-primary`, 부모 · 구분자 `fg-tertiary`.
+   * - 구분자 「/」 는 장식이다 — `aria-hidden="true"`. 긴 이름은 현재 칸에서 말줄임한다. */
+
+  .louis-breadcrumb {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--louis-space-control-xs);
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    font-family: var(--louis-typography-body-md-medium-font-family);
+    font-size: var(--louis-typography-body-md-medium-font-size);
+    font-weight: var(--louis-typography-body-md-medium-font-weight);
+    line-height: var(--louis-typography-body-md-medium-line-height);
+    letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+    color: var(--louis-color-fg-tertiary);
+  }
+
+  .louis-breadcrumb__parent,
+  .louis-breadcrumb__separator {
+    flex: 0 0 auto;
+    color: var(--louis-color-fg-tertiary);
+  }
+
+  .louis-breadcrumb__current {
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--louis-color-fg-primary);
+  }
+
+  /* 부모가 링크일 때 — 밑줄 없이, 얹으면 현재 색으로 올라온다. 초점 고리는 전역 :focus-visible 이 갖는다. */
+  a.louis-breadcrumb__parent {
+    text-decoration: none;
+  }
+
+  a.louis-breadcrumb__parent:hover {
+    color: var(--louis-color-fg-primary);
+  }
+}
+
+@layer louis.component {
   /* Button — design/components/button.md
    *
    * 상태는 data-* 속성으로만 표현한다. React state를 className 문자열로 조합하지 않는다 (DS-D-0004).
@@ -8049,6 +8103,38 @@
       background-image: none;
       background-color: CanvasText;
     }
+  }
+}
+
+@layer louis.component {
+  /* FormMessage — design/components/form-message.md
+   *
+   * 폼 아래 한 줄 메시지 — error · neutral. 제품 정본은 로그인 화면의 인라인 `<p>`
+   * (`app/(auth-brand)/login/page.tsx` 의 `ERROR_TEXT` · `type-caption-12-regular`).
+   *
+   * - 글자는 caption regular(12/18/400).
+   * - 시작 쪽 여백만 4 — 제품 `pl-2`(제품 간격 격자 `--spacing: 2px`)를 `space-control-xs` 로. 끝 · 위아래 여백은 0.
+   * - 톤: error 는 `fg-danger`(제품 `accent-red-500`), neutral 은 `fg-secondary`(도움말).
+   * - 오류를 알리는 일은 마크업이 진다 — error 는 `role="alert"`, 칸과는 `aria-describedby` 로 잇는다. */
+
+  .louis-form-message {
+    box-sizing: border-box;
+    display: block;
+    margin: 0;
+    padding-block: 0;
+    padding-inline: var(--louis-space-control-xs) 0;
+    text-align: start;
+    overflow-wrap: anywhere;
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+    color: var(--louis-color-fg-secondary);
+  }
+
+  .louis-form-message[data-tone="error"] {
+    color: var(--louis-color-fg-danger);
   }
 }
 

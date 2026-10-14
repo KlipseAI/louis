@@ -2149,22 +2149,63 @@ const COMPONENT_CONTRACTS = [
   {
     id: "form-message",
     figmaName: "FormMessage",
-    figmaAhead: "LOUIS recipe 없음 — app/login/page.tsx:199,537 이 정본이다.",
+    figmaAhead: "React 없음 — CSS 레시피 packages/css/src/component/form-message.css(2026-10-14)가 정본이다. 제품은 app/login/page.tsx 의 인라인 p 다.",
     variantProperties: {},
     figmaOnlyProperties: {
       Message: { type: "TEXT", reason: "메시지 문구. 코드에서는 children 이다." },
-      Tone: { options: ["error", "neutral"], reason: "제품은 error 만 쓰지만 neutral 도인 자리가 있다(도움말)." },
+      Tone: { options: ["error", "neutral"], reason: "제품은 error 만 쓰지만 neutral 도인 자리가 있다(도움말). 코드에서는 data-tone 이고 색만 가른다." },
+    },
+    // **기하(2026-10-14, DS-D-0035 (c)).** 폭은 폼이 정해(블록) 표본 칸이라 걸지 않는다. 시작 쪽 여백 4 · 끝 0 · 위아래 0 과
+    // 글자 줄 높이 18 · 크기 12 를 건다. 두 톤의 기하는 같다.
+    geometry: {
+      measuredId: "form-message",
+      fields: {
+        height: "height",
+        paddingInline: "paddingInlineStart",
+        paddingInlineEnd: "paddingInlineEnd",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        cornerRadius: "radius",
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      // 글자 폭은 담지 않는다($whyNotTextWidth).
+      parts: { Message: { fields: { height: "lineHeight", fontSize: "fontSize" } } },
     },
   },
   {
     id: "breadcrumb",
     figmaName: "Breadcrumb",
-    figmaAhead: "LOUIS recipe 없음 — Gnb.tsx:5335-5352 이 정본이다.",
+    figmaAhead: "React 없음 — CSS 레시피 packages/css/src/component/breadcrumb.css(2026-10-14)가 정본이다. 제품은 Gnb.tsx 의 mainChromePageNav* 다.",
     variantProperties: {},
     figmaOnlyProperties: {
       Current: { type: "TEXT", reason: "현재 페이지 이름." },
       Parent: { type: "TEXT", reason: "부모 이름. nested 에서만 보인다." },
-      Kind: { options: ["single", "nested"], reason: "코드의 mainChromePageNav.kind 와 같은 축이다." },
+      Kind: { options: ["single", "nested"], reason: "코드의 mainChromePageNav.kind 와 같은 축이다. 레시피에서는 부모 · 구분자 자손이 있는가다." },
+    },
+    // **기하(2026-10-14, DS-D-0035 (c)).** 폭은 글자가 정해(hug) 걸지 않는다. 높이 24 · 간격 4 · 여백 · 모서리 0 · 가로 배치와
+    // 각 글자 칸의 줄 높이 24 · 크기 16 을 건다. single 에는 부모 · 구분자가 없어 optional 이다.
+    geometry: {
+      measuredId: "breadcrumb",
+      fields: {
+        height: "height",
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      // 글자 폭은 담지 않는다($whyNotTextWidth) — 구분자 「/」 의 6 도 글리프 폭이다.
+      parts: {
+        Current: { fields: { height: "lineHeight", fontSize: "fontSize" } },
+        // 근거 값 trail* 은 nested 칸에만 있다 — optional 은 근거 값이 함께 없을 때만 통과하므로 single 에서는 값을 두지 않는다.
+        Parent: { fields: { height: "trailLineHeight", fontSize: "trailFontSize" }, optional: true },
+        Separator: { fields: { height: "trailLineHeight", fontSize: "trailFontSize" }, optional: true },
+      },
     },
   },
   {

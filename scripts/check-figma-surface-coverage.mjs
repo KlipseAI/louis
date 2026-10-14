@@ -143,7 +143,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-10-15: 184 → 190 — 캔버스 · 편집기 표면 여섯(CanvasDots · MenuMediaItem · GalleryPanel · DrillPicker 새 부품, InspectorSectionHead · TransformFrame 사상, DS-D-0102~0106).
 // 같은 날 뒤: 190 → 191 — 캔버스 연결선 DeletableEdge 를 CanvasEdge(삭제 버튼 CanvasEdgeDelete 를 품은 Hover 칸)로(DS-D-0100).
 // 같은 날 뒤: 191 → 193 — 광고 표 서랍 GroupDrawer → TableDrawer(DS-D-0107) · 도움말 채널 타일 HandleTile → NodeHandleTile(DS-D-0108).
-const MAPPED_BASELINE = 193;
+// 같은 날 뒤: 193 → 195 — 모델 상세 화면 · 버전 행(보드 /models/[slug], run 2026-10-14s, 아래 MAPPED_SCREEN_BASELINE).
+const MAPPED_BASELINE = 195;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 // 2026-10-15: 124 → 130 — 위 여섯이 모두 컴포넌트 대응이다.
@@ -176,7 +177,8 @@ const MAPPED_PRODUCT_BASELINE = 46;
 // 같은 날 뒤: 4 → 6 — AppHomeScene · HighlightStudioBoard. 「/」 는 늘림을 통과했지만(run 2026-10-14b) 보드가 스크롤 장면 대부분을 그리지 않아
 // 채운 보드가 아니다 — 랜딩 절은 아직이다.
 // 같은 날 뒤: 6 → 9 — BulkFailContent(/mypage/upgrade/bulk-fail) · EditorProjectWorkspace(/videoeditor/[projectId]) · CreateScene(/nodecanvas?project=).
-const MAPPED_SCREEN_BASELINE = 9;
+// 2026-10-15: 9 → 11 — /models/[slug] 보드 둘(공개 시드 landing_models)이 모델 상세 · 버전 행을 채워 그리고 늘림을 통과한다.
+const MAPPED_SCREEN_BASELINE = 11;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이
@@ -261,6 +263,9 @@ const RESIZE_PRODUCT_SAME = {
   // (TimelineFooter.tsx) — 1440 에서 눈금자 1272 의 오른쪽 끝을 「00:21」이 가로질러 잘린다(1920 은 「00:29」). 제품도 같다.
   "359:2032": { "w1440 자식 넘침": "/ 데스크톱 — 푸터 눈금자 끝 글자가 1440 에서 잘림(제품 같음)" },
   "213:2297": { "w1440 자식 넘침": "/pricing 데스크톱 — 푸터 눈금자 끝 글자가 1440 에서 잘림(제품 같음)" },
+  // run 2026-10-14s: 모델 두 라우트의 데스크톱도 같은 푸터 눈금자 노드다(에이전트 S 확인).
+  "3471:9267": { "w1440 자식 넘침": "/models 데스크톱 — 푸터 눈금자 끝 글자가 1440 에서 잘림(제품 같음)" },
+  "3471:9269": { "w1440 자식 넘침": "/models/[slug] 데스크톱 — 푸터 눈금자 끝 글자가 1440 에서 잘림(제품 같음)" },
   // run 2026-10-14c(2026-10-14 조립 규칙 15조의 13 ~ 15 뒤). 노드캔버스의 React Flow 뷰포트 층은 측정 원장(앵커 54b62a8a 크로미움)에서 `width · height 100%` +
   // 계산값 `transform: matrix(z, 0, 0, z, tx, ty)`(데스크톱 z 0.815206 · tx 340.444, 모바일 z 0.189474 · tx 57)다 — 상자 폭 = 캔버스 폭 × z 인데 노드는
   // translate 로 캔버스 좌표에 머문다. 캔버스를 1440 으로 줄이면 상자 1173.9 에 비디오 노드 오른쪽 끝 1239.1(1120 × z + 400 × z)이라 제품도 65 밖이고,

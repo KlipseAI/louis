@@ -19631,7 +19631,9 @@
           "cornerRadius": [
             12
           ],
-          "strokeWeight": [],
+          "strokeWeight": [
+            1
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
@@ -19647,7 +19649,9 @@
           "cornerRadius": [
             8
           ],
-          "strokeWeight": [],
+          "strokeWeight": [
+            1
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
@@ -19663,7 +19667,9 @@
           "cornerRadius": [
             12
           ],
-          "strokeWeight": [],
+          "strokeWeight": [
+            1
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
@@ -19679,7 +19685,9 @@
           "cornerRadius": [
             12
           ],
-          "strokeWeight": [],
+          "strokeWeight": [
+            1
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
@@ -19695,7 +19703,9 @@
           "cornerRadius": [
             12
           ],
-          "strokeWeight": [],
+          "strokeWeight": [
+            1
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
@@ -19711,7 +19721,9 @@
           "cornerRadius": [
             12
           ],
-          "strokeWeight": [],
+          "strokeWeight": [
+            1
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         },
@@ -19727,12 +19739,18 @@
           "cornerRadius": [
             12
           ],
-          "strokeWeight": [],
+          "strokeWeight": [
+            1
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         }
       },
-      "strokes": {},
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
       "effects": {}
     },
     "Menu": {
@@ -33602,9 +33620,9 @@
         }
       },
       "binding": {
-        "boundFills": 78,
+        "boundFills": 74,
         "rawFills": 0,
-        "boundStrokes": 22,
+        "boundStrokes": 18,
         "rawStrokes": 0,
         "textStyled": 12,
         "textUnstyled": 0
@@ -33731,7 +33749,6 @@
       },
       "strokes": {
         "Vector": [
-          "1.5|CENTER",
           "1.7|CENTER",
           "2|CENTER"
         ]
@@ -33744,10 +33761,6 @@
           "BACKGROUND_BLUR:NORMAL:0"
         ],
         "Progress pill": [
-          "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
-          "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0"
-        ],
-        "Expand": [
           "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
           "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0"
         ]

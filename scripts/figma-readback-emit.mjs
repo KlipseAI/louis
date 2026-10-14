@@ -274,7 +274,7 @@ const CAPTURE = {
   "NodeMedia": {"key":{"by":["State"]},"fields":["width","height","layoutMode"]},
   "NodeChannel": {"key":{"by":["Size"]},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"]},
   "NodeResizeHandle": {"key":{"by":["State"]},"fields":["height","paddingInline","paddingInlineEnd","layoutMode"],"outsideParts":["Hint"]},
-  "MediaSlot": {"key":{"by":["Size","Layout","State","Ratio"],"omit":{"Ratio":"1:1"}},"fields":["width","height","cornerRadius","strokeWeight"]},
+  "MediaSlot": {"key":{"by":["Size","Layout","State","Ratio"],"omit":{"Ratio":"1:1"}},"fields":["width","height","cornerRadius","strokeWeight"],"strokes":["self"]},
   "AudioCell": {"key":{"by":["State"]},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius","layoutMode"],"effects":["self"]},
   // 변형 묶음(2026-10-13, DS-D-0084)이 세운 새 세트 · 하위 컴포넌트 — 노드 캔버스 묶음처럼 축 키와 겉 치수만 담는 첫 채취다.
   "FloatingShellItem": {"key":{"by":["Size","State"]},"fields":["width","height","cornerRadius","opacity"],"slots":{"Glyph":"size"}},

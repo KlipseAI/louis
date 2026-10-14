@@ -624,11 +624,9 @@ const COMPONENT_CONTRACTS = [
         "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
         "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0",
       ],
-      Expand: [
-        "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
-        "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0",
-      ],
     },
+    // **확대 칩 `Expand` 는 2026-10-14 부터 `VideoPlayerChip` 인스턴스다** — 효과(헤어라인 · 흐림)가 인스턴스 안 `Surface` 에 있어 되읽기가 이 세트의
+    // 역할로 잡지 않는다. 그 효과는 VideoPlayerChip 계약이 대조한다. Hidden 변형의 흐림 0 은 인스턴스 덮어쓰기다.
   },
   // ── CSS 레시피는 있고 React 표면이 없는 것들 ────────────────────────────────
   // LOUIS 가 CSS 로 정의해 두고 **Figma 에도 문서에도 없던** 다섯이다(2026-08-26 확인).
@@ -3640,7 +3638,8 @@ const COMPONENT_CONTRACTS = [
     figmaName: "MediaSlot",
     figmaAhead: "React 표면 없음 — packages/css/src/component/media-slot.css 가 정본이다(2026-10-13, DS-D-0084).",
     variantProperties: {},
-    strokes: {},
+    // 칸의 1px 테두리(2026-10-14 Figma 에 세움) — 레시피 `border: var(--louis-border-width-default) solid media-slot-stroke`, 빈 칸은 점선 `gray-000-alpha-12`(호버 24).
+    strokes: { self: { weight: 1, align: "INSIDE" } },
     effects: {},
     figmaOnlyProperties: {
       Size: { options: ["md", "video", "fill", "attachment"], reason: "코드의 `data-size` 다(없음 = md). 32 정사각 · 76×52 영상 참조 · 열 채움 정사각 · 72 첨부 칸(2026-10-13)으로 상자가 다시 쓰인다." },

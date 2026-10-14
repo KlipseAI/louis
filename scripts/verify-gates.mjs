@@ -751,36 +751,26 @@ withCanary(
 // 붙였고, 그 순간 이 canary 는 **입력을 바꾸지 못해** 실패했다(`canary가 입력을 변경하지
 // 못했습니다`). 즉 **canary 의 재료가 고쳐지면 canary 자신이 깨진다.**
 //
-// 그래서 재료를 매 실행 고른다: manifest 에서 `figma !== "done"` 이면서 그 이름의 계약에
-// `geometry:` 가 없는 첫 항목. 그런 항목이 하나도 없다면 조건 (c) 가 모든 항목에서 서 있다는
-// 뜻이므로 그때는 이 canary 를 지우는 것이 맞고, 아래 throw 가 그 사실을 알린다.
+// 그래서 재료를 매 실행 고른다. 2026-10-14 에 geometry 가 없는 partial 항목이 하나도 남지 않아(조건 (c) 를 모두 세웠다) 옛 재료
+// (「partial 을 done 으로 바꾼다」)가 사라졌다. canary 를 지우지 않고 **반대쪽에서** 같은 조건을 오염시킨다 — manifest 에서 이미
+// `figma: "done"` 인 첫 항목의 계약에서 `geometry:` 키를 걷는다. 그러면 verify-figma-done 이 「geometry 가 없습니다」로 멈춰야 한다.
 withCanary(
-  "design/manifest.json",
+  "scripts/verify-figma-parity.mjs",
   (source) => {
-    const manifest = JSON.parse(source);
-    const parity = readFileSync(resolve(repoRoot, "scripts/verify-figma-parity.mjs"), "utf8");
-    const withoutGeometry = (name) => {
-      const at = parity.indexOf(`figmaName: "${name}"`);
-      if (at < 0) return false;
-      const next = parity.indexOf("\n  {", at);
-      const entry = parity.slice(at, next < 0 ? parity.length : next);
-      return !/^ {4}geometry:/m.test(entry);
-    };
-    const target = manifest.components.find(
-      (item) =>
-        item.figma !== "done" &&
-        (item.figmaNames ?? (item.figmaName === undefined ? [] : [item.figmaName])).some(
-          withoutGeometry,
-        ),
-    );
-    if (target === undefined) {
-      throw new Error(
-        "figma done canary 의 재료가 없습니다 — geometry 가 없는 partial 항목이 하나도 " +
-          "남지 않았습니다. 조건 (c) 가 전부 서 있다면 이 canary 를 지우십시오.",
-      );
+    const manifest = JSON.parse(readFileSync(resolve(repoRoot, "design/manifest.json"), "utf8"));
+    const names = manifest.components
+      .filter((item) => item.figma === "done")
+      .flatMap((item) => item.figmaNames ?? (item.figmaName === undefined ? [] : [item.figmaName]));
+    for (const name of names) {
+      const at = source.indexOf(`figmaName: "${name}"`);
+      if (at < 0) continue;
+      const next = source.indexOf("\n  {", at);
+      const end = next < 0 ? source.length : next;
+      const entry = source.slice(at, end);
+      if (!/^ {4}geometry:/m.test(entry)) continue;
+      return source.slice(0, at) + entry.replace(/^ {4}geometry:/m, "    geometryCanaryRemoved:") + source.slice(end);
     }
-    target.figma = "done";
-    return JSON.stringify(manifest, null, 2) + "\n";
+    throw new Error("figma done canary 의 재료가 없습니다 — geometry 계약을 가진 done 항목이 하나도 없습니다.");
   },
   "figma done without two-way evidence",
   "scripts/verify-figma-done.mjs",

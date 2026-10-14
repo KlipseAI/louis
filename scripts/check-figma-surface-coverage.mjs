@@ -135,7 +135,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 같은 날 뒤: 165 → 170 · 컴포넌트 119 → 124 — 기존 부품 변형이 출처로 삼은 다섯(도움말 이동 행 ← SelectableListRow link · 프롬프트 비교 ←
 // Dialog compare · 어드민 서브탭 ← Tabs bar · 스티커 팔레트 ← AssetTile · 유튜브 미리보기 플레이어 ← VideoPlayer youtube).
 // 같은 날 뒤: 170 → 173 — DS-D-0098 첫 화면 셋(영상 편집 목록 · 캔버스 홈 · 단체 구매 완료, 아래 MAPPED_SCREEN_BASELINE).
-const MAPPED_BASELINE = 173;
+// 같은 날 뒤: 173 → 174 — PricingSection(/pricing, 랜딩 늘림 수정 run 2026-10-14a 뒤 모바일 실패 0).
+const MAPPED_BASELINE = 174;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 const MAPPED_COMPONENT_BASELINE = 124;
@@ -161,7 +162,8 @@ const MAPPED_PRODUCT_BASELINE = 41;
 // **화면 보드 대응(DS-D-0098, 2026-10-14).** 채운 보드 · 늘림 통과 · 안의 부품 needed 0 을 만족한 화면. 따로 잠근다.
 // 2026-10-14: 0 → 3 — VideoEditScene(/videoeditor seeded) · NodeCanvasHomeScene(/nodecanvas seeded.loading-more) ·
 // BulkSuccessContent(/mypage/upgrade/bulk-success?preview=success). 채움이 비어 남긴 것: SubscriptionScene(크레딧 이력 없음) · AdminClient(사용자 없음).
-const MAPPED_SCREEN_BASELINE = 3;
+// 같은 날 뒤: 3 → 4 — PricingSection(/pricing). 「/」 모바일은 뉴스 카드 제목 둘(줄을 옮긴 HUG 145)이 360 에서 남아 랜딩 절은 아직이다.
+const MAPPED_SCREEN_BASELINE = 4;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이
@@ -242,6 +244,10 @@ const RESIZE_PRODUCT_SAME = {
   "2909:19796": { "w360 자식 넘침": "/nodecanvas 「더 불러오기」 모바일 — 카드 제목 nowrap 이 열 140 밖으로(제품 같음)" },
   "2909:19790": { "w360 자식 넘침": "/videoeditor 시드 모바일 — 카드 제목 nowrap 이 열 140 밖으로(제품 같음)" },
   "2909:19792": { "w360 자식 넘침": "/videoeditor 「더보기 메뉴」 모바일 — 카드 제목 nowrap 이 열 140 밖으로(제품 같음)" },
+  // run 2026-10-14a 크로미움 실측(앵커 54b62a8a): 공개 푸터 눈금자는 `relative overflow-hidden` 이고 눈금 글자가 `left: index × 60px` 다
+  // (TimelineFooter.tsx) — 1440 에서 눈금자 1272 의 오른쪽 끝을 「00:21」이 가로질러 잘린다(1920 은 「00:29」). 제품도 같다.
+  "359:2032": { "w1440 자식 넘침": "/ 데스크톱 — 푸터 눈금자 끝 글자가 1440 에서 잘림(제품 같음)" },
+  "213:2297": { "w1440 자식 넘침": "/pricing 데스크톱 — 푸터 눈금자 끝 글자가 1440 에서 잘림(제품 같음)" },
 };
 const viewportHeight = (context) => Number(String(context).match(/x(\d+)$/)?.[1] ?? 0);
 const resizeFailures = (board) => {

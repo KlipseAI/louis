@@ -13,15 +13,15 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 173,
+    "mapped": 174,
     "scoped": 324,
-    "needed": 113,
+    "needed": 112,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 13,
-    "screen": 90,
+    "screen": 89,
     "oneoff": 10,
     "unclear": 0,
     "kindless": 0
@@ -2857,12 +2857,13 @@
       "file": "apps/web/components/landing/sections/PricingSection.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "반복 단위 두 벌을 이 파일이 인라인으로 갖고 있다 — 요금제 티어 카드(제목/설명 · 가격 행 · 크레딧 행 · 기능 목록 · 주석 · CTA 버튼, 강조 변형 포함)와 크레딧 팩 카드(이름 · 가격 · 번개 아이콘 + 크레딧). 가격 라우트의 중심 시각인데 Figma 에 없다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "실측: 기본 export 렌더 자리 하나 — app/pricing/page.tsx:7/:63. 표면 자신은 /pricing 의 한 절(제목 + 공지 알약 + 티어 덱 + 크레딧 팩 + 비교표)이므로 화면이다. **그러나 이 파일이 인라인으로 갖고 있는 요금제 티어 카드는 이 묶음에서 가장 확실한 미등록 프리미티브다** — app/mypage/upgrade/UpgradePlanPageClient.tsx 가 TIER_CARD·TIER_HEAD·TIER_ORIGINAL_PRICE·TIER_PRICE_ROW·TIER_CREDITS_ROW·TIER_INCLUDES·TIER_FEATURE_LIST·TIER_FEATURE_ICON·TIER_NOTE **아홉 개의 같은 이름 상수**를 각자 갖는다(:203~:299 대 :129~:258). 2라우트에 이미 갈라진 사본 둘이다. 크레딧 팩 카드(CREDIT_PACK_CARD 계열)는 현재 /pricing 전용이다. 이 표면을 보드로 그리더라도 그 티어 카드는 **별도 부품으로 반드시 세워야 하고**, 이 원장의 그물(모듈 최상위 PascalCase)로는 잡히지 않으니 다음 회차가 놓치기 쉽다."
+      "verdict": "figma",
+      "figma": "screen:/pricing",
+      "reason": "요금 화면의 보드다(DS-D-0098). 요금제 티어 카드 덱은 plan-tier-card(DS-D-0091), 비교표는 Product/Plan Comparison Table · plan-comparison(DS-D-0092)이 대응하고, 크레딧 팩 카드와 절 조립을 이 보드가 그린다. 같은 파일에 needed 가 없고, 두 보드가 늘림 시험을 통과한다(데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다 — RESIZE_PRODUCT_SAME, run 2026-10-14a).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "요금 화면은 정적 콘텐츠로 채워진다 — 요금제 다섯(Trial · Lite · Pro …)의 가격 · 크레딧 · 기능 목록과 크레딧 팩, 비교표가 모두 그려진 상태다. 빈 상태가 없는 화면이다."
     },
     "apps/web/components/landing/sections/StepTiles.tsx#StepTiles": {
       "file": "apps/web/components/landing/sections/StepTiles.tsx",

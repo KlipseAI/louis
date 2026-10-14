@@ -1031,9 +1031,11 @@ try {
           fakeSupabase?.setOverlay(recipeOverlay);
           supabaseMark = fakeSupabase ? fakeSupabase.beginMark() : null;
         }
+        // 이동 제한 600초(2026-10-15) — 기계가 붐비면(부하 70) 노드캔버스 다음 하이라이트 완료 화면의 첫 컴파일이 180초를 넘겨 세션 전체(2시간)가 죽었다.
+        // 제한은 기다림의 상한일 뿐 잰 값에 들지 않는다.
         await page.goto(fixtureServer.url + spec.url, {
           waitUntil: "domcontentloaded",
-          timeout: 180_000,
+          timeout: 600_000,
         });
         if (new URL(page.url()).origin !== fixtureServer.url) {
           throw new Error(
@@ -1863,14 +1865,14 @@ const payload = JSON.stringify({
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 띄운다 — 로그인하지 않은 사용자의 화면이다. Supabase URL은 연결되지 않는 localhost endpoint로 고정하고 외부 요청을 차단한다. fullPage 화면은 뷰포트가 아니라 문서 끝까지의 노드를 잰다(가로는 뷰포트 안). " + MEASURE_METHOD
     : anonymous
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 직접 띄운다 — 로그인하지 않은 사용자의 화면이다. 인증 화면은 로그인된 사용자를 /archive 로 보내므로(sourceQuotes) 인증 우회 서버에서는 잴 수 없다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 한 뷰포트 안에서 끝나는 공개 화면만 싣는다(긴 공개 페이지는 전체 페이지 측정의 몫). " + MEASURE_METHOD
-    : "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. " + MEASURE_METHOD),
+    : "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 profiles 한 행(제품 개발 우회 사용자의 프로필)만 시드한 로컬 가짜 Supabase 로 고정하고 세션 쿠키를 넣는다 — 다른 표는 빈 목록이라 빈 상태 화면은 그대로다(2026-10-14, fixture-seeds.mjs FIXTURE_AUTH_SEEDS). 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. " + MEASURE_METHOD),
   productRef,
   productRefSource,
   productCommit: commit,
   fixture: {
     nodeEnv: "development",
     devAuthBypass: !anonymous && !publicMode && !louisExamples,
-    mockSupabase: louisExamples ? "none-static-example" : session ? "local-fake-auth-seeded-tables" : publicSeeded ? "local-fake-no-session-seeded-tables" : "unreachable-localhost",
+    mockSupabase: louisExamples ? "none-static-example" : session ? "local-fake-auth-seeded-tables" : publicSeeded ? "local-fake-no-session-seeded-tables" : authMode ? "local-fake-auth-profile-only" : "unreachable-localhost",
     // 시드가 든 표 — 그 표에서 온 글자는 제품 문구가 아니라 자리표시다(`lib/fixture-seeds.mjs`).
     ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : session ? SESSION_SEEDS : FIXTURE_AUTH_SEEDS).map(([table, rows]) => [table, (Array.isArray(rows) ? rows : rows.rows).length])) } : {}),
     ...(fakeSupabase ? { supabaseRequests: [...new Set([...(recordedForOnly?.fixture?.supabaseRequests ?? []),

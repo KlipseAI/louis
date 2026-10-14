@@ -31,7 +31,9 @@ authority: normative
   ① `figma/app-screens.plan.json` 에 그 라우트의 데스크톱 · 모바일 보드가 있고 시드 데이터로 채운 상태를 그린다(근거는 표면의 `filled`),
   ② 그 보드 전부가 늘림 원장(`figma/resize-check.json`)에서 실패 0, ③ 같은 파일에 needed · unclear 표면이 없다.
 - `check-figma-surface-coverage` 가 화면 대응을 따로 센다(`MAPPED_SCREEN_BASELINE`, 지금 0). 늘림 원장을 다시 재 실패가 생기면 그 화면 대응이 빨갛게 된다.
-- 지금 닫히는 화면은 없다 — 예를 들어 `/settings` 보드는 늘림을 통과하지만 사용자 이름이 비어 있다(채운 상태가 아니다). 화면을 닫는 일은
+- **처음 닫은 화면 셋** — 영상 편집 목록(`/videoeditor seeded`) · 캔버스 홈(`/nodecanvas seeded.loading-more`) · 단체 구매 완료(`?preview=success`).
+  대응 170 → 173(60.1%) · needed 116 → 113. 늘림 예외 둘: 높이 추종은 한 화면 보드에서만, 제품도 같은 실패는 `RESIZE_PRODUCT_SAME` 에 근거와 함께.
+- 채움이 비어 남긴 화면 — 예를 들어 `/settings` 보드는 늘림을 통과하지만 사용자 이름이 비어 있다(채운 상태가 아니다). 화면을 닫는 일은
   「시드 측정 → 보드 재생성 → 늘림 실패 0 → 같은 파일 정리」다. 원장 `$kindRule` 에 이 규칙을 이어 적었다.
 
 ## 2026-10-14 (264) — 새 부품 열여덟의 Figma 를 `done` 으로(DS-D-0035), 그 출처 표면 28 을 Figma 대응으로(DS-D-0084)

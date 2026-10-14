@@ -134,7 +134,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 대화 패널 · 구간 트랙 · 볼륨 · 차트 둘 등). 연결선 삭제 단추(Figma CanvasEdge 밖) · 캔버스 바닥 점 격자 · 덱 머리 막대 · 새 푸터는 needed 그대로다.
 // 같은 날 뒤: 165 → 170 · 컴포넌트 119 → 124 — 기존 부품 변형이 출처로 삼은 다섯(도움말 이동 행 ← SelectableListRow link · 프롬프트 비교 ←
 // Dialog compare · 어드민 서브탭 ← Tabs bar · 스티커 팔레트 ← AssetTile · 유튜브 미리보기 플레이어 ← VideoPlayer youtube).
-const MAPPED_BASELINE = 170;
+// 같은 날 뒤: 170 → 173 — DS-D-0098 첫 화면 셋(영상 편집 목록 · 캔버스 홈 · 단체 구매 완료, 아래 MAPPED_SCREEN_BASELINE).
+const MAPPED_BASELINE = 173;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 const MAPPED_COMPONENT_BASELINE = 124;
@@ -158,7 +159,9 @@ const MAPPED_COMPONENT_BASELINE = 124;
 // 대응이 됐다(표면 12). 위 MAPPED_COMPONENT_BASELINE 이 그만큼 올랐다.
 const MAPPED_PRODUCT_BASELINE = 41;
 // **화면 보드 대응(DS-D-0098, 2026-10-14).** 채운 보드 · 늘림 통과 · 안의 부품 needed 0 을 만족한 화면. 따로 잠근다.
-const MAPPED_SCREEN_BASELINE = 0;
+// 2026-10-14: 0 → 3 — VideoEditScene(/videoeditor seeded) · NodeCanvasHomeScene(/nodecanvas seeded.loading-more) ·
+// BulkSuccessContent(/mypage/upgrade/bulk-success?preview=success). 채움이 비어 남긴 것: SubscriptionScene(크레딧 이력 없음) · AdminClient(사용자 없음).
+const MAPPED_SCREEN_BASELINE = 3;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이
@@ -232,6 +235,15 @@ for (const board of readJson("figma/app-screens.plan.json").screens ?? []) {
 }
 const resizeById = new Map();
 for (const page of readJson("figma/resize-check.json").pages ?? []) for (const board of page.boards ?? []) resizeById.set(board.id, board);
+// **제품도 그렇게 반응하는 실패는 화면 대응을 막지 않는다** — 보드 id × 실패 이름마다 근거를 적는다. 근거 없이 늘리지 않는다.
+// 셋은 run 2026-10-12b 의 크로미움 실측(check-figma-resize 머리말): 세로 flex · `items-start` 안의 nowrap 카드 제목은 min-content 가
+// max-content 와 같아 열 140 보다 좁아지지 않는다 — 제품도 열 밖으로 나가고 말줄임이 없다.
+const RESIZE_PRODUCT_SAME = {
+  "2909:19796": { "w360 자식 넘침": "/nodecanvas 「더 불러오기」 모바일 — 카드 제목 nowrap 이 열 140 밖으로(제품 같음)" },
+  "2909:19790": { "w360 자식 넘침": "/videoeditor 시드 모바일 — 카드 제목 nowrap 이 열 140 밖으로(제품 같음)" },
+  "2909:19792": { "w360 자식 넘침": "/videoeditor 「더보기 메뉴」 모바일 — 카드 제목 nowrap 이 열 140 밖으로(제품 같음)" },
+};
+const viewportHeight = (context) => Number(String(context).match(/x(\d+)$/)?.[1] ?? 0);
 const resizeFailures = (board) => {
   const record = resizeById.get(board.figmaFrameId);
   if (!record) return ["늘림 원장에 없음"];
@@ -241,10 +253,12 @@ const resizeFailures = (board) => {
     if ((value.o ?? 0) > 0) failures.push(size + " 넘침");
     if ((value.pn ?? 0) > 0) failures.push(size + " 자식 넘침");
     if ((value.tn ?? 0) > 0) failures.push(size + " 글자 잘림");
-    if (size === "h130" && (value.rh ?? 1) < 0.99) failures.push("높이 추종");
+    // 높이 추종은 한 화면 보드에서만 잰다 — 내용이 뷰포트보다 긴 문서 보드(랜딩 · 약관 · 블로그)는 제품도 뿌리가 내용 높이에 머문다.
+    if (size === "h130" && (value.rh ?? 1) < 0.99 && (record.h ?? 0) <= viewportHeight(board.context) + 0.5) failures.push("높이 추종");
     if (size !== "h130" && (value.rw ?? 1) < 0.99) failures.push(size + " 폭 추종");
   }
-  return failures;
+  const same = RESIZE_PRODUCT_SAME[board.figmaFrameId] ?? {};
+  return failures.filter((failure) => !(failure in same));
 };
 const openFiles = new Set(
   Object.values(ledger.surfaces ?? {}).filter((s) => s.verdict === "needed" || s.verdict === "unclear").map((s) => s.file),

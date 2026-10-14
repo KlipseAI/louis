@@ -13,15 +13,15 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 170,
+    "mapped": 173,
     "scoped": 324,
-    "needed": 116,
+    "needed": 113,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 13,
-    "screen": 93,
+    "screen": 90,
     "oneoff": 10,
     "unclear": 0,
     "kindless": 0
@@ -1535,12 +1535,13 @@
       "file": "apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "마크업이 있고, 부품 조합으로 접히지 않는다. LOUIS 정본을 무는 것은 LoadingSpinner(Spinner)·Button 둘뿐이고 나머지는 이 파일이 자체로 그린다 — 요약 행(bg-raised · rounded-12 · space-between), 안내 상자(rounded-8 + hairline-inset), **쿠폰 코드 칩 격자**(auto-fill minmax(180px,1fr) · rounded-8 칩 · tabular-nums truncate). Figma 65 컴포넌트를 훑어 대조했지만 담을 것이 없다: Keycap 은 20×20 · radius 6 · paddingInline 5 · 라벨 12 의 자판 캡이라 px-5 py-3 · rounded-8 · body-14 인 코드 칩이 아니고, Badge 는 height 26 · radius 8 의 상태 표식이라 어휘가 다르다. status-result 계열도 아니다(STATUS_* 상수를 쓰지 않고 720px 불투명 판이다). 라우트 보드도 없다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "단체구매 완료 화면 본체다. LOUIS 를 무는 것은 Spinner·Button 둘뿐이고 요약 행·안내 상자·쿠폰 코드 칩 격자를 자기가 그린다. Figma 65 컴포넌트에 담을 것이 없어 화면으로 세운다."
+      "verdict": "figma",
+      "figma": "screen:/mypage/upgrade/bulk-success?preview=success",
+      "reason": "단체 구매 완료 화면의 보드다(DS-D-0098). 요약 행 · 발행 결과를 미리보기 시드로 그린다. 같은 파일에 needed 가 없고, 데스크톱 · 모바일 보드가 늘림 시험을 통과한다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "제품 미리보기 쿼리(?preview=success)가 결과를 채운다 — 「30 coupons issued」 · Pro 30석 · 결제 금액 1,197,000 KRW. 빈 상태 · 오류 상태가 아니다."
     },
     "apps/web/app/mypage/upgrade/checkout/page.tsx#CheckoutContent": {
       "file": "apps/web/app/mypage/upgrade/checkout/page.tsx",
@@ -6540,12 +6541,13 @@
       "louis": [
         "louis-glass-surface"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 홈(아카이브 그리드) 화면. 카드·빈 상태·메뉴·토스트는 이미 LOUIS 정본(project-card · empty-state · popover/menu · toast)을 소비하므로 남는 미모델은 그리드 레이아웃·섹션 eyebrow·무한스크롤 로딩 워드 시머·삭제 확인 모달이다. 확인 모달은 Dialog 로 수렴할 후보.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/nodecanvas/NodeCanvasWorkspace.tsx), JSX 1곳. 1798줄 화면. 네 카드 그리드 중 유일하게 LOUIS 정본(project-card · empty-state · popover/menu · toast)을 이미 소비하므로 남는 미모델은 그리드 레이아웃·섹션 eyebrow·무한스크롤 시머·삭제 확인 모달뿐 — 보드 하나로 닫힌다."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas seeded.loading-more",
+      "reason": "캔버스 홈(아카이브 그리드) 화면의 보드다(DS-D-0098). 그리드 레이아웃 · 섹션 머리 · 무한 스크롤 「더 불러오기」 상태를 시드로 그린다(카드 · 메뉴 · 빈 상태는 이미 LOUIS 정본). 같은 파일에 needed 가 없고, 두 보드가 늘림 시험을 통과한다(모바일 360 의 카드 제목 넘침은 제품도 같다 — RESIZE_PRODUCT_SAME).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "auth fixture 시드 캔버스 프로젝트 스물넷(Hydra Glow Launch · Texture Cutdown · Placeholder canvas 01 ~ …)이 그리드를 두 쪽 넘게 채우고 다음 쪽을 불러오는 상태다."
     },
     "apps/web/components/scenes/SegmentedToggle.tsx#SegmentedToggle": {
       "file": "apps/web/components/scenes/SegmentedToggle.tsx",
@@ -6702,12 +6704,13 @@
       "file": "apps/web/components/scenes/VideoEditScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "영상 편집 프로젝트 목록 화면. 히스토리 카드 그리드 + 썸네일 코너 상태 라벨 + 더보기 드롭다운 + 빈 상태를 자체 클래스로 그린다. AppHomeScene·HighlightScene 과 같은 카드 그리드의 네 번째 복제라, 개별 화면 보드보다 공용 카드 정본 확장이 먼저다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/videoeditor/VideoEditorWorkspace.tsx), JSX 1곳. 1008줄 화면. AppHomeScene·HighlightScene·NodeCanvasHomeScene 과 같은 히스토리 카드 그리드의 «네 번째» 복제라, 이 보드보다 ProjectCard 정본 확장(코너 상태 라벨 · 더보기 드롭다운 슬롯)이 먼저다."
+      "verdict": "figma",
+      "figma": "screen:/videoeditor seeded",
+      "reason": "영상 편집 프로젝트 목록 화면의 보드다(DS-D-0098). 카드 그리드 · 썸네일 코너 상태 라벨 · 더보기 메뉴(`/videoeditor seeded.more-menu` 보드)를 시드 상태로 그린다. 같은 파일에 needed 가 없고, 두 보드가 늘림 시험을 통과한다(모바일 360 의 카드 제목 넘침은 제품도 같다 — RESIZE_PRODUCT_SAME).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "auth fixture 시드 editor_projects 넷(Placeholder composition A ~ D, 렌더 중 · 편집 중 상태 라벨과 상대 · 절대 날짜)이 카드 그리드를 채운다 — 빈 상태가 아니다."
     },
     "apps/web/components/scenes/YoutubeAnalyticsScene.tsx#YoutubeAnalyticsScene": {
       "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",

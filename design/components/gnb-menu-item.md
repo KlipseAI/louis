@@ -14,9 +14,9 @@ summary: 랜딩 상단 내비게이션의 가운데 메뉴를 이루는 알약�
 남았고 지금 메뉴에 쓰는 항목이 없다**(쇼케이스는 소유자 결정으로 걷었고, 문서는 링크가 되었고, 앰버서더는
 리소스 시트 안으로 옮겼다).
 
-**정본은 제품이다.** `landing/navigation/Gnb.tsx` 의 `menuLinkClass()` 가 구현이고 LOUIS 에는
-표면이 없다 — `packages/css/src/component` 에 레시피가 없고 `packages/react/src` 에도 디렉터리가
-없다. 앱 셸 사이드바의 항목과는 다른 컴포넌트다(아래 When to use).
+**정본은 제품이다.** `landing/navigation/Gnb.tsx` 의 `menuLinkClass()` 가 구현이고 LOUIS 는
+그것을 CSS 레시피 `packages/css/src/component/gnb-menu-item.css`(2026-10-14)로 옮겼다 — `packages/react/src` 에는
+디렉터리가 없다. 앱 셸 사이드바의 항목과는 다른 컴포넌트다(아래 When to use).
 
 **상태를 색이 아니라 불투명도로 만든다.** 여덟 변형의 기하가 완전히 같고, 면도 테두리도 밑줄도
 없다 — 바뀌는 것은 잉크 한 색의 불투명도뿐이다(1.00 · 0.90 · 0.80 · 0.70 · 0.65 · 0.40). 되읽기의
@@ -40,8 +40,8 @@ Figma 도 같은 작업에서 0.65(hover 0.80)로 맞췄다 — 세 곳이 같�
 
 | Surface       | 상태           | 근거                                                                                                                                                                                                     |
 | ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 GNB 한 자리(같은 파일 안 네 갈래)다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                                |
-| Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하와 불투명도도 대조한다 — 기하는 `figma/components.measured.json` 의 `gnb-menu-item`(제품 클래스를 실브라우저에서 잰 값)과 높이 28 · 안쪽 여백 0 / 12 · 반경 999 · 라벨 14 / 21 을, 불투명도는 parity 계약의 `opacity` 블록과 여덟 변형의 되읽기 값을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
+| Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 GNB 한 자리(같은 파일 안 네 갈래)다. LOUIS 에는 CSS 레시피 `gnb-menu-item.css` 가 있고(2026-10-14) React export 는 없다. 시험은 기하 · 불투명도 되재기(`gnb-menu-item-geometry.browser.test.tsx`)뿐이고 acceptance test 는 0건이다                                                |
+| Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하와 불투명도도 대조한다 — 기하는 `figma/components.measured.json` 의 `gnb-menu-item`(제품 클래스를 실브라우저에서 잰 값)과 높이 28 · 안쪽 여백 0 / 12 · 반경 999 · 라벨 14 / 21 을, 불투명도는 parity 계약의 `opacity` 블록과 여덟 변형의 되읽기 값을 맞댄다. 반대 방향도 걸려 있다 — `gnb-menu-item-geometry.browser.test.tsx` 가 LOUIS 레시피의 계산값을 같은 기록과 맞댄다(2026-10-14) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                                  |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 라벨 굵기 대조가 붙으면 승격한다                                                                                                            |
 
@@ -275,7 +275,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 8. **기하는 한 방향으로만 대조되고, 폭의 성격은 확인되지 않았다.**
    `figma/components.measured.json` 의 `gnb-menu-item` 이 제품 클래스를 실브라우저에서 잰
    28 · 12 · 999 · 21 을 갖고, parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히
-   만드는지 되재는 브라우저 테스트는 LOUIS 레시피가 없어 없다. **폭 72 는 대조하지 않는다** —
+   만드는지는 `gnb-menu-item-geometry.browser.test.tsx` 가 LOUIS 레시피로 되잰다(2026-10-14). **폭 72 는 대조하지 않는다** —
    라벨이 정하는 값이다(`$whyNotTextWidth`). 더해서 되읽기에 sizing mode 가 없어 **Figma 의 폭 72 가 HUG 인지 FIXED 인지 알 수 없다** —
    제품은 내용이 폭을 정하므로 FIXED 라면 긴 로케일에서 갈라진다. 실측 probe 를 붙이는 것이
    승격 조건이다.

@@ -10,8 +10,8 @@ summary: 버튼 라벨 옆에서 스피너 자리를 열고 닫아 작업이 도
 버튼이나 행 안의 **라벨 한 줄**과, 그 오른쪽에서 열리고 닫히는 **스피너 자리**. 작업이 시작되면
 문구가 바뀌고 옆자리가 열린다.
 
-**정본은 제품이다.** `InlineLoadingLabel.tsx` 가 구현이고 LOUIS 에는 표면이 없다 —
-`packages/css/src/component` 에 레시피가 없고 `packages/react/src` 에도 디렉터리가 없다. 소비처는
+**정본은 제품이다.** `InlineLoadingLabel.tsx` 가 구현이고 LOUIS 는 그것을 CSS 레시피
+`packages/css/src/component/inline-loading-label.css`(2026-10-14)로 옮겼다 — `packages/react/src` 에는 디렉터리가 없다. 소비처는
 **13개 파일 · 20개 호출부**다(로그인 · 회원가입 · 가입 메일 확인 · 비밀번호 재설정 두 화면 · 계정
 복구 · AWS 가입이 각 1, 설정 6, 구독 2, 아카이브의 플랫폼 섹션 2, 프로젝트 생성 모달 1, YouTube
 노드 1, Instagram 노드 1).
@@ -35,8 +35,8 @@ summary: 버튼 라벨 옆에서 스피너 자리를 열고 닫아 작업이 도
 
 | Surface       | 상태           | 근거                                                                                                                                                                        |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 13개 파일 · 20개 호출부다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다. 다만 링만은 LOUIS 레시피를 그대로 소비한다 |
-| Figma         | `partial`      | `InlineLoadingLabel` 4 variant(`Size` × `Loading`) + `Label`·`LoadingLabel` TEXT. parity 게이트가 대조하는 것은 속성 축 넷 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `inline-loading-label`(제품 클래스를 실브라우저에서 잰 값)과 슬롯 지름 16 · 12 · 라벨과 슬롯 사이 6 · 4(닫힘 0) · 안쪽 여백 0 · 반경 0 을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
+| Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 13개 파일 · 20개 호출부다. LOUIS 에는 CSS 레시피 `inline-loading-label.css` 가 있고(2026-10-14) React export 는 없다. 시험은 기하 되재기(`inline-loading-label-geometry.browser.test.tsx`)뿐이고 acceptance test 는 0건이다. 링은 LOUIS 레시피를 그대로 소비한다 |
+| Figma         | `partial`      | `InlineLoadingLabel` 4 variant(`Size` × `Loading`) + `Label`·`LoadingLabel` TEXT. parity 게이트가 대조하는 것은 속성 축 넷 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `inline-loading-label`(제품 클래스를 실브라우저에서 잰 값)과 슬롯 지름 16 · 12 · 라벨과 슬롯 사이 6 · 4(닫힘 0) · 안쪽 여백 0 · 반경 0 을 맞댄다. 반대 방향도 걸려 있다 — `inline-loading-label-geometry.browser.test.tsx` 가 LOUIS 레시피의 계산값을 같은 기록과 맞댄다(2026-10-14) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                     |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. 기하 실측이 붙고 증거 락이 현재 판을 가리키면 승격한다                                                                                      |
 
@@ -257,7 +257,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 5. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `inline-loading-label` 이
    제품 클래스를 실브라우저에서 잰 16 · 12 · 6 · 4 를 갖고, parity 게이트가 Figma 를 그것과
    맞댄다 — 6 · 4 는 제품에서 슬롯의 `margin-left` 이고 Figma 에서는 `itemSpacing` 이다. 코드가 그
-   실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가 없어 없다. **scale 0.85 와 닫힘
+   실측을 여전히 만드는지는 `inline-loading-label-geometry.browser.test.tsx` 가 LOUIS 레시피로 되잰다(2026-10-14). **scale 0.85 와 닫힘
    폭 0 은 대조하지 않는다** — 0.85 는 기하가 아니라 transform 이고, 닫힘 변형은 되읽기에 슬롯
    레이어가 없다.
 6. **증거 락이 이 파일의 옛 판을 가리킨다.** `migration/product-evidence.lock.json` 이 고정한 blob

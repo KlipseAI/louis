@@ -1,0 +1,88 @@
+/* GNB Menu Item — design/components/gnb-menu-item.md
+ *
+ * 랜딩 상단 내비게이션의 메뉴 항목 하나(DS-D-0084). 제품 정본은 `components/landing/navigation/Gnb.tsx` 의
+ * `menuLinkClass()` — 제품은 컴포넌트가 아니라 클래스 조립 함수로 갖고 항목이 a · Link · button · span 넷으로 렌더된다.
+ * 그래서 이 레시피도 요소를 가리지 않는다.
+ *
+ * **상태를 면이 아니라 잉크 불투명도로 만든다.** 면도 테두리도 그림자도 없다. 잉크는 시맨틱 램프가 아니라 고정
+ * 팔레트다 — **테마가 아니라 밑에 깔린 면이 정한다**(`data-surface`). 라이트 테마의 랜딩 안에도 어두운 사진 밴드가
+ * 있어 거기서 뒤집힌다.
+ *
+ * 마크업:
+ *   <a class="louis-gnb-menu-item" data-surface="light|dark" href="…" aria-current="page">
+ *     <span class="louis-gnb-menu-item__label">요금제</span>
+ *   </a>
+ *   갈 곳이 없는 항목: <span class="louis-gnb-menu-item" aria-disabled="true">…</span>
+ *
+ * 불투명도 넷 · 전이 둘은 대응하는 토큰이 없어 문서 States 값을 둔다. 항목 사이 간격(16, ≤959px 4)과 719px 이하
+ * 숨김은 메뉴 `<ul>` 이 갖는다 — 이 레시피 밖이다. */
+
+.louis-gnb-menu-item {
+  /* 밝은 면(Surface=light) — 검은 잉크 · Default 0.65 · Hover 0.80. 0.50 이면 AA 미달이라 0.65 다(문서 Accessibility). */
+  --louis-gnb-menu-item-ink: var(--louis-color-palette-gray-900);
+  --louis-gnb-menu-item-opacity: 0.65;
+  --louis-gnb-menu-item-opacity-hover: 0.8;
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  /* 28 — 제품 `h-14`(2px 그리드). 라벨 21 이 가운데 앉고 남는 3.5 는 정렬의 결과다(여백이 아니다). */
+  block-size: 28px;
+  margin: 0;
+  /* 위아래 0 · 좌우 12 — 제품 `py-0` · `px-6`. ≤959px 에서 8. */
+  padding-block: 0;
+  padding-inline: 12px;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  background: transparent;
+  color: var(--louis-gnb-menu-item-ink);
+  opacity: var(--louis-gnb-menu-item-opacity);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: color, opacity;
+  transition-duration: 320ms, 200ms;
+  transition-timing-function: ease, ease;
+}
+
+/* 어두운 면(Surface=dark) — 흰 잉크 · Default 0.70 · Hover 0.90. */
+.louis-gnb-menu-item[data-surface="dark"] {
+  --louis-gnb-menu-item-ink: var(--louis-color-palette-gray-000);
+  --louis-gnb-menu-item-opacity: 0.7;
+  --louis-gnb-menu-item-opacity-hover: 0.9;
+}
+
+/* 라벨 한 줄. 폭은 라벨이 정한다(로케일에 따라 달라진다). */
+.louis-gnb-menu-item__label {
+  flex: none;
+  white-space: nowrap;
+}
+
+/* Hover — 제품이 `[&:hover]:` 임의 변형이라 `@media (hover: hover)` 밖이다. 활성 · 비활성에는 닿지 않는다. */
+.louis-gnb-menu-item:hover:not([aria-current="page"], [aria-disabled="true"], :disabled) {
+  opacity: var(--louis-gnb-menu-item-opacity-hover);
+}
+
+/* Selected — 두 면 공통 1.00. 톤 분기에 도달하지 않는다. */
+.louis-gnb-menu-item[aria-current="page"] {
+  opacity: 1;
+}
+
+/* Disabled — 갈 곳이 없는 항목(제품 `MENU_LINK_COMING_SOON`). hover 를 이긴다(위 :not 이 hover 를 막는다). */
+.louis-gnb-menu-item[aria-disabled="true"],
+.louis-gnb-menu-item:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ≤959px — 좌우 안쪽 8(제품 `max-[959px]:px-4`). */
+@media (max-width: 959px) {
+  .louis-gnb-menu-item {
+    padding-inline: 8px;
+  }
+}

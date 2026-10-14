@@ -3049,6 +3049,70 @@
 }
 
 @layer louis.component {
+  /* Carousel Arrow — design/components/carousel-arrow.md
+   *
+   * 랜딩 캐러셀의 이전 · 다음 버튼 하나(DS-D-0084). 제품 정본은 `components/landing/system/CarouselArrows.tsx`.
+   * 방향은 prop 이 아니라 버튼 두 개다 — 캐럿 글리프만 다르다. 쌍의 간격 4 는 감싸는 래퍼가 갖는다(이 레시피 밖).
+   *
+   * **헤어라인은 테두리가 아니라 inset 그림자다**(`--louis-hairline-inset`) — 레이아웃 박스를 건드리지 않아 32×32 가
+   * 그대로 남는다. hover 는 면 색을 바꾸지 않고 **잉크 4% 한 겹을 더 쌓는다**(배경 이미지) — 아래 8% 가 남는다.
+   *
+   * 마크업:
+   *   <button type="button" class="louis-carousel-arrow" aria-label="이전">
+   *     <svg class="louis-carousel-arrow__caret" viewBox="0 0 16 16" aria-hidden="true">
+   *       <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+   *     </svg>
+   *   </button>
+   *
+   * 캐럿 색은 제품 `text-gray-000` 이다. 원시 `color-gray-000` 은 컴포넌트 CSS 가 직접 소비할 수 없어(build-css 게이트)
+   * 같은 자리의 시맨틱 `fg-primary` 를 쓴다. 포커스 링은 base.css 의 공용 `:focus-visible` 이 준다 — 제품에는 없던
+   * 결손을 고쳐 올린다(문서 Accessibility). */
+
+  .louis-carousel-arrow {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    /* 32 × 32 — 제품 `w-16 h-16`(2px 그리드). */
+    inline-size: 32px;
+    block-size: 32px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    /* 12 — 제품 `rounded-12`. 버튼이라 컨트롤 반경이다. */
+    border-radius: var(--louis-radius-control);
+    background-color: var(--louis-color-landing-panel-strong);
+    box-shadow: var(--louis-hairline-inset);
+    color: var(--louis-color-fg-primary);
+    cursor: pointer;
+    /* 색 · 면만 160ms ease — 기하는 움직이지 않는다. control-hover 가 같은 값이다. */
+    transition-property: color, background-color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* Hover — 잉크 4% 한 겹을 더 쌓는다. 제품이 `[&:hover:not(:disabled)]` 라 `@media (hover: hover)` 밖이다. */
+  .louis-carousel-arrow:hover:not(:disabled) {
+    background-image: linear-gradient(var(--louis-color-landing-panel), var(--louis-color-landing-panel));
+  }
+
+  /* Disabled — 면은 그대로, 캐럿만 낮춘다. 네이티브 disabled 라 클릭도 포커스도 받지 않는다. */
+  .louis-carousel-arrow:disabled {
+    color: var(--louis-color-landing-text-muted);
+    cursor: not-allowed;
+  }
+
+  /* 캐럿 16 × 16 — 글리프 5 × 10, 획 1(아이콘 정본 1.5 가 아니다 — 라이브러리에 없는 글리프라 제품 값 그대로). */
+  .louis-carousel-arrow__caret {
+    display: block;
+    flex: none;
+    inline-size: 16px;
+    block-size: 16px;
+  }
+}
+
+@layer louis.component {
   /* Channel Header — design/components/channel-header.md
    *
    * 채널 · 계정 하나의 머리(DS-D-0084, DS-D-0087). 배너 띠 아래에 아바타 · 이름 · 수치 · 설명 한 줄 · 액션이 한 줄로 선다.
@@ -8139,6 +8203,97 @@
 }
 
 @layer louis.component {
+  /* GNB Menu Item — design/components/gnb-menu-item.md
+   *
+   * 랜딩 상단 내비게이션의 메뉴 항목 하나(DS-D-0084). 제품 정본은 `components/landing/navigation/Gnb.tsx` 의
+   * `menuLinkClass()` — 제품은 컴포넌트가 아니라 클래스 조립 함수로 갖고 항목이 a · Link · button · span 넷으로 렌더된다.
+   * 그래서 이 레시피도 요소를 가리지 않는다.
+   *
+   * **상태를 면이 아니라 잉크 불투명도로 만든다.** 면도 테두리도 그림자도 없다. 잉크는 시맨틱 램프가 아니라 고정
+   * 팔레트다 — **테마가 아니라 밑에 깔린 면이 정한다**(`data-surface`). 라이트 테마의 랜딩 안에도 어두운 사진 밴드가
+   * 있어 거기서 뒤집힌다.
+   *
+   * 마크업:
+   *   <a class="louis-gnb-menu-item" data-surface="light|dark" href="…" aria-current="page">
+   *     <span class="louis-gnb-menu-item__label">요금제</span>
+   *   </a>
+   *   갈 곳이 없는 항목: <span class="louis-gnb-menu-item" aria-disabled="true">…</span>
+   *
+   * 불투명도 넷 · 전이 둘은 대응하는 토큰이 없어 문서 States 값을 둔다. 항목 사이 간격(16, ≤959px 4)과 719px 이하
+   * 숨김은 메뉴 `<ul>` 이 갖는다 — 이 레시피 밖이다. */
+
+  .louis-gnb-menu-item {
+    /* 밝은 면(Surface=light) — 검은 잉크 · Default 0.65 · Hover 0.80. 0.50 이면 AA 미달이라 0.65 다(문서 Accessibility). */
+    --louis-gnb-menu-item-ink: var(--louis-color-palette-gray-900);
+    --louis-gnb-menu-item-opacity: 0.65;
+    --louis-gnb-menu-item-opacity-hover: 0.8;
+
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    /* 28 — 제품 `h-14`(2px 그리드). 라벨 21 이 가운데 앉고 남는 3.5 는 정렬의 결과다(여백이 아니다). */
+    block-size: 28px;
+    margin: 0;
+    /* 위아래 0 · 좌우 12 — 제품 `py-0` · `px-6`. ≤959px 에서 8. */
+    padding-block: 0;
+    padding-inline: 12px;
+    border: 0;
+    border-radius: var(--louis-radius-pill);
+    background: transparent;
+    color: var(--louis-gnb-menu-item-ink);
+    opacity: var(--louis-gnb-menu-item-opacity);
+    font-family: var(--louis-typography-body-sm-medium-font-family);
+    font-size: var(--louis-typography-body-sm-medium-font-size);
+    font-weight: var(--louis-typography-body-sm-medium-font-weight);
+    line-height: var(--louis-typography-body-sm-medium-line-height);
+    letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    transition-property: color, opacity;
+    transition-duration: 320ms, 200ms;
+    transition-timing-function: ease, ease;
+  }
+
+  /* 어두운 면(Surface=dark) — 흰 잉크 · Default 0.70 · Hover 0.90. */
+  .louis-gnb-menu-item[data-surface="dark"] {
+    --louis-gnb-menu-item-ink: var(--louis-color-palette-gray-000);
+    --louis-gnb-menu-item-opacity: 0.7;
+    --louis-gnb-menu-item-opacity-hover: 0.9;
+  }
+
+  /* 라벨 한 줄. 폭은 라벨이 정한다(로케일에 따라 달라진다). */
+  .louis-gnb-menu-item__label {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  /* Hover — 제품이 `[&:hover]:` 임의 변형이라 `@media (hover: hover)` 밖이다. 활성 · 비활성에는 닿지 않는다. */
+  .louis-gnb-menu-item:hover:not([aria-current="page"], [aria-disabled="true"], :disabled) {
+    opacity: var(--louis-gnb-menu-item-opacity-hover);
+  }
+
+  /* Selected — 두 면 공통 1.00. 톤 분기에 도달하지 않는다. */
+  .louis-gnb-menu-item[aria-current="page"] {
+    opacity: 1;
+  }
+
+  /* Disabled — 갈 곳이 없는 항목(제품 `MENU_LINK_COMING_SOON`). hover 를 이긴다(위 :not 이 hover 를 막는다). */
+  .louis-gnb-menu-item[aria-disabled="true"],
+  .louis-gnb-menu-item:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* ≤959px — 좌우 안쪽 8(제품 `max-[959px]:px-4`). */
+  @media (max-width: 959px) {
+    .louis-gnb-menu-item {
+      padding-inline: 8px;
+    }
+  }
+}
+
+@layer louis.component {
   /* Icon Button — design/components/icon-button.md
    *
    * Button과 달리 **한 변의 길이가 계약**이다. 그래서 크기를 padding으로 만들지 않고
@@ -8326,6 +8481,101 @@
   .louis-icon[data-size="lg"] {
     inline-size: var(--louis-icon-size-lg);
     block-size: var(--louis-icon-size-lg);
+  }
+}
+
+@layer louis.component {
+  /* Inline Loading Label — design/components/inline-loading-label.md
+   *
+   * 버튼·행 안의 라벨 한 줄과, 그 오른쪽에서 열리고 닫히는 스피너 자리(DS-D-0084). 제품 정본은
+   * `components/ui/InlineLoadingLabel.tsx`.
+   *
+   * **링을 소유하지 않는다.** 도는 링은 `.louis-spinner` 의 것이고 이 레시피는 그것이 앉는 자리만 갖는다.
+   * **타이포도 색도 갖지 않는다** — 글꼴·크기·색은 감싸는 컨트롤에서 물려받고 링은 `currentColor` 를 탄다.
+   *
+   * **슬롯은 닫혀 있어도 사라지지 않는다.** 폭 0 + `overflow: hidden` 으로 접어 두어야 폭·왼쪽 여백·불투명도·scale
+   * 넷이 함께 전이된다. 닫힘에서는 회전만 `paused` 로 세운다.
+   *
+   * 마크업:
+   *   <span class="louis-inline-loading-label" data-size="md|sm" data-loading="true|false">
+   *     <span class="louis-inline-loading-label__label">가입 중</span>
+   *     <span class="louis-inline-loading-label__slot" aria-hidden="true">
+   *       <span class="louis-spinner" data-size="md|sm"><span class="louis-spinner__ring"></span></span>
+   *     </span>
+   *   </span>
+   *
+   * 간격 6 · 4 는 토큰이 없다 — 값이 같은 `space-overlay-item-content-gap`(6) · `space-control-xs`(4)는 뜻이 다른
+   * 자리의 것이라 빌리지 않는다(문서 Specification 「간격 토큰」). 전이 두 짝도 대응하는 motion 토큰이 없어 문서 값을 둔다. */
+
+  .louis-inline-loading-label {
+    /* md — 슬롯 지름 16 · 열림 왼쪽 여백 6(제품 `size-8` · `ml-3`). */
+    --louis-inline-loading-label-slot: 16px;
+    --louis-inline-loading-label-offset: 6px;
+    /* 폭 · 왼쪽 여백 200ms, 불투명도 · transform 180ms ease — 두 짝이 다르다(문서 States). */
+    --louis-inline-loading-label-open-duration: 200ms;
+    --louis-inline-loading-label-open-easing: cubic-bezier(0.22, 1, 0.36, 1);
+    --louis-inline-loading-label-fade-duration: 180ms;
+    --louis-inline-loading-label-fade-easing: ease;
+
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+
+  /* sm — 슬롯 지름 12 · 열림 왼쪽 여백 4(제품 `size-6` · `ml-2`). 라벨은 건드리지 않는다. */
+  .louis-inline-loading-label[data-size="sm"] {
+    --louis-inline-loading-label-slot: 12px;
+    --louis-inline-loading-label-offset: 4px;
+  }
+
+  /* 한 줄. 줄지도 줄바꿈하지도 않는다 — 좁은 폭에서 무엇이 일어나는지는 감싸는 컨트롤이 정한다. */
+  .louis-inline-loading-label__label {
+    flex: none;
+    min-inline-size: 0;
+    white-space: nowrap;
+  }
+
+  /* 닫힘 — 폭 0 · 여백 0 · 불투명도 0 · scale 0.85. 높이는 로딩 여부와 무관하게 크기 축이 정한다. */
+  .louis-inline-loading-label__slot {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: 0;
+    block-size: var(--louis-inline-loading-label-slot);
+    margin-inline-start: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.85);
+    transition-property: inline-size, margin-inline-start, opacity, transform;
+    transition-duration:
+      var(--louis-inline-loading-label-open-duration),
+      var(--louis-inline-loading-label-open-duration),
+      var(--louis-inline-loading-label-fade-duration),
+      var(--louis-inline-loading-label-fade-duration);
+    transition-timing-function:
+      var(--louis-inline-loading-label-open-easing),
+      var(--louis-inline-loading-label-open-easing),
+      var(--louis-inline-loading-label-fade-easing),
+      var(--louis-inline-loading-label-fade-easing);
+  }
+
+  /* 열림 — 네 프로퍼티가 함께 움직인다. 폭만 키우면 문구가 처음부터 밀려 앉지 않는다. */
+  .louis-inline-loading-label[data-loading="true"] .louis-inline-loading-label__slot {
+    inline-size: var(--louis-inline-loading-label-slot);
+    margin-inline-start: var(--louis-inline-loading-label-offset);
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* 보이지 않는 회전이 프레임을 먹지 않게 닫힘에서 세운다. reduced-motion 의 회전 축소는 Spinner 레시피가 소유한다. */
+  .louis-inline-loading-label:not([data-loading="true"]) .louis-spinner__ring,
+  .louis-inline-loading-label:not([data-loading="true"]) .louis-spinner__ring::before,
+  .louis-inline-loading-label:not([data-loading="true"]) .louis-spinner__ring::after {
+    animation-play-state: paused;
   }
 }
 

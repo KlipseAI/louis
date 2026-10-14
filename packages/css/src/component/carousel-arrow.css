@@ -1,0 +1,61 @@
+/* Carousel Arrow — design/components/carousel-arrow.md
+ *
+ * 랜딩 캐러셀의 이전 · 다음 버튼 하나(DS-D-0084). 제품 정본은 `components/landing/system/CarouselArrows.tsx`.
+ * 방향은 prop 이 아니라 버튼 두 개다 — 캐럿 글리프만 다르다. 쌍의 간격 4 는 감싸는 래퍼가 갖는다(이 레시피 밖).
+ *
+ * **헤어라인은 테두리가 아니라 inset 그림자다**(`--louis-hairline-inset`) — 레이아웃 박스를 건드리지 않아 32×32 가
+ * 그대로 남는다. hover 는 면 색을 바꾸지 않고 **잉크 4% 한 겹을 더 쌓는다**(배경 이미지) — 아래 8% 가 남는다.
+ *
+ * 마크업:
+ *   <button type="button" class="louis-carousel-arrow" aria-label="이전">
+ *     <svg class="louis-carousel-arrow__caret" viewBox="0 0 16 16" aria-hidden="true">
+ *       <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+ *     </svg>
+ *   </button>
+ *
+ * 캐럿 색은 제품 `text-gray-000` 이다. 원시 `color-gray-000` 은 컴포넌트 CSS 가 직접 소비할 수 없어(build-css 게이트)
+ * 같은 자리의 시맨틱 `fg-primary` 를 쓴다. 포커스 링은 base.css 의 공용 `:focus-visible` 이 준다 — 제품에는 없던
+ * 결손을 고쳐 올린다(문서 Accessibility). */
+
+.louis-carousel-arrow {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  /* 32 × 32 — 제품 `w-16 h-16`(2px 그리드). */
+  inline-size: 32px;
+  block-size: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  /* 12 — 제품 `rounded-12`. 버튼이라 컨트롤 반경이다. */
+  border-radius: var(--louis-radius-control);
+  background-color: var(--louis-color-landing-panel-strong);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
+  cursor: pointer;
+  /* 색 · 면만 160ms ease — 기하는 움직이지 않는다. control-hover 가 같은 값이다. */
+  transition-property: color, background-color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* Hover — 잉크 4% 한 겹을 더 쌓는다. 제품이 `[&:hover:not(:disabled)]` 라 `@media (hover: hover)` 밖이다. */
+.louis-carousel-arrow:hover:not(:disabled) {
+  background-image: linear-gradient(var(--louis-color-landing-panel), var(--louis-color-landing-panel));
+}
+
+/* Disabled — 면은 그대로, 캐럿만 낮춘다. 네이티브 disabled 라 클릭도 포커스도 받지 않는다. */
+.louis-carousel-arrow:disabled {
+  color: var(--louis-color-landing-text-muted);
+  cursor: not-allowed;
+}
+
+/* 캐럿 16 × 16 — 글리프 5 × 10, 획 1(아이콘 정본 1.5 가 아니다 — 라이브러리에 없는 글리프라 제품 값 그대로). */
+.louis-carousel-arrow__caret {
+  display: block;
+  flex: none;
+  inline-size: 16px;
+  block-size: 16px;
+}

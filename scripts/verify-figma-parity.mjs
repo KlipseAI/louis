@@ -1268,7 +1268,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "carousel-arrow",
     figmaName: "CarouselArrow",
-    figmaAhead: "LOUIS recipe 없음 — 제품 CarouselArrows.tsx 가 정본이고 소비처가 다섯 자리다.",
+    figmaAhead: "React 표면 없음 — 제품 CarouselArrows.tsx 가 정본이고 소비처가 다섯 자리다. LOUIS 레시피 packages/css/src/component/carousel-arrow.css(2026-10-14)가 그것을 옮겼고 carousel-arrow-geometry.browser.test.tsx 가 기하를 되잰다.",
     variantProperties: {},
     // 캐럿은 인라인 SVG 다. 제품이 strokeWidth="1" 을 주고 SVG stroke 는 경로 위에 가운데
     // 정렬되므로 CENTER 다. **아이콘 정본 두께(1.5)와 다르다** — 라이브러리에 없는 글리프라
@@ -1542,7 +1542,7 @@ const COMPONENT_CONTRACTS = [
     id: "gnb-menu-item",
     figmaName: "GnbMenuItem",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 landing/navigation/Gnb.tsx 의 menuLinkClass() 가 정본이다. 제품은 이것을 컴포넌트가 아니라 클래스 조립 함수로 갖고 있고 항목은 네 요소(a · Link · button · span)로 렌더된다 — 대조할 .d.ts 가 없다.",
+      "React 표면 없음 — 제품 landing/navigation/Gnb.tsx 의 menuLinkClass() 가 정본이고 LOUIS 레시피 packages/css/src/component/gnb-menu-item.css(2026-10-14)가 그것을 옮겼다. 제품은 이것을 컴포넌트가 아니라 클래스 조립 함수로 갖고 있고 항목은 네 요소(a · Link · button · span)로 렌더된다 — 대조할 .d.ts 가 없다.",
     variantProperties: {},
     // **이 컴포넌트의 계약은 불투명도다.** 여덟 변형의 기하가 완전히 같아서(28 · 72 · 12 · 999)
     // 기하만 보면 게이트가 아무것도 검증하지 않는다. 값은 제품 `Gnb.tsx` 의
@@ -1619,7 +1619,7 @@ const COMPONENT_CONTRACTS = [
     id: "inline-loading-label",
     figmaName: "InlineLoadingLabel",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 InlineLoadingLabel.tsx 가 정본이고 소비처가 13개 파일 · 20개 호출부다. 링만은 LOUIS 의 .louis-spinner 레시피를 그대로 소비하고, 제품 게이트(check-tailwind-theme.mjs 의 louisPrimitiveContract)가 그 소비를 클래스 문자열로 고정한다.",
+      "React 표면 없음 — LOUIS 레시피 packages/css/src/component/inline-loading-label.css(2026-10-14)가 있고 제품 InlineLoadingLabel.tsx 가 정본이며 소비처가 13개 파일 · 20개 호출부다. 링만은 LOUIS 의 .louis-spinner 레시피를 그대로 소비하고, 제품 게이트(check-tailwind-theme.mjs 의 louisPrimitiveContract)가 그 소비를 클래스 문자열로 고정한다.",
     variantProperties: {},
     // 선도 그림자도 없다. 되읽기의 strokeWeight 가 네 변형 모두 비어 있다 — 이 컴포넌트는 면을
     // 그리지 않고 라벨과 슬롯을 배치하기만 한다.

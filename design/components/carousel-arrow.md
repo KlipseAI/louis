@@ -10,8 +10,8 @@ summary: 캐러셀을 앞뒤로 넘기는 32×32 화살표 버튼입니다.
 캐러셀 헤더에서 트랙을 한 칸씩 넘기는 버튼. **한 쌍(prev + next)으로만 쓴다** — 하나만 놓는
 자리는 없다.
 
-**정본은 제품이다.** `CarouselArrows.tsx` 가 구현이고 LOUIS 에는 표면이 없다 —
-`packages/css/src/component` 에 `carousel-arrow.css` 가 없고 `packages/react/src` 에도 없다.
+**정본은 제품이다.** `CarouselArrows.tsx` 가 구현이고 LOUIS 는 그것을 CSS 레시피
+`packages/css/src/component/carousel-arrow.css`(2026-10-14)로 옮겼다 — `packages/react/src` 에는 없다.
 랜딩의 캐러셀 세 곳(최신 AI 모델 · 그 외 기능 · 최신 소식)과 사용 후기 밴드가 **똑같은 버튼
 쌍**을 쓴다.
 
@@ -23,8 +23,8 @@ summary: 캐러셀을 앞뒤로 넘기는 32×32 화살표 버튼입니다.
 
 | Surface       | 상태           | 근거                                                                                                                                                                        |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 다섯 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                                |
-| Figma         | `partial`      | `CarouselArrow` 6 variant(`Direction` × `State`). parity 게이트가 대조하는 것은 캐럿 stroke(1 · `CENTER`) · 헤어라인 effect(`INNER_SHADOW:0:0:0.5`) · 속성 축 · raw fill·stroke 0 넷이고, 기하도 대조한다 — `figma/components.measured.json` 의 `carousel-arrow`(제품 클래스를 실브라우저에서 잰 값)와 버튼 32 × 32 · 반경 12 · 안쪽 여백 0 을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
+| Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 다섯 자리다. LOUIS 에는 CSS 레시피 `carousel-arrow.css` 가 있고(2026-10-14) React export 는 없다. 시험은 기하 되재기(`carousel-arrow-geometry.browser.test.tsx`)뿐이고 acceptance test 는 0건이다. 캐럿 색은 원시 `gray-000` 을 컴포넌트 CSS 가 직접 쓸 수 없어 시맨틱 `fg-primary` 다                                                |
+| Figma         | `partial`      | `CarouselArrow` 6 variant(`Direction` × `State`). parity 게이트가 대조하는 것은 캐럿 stroke(1 · `CENTER`) · 헤어라인 effect(`INNER_SHADOW:0:0:0.5`) · 속성 축 · raw fill·stroke 0 넷이고, 기하도 대조한다 — `figma/components.measured.json` 의 `carousel-arrow`(제품 클래스를 실브라우저에서 잰 값)와 버튼 32 × 32 · 반경 12 · 안쪽 여백 0 을 맞댄다. 반대 방향도 걸려 있다 — `carousel-arrow-geometry.browser.test.tsx` 가 LOUIS 레시피의 계산값을 같은 기록과 맞댄다(2026-10-14) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                     |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                            |
 
@@ -163,8 +163,8 @@ summary: 캐러셀을 앞뒤로 넘기는 32×32 화살표 버튼입니다.
    제품에서는 래퍼의 `gap` 이고 Figma 에는 없다. 이 문서가 임시로 소유한다.
 6. **기하는 한 방향으로만, 버튼 상자만 대조된다.** `figma/components.measured.json` 의
    `carousel-arrow` 가 제품 클래스를 실브라우저에서 잰 32 × 32 · 반경 12 · 안쪽 여백 0 을 갖고,
-   parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저
-   테스트는 LOUIS 레시피가 없어 없다. **캐럿 16 × 16 과 글리프 5 × 10 은 대조하지 않는다** —
+   parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히 만드는지는
+   `carousel-arrow-geometry.browser.test.tsx` 가 LOUIS 레시피로 되잰다(2026-10-14). **캐럿 16 × 16 과 글리프 5 × 10 은 대조하지 않는다** —
    16 은 인라인 SVG 의 `width`/`height` 속성이고 5 × 10 은 `path` 의 바운딩 박스라, 클래스를
    컴파일해 재는 하네스가 닿지 않는다.
 7. ~~**포커스 상태가 코드에도 Figma 에도 없다.**~~ **편차가 아니게 됐다**(DS-D-0074) — 포커스 링을

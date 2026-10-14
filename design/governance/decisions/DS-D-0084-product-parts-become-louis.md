@@ -180,6 +180,14 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | 14 스냅 선 두께 | 줌과 무관하게 화면 1px(`non-scaling-stroke`) | 제품대로 캔버스 1(줌 50% 에서 0.5px) |
 | 15 스냅 선의 자리 | 컴포넌트 `canvas-guide` | `editor-workspace` 패턴 안 블록 |
 
+## 새 부품이 선 뒤의 표면 대응(2026-10-14)
+
+작은 새 부품 아홉 · 큰 새 부품 열셋(DS-D-0086 ~ 0097)과 기존 부품의 변형(slider `ruler` · progress `bipolar` · segmented 알약 · chart-card
+`spark` · section-header `display` · node-shell 리사이즈 손잡이)이 Figma 세트로 섰다. 그 출처였던 needed 28 을 표면 원장에서 대응(figma)으로
+옮겼다 — 대응 137 → 165(대상 대비 47.6% → 57.3%) · 컴포넌트 91 → 119 · needed 149 → 121(부품 41 → 14). 각 표면의 사유가 출처 결정문 ·
+부품 문서의 줄을 가리킨다. 옮기지 않은 것: 연결선의 삭제 단추(Figma `CanvasEdge` 밖 — canvas-edge.md), 캔버스 바닥 점 격자, 덱 머리 막대,
+새 타임라인 푸터, 템플릿 상세의 프롬프트 상자, 노드 타입 다섯, 행사 부스 화면(테마 계약 밖 — 소유자 판정 대기).
+
 ## Rollback
 
 생성 버튼 규칙과 시맨틱 넷을 지우면 이전과 같다(쓰는 소비처가 아직 없다). video-player 레시피와 새 토큰 일곱도 같다 — 제품이 클래스를 입기 전에는 소비처가 없다. 작은 새 부품 다섯 · 예시 갤러리 칸 변형 · 새 시맨틱 셋(`asset-tile-well` · `notice-pill-dot` · `canvas-guide`)도 같다. 방침(1~5)은 소유자 지시라 되돌리지 않는다.

@@ -13,17 +13,17 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 137,
+    "mapped": 165,
     "scoped": 324,
-    "needed": 149,
+    "needed": 121,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 41,
+    "primitive": 14,
     "screen": 93,
     "oneoff": 14,
-    "unclear": 1,
+    "unclear": 0,
     "kindless": 0
   },
   "surfaces": {
@@ -662,12 +662,12 @@
       "file": "apps/web/app/admin/CaptionTemplateManagement.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "색 입력 복합 컨트롤이다 — 네이티브 <input type=\"color\"> 를 16(=32px)×16 · rounded-8 · border-0 · louis-hairline-inset 칩으로 세우고, 그 오른쪽에 헥스 값을 담는 louis-text-field__box 를 형제로 놓는다. 칩이 박스 «안»의 prefix 가 아니라 «밖»의 형제라 Figma TextField 의 Prefix BOOLEAN 으로는 표현되지 않고, 51개 컴포넌트에 색 스와치·컬러 필드에 해당하는 것이 없다. 자체 면·헤어라인·반경을 가진 독립 컨트롤이고 자막 템플릿 모달 안에서 4자리(레터박스·제목·자막·캡션 색)가 쓴다. 부모 apps/web/app/admin/CaptionTemplateManagement.tsx#CaptionTemplateManagement 는 이미 needed 다. 제품에 이미 갈라진 사본이 하나 더 있다는 점을 함께 적는다 — apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx 가 같은 뜻을 30px · border 1px palette-gray-600 · radius 6 의 인라인 style 로 그린다. 지금은 한 화면 전용이라 low 로 두되, 그 사본까지 이 컴포넌트로 모으기로 하면 medium 이다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "파일 안 4자리(자막 템플릿 모달의 레터박스·제목·자막·캡션 색)이므로 이름 기준 reuse 는 1이지만, **모양이 다른 화면에도 있다** — `git grep -n 'type=\"color\"'` 가 제품 전체에서 둘을 준다: 이 파일(:319)과 apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx(:193). 뒤쪽은 같은 뜻을 30px · border 1px palette-gray-600 · radius 6 의 인라인 style 로 그려 이미 갈라져 있다. 그래서 reuse 를 화면 수 2로 적는다. 조형은 독립 컨트롤이다 — input[type=color] 를 32×32 · rounded-8 · border-0 · louis-hairline-inset 칩으로 세우고 헥스 박스를 그 **밖의 형제**로 놓으므로 Figma TextField 의 Prefix BOOLEAN 으로 표현되지 않는다. 31종에 색 스와치·컬러 필드가 없다. 세우면 두 사본이 하나로 모인다."
+      "verdict": "figma",
+      "figma": "ColorSwatch",
+      "reason": "색 칩 + 헥스 칸 형제 조합이 color-swatch 의 출처다(design/components/color-swatch.md — `CaptionTemplateManagement.tsx:296-316`). Figma `ColorSwatch` 의 `Layout=row` 칸이 이 자리를 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/admin/CaptionTemplateManagement.tsx#Field": {
       "file": "apps/web/app/admin/CaptionTemplateManagement.tsx",
@@ -994,12 +994,12 @@
       "file": "apps/web/app/blog/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "블로그 인덱스 카드가 이 파일 안에 인라인으로만 있다 — 16:9 커버(빈 커버는 primary 20% 그라디언트) · 제목 · 발췌 2줄 클램프 · 날짜 · hover translateY(-4px). MediaCard(정사각 미디어 타일)와도 ProjectCard 와도 다른 벌이라 Figma 에 「BlogCard」로 세워야 한다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "라우트는 1 이지만 카드가 «데이터마다 인스턴스화되는 격자 항목»이라 컴포넌트다(ProjectCard·MediaCard·NewsCard 가 이미 같은 이유로 서 있는 계열). 미충족분은 화면이 아니라 BlogCard 한 벌 — 16:9 커버(빈 커버는 primary 20% 그라디언트) · 제목 · 발췌 2줄 클램프 · 날짜 · hover translateY(-4px). 51 의 MediaCard(정사각)·NewsCard(격자 고정폭)·ProjectCard 어느 것도 이 비율·구성이 아니라 흡수되지 않는다."
+      "verdict": "figma",
+      "figma": "ContentCard",
+      "reason": "needed 사유였던 블로그 인덱스 카드(16:9 커버 · 커버 밖 제목 · 발췌 2줄 · 날짜)가 DS-D-0088 의 content-card 출처 둘 중 하나다(`app/blog/page.tsx:78-176`). Figma `ContentCard` 세트가 그 카드를 그린다. 페이지의 나머지(머리 · 격자)는 조립이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/creative-media-admin/page.tsx#CreativeMediaAdminPage": {
       "file": "apps/web/app/creative-media-admin/page.tsx",
@@ -1232,12 +1232,12 @@
         "louis-color-fg-primary",
         "louis-color-fg-tertiary"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "색 스와치 컨트롤이다. 값이 없으면 점선 테두리 + `+`, 값이 있으면 30×30 색 입력 + 우상단 ✕ 배지로 갈리고 위에 caption-12 라벨이 붙는다. 51개에 대응물이 없고 색을 고르는 자리는 이 패널 말고도 생기므로 컨트롤 층에 세울 후보다. 지금은 전부 인라인 style 이라 토큰 밖 값(#fafafa · borderRadius 6)이 섞여 있는 것도 함께 정리된다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "색을 고르는 컨트롤. 실측: `git grep -ln 'type=\"color\"'` 가 이 파일과 `app/admin/CaptionTemplateManagement.tsx` 둘을 준다 — 두 화면이 같은 물건을 각자 그린다. 한 패널 안에서도 요소×(글자·배경·박스 테두리·외곽선)로 여러 벌 인스턴스화된다. 값 없음(점선 + `+`)과 값 있음(30×30 색 입력 + 우상단 ✕ 배지)의 두 상태 축이 분명하고, 지금은 전부 인라인 style 이라 토큰 밖 값(#fafafa · borderRadius 6)이 섞여 있다 — 세우면 그것도 함께 정리된다."
+      "verdict": "figma",
+      "figma": "ColorSwatch",
+      "reason": "라벨 위 30 칩 · 빈 칸(점선 + `+`) · 지우기 배지가 color-swatch 의 출처 사본이다(color-swatch.md — `CaptionColorPanel.tsx` Swatch 171~223줄). Figma `ColorSwatch` 의 `Layout=stack` × `Content=filled|empty` · `Clear` 가 이 자리를 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx#HighlightShortPage": {
       "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
@@ -1617,12 +1617,12 @@
         "louis-alert",
         "louis-tooltip"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "앵커 5a67d692 에서 이 파일이 요금제 선택 화면의 «본체» 다(783줄). page.tsx 는 getPlanPricing() 만 부르고 initialPlans 를 넘기는 17줄 서버 껍데기이고, 시각은 전부 여기 있다 — Gnb + 앱 메인 카드 셸, 가격 헤더, louis-alert 인라인 오류, **다섯 장짜리 티어 카드 덱**, PlanComparisonTable, FAQ, ConfirmModal 셋. 이 중 Figma 51 컴포넌트에 대응이 없는 것은 티어 카드다. 이름 유사로 기대되던 `Product/Upgrade Plan Card` 는 readback.json components 51 목록에 **없음을 확인했다**(Table·TableCell·TableHeaderCell·Alert·Tooltip·Button 은 있으나 요금제 카드는 없다). 티어 카드 마크업은 `components/landing/sections/PricingSection.tsx` 와 이 파일이 각자 TIER_CARD/TIER_HEAD/TIER_PRICE_ROW/TIER_CREDITS_ROW/TIER_FEATURE_LIST/TIER_FEATURE_ICON 상수 벌을 **따로 들고 두 벌로 복제**하고 있고, 이미 갈렸다 — 랜딩에만 TIER_CARD_LITE_GLOW 가 있고 이 화면에만 inverse CTA·TIER_CARD_CURRENT(primary-200 40% 아웃라인 2px)·PENDING_DOWNGRADE_NOTICE 가 있다. 컴포넌트가 없어 이 드리프트를 어떤 게이트도 못 잡는다. `app-screens.mypage-upgrade.{desktop,mobile}.00.draw.js` 로 «화면 보드»는 이미 있지만 보드는 판정 후보(components 51 · templates 9)가 아니며, 셸은 templates 의 app-shell 을 «쓰는» 것이라 DS-D-0039 상 figma 판정을 줄 수 없다. 세워야 할 정본은 티어 카드 하나 — 축은 current(현 플랜) · pendingDowngrade · trial-cancelled · originalPrice(취소선) · note · featureTip 이다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Alert · Tooltip · Table (인라인 오류 · 기능 툴팁 · 비교표 몫은 이미 문다)] 실측: `git grep -l 'TIER_CARD\\|TIER_HEAD\\|TIER_PRICE_ROW'` 가 **이 파일과 `components/landing/sections/PricingSection.tsx` 딱 둘**을 준다 — 요금제 티어 카드 마크업이 두 벌로 복제돼 있고 이미 갈렸다(랜딩만 TIER_CARD_LITE_GLOW, 여기만 inverse CTA · TIER_CARD_CURRENT · PENDING_DOWNGRADE_NOTICE). 컴포넌트가 없어 어떤 게이트도 이 드리프트를 못 잡는다. readback 51 에 요금제 카드가 없음을 목록으로 확인했다(Table·TableCell·Alert·Tooltip·Button 은 있다). 세울 정본은 PlanTierCard 하나 — 축은 current · pendingDowngrade · trial-cancelled · originalPrice(취소선) · note · featureTip. 화면 보드는 app-screens.mypage-upgrade.* 로 이미 있으므로 여기서 지을 것은 카드뿐이다."
+      "verdict": "figma",
+      "figma": "PlanTierCard",
+      "reason": "needed 사유가 「Figma 에 대응이 없는 것은 티어 카드」 하나였다 — 나머지(Gnb 셸 · Alert · 비교표 · FAQ · 확인 모달)는 이미 대응이 있다. DS-D-0091 이 그 카드를 plan-tier-card 로 세웠고(현재 · 다운그레이드 예정 알림 · inverse CTA 포함), Figma `PlanTierCard` 세트가 그린다. 비교표는 DS-D-0092 `PlanComparison` 이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/nodecanvas/NodeCanvasWorkspace.tsx#NodeCanvasWorkspace": {
       "file": "apps/web/app/nodecanvas/NodeCanvasWorkspace.tsx",
@@ -1798,12 +1798,12 @@
       "file": "apps/web/app/templates/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "템플릿 인덱스 카드가 이 파일 안에 인라인으로만 있다 — 4:3 커버(이미지/비디오) · 우상단 미디어 개수 배지(louis-badge 를 사진 위 검정 56% 로 덮어씀) · 제목 · 설명 2줄 클램프. 블로그 카드와도 비율·배지가 달라 별도 벌이므로 「TemplateCard」로 세워야 한다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Badge (개수 배지 몫, 톤 축 필요)] BlogPage 와 같은 이유로 카드 한 벌이 미충족분이다 — 4:3 커버(이미지/비디오) · 우상단 미디어 개수 배지 · 제목 · 설명 2줄 클램프. 블로그 카드와 비율·배지가 달라 별벌이므로 TemplateCard 로 따로 선다. 배지는 louis-badge 를 사진 위 검정 56% 로 덮어쓰고 있어 Badge 에 「미디어 위」 톤 축이 필요한지도 함께 정해진다."
+      "verdict": "figma",
+      "figma": "ContentCard",
+      "reason": "needed 사유였던 템플릿 인덱스 카드(4:3 커버 · 우상단 미디어 수 배지 · 제목 · 설명 2줄)가 DS-D-0088 의 content-card 출처 둘 중 하나다(`app/templates/page.tsx:77-130`). Figma `ContentCard` 세트가 그 카드를 그린다. 배지는 기존 Badge(media 면)다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/terms/page.tsx#TermsPage": {
       "file": "apps/web/app/terms/page.tsx",
@@ -2329,12 +2329,12 @@
       "louis": [
         "louis-focus-ring"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "고르기 묶음(:121-175) — 면 없이 위 · 아래 선으로 가른 행(이름 20 SemiBold · 설명 16)과 compact 2~3열(rounded-8 · 16 Medium), 고름은 표식 채움으로만 말한다(:87-89). ChoiceCard 는 이 파일의 앞선 판에서 섰지만 card(면+링) · row(면 뒤집힘)뿐이라 이 표현이 없다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "실측: 같은 파일 6자리(:482 · :505 · :549 · :577 · :635 · :641), 단일 · 복수 둘 다. 같은 뜻을 ResearchOnboarding(그림 타일 · 원/사각 MARK)이 다른 그림으로 다시 짠다(choice-card.md 출처 표). 새 컴포넌트가 아니라 ChoiceCard 에 표식만 채우는 행 변형을 더할지 소유자 판단으로 흡수할 부품이다."
+      "verdict": "figma",
+      "figma": "ChoiceCard",
+      "reason": "choice-card 의 정본이 이 `<Choice>` 다(design/components/choice-card.md — `ApplyFlow.tsx:102-171`). 위아래 선으로 가른 행과 compact 열은 Figma `ChoiceCard` 의 `Variant=row|list` 칸이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/landing/sections/ambassador/ApplyFlow.tsx#Mark": {
       "file": "apps/web/components/landing/sections/ambassador/ApplyFlow.tsx",
@@ -2688,12 +2688,12 @@
       "file": "apps/web/components/landing/sections/HeroNotice.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "히어로 공지 알약의 속이다 — 4×4 green-500 점(:51) → 로고가 있으면 높이 16 로고(:58) → 문구. 알약의 겉면 NOTICE(louis-glass-surface · 높이 32 · 좌우 12 · radius 12 · body-14-medium · media-scrim-dark 48% 면 · media-foreground-dark 글자, :41~:47)와 링크용 덧칠 NOTICE_LINK(hover 때 스크림 64%, :69~:73)도 같은 파일이 갖는다. 51 컴포넌트에 이 알약이 없다. Badge 는 면·높이가 다르고 유리 흐림도 없는 다른 컴포넌트다. 템플릿 landing-shell 은 헤더만 계약한다. 알약 하나로 세우면 축은 Logo(유무) · Link(정적/링크, hover) 둘이다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "실측: `<HeroNoticeBody` 2자리 — components/landing/sections/Hero.tsx:258(랜딩 히어로)과 app/admin/LandingManagement.tsx:337(어드민 랜딩 편집의 미리보기, 같은 NOTICE 겉면 :336). 파일 머리말이 미리보기가 값을 따로 들면 한쪽만 고쳐지므로 한 곳에 뒀다고 적는다(HeroNotice.tsx:1~:5). 두 라우트(/ · /admin)가 같은 정의를 쓴다. 주의: Hero 의 kindReason 이 근거로 든 PricingSection 의 PricingNotice 사본은 통합 판(76b6cf15)에서 사라졌다(PricingSection.tsx 에 `git grep -i notice` 0건). 되풀이 근거는 이제 이 두 자리뿐이고, 그중 하나는 미리보기라 그림이 같다. 그래서 primitive 로 두되 우선순위는 낮게 잡는다."
+      "verdict": "figma",
+      "figma": "NoticePill",
+      "reason": "notice-pill 의 제품 정본이 `HeroNotice.tsx:41-91` 이다(design/components/notice-pill.md). 점 → 로고 → 문구 속과 겉면을 Figma `NoticePill`(Logo · Interactive · State)이 함께 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/landing/sections/HeroSequence.tsx#HeroSequence": {
       "file": "apps/web/components/landing/sections/HeroSequence.tsx",
@@ -2933,12 +2933,12 @@
       "file": "apps/web/components/landing/system/Carousel.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "heading-36 제목 + 우측 CarouselArrow 쌍의 조합으로, 모델·피처·뉴스 세 섹션이 모두 이것을 쓴다(뉴스는 constrain=false 변형). 화살표만 Figma 에 있고 이 헤더 조합은 없다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "실측: `<CarouselHeader` 2자리 — Carousel.tsx:420(기본 캐러셀 조립분)과 NewsCarousel.tsx:266(constrain=false 변형). `<Carousel` 렌더 자리는 ModelCarousel.tsx:152 하나이므로 화면에 실제로 서는 섹션은 둘(모델 캐러셀 · 뉴스 캐러셀)이고 라우트는 /(랜딩) 하나다. 원장 사유의 「세 섹션」은 앵커에서 둘이다. 그래도 primitive 로 두는 근거는 되풀이의 «역사»가 파일에 적혀 있기 때문이다 — Carousel.tsx 머리말이 「전에는 NewsCarousel 이 가장자리 상태와 헤더를 **글자 그대로 복사해** 갖고 있었다」고 적고, 그 복사를 지우려고 이 조각을 뽑아낸 것이 이 파일의 존재 이유다. 조형은 heading-36-semibold 제목 + 우측 CarouselArrow 쌍 + gap 40 한 줄이고, 화살표(carousel-arrow)만 31종에 있고 이 헤더 조합은 없다. constrain 이 그 축이다."
+      "verdict": "figma",
+      "figma": "SectionHeader",
+      "reason": "heading-36 제목 + 우측 화살표 쌍 조합이 section-header 의 `display` 레벨로 올라갔다(design/components/section-header.md 표 — `Carousel.tsx:128-150`). Figma `SectionHeader` 의 `Level=display` 와 Actions 슬롯(CarouselArrow)이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/landing/system/CarouselArrows.tsx#Caret": {
       "file": "apps/web/components/landing/system/CarouselArrows.tsx",
@@ -3170,12 +3170,12 @@
       "file": "apps/web/components/models/ModelLogo.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "회사 로고 타일 — 잉크 5% 면 위에 흰 실루엣 PNG 를 마스크로만 쓰고 페이지 잉크(--gray-000)로 칠해 테마를 따르며, 로고가 없으면 이름 첫 글자(body-16-semibold)로 대체한다(ModelLogo.tsx:8-22). 크기 축은 md(28 · radius 10 · 글리프 14, 719px 아래 24/12)와 lg(36 · radius 12 · 글리프 18) 둘이다(:9-10). 가장 가까운 Figma Avatar 는 대응이 아니다 — design/components/avatar.md 가 스스로 「사람을 나타내는 작은 원형 표식」이고 「프로젝트·파일·팀 같은 사물의 썸네일」에는 쓰지 않는다고 적는다. 감사가 제안한 「Avatar square·logo 변형 흡수」는 그 문서의 쓰지 않는 자리와 충돌하므로 새 부품으로 남긴다. 모델 페이지 안에서만 쓰여 낮게 잡는다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "실측: `<ModelLogo` 3자리 — ModelCompare.tsx:124(데스크톱 표 칸) · :168(폰 목록) · ModelRecommender.tsx:118(결과 머리, size=lg). 소비 컴포넌트 둘 · 크기 둘(md 28/폰 24 · lg 36)이고 라우트는 /models 하나다. CarouselHeader 처럼 라우트는 하나여도 다른 소비처·다른 그림(표 칸 vs 결과 머리)이 실측으로 있어 부품으로 본다. 2026-10-07 감사(scratchpad/louis-uptake/2026-10-07-audit.json 「모델 로고 타일」)가 적은 「카드 격자 · GNB 모델 시트」 소비는 통합 판 76b6cf15 에서 확인되지 않는다 — ModelCardGrid 는 MediaCard 아이콘 슬롯에 img 를 직접 넣고(ModelCardGrid.tsx:36-37) Gnb 에는 logo 렌더가 없다."
+      "verdict": "figma",
+      "figma": "LogoTile",
+      "reason": "logo-tile 의 제품 정본이 `ModelLogo.tsx:8-22` 다(design/components/logo-tile.md). 크기 셋과 글리프 · 첫 글자 대체를 Figma `LogoTile`(Size × Content)이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/models/ModelRecommender.tsx#ModelRecommender": {
       "file": "apps/web/components/models/ModelRecommender.tsx",
@@ -3236,12 +3236,12 @@
       "file": "apps/web/components/navigation/CommandPalette.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "Figma 에 대응물이 없는 자체 구현 오버레이다 — 560px 폭 · 반투명 72% 면 + 4px 백드롭 블러 · overlay 반경 · elevation-menu + hairline-inset 그림자에, 검색 헤더(아이콘 + 입력 + 닫기) · 그룹 제목이 있는 결과 목록 · 행 오른쪽에 겹쳐 뜨는 플라이아웃 하위 목록 · 빈 상태 · 키캡 힌트 푸터까지 여섯 부분을 갖는다. design/governance/figma-sync.md 의 모달 실측이 이 파일을 LOUIS dialog 를 쓰지 않는 「자체 구현 14」의 첫 줄로 이미 지목했고, Figma Dialog 는 Size 축 하나에 제목+설명+액션2 골격뿐이라 대표하지 못한다. 앱 전역 단축키로 어디서나 열리는 표면이라 우선순위가 높다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "실측: import 는 Gnb 한 곳이지만(Gnb.tsx:41, 렌더 5546) Gnb 는 `<Gnb` 로 30 파일에서 렌더된다 — 앱 셸이 있는 모든 화면에서 단축키로 열린다. 51 의 Dialog 는 Size 축 하나에 제목+설명+액션2 골격뿐이라 이 여섯 부분(검색 헤더 · 그룹 제목 있는 결과 목록 · 행 오른쪽 플라이아웃 하위 목록 · 빈 상태 · 키캡 힌트 푸터 · 560px/72% 반투명+4px 블러 면)을 대표하지 못한다. design/governance/figma-sync.md 가 이 파일을 「LOUIS dialog 를 안 쓰는 자체 구현 14」의 첫 줄로 이미 지목한다."
+      "verdict": "figma",
+      "figma": "CommandPalette",
+      "reason": "DS-D-0095 가 이 팔레트를 command-palette 로 세웠다. 면 · 검색 머리 · 묶음 · 바닥 키캡을 Figma `CommandPalette` 세트(빈 상태 `CommandPaletteEmpty` · `Keycap`)가 그린다. 행은 Menu `Layout=inline` 변형이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/navigation/CommandPalette.tsx#KeyArrowGlyph": {
       "file": "apps/web/components/navigation/CommandPalette.tsx",
@@ -3443,12 +3443,12 @@
       "file": "apps/web/components/scenes/analytics/AnalyticsChannelHeader.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "분석 화면 채널 헤더 — 6:1(≤560px 4:1) 배너 띠(BANNER :32, rounded-12 · chip-bg-strong 면) 아래 프로필 행(PROFILE_ROW :39: 32/24px LOUIS Avatar + 채널명 heading-28(≤480px 20) + SpacedItems 수치 줄 + 한 줄로 접히는 설명 버튼 DESCRIPTION_BUTTON :64 + 우측 actions 슬롯 :72). 아바타만 Figma Avatar 로 대응하고 배너 띠 · 이름/수치/설명 세 줄 묶음 · 액션 슬롯을 가진 조형은 Figma 에 없다. product-specimens 도 옛 상단 바 표본 일곱(avatar/youtubeChannel · top-bar/*Analytics · skeleton/*TopBar 등)을 2026-10-08 에 은퇴시키며 「새 구조를 JSX 에서 읽어 AnalyticsChannelHeader 표본을 다시 세워야 열린다」고 적었다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "통합 판 실측: JSX 2곳 / 2파일(YoutubeAnalyticsScene.tsx:1409 · InstagramAnalyticsScene.tsx:1758) / 2라우트(/analytics/youtube · /analytics/instagram). 두 씬이 각자 들고 있던 360px 배너 밴드를 공용 named export 로 모은 것이라 되풀이는 이미 코드가 증명한다 — 앞서 두 씬 항목이 「primitive 로 꺼낼 후보」라 적은 대시보드 셸의 채널 헤더가 바로 이것이다. 로딩(reserveBanner · reserveDescription)은 같은 틀의 글자 줄 안에 Skeleton 을 얹는 상태 축이라 별 표면이 아니다."
+      "verdict": "figma",
+      "figma": "ChannelHeader",
+      "reason": "DS-D-0087 이 이 채널 헤더(배너 띠 · 프로필 행 · 설명 더보기)를 channel-header 로 세웠다. Figma `ChannelHeader` · `ChannelHeaderDescription` 이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/analytics/AnalyticsMainScrollRegion.tsx#AnalyticsMainScrollRegion": {
       "file": "apps/web/components/scenes/analytics/AnalyticsMainScrollRegion.tsx",
@@ -3568,12 +3568,12 @@
       "louis": [
         "louis-tooltip"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "대시보드의 기본 영역 차트 — 그라디언트 area fill·monotone 라인·reveal/breathe 애니메이션·x축 라벨(좁은 뷰포트 축약)·hover 세로선과 점·louis-tooltip 툴팁. 차트 축은 Figma 51 에 하나도 없고 이 컴포넌트가 두 대시보드 씬과 세 탭에서 쓰인다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "앵커 실측: JSX 3곳 / 2파일(InstagramAnalyticsScene:1991, OverviewTab:376·:423) / 2라우트. 여기에 YoutubeVideoAnalyticsView 가 같은 곡선을 자기 상수로 재구현해 그림은 3라우트에 뜬다. 결정적 근거는 Figma 51종에 «차트 축이 하나도 없다»는 것 — 이 컴포넌트가 그 축의 정본 후보다(그라디언트 area fill · monotone 라인 · reveal/breathe · hover 세로선 · louis-tooltip 이미 소비)."
+      "verdict": "figma",
+      "figma": "ChartCard",
+      "reason": "chart-card 가 공용 `AreaChart` 의 시각(점 격자 바탕 · 그라디언트 면 · 십자선 · 축 글자)을 레시피로 가졌다(design/components/chart-card.md). Figma `ChartCard` 의 `Chart=area` 칸(HasCrosshair)이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/analytics/shared.tsx#ChartSkeleton": {
       "file": "apps/web/components/scenes/analytics/shared.tsx",
@@ -3601,12 +3601,12 @@
       "file": "apps/web/components/scenes/analytics/shared.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "축·툴팁 없이 곡선 + area fill 만 그리는 KPI 카드용 미니 스파크라인. 증감 부호에 따라 accentColor 가 갈린다. AreaChart 와 같은 차트 축이지만 크기·구성이 달라 별도 변형으로 서야 한다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "앵커 실측: JSX 4곳 / 2파일(InstagramAnalyticsScene :1279·:1370·:1443, OverviewTab:330) / 2라우트. AreaChart 와 같은 차트 축이지만 축·툴팁이 없고 증감 부호로 accentColor 가 갈리는 별 변형이다. KPI 카드 정본과 한 벌로 서야 하며 4번 항목(대시보드 카드 계열)과 함께 닫힌다."
+      "verdict": "figma",
+      "figma": "ChartCard",
+      "reason": "needed 사유가 「AreaChart 와 같은 차트 축의 별도 변형」이었다. Figma `ChartCard` 의 `Chart=spark` 칸이 그 변형이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/analytics/shared.tsx#MetricCardsSkeleton": {
       "file": "apps/web/components/scenes/analytics/shared.tsx",
@@ -3763,12 +3763,12 @@
       "file": "apps/web/components/scenes/create/ImageLightbox.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "전체 화면 이미지 라이트박스 — 72% 딤 오버레이 + 시작/목표 rect 사이를 FLIP 으로 잇는 프레임 + 우상단 글래스 액션 버튼 2개(삭제·닫기, 36px 원형 · backdrop blur). Figma 에 오버레이 미디어 뷰어 축이 전혀 없고, 글래스 원형 액션 버튼도 IconButton 정본(ghost)과 면이 다르다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "앵커 실측: JSX 1곳(CreateScene.tsx:1001)이지만 전체 화면 이미지 뷰어의 두 번째 벌이 다른 라우트에 있다 — components/creative-media/CreativeMediaClient.tsx:1037~1054 가 딤 + 이미지 + 닫기로 자체 라이트박스를 그린다. 2파일 2라우트. LOUIS 51종에 «오버레이 미디어 뷰어» 축이 전혀 없고, 우상단 36px 원형 글래스 액션 버튼도 IconButton(ghost) 정본과 면이 달라 함께 축을 열어야 한다. 113줄로 작아 짓는 값이 크다."
+      "verdict": "figma",
+      "figma": "Lightbox",
+      "reason": "DS-D-0086 이 이 라이트박스(딤 · FLIP 프레임 · 글래스 액션 둘)를 lightbox 로 세웠다. Figma `Lightbox` · `LightboxAction` 이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/ActionButton.tsx#ActionButton": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/ActionButton.tsx",
@@ -4200,12 +4200,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "프롬프트 영역 하단 리사이즈 어피던스 — 3px 그립 바 + 호버 시 아래에서 떠오르는 안내 문구. PaneDivider 정본은 4px 그립의 패널 분할선이라 이 인라인 핸들과 배치·문구 슬롯이 다르다. 노드 4종이 공유하는 조작 어피던스라 정본이 필요하다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: PaneDivider] JSX 실측 5 노드 파일(Bgm·Image·Text·Tts·Video). 노드 프롬프트 영역을 늘리는 공통 어피던스다. PaneDivider 정본은 4px 그립의 패널 분할선이라 배치(인라인 하단)와 호버 시 떠오르는 안내 문구 슬롯이 없다 — PaneDivider 에 inline 변형 + 힌트 슬롯을 더하는 형태."
+      "verdict": "figma",
+      "figma": "NodeResizeHandle",
+      "reason": "그립 바 + 호버 안내 글이 node-shell 의 리사이즈 손잡이로 섰다(design/components/node-shell.md — Figma 는 `NodeResizeHandle`, State Rest · Hover).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/NodeTitleEditableLabel.tsx#NodeTitleEditableLabel": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeTitleEditableLabel.tsx",
@@ -4315,12 +4315,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "노드 정렬 스냅 가이드선. `#ff2d55` 를 리터럴로 칠하고 glow 필터를 직접 정의해 토큰 밖에 있는 유일한 캔버스 시각 요소다. Figma 에 세우면서 액센트 토큰으로 끌어와야 색이 두 곳에서 갈리지 않는다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "JSX 1 (index.tsx)이지만 index.tsx 가 /create 와 랜딩 두 계열에 붙고, 정렬 스냅 가이드는 캔버스 보드를 그릴 때마다 필요한 조작 어피던스다. 더 중요한 건 이것이 **토큰 밖에 있는 유일한 캔버스 시각 요소**라는 점 — `#ff2d55` 를 리터럴로 칠하고 glow 필터를 자체 정의한다. 산출물은 컴포넌트라기보다 액센트 토큰 + 가이드선 스펙이고, 그래야 색이 제품·Figma 두 곳에서 갈리지 않는다."
+      "verdict": "figma",
+      "figma": "CanvasGuide",
+      "reason": "canvas-guide 의 제품 정본이 `SmartGuideOverlay.tsx:13-66` 이다(design/components/canvas-guide.md). 리터럴 `#ff2d55` 는 pink 토큰으로 접혔고 Figma `CanvasGuide`(Orientation)가 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/Toolbar.tsx#CanvasToolbar": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/Toolbar.tsx",
@@ -4337,23 +4337,23 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "예약 공개 날짜 선택 달력 팝오버(월 이동 · 요일 헤더 · 선택/비활성 날짜 칸). 51종에 캘린더가 전혀 없고, 날짜 입력은 유튜브 노드 밖에서도 재등장할 축이라 정본이 필요하다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "JSX 실측 1 (YoutubeNode) — 되풀이 근거는 측정이 아니라 **범주**다. LOUIS 51종에 달력이 아예 없고(목록 전수 확인), 날짜 선택은 인스타 예약·분석 기간 필터처럼 유튜브 노드 밖에서 반드시 다시 나오는 축이다. 월 이동 · 요일 헤더 · 선택/비활성 날짜 칸은 Menu 나 CompositePopover 로 대신할 수 없다. 근거가 실측이 아님을 밝혀 둔다."
+      "verdict": "figma",
+      "figma": "DatePickerCalendar",
+      "reason": "DS-D-0096 이 이 달력 팝오버를 date-picker 의 date 모드로 세웠다. 면은 composite-popover, 속을 Figma `DatePickerCalendar` · `DatePickerCell` 이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleTimePopover": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "예약 공개 시각 선택 팝오버 — 시/분 스크롤 열과 선택 상태. 날짜 팝오버와 한 벌이고 역시 51종에 대응이 없다. 스크롤 열 선택은 Menu 항목과 다른 규범(무한 열·중앙 하이라이트)이다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "JSX 실측 1 (YoutubeNode). 날짜 팝오버와 한 벌이고 역시 51종에 대응이 없다. 시/분 스크롤 열의 중앙 하이라이트 선택은 Menu 항목 규범(호버·체크)과 다른 물건이라 Menu 변형으로 흡수되지 않는다. 날짜 것과 같은 이유로 근거는 측정된 되풀이가 아니라 범주 공백이다."
+      "verdict": "figma",
+      "figma": "DatePickerTime",
+      "reason": "DS-D-0096 이 이 시각 팝오버(시 · 분 열)를 date-picker 의 time 모드로 세웠다. Figma `DatePickerTime` 이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx#DeletableEdge": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx",
@@ -4969,23 +4969,23 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "색 선택 팝오버 — SV 사각 면 + 색조 슬라이더 + 알파 슬라이더 + hex 입력 + 스포이드. 51종에 색 선택기가 전혀 없고 섹션 노드와 영상 편집 오버레이가 함께 쓴다. Slider 정본이 있지만 SV 면과 색조 트랙은 그 축 밖이다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Slider] JSX 1 (VideoEditModal:13937) + OverlayInspector 가 `setColorPopover` 로 같은 인스턴스를 3자리에서 연다. **원장 사유를 정정한다**: 「섹션 노드와 함께 쓴다」고 적혀 있으나 SectionNode.tsx 는 이걸 import 하지 않고 `SECTION_COLOR_PRESETS`·`COLOR_WRAP`·`COLOR_BTN`·`COLOR_SWATCH` 로 **두 번째 색 선택 UI 를 따로 굴린다**. 공유가 아니라 중복 구현이라 primitive 근거는 오히려 강해진다. 51종에 색 선택기가 없고, Slider 정본은 있어도 SV 사각 면과 색조 트랙은 그 축 밖이다."
+      "verdict": "figma",
+      "figma": "ColorPicker",
+      "reason": "DS-D-0097 이 이 색 팝오버(채도 · 밝기 면 · 색조 · 불투명도 띠 · 헥스 입력)를 color-picker 로 세웠다. Figma `ColorPicker` · `ColorPickerOption` 이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#ColorSwatchButton": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "현재 색을 보여주며 팝오버를 여는 스와치 트리거(체크무늬 알파 바탕 + 색 면 + 테두리). 색 관련 속성 행마다 반복되고, 라이트 테마에서 호버 테두리가 원본 특이도상 아예 적용되지 않는 상태 축이 있어 정본에서 의도인지 확정해야 한다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "JSX 실측 3 인스턴스이나 파일은 1 (videoEditParts/OverlayInspector.tsx:634·703·730) — 화면 기준 reuse 1. 그럼에도 primitive 인 이유는 SectionNode 가 같은 물건(`COLOR_SWATCH`)을 독립 구현했다는 점이다: 색 속성 행마다 반복되는 트리거인데 공유물이 없어 두 번 지어졌다. 체크무늬 알파 바탕 + 색 면 + 테두리. 라이트 테마에서 호버 테두리가 원본 특이도상 적용되지 않는 상태가 있어 정본에서 의도인지 확정해야 한다."
+      "verdict": "figma",
+      "figma": "ColorSwatch",
+      "reason": "DS-D-0097 이 이 트리거를 color-swatch 의 판 트리거 변형(sm 버튼 칩 · 체크무늬 · 호버 테두리 · 누름)으로 올렸다. Figma `ColorSwatch` 의 State(Default · Hover · Active) 칸이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#EyedropperIcon": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
@@ -5178,12 +5178,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "노드들을 감싸는 섹션(그룹) 프레임 — 반투명 색 프리셋 6종 · 제목 바 · 리사이즈. Figma 의 섹션을 제품 안에 재현한 것이고 51종에 프레임/그룹 표면이 없다. 색 프리셋은 알파 토큰 축으로 정본화돼야 한다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "reuse=2 라우트(위와 같은 캔버스 소속). 이름 grep 2건은 index.tsx 의 nodeTypes 등록과 archiveThumbnail/drawNodes.ts 의 썸네일 재현 — 후자가 중요하다: 캔버스 밖에서도 같은 모양을 다시 그려야 할 만큼 정본이 필요한 조형이다. 한 캔버스에 데이터 수만큼 반복되는 그룹 프레임(색 프리셋 6 · 제목 바 · 리사이즈)이고 51종에 프레임/그룹 표면이 없다."
+      "verdict": "figma",
+      "figma": "CanvasSection",
+      "reason": "DS-D-0093 이 이 섹션 프레임(색조 프리셋 여섯 · 제목 바)을 canvas-section 으로 세웠다. Figma `CanvasSection` · `CanvasSectionTitleBar` · 팔레트 셋이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx#LlmResponseArea": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx",
@@ -5370,23 +5370,23 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "눈금자형 슬라이더 — 라벨/값 행(caption-12-medium + body-14-medium tabular-nums) 위에 높이 40 의 자가 놓이고, 지시선(2px accent-yellow-500)이 «가운데 고정»인 채 눈금이 흐른다. 작은 눈금 22% 잉크 1px 반복 · 큰 눈금 34% 1px(5칸마다) · 중립값 6px 흰 점. Figma Slider 정본은 Rail+Fill+Thumb 의 절대 위치 방식이라 이 조형과 다른 물건이다. 컬러 조정(강도·파라미터) 두 자리에서만 쓰이므로 낮게 잡는다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "라우트 3. 인스턴스화 2회(ClipColorControls.tsx:152 강도, :220 파라미터) — 낮다. 그런데도 primitive 로 보내는 근거는 이것이 «컨트롤»이라는 점이다: 지시선이 가운데 고정인 채 눈금이 흐르는 조작 형태와 그 상태는 보드 그림으로 표현되지 않는다. LOUIS Slider 정본은 Rail+Fill+Thumb 절대위치라 이 조형과 다른 물건이므로, 새 컴포넌트보다 Slider 에 ruler 형태 축을 더하는 쪽이 싸다."
+      "verdict": "figma",
+      "figma": "Slider",
+      "reason": "가운데 고정 지시선 + 흐르는 눈금이 slider 의 `ruler` 변형으로 섰다(design/components/slider.md — `ColorRulerSlider.tsx:253-313`). Figma `Slider` 의 `Variant=ruler` 와 `SliderRulerTicks` 가 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorValueRing.tsx#ColorValueRing": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorValueRing.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "값 링 — 32px 원 안에 글리프를 두고, 바탕 링(1.5px · 잉크 20% / 활성 38%) 위에 12시에서 좌우로 갈라지는 호(2px · 반경 17 · ±150°)를 그려 중립 대비 편차를 보여 준다. 방향을 색으로도 알린다(+ accent-yellow-500 / − gray-000). Figma ProgressRing 은 36px 트랙에 Content 스왑 하나뿐인 단방향 진행 표시라 대응하지 않는다. 인스펙터를 그리려면 이 링의 정본이 먼저 있어야 하는 관계가 `…#InspectorMetric` 과 같다. 조절 스트립 한 자리에서만 쓰여 낮게 잡는다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "라우트 3. import 1곳이지만 ClipColorControls.tsx:178 의 ADJUST_PARAMS.map 안(:195)에 있어 «데이터 수만큼» 그려진다 — 실제 화면에 6개가 동시에 선다. 32px 원에 12시 기준 좌우 ±150° 양방향 호로 중립 대비 편차를 보이는 지표이고, LOUIS progress-ring(36px 트랙 · 단방향 · Content 스왑 하나)과 방향축부터 다르다. 인스펙터를 그리려면 이 링이 먼저 서야 하는 관계가 InspectorMetric 과 같다."
+      "verdict": "figma",
+      "figma": "ProgressRing",
+      "reason": "양방향 값 링이 progress 의 bipolar 링으로 섰다(design/components/progress.md — `ColorValueRing.tsx`). Figma `ProgressRing` 의 `Mode=bipolar` × Direction × Selected 가 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/CompositionInspector.tsx#CompositionInspector": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/CompositionInspector.tsx",
@@ -6165,12 +6165,12 @@
       "file": "apps/web/components/scenes/create/PhotoGrid.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "참조 이미지 3열 슬롯 행 — 채워진 슬롯(썸네일 + 호버 제거 버튼)과 빈 슬롯(점선/알파 면 + `+` 글리프)이 섞이고 compact 축으로 반경 14/12 · 간격 9/8 이 갈린다. PhotoSection 과 ImageStrip 이 함께 쓰는 진짜 재사용 단위인데 Figma 에 업로드 슬롯 축 자체가 없다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "앵커 실측: JSX 2곳(PhotoGrid.tsx:343 PhotoSection 안, :454 ImageStrip 안) — local 바인딩이라 파일 밖 import 는 구조상 불가능하고, 같은 파일 두 문맥이 실제 재사용이다. 더 강한 근거는 compact 축이 «설계돼 있다»는 것(반경 14/12 · 간격 9/8 이 갈린다) — 두 소비처의 치수 차를 흡수하려고 만든 축이다. Figma 51종에 「업로드 슬롯」(채워진 썸네일 + 호버 제거 / 빈 점선 + `+` 글리프) 축 자체가 없고, MediaCard 는 썸네일+정보 바라 빈 상태·제거를 담지 못한다."
+      "verdict": "figma",
+      "figma": "MediaSlot",
+      "reason": "needed 사유가 「Figma 에 업로드 슬롯 축 자체가 없다」였다. media-slot 이 그 축으로 섰고(design/components/media-slot.md — `PhotoGrid.tsx:86-89` 색 · 반경을 접음), Figma `MediaSlot`(Layout base · empty × RemoveButton)이 채운 칸 · 빈 칸을 그린다. 세 칸을 늘어놓는 행은 조립이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/PricingModal.tsx#PricingModal": {
       "file": "apps/web/components/scenes/create/PricingModal.tsx",
@@ -6279,12 +6279,12 @@
       "file": "apps/web/components/scenes/highlight/ClipRefinementWidget.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "클립 리파인 채팅 패널 — 헤더·사용자/어시스턴트 말풍선·thinking 시머·제안 칩 행·입력 행(입력 + Button)·독(dock) 변형(hideHeader)까지 한 벌이다. 대화형 패널은 Figma 51 에 전무하고, 이 제품에는 캔버스 쪽에도 유사한 대화 UI 가 있어 공용 후보다. (2026-10-08 앵커 54b62a8a: apps/web/components/scenes/HighlightProjectScene.tsx 에서 apps/web/components/scenes/highlight/ClipRefinementWidget.tsx 로 파일만 옮겨져 판정을 옮겼다 — 위젯 겉(접힌 알약 · 불투명도 슬라이더 · 펼침)은 ClipRefinementWidget 이 감싸며 이 판정에 딸린다.)",
-      "weight": "medium",
-      "kind": "unclear",
-      "kindReason": "소유자 판정이 걸리는 지점: 원장 사유는 「캔버스 쪽에도 유사한 대화 UI 가 있어 공용 후보」라고 적었으나, 앵커 전수 grep(role==assistant · 말풍선 · conversation)에서 대화형 UI 는 이 파일과 그 훅 scenes/highlight/useClipRefinement.ts 뿐이다. 두 번째 소비처가 실재하지 않는다. 실측만 보면 screen(하이라이트 상세의 도킹 패널)이지만, AI 제품에서 대화 패널을 공용 축으로 세울 계획이 있는지는 로드맵 질문이라 소유자가 답해야 한다. 지금 짓기로 정하면 소비처 1인 컴포넌트를 LOUIS 에 넣는 것이다."
+      "verdict": "figma",
+      "figma": "ChatPanel",
+      "reason": "DS-D-0094 가 이 대화 패널(접힌 알약 → 창 · 말풍선 · 제안 칩 · 입력 독 · 잠김 단추)을 chat-panel 로 세웠다. Figma `ChatPanel` · `ChatBubble` · `ChatDock` · `ChatSuggestion` · `ChatGate` 가 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/highlight/ClipRefinementWidget.tsx#ClipRefinementWidget": {
       "file": "apps/web/components/scenes/highlight/ClipRefinementWidget.tsx",
@@ -6427,12 +6427,12 @@
       "file": "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "하이라이트 트랙이다. 원본 눈금, 겹침 줄을 나눈 전체 지도, 최소 88px 구간 칸, 재생헤드, 빈 트랙 문구를 자체 클래스로 그린다(StudioSegmentTrack.tsx:82-159). louis 클래스는 없다. Figma 에는 MediaScrubber 만 있고 구간 트랙이 없다. 칸 모양은 컴포지션 타임라인 클립과 같은 말이라고 주석(:77)이 적는다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "실측 소비처가 두 화면 두 라우트다. HighlightScene.tsx:985 는 /highlight/new 빈 트랙, HighlightStudioBoard.tsx:1528 은 /highlight/[projectId] 의 대기와 판 상태다. 칸 상태(candidate · included · made, busy)가 축이 되는 되풀이 부품이다."
+      "verdict": "figma",
+      "figma": "SegmentTrack",
+      "reason": "segment-track 의 제품 정본이 `StudioSegmentTrack.tsx:121-158` 이다(design/components/segment-track.md). 지도 막대 · 구간 칸 · 재생헤드를 Figma `SegmentTrack` · `SegmentTrackBlock` · `SegmentTrackMapBar` 가 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx#TrackBlockLabel": {
       "file": "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx",
@@ -6955,12 +6955,12 @@
       "louis": [
         "louis-color-accent-secondary-selected"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "세그먼티드 컨트롤의 «미끄러지는 알약»이다. LOUIS 레시피는 트랙(`.louis-segmented-control`)과 칸(`__segment`)만 갖고 **썸 요소가 없다** — 선택 표시가 미끄러지는 그 조형을 제품이 갖는다. 파일 주석이 「이 컨트롤이 세 벌로 갈려 있던 이유가 «주인이 없어서» 였다」며 기하(훅)·요소·클래스 둘을 한 모듈로 모았다고 적고, LOUIS 토큰을 문다(`motion-tab-select-*` · `accent-secondary-selected`). segmented-control.css 머리말이 적은 「공용 구현이 둘 있는데 서로 아무것도 공유하지 않는다」의 해소판이라 이 자리가 LOUIS SegmentedControl 로 올라가야 한다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "되풀이되는 부품이다 — 실측: `git grep -l SEGMENTED_THUMB` 가 정의 외 AdminSection · CaptionTemplateManagement · HighlightProjectScene · InstagramAnalyticsScene · SegmentedToggle 다섯을 준다. 라우트가 아니라 컨트롤이므로 Figma 컴포넌트로 세울 것."
+      "verdict": "figma",
+      "figma": "SegmentedControl",
+      "reason": "needed 사유가 「이 자리가 LOUIS SegmentedControl 로 올라가야 한다」였다. segmented-control 이 미끄러지는 알약을 레시피로 가졌고(design/components/segmented-control.md 126줄 — `SegmentedThumb.tsx:240-283`), 정지 모양은 Figma `SegmentedControl` · `SegmentedControlItem`(State Selected)이 그린다. 미끄러짐은 모션이라 Figma 밖이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/ui/VideoPlayer.tsx#ExpandPreviewChip": {
       "file": "apps/web/components/ui/VideoPlayer.tsx",
@@ -6988,12 +6988,12 @@
       "file": "apps/web/components/ui/VideoPlayerVolume.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "플레이어 하단 줄의 볼륨 칩(음소거 토글)과 그 위로 펼쳐지는 유리 패널 · 세로 슬라이더(트랙 3 · 채움 · 썸 12)다. design/components/video-player.md:32 가 「볼륨 칩과 볼륨 패널의 Figma 변형은 아직 없다」고 적고, figma/snapshot.json 의 VideoPlayer 속성도 SkipButtons · ExpandButton · DownloadButton · PlayGlyph · Chrome · Tone 뿐이라 이 자리가 없다. 칩은 조건 없이 렌더된다(VideoPlayer.tsx:1199 — BOOLEAN 이 아니다) — 즉 지금 Figma VideoPlayer 는 모든 인스턴스에서 하단 줄의 자식 하나가 빠진 그림이다. 세울 것: 칩(확대 칩과 같은 PLAYER_CHIP · 글리프 세 단계 muted/low/high · hover 면 28→40%) · 패널 닫힘(높이 0)/열림(64~112) · 세로 슬라이더. 세로 슬라이더는 LOUIS Slider 가 아니라 이 컴포넌트의 부품이라고 문서가 정했다(video-player.md 「세로 슬라이더는 왜 Slider 가 아닌가」).",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: VideoPlayer (자식 보강)] 실측: import · JSX 각 1곳(VideoPlayer.tsx:19 · :1199)이지만 그 자리는 공용 플레이어의 하단 줄이라 플레이어가 서는 모든 곳에 함께 선다 — `<VideoPlayer` 렌더 9자리 / 8파일(highlight shorts page:1821 · EditorProjectWorkspace:1372 · HighlightProjectScene:3137·:3247 · PublishFlow:429 · EditNode:998 · VideoNode:2100 · YoutubeNode:1189 · CompositeSegmentPreview:41) + 크게 보기 모달의 재귀 인스턴스. 그래서 되풀이는 실측으로 있다. 다만 홀로 세우는 컴포넌트가 아니다 — Figma VideoPlayer 하단 줄에 볼륨 칩을 자식으로 넣고, 패널이 펼친 상태는 새 종류의 자식(패널 · 슬라이더)이 들어오는 것이라 그 컴포넌트의 상태 칸으로 연다. 축의 VARIANT/BOOLEAN 은 figma-component-authoring.md §2 가 그다음에 정한다."
+      "verdict": "figma",
+      "figma": "VideoPlayerVolume",
+      "reason": "needed 사유가 「볼륨 칩과 볼륨 패널의 Figma 변형은 아직 없다」였다. 2026-10-13 비디오 플레이어 Figma 회차가 `VideoPlayerVolume` 세트를 세웠다(design/components/video-player.md).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/ui/VideoPlayerVolume.tsx#VolumeGlyph": {
       "file": "apps/web/components/ui/VideoPlayerVolume.tsx",

@@ -128,10 +128,14 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-10-13: 114 → 137 · 컴포넌트 56 → 91 — DS-D-0084(제품에 보이는 부품은 LOUIS 부품으로)의 승격 조사가 「이미 LOUIS 에 있다」로 가른
 // 표면을 옮겼다. needed 23(인증 입력 둘 · 크롭 · 인스펙터 셋 · 빈 캔버스 · 연결선 층 · 차트 블록 · 배지 · 탭 · 표 · 팝오버 등)이 LOUIS 대응이
 // 됐고, 제품 세트(`Product/…`) 대응 12 가 같은 부품의 LOUIS 대응으로 옮겨 갔다(아래 MAPPED_PRODUCT_BASELINE).
-const MAPPED_BASELINE = 137;
+// 2026-10-14: 137 → 165 · 컴포넌트 91 → 119 — DS-D-0084 의 작은 새 부품 아홉 · 큰 새 부품 열셋(DS-D-0086 ~ 0097)과 변형(slider ruler ·
+// progress bipolar · segmented 알약 · chart-card spark · section-header display · node-shell 리사이즈 손잡이)이 Figma 세트로 서며, 그 출처였던
+// needed 28 이 대응이 됐다(콘텐츠 카드 둘 · 요금 카드 · 색 견본 셋 · 색 판 · 날짜 팝오버 둘 · 캔버스 섹션 · 라이트박스 · 채널 헤더 · 커맨드 팔레트 ·
+// 대화 패널 · 구간 트랙 · 볼륨 · 차트 둘 등). 연결선 삭제 단추(Figma CanvasEdge 밖) · 캔버스 바닥 점 격자 · 덱 머리 막대 · 새 푸터는 needed 그대로다.
+const MAPPED_BASELINE = 165;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
-const MAPPED_COMPONENT_BASELINE = 91;
+const MAPPED_COMPONENT_BASELINE = 119;
 // **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
 // 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
 // 제품 세트 대응으로 바꿔치기해도 수가 유지된다.

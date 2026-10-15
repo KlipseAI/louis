@@ -32,6 +32,18 @@
 //        고친 보드가 있는 페이지만 다시 잴 때 쓴다 — 동시에 다른 작업이 보낸 보드가 기준선에 섞여 들어오지 않게.
 //   판정은 scripts/check-figma-resize.mjs 가 한다.
 //
+// **원인 노드 이름(2026-10-15).** 전에는 부모 밖(pn) · 글자 잘림(tn) · 루트 미추종이 수만 남아 원인을 찾으려면 Figma 를 다시 뒤져야 했다
+// (넘침 o 만 `top` 에 [이름, px] 가 남았다). 이제 시험(`v.<키>`)마다 원인 노드를 원장에 함께 남긴다 — 모두 이름은 40자(top 은 48자)로 자른다.
+//   top  넘침 최악 5개 [이름, 보드 밖으로 넘친 px, 노드 id]   (id 는 세 번째 칸에 덧붙었다 — 옛 [이름, px] 읽기는 그대로 된다)
+//   pc   pn>0 일 때, 새로 부모 밖으로 나간 자식 중 넘침이 큰 순 상위 3개 [이름, 노드 id, 부모 밖으로 넘친 px]
+//   tc   tn>0 일 때, 새로 부모보다 넓어진 고정 폭 글자 상위 3개 [이름, 노드 id, 부모보다 넓은 px]
+//   rc   h130 에서 rh<0.99 · 폭 시험에서 rw<0.99 일 때 루트 [이름, 노드 id] (heightFollow · widthFollow 의 원인 — 보드당 하나라 노드는 하나)
+// 칸이 없으면 «원인 없음»이 아니라 «옛 run 이라 기록 안 됨»이다 — 게이트의 실패 수는 pn · tn · rh · rw 로만 센다(칸을 읽지 않는다).
+// 이름 없는 유형 중 clamped(보드 자체)와 noRoot(보이는 자식이 없다)는 보드 id 로 충분해 덧붙이지 않았다.
+// **크기**: use_figma 한도는 50,000 문자(String.length)다 — 러너 코드는 5556 → 6,255 문자(실측, 한도의 13%)라 한도와 멀다. 늘어나는 것은 응답이다:
+// 원장(212보드)의 실패 수로 어림하면 부모 밖 81시험 · 137원인, 글자 잘림 1시험, 루트 미추종 25시험, top 39칸에 id 가 붙어 응답 합계 약 +13KB(원장 103KB → 약 116KB).
+// 가장 큰 조각(03-app offset 56)이 약 13.3KB → 약 15.6KB 이고, 시험이 실패하지 않으면 한 바이트도 늘지 않는다(칸을 빼고 쓴다).
+//
 // **문서 뿌리의 세로 길어짐은 부모 밖이 아니다(2026-10-14).** 보드의 세로 HUG 자식(문서 길이 보드의 뿌리)이 폭 시험에서 줄이 늘어
 // 보드 아래로 길어지면 전에는 부모 밖(pn)으로 셌다 — 랜딩 모바일 360 에서 FAQ 답 · 푸터 링크가 한 줄씩 늘어 뿌리가 보드보다 32 길어졌다.
 // 제품 문서도 그렇게 길어진다(DS-D-0098 의 문서 보드 예외와 같은 이유). 보드 바로 아래 HUG 자식은 아래쪽 넘침을 세지 않는다 — 위 · 옆은 그대로 센다.
@@ -90,11 +102,11 @@ for (const f of fonts) await figma.loadFontAsync(JSON.parse(f));
 const FRAMEISH = { FRAME: 1, COMPONENT: 1, INSTANCE: 1, COMPONENT_SET: 1 };
 const r1 = (v) => Math.round(v * 10) / 10;
 const r3 = (v) => Math.round(v * 1000) / 1000;
-function measure(board, base) {
+function measure(board, base, key) {
   const B = board.absoluteBoundingBox;
   const BL = B.x, BR = B.x + B.width;
   let outside = 0, roots = 0, parent = 0, parentNew = 0, text = 0, textNew = 0;
-  const worst = [];
+  const worst = [], pcs = [], tcs = [];
   const pset = new Set(), tset = new Set();
   const walk = (n, path, cl, cr, parentOut) => {
     if (!n.visible) return;
@@ -106,7 +118,7 @@ function measure(board, base) {
     const out = ov > 0.5;
     if (out) {
       outside++;
-      if (!parentOut) { roots++; worst.push([n.name.slice(0, 48), r1(ov)]); }
+      if (!parentOut) { roots++; worst.push([n.name.slice(0, 48), r1(ov), n.id]); }
     }
     const p = n.parent;
     if (p && p !== board.parent && FRAMEISH[p.type]) {
@@ -115,9 +127,9 @@ function measure(board, base) {
       // 문서 뿌리(보드의 세로 HUG 자식)가 보드 아래로 길어진 것은 부모 밖이 아니다 — 제품 문서는 줄이 늘면 길어진다(DS-D-0098 의 문서 보드 예외).
       const documentRoot = p === board && n.layoutSizingVertical === "HUG";
       const dy = Math.max(documentRoot ? 0 : bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
-      if (dx > 0.5 || dy > 0.5) { parent++; pset.add(path); if (base && !base.pset.has(path)) parentNew++; }
+      if (dx > 0.5 || dy > 0.5) { parent++; pset.add(path); if (base && !base.pset.has(path)) { parentNew++; pcs.push([n.name.slice(0, 40), n.id, r1(Math.max(dx, dy))]); } }
       if (n.type === "TEXT" && n.textAutoResize !== "WIDTH_AND_HEIGHT" && bb.width > pb.width + 0.5) {
-        text++; tset.add(path); if (base && !base.tset.has(path)) textNew++;
+        text++; tset.add(path); if (base && !base.tset.has(path)) { textNew++; tcs.push([n.name.slice(0, 40), n.id, r1(bb.width - pb.width)]); }
       }
     }
     if (!("children" in n)) return;
@@ -130,10 +142,17 @@ function measure(board, base) {
   const vis = board.children.filter((k) => k.visible);
   const root = vis.find((k) => k.name.startsWith("generated/")) || vis.slice().sort((a, b) => b.width * b.height - a.width * a.height)[0];
   worst.sort((a, b) => b[1] - a[1]);
+  pcs.sort((a, b) => b[2] - a[2]); tcs.sort((a, b) => b[2] - a[2]);
+  const rw = root ? r3(root.width / board.width) : null, rh = root ? r3(root.height / board.height) : null;
+  // 원인 이름(2026-10-15): 수만 남던 실패 유형마다 원인 노드를 이름 40자 · id · 넘친 px 로 상위 셋만 싣는다.
+  //   pc = 새로 부모 밖으로 나간 자식(pn) · tc = 새로 부모보다 넓어진 고정 폭 글자(tn) · rc = 루트가 크기를 따라오지 않은 시험의 루트 [이름, id].
+  const cause = {};
+  if (pcs.length) cause.pc = pcs.slice(0, 3);
+  if (tcs.length) cause.tc = tcs.slice(0, 3);
+  if (root && ((key === "h130" && rh < 0.99) || (key && key !== "h130" && rw < 0.99))) cause.rc = [root.name.slice(0, 40), root.id];
   return {
-    o: outside, or: roots, top: worst.slice(0, 5), p: parent, pn: parentNew, t: text, tn: textNew,
-    rw: root ? r3(root.width / board.width) : null, rh: root ? r3(root.height / board.height) : null,
-    pset, tset,
+    o: outside, or: roots, top: worst.slice(0, 5), p: parent, pn: parentNew, t: text, tn: textNew, rw, rh,
+    ...cause, pset, tset,
   };
 }
 const strip = (m) => { const { pset, tset, ...rest } = m; return rest; };
@@ -160,9 +179,9 @@ try {
         if (c.parent !== work) work.appendChild(c);
         c.name = "시험용 복제본, 끝에 지움 — " + board.name.slice(0, 60);
         c.x = x0; c.y = 0;
-        if (!base) { base = measure(c, null); row.base = strip(base); }
+        if (!base) { base = measure(c, null, null); row.base = strip(base); }
         c.resize(vw, vh);
-        row.v[key] = Object.assign({ w: r1(c.width), h: r1(c.height) }, strip(measure(c, base)));
+        row.v[key] = Object.assign({ w: r1(c.width), h: r1(c.height) }, strip(measure(c, base, key)));
       } finally {
         if (!c.removed) c.remove();
       }
@@ -285,7 +304,10 @@ function merge(run, paths, only = null) {
     }
     if (boards.length !== BOARD_COUNT[id]) fail(`${slug}: 보드 ${boards.length} ≠ ${BOARD_COUNT[id]}`);
     ledger.pages.push({ slug, id, name: pageName, boards });
-    report.push(`${slug}: 보드 ${boards.length}`);
+    // 원인 이름이 실제로 실려 왔는지 센다 — 옛 러너 응답이면 부모 밖 시험 중 이름이 있는 수가 0 으로 보인다(조용히 빈 채 병합되지 않게).
+    let pnTests = 0, pnNamed = 0;
+    for (const b of boards) for (const v of Object.values(b.v ?? {})) if (v.pn > 0) { pnTests++; if (Array.isArray(v.pc) && v.pc.length > 0) pnNamed++; }
+    report.push(`${slug}: 보드 ${boards.length}${pnTests ? ` · 부모 밖 시험 ${pnTests} 중 원인 이름 ${pnNamed}` : ""}`);
   }
   // 보드 한 장 = 한 줄(diff 가 보드 단위로 읽히게).
   const text = JSON.stringify({ ...ledger, pages: "__PAGES__" }, null, 1).replace(

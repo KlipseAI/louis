@@ -1,5 +1,5 @@
 // 시험용 복제본, 끝에 지움 — 보드 반응 탐침(scripts/build-figma-resize-probe.mjs 가 쓴다). 원본 보드는 복제만 한다.
-const RUN = "2026-10-15m", PAGE_ID = "246:3451", OFFSET = 28, LIMIT = 14, SLOT = 2;
+const RUN = "2026-10-15names", PAGE_ID = "246:3451", OFFSET = 28, LIMIT = 14, SLOT = 12;
 const RE = /^(desktop|mobile) \d+×\d+ — /;
 const work = await figma.getNodeByIdAsync("699:2");
 if (!work || work.type !== "PAGE") throw new Error("work page not found");
@@ -21,11 +21,11 @@ for (const f of fonts) await figma.loadFontAsync(JSON.parse(f));
 const FRAMEISH = { FRAME: 1, COMPONENT: 1, INSTANCE: 1, COMPONENT_SET: 1 };
 const r1 = (v) => Math.round(v * 10) / 10;
 const r3 = (v) => Math.round(v * 1000) / 1000;
-function measure(board, base) {
+function measure(board, base, key) {
   const B = board.absoluteBoundingBox;
   const BL = B.x, BR = B.x + B.width;
   let outside = 0, roots = 0, parent = 0, parentNew = 0, text = 0, textNew = 0;
-  const worst = [];
+  const worst = [], pcs = [], tcs = [];
   const pset = new Set(), tset = new Set();
   const walk = (n, path, cl, cr, parentOut) => {
     if (!n.visible) return;
@@ -37,7 +37,7 @@ function measure(board, base) {
     const out = ov > 0.5;
     if (out) {
       outside++;
-      if (!parentOut) { roots++; worst.push([n.name.slice(0, 48), r1(ov)]); }
+      if (!parentOut) { roots++; worst.push([n.name.slice(0, 48), r1(ov), n.id]); }
     }
     const p = n.parent;
     if (p && p !== board.parent && FRAMEISH[p.type]) {
@@ -46,9 +46,9 @@ function measure(board, base) {
       // 문서 뿌리(보드의 세로 HUG 자식)가 보드 아래로 길어진 것은 부모 밖이 아니다 — 제품 문서는 줄이 늘면 길어진다(DS-D-0098 의 문서 보드 예외).
       const documentRoot = p === board && n.layoutSizingVertical === "HUG";
       const dy = Math.max(documentRoot ? 0 : bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
-      if (dx > 0.5 || dy > 0.5) { parent++; pset.add(path); if (base && !base.pset.has(path)) parentNew++; }
+      if (dx > 0.5 || dy > 0.5) { parent++; pset.add(path); if (base && !base.pset.has(path)) { parentNew++; pcs.push([n.name.slice(0, 40), n.id, r1(Math.max(dx, dy))]); } }
       if (n.type === "TEXT" && n.textAutoResize !== "WIDTH_AND_HEIGHT" && bb.width > pb.width + 0.5) {
-        text++; tset.add(path); if (base && !base.tset.has(path)) textNew++;
+        text++; tset.add(path); if (base && !base.tset.has(path)) { textNew++; tcs.push([n.name.slice(0, 40), n.id, r1(bb.width - pb.width)]); }
       }
     }
     if (!("children" in n)) return;
@@ -61,10 +61,17 @@ function measure(board, base) {
   const vis = board.children.filter((k) => k.visible);
   const root = vis.find((k) => k.name.startsWith("generated/")) || vis.slice().sort((a, b) => b.width * b.height - a.width * a.height)[0];
   worst.sort((a, b) => b[1] - a[1]);
+  pcs.sort((a, b) => b[2] - a[2]); tcs.sort((a, b) => b[2] - a[2]);
+  const rw = root ? r3(root.width / board.width) : null, rh = root ? r3(root.height / board.height) : null;
+  // 원인 이름(2026-10-15): 수만 남던 실패 유형마다 원인 노드를 이름 40자 · id · 넘친 px 로 상위 셋만 싣는다.
+  //   pc = 새로 부모 밖으로 나간 자식(pn) · tc = 새로 부모보다 넓어진 고정 폭 글자(tn) · rc = 루트가 크기를 따라오지 않은 시험의 루트 [이름, id].
+  const cause = {};
+  if (pcs.length) cause.pc = pcs.slice(0, 3);
+  if (tcs.length) cause.tc = tcs.slice(0, 3);
+  if (root && ((key === "h130" && rh < 0.99) || (key && key !== "h130" && rw < 0.99))) cause.rc = [root.name.slice(0, 40), root.id];
   return {
-    o: outside, or: roots, top: worst.slice(0, 5), p: parent, pn: parentNew, t: text, tn: textNew,
-    rw: root ? r3(root.width / board.width) : null, rh: root ? r3(root.height / board.height) : null,
-    pset, tset,
+    o: outside, or: roots, top: worst.slice(0, 5), p: parent, pn: parentNew, t: text, tn: textNew, rw, rh,
+    ...cause, pset, tset,
   };
 }
 const strip = (m) => { const { pset, tset, ...rest } = m; return rest; };
@@ -91,9 +98,9 @@ try {
         if (c.parent !== work) work.appendChild(c);
         c.name = "시험용 복제본, 끝에 지움 — " + board.name.slice(0, 60);
         c.x = x0; c.y = 0;
-        if (!base) { base = measure(c, null); row.base = strip(base); }
+        if (!base) { base = measure(c, null, null); row.base = strip(base); }
         c.resize(vw, vh);
-        row.v[key] = Object.assign({ w: r1(c.width), h: r1(c.height) }, strip(measure(c, base)));
+        row.v[key] = Object.assign({ w: r1(c.width), h: r1(c.height) }, strip(measure(c, base, key)));
       } finally {
         if (!c.removed) c.remove();
       }

@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "current_plan_code": "pro",
+  "current_plan_name": "Pro",
+  "current_plan_display_name": "Pro",
+  "subscription_status": "active",
+  "billing_anchor_day": 15,
+  "current_period_start": "2026-09-15T00:00:00+09:00",
+  "current_period_end": "2026-10-15T00:00:00+09:00",
+  "cancel_at_period_end": false,
+  "auto_renew_enabled": true,
+  "available_token_amount": 21650,
+  "reserved_token_amount": 0,
+  "token_balance_updated_at": "2026-09-21T14:12:00+09:00",
+  "pending_downgrade_plan_code": null,
+  "pending_downgrade_plan_name": null,
+  "credit_pools": {
+    "plan": {
+      "granted": 30000,
+      "remaining": 18450,
+      "schedule": [
+        {
+          "at": "2026-10-15T00:00:00+09:00",
+          "amount": 18450
+        }
+      ]
+    },
+    "topup": {
+      "granted": 5000,
+      "remaining": 3200,
+      "schedule": [
+        {
+          "at": "2027-04-24T16:44:00+09:00",
+          "amount": 1200
+        },
+        {
+          "at": "2027-09-21T12:51:00+09:00",
+          "amount": 2000
+        }
+      ]
+    }
+  },
+  "feature_flags": null,
+  "limits": null
+}

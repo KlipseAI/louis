@@ -1,0 +1,156 @@
+{
+  "$schema": "./_schema.json",
+  "area": "subscription",
+  "mode": "auth",
+  "authoredAgainst": "97d4950e153d",
+  "description": "구독 허브(/subscription) · 단체 구매 결제(/subscription/group-purchase) 상태 레시피(운영 main 97d4950e, DS-D-0117). 기준 화면 /subscription 은 인증 우회 fixture 라 /api/auth/me · billing · billing-details 가 500 이고 「We couldn't load your subscription」 오류 상태만 그렸다. 채운 상태는 두 길로 세운다 — (1) 크레딧 탭 활성 구독은 /api/auth/me 계열 세 응답을 가로챈다(AuthProvider.tsx 364 · 265 · 321). /api/auth/me 를 가로채지 않으면 refreshBilling 이 prev null 에서 멈춘다(AuthProvider.tsx 275). 이력은 15건이라 클라이언트 페이지(10건, SubscriptionScene.tsx 448)가 둘이 되어 페이지 넘김 「1 / 2」 가 선다. (2) 탭 둘 · 해지 모달은 제품의 개발 전용 예시 상태 ?__state=paid(subscriptionDevPreview.ts, NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트)로 연다 — 제품이 직접 쓴 데모 값이라 시드 · 가로채기가 없다.",
+  "recipes": [
+    {
+      "id": "/subscription active",
+      "base": "/subscription",
+      "fullPage": true,
+      "description": "크레딧 탭(기본 탭) — Pro 활성 구독 · 크레딧 카드(잔여 21,650 · 플랜 / 충전 명세 · 충전 크레딧 소멸 일정 둘) · 크레딧 이력 표(필터 · 정렬 「Newest first」 · 10행) · 페이지 넘김 「1 / 2」. 모바일은 같은 이력을 목록(creditHistoryMobileList)으로 그린다.",
+      "contentNote": "응답 값은 제품 개발 예시 PAID_BILLING · PAID_HISTORY(subscriptionDevPreview.ts 54–137)를 그대로 옮기고, 페이지가 둘이 되도록 지난 주기 이력 일곱 줄(만료 한 줄 「Plan credits expired on renewal date」 + 자리표시 프로젝트 「Placeholder project A/B」)을 뒤에 붙였다. 지난 주기의 잔액 열은 08-15 지급 30,000 에서 쌓아 계산했다(제품 예시의 첫 여덟 줄 잔액은 예시 그대로). 사용자 · 프로필은 인증 우회의 목 사용자 값(AuthProvider.tsx 48–59)과 같아 셸이 기준 화면과 같다.",
+      "surfaces": [
+        "apps/web/components/scenes/SubscriptionScene.tsx#SubscriptionScene"
+      ],
+      "cite": [
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 364, "expect": "const response = await fetch(\"/api/auth/me\", {" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 387, "expect": "result.billing ? toBillingFromMe(result.billing, prev) : null," },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 265, "expect": "const response = await fetch(\"/api/auth/me/billing\", {" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 275, "expect": "if (!prev) return prev;" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 321, "expect": "`/api/auth/me/billing-details?${params.toString()}`," },
+        { "path": "apps/web/app/api/auth/me/route.ts", "line": 159, "expect": "available_token_amount: usableBalance," },
+        { "path": "apps/web/app/api/auth/me/billing-details/route.ts", "line": 425, "expect": "credit_history: creditHistory," },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 448, "expect": "const CLIENT_PAGE_SIZE = 10;" },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 1585, "expect": "{totalCreditPages > 1 ? (" },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 1599, "expect": "{creditPage} / {totalCreditPages}" },
+        { "path": "apps/web/components/scenes/subscriptionDevPreview.ts", "line": 56, "expect": "entry(\"h1\", \"2026-09-21T14:12:00+09:00\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4243, "expect": "creditHistorySortOccurredDesc: \"Newest first\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4852, "expect": "topupCreditsLabel: \"Top-up credits\"" }
+      ],
+      "api": [
+        { "method": "GET", "path": "/api/auth/me", "jsonFile": "data/subscription/me-pro.json", "description": "app/api/auth/me/route.ts 134–171 의 꼴 — Pro 플랜 · 크레딧 풀" },
+        { "method": "GET", "path": "/api/auth/me/billing", "jsonFile": "data/subscription/billing-pro.json", "description": "app/api/auth/me/billing/route.ts 133– 의 꼴 — active · 자동 갱신" },
+        { "method": "GET", "path": "/api/auth/me/billing-details", "jsonFile": "data/subscription/billing-details-pro.json", "description": "app/api/auth/me/billing-details/route.ts 422–435 의 꼴 — 결제수단 · 이력 15건" }
+      ],
+      "steps": [
+        { "waitFor": { "text": "1 / 2", "exact": true }, "description": "이력 페이지 넘김(SubscriptionScene.tsx 1597–1599) — 이력이 다 서야 나온다" }
+      ],
+      "assert": {
+        "text": ["1 / 2", "Newest first", "Top-up credits", "가을 신메뉴 광고", "Placeholder project A"],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/subscription tab.group",
+      "base": "/subscription",
+      "url": "/subscription?__state=paid&tab=group",
+      "fullPage": true,
+      "description": "「Group purchase」 탭 — 구매 두 건(Pro 5장 · Plus 3장) 가운데 첫 건을 펼친 상태: 결제 문장 · 사용 기한 문장 · 행동 셋(미사용 코드 복사 · CSV · 영수증) · 코드 표(쓴 코드 취소선). 둘째 건은 접힘.",
+      "contentNote": "지어낸 내용 없음 — 구매 내역은 제품 개발 예시 PURCHASED_COUPONS_DEV_FIXTURE(subscriptionDevPreview.ts 193–), 크레딧 카드는 PAID_BILLING 이다.",
+      "surfaces": [
+        "apps/web/components/scenes/subscriptionHub/GroupPurchasePanel.tsx#GroupPurchasePanel"
+      ],
+      "cite": [
+        { "path": "apps/web/app/subscription/page.tsx", "line": 37, "expect": "devPreviewState={parseSubscriptionDevState(__state)}" },
+        { "path": "apps/web/components/scenes/subscriptionDevPreview.ts", "line": 14, "expect": "process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";" },
+        { "path": "apps/web/components/scenes/subscriptionDevPreview.ts", "line": 193, "expect": "export const PURCHASED_COUPONS_DEV_FIXTURE" },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 1805, "expect": "<GroupPurchasePanel" },
+        { "path": "apps/web/components/scenes/subscriptionHub/GroupPurchasePanel.tsx", "line": 126, "expect": "if (devPreviewCampaigns) {" },
+        { "path": "apps/web/components/scenes/subscriptionHub/GroupPurchasePanel.tsx", "line": 307, "expect": "aria-expanded={isOpen}" },
+        { "path": "apps/web/components/scenes/subscriptionHub/GroupPurchasePanel.tsx", "line": 316, "expect": "{isOpen ? t.hideCodes : t.showCodes}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4850, "expect": "group: \"Group purchase\"," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4803, "expect": "showCodes: \"Show codes\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4800, "expect": "copyUnused: \"Copy unused codes\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4810, "expect": "csvHeaderRedeemedBy: \"Redeemed by\"" }
+      ],
+      "steps": [
+        { "click": { "role": "button", "name": "Show codes", "exact": true, "nth": 0 }, "description": "첫 구매 건(Pro 5장)의 코드 펼치기" },
+        { "waitFor": { "text": "Redeemed by", "exact": true }, "description": "펼친 건의 코드 표 머리" }
+      ],
+      "assert": {
+        "text": ["Pro 요금제 5장", "Plus 요금제 3장", "Hide codes", "Show codes", "Copy unused codes", "Redeemed by", "kim***@gmail.com"]
+      }
+    },
+    {
+      "id": "/subscription tab.billing",
+      "base": "/subscription",
+      "url": "/subscription?__state=paid&tab=billing",
+      "fullPage": true,
+      "description": "「Billing」 탭 — 결제수단 · 자동 갱신 행 아래 결제 내역 여섯 행(구독 둘 · 충전 둘 · 단체 구매 둘, 영수증 · 청약철회 가능 · 환불 완료). 폰(≤560)은 같은 내역을 목록으로 그린다.",
+      "contentNote": "지어낸 내용 없음 — 결제 내역은 제품 개발 예시 PAYMENT_HISTORY_DEV_FIXTURE(subscriptionDevPreview.ts 241–), 결제수단은 PAID_BILLING 이다.",
+      "surfaces": [
+        "apps/web/components/scenes/subscriptionHub/PaymentHistorySection.tsx#PaymentHistorySection"
+      ],
+      "cite": [
+        { "path": "apps/web/app/subscription/page.tsx", "line": 37, "expect": "devPreviewState={parseSubscriptionDevState(__state)}" },
+        { "path": "apps/web/components/scenes/subscriptionDevPreview.ts", "line": 241, "expect": "export const PAYMENT_HISTORY_DEV_FIXTURE" },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 1789, "expect": "<PaymentHistorySection" },
+        { "path": "apps/web/components/scenes/subscriptionHub/PaymentHistorySection.tsx", "line": 67, "expect": "if (devPreviewRows) {" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4849, "expect": "billing: \"Billing\"," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4864, "expect": "paymentHistoryTitle: \"Payment history\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4874, "expect": "refunded: \"Refunded\"," }
+      ],
+      "steps": [
+        { "waitFor": { "text": "Payment history", "exact": true }, "description": "결제 내역 섹션 제목" }
+      ],
+      "assert": {
+        "text": ["Payment history", "Refunded", "Auto-renewal"]
+      }
+    },
+    {
+      "id": "/subscription cancel-confirm",
+      "base": "/subscription",
+      "url": "/subscription?__state=paid&tab=billing",
+      "description": "해지 확인 모달 — 결제 탭의 「Cancel at period end」 를 누른 상태(ConfirmModal, 위험 확인 버튼). 기간 끝 날짜가 있어 설명은 cancelConfirmDescriptionOn 갈래다.",
+      "contentNote": "지어낸 내용 없음 — 기간 끝 날짜는 제품 개발 예시 PAID_BILLING 의 current_period_end(2026-10-15)다.",
+      "surfaces": [
+        "apps/web/components/scenes/SubscriptionScene.tsx#SubscriptionScene"
+      ],
+      "cite": [
+        { "path": "apps/web/app/subscription/page.tsx", "line": 37, "expect": "devPreviewState={parseSubscriptionDevState(__state)}" },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 1755, "expect": "setShowCancelSubscriptionConfirm(true);" },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 1761, "expect": "idleLabel={billingSettings.cancelSubscription}" },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 1903, "expect": "title={billingSettings.cancelConfirmTitle}" },
+        { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 1917, "expect": "confirmVariant=\"danger\"" },
+        { "path": "apps/web/components/scenes/create/ConfirmModal.tsx", "line": 131, "expect": "role=\"dialog\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4127, "expect": "cancelSubscription: \"Cancel at period end\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4131, "expect": "cancelConfirmTitle: \"Cancel your subscription?\"" }
+      ],
+      "steps": [
+        { "click": { "role": "button", "name": "Cancel at period end", "exact": true }, "description": "결제 탭 자동 갱신 행의 옅은 글자 버튼" },
+        { "waitFor": { "role": "dialog" }, "description": "ConfirmModal(role=dialog)" }
+      ],
+      "assert": {
+        "text": ["Cancel your subscription?", "Cancel at period end"]
+      }
+    },
+    {
+      "id": "/subscription/group-purchase plan-selected",
+      "pattern": "/subscription/group-purchase",
+      "fullPage": true,
+      "description": "단체 구매 결제 화면 — 플랜 라디오 카드 넷(Lite · Plus · Pro · Ultra, 900 이하 두 열) 가운데 Pro 를 고른 상태(1.5px primary 링) + gift 모드 결제 패널(수량 칸). 결제창 SDK 는 바깥 요청이라 막혀 패널이 그 상태대로 그려진다(결제 확인 보드 /mypage/upgrade/checkout 과 같다).",
+      "contentNote": "지어낸 내용 없음 — 플랜과 단가는 정적 요금제 표(app/lib/payments/toss/plans.ts)와 /api/plans 응답이다.",
+      "surfaces": [
+        "apps/web/app/subscription/group-purchase/page.tsx#GroupPurchaseContent"
+      ],
+      "cite": [
+        { "path": "apps/web/app/subscription/group-purchase/page.tsx", "line": 55, "expect": "const requestedCode = searchParams.get(\"plan\");" },
+        { "path": "apps/web/app/subscription/group-purchase/page.tsx", "line": 122, "expect": "role=\"radiogroup\"" },
+        { "path": "apps/web/app/subscription/group-purchase/page.tsx", "line": 139, "expect": "aria-checked={isSelected}" },
+        { "path": "apps/web/app/subscription/group-purchase/page.tsx", "line": 146, "expect": "? \"[box-shadow:0_0_0_1.5px_rgb(var(--primary-500-rgb))]\"" },
+        { "path": "apps/web/app/subscription/group-purchase/page.tsx", "line": 164, "expect": "mode=\"gift\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4776, "expect": "choosePlan: \"Plan to buy\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4781, "expect": "pageTitle: \"Group purchase\"" }
+      ],
+      "steps": [
+        { "click": { "role": "radio", "name": "Pro" }, "description": "플랜 카드 Pro(기본 선택은 첫 플랜 Lite, page.tsx 56–59)" },
+        { "waitFor": { "css": "button[role=\"radio\"][aria-checked=\"true\"]:has-text(\"Pro\")" }, "description": "Pro 카드가 선택됨" }
+      ],
+      "assert": {
+        "text": ["Group purchase", "Plan to buy", "Lite", "Plus", "Pro", "Ultra"]
+      }
+    }
+  ]
+}

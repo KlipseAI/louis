@@ -2690,6 +2690,15 @@ function gridColumns(node, style) {
   const declared = /repeat\(\s*(?:auto-(?:fill|fit)\b|var\()/i.test(raw ?? "") ? null : parseTracks(raw);
   if (declared?.length) return declared.length;
   const computed = parseTracks(style.gridTemplateColumns);
+  // **auto-fit 이 접은 빈 트랙은 열이 아니다(2026-10-16, 조립 규칙 15조의 46).** `repeat(auto-fit, minmax(min(100%, 320px), 1fr))` 는 그 폭에
+  // 들어가는 만큼 트랙을 만들고 아이템이 없는 트랙을 0 으로 접는다 — 계산값이 `818px 818px 0px 0px 0px` 다. 다섯을 열로 세자 Figma 가 FLEX 다섯
+  // 칸을 깔아 분석 개요 · 성과 탭의 두 카드가 측정 폭에서부터 324.8(제품 818)로 좁았고, 1440 에서 228.8 로 더 좁아져 KPI 차트 · 상위 영상 줄이
+  // 넘쳤다. 접힌(0) 트랙을 빼고 센다 — 아이템 수가 트랙보다 적은 auto-fit 은 제품도 폭이 바뀌어도 아이템 수만큼의 열이다. auto-fill 은 빈 트랙을
+  // 접지 않으므로(자리를 남긴다) 그대로 센다.
+  if (/repeat\(\s*auto-fit\b/i.test(raw ?? "") && computed?.length && computed[0] !== "none") {
+    const open = computed.map((token) => px(token)).filter((value) => value == null || value > 0.5).length;
+    return Math.max(1, open);
+  }
   if (computed?.length && computed[0] !== "none") return computed.length;
   return null;
 }

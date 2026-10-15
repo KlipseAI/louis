@@ -275,7 +275,34 @@ const fixAspectBoxes = (node, styleOf, fixed) => {
   if (node.instance) return;
   for (const child of node.children ?? []) fixAspectBoxes(child, styleOf, fixed);
   const ratio = styleOf(node.path)?.aspectRatio;
-  if (!ratio || ratio === "auto" || !node.layout || node.sizing?.layoutSizingVertical !== "HUG") return;
+  if (!ratio || ratio === "auto") return;
+  // **폭을 따르는 비율 상자는 비율을 잠근다(2026-10-16, 조립 규칙 15조의 47).** 높이를 측정값으로 굳히기만 하면 폭이 줄어도 높이가 남는다 —
+  // 각도 모달의 궤도 무대(`w-full aspect-square`, 346)가 360 에서 304 × 346 으로 서고, 그 안의 SCALE 그림이 세로로 늘어 카드 밖으로 42 나갔다.
+  // 안이 모두 절대 자식인 무대의 폭이 FILL 이면 비율을 잠가(`ar`) 높이가 폭을 따르게 한다. 측정 폭에서는 측정 크기 그대로다. 그 상자를 꽉 채운 그림(`inset-0` svg)이
+  // 상자와 같은 비율의 viewBox 를 가지면(기본 `meet` 맞춤) 상자를 따라 늘여도(`vz`) 제품과 같은 모양이다 — 상자가 비율대로만 바뀌기 때문이다.
+  // 대상은 안의 자식이 모두 절대 배치이고(가장자리 단추처럼 제약으로 변을 따르는 자식 포함) 상자를 꽉 채운 그림이 있는 무대만이다 — 흐름 자식이 있는
+  // 비율 상자와 그림 없는 썸네일 상자는 늘림 시험에서 넘치지 않아(절대 이미지가 STRETCH 로 따른다) 이 규칙 밖에 둔다.
+  const follows = (child) => ["SCALE", "STRETCH"].includes(child.constraints?.horizontal) && ["SCALE", "STRETCH"].includes(child.constraints?.vertical);
+  const aspectOf = (width, height) => (height > 0 ? width / height : null);
+  const host = aspectOf(node.rect.width, node.rect.height);
+  const covers = (child) => {
+    if (!child.glyphSvg || child.glyphStretch || !follows(child)) return false;
+    const box = /viewBox='\s*[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)\s*'/.exec(child.glyphSvg);
+    const drawn = box ? aspectOf(Number(box[1]), Number(box[2])) : null;
+    const own = aspectOf(child.rect.width, child.rect.height);
+    return Boolean(drawn && own && host) && Math.abs(drawn / own - 1) <= 0.01 && Math.abs(own / host - 1) <= 0.01;
+  };
+  const stage = (node.children ?? []).length > 0 && node.children.every((child) => child.positioning === "ABSOLUTE");
+  const drawings = stage ? node.children.filter(covers) : [];
+  if (drawings.length > 0 && node.sizing?.layoutSizingHorizontal === "FILL" && !node.aspectLock) {
+    node.aspectLock = true;
+    fixed.push(`${node.path} ar`);
+    for (const child of drawings) {
+      child.glyphStretch = true;
+      fixed.push(`${child.path} vz`);
+    }
+  }
+  if (!node.layout || node.sizing?.layoutSizingVertical !== "HUG") return;
   node.sizing = { ...node.sizing, layoutSizingVertical: "FIXED" };
   fixed.push(node.path);
 };

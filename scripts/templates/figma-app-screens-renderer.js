@@ -743,6 +743,18 @@ const buildNode = (spec, parent) => {
       for (const { childSpec, child } of row) {
         // 인스턴스 칸은 안쪽 배치를 컴포넌트가 정한다 — hug 로 풀지 않고 제품이 잰 칸 높이로 둔다.
         const measured = () => { child.layoutSizingVertical = "FIXED"; child.resize(child.width, Math.max(0.01, childSpec.r[1])); };
+        // **내용 높이로 서는 인스턴스 칸은 HUG 로 둔다(2026-10-16, 조립 규칙 15조의 48).** 측정 높이 FIXED 는 폭이 줄어 부품 안 글이 한 줄 더 감기면
+        // 칸 밖으로 넘친다(결제 동의 부품 1440 +39 · 가입 약관 부품 모바일 360 +10). 자동 배치 부품은 HUG 로 두고, 측정 폭의 HUG 가 측정 높이보다
+        // 낮으면(Figma 글꼴이 한 줄 덜 감긴다 — 결제 동의 172 / 측정 193) 측정 높이를 최소 높이로 건다 — 측정 폭에서는 측정 높이, 좁아져 글이 더 감기면
+        // 그만큼 자란다. HUG 가 측정보다 높으면(부품 안에 늘어나는 칸이 있다) 전처럼 측정 높이로 둔다.
+        if (child.type === "INSTANCE" && child.layoutMode && child.layoutMode !== "NONE") {
+          try {
+            child.layoutSizingVertical = "HUG";
+            if (child.height > childSpec.r[1] + 1) measured();
+            else if (child.height < childSpec.r[1] - 1) child.minHeight = childSpec.r[1];
+          } catch (error) { try { measured(); } catch (ignored) {} }
+          continue;
+        }
         if (child.type === "INSTANCE") { try { measured(); } catch (error) {} continue; }
         try { child.layoutSizingVertical = "HUG"; release(child); }
         catch (error) { try { measured(); } catch (ignored) {} }

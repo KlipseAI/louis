@@ -10,23 +10,27 @@
     "verified": "git show 4ad47868 -- apps/web/app/mypage/upgrade/page.tsx 가 그 22줄의 삭제와 `+ \"bg-gray-900\"` 를 함께 보여준다. 커밋은 ae8fd627..5a67d692 구간 안에 있다.",
     "stillMeasuredNotDesigned": "면 rgb(221,222,224) 는 실측값 그대로 옮긴 것이다. 제품 소스 주석은 이 자리를 「라이트 #f1f1f3」로 적고 있어 값이 어긋나 있는데, 그 차이의 원인은 이 생성기가 확인하지 않았다 — 지어내지 않고 실측만 적는다."
   },
-  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
-  "currentPlanOutlineSource": {
+  "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
+  "currentPlanRingSource": {
     "lines": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 242,
-        "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
+        "line": 618,
+        "quote": "                    data-current={isCurrentPlan ? \"true\" : undefined}"
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 243,
-        "quote": "  \"[outline-offset:-2px]\","
+        "path": "packages/css/src/component/plan-tier-card.css",
+        "line": 53,
+        "quote": ".louis-plan-tier-card[data-current=\"true\"] {"
+      },
+      {
+        "path": "packages/css/src/component/plan-tier-card.css",
+        "line": 54,
+        "quote": "  box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-accent-primary);"
       }
     ],
-    "figmaMapping": "The measured 2px solid outline with -2px offset is represented losslessly as a 2px INSIDE stroke. No live Figma variable resolves to primary-200 at 40%, so the stroke is the unbound colour role primary200Alpha40 (colorEvidence) and the runner reports it in unboundColors."
+    "figmaMapping": "The measured current-plan mark is a 2px inset box-shadow ring (LOUIS plan-tier-card data-current) with no offset or blur, represented losslessly as a 2px INSIDE stroke bound to the live colour role accentPrimary (colorEvidence). The ring replaces the hairline, so the current card carries no shadow effect."
   },
   "figmaGlyphMeasurements": {
     "$measurement": "use_figma temporary TextNode natural bounds per wrapped line; exact per-string typography; measured 2026-09-05 and nodes removed",
@@ -118,16 +122,52 @@
     },
     "deckSource": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 212,
-        "quote": "  \"grid [grid-template-columns:repeat(5,minmax(0,1fr))] gap-2 items-stretch\","
+        "line": 603,
+        "quote": "            <div className={PRICING_DECK}>"
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/components/landing/sections/PricingSection.tsx",
+        "path": "apps/web/components/landing/sections/PricingSection.tsx",
+        "line": 110,
+        "quote": "  \"louis-plan-tier-deck [@media(max-width:559px)]:[--louis-plan-tier-deck-columns:1]\";"
+      },
+      {
+        "path": "packages/css/src/component/plan-tier-card.css",
+        "line": 17,
+        "quote": "  --louis-plan-tier-deck-columns: 5;"
+      },
+      {
+        "path": "packages/css/src/component/plan-tier-card.css",
+        "line": 21,
+        "quote": "  grid-template-columns: repeat(var(--louis-plan-tier-deck-columns), minmax(0, 1fr));"
+      },
+      {
+        "path": "packages/css/src/component/plan-tier-card.css",
+        "line": 41,
+        "quote": "  min-block-size: 560px;"
+      },
+      {
+        "path": "packages/css/src/component/plan-tier-card.css",
+        "line": 282,
+        "quote": "    min-block-size: auto;"
+      },
+      {
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 220,
-        "quote": "  \"min-h-[560px] [@media(max-width:788px)]:[min-height:auto]\","
+        "line": 750,
+        "quote": "                      className=\"louis-plan-tier-card__cta\""
+      },
+      {
+        "path": "packages/css/src/component/plan-tier-card.css",
+        "line": 227,
+        "quote": ".louis-plan-tier-card__features + :is(.louis-plan-tier-card__note, .louis-plan-tier-card__notice, .louis-plan-tier-card__cta) {"
+      },
+      {
+        "path": "packages/css/src/component/plan-tier-card.css",
+        "line": 228,
+        "quote": "  margin-block-start: auto;"
       }
     ],
     "main": {
@@ -247,7 +287,7 @@
           "columns": 5,
           "gap": 4,
           "rowGap": 4,
-          "declared": "repeat(5, minmax(0px, 1fr))"
+          "declared": "repeat(var(--louis-plan-tier-deck-columns), minmax(0, 1fr))"
         },
         "compare": {
           "paddingTop": 64
@@ -315,12 +355,12 @@
         "letterSpacing": -0.72,
         "textAlign": "center",
         "color": [
-          0,
-          0,
-          0,
+          0.090196,
+          0.105882,
+          0.133333,
           1
         ],
-        "paint": "gray000"
+        "paint": "fgPrimary"
       },
       "paint": "appMainCardBg"
     },
@@ -359,35 +399,20 @@
           1,
           1
         ],
-        "effects": [
-          {
-            "type": "INNER_SHADOW",
-            "color": [
-              0.090196,
-              0.105882,
-              0.133333,
-              0.12
-            ],
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "radius": 0,
-            "spread": 0.5
-          }
-        ],
+        "effects": [],
         "outline": {
           "width": 2,
           "style": "solid",
           "color": [
-            0.6392156862745098,
-            0.8352941176470589,
+            0,
+            0.533333,
             1,
-            0.4
+            1
           ],
           "offset": -2,
           "figmaMapping": "2px INSIDE stroke",
-          "paint": "primary200Alpha40"
+          "$measuredAs": "box-shadow inset ring",
+          "paint": "accentPrimary"
         },
         "sections": [
           {
@@ -411,13 +436,13 @@
                 "letterSpacing": -0.2,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray200"
+                "paint": "fgPrimary"
               }
             ]
           },
@@ -450,9 +475,9 @@
                 "letterSpacing": -0.72,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "padding": {
@@ -462,7 +487,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray200"
+                "paint": "fgPrimary"
               }
             ]
           },
@@ -507,7 +532,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               },
               {
                 "text": "credits",
@@ -535,7 +560,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -566,7 +591,7 @@
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -586,12 +611,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Up to 3 projects",
@@ -613,7 +638,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -624,12 +649,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "1 Composition upload, 2 imports",
@@ -651,7 +676,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -662,12 +687,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "AI video generation trial",
@@ -689,7 +714,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -700,12 +725,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Basic video cut editing",
@@ -727,7 +752,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -738,12 +763,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Highlight input videos up to 10 min",
@@ -765,7 +790,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -776,12 +801,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Watermark included",
@@ -803,7 +828,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               }
             ]
@@ -926,13 +951,13 @@
                 "letterSpacing": -0.2,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray200"
+                "paint": "fgPrimary"
               }
             ]
           },
@@ -965,9 +990,9 @@
                 "letterSpacing": -0.72,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "padding": {
@@ -982,7 +1007,7 @@
                   "12,900": 113,
                   "KRW": 80
                 },
-                "paint": "gray200"
+                "paint": "fgPrimary"
               },
               {
                 "text": "per month",
@@ -998,10 +1023,10 @@
                 "letterSpacing": -0.16,
                 "textAlign": "start",
                 "color": [
-                  0.2549019607843137,
-                  0.27058823529411763,
-                  0.2980392156862745,
-                  0.88
+                  0.345098,
+                  0.360784,
+                  0.388235,
+                  1
                 ],
                 "padding": {
                   "top": 0,
@@ -1015,7 +1040,7 @@
                   "per": 24,
                   "month": 46
                 },
-                "paint": "gray300Alpha88"
+                "paint": "fgTertiary"
               }
             ]
           },
@@ -1060,7 +1085,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               },
               {
                 "text": "credits",
@@ -1088,7 +1113,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -1119,7 +1144,7 @@
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -1139,12 +1164,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Up to 5 projects",
@@ -1166,7 +1191,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1177,12 +1202,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "3 Composition uploads, 3 imports",
@@ -1204,7 +1229,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1215,12 +1240,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "All AI models unlocked",
@@ -1242,7 +1267,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1253,12 +1278,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Text/image overlay, TTS",
@@ -1280,7 +1305,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1291,12 +1316,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "YouTube/Instagram upload",
@@ -1318,7 +1343,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1329,12 +1354,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Highlight input videos up to 10 min",
@@ -1356,7 +1381,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1367,12 +1392,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Bronze credit top-up",
@@ -1394,7 +1419,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1405,12 +1430,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "No watermark",
@@ -1432,7 +1457,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               }
             ]
@@ -1555,13 +1580,13 @@
                 "letterSpacing": -0.2,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray200"
+                "paint": "fgPrimary"
               }
             ]
           },
@@ -1594,9 +1619,9 @@
                 "letterSpacing": -0.72,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "padding": {
@@ -1611,7 +1636,7 @@
                   "29,900": 119,
                   "KRW": 80
                 },
-                "paint": "gray200"
+                "paint": "fgPrimary"
               },
               {
                 "text": "per month",
@@ -1627,10 +1652,10 @@
                 "letterSpacing": -0.16,
                 "textAlign": "start",
                 "color": [
-                  0.2549019607843137,
-                  0.27058823529411763,
-                  0.2980392156862745,
-                  0.88
+                  0.345098,
+                  0.360784,
+                  0.388235,
+                  1
                 ],
                 "padding": {
                   "top": 0,
@@ -1644,7 +1669,7 @@
                   "per": 24,
                   "month": 46
                 },
-                "paint": "gray300Alpha88"
+                "paint": "fgTertiary"
               }
             ]
           },
@@ -1689,7 +1714,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               },
               {
                 "text": "credits",
@@ -1717,7 +1742,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -1748,7 +1773,7 @@
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -1768,12 +1793,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Up to 12 projects",
@@ -1795,7 +1820,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1806,12 +1831,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "5 Composition uploads, 5 imports",
@@ -1833,7 +1858,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1844,12 +1869,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "All AI models unlocked",
@@ -1871,7 +1896,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1882,12 +1907,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Text/image overlay, TTS",
@@ -1909,7 +1934,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1920,12 +1945,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "YouTube/Instagram upload, schedule & analytics",
@@ -1947,7 +1972,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1958,12 +1983,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "AI prompt & caption assist",
@@ -1985,7 +2010,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -1996,12 +2021,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Highlight input videos up to 30 min",
@@ -2023,7 +2048,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -2034,12 +2059,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Credit top-up available",
@@ -2061,7 +2086,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -2072,12 +2097,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "No watermark",
@@ -2099,7 +2124,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               }
             ]
@@ -2222,13 +2247,13 @@
                 "letterSpacing": -0.2,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray200"
+                "paint": "fgPrimary"
               }
             ]
           },
@@ -2261,9 +2286,9 @@
                 "letterSpacing": -0.72,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "padding": {
@@ -2278,7 +2303,7 @@
                   "49,900": 120,
                   "KRW": 80
                 },
-                "paint": "gray200"
+                "paint": "fgPrimary"
               },
               {
                 "text": "per month",
@@ -2294,10 +2319,10 @@
                 "letterSpacing": -0.16,
                 "textAlign": "start",
                 "color": [
-                  0.2549019607843137,
-                  0.27058823529411763,
-                  0.2980392156862745,
-                  0.88
+                  0.345098,
+                  0.360784,
+                  0.388235,
+                  1
                 ],
                 "padding": {
                   "top": 0,
@@ -2311,7 +2336,7 @@
                   "per": 24,
                   "month": 46
                 },
-                "paint": "gray300Alpha88"
+                "paint": "fgTertiary"
               }
             ]
           },
@@ -2356,7 +2381,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               },
               {
                 "text": "credits",
@@ -2384,7 +2409,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -2415,7 +2440,7 @@
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -2435,12 +2460,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Up to 24 projects",
@@ -2462,7 +2487,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -2473,12 +2498,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "7 Composition uploads, 7 imports",
@@ -2500,7 +2525,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -2511,12 +2536,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Highlight input videos up to 120 min",
@@ -2538,7 +2563,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -2549,12 +2574,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "3 concurrent jobs",
@@ -2576,7 +2601,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -2587,12 +2612,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Priority queue processing",
@@ -2614,7 +2639,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               }
             ]
@@ -2737,13 +2762,13 @@
                 "letterSpacing": -0.2,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray200"
+                "paint": "fgPrimary"
               }
             ]
           },
@@ -2776,9 +2801,9 @@
                 "letterSpacing": -0.72,
                 "textAlign": "start",
                 "color": [
-                  0.168627,
-                  0.184314,
-                  0.211765,
+                  0.090196,
+                  0.105882,
+                  0.133333,
                   1
                 ],
                 "padding": {
@@ -2793,7 +2818,7 @@
                   "74,900": 116,
                   "KRW": 80
                 },
-                "paint": "gray200"
+                "paint": "fgPrimary"
               },
               {
                 "text": "per month",
@@ -2809,10 +2834,10 @@
                 "letterSpacing": -0.16,
                 "textAlign": "start",
                 "color": [
-                  0.2549019607843137,
-                  0.27058823529411763,
-                  0.2980392156862745,
-                  0.88
+                  0.345098,
+                  0.360784,
+                  0.388235,
+                  1
                 ],
                 "padding": {
                   "top": 0,
@@ -2826,7 +2851,7 @@
                   "per": 24,
                   "month": 46
                 },
-                "paint": "gray300Alpha88"
+                "paint": "fgTertiary"
               }
             ]
           },
@@ -2871,7 +2896,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               },
               {
                 "text": "credits",
@@ -2899,7 +2924,7 @@
                   "left": 0
                 },
                 "sizing": "HUG",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -2930,7 +2955,7 @@
                   1
                 ],
                 "sizing": "FILL",
-                "paint": "gray300"
+                "paint": "fgSecondary"
               }
             ]
           },
@@ -2950,12 +2975,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Unlimited projects",
@@ -2977,7 +3002,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -2988,12 +3013,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "10 Composition uploads, 10 imports",
@@ -3015,7 +3040,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -3026,12 +3051,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "10 highlight clip selections",
@@ -3053,7 +3078,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               },
               {
@@ -3064,12 +3089,12 @@
                   "marginTop": 1.5,
                   "color": [
                     0,
-                    0.7764705882352941,
-                    0.5568627450980392,
+                    0.776471,
+                    0.556863,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg",
-                  "paint": "green500"
+                  "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                  "paint": "planTierFeatureIcon"
                 },
                 "text": {
                   "text": "Maximum monthly credits",
@@ -3091,7 +3116,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               }
             ]
@@ -3278,7 +3303,7 @@
             "columns": 1,
             "gap": 4,
             "rowGap": 4,
-            "declared": "minmax(0px, 1fr) !important"
+            "declared": "repeat(var(--louis-plan-tier-deck-columns), minmax(0, 1fr))"
           },
           "compare": null
         },
@@ -3371,35 +3396,20 @@
             1,
             1
           ],
-          "effects": [
-            {
-              "type": "INNER_SHADOW",
-              "color": [
-                0.090196,
-                0.105882,
-                0.133333,
-                0.12
-              ],
-              "offset": {
-                "x": 0,
-                "y": 0
-              },
-              "radius": 0,
-              "spread": 0.5
-            }
-          ],
+          "effects": [],
           "outline": {
             "width": 2,
             "style": "solid",
             "color": [
-              0.6392156862745098,
-              0.8352941176470589,
+              0,
+              0.533333,
               1,
-              0.4
+              1
             ],
             "offset": -2,
             "figmaMapping": "2px INSIDE stroke",
-            "paint": "primary200Alpha40"
+            "$measuredAs": "box-shadow inset ring",
+            "paint": "accentPrimary"
           },
           "sections": [
             {
@@ -3423,13 +3433,13 @@
                   "letterSpacing": -0.2,
                   "textAlign": "start",
                   "color": [
-                    0.168627,
-                    0.184314,
-                    0.211765,
+                    0.090196,
+                    0.105882,
+                    0.133333,
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray200"
+                  "paint": "fgPrimary"
                 }
               ]
             },
@@ -3453,18 +3463,18 @@
                   "rect": {
                     "x": 12,
                     "y": 52,
-                    "width": 55.0625,
+                    "width": 54.4219,
                     "height": 37.7969
                   },
                   "fontSize": 28,
                   "fontWeight": 600,
                   "lineHeight": 37.8,
-                  "letterSpacing": -0.56,
+                  "letterSpacing": -0.72,
                   "textAlign": "start",
                   "color": [
-                    0.168627,
-                    0.184314,
-                    0.211765,
+                    0.090196,
+                    0.105882,
+                    0.133333,
                     1
                   ],
                   "padding": {
@@ -3474,7 +3484,7 @@
                     "left": 0
                   },
                   "sizing": "HUG",
-                  "paint": "gray200"
+                  "paint": "fgPrimary"
                 }
               ]
             },
@@ -3519,7 +3529,7 @@
                     "left": 0
                   },
                   "sizing": "HUG",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 },
                 {
                   "text": "credits",
@@ -3547,7 +3557,7 @@
                     "left": 0
                   },
                   "sizing": "HUG",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               ]
             },
@@ -3578,7 +3588,7 @@
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               ]
             },
@@ -3598,12 +3608,12 @@
                     "marginTop": 1.5,
                     "color": [
                       0,
-                      0.7764705882352941,
-                      0.5568627450980392,
+                      0.776471,
+                      0.556863,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
+                    "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                    "paint": "planTierFeatureIcon"
                   },
                   "text": {
                     "text": "Up to 3 projects",
@@ -3625,7 +3635,7 @@
                       1
                     ],
                     "sizing": "FILL",
-                    "paint": "gray300"
+                    "paint": "fgSecondary"
                   }
                 },
                 {
@@ -3636,12 +3646,12 @@
                     "marginTop": 1.5,
                     "color": [
                       0,
-                      0.7764705882352941,
-                      0.5568627450980392,
+                      0.776471,
+                      0.556863,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
+                    "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                    "paint": "planTierFeatureIcon"
                   },
                   "text": {
                     "text": "1 Composition upload, 2 imports",
@@ -3663,7 +3673,7 @@
                       1
                     ],
                     "sizing": "FILL",
-                    "paint": "gray300"
+                    "paint": "fgSecondary"
                   }
                 },
                 {
@@ -3674,12 +3684,12 @@
                     "marginTop": 1.5,
                     "color": [
                       0,
-                      0.7764705882352941,
-                      0.5568627450980392,
+                      0.776471,
+                      0.556863,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
+                    "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                    "paint": "planTierFeatureIcon"
                   },
                   "text": {
                     "text": "AI video generation trial",
@@ -3701,7 +3711,7 @@
                       1
                     ],
                     "sizing": "FILL",
-                    "paint": "gray300"
+                    "paint": "fgSecondary"
                   }
                 },
                 {
@@ -3712,12 +3722,12 @@
                     "marginTop": 1.5,
                     "color": [
                       0,
-                      0.7764705882352941,
-                      0.5568627450980392,
+                      0.776471,
+                      0.556863,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
+                    "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                    "paint": "planTierFeatureIcon"
                   },
                   "text": {
                     "text": "Basic video cut editing",
@@ -3739,7 +3749,7 @@
                       1
                     ],
                     "sizing": "FILL",
-                    "paint": "gray300"
+                    "paint": "fgSecondary"
                   }
                 },
                 {
@@ -3750,12 +3760,12 @@
                     "marginTop": 1.5,
                     "color": [
                       0,
-                      0.7764705882352941,
-                      0.5568627450980392,
+                      0.776471,
+                      0.556863,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
+                    "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                    "paint": "planTierFeatureIcon"
                   },
                   "text": {
                     "text": "Highlight input videos up to 10 min",
@@ -3777,7 +3787,7 @@
                       1
                     ],
                     "sizing": "FILL",
-                    "paint": "gray300"
+                    "paint": "fgSecondary"
                   }
                 },
                 {
@@ -3788,12 +3798,12 @@
                     "marginTop": 1.5,
                     "color": [
                       0,
-                      0.7764705882352941,
-                      0.5568627450980392,
+                      0.776471,
+                      0.556863,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
+                    "asset": "check-circle (inline glyph, PlanTierFeatureIcon)",
+                    "paint": "planTierFeatureIcon"
                   },
                   "text": {
                     "text": "Watermark included",
@@ -3815,7 +3825,7 @@
                       1
                     ],
                     "sizing": "FILL",
-                    "paint": "gray300"
+                    "paint": "fgSecondary"
                   }
                 }
               ]
@@ -3942,13 +3952,13 @@
                   "letterSpacing": -0.2,
                   "textAlign": "start",
                   "color": [
-                    0.168627,
-                    0.184314,
-                    0.211765,
+                    0.090196,
+                    0.105882,
+                    0.133333,
                     1
                   ],
                   "sizing": "FILL",
-                  "paint": "gray200"
+                  "paint": "fgPrimary"
                 }
               ]
             },
@@ -3972,18 +3982,18 @@
                   "rect": {
                     "x": 12,
                     "y": 52,
-                    "width": 154.5781,
+                    "width": 152.9844,
                     "height": 37.7969
                   },
                   "fontSize": 28,
                   "fontWeight": 600,
                   "lineHeight": 37.8,
-                  "letterSpacing": -0.56,
+                  "letterSpacing": -0.72,
                   "textAlign": "start",
                   "color": [
-                    0.168627,
-                    0.184314,
-                    0.211765,
+                    0.090196,
+                    0.105882,
+                    0.133333,
                     1
                   ],
                   "padding": {
@@ -3993,26 +4003,26 @@
                     "left": 0
                   },
                   "sizing": "HUG",
-                  "paint": "gray200"
+                  "paint": "fgPrimary"
                 },
                 {
                   "text": "per month",
                   "rect": {
-                    "x": 174.5781,
-                    "y": 64.79689999999994,
-                    "width": 63.2031,
-                    "height": 25
+                    "x": 172.9844,
+                    "y": 61.79689999999994,
+                    "width": 72.2344,
+                    "height": 28
                   },
-                  "fontSize": 14,
+                  "fontSize": 16,
                   "fontWeight": 400,
-                  "lineHeight": 21,
-                  "letterSpacing": -0.14,
+                  "lineHeight": 24,
+                  "letterSpacing": -0.16,
                   "textAlign": "start",
                   "color": [
-                    0.2549019607843137,
-                    0.27058823529411763,
-                    0.2980392156862745,
-                    0.88
+                    0.345098,
+                    0.360784,
+                    0.388235,
+                    1
                   ],
                   "padding": {
                     "top": 0,
@@ -4021,7 +4031,7 @@
                     "left": 0
                   },
                   "sizing": "HUG",
-                  "paint": "gray300Alpha88"
+                  "paint": "fgTertiary"
                 }
               ]
             },
@@ -4066,7 +4076,7 @@
                     "left": 0
                   },
                   "sizing": "HUG",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 },
                 {
                   "text": "credits",
@@ -4094,7 +4104,7 @@
                     "left": 0
                   },
                   "sizing": "HUG",
-                  "paint": "gray300"
+                  "paint": "fgSecondary"
                 }
               ]
             }
@@ -4134,17 +4144,25 @@
         "collection": "Klipse Semantic Color",
         "name": "color/bg-raised"
       },
-      "gray200": {
+      "fgPrimary": {
         "collection": "Klipse Semantic Color",
-        "name": "color/gray/200"
+        "name": "color/fg-primary"
       },
-      "gray300": {
+      "fgSecondary": {
         "collection": "Klipse Semantic Color",
-        "name": "color/gray/300"
+        "name": "color/fg-secondary"
       },
-      "green500": {
-        "collection": "Klipse Primitive",
-        "name": "color/green/500"
+      "fgTertiary": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-tertiary"
+      },
+      "planTierFeatureIcon": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/plan-tier-card-feature-icon"
+      },
+      "accentPrimary": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/accent-primary"
       },
       "accentInverse": {
         "collection": "Klipse Semantic Color",
@@ -4181,26 +4199,6 @@
       "docsNote": {
         "collection": "Klipse Semantic Color",
         "name": "color/fg-secondary"
-      },
-      "unbound": {
-        "gray300Alpha88": {
-          "color": [
-            0.254902,
-            0.270588,
-            0.298039,
-            0.88
-          ],
-          "reason": "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint."
-        },
-        "primary200Alpha40": {
-          "color": [
-            0.639216,
-            0.835294,
-            1,
-            0.4
-          ],
-          "reason": "The current-plan outline is rgb(var(--primary-200-rgb) / 40%). The live file has no blue alpha ramp and no variable resolves to blue-200 at 40%, so the stroke keeps the measured colour as a fixed paint."
-        }
       },
       "radius12": {
         "collection": "Klipse Primitive",
@@ -4275,15 +4273,15 @@
       "appPageBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 69,
+            "line": 73,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 804,
+            "line": 837,
             "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
           }
         ],
@@ -4298,15 +4296,15 @@
       "appPageBgNarrow": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 69,
+            "line": 73,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 966,
+            "line": 1000,
             "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
           }
         ],
@@ -4321,15 +4319,15 @@
       "appMainCardBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 111,
+            "line": 115,
             "quote": "  \"bg-[var(--app-main-card-bg)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 805,
+            "line": 838,
             "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
           }
         ],
@@ -4344,21 +4342,15 @@
       "gray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 98,
+            "line": 100,
             "quote": "  \"m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!\";"
-          },
-          {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/sections/PricingSection.tsx",
-            "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 331,
-            "quote": "  \"m-0 mb-16 type-heading-36-semibold text-gray-000 text-center\";"
           }
         ],
         "measured": "#000000",
         "measuredAlpha": 1,
-        "sites": 3,
+        "sites": 2,
         "figma": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black",
         "figmaValue": "#000000",
         "figmaAlpha": 1,
@@ -4367,9 +4359,9 @@
       "gray000Alpha72": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 178,
+            "line": 182,
             "quote": "  \"text-[rgb(var(--gray-000-rgb)/72%)]!\","
           }
         ],
@@ -4384,10 +4376,15 @@
       "bgRaised": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 233,
-            "quote": "  \"bg-[var(--louis-color-bg-raised)]\","
+            "line": 209,
+            "quote": "const TIER_CARD = \"louis-plan-tier-card overflow-hidden\";"
+          },
+          {
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 46,
+            "quote": "  background: var(--louis-color-bg-raised);"
           }
         ],
         "measured": "#ffffff",
@@ -4398,117 +4395,136 @@
         "figmaAlpha": 1,
         "exact": true
       },
-      "gray200": {
+      "fgPrimary": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 223,
-            "quote": "  \"flex flex-col text-gray-200 overflow-hidden\","
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 48,
+            "quote": "  color: var(--louis-color-fg-primary);"
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/components/landing/sections/PricingSection.tsx",
+            "path": "apps/web/components/landing/sections/PricingSection.tsx",
+            "line": 241,
+            "quote": "      <h3 className=\"louis-plan-comparison__title\" id={titleId}>"
+          },
+          {
+            "path": "packages/css/src/component/plan-comparison.css",
+            "line": 36,
+            "quote": "  color: var(--louis-color-fg-primary);"
           }
         ],
-        "measured": "#2b2f36",
+        "measured": "#171b22",
         "measuredAlpha": 1,
-        "sites": 14,
-        "figma": "Klipse Semantic Color[Light]/color/gray/200 → Klipse Primitive/color/palette-gray/800",
-        "figmaValue": "#2b2f36",
+        "sites": 15,
+        "figma": "Klipse Semantic Color[Light]/color/fg-primary → Klipse Primitive/color/palette-gray/900",
+        "figmaValue": "#171b22",
         "figmaAlpha": 1,
         "exact": true
       },
-      "gray300": {
+      "fgSecondary": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 278,
-            "quote": "  \"mt-2 flex w-full pb-12 items-end gap-4 text-gray-300\","
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 143,
+            "quote": "  color: var(--louis-color-fg-secondary);"
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 289,
-            "quote": "const TIER_INCLUDES = \"[margin:12px_0_0] p-0 block text-gray-300\";"
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 159,
+            "quote": "  color: var(--louis-color-fg-secondary);"
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 295,
-            "quote": "  \"[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300\","
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 183,
+            "quote": "  color: var(--louis-color-fg-secondary);"
           }
         ],
         "measured": "#41454c",
         "measuredAlpha": 1,
         "sites": 58,
-        "figma": "Klipse Semantic Color[Light]/color/gray/300 → Klipse Primitive/color/palette-gray/700",
+        "figma": "Klipse Semantic Color[Light]/color/fg-secondary → Klipse Primitive/color/palette-gray/700",
         "figmaValue": "#41454c",
         "figmaAlpha": 1,
         "exact": true
       },
-      "gray300Alpha88": {
+      "fgTertiary": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 274,
-            "quote": "  \"[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2\","
-          }
-        ],
-        "measured": "#41454c",
-        "measuredAlpha": 0.88,
-        "sites": 5,
-        "figma": null,
-        "productMix": "Klipse Semantic Color[Light]/color/gray/300 → Klipse Primitive/color/palette-gray/700 × 0.88",
-        "exact": false,
-        "reason": "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint.",
-        "liveValueTwins": []
-      },
-      "green500": {
-        "declared": [
-          {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 809,
-            "quote": "                              className={TIER_FEATURE_ICON}"
+            "line": 658,
+            "quote": "                        <span className=\"louis-plan-tier-card__period\">{tier.period}</span>"
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/sections/PricingSection.tsx",
-            "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 223,
-            "quote": "  \"bg-accent-green-500\","
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 127,
+            "quote": "  color: var(--louis-color-fg-tertiary);"
+          }
+        ],
+        "measured": "#585c63",
+        "measuredAlpha": 1,
+        "sites": 5,
+        "figma": "Klipse Semantic Color[Light]/color/fg-tertiary → Klipse Primitive/color/palette-gray/600",
+        "figmaValue": "#585c63",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "planTierFeatureIcon": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 684,
+            "quote": "                            <PlanTierFeatureIcon />"
+          },
+          {
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 198,
+            "quote": "  color: var(--louis-color-plan-tier-card-feature-icon);"
           }
         ],
         "measured": "#00c68e",
         "measuredAlpha": 1,
         "sites": 38,
-        "figma": "Klipse Primitive/color/green/500",
+        "figma": "Klipse Semantic Color[Light]/color/plan-tier-card-feature-icon → Klipse Primitive/color/green/500",
         "figmaValue": "#00c68e",
         "figmaAlpha": 1,
         "exact": true
       },
-      "primary200Alpha40": {
+      "accentPrimary": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 242,
-            "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
+            "line": 618,
+            "quote": "                    data-current={isCurrentPlan ? \"true\" : undefined}"
+          },
+          {
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 53,
+            "quote": ".louis-plan-tier-card[data-current=\"true\"] {"
+          },
+          {
+            "path": "packages/css/src/component/plan-tier-card.css",
+            "line": 54,
+            "quote": "  box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-accent-primary);"
           }
         ],
-        "measured": "#a3d5ff",
-        "measuredAlpha": 0.4,
+        "measured": "#0088ff",
+        "measuredAlpha": 1,
         "sites": 2,
-        "figma": null,
-        "productMix": "Klipse Primitive/color/blue/200 × 0.4",
-        "exact": false,
-        "reason": "The current-plan outline is rgb(var(--primary-200-rgb) / 40%). The live file has no blue alpha ramp and no variable resolves to blue-200 at 40%, so the stroke keeps the measured colour as a fixed paint.",
-        "liveValueTwins": []
+        "figma": "Klipse Semantic Color[Light]/color/accent-primary → Klipse Primitive/color/blue/500",
+        "figmaValue": "#0088ff",
+        "figmaAlpha": 1,
+        "exact": true
       },
       "accentInverse": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 874,
+            "line": 748,
             "quote": "                      variant=\"inverse\""
           },
           {
@@ -4544,9 +4560,9 @@
       "bgInset": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 882,
+            "line": 756,
             "quote": "                      disabled={"
           },
           {
@@ -4582,9 +4598,9 @@
       "accentSecondary": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 722,
+            "line": 588,
             "quote": "                  variant=\"secondary\""
           },
           {

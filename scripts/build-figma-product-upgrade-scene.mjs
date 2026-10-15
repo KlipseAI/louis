@@ -87,6 +87,23 @@ const outline = (computed) => {
     figmaMapping: `${width}px INSIDE stroke`,
   };
 };
+/* **현재 플랜 표시는 아웃라인이 아니라 안쪽 링이다(2026-10-15, 운영 main 97d4950e · DS-D-0117).** 제품 `9810c944` 가 카드를 LOUIS
+   `.louis-plan-tier-card` 로 옮기며 옛 `outline: 2px solid rgb(var(--primary-200-rgb)/40%)` · `outline-offset: -2px` 를 걷고
+   `[data-current="true"] { box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-accent-primary) }` 로 바꿨다 — 헤어라인
+   자리를 2px 주색 링이 대신한다. 오프셋 · 번짐 없는 안쪽 그림자의 spread 는 둥근 사각형의 INSIDE 획과 같은 그림이므로 같은 매핑(렌더러의
+   `applyMeasuredOutline`)으로 옮기고, 링을 효과 목록에서는 뺀다(두 번 칠하지 않는다). 헤어라인(spread 0.5)은 효과로 남는다. */
+const ringOrOutline = (computed) => {
+  const effects = shadows(computed.boxShadow);
+  const measuredOutline = outline(computed);
+  if (measuredOutline) return { effects, outline: measuredOutline };
+  const ring = effects.length === 1 && effects[0].type === "INNER_SHADOW" && !effects[0].offset.x && !effects[0].offset.y &&
+    !effects[0].radius && effects[0].spread >= 1 ? effects[0] : null;
+  if (!ring) return { effects, outline: null };
+  return {
+    effects: [],
+    outline: { width: ring.spread, style: "solid", color: ring.color, offset: -ring.spread, figmaMapping: `${ring.spread}px INSIDE stroke`, $measuredAs: "box-shadow inset ring" },
+  };
+};
 const relRect = (entry, rootRect) => ({ x: entry.rect.x - rootRect.x, y: entry.rect.y - rootRect.y, width: entry.rect.width, height: entry.rect.height });
 const textSpec = (entry, rootRect) => {
   const computed = style(entry);
@@ -140,12 +157,23 @@ if (renderedComponents.productCommit !== fixture.productCommit) fail("migration/
 const buttonMdHeight = px(renderedComponents.rendered?.["button-md"]?.height);
 if (!buttonMdHeight) fail("product.rendered-components.json has no button-md height");
 
-if (redirected.finalPath !== route || !redirected.redirected || JSON.stringify(redirected.tree) !== JSON.stringify(screen.tree)) {
+/* 2026-10-15 재고정(54b62a8a → 운영 main 97d4950e, DS-D-0117): 리다이렉트는 그대로 `/mypage/upgrade` 에 닿고 두 트리는 노드 수
+   (데스크톱 359 · 모바일 92) · path · tag · rect · styleRef 까지 같은데, 요금 카드 · 비교표 제목의 `id` 만 갈린다 — 제품 `9810c944` 가
+   카드와 비교표를 LOUIS plan-tier-card · plan-comparison 으로 옮기며 `aria-labelledby` 짝을 `useId()` 로 만들었고(`git show 97d4950e:
+   apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx` :279 `  const idBase = useId();`), React 의 그 접두사가 서버 렌더(`_R_…_`)와
+   클라이언트 이동 뒤 렌더(`_r_0_`)에서 다르다. 화면에 그려지지 않는 값이므로 그 **접두사만** 지우고 견준다 — 접미사(`-tier-trial` 등)와
+   다른 모든 키는 그대로 문다. */
+const reactUseIdPrefix = /^_[rR]_[0-9a-z]+_/;
+const comparableTree = (tree) =>
+  JSON.stringify(tree.map((entry) => (typeof entry.id === "string" && reactUseIdPrefix.test(entry.id)
+    ? { ...entry, id: entry.id.replace(reactUseIdPrefix, "«useId»") }
+    : entry)));
+if (redirected.finalPath !== route || !redirected.redirected || comparableTree(redirected.tree) !== comparableTree(screen.tree)) {
   fail(`${redirectedRoute} no-query redirect no longer matches ${route}`);
 }
 if (
   mobileRedirected.finalPath !== route || !mobileRedirected.redirected ||
-  JSON.stringify(mobileRedirected.tree) !== JSON.stringify(mobileScreen.tree)
+  comparableTree(mobileRedirected.tree) !== comparableTree(mobileScreen.tree)
 ) fail(`${mobileContext} ${redirectedRoute} no-query redirect no longer matches ${route}`);
 
 const declaredValue = (entry, property, pattern, where) => {
@@ -166,9 +194,28 @@ const paddingOf = (computed) => ({ top: px(computed.paddingTop), right: px(compu
    (Button md 레시피). 흐름 자식의 margin 은 Figma 에 없으므로 칠 없는 감싸개의 패딩으로 옮긴다(조립 규칙 7번).
    구획을 알아보지 못하면 던진다 — 원가 줄(`TIER_ORIGINAL_PRICE`)이나 비고(`TIER_NOTE`)가 화면에 나오면 여기서 멈춰
    슬롯을 더해야 한다. */
+const recipeQuote = sourceQuotes({ repoRoot, productRoot, productCommit: fixture.productCommit, fail });
+const PLAN_TIER_CSS = "packages/css/src/component/plan-tier-card.css";
+/* 2026-10-15(운영 main 97d4950e): CTA 의 `mt-auto` 가 LOUIS 레시피의 논리 속성(`.louis-plan-tier-card__features + …__cta {
+   margin-block-start: auto }`)이 됐다. 측정기의 `declared` 는 논리 **크기** 속성만 물리 칸으로 옮기고 논리 여백은 싣지 않아, 버튼의
+   물리 칸에는 Button 자신의 `margin: 0` 만 남는다. 그래서 그때는 레시피 줄을 인용하고 **버튼이 카드 내용 상자 바닥에 붙어 있는지**를
+   측정 rect 로 확인한다 — `auto` 위 여백이 남는 높이를 다 먹었다는 같은 사실이다. */
+const ctaAutoSource = [
+  sourceQuote("apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx", 750, '                      className="louis-plan-tier-card__cta"'),
+  recipeQuote.ds(PLAN_TIER_CSS, 227, ".louis-plan-tier-card__features + :is(.louis-plan-tier-card__note, .louis-plan-tier-card__notice, .louis-plan-tier-card__cta) {"),
+  recipeQuote.ds(PLAN_TIER_CSS, 228, "  margin-block-start: auto;"),
+];
 const cardStructure = (tree, root, lines, where) => {
   const kids = (path) => tree.filter((entry) => entry.parentPath === path);
-  const isCheck = (entry) => style(entry).maskImage.includes("/icons/CheckCircle.svg");
+  /* 2026-10-15(운영 main 97d4950e, DS-D-0117): 체크가 마스크(`/icons/CheckCircle.svg`)에서 인라인 글리프로 바뀌었다 — 제품 `9810c944` 의
+     `PlanTierFeatureIcon`(`<span class="louis-plan-tier-card__feature-icon"><svg class="louis-icon" data-louis-icon="check-circle">`,
+     polyline + circle, `currentColor`). 그 파일 머리 주석이 「예전 마스크와 같은 모양 · 같은 굵기」라 적으므로 Figma 쪽은 그대로
+     `icon/CheckCircle` 인스턴스를 쓰고, 칠은 마스크의 `background-color` 가 아니라 감싸개의 `color` 를 잰다. */
+  const isCheck = (entry) => {
+    const [glyph, ...rest] = kids(entry.path);
+    return entry.tag === "span" && !rest.length && glyph?.tag === "svg" &&
+      kids(glyph.path).map((part) => part.tag).join(",") === "polyline,circle";
+  };
   const margin = (computed) => ({ top: px(computed.marginTop), bottom: px(computed.marginBottom) });
   const sections = [];
   let rows = 0;
@@ -177,7 +224,10 @@ const cardStructure = (tree, root, lines, where) => {
     const computed = style(child);
     const inner = kids(child.path);
     if (child.tag === "button") {
-      declaredValue(child, "margin-top", /^auto$/, where);
+      if (child.declared?.["margin-top"] !== "auto") {
+        const bottomGap = root.rect.y + root.rect.height - px(style(root).paddingBottom) - (child.rect.y + child.rect.height);
+        if (Math.abs(bottomGap) > 0.01) fail(`${where}: plan card CTA ${child.path} is not pushed to the card bottom (gap ${bottomGap}) — margin-block-start:auto no longer holds`);
+      }
       declaredValue(child, "width", /^100%$/, where);
       if (px(computed.height) !== buttonMdHeight) fail(`${where}: plan card CTA height ${computed.height} is not the Button md recipe`);
       const label = child.ownText ? child : inner.find((entry) => entry.ownText) ?? fail(`${where}: missing card button label ${child.path}`);
@@ -232,7 +282,8 @@ const cardStructure = (tree, root, lines, where) => {
         gap: px(computed.rowGap),
         items: inner.map((li) => {
           const liStyle = style(li);
-          declaredValue(li, "grid-template-columns", /^\d+(?:\.\d+)?px 1fr$/, where);
+          // 2026-10-15: LOUIS `.louis-plan-tier-card__feature` 는 `18px minmax(0, 1fr)` 이다(옛 제품 `18px 1fr`). 아이콘 트랙은 앞 칸 그대로다.
+          declaredValue(li, "grid-template-columns", /^\d+(?:\.\d+)?px (?:1fr|minmax\(0px, 1fr\))$/, where);
           const [first, second] = kids(li.path);
           const icon = first && isCheck(first) ? first : null;
           const text = icon ? second : first;
@@ -241,7 +292,7 @@ const cardStructure = (tree, root, lines, where) => {
           return {
             gap: px(liStyle.columnGap),
             iconTrack: px(liStyle.gridTemplateColumns.split(" ")[0]),
-            icon: icon ? { size: px(style(icon).width), marginTop: px(style(icon).marginTop), color: color(style(icon).backgroundColor), asset: "/icons/CheckCircle.svg" } : null,
+            icon: icon ? { size: px(style(icon).width), marginTop: px(style(icon).marginTop), color: color(style(icon).color), asset: "check-circle (inline glyph, PlanTierFeatureIcon)" } : null,
             text: { ...textSpec(text, root.rect), sizing: "FILL" },
           };
         }),
@@ -304,7 +355,14 @@ const upgradeLayout = (tree, where) => {
   // 덱 열 선언은 둘 중 하나다: `repeat(N, minmax(0px, 1fr))`(데스크톱 5 · ≤1199 2) 또는 한 열 `minmax(0px, 1fr) !important`
   // (≤559 — 통합 판 `UpgradePlanPageClient.tsx` `PRICING_DECK` 의 `[@media(max-width:559px)]:[grid-template-columns:minmax(0,1fr)]!`).
   // 모바일 402 는 한 열이라 카드가 세로로 쌓인다 — 렌더러는 열이 하나면 덱을 세로 흐름(row-gap)으로 짓는다.
-  const deckColumns = declaredValue(deck, "grid-template-columns", /^(?:repeat\(\d+, minmax\(0px, 1fr\)\)|minmax\(0px, 1fr\))(?: !important)?$/, where);
+  // 2026-10-15(운영 main 97d4950e, DS-D-0117): 덱이 LOUIS `.louis-plan-tier-deck` 이 됐다(제품 `9810c944`). 열 수가 선언 문자열이
+  // 아니라 변수다 — `repeat(var(--louis-plan-tier-deck-columns), minmax(0, 1fr))`(packages/css/src/component/plan-tier-card.css,
+  // 넓은 화면 5 · ≤1199 2, 제품이 ≤559 에서 1 로 덮는다 — PricingSection.tsx `PRICING_DECK`). 측정 원장의 `declared` 에는 변수 값이
+  // 실리지 않으므로 그때는 열 수를 계산값 `grid-template-columns` 의 트랙 수로 센다(데스크톱 5 · 모바일 402 는 1).
+  const deckColumns = declaredValue(deck, "grid-template-columns", /^(?:repeat\(\d+, minmax\(0px, 1fr\)\)|minmax\(0px, 1fr\)|repeat\(var\(--louis-plan-tier-deck-columns\), minmax\(0, 1fr\)\))(?: !important)?$/, where);
+  const deckColumnCount = /--louis-plan-tier-deck-columns/.test(deckColumns)
+    ? deckStyle.gridTemplateColumns.trim().split(/\s+/).length
+    : Number(/^repeat\((\d+),/.exec(deckColumns)?.[1] ?? 1);
   // **헤더의 직계 자식은 렌더러가 그리는 것과 같아야 한다.** 헤더는 흐름이라 그 높이가 덱 · 비교 제목의 자리를 정한다 —
   // 렌더러가 모르는 자식이 끼면 Figma 헤더가 그만큼 짧아져 아래가 전부 위로 선다. 모르는 자식이 나오면 슬롯을 더한다.
   const drawnHeaderKids = [title, body, ...(giftRow ? [giftRow] : [])];
@@ -355,7 +413,7 @@ const upgradeLayout = (tree, where) => {
       bodyMaxWidthDeclared: declaredValue(body, "max-width", /ch$/, where),
       gift: giftSlot,
     },
-    deck: { columns: Number(/^repeat\((\d+),/.exec(deckColumns)?.[1] ?? 1), gap: px(deckStyle.columnGap), rowGap: px(deckStyle.rowGap), declared: deckColumns },
+    deck: { columns: deckColumnCount, gap: px(deckStyle.columnGap), rowGap: px(deckStyle.rowGap), declared: deckColumns },
     compare: compare && compareInner && compareTitle ? { paddingTop: Math.max(px(style(compare).marginTop), px(style(compareInner).marginTop)) } : null,
   };
   const deckBottom = deck.rect.y + deck.rect.height;
@@ -440,8 +498,7 @@ const cardSpecs = cardRoots.map((root) => {
     minHeightDeclared: declaredValue(root, "min-height", /^\d+px$/, where),
     radius: px(rootStyle.borderTopLeftRadius),
     background: color(rootStyle.backgroundColor),
-    effects: shadows(rootStyle.boxShadow),
-    outline: outline(rootStyle),
+    ...ringOrOutline(rootStyle),
     ...structure,
   };
 });
@@ -457,21 +514,13 @@ const cardSpecs = cardRoots.map((root) => {
   const tallest = natural.indexOf(Math.max(...natural));
   for (const [index, spec] of cardSpecs.entries()) spec.deckHeight = index === tallest ? "HUG" : "FILL";
 }
-// 현재 플랜 카드의 2px 아웃라인. 제품이 폐지된 accent-ultra 램프를 떠나 `--primary-200`
-// (= LOUIS blue-200, rgb 163 213 255)으로, 알파도 LOUIS 16단 스케일에 맞춰 42% → 40% 로
-// 스냅했다. 값이 바뀐 것은 제품 쪽 결정이므로 여기서는 실측을 따라간다.
-// 근거 인용은 아래 currentPlanOutlineSource 가 같은 커밋의 소스 줄로 다시 확인한다.
-const expectedCurrentPlanOutline = {
-  width: 2, // 선언: apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx:242
-  style: "solid",
-  color: [163 / 255, 213 / 255, 255 / 255, 0.4],
-  offset: -2,
-  figmaMapping: "2px INSIDE stroke",
-};
-if (
-  JSON.stringify(cardSpecs[0].outline) !== JSON.stringify(expectedCurrentPlanOutline) ||
-  cardSpecs.slice(1).some((entry) => entry.outline !== null)
-) fail("desktop current-plan outline drift");
+// 현재 플랜 카드의 2px 링(위 `ringOrOutline`). 2026-10-15 전까지는 `--primary-200` 40% 아웃라인(-2px 오프셋)이었고, 운영 main 97d4950e
+// 에서 LOUIS 레시피의 `accent-primary` 안쪽 링이 됐다(`9810c944`). 색은 아래 색 역할 `accentPrimary` 가 라이브 변수와 맞대 본다.
+const expectedCurrentPlanRing = (entry) =>
+  entry?.width === 2 && entry.style === "solid" && entry.offset === -2 && entry.figmaMapping === "2px INSIDE stroke";
+if (!expectedCurrentPlanRing(cardSpecs[0].outline) || cardSpecs[0].effects.length || cardSpecs.slice(1).some((entry) => entry.outline !== null)) {
+  fail("desktop current-plan ring drift");
+}
 
 const mobile = upgradeLayout(mobileScreen.tree, `${mobileContext} ${route}`);
 const mobileMain = mobile.rects.section;
@@ -532,8 +581,7 @@ const mobileCardSpecs = mobileCardRoots.map((root) => {
     minHeightDeclared: declaredValue(root, "min-height", /^auto$/, where),
     radius: px(rootStyle.borderTopLeftRadius),
     background: color(rootStyle.backgroundColor),
-    effects: shadows(rootStyle.boxShadow),
-    outline: outline(rootStyle),
+    ...ringOrOutline(rootStyle),
     ...structure,
     actionMeasured: Boolean(structure.action),
   };
@@ -542,7 +590,7 @@ if (
   // 두 번째 카드가 Basic → **Lite** 다. 개명이 아니라 **새 티어가 2번 자리에 끼어든 것**이다
   // — 옛 Basic 은 Plus 로 이름이 바뀌어 3번으로 밀렸고, 모바일 뷰포트에는 안 잡힌다(58a85b13).
   mobileCardSpecs.map((entry) => entry.plan).join(",") !== "Trial,Lite" ||
-  JSON.stringify(mobileCardSpecs[0].outline) !== JSON.stringify(expectedCurrentPlanOutline) ||
+  !expectedCurrentPlanRing(mobileCardSpecs[0].outline) || mobileCardSpecs[0].effects.length ||
   mobileCardSpecs[1].outline !== null
 ) fail("mobile upgrade card visible-slice drift");
 
@@ -551,16 +599,23 @@ if (
 // page.tsx 에 남기고 783줄을 새 파일로 뽑았다(`git log --diff-filter=A` 로 이 파일의 추가
 // 커밋이 bdd47792 하나임을 확인했다). 남은 page.tsx 는 getPlanPricing() 을 부르는 17줄이다.
 const upgradeSourcePath = "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx";
-// 좌표는 내용으로 다시 찾았다 — 두 문자열 모두 이 파일에서 유일하고 `TIER_CARD_CURRENT`
-// 안에서 서로 붙어 있다. 파일이 바뀌었을 뿐 문자열은 한 글자도 안 움직였다.
-const currentPlanOutlineSource = [
-  sourceQuote(upgradeSourcePath, 242, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",'),
-  sourceQuote(upgradeSourcePath, 243, '  "[outline-offset:-2px]",'),
+// 2026-10-15(운영 main 97d4950e, DS-D-0117): 카드 · 덱이 LOUIS 레시피(`packages/css/src/component/plan-tier-card.css`, 제품 핀
+// `ac5beeb6` 과 이 저장소 판이 같은 파일)로 옮겨 가 옛 지역 선언 줄(`TIER_CARD_CURRENT` 의 outline 두 줄 · 덱 `repeat(5,…)` · `min-h-[560px]`)이
+// 제품에서 사라졌다. 근거는 소비처의 클래스 줄과 레시피의 선언 줄 짝으로 옮긴다.
+const currentPlanRingSource = [
+  sourceQuote(upgradeSourcePath, 618, '                    data-current={isCurrentPlan ? "true" : undefined}'),
+  recipeQuote.ds(PLAN_TIER_CSS, 53, '.louis-plan-tier-card[data-current="true"] {'),
+  recipeQuote.ds(PLAN_TIER_CSS, 54, "  box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-accent-primary);"),
 ];
 // 덱 · 카드 크기 축의 선언 원문 — 측정 원장의 `declared` 칸과 같은 뜻을 소스 줄로 한 번 더 못박는다.
 const deckSource = [
-  sourceQuote(upgradeSourcePath, 212, '  "grid [grid-template-columns:repeat(5,minmax(0,1fr))] gap-2 items-stretch",'),
-  sourceQuote(upgradeSourcePath, 220, '  "min-h-[560px] [@media(max-width:788px)]:[min-height:auto]",'),
+  sourceQuote(upgradeSourcePath, 603, "            <div className={PRICING_DECK}>"),
+  sourceQuote("apps/web/components/landing/sections/PricingSection.tsx", 110, '  "louis-plan-tier-deck [@media(max-width:559px)]:[--louis-plan-tier-deck-columns:1]";'),
+  recipeQuote.ds(PLAN_TIER_CSS, 17, "  --louis-plan-tier-deck-columns: 5;"),
+  recipeQuote.ds(PLAN_TIER_CSS, 21, "  grid-template-columns: repeat(var(--louis-plan-tier-deck-columns), minmax(0, 1fr));"),
+  recipeQuote.ds(PLAN_TIER_CSS, 41, "  min-block-size: 560px;"),
+  recipeQuote.ds(PLAN_TIER_CSS, 282, "    min-block-size: auto;"),
+  ...ctaAutoSource,
 ];
 // **간격 · 패딩은 값이 같은 `Klipse Primitive/spacing/<n>` 에 묶는다** — 이름과 값을 되읽기(`figma/readback.json`)에서
 // 확인한다(공용 헬퍼 `liveVariables`). 토큰이 없는 값(뷰포트 계산값 · 제품 지역 여백)은 숫자로 둔다 — 렌더러는 계획에
@@ -605,9 +660,9 @@ const plan = {
     stillMeasuredNotDesigned: "면 rgb(221,222,224) 는 실측값 그대로 옮긴 것이다. 제품 소스 주석은 이 자리를 「라이트 #f1f1f3」로 적고 있어 값이 어긋나 있는데, 그 차이의 원인은 이 생성기가 확인하지 않았다 — 지어내지 않고 실측만 적는다.",
   },
   productCommit: fixture.productCommit,
-  currentPlanOutlineSource: {
-    lines: currentPlanOutlineSource,
-    figmaMapping: "The measured 2px solid outline with -2px offset is represented losslessly as a 2px INSIDE stroke. No live Figma variable resolves to primary-200 at 40%, so the stroke is the unbound colour role primary200Alpha40 (colorEvidence) and the runner reports it in unboundColors.",
+  currentPlanRingSource: {
+    lines: currentPlanRingSource,
+    figmaMapping: "The measured current-plan mark is a 2px inset box-shadow ring (LOUIS plan-tier-card data-current) with no offset or blur, represented losslessly as a 2px INSIDE stroke bound to the live colour role accentPrimary (colorEvidence). The ring replaces the hairline, so the current card carries no shadow effect.",
   },
   figmaGlyphMeasurements,
   contexts: [context, mobileContext],
@@ -686,49 +741,49 @@ const plan = {
   const PRICING = "apps/web/components/landing/sections/PricingSection.tsx";
   const GLOBALS = "apps/web/app/globals.css";
   const BUTTON = "packages/css/src/component/button.css";
+  const PLAN_COMPARISON_CSS = "packages/css/src/component/plan-comparison.css";
   const roles = live.colorRoles({
     theme: "light",
     where: "upgrade-scene",
     roles: {
-      appPageBg: { name: "color/bg-canvas", declared: [quote.product(PAGE, 69, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 804, "  --app-page-bg: var(--louis-color-bg-canvas);")] },
-      appPageBgNarrow: { name: "color/bg-surface", declared: [quote.product(PAGE, 69, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 966, "    --app-page-bg: var(--louis-color-bg-surface);")] },
-      appMainCardBg: { name: "color/bg-surface", declared: [quote.product(PAGE, 111, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 805, "  --app-main-card-bg: var(--louis-color-bg-surface);")] },
+      // 2026-10-15(운영 main 97d4950e): 줄 번호를 새 앵커로 옮기고(globals.css +33 · +34, 이 화면 +4 · −134), 카드 · 비교표 칠은
+      // LOUIS plan-tier-card · plan-comparison 레시피의 역할(fg 계단 셋 · accent-primary 링 · 기능 아이콘 토큰)로 바꿨다(`9810c944`).
+      appPageBg: { name: "color/bg-canvas", declared: [quote.product(PAGE, 73, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 837, "  --app-page-bg: var(--louis-color-bg-canvas);")] },
+      appPageBgNarrow: { name: "color/bg-surface", declared: [quote.product(PAGE, 73, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1000, "    --app-page-bg: var(--louis-color-bg-surface);")] },
+      appMainCardBg: { name: "color/bg-surface", declared: [quote.product(PAGE, 115, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 838, "  --app-main-card-bg: var(--louis-color-bg-surface);")] },
       gray000: {
         name: "color/gray/000",
-        declared: [quote.product(PRICING, 98, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";'), quote.product(PRICING, 331, '  "m-0 mb-16 type-heading-36-semibold text-gray-000 text-center";')],
+        declared: [quote.product(PRICING, 100, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";')],
       },
       gray000Alpha72: {
         name: "color/gray/000-alpha/72",
-        declared: [quote.product(PAGE, 178, '  "text-[rgb(var(--gray-000-rgb)/72%)]!",')],
+        declared: [quote.product(PAGE, 182, '  "text-[rgb(var(--gray-000-rgb)/72%)]!",')],
       },
-      bgRaised: { name: "color/bg-raised", declared: [quote.product(PAGE, 233, '  "bg-[var(--louis-color-bg-raised)]",')] },
-      gray200: { name: "color/gray/200", declared: [quote.product(PAGE, 223, '  "flex flex-col text-gray-200 overflow-hidden",')] },
-      gray300: {
-        name: "color/gray/300",
-        declared: [quote.product(PAGE, 278, '  "mt-2 flex w-full pb-12 items-end gap-4 text-gray-300",'), quote.product(PAGE, 289, 'const TIER_INCLUDES = "[margin:12px_0_0] p-0 block text-gray-300";'),
-          quote.product(PAGE, 295, '  "[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300",')],
+      bgRaised: { name: "color/bg-raised", declared: [quote.product(PAGE, 209, 'const TIER_CARD = "louis-plan-tier-card overflow-hidden";'), quote.ds(PLAN_TIER_CSS, 46, "  background: var(--louis-color-bg-raised);")] },
+      fgPrimary: {
+        name: "color/fg-primary",
+        declared: [quote.ds(PLAN_TIER_CSS, 48, "  color: var(--louis-color-fg-primary);"), quote.product(PRICING, 241, '      <h3 className="louis-plan-comparison__title" id={titleId}>'),
+          quote.ds(PLAN_COMPARISON_CSS, 36, "  color: var(--louis-color-fg-primary);")],
       },
-      gray300Alpha88: {
-        unbound: true, mix: { name: "color/gray/300", alpha: 0.88 },
-        declared: [quote.product(PAGE, 274, '  "[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2",')],
-        reason: "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint.",
+      fgSecondary: {
+        name: "color/fg-secondary",
+        declared: [quote.ds(PLAN_TIER_CSS, 143, "  color: var(--louis-color-fg-secondary);"), quote.ds(PLAN_TIER_CSS, 159, "  color: var(--louis-color-fg-secondary);"),
+          quote.ds(PLAN_TIER_CSS, 183, "  color: var(--louis-color-fg-secondary);")],
       },
-      green500: {
-        collection: "Klipse Primitive", name: "color/green/500",
-        // 기능 체크 아이콘은 이 화면이 `PricingSection.tsx` 의 `TIER_FEATURE_ICON` 상수를 가져다 쓴다(제품 `a8f1d86e4` — 두 벌이던
-        // `block w-9 h-9 mt-2 bg-accent-green-500` 을 한 상수로 모았다). 칠은 그 상수의 `bg-accent-green-500` 이다.
-        declared: [quote.product(PAGE, 809, "                              className={TIER_FEATURE_ICON}"), quote.product(PRICING, 223, '  "bg-accent-green-500",')],
+      fgTertiary: {
+        name: "color/fg-tertiary",
+        declared: [quote.product(PAGE, 658, '                        <span className="louis-plan-tier-card__period">{tier.period}</span>'), quote.ds(PLAN_TIER_CSS, 127, "  color: var(--louis-color-fg-tertiary);")],
       },
-      primary200Alpha40: {
-        unbound: true, mix: { collection: "Klipse Primitive", name: "color/blue/200", alpha: 0.4 },
-        declared: [quote.product(PAGE, 242, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",')],
-        reason: "The current-plan outline is rgb(var(--primary-200-rgb) / 40%). The live file has no blue alpha ramp and no variable resolves to blue-200 at 40%, so the stroke keeps the measured colour as a fixed paint.",
+      planTierFeatureIcon: {
+        name: "color/plan-tier-card-feature-icon",
+        declared: [quote.product(PAGE, 684, "                            <PlanTierFeatureIcon />"), quote.ds(PLAN_TIER_CSS, 198, "  color: var(--louis-color-plan-tier-card-feature-icon);")],
       },
-      accentInverse: { name: "color/accent-inverse", declared: [quote.product(PAGE, 874, '                      variant="inverse"'), quote.ds(BUTTON, 203, "  background: var(--louis-color-accent-inverse);")] },
+      accentPrimary: { name: "color/accent-primary", declared: currentPlanRingSource },
+      accentInverse: { name: "color/accent-inverse", declared: [quote.product(PAGE, 748, '                      variant="inverse"'), quote.ds(BUTTON, 203, "  background: var(--louis-color-accent-inverse);")] },
       fgOnAccentInverse: { name: "color/fg-on-accent-inverse", declared: [quote.ds(BUTTON, 204, "  color: var(--louis-color-fg-on-accent-inverse);")] },
-      bgInset: { name: "color/bg-inset", declared: [quote.product(PAGE, 882, "                      disabled={"), quote.ds(BUTTON, 366, "  background: var(--louis-color-bg-inset);")] },
+      bgInset: { name: "color/bg-inset", declared: [quote.product(PAGE, 756, "                      disabled={"), quote.ds(BUTTON, 366, "  background: var(--louis-color-bg-inset);")] },
       fgDisabled: { name: "color/fg-disabled", declared: [quote.ds(BUTTON, 349, "  color: var(--louis-color-fg-disabled);")] },
-      accentSecondary: { name: "color/accent-secondary", declared: [quote.product(PAGE, 722, '                  variant="secondary"'), quote.ds(BUTTON, 211, "  background: var(--louis-color-accent-secondary);")] },
+      accentSecondary: { name: "color/accent-secondary", declared: [quote.product(PAGE, 588, '                  variant="secondary"'), quote.ds(BUTTON, 211, "  background: var(--louis-color-accent-secondary);")] },
       accentSecondaryForeground: { name: "color/accent-secondary-foreground", declared: [quote.ds(BUTTON, 215, "  color: var(--louis-color-accent-secondary-foreground);")] },
       boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
       docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },
@@ -739,12 +794,12 @@ const plan = {
   for (const card of [...C.cards, ...C.mobile.cards]) {
     const where = `${card.plan} ${card.viewport ?? "Desktop"}`;
     card.paint = roles.paintFor(["bgRaised"], card.background, `${where} card`);
-    if (card.outline) card.outline.paint = roles.paintFor(["primary200Alpha40"], card.outline.color, `${where} outline`);
+    if (card.outline) card.outline.paint = roles.paintFor(["accentPrimary"], card.outline.color, `${where} current-plan ring`);
     for (const section of card.sections) {
-      for (const text of section.texts ?? []) text.paint = roles.paintFor(["gray200", "gray300", "gray300Alpha88"], text.color, `${where} ${section.kind} ${text.text}`);
+      for (const text of section.texts ?? []) text.paint = roles.paintFor(["fgPrimary", "fgSecondary", "fgTertiary"], text.color, `${where} ${section.kind} ${text.text}`);
       for (const item of section.items ?? []) {
-        if (item.icon) item.icon.paint = roles.paintFor(["green500"], item.icon.color, `${where} feature check`);
-        item.text.paint = roles.paintFor(["gray300", "gray200"], item.text.color, `${where} feature ${item.text.text}`);
+        if (item.icon) item.icon.paint = roles.paintFor(["planTierFeatureIcon"], item.icon.color, `${where} feature check`);
+        item.text.paint = roles.paintFor(["fgSecondary", "fgPrimary"], item.text.color, `${where} feature ${item.text.text}`);
       }
     }
     if (card.action) {
@@ -757,7 +812,7 @@ const plan = {
     surface.main.paint = roles.paintFor(["appMainCardBg"], surface.main.background, `${name} main`);
     surface.main.headerTitle.paint = roles.paintFor(["gray000"], surface.main.headerTitle.color, `${name} title`);
     surface.main.headerBody.paint = roles.paintFor(["gray000Alpha72"], surface.main.headerBody.color, `${name} body`);
-    if (surface.main.compareTitle) surface.main.compareTitle.paint = roles.paintFor(["gray000"], surface.main.compareTitle.color, `${name} compare title`);
+    if (surface.main.compareTitle) surface.main.compareTitle.paint = roles.paintFor(["fgPrimary", "gray000"], surface.main.compareTitle.color, `${name} compare title`);
     const gift = surface.main.layout.header.gift;
     if (gift) {
       gift.button.fillPaint = roles.paintFor(["accentSecondary"], gift.button.fill, `${name} gift button`);
@@ -844,7 +899,7 @@ const runnerPlan = stripAnnotations(plan);
   for (const entry of Object.values(runnerPlan.component.bindings.unbound ?? {})) delete entry.reason;
   for (const surface of [runnerPlan.component, runnerPlan.component.mobile]) delete surface.page.background;
   delete runnerPlan.component.deckSource;
-  delete runnerPlan.currentPlanOutlineSource;
+  delete runnerPlan.currentPlanRingSource;
   delete runnerPlan.figmaGlyphMeasurements;
 }
 const readableDraw =

@@ -251,8 +251,7 @@
       "generator": "scripts/build-figma-app-screens.mjs",
       "runners": [
         "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
-        "figma/app-screens.videoeditor--projectId-.desktop.01.draw.js",
-        "figma/app-screens.videoeditor--projectId-.desktop.02.draw.js"
+        "figma/app-screens.videoeditor--projectId-.desktop.01.draw.js"
       ]
     }
   },

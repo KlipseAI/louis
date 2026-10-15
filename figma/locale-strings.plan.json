@@ -19,6 +19,8 @@
     "public-seeded.ko": "migration/product-locale/public-seeded.ko.json",
     "public.ja": "migration/product-locale/public.ja.json",
     "public.ko": "migration/product-locale/public.ko.json",
+    "session-deck.ja": "migration/product-locale/session-deck.ja.json",
+    "session-deck.ko": "migration/product-locale/session-deck.ko.json",
     "session.ja": "migration/product-locale/session.ja.json",
     "session.ko": "migration/product-locale/session.ko.json"
   },
@@ -26,8 +28,8 @@
     "source": "apps/web/components/landing/system/messages",
     "commit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
     "keys": 5256,
-    "i18n": 384,
-    "measured": 1023,
+    "i18n": 495,
+    "measured": 1058,
     "disagreements": [
       {
         "key": "subscription.upgradeSuccess.order",
@@ -183,6 +185,18 @@
         "dictionary": {
           "ko": "팀이나 기업 단위로 쓰려면 어떻게 하나요?",
           "ja": null
+        }
+      },
+      {
+        "key": "planComparison.categories.1.rows.0.values.2",
+        "en": "30 min",
+        "measured": {
+          "ko": "30분",
+          "ja": "30 min"
+        },
+        "dictionary": {
+          "ko": "30분",
+          "ja": "30分"
         }
       }
     ]
@@ -759,6 +773,16 @@
       "labels": 1
     },
     {
+      "key": "/ambassador @ desktop-1920x1080",
+      "texts": 107,
+      "labels": 5
+    },
+    {
+      "key": "/ambassador @ mobile-402x874",
+      "texts": 102,
+      "labels": 4
+    },
+    {
       "key": "/blog/[slug] @ desktop-1920x1080",
       "texts": 21,
       "labels": 0
@@ -796,6 +820,36 @@
     {
       "key": "/models/[slug] @ mobile-402x874",
       "texts": 44,
+      "labels": 2
+    },
+    {
+      "key": "/deck @ desktop-1920x1080",
+      "texts": 19,
+      "labels": 0
+    },
+    {
+      "key": "/deck @ mobile-402x874",
+      "texts": 19,
+      "labels": 0
+    },
+    {
+      "key": "/deck/c/[course] @ desktop-1920x1080",
+      "texts": 12,
+      "labels": 0
+    },
+    {
+      "key": "/deck/c/[course] @ mobile-402x874",
+      "texts": 12,
+      "labels": 0
+    },
+    {
+      "key": "/deck/manage @ desktop-1920x1080",
+      "texts": 18,
+      "labels": 2
+    },
+    {
+      "key": "/deck/manage @ mobile-402x874",
+      "texts": 18,
       "labels": 2
     },
     {
@@ -1005,11 +1059,11 @@
     }
   ],
   "stats": {
-    "boundTexts": 2365,
-    "boundLabels": 140,
-    "boundVisible": 47,
-    "literalSameAcrossLocales": 748,
-    "variables": 1407,
+    "boundTexts": 2606,
+    "boundLabels": 153,
+    "boundVisible": 87,
+    "literalSameAcrossLocales": 814,
+    "variables": 1553,
     "presenceVariables": 2
   },
   "variables": [
@@ -1100,6 +1154,149 @@
         "ja": "If it measures differently, the print scale is not 100%."
       },
       "uses": 1
+    },
+    {
+      "id": "faf59c31377d",
+      "name": "i18n/admin/deck/activate",
+      "type": "STRING",
+      "values": {
+        "en": "Make current",
+        "ko": "현재로",
+        "ja": "Make current"
+      },
+      "uses": 2
+    },
+    {
+      "id": "2444f816f894",
+      "name": "i18n/admin/deck/description/0",
+      "type": "STRING",
+      "values": {
+        "en": "Review deck releases uploaded from the kit (klipse-deck-kit) and open them to everyone.",
+        "ko": "키트(klipse-deck-kit)에서 올린 교안 판을 확인하고 모두에게 엽니다.",
+        "ja": "Review deck releases uploaded from the kit (klipse-deck-kit) and open them to everyone."
+      },
+      "uses": 1
+    },
+    {
+      "id": "ba857147fe45",
+      "name": "i18n/admin/deck/description/0~ba857147",
+      "type": "STRING",
+      "values": {
+        "en": "Review deck releases uploaded from the kit (klipse-deck-\nkit) and open them to everyone.",
+        "ko": "키트(klipse-deck-kit)에서 올린 교안 판을 확인하고 모두에게\n엽니다.",
+        "ja": "Review deck releases uploaded from the kit (klipse-deck-\nkit) and open them to everyone."
+      },
+      "uses": 1
+    },
+    {
+      "id": "1dc18026a3db",
+      "name": "i18n/admin/deck/description/1",
+      "type": "STRING",
+      "values": {
+        "en": "Only super admins can open this page and the presenter version with notes.",
+        "ko": "최고 관리자만 이 화면과 노트가 든 발표자 판을 봅니다.",
+        "ja": "Only super admins can open this page and the presenter version with notes."
+      },
+      "uses": 1
+    },
+    {
+      "id": "0113e761a9f9",
+      "name": "i18n/admin/deck/description/1~0113e761",
+      "type": "STRING",
+      "values": {
+        "en": "Only super admins can open this page and the presenter\nversion with notes.",
+        "ko": "최고 관리자만 이 화면과 노트가 든 발표자 판을 봅니다.",
+        "ja": "Only super admins can open this page and the presenter\nversion with notes."
+      },
+      "uses": 1
+    },
+    {
+      "id": "42f7e14fb6f8",
+      "name": "i18n/admin/deck/preview",
+      "type": "STRING",
+      "values": {
+        "en": "Open preview",
+        "ko": "미리보기 열기",
+        "ja": "Open preview"
+      },
+      "uses": 4
+    },
+    {
+      "id": "a741f1a9276c",
+      "name": "i18n/admin/deck/releases",
+      "type": "STRING",
+      "values": {
+        "en": "Releases",
+        "ko": "교안 판",
+        "ja": "Releases"
+      },
+      "uses": 2
+    },
+    {
+      "id": "0d2958346318",
+      "name": "i18n/admin/deck/statusCurrent",
+      "type": "STRING",
+      "values": {
+        "en": "Current",
+        "ko": "현재",
+        "ja": "Current"
+      },
+      "uses": 2
+    },
+    {
+      "id": "c0b94fd27143",
+      "name": "i18n/admin/deck/token",
+      "type": "STRING",
+      "values": {
+        "en": "Upload key",
+        "ko": "업로드 열쇠",
+        "ja": "Upload key"
+      },
+      "uses": 2
+    },
+    {
+      "id": "7eb3932a78a5",
+      "name": "i18n/admin/deck/tokenCreate",
+      "type": "STRING",
+      "values": {
+        "en": "Create key",
+        "ko": "열쇠 만들기",
+        "ja": "Create key"
+      },
+      "uses": 2
+    },
+    {
+      "id": "2995cce5fce8",
+      "name": "i18n/admin/deck/tokenDescription/0",
+      "type": "STRING",
+      "values": {
+        "en": "Paste this key once when you publish from the kit.",
+        "ko": "키트에서 교안을 올릴 때 한 번 붙여 넣는 열쇠입니다.",
+        "ja": "Paste this key once when you publish from the kit."
+      },
+      "uses": 2
+    },
+    {
+      "id": "6efc47acab16",
+      "name": "i18n/admin/deck/tokenDescription/1",
+      "type": "STRING",
+      "values": {
+        "en": "It expires in an hour and ends after one release.",
+        "ko": "1시간 뒤 만료되고, 교안 판을 하나 만들면 끝납니다.",
+        "ja": "It expires in an hour and ends after one release."
+      },
+      "uses": 2
+    },
+    {
+      "id": "ed8693033006",
+      "name": "i18n/admin/deck/tokenDescription/2",
+      "type": "STRING",
+      "values": {
+        "en": "The key is not stored, so it cannot be shown again.",
+        "ko": "저장하지 않는 열쇠라 만든 뒤에는 다시 볼 수 없습니다.",
+        "ja": "The key is not stored, so it cannot be shown again."
+      },
+      "uses": 2
     },
     {
       "id": "22a8909b4275",
@@ -1254,6 +1451,1018 @@
         "ja": "Joined"
       },
       "uses": 1
+    },
+    {
+      "id": "b5e76abd3335",
+      "name": "i18n/ambassador/collab/labels/fit",
+      "type": "STRING",
+      "values": {
+        "en": "Who should apply",
+        "ko": "모집 대상",
+        "ja": "募集対象"
+      },
+      "uses": 2
+    },
+    {
+      "id": "7467bcdb6480",
+      "name": "i18n/ambassador/collab/labels/fit~7467bcdb",
+      "type": "STRING",
+      "values": {
+        "en": "Who should\napply",
+        "ko": "모집 대상",
+        "ja": "募集対象"
+      },
+      "uses": 2
+    },
+    {
+      "id": "80765437d6ce",
+      "name": "i18n/ambassador/collab/types/0/cases/0",
+      "type": "STRING",
+      "values": {
+        "en": "You regularly make AI image and video content",
+        "ko": "AI 이미지와 영상 콘텐츠를 정기적으로 제작",
+        "ja": "AIの画像や動画コンテンツを定期的に制作している"
+      },
+      "uses": 2
+    },
+    {
+      "id": "2775df6ca395",
+      "name": "i18n/ambassador/collab/types/0/cases/1",
+      "type": "STRING",
+      "values": {
+        "en": "You share prompts or how you make things",
+        "ko": "프롬프트나 제작 방법을 공유",
+        "ja": "プロンプトや制作方法を共有している"
+      },
+      "uses": 2
+    },
+    {
+      "id": "12ece6b8630b",
+      "name": "i18n/ambassador/collab/types/0/cases/2",
+      "type": "STRING",
+      "values": {
+        "en": "You keep a main channel such as Instagram or YouTube going",
+        "ko": "Instagram, YouTube 등 주력 채널을 꾸준히 운영",
+        "ja": "InstagramやYouTubeなどのメインチャンネルを継続して運営している"
+      },
+      "uses": 1
+    },
+    {
+      "id": "2531520201e2",
+      "name": "i18n/ambassador/collab/types/0/cases/2~25315202",
+      "type": "STRING",
+      "values": {
+        "en": "You keep a main channel such\nas Instagram or YouTube going",
+        "ko": "Instagram, YouTube 등 주력 채널을 꾸준히 운영",
+        "ja": "InstagramやYouTubeなどのメインチャンネルを継続して運営している"
+      },
+      "uses": 1
+    },
+    {
+      "id": "93a98a671353",
+      "name": "i18n/ambassador/collab/types/0/cta",
+      "type": "STRING",
+      "values": {
+        "en": "Apply as a regular creator",
+        "ko": "정기 콘텐츠형으로 지원하기",
+        "ja": "定期コンテンツ型で応募する"
+      },
+      "uses": 2
+    },
+    {
+      "id": "c8279962192c",
+      "name": "i18n/ambassador/collab/types/0/operations/0",
+      "type": "STRING",
+      "values": {
+        "en": "At least 5 days between pieces",
+        "ko": "콘텐츠 간 최소 5일 이상 간격",
+        "ja": "コンテンツの間隔は5日以上"
+      },
+      "uses": 2
+    },
+    {
+      "id": "78234be5472e",
+      "name": "i18n/ambassador/collab/types/0/operations/1",
+      "type": "STRING",
+      "values": {
+        "en": "Klipse used within your existing production process",
+        "ko": "기존 콘텐츠 제작 과정에서 Klipse 활용",
+        "ja": "いつもの制作の中でKlipseを活用"
+      },
+      "uses": 2
+    },
+    {
+      "id": "52c105fc17c9",
+      "name": "i18n/ambassador/collab/types/0/operations/2",
+      "type": "STRING",
+      "values": {
+        "en": "A personal referral link",
+        "ko": "개인 전용 링크 적용",
+        "ja": "専用リンクを適用"
+      },
+      "uses": 2
+    },
+    {
+      "id": "5304d228ee2f",
+      "name": "i18n/ambassador/collab/types/0/operations/3",
+      "type": "STRING",
+      "values": {
+        "en": "Results and product feedback shared at month end",
+        "ko": "월말 콘텐츠 성과와 사용 피드백 공유",
+        "ja": "月末にコンテンツの成果と使用フィードバックを共有"
+      },
+      "uses": 1
+    },
+    {
+      "id": "6f54ede47521",
+      "name": "i18n/ambassador/collab/types/0/operations/3~6f54ede4",
+      "type": "STRING",
+      "values": {
+        "en": "Results and product feedback\nshared at month end",
+        "ko": "월말 콘텐츠 성과와 사용 피드백 공유",
+        "ja": "月末にコンテンツの成果と使用フィードバックを共有"
+      },
+      "uses": 1
+    },
+    {
+      "id": "5b2e10e2a2ee",
+      "name": "i18n/ambassador/collab/types/0/support",
+      "type": "STRING",
+      "values": {
+        "en": "Klipse plan and credits based on your content type and production scale",
+        "ko": "콘텐츠 유형과 제작 규모에 따라 Klipse 플랜과 크레딧 지원",
+        "ja": "コンテンツの種類と制作規模に合わせてKlipseのプランとクレジットを支援"
+      },
+      "uses": 1
+    },
+    {
+      "id": "143bf20fd620",
+      "name": "i18n/ambassador/collab/types/0/support~143bf20f",
+      "type": "STRING",
+      "values": {
+        "en": "Klipse plan and credits based on your\ncontent type and production scale",
+        "ko": "콘텐츠 유형과 제작 규모에 따라\nKlipse 플랜과 크레딧 지원",
+        "ja": "コンテンツの種類と制作規模に合わせてKlipseのプラ\nンとクレジットを支援"
+      },
+      "uses": 1
+    },
+    {
+      "id": "a73514bb1835",
+      "name": "i18n/ambassador/collab/types/0/term",
+      "type": "STRING",
+      "values": {
+        "en": "About 3 months as standard\nThen a long-term partnership, depending on results",
+        "ko": "기본 약 3개월\n이후 활동 결과에 따라 장기 협업 협의",
+        "ja": "基本は約3か月\nその後は成果に応じて長期のコラボを相談"
+      },
+      "uses": 1
+    },
+    {
+      "id": "b2f96081dfc1",
+      "name": "i18n/ambassador/collab/types/0/term~b2f96081",
+      "type": "STRING",
+      "values": {
+        "en": "About 3 months as standard\nThen a long-term partnership, depending on\nresults",
+        "ko": "기본 약 3개월\n이후 활동 결과에 따라 장기 협업 협의",
+        "ja": "基本は約3か月\nその後は成果に応じて長期のコラボを相談"
+      },
+      "uses": 1
+    },
+    {
+      "id": "4dfe3921ba54",
+      "name": "i18n/ambassador/collab/types/0/unit",
+      "type": "STRING",
+      "values": {
+        "en": "Monthly",
+        "ko": "월 단위",
+        "ja": "月単位"
+      },
+      "uses": 2
+    },
+    {
+      "id": "ebedfb52868c",
+      "name": "i18n/ambassador/collab/types/1/cases/0",
+      "type": "STRING",
+      "values": {
+        "en": "One piece takes a relatively long time to make",
+        "ko": "하나의 콘텐츠 제작 기간이 비교적 긴 경우",
+        "ja": "ひとつのコンテンツの制作期間が比較的長い"
+      },
+      "uses": 2
+    },
+    {
+      "id": "325c7f8c7990",
+      "name": "i18n/ambassador/collab/types/1/cases/1",
+      "type": "STRING",
+      "values": {
+        "en": "You have experience making high-quality AI video",
+        "ko": "고퀄리티 AI 영상 제작 경험이 있는 경우",
+        "ja": "高品質なAI映像の制作経験がある"
+      },
+      "uses": 2
+    },
+    {
+      "id": "90fafc967fb1",
+      "name": "i18n/ambassador/collab/types/1/cta",
+      "type": "STRING",
+      "values": {
+        "en": "Apply for a project",
+        "ko": "프로젝트형으로 지원하기",
+        "ja": "プロジェクト型で応募する"
+      },
+      "uses": 2
+    },
+    {
+      "id": "b5a78e2adb91",
+      "name": "i18n/ambassador/collab/types/1/name",
+      "type": "STRING",
+      "values": {
+        "en": "Project-based",
+        "ko": "프로젝트형",
+        "ja": "プロジェクト型"
+      },
+      "uses": 2
+    },
+    {
+      "id": "6f3f8461d95b",
+      "name": "i18n/ambassador/collab/types/1/operations/0",
+      "type": "STRING",
+      "values": {
+        "en": "We look at finish and how you use Klipse more than volume",
+        "ko": "콘텐츠 수량보다 결과물 완성도와 Klipse 활용도를 중심으로 확인",
+        "ja": "本数よりも、作品の完成度とKlipseの活用度を中心に確認"
+      },
+      "uses": 1
+    },
+    {
+      "id": "1a81bc2947df",
+      "name": "i18n/ambassador/collab/types/1/operations/0~1a81bc29",
+      "type": "STRING",
+      "values": {
+        "en": "We look at finish and how you\nuse Klipse more than volume",
+        "ko": "콘텐츠 수량보다 결과물 완성도와\nKlipse 활용도를 중심으로 확인",
+        "ja": "本数よりも、\n作品の完成度とKlipseの活用度を中心に確認"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c6b5c5ced93c",
+      "name": "i18n/ambassador/collab/types/1/operations/1",
+      "type": "STRING",
+      "values": {
+        "en": "Plan and credits set for what the project needs",
+        "ko": "필요한 플랜과 크레딧 별도 설정",
+        "ja": "必要なプランとクレジットを個別に設定"
+      },
+      "uses": 2
+    },
+    {
+      "id": "fa8d0f4c516a",
+      "name": "i18n/ambassador/collab/types/1/operations/2",
+      "type": "STRING",
+      "values": {
+        "en": "Production process and product feedback shared",
+        "ko": "제작 과정과 제품 피드백 공유",
+        "ja": "制作過程とプロダクトへのフィードバックを共有"
+      },
+      "uses": 2
+    },
+    {
+      "id": "ad9e6817f5ae",
+      "name": "i18n/ambassador/collab/types/1/support",
+      "type": "STRING",
+      "values": {
+        "en": "Production period, plan and credits agreed individually by project scale",
+        "ko": "프로젝트 규모에 따라 제작 기간, 플랜, 크레딧 개별 협의",
+        "ja": "プロジェクトの規模に合わせて制作期間、プラン、クレジットを個別に相談"
+      },
+      "uses": 1
+    },
+    {
+      "id": "bbb46f9f42f8",
+      "name": "i18n/ambassador/collab/types/1/support~bbb46f9f",
+      "type": "STRING",
+      "values": {
+        "en": "Production period, plan and credits\nagreed individually by project scale",
+        "ko": "프로젝트 규모에 따라 제작 기간, 플랜, 크레딧 개별 협의",
+        "ja": "プロジェクトの規模に合わせて制作期間、\nプラン、クレジットを個別に相談"
+      },
+      "uses": 1
+    },
+    {
+      "id": "0105eb224936",
+      "name": "i18n/ambassador/collab/types/1/term",
+      "type": "STRING",
+      "values": {
+        "en": "Production period agreed individually",
+        "ko": "제작 기간 개별 협의",
+        "ja": "制作期間は個別に相談"
+      },
+      "uses": 2
+    },
+    {
+      "id": "0f4ec289f96a",
+      "name": "i18n/ambassador/collab/types/1/unit",
+      "type": "STRING",
+      "values": {
+        "en": "Per project",
+        "ko": "프로젝트 단위",
+        "ja": "プロジェクト単位"
+      },
+      "uses": 2
+    },
+    {
+      "id": "afa5e2d0e077",
+      "name": "i18n/ambassador/criteria/items/0/description~afa5e2d0",
+      "type": "STRING",
+      "values": {
+        "en": "Whether your audience shows interest\nin how you make AI content, like\nasking for prompts, tools or methods.",
+        "ko": "프롬프트 요청, 사용 툴 문의, 제작 방법 질문 등\n시청자가 AI 제작 방법에 관심을 보이는지 확인합니다.",
+        "ja": "プロンプトのリクエストや使っているツール、\n制作方法の質問のように、\n視聴者がAIでのつくり方に関心を持っているかを確認しま\nす。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "fabc52ad4a69",
+      "name": "i18n/ambassador/criteria/items/0/description~fabc52ad",
+      "type": "STRING",
+      "values": {
+        "en": "Whether your audience shows interest\nin how you make AI content, like\nasking for prompts, tools or methods.",
+        "ko": "프롬프트 요청, 사용 툴 문의, 제작 방법 질문 등\n시청자가 AI 제작 방법에 관심을 보이는지 확인합니다.",
+        "ja": "プロンプトのリクエストや使っているツール、\n制作方法の質問のように、\n視聴者がAIでのつくり方に関心を持っているかを\n確認します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "041d4fd39d17",
+      "name": "i18n/ambassador/criteria/items/0/title",
+      "type": "STRING",
+      "values": {
+        "en": "Audience interest",
+        "ko": "시청자의 관심",
+        "ja": "視聴者の関心"
+      },
+      "uses": 2
+    },
+    {
+      "id": "e0ced2939bd2",
+      "name": "i18n/ambassador/criteria/items/1/description~e0ced293",
+      "type": "STRING",
+      "values": {
+        "en": "Your experience making AI content, the finish\nof your work, and whether you can keep it up.",
+        "ko": "AI 콘텐츠 제작 경험, 결과물 완성도,\n꾸준한 제작이 가능한지 확인합니다.",
+        "ja": "AIコンテンツの制作経験と作品の完成度、\n継続してつくれるかを確認します。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "7e84c71d4f48",
+      "name": "i18n/ambassador/criteria/items/1/title",
+      "type": "STRING",
+      "values": {
+        "en": "Production skills",
+        "ko": "제작 역량",
+        "ja": "制作力"
+      },
+      "uses": 2
+    },
+    {
+      "id": "e0214a5fe02a",
+      "name": "i18n/ambassador/criteria/items/2/description~e0214a5f",
+      "type": "STRING",
+      "values": {
+        "en": "Whether Klipse fits naturally into your\ncontent, and whether we can build use\ncases and product feedback together.",
+        "ko": "기존 콘텐츠 안에서 Klipse를 자연스럽게\n활용하고, 활용 사례와 제품 피드백을\n함께 만들 수 있는지 확인합니다.",
+        "ja": "いつものコンテンツの中でKlipseを自然に使い、\n活用事例とプロダクトへのフィードバックを一緒\nにつくれるかを確認します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "f02be71db7da",
+      "name": "i18n/ambassador/criteria/items/2/description~f02be71d",
+      "type": "STRING",
+      "values": {
+        "en": "Whether Klipse fits naturally into your\ncontent, and whether we can build use\ncases and product feedback together.",
+        "ko": "기존 콘텐츠 안에서 Klipse를 자연스럽게 활용하고, 활용\n사례와 제품 피드백을 함께 만들 수 있는지 확인합니다.",
+        "ja": "いつものコンテンツの中でKlipseを自然に使い、\n活用事例とプロダクトへのフィードバックを一緒につくれ\nるかを確認します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c6c946eff23c",
+      "name": "i18n/ambassador/criteria/items/2/title",
+      "type": "STRING",
+      "values": {
+        "en": "How you could use Klipse",
+        "ko": "Klipse 활용 가능성",
+        "ja": "Klipseの活用の見込み"
+      },
+      "uses": 2
+    },
+    {
+      "id": "f64b07dc0cbb",
+      "name": "i18n/ambassador/criteria/lines/0",
+      "type": "STRING",
+      "values": {
+        "en": "We don't judge by follower count alone.",
+        "ko": "팔로워 수만으로 판단하지 않습니다.",
+        "ja": "フォロワー数だけでは判断しません。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "912787d2e7a0",
+      "name": "i18n/ambassador/criteria/lines/0~912787d2",
+      "type": "STRING",
+      "values": {
+        "en": "We don't judge by\nfollower count alone.",
+        "ko": "팔로워 수만으로 판단하지 않습니다.",
+        "ja": "フォロワー数だけでは判断しません。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "65d7ab1a3319",
+      "name": "i18n/ambassador/criteria/lines/1~65d7ab1a",
+      "type": "STRING",
+      "values": {
+        "en": "We look at audience interest, your production\nskills and how you could use Klipse.",
+        "ko": "시청자의 관심, 제작 역량, Klipse 활용 가능성을 함께 검토합니다.",
+        "ja": "視聴者の関心、制作力、Klipseの活用の見込みをあわせて審査します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "aad90b68d889",
+      "name": "i18n/ambassador/criteria/lines/1~aad90b68",
+      "type": "STRING",
+      "values": {
+        "en": "We look at audience interest, your production\nskills and how you could use Klipse.",
+        "ko": "시청자의 관심, 제작 역량, Klipse 활용 가능성을 함께 검토합니다.",
+        "ja": "視聴者の関心、制作力、\nKlipseの活用の見込みをあわせて審査します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "44485bed7d2c",
+      "name": "i18n/ambassador/faq/items/0/a~44485bed",
+      "type": "STRING",
+      "values": {
+        "en": "The Klipse team reviews your application. If you're selected, we email you and settle the terms\ntogether. Once the volume, period, plan and credits are confirmed, you start making content in Klipse.",
+        "ko": "제출된 지원서를 Klipse 팀이 검토합니다. 선정되면 이메일로 연락드리며, 활동 조건을 협의합니다.\n협의한 내용에 따라 콘텐츠 수량, 기간, 플랜, 크레딧을 확정한 뒤 콘텐츠 제작을 시작합니다.",
+        "ja": "提出された応募をKlipseのチームが審査します。選ばれたらメールでご連絡し、活動の条件を一緒に決めます。\n本数、期間、プラン、クレジットを確定したら、Klipseでのコンテンツづくりを始めます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "8c91cb334e06",
+      "name": "i18n/ambassador/faq/items/0/a~8c91cb33",
+      "type": "STRING",
+      "values": {
+        "en": "The Klipse team reviews your application. If you're\nselected, we email you and settle the terms\ntogether. Once the volume, period, plan and credits\nare confirmed, you start making content in Klipse.",
+        "ko": "제출된 지원서를 Klipse 팀이 검토합니다. 선정되면 이메일로\n연락드리며, 활동 조건을 협의합니다. 협의한 내용에 따라 콘텐츠\n수량, 기간, 플랜, 크레딧을 확정한 뒤 콘텐츠 제작을 시작합니다.",
+        "ja": "提出された応募をKlipseのチームが審査します。\n選ばれたらメールでご連絡し、\n活動の条件を一緒に決めます。本数、\n期間、プラン、クレジットを確定したら、\nKlipseでのコンテンツづくりを始めます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "74d069c98687",
+      "name": "i18n/ambassador/faq/items/0/q",
+      "type": "STRING",
+      "values": {
+        "en": "What happens after I apply?",
+        "ko": "지원 후에는 어떻게 진행되나요?",
+        "ja": "応募したあとはどう進みますか？"
+      },
+      "uses": 2
+    },
+    {
+      "id": "085552fb4977",
+      "name": "i18n/ambassador/faq/items/1/a~085552fb",
+      "type": "STRING",
+      "values": {
+        "en": "Regular content is managed month by month.\nExamples are 3–4 Instagram carousels and 1–\n3 Reels a month, or 2–4 YouTube Shorts and 1–3\nlong-form videos a month. Actual volume is agreed\nafter selection, by channel and production scale.",
+        "ko": "정기 콘텐츠형은 콘텐츠 수량을 월 단위로 관리합니다. 활동\n예시는 Instagram 캐러셀 월 3~4건과 릴스 월 1~3건,\nYouTube Shorts 월 2~4건과 롱폼 월 1~3건입니다.\n실제 수량은 선정 후 채널과 제작 규모에 따라 협의합니다.",
+        "ja": "定期コンテンツ型は本数を月単位で管理します。\nInstagramのカルーセル月3〜4件とリール月1〜\n3本、YouTubeのショート月2〜4本と長尺月1〜\n3本が一例です。実際の本数は、\n選考後にチャンネルと制作規模に合わせて相談します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "ef55622b408b",
+      "name": "i18n/ambassador/faq/items/1/a~ef55622b",
+      "type": "STRING",
+      "values": {
+        "en": "Regular content is managed month by month. Examples are 3–4 Instagram carousels and 1–3 Reels a month, or 2–4\nYouTube Shorts and 1–3 long-form videos a month. Actual volume is agreed after selection, by channel and production scale.",
+        "ko": "정기 콘텐츠형은 콘텐츠 수량을 월 단위로 관리합니다. 활동 예시는 Instagram 캐러셀 월 3~4건과 릴스 월 1~3건,\nYouTube Shorts 월 2~4건과 롱폼 월 1~3건입니다. 실제 수량은 선정 후 채널과 제작 규모에 따라 협의합니다.",
+        "ja": "定期コンテンツ型は本数を月単位で管理します。Instagramのカルーセル月3〜4件とリール月1〜3本、YouTubeのショート月2〜\n4本と長尺月1〜3本が一例です。実際の本数は、選考後にチャンネルと制作規模に合わせて相談します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "bfe54afbdd36",
+      "name": "i18n/ambassador/faq/items/1/q",
+      "type": "STRING",
+      "values": {
+        "en": "How much content do I need to make each month?",
+        "ko": "매달 몇 개의 콘텐츠를 만들어야 하나요?",
+        "ja": "毎月何本のコンテンツをつくる必要がありますか？"
+      },
+      "uses": 1
+    },
+    {
+      "id": "ce0c6c645566",
+      "name": "i18n/ambassador/faq/items/1/q~ce0c6c64",
+      "type": "STRING",
+      "values": {
+        "en": "How much content do I\nneed to make each month?",
+        "ko": "매달 몇 개의 콘텐츠를 만들어야 하나요?",
+        "ja": "毎月何本のコンテンツをつくる必要がありますか？"
+      },
+      "uses": 1
+    },
+    {
+      "id": "83c70e017020",
+      "name": "i18n/ambassador/faq/items/2/a~83c70e01",
+      "type": "STRING",
+      "values": {
+        "en": "It depends on your content type and production\nscale. We confirm it after selection, together\nwith volume and period. For projects,\nit's agreed individually by project scale.",
+        "ko": "콘텐츠 유형과 제작 규모에 따라 다릅니다. 선정\n후 콘텐츠 수량, 활동 기간과 함께 확정합니다.\n프로젝트형은 프로젝트 규모에 따라 개별 협의합니다.",
+        "ja": "コンテンツの種類と制作規模によって異なります。\n選考後に本数、期間とあわせて確定します。\nプロジェクト型はプロジェクトの規模に合わせて個別に相談\nします。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c78f4f869dd1",
+      "name": "i18n/ambassador/faq/items/2/a~c78f4f86",
+      "type": "STRING",
+      "values": {
+        "en": "It depends on your content type and production scale. We confirm it after selection,\ntogether with volume and period. For projects, it's agreed individually by project scale.",
+        "ko": "콘텐츠 유형과 제작 규모에 따라 다릅니다. 선정 후 콘텐츠 수량, 활동 기간과\n함께 확정합니다. 프로젝트형은 프로젝트 규모에 따라 개별 협의합니다.",
+        "ja": "コンテンツの種類と制作規模によって異なります。選考後に本数、\n期間とあわせて確定します。プロジェクト型はプロジェクトの規模に合わせて個別に相談します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "007d4f70fc42",
+      "name": "i18n/ambassador/faq/items/2/q",
+      "type": "STRING",
+      "values": {
+        "en": "How much plan and credit support do I get?",
+        "ko": "플랜과 크레딧은 얼마나 지원받나요?",
+        "ja": "プランとクレジットはどのくらい支援されますか？"
+      },
+      "uses": 2
+    },
+    {
+      "id": "a30e909434b2",
+      "name": "i18n/ambassador/faq/items/3/a~a30e9094",
+      "type": "STRING",
+      "values": {
+        "en": "Use on official channels or in ads, and registering\na template, each happen only with your\nseparate consent. Before publishing a template,\nwe agree on the scope of use with you first.",
+        "ko": "공식 채널 게시, 광고 활용, 템플릿 등록은 각각 별도\n동의를 받은 뒤에만 진행합니다. 템플릿으로 공개할\n때는 크리에이터와 활용 범위를 먼저 협의합니다.",
+        "ja": "公式チャンネルや広告での活用、テンプレートへの登録は、\nそれぞれ別に同意をいただいてから進めます。\nテンプレートを公開するときは、\n活用の範囲を先にクリエイターと相談します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "dca65148e868",
+      "name": "i18n/ambassador/faq/items/3/a~dca65148",
+      "type": "STRING",
+      "values": {
+        "en": "Use on official channels or in ads, and registering a template, each happen only with your\nseparate consent. Before publishing a template, we agree on the scope of use with you first.",
+        "ko": "공식 채널 게시, 광고 활용, 템플릿 등록은 각각 별도 동의를 받은 뒤에만\n진행합니다. 템플릿으로 공개할 때는 크리에이터와 활용 범위를 먼저 협의합니다.",
+        "ja": "公式チャンネルや広告での活用、テンプレートへの登録は、それぞれ別に同意をいただいてから進めます。\nテンプレートを公開するときは、活用の範囲を先にクリエイターと相談します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "a2bebb47457a",
+      "name": "i18n/ambassador/faq/items/3/q",
+      "type": "STRING",
+      "values": {
+        "en": "Will my content be used in Klipse ads or as templates?",
+        "ko": "만든 콘텐츠가 Klipse 광고나 템플릿으로 사용되나요?",
+        "ja": "つくったコンテンツはKlipseの広告やテンプレートに使われますか？"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d4b7364e6fc4",
+      "name": "i18n/ambassador/faq/items/3/q~d4b7364e",
+      "type": "STRING",
+      "values": {
+        "en": "Will my content be used in\nKlipse ads or as templates?",
+        "ko": "만든 콘텐츠가 Klipse 광고나 템플릿으로 사용되나요?",
+        "ja": "つくったコンテンツはKlipseの広告やテンプレート\nに使われますか？"
+      },
+      "uses": 1
+    },
+    {
+      "id": "973be8a8a7dc",
+      "name": "i18n/ambassador/faq/title~973be8a8",
+      "type": "STRING",
+      "values": {
+        "en": "We have gathered\nanswers to\ncommon questions",
+        "ko": "자주 묻는 질문을 정리했습니다",
+        "ja": "よくある質問をまとめました"
+      },
+      "uses": 1
+    },
+    {
+      "id": "aafacef18abc",
+      "name": "i18n/ambassador/faq/title~aafacef1",
+      "type": "STRING",
+      "values": {
+        "en": "We have gathered answers\nto common questions",
+        "ko": "자주 묻는 질문을 정리했습니다",
+        "ja": "よくある質問をまとめました"
+      },
+      "uses": 1
+    },
+    {
+      "id": "cb8a4725de4a",
+      "name": "i18n/ambassador/final/body",
+      "type": "STRING",
+      "values": {
+        "en": "Applications are reviewed based on your best work and your plans for Klipse.",
+        "ko": "지원서는 대표 콘텐츠와 Klipse 활용 계획을 중심으로 검토합니다.",
+        "ja": "応募は、代表作とKlipseの活用プランを中心に審査します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "2ed4836f0ca5",
+      "name": "i18n/ambassador/final/body~2ed4836f",
+      "type": "STRING",
+      "values": {
+        "en": "Applications are reviewed based on\nyour best work and your plans for Klipse.",
+        "ko": "지원서는 대표 콘텐츠와 Klipse 활용 계획을 중심으로 검토합니다.",
+        "ja": "応募は、代表作とKlipseの活用プランを中心に審査します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "8a0bcb4fd9b7",
+      "name": "i18n/ambassador/final/title/0",
+      "type": "STRING",
+      "values": {
+        "en": "Apply with the content",
+        "ko": "평소 만들던 콘텐츠로",
+        "ja": "いつものコンテンツで"
+      },
+      "uses": 2
+    },
+    {
+      "id": "c5368125c873",
+      "name": "i18n/ambassador/final/title/1",
+      "type": "STRING",
+      "values": {
+        "en": "you already make",
+        "ko": "앰배서더에 지원하세요",
+        "ja": "アンバサダーにご応募ください"
+      },
+      "uses": 2
+    },
+    {
+      "id": "aeeae3c45d24",
+      "name": "i18n/ambassador/flow/steps/0/description",
+      "type": "STRING",
+      "values": {
+        "en": "The Klipse team reviews your application.",
+        "ko": "제출된 지원서를 Klipse 팀이 검토합니다.",
+        "ja": "提出された応募をKlipseのチームが審査します。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "1ff6c785e285",
+      "name": "i18n/ambassador/flow/steps/0/description~1ff6c785",
+      "type": "STRING",
+      "values": {
+        "en": "The Klipse team reviews your application.",
+        "ko": "제출된 지원서를 Klipse 팀이 검토합니다.",
+        "ja": "提出された応募をKlipseのチームが審査します\n。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "102a5355b9b6",
+      "name": "i18n/ambassador/flow/steps/0/title",
+      "type": "STRING",
+      "values": {
+        "en": "Internal review",
+        "ko": "내부 검토",
+        "ja": "社内で審査"
+      },
+      "uses": 2
+    },
+    {
+      "id": "a3a0db59cef7",
+      "name": "i18n/ambassador/flow/steps/1/description~a3a0db59",
+      "type": "STRING",
+      "values": {
+        "en": "If you're selected, we email you\nand settle the terms together.",
+        "ko": "선정되면 이메일로 연락드리며, 활동 조건을 협의합니다.",
+        "ja": "選ばれたらメールでご連絡し、\n活動の条件を一緒に決めます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c8001441ba5a",
+      "name": "i18n/ambassador/flow/steps/1/description~c8001441",
+      "type": "STRING",
+      "values": {
+        "en": "If you're selected, we email you\nand settle the terms together.",
+        "ko": "선정되면 이메일로 연락드리며,\n활동 조건을 협의합니다.",
+        "ja": "選ばれたらメールでご連絡し、\n活動の条件を一緒に決めます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "96e55dccc071",
+      "name": "i18n/ambassador/flow/steps/1/title",
+      "type": "STRING",
+      "values": {
+        "en": "Agree on the details",
+        "ko": "세부 조건 협의",
+        "ja": "詳しい条件を相談"
+      },
+      "uses": 2
+    },
+    {
+      "id": "6af9f3ca643b",
+      "name": "i18n/ambassador/flow/steps/2/description",
+      "type": "STRING",
+      "values": {
+        "en": "We confirm the terms we agreed on.",
+        "ko": "협의한 내용에 따라 활동 조건을 확정합니다.",
+        "ja": "相談した内容で活動の条件を確定します。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "14461c36d2a6",
+      "name": "i18n/ambassador/flow/steps/2/title",
+      "type": "STRING",
+      "values": {
+        "en": "Confirm volume, period, plan and credits",
+        "ko": "콘텐츠 수량, 기간, 플랜, 크레딧 확정",
+        "ja": "本数、期間、プラン、クレジットを確定"
+      },
+      "uses": 1
+    },
+    {
+      "id": "f6d464eaee20",
+      "name": "i18n/ambassador/flow/steps/2/title~f6d464ea",
+      "type": "STRING",
+      "values": {
+        "en": "Confirm volume,\nperiod, plan and credits",
+        "ko": "콘텐츠 수량, 기간, 플랜, 크레딧 확정",
+        "ja": "本数、期間、\nプラン、クレジットを確定"
+      },
+      "uses": 1
+    },
+    {
+      "id": "2aeb3b479775",
+      "name": "i18n/ambassador/flow/steps/3/description~2aeb3b47",
+      "type": "STRING",
+      "values": {
+        "en": "You start making content in\nKlipse on the confirmed terms.",
+        "ko": "확정된 조건에 따라 Klipse로 콘텐츠 제작을 시작합니다.",
+        "ja": "確定した条件で、\nKlipseでのコンテンツづくりを始めます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d0dc5fe3c527",
+      "name": "i18n/ambassador/flow/steps/3/description~d0dc5fe3",
+      "type": "STRING",
+      "values": {
+        "en": "You start making content in\nKlipse on the confirmed terms.",
+        "ko": "확정된 조건에 따라 Klipse로\n콘텐츠 제작을 시작합니다.",
+        "ja": "確定した条件で、\nKlipseでのコンテンツづくりを始めます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d405fd8ac1d8",
+      "name": "i18n/ambassador/flow/title",
+      "type": "STRING",
+      "values": {
+        "en": "Applications proceed in the following order",
+        "ko": "지원서를 제출하면 다음 순서로 진행됩니다",
+        "ja": "応募後は次の順序で進みます"
+      },
+      "uses": 1
+    },
+    {
+      "id": "014120a523db",
+      "name": "i18n/ambassador/flow/title~014120a5",
+      "type": "STRING",
+      "values": {
+        "en": "Applications proceed\nin the following order",
+        "ko": "지원서를 제출하면 다음 순서로 진행됩니다",
+        "ja": "応募後は次の順序で進みます"
+      },
+      "uses": 1
+    },
+    {
+      "id": "7928ef0c6e1a",
+      "name": "i18n/ambassador/hero/apply",
+      "type": "STRING",
+      "values": {
+        "en": "Apply as an ambassador",
+        "ko": "앰배서더 지원하기",
+        "ja": "アンバサダーに応募する"
+      },
+      "uses": 5
+    },
+    {
+      "id": "5089c9933e9e",
+      "name": "i18n/ambassador/hero/title/0",
+      "type": "STRING",
+      "values": {
+        "en": "Join Klipse",
+        "ko": "나에게 맞는 방식으로",
+        "ja": "自分に合うかたちで"
+      },
+      "uses": 2
+    },
+    {
+      "id": "cb0358e1a093",
+      "name": "i18n/ambassador/hero/title/1",
+      "type": "STRING",
+      "values": {
+        "en": "in the way that suits you",
+        "ko": "Klipse와 함께하세요",
+        "ja": "Klipseと一緒に"
+      },
+      "uses": 2
+    },
+    {
+      "id": "8b9729c13b2c",
+      "name": "i18n/ambassador/points/items/0/description",
+      "type": "STRING",
+      "values": {
+        "en": "Klipse's official channels can share your work and the story behind it\nwith more people.",
+        "ko": "Klipse 공식 채널을 통해 작품과 창작 이야기를\n더 많은 사람에게 알릴 수 있습니다.",
+        "ja": "Klipseの公式チャンネルを通じて、作品と制作のストーリーを\nより多くの人に届けられます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "55be5733b115",
+      "name": "i18n/ambassador/points/items/0/description~55be5733",
+      "type": "STRING",
+      "values": {
+        "en": "Klipse's official channels can share\nyour work and the story behind it\nwith more people.",
+        "ko": "Klipse 공식 채널을 통해 작품과 창작 이야기를\n더 많은 사람에게 알릴 수 있습니다.",
+        "ja": "Klipseの公式チャンネルを通じて、\n作品と制作のストーリーを\nより多くの人に届けられます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c4c77eddb1fe",
+      "name": "i18n/ambassador/points/items/0/title",
+      "type": "STRING",
+      "values": {
+        "en": "Your work and you, featured",
+        "ko": "작품과 크리에이터 소개",
+        "ja": "作品とクリエイターの紹介"
+      },
+      "uses": 2
+    },
+    {
+      "id": "307df71e28f7",
+      "name": "i18n/ambassador/points/items/1/description~307df71e",
+      "type": "STRING",
+      "values": {
+        "en": "Support is set by your content\ntype and production scale.",
+        "ko": "지원 규모는 콘텐츠 유형과 제작 규모에 따라 정해집니다.",
+        "ja": "支援の規模は、\nコンテンツの種類と制作規模に応じて決まります。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "4026ce67f259",
+      "name": "i18n/ambassador/points/items/1/description~4026ce67",
+      "type": "STRING",
+      "values": {
+        "en": "Support is set by your content\ntype and production scale.",
+        "ko": "지원 규모는 콘텐츠 유형과\n제작 규모에 따라 정해집니다.",
+        "ja": "支援の規模は、\nコンテンツの種類と制作規模に応じて決ま\nります。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "ec3cd1bee6ec",
+      "name": "i18n/ambassador/points/items/1/title~ec3cd1be",
+      "type": "STRING",
+      "values": {
+        "en": "Klipse plan and\nproduction credits",
+        "ko": "Klipse 플랜과 제작 크레딧 지원",
+        "ja": "Klipseのプランと制作クレジット\nの支援"
+      },
+      "uses": 2
+    },
+    {
+      "id": "7dda6ee871e7",
+      "name": "i18n/ambassador/points/items/2/description~7dda6ee8",
+      "type": "STRING",
+      "values": {
+        "en": "Choose the image and video\nmodels that suit each project.",
+        "ko": "작업에 맞는 이미지와 영상 모델을\n선택해 사용할 수 있습니다.",
+        "ja": "作業に合った画像と動画のモデルを選んで\n使用できます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "81cb6b21b063",
+      "name": "i18n/ambassador/points/items/2/description~81cb6b21",
+      "type": "STRING",
+      "values": {
+        "en": "Choose the image and video\nmodels that suit each project.",
+        "ko": "작업에 맞는 이미지와 영상 모델을 선택해 사용할 수 있습니다.",
+        "ja": "作業に合った画像と動画のモデルを選んで使用できます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "9dac460dcc7a",
+      "name": "i18n/ambassador/points/items/2/title",
+      "type": "STRING",
+      "values": {
+        "en": "A wide range of AI models",
+        "ko": "다양한 AI 모델 활용",
+        "ja": "さまざまなAIモデルの活用"
+      },
+      "uses": 2
+    },
+    {
+      "id": "c66ff7c3d0e8",
+      "name": "i18n/ambassador/points/items/3/description",
+      "type": "STRING",
+      "values": {
+        "en": "Try new AI models and features\nbefore anyone else and put them to work in your projects.",
+        "ko": "새롭게 선보이는 AI 모델과 기능을\n먼저 경험하고 작업에 활용할 수 있습니다.",
+        "ja": "新しく登場するAIモデルや機能を\nいち早く体験し、制作に活用できます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "ee58537e3e02",
+      "name": "i18n/ambassador/points/items/3/description~ee58537e",
+      "type": "STRING",
+      "values": {
+        "en": "Try new AI models and features\nbefore anyone else and put them to work in your\nprojects.",
+        "ko": "새롭게 선보이는 AI 모델과 기능을\n먼저 경험하고 작업에 활용할 수 있습니다.",
+        "ja": "新しく登場するAIモデルや機能を\nいち早く体験し、制作に活用できます。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "ea15ad3058c6",
+      "name": "i18n/ambassador/points/items/3/title",
+      "type": "STRING",
+      "values": {
+        "en": "Early access to new features",
+        "ko": "새로운 기능 우선 체험",
+        "ja": "新機能の先行体験"
+      },
+      "uses": 2
+    },
+    {
+      "id": "b11b40a765ee",
+      "name": "i18n/ambassador/points/title",
+      "type": "STRING",
+      "values": {
+        "en": "Ambassadors receive the following benefits",
+        "ko": "앰배서더에게 다음 혜택을 제공합니다",
+        "ja": "アンバサダーには次の特典を提供します"
+      },
+      "uses": 1
+    },
+    {
+      "id": "a86238c00101",
+      "name": "i18n/ambassador/points/title~a86238c0",
+      "type": "STRING",
+      "values": {
+        "en": "Ambassadors receive\nthe following benefits",
+        "ko": "앰배서더에게 다음 혜택을 제공합니다",
+        "ja": "アンバサダーには次の特典を提供します"
+      },
+      "uses": 1
+    },
+    {
+      "id": "d63359459574",
+      "name": "i18n/ambassador/roller/suffix",
+      "type": "STRING",
+      "values": {
+        "en": "creators wanted",
+        "ko": "크리에이터를 찾습니다",
+        "ja": "クリエイターを募集しています"
+      },
+      "uses": 2
     },
     {
       "id": "88a31f438e1c",
@@ -2033,6 +3242,72 @@
         "en": "Klipse AI Photo Booth",
         "ko": "Klipse AI 포토 부스",
         "ja": "Klipse AI Photo Booth"
+      },
+      "uses": 2
+    },
+    {
+      "id": "1340d578b275",
+      "name": "i18n/deck/backToApp",
+      "type": "STRING",
+      "values": {
+        "en": "Back to Klipse",
+        "ko": "Klipse로 돌아가기",
+        "ja": "Back to Klipse"
+      },
+      "uses": 6
+    },
+    {
+      "id": "5f1957e37697",
+      "name": "i18n/deck/courseEyebrow",
+      "type": "STRING",
+      "values": {
+        "en": "Course",
+        "ko": "과정",
+        "ja": "Course"
+      },
+      "uses": 2
+    },
+    {
+      "id": "48076d955644",
+      "name": "i18n/deck/deckEyebrow",
+      "type": "STRING",
+      "values": {
+        "en": "Presentation",
+        "ko": "발표 자료",
+        "ja": "Presentation"
+      },
+      "uses": 6
+    },
+    {
+      "id": "184a39ff3595",
+      "name": "i18n/deck/libraryDescription",
+      "type": "STRING",
+      "values": {
+        "en": "Klipse presentations and course materials.",
+        "ko": "Klipse 발표 자료와 과정 교안을 봅니다.",
+        "ja": "Klipse presentations and course materials."
+      },
+      "uses": 2
+    },
+    {
+      "id": "7ca594fea125",
+      "name": "i18n/deck/libraryTitle",
+      "type": "STRING",
+      "values": {
+        "en": "Library",
+        "ko": "라이브러리",
+        "ja": "Library"
+      },
+      "uses": 2
+    },
+    {
+      "id": "b8c9f5f34069",
+      "name": "i18n/deck/manage",
+      "type": "STRING",
+      "values": {
+        "en": "Manage decks",
+        "ko": "교안 관리",
+        "ja": "Manage decks"
       },
       "uses": 2
     },
@@ -3178,7 +4453,7 @@
         "ko": "문서",
         "ja": "ドキュメント"
       },
-      "uses": 11
+      "uses": 12
     },
     {
       "id": "3e309ad8a2ed",
@@ -5524,6 +6799,270 @@
       "uses": 5
     },
     {
+      "id": "00eeaa522f32",
+      "name": "screen/ambassador/00eeaa52",
+      "type": "STRING",
+      "values": {
+        "en": "like",
+        "ko": "하나의",
+        "ja": "ひとつの作品を中心に制作するクリエイ\nター"
+      },
+      "uses": 1
+    },
+    {
+      "id": "0ad28ae679fa",
+      "name": "screen/ambassador/0ad28ae6",
+      "type": "STRING",
+      "values": {
+        "en": "video,",
+        "ko": "제작하는",
+        "ja": "video,"
+      },
+      "uses": 2
+    },
+    {
+      "id": "1744c46a5a92",
+      "name": "screen/ambassador/1744c46a",
+      "type": "STRING",
+      "values": {
+        "en": "Regular content",
+        "ko": "정기 콘텐츠형",
+        "ja": "定期コンテンツ型"
+      },
+      "uses": 2
+    },
+    {
+      "id": "179d8ef1cb35",
+      "name": "screen/ambassador/179d8ef1",
+      "type": "STRING",
+      "values": {
+        "en": "steadily,",
+        "ko": "꾸준히",
+        "ja": "継続して制作するクリエイター"
+      },
+      "uses": 2
+    },
+    {
+      "id": "1d0e8746848f",
+      "name": "screen/ambassador/1d0e8746",
+      "type": "STRING",
+      "values": {
+        "en": "make",
+        "ko": "콘텐츠를",
+        "ja": "make"
+      },
+      "uses": 2
+    },
+    {
+      "id": "20e9dc5c57a6",
+      "name": "screen/ambassador/20e9dc5c",
+      "type": "STRING",
+      "values": {
+        "en": "a",
+        "ko": "크리에이터",
+        "ja": "a"
+      },
+      "uses": 2
+    },
+    {
+      "id": "26ceab11f022",
+      "name": "screen/ambassador/26ceab11",
+      "type": "STRING",
+      "values": {
+        "en": "Creators",
+        "ko": "M/V,",
+        "ja": "MV、シネマティック、広告映像のように、"
+      },
+      "uses": 1
+    },
+    {
+      "id": "2863a36fd0d7",
+      "name": "screen/ambassador/2863a36f",
+      "type": "STRING",
+      "values": {
+        "en": "Creators",
+        "ko": "M/V,",
+        "ja": "MV、シネマティック、\n広告映像のように、"
+      },
+      "uses": 1
+    },
+    {
+      "id": "2a6ef162cb6d",
+      "name": "screen/ambassador/2a6ef162",
+      "type": "STRING",
+      "values": {
+        "en": "a",
+        "ko": "결과물을",
+        "ja": "a"
+      },
+      "uses": 2
+    },
+    {
+      "id": "2c456c09d3de",
+      "name": "screen/ambassador/2c456c09",
+      "type": "STRING",
+      "values": {
+        "en": "How it works",
+        "ko": "운영 방식",
+        "ja": "進め方"
+      },
+      "uses": 4
+    },
+    {
+      "id": "462f914e81c1",
+      "name": "screen/ambassador/462f914e",
+      "type": "STRING",
+      "values": {
+        "en": "by",
+        "ko": "크리에이터",
+        "ja": "by"
+      },
+      "uses": 2
+    },
+    {
+      "id": "4f3ad116efe4",
+      "name": "screen/ambassador/4f3ad116",
+      "type": "STRING",
+      "values": {
+        "en": "who",
+        "ko": "시네마틱,",
+        "ja": "who"
+      },
+      "uses": 2
+    },
+    {
+      "id": "51a46a2af940",
+      "name": "screen/ambassador/51a46a2a",
+      "type": "STRING",
+      "values": {
+        "en": "Reels",
+        "ko": "릴스",
+        "ja": "リール"
+      },
+      "uses": 2
+    },
+    {
+      "id": "5f123bc255ef",
+      "name": "screen/ambassador/5f123bc2",
+      "type": "STRING",
+      "values": {
+        "en": "Creators",
+        "ko": "월",
+        "ja": "月単位でコンテンツを"
+      },
+      "uses": 2
+    },
+    {
+      "id": "6ab18545b99a",
+      "name": "screen/ambassador/6ab18545",
+      "type": "STRING",
+      "values": {
+        "en": "who",
+        "ko": "단위로",
+        "ja": "who"
+      },
+      "uses": 2
+    },
+    {
+      "id": "72862df62f32",
+      "name": "screen/ambassador/72862df6",
+      "type": "STRING",
+      "values": {
+        "en": "month",
+        "ko": "제작하는",
+        "ja": "month"
+      },
+      "uses": 2
+    },
+    {
+      "id": "7efeac7959d3",
+      "name": "screen/ambassador/7efeac79",
+      "type": "STRING",
+      "values": {
+        "en": "Add Klipse\nto your content.",
+        "ko": "당신의 콘텐츠에\nKlipse를 더해보세요.",
+        "ja": "あなたのコンテンツに\nKlipseを加えてみてください。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "839cfd64d71b",
+      "name": "screen/ambassador/839cfd64",
+      "type": "STRING",
+      "values": {
+        "en": "music",
+        "ko": "중심으로",
+        "ja": "music"
+      },
+      "uses": 2
+    },
+    {
+      "id": "9cf9f570b6c5",
+      "name": "screen/ambassador/9cf9f570",
+      "type": "STRING",
+      "values": {
+        "en": "Get started",
+        "ko": "활동 시작",
+        "ja": "活動を開始"
+      },
+      "uses": 2
+    },
+    {
+      "id": "bb72971876e3",
+      "name": "screen/ambassador/bb729718",
+      "type": "STRING",
+      "values": {
+        "en": "Support",
+        "ko": "지원",
+        "ja": "支援"
+      },
+      "uses": 4
+    },
+    {
+      "id": "c707efe8875b",
+      "name": "screen/ambassador/c707efe8",
+      "type": "STRING",
+      "values": {
+        "en": "like",
+        "ko": "하나의",
+        "ja": "ひとつの作品を中心に制作するクリエイター"
+      },
+      "uses": 1
+    },
+    {
+      "id": "e00611be30b7",
+      "name": "screen/ambassador/e00611be",
+      "type": "STRING",
+      "values": {
+        "en": "Period",
+        "ko": "활동 기간",
+        "ja": "活動期間"
+      },
+      "uses": 4
+    },
+    {
+      "id": "ec03e65e450f",
+      "name": "screen/ambassador/ec03e65e",
+      "type": "STRING",
+      "values": {
+        "en": "build",
+        "ko": "광고",
+        "ja": "build"
+      },
+      "uses": 2
+    },
+    {
+      "id": "f25436721cb9",
+      "name": "screen/ambassador/f2543672",
+      "type": "STRING",
+      "values": {
+        "en": "one",
+        "ko": "영상처럼",
+        "ja": "one"
+      },
+      "uses": 2
+    },
+    {
       "id": "4bdb71480f05",
       "name": "screen/analytics-youtube/4bdb7148",
       "type": "STRING",
@@ -5817,6 +7356,127 @@
         "en": "Placeholder template 1",
         "ko": "자리표시 템플릿 1",
         "ja": "Placeholder template 1"
+      },
+      "uses": 2
+    },
+    {
+      "id": "1f83a27f9fce",
+      "name": "screen/deck-c--course-/1f83a27f",
+      "type": "STRING",
+      "values": {
+        "en": "55 min",
+        "ko": "55분",
+        "ja": "55 min"
+      },
+      "uses": 2
+    },
+    {
+      "id": "25073e4cb22d",
+      "name": "screen/deck-c--course-/25073e4c",
+      "type": "STRING",
+      "values": {
+        "en": "Placeholder course description.\n3 sessions, 150 min total",
+        "ko": "Placeholder course description.\n3개 차시, 총 150분",
+        "ja": "Placeholder course description.\n3 sessions, 150 min total"
+      },
+      "uses": 2
+    },
+    {
+      "id": "946823d49d88",
+      "name": "screen/deck-c--course-/946823d4",
+      "type": "STRING",
+      "values": {
+        "en": "45 min",
+        "ko": "45분",
+        "ja": "45 min"
+      },
+      "uses": 2
+    },
+    {
+      "id": "39ea73f4c5b4",
+      "name": "screen/deck-manage/39ea73f4",
+      "type": "STRING",
+      "values": {
+        "en": "7 decks, 21 files, 2.6 MB, fixture@klipse.test",
+        "ko": "덱 7개, 파일 21개, 2.6MB, fixture@klipse.test",
+        "ja": "7 decks, 21 files, 2.6 MB, fixture@klipse.test"
+      },
+      "uses": 2
+    },
+    {
+      "id": "40317fdd421c",
+      "name": "screen/deck-manage/40317fdd",
+      "type": "STRING",
+      "values": {
+        "en": "9/15/2026, 6:00:00 PM",
+        "ko": "2026. 9. 15. 오후 6:00:00",
+        "ja": "2026/9/15 18:00:00"
+      },
+      "uses": 2
+    },
+    {
+      "id": "8bf60dc85f70",
+      "name": "screen/deck-manage/8bf60dc8",
+      "type": "STRING",
+      "values": {
+        "en": "8 decks, 23 files, 2.9 MB, fixture@klipse.test",
+        "ko": "덱 8개, 파일 23개, 2.9MB, fixture@klipse.test",
+        "ja": "8 decks, 23 files, 2.9 MB, fixture@klipse.test"
+      },
+      "uses": 2
+    },
+    {
+      "id": "ab18cafabeb2",
+      "name": "screen/deck-manage/ab18cafa",
+      "type": "STRING",
+      "values": {
+        "en": "10/1/2026, 6:00:00 PM",
+        "ko": "2026. 10. 1. 오후 6:00:00",
+        "ja": "2026/10/1 18:00:00"
+      },
+      "uses": 2
+    },
+    {
+      "id": "72c0fe2702a8",
+      "name": "screen/deck/72c0fe27",
+      "type": "STRING",
+      "values": {
+        "en": "30 min",
+        "ko": "30분",
+        "ja": "30 min"
+      },
+      "uses": 2
+    },
+    {
+      "id": "9202757e3e5c",
+      "name": "screen/deck/9202757e",
+      "type": "STRING",
+      "values": {
+        "en": "50 min",
+        "ko": "50분",
+        "ja": "50 min"
+      },
+      "uses": 4
+    },
+    {
+      "id": "9eec1d5a8242",
+      "name": "screen/deck/9eec1d5a",
+      "type": "STRING",
+      "values": {
+        "en": "150 min",
+        "ko": "150분",
+        "ja": "150 min"
+      },
+      "uses": 2
+    },
+    {
+      "id": "f7de21b878ce",
+      "name": "screen/deck/f7de21b8",
+      "type": "STRING",
+      "values": {
+        "en": "UI as of 2026.10.01",
+        "ko": "UI 2026.10.01 기준",
+        "ja": "UI as of 2026.10.01"
       },
       "uses": 2
     },
@@ -6313,7 +7973,7 @@
         "ko": "가격",
         "ja": "料金"
       },
-      "uses": 11
+      "uses": 12
     },
     {
       "id": "806c933e22b6",
@@ -6335,7 +7995,7 @@
         "ko": "모델",
         "ja": "モデル"
       },
-      "uses": 13
+      "uses": 14
     },
     {
       "id": "887b20aa9c80",
@@ -6533,7 +8193,7 @@
         "ko": "리소스",
         "ja": "リソース"
       },
-      "uses": 10
+      "uses": 11
     },
     {
       "id": "df9bf26613a2",
@@ -12825,7 +14485,7 @@
         "ko": "문의",
         "ja": "お問い合わせ"
       },
-      "uses": 13
+      "uses": 14
     },
     {
       "id": "4e726ba3ec16",
@@ -16501,7 +18161,7 @@
         "ko": false,
         "ja": false
       },
-      "uses": 3
+      "uses": 21
     },
     {
       "id": "presence-en-ko",
@@ -16512,7 +18172,7 @@
         "ko": true,
         "ja": false
       },
-      "uses": 44
+      "uses": 66
     }
   ],
   "bindings": {
@@ -22757,6 +24417,644 @@
         "xv": "screen/404/0aca21e2"
       }
     },
+    "/ambassador @ desktop-1920x1080": {
+      "body.1.0.0.1.0.2.0.0.t": {
+        "xv": "screen/home/831ffbce"
+      },
+      "body.1.0.0.1.0.2.1.0.t": {
+        "xv": "i18n/nav/docs"
+      },
+      "body.1.0.0.1.0.2.2.0.t": {
+        "xv": "screen/home/7efe7e2a"
+      },
+      "body.1.0.0.1.0.2.3.0.t": {
+        "xv": "screen/settings/48621a1b"
+      },
+      "body.1.0.0.1.0.2.4.0.t": {
+        "xv": "screen/home/dbb4cde1"
+      },
+      "body.1.0.0.1.0.3.1": {
+        "iv": "i18n/ambassador/hero/apply"
+      },
+      "body.1.0.0.2.0.2.0.0.1.0": {
+        "xv": "i18n/ambassador/hero/title/0"
+      },
+      "body.1.0.0.2.0.2.0.0.1.1": {
+        "xv": "i18n/ambassador/hero/title/1"
+      },
+      "body.1.0.0.2.0.2.0.1.0.0": {
+        "iv": "i18n/ambassador/hero/apply"
+      },
+      "body.1.0.0.3.1.0.3.0": {
+        "xv": "screen/ambassador/7efeac79"
+      },
+      "body.1.0.0.4.0.1.0.1.1.0.8": {
+        "xv": "screen/ambassador/51a46a2a"
+      },
+      "body.1.0.0.4.0.1.0.2": {
+        "xv": "i18n/ambassador/roller/suffix"
+      },
+      "body.1.0.0.4.0.2.0.1.0": {
+        "xv": "screen/ambassador/1744c46a"
+      },
+      "body.1.0.0.4.0.2.0.1.1": {
+        "xv": "i18n/ambassador/collab/types/0/unit"
+      },
+      "body.1.0.0.4.0.2.0.2.0.0.0": {
+        "xv": "screen/ambassador/5f123bc2"
+      },
+      "body.1.0.0.4.0.2.0.2.0.0.1": {
+        "xv": "screen/ambassador/6ab18545",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.0.2.0.0.2": {
+        "xv": "screen/ambassador/1d0e8746",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.0.2.0.0.3": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.0.2.0.1.0": {
+        "xv": "screen/ambassador/179d8ef1"
+      },
+      "body.1.0.0.4.0.2.0.2.0.1.1": {
+        "xv": "screen/ambassador/72862df6",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.0.2.0.1.2": {
+        "xv": "screen/ambassador/462f914e",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.0.2.0.1.3": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.0.3.0": {
+        "xv": "i18n/ambassador/collab/labels/fit~7467bcdb"
+      },
+      "body.1.0.0.4.0.2.0.3.1.0": {
+        "xv": "i18n/ambassador/collab/types/0/cases/0"
+      },
+      "body.1.0.0.4.0.2.0.3.1.1": {
+        "xv": "i18n/ambassador/collab/types/0/cases/1"
+      },
+      "body.1.0.0.4.0.2.0.3.1.2": {
+        "xv": "i18n/ambassador/collab/types/0/cases/2"
+      },
+      "body.1.0.0.4.0.2.0.4.0": {
+        "xv": "screen/ambassador/e00611be"
+      },
+      "body.1.0.0.4.0.2.0.4.1": {
+        "xv": "i18n/ambassador/collab/types/0/term"
+      },
+      "body.1.0.0.4.0.2.0.5.0": {
+        "xv": "screen/ambassador/2c456c09"
+      },
+      "body.1.0.0.4.0.2.0.5.1.0": {
+        "xv": "i18n/ambassador/collab/types/0/operations/0"
+      },
+      "body.1.0.0.4.0.2.0.5.1.1": {
+        "xv": "i18n/ambassador/collab/types/0/operations/1"
+      },
+      "body.1.0.0.4.0.2.0.5.1.2": {
+        "xv": "i18n/ambassador/collab/types/0/operations/2"
+      },
+      "body.1.0.0.4.0.2.0.5.1.3": {
+        "xv": "i18n/ambassador/collab/types/0/operations/3"
+      },
+      "body.1.0.0.4.0.2.0.6.0": {
+        "xv": "screen/ambassador/bb729718"
+      },
+      "body.1.0.0.4.0.2.0.6.1": {
+        "xv": "i18n/ambassador/collab/types/0/support"
+      },
+      "body.1.0.0.4.0.2.0.7.0": {
+        "iv": "i18n/ambassador/collab/types/0/cta"
+      },
+      "body.1.0.0.4.0.2.1.1.0": {
+        "xv": "i18n/ambassador/collab/types/1/name"
+      },
+      "body.1.0.0.4.0.2.1.1.1": {
+        "xv": "i18n/ambassador/collab/types/1/unit"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.0": {
+        "xv": "screen/ambassador/26ceab11"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.1": {
+        "xv": "screen/ambassador/4f3ad116",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.2": {
+        "xv": "screen/ambassador/ec03e65e",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.3": {
+        "xv": "screen/ambassador/f2543672",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.4": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.5": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.0": {
+        "xv": "screen/ambassador/c707efe8"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.1": {
+        "xv": "screen/ambassador/2a6ef162",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.2": {
+        "xv": "screen/ambassador/839cfd64",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.3": {
+        "xv": "screen/ambassador/0ad28ae6",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.4": {
+        "xv": "screen/ambassador/20e9dc5c",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.5": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.6": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.7": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.8": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.9": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.3.0": {
+        "xv": "i18n/ambassador/collab/labels/fit~7467bcdb"
+      },
+      "body.1.0.0.4.0.2.1.3.1.0": {
+        "xv": "i18n/ambassador/collab/types/1/cases/0"
+      },
+      "body.1.0.0.4.0.2.1.3.1.1": {
+        "xv": "i18n/ambassador/collab/types/1/cases/1"
+      },
+      "body.1.0.0.4.0.2.1.4.0": {
+        "xv": "screen/ambassador/e00611be"
+      },
+      "body.1.0.0.4.0.2.1.4.1": {
+        "xv": "i18n/ambassador/collab/types/1/term"
+      },
+      "body.1.0.0.4.0.2.1.5.0": {
+        "xv": "screen/ambassador/2c456c09"
+      },
+      "body.1.0.0.4.0.2.1.5.1.0": {
+        "xv": "i18n/ambassador/collab/types/1/operations/0"
+      },
+      "body.1.0.0.4.0.2.1.5.1.1": {
+        "xv": "i18n/ambassador/collab/types/1/operations/1"
+      },
+      "body.1.0.0.4.0.2.1.5.1.2": {
+        "xv": "i18n/ambassador/collab/types/1/operations/2"
+      },
+      "body.1.0.0.4.0.2.1.6.0": {
+        "xv": "screen/ambassador/bb729718"
+      },
+      "body.1.0.0.4.0.2.1.6.1": {
+        "xv": "i18n/ambassador/collab/types/1/support"
+      },
+      "body.1.0.0.4.0.2.1.7.0": {
+        "iv": "i18n/ambassador/collab/types/1/cta"
+      },
+      "body.1.0.0.5.0.0.0": {
+        "xv": "i18n/ambassador/points/title"
+      },
+      "body.1.0.0.5.0.1.0.2": {
+        "xv": "i18n/ambassador/points/items/0/title"
+      },
+      "body.1.0.0.5.0.1.0.3": {
+        "xv": "i18n/ambassador/points/items/0/description"
+      },
+      "body.1.0.0.5.0.1.1.2": {
+        "xv": "i18n/ambassador/points/items/1/title~ec3cd1be"
+      },
+      "body.1.0.0.5.0.1.1.3": {
+        "xv": "i18n/ambassador/points/items/1/description~307df71e"
+      },
+      "body.1.0.0.5.0.1.2.2": {
+        "xv": "i18n/ambassador/points/items/2/title"
+      },
+      "body.1.0.0.5.0.1.2.3": {
+        "xv": "i18n/ambassador/points/items/2/description~81cb6b21"
+      },
+      "body.1.0.0.5.0.1.3.2": {
+        "xv": "i18n/ambassador/points/items/3/title"
+      },
+      "body.1.0.0.5.0.1.3.3": {
+        "xv": "i18n/ambassador/points/items/3/description"
+      },
+      "body.1.0.0.6.0.3.0.0": {
+        "xv": "i18n/ambassador/criteria/lines/0"
+      },
+      "body.1.0.0.6.0.3.0.1": {
+        "xv": "i18n/ambassador/criteria/lines/1~65d7ab1a"
+      },
+      "body.1.0.0.6.0.3.1.0.1": {
+        "xv": "i18n/ambassador/criteria/items/0/title"
+      },
+      "body.1.0.0.6.0.3.1.0.2": {
+        "xv": "i18n/ambassador/criteria/items/0/description~fabc52ad"
+      },
+      "body.1.0.0.6.0.3.1.1.1": {
+        "xv": "i18n/ambassador/criteria/items/1/title"
+      },
+      "body.1.0.0.6.0.3.1.1.2": {
+        "xv": "i18n/ambassador/criteria/items/1/description~e0ced293"
+      },
+      "body.1.0.0.6.0.3.1.2.1": {
+        "xv": "i18n/ambassador/criteria/items/2/title"
+      },
+      "body.1.0.0.6.0.3.1.2.2": {
+        "xv": "i18n/ambassador/criteria/items/2/description~e0214a5f"
+      },
+      "body.1.0.0.7.0.0.0": {
+        "xv": "i18n/ambassador/flow/title"
+      },
+      "body.1.0.0.7.0.1.0.2.1": {
+        "xv": "i18n/ambassador/flow/steps/0/title"
+      },
+      "body.1.0.0.7.0.1.0.2.2": {
+        "xv": "i18n/ambassador/flow/steps/0/description~1ff6c785"
+      },
+      "body.1.0.0.7.0.1.1.2.1": {
+        "xv": "i18n/ambassador/flow/steps/1/title"
+      },
+      "body.1.0.0.7.0.1.1.2.2": {
+        "xv": "i18n/ambassador/flow/steps/1/description~c8001441"
+      },
+      "body.1.0.0.7.0.1.2.2.1": {
+        "xv": "i18n/ambassador/flow/steps/2/title~f6d464ea"
+      },
+      "body.1.0.0.7.0.1.2.2.2": {
+        "xv": "i18n/ambassador/flow/steps/2/description"
+      },
+      "body.1.0.0.7.0.1.3.2.1": {
+        "xv": "screen/ambassador/9cf9f570"
+      },
+      "body.1.0.0.7.0.1.3.2.2": {
+        "xv": "i18n/ambassador/flow/steps/3/description~d0dc5fe3"
+      },
+      "body.1.0.0.8.0.0.0": {
+        "xv": "i18n/ambassador/faq/title~973be8a8"
+      },
+      "body.1.0.0.8.0.0.1.0.0": {
+        "xv": "i18n/ambassador/faq/items/0/q"
+      },
+      "body.1.0.0.8.0.0.1.0.1": {
+        "xv": "i18n/ambassador/faq/items/0/a~44485bed"
+      },
+      "body.1.0.0.8.0.0.1.1.0": {
+        "xv": "i18n/ambassador/faq/items/1/q"
+      },
+      "body.1.0.0.8.0.0.1.1.1": {
+        "xv": "i18n/ambassador/faq/items/1/a~ef55622b"
+      },
+      "body.1.0.0.8.0.0.1.2.0": {
+        "xv": "i18n/ambassador/faq/items/2/q"
+      },
+      "body.1.0.0.8.0.0.1.2.1": {
+        "xv": "i18n/ambassador/faq/items/2/a~c78f4f86"
+      },
+      "body.1.0.0.8.0.0.1.3.0": {
+        "xv": "i18n/ambassador/faq/items/3/q"
+      },
+      "body.1.0.0.8.0.0.1.3.1": {
+        "xv": "i18n/ambassador/faq/items/3/a~dca65148"
+      },
+      "body.1.0.0.9.0.1.0.0.0": {
+        "xv": "i18n/ambassador/final/title/0"
+      },
+      "body.1.0.0.9.0.1.0.0.1": {
+        "xv": "i18n/ambassador/final/title/1"
+      },
+      "body.1.0.0.9.0.1.0.1": {
+        "xv": "i18n/ambassador/final/body"
+      },
+      "body.1.0.0.9.0.1.0.2.0": {
+        "iv": "i18n/ambassador/hero/apply"
+      }
+    },
+    "/ambassador @ mobile-402x874": {
+      "body.1.0.0.2.0.2.0.0.1.0": {
+        "xv": "i18n/ambassador/hero/title/0"
+      },
+      "body.1.0.0.2.0.2.0.0.1.1": {
+        "xv": "i18n/ambassador/hero/title/1"
+      },
+      "body.1.0.0.2.0.2.0.1.0.0": {
+        "iv": "i18n/ambassador/hero/apply"
+      },
+      "body.1.0.0.3.1.0.3.0": {
+        "xv": "screen/ambassador/7efeac79"
+      },
+      "body.1.0.0.4.0.1.0.1.1.0.8": {
+        "xv": "screen/ambassador/51a46a2a"
+      },
+      "body.1.0.0.4.0.1.0.2": {
+        "xv": "i18n/ambassador/roller/suffix"
+      },
+      "body.1.0.0.4.0.2.0.1.0": {
+        "xv": "screen/ambassador/1744c46a"
+      },
+      "body.1.0.0.4.0.2.0.1.1": {
+        "xv": "i18n/ambassador/collab/types/0/unit"
+      },
+      "body.1.0.0.4.0.2.0.2.0.0.0": {
+        "xv": "screen/ambassador/5f123bc2"
+      },
+      "body.1.0.0.4.0.2.0.2.0.0.1": {
+        "xv": "screen/ambassador/6ab18545",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.0.2.0.0.2": {
+        "xv": "screen/ambassador/1d0e8746",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.0.2.0.0.3": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.0.2.0.1.0": {
+        "xv": "screen/ambassador/179d8ef1"
+      },
+      "body.1.0.0.4.0.2.0.2.0.1.1": {
+        "xv": "screen/ambassador/72862df6",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.0.2.0.1.2": {
+        "xv": "screen/ambassador/462f914e",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.0.2.0.1.3": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.0.3.0": {
+        "xv": "i18n/ambassador/collab/labels/fit"
+      },
+      "body.1.0.0.4.0.2.0.3.1.0": {
+        "xv": "i18n/ambassador/collab/types/0/cases/0"
+      },
+      "body.1.0.0.4.0.2.0.3.1.1": {
+        "xv": "i18n/ambassador/collab/types/0/cases/1"
+      },
+      "body.1.0.0.4.0.2.0.3.1.2": {
+        "xv": "i18n/ambassador/collab/types/0/cases/2~25315202"
+      },
+      "body.1.0.0.4.0.2.0.4.0": {
+        "xv": "screen/ambassador/e00611be"
+      },
+      "body.1.0.0.4.0.2.0.4.1": {
+        "xv": "i18n/ambassador/collab/types/0/term~b2f96081"
+      },
+      "body.1.0.0.4.0.2.0.5.0": {
+        "xv": "screen/ambassador/2c456c09"
+      },
+      "body.1.0.0.4.0.2.0.5.1.0": {
+        "xv": "i18n/ambassador/collab/types/0/operations/0"
+      },
+      "body.1.0.0.4.0.2.0.5.1.1": {
+        "xv": "i18n/ambassador/collab/types/0/operations/1"
+      },
+      "body.1.0.0.4.0.2.0.5.1.2": {
+        "xv": "i18n/ambassador/collab/types/0/operations/2"
+      },
+      "body.1.0.0.4.0.2.0.5.1.3": {
+        "xv": "i18n/ambassador/collab/types/0/operations/3~6f54ede4"
+      },
+      "body.1.0.0.4.0.2.0.6.0": {
+        "xv": "screen/ambassador/bb729718"
+      },
+      "body.1.0.0.4.0.2.0.6.1": {
+        "xv": "i18n/ambassador/collab/types/0/support~143bf20f"
+      },
+      "body.1.0.0.4.0.2.0.7.0": {
+        "iv": "i18n/ambassador/collab/types/0/cta"
+      },
+      "body.1.0.0.4.0.2.1.1.0": {
+        "xv": "i18n/ambassador/collab/types/1/name"
+      },
+      "body.1.0.0.4.0.2.1.1.1": {
+        "xv": "i18n/ambassador/collab/types/1/unit"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.0": {
+        "xv": "screen/ambassador/2863a36f"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.1": {
+        "xv": "screen/ambassador/4f3ad116",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.2": {
+        "xv": "screen/ambassador/ec03e65e",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.3": {
+        "xv": "screen/ambassador/f2543672",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.4": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.0.5": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.0": {
+        "xv": "screen/ambassador/00eeaa52"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.1": {
+        "xv": "screen/ambassador/2a6ef162",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.2": {
+        "xv": "screen/ambassador/839cfd64",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.3": {
+        "xv": "screen/ambassador/0ad28ae6",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.4": {
+        "xv": "screen/ambassador/20e9dc5c",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.5": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.6": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.7": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.8": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.2.0.1.9": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.4.0.2.1.3.0": {
+        "xv": "i18n/ambassador/collab/labels/fit"
+      },
+      "body.1.0.0.4.0.2.1.3.1.0": {
+        "xv": "i18n/ambassador/collab/types/1/cases/0"
+      },
+      "body.1.0.0.4.0.2.1.3.1.1": {
+        "xv": "i18n/ambassador/collab/types/1/cases/1"
+      },
+      "body.1.0.0.4.0.2.1.4.0": {
+        "xv": "screen/ambassador/e00611be"
+      },
+      "body.1.0.0.4.0.2.1.4.1": {
+        "xv": "i18n/ambassador/collab/types/1/term"
+      },
+      "body.1.0.0.4.0.2.1.5.0": {
+        "xv": "screen/ambassador/2c456c09"
+      },
+      "body.1.0.0.4.0.2.1.5.1.0": {
+        "xv": "i18n/ambassador/collab/types/1/operations/0~1a81bc29"
+      },
+      "body.1.0.0.4.0.2.1.5.1.1": {
+        "xv": "i18n/ambassador/collab/types/1/operations/1"
+      },
+      "body.1.0.0.4.0.2.1.5.1.2": {
+        "xv": "i18n/ambassador/collab/types/1/operations/2"
+      },
+      "body.1.0.0.4.0.2.1.6.0": {
+        "xv": "screen/ambassador/bb729718"
+      },
+      "body.1.0.0.4.0.2.1.6.1": {
+        "xv": "i18n/ambassador/collab/types/1/support~bbb46f9f"
+      },
+      "body.1.0.0.4.0.2.1.7.0": {
+        "iv": "i18n/ambassador/collab/types/1/cta"
+      },
+      "body.1.0.0.5.0.0.0": {
+        "xv": "i18n/ambassador/points/title~a86238c0"
+      },
+      "body.1.0.0.5.0.1.0.2": {
+        "xv": "i18n/ambassador/points/items/0/title"
+      },
+      "body.1.0.0.5.0.1.0.3": {
+        "xv": "i18n/ambassador/points/items/0/description~55be5733"
+      },
+      "body.1.0.0.5.0.1.1.2": {
+        "xv": "i18n/ambassador/points/items/1/title~ec3cd1be"
+      },
+      "body.1.0.0.5.0.1.1.3": {
+        "xv": "i18n/ambassador/points/items/1/description~4026ce67"
+      },
+      "body.1.0.0.5.0.1.2.2": {
+        "xv": "i18n/ambassador/points/items/2/title"
+      },
+      "body.1.0.0.5.0.1.2.3": {
+        "xv": "i18n/ambassador/points/items/2/description~7dda6ee8"
+      },
+      "body.1.0.0.5.0.1.3.2": {
+        "xv": "i18n/ambassador/points/items/3/title"
+      },
+      "body.1.0.0.5.0.1.3.3": {
+        "xv": "i18n/ambassador/points/items/3/description~ee58537e"
+      },
+      "body.1.0.0.6.0.3.0.0": {
+        "xv": "i18n/ambassador/criteria/lines/0~912787d2"
+      },
+      "body.1.0.0.6.0.3.0.1": {
+        "xv": "i18n/ambassador/criteria/lines/1~aad90b68"
+      },
+      "body.1.0.0.6.0.3.1.0.1": {
+        "xv": "i18n/ambassador/criteria/items/0/title"
+      },
+      "body.1.0.0.6.0.3.1.0.2": {
+        "xv": "i18n/ambassador/criteria/items/0/description~afa5e2d0"
+      },
+      "body.1.0.0.6.0.3.1.1.1": {
+        "xv": "i18n/ambassador/criteria/items/1/title"
+      },
+      "body.1.0.0.6.0.3.1.1.2": {
+        "xv": "i18n/ambassador/criteria/items/1/description~e0ced293"
+      },
+      "body.1.0.0.6.0.3.1.2.1": {
+        "xv": "i18n/ambassador/criteria/items/2/title"
+      },
+      "body.1.0.0.6.0.3.1.2.2": {
+        "xv": "i18n/ambassador/criteria/items/2/description~f02be71d"
+      },
+      "body.1.0.0.7.0.0.0": {
+        "xv": "i18n/ambassador/flow/title~014120a5"
+      },
+      "body.1.0.0.7.0.1.0.2.1": {
+        "xv": "i18n/ambassador/flow/steps/0/title"
+      },
+      "body.1.0.0.7.0.1.0.2.2": {
+        "xv": "i18n/ambassador/flow/steps/0/description"
+      },
+      "body.1.0.0.7.0.1.1.2.1": {
+        "xv": "i18n/ambassador/flow/steps/1/title"
+      },
+      "body.1.0.0.7.0.1.1.2.2": {
+        "xv": "i18n/ambassador/flow/steps/1/description~a3a0db59"
+      },
+      "body.1.0.0.7.0.1.2.2.1": {
+        "xv": "i18n/ambassador/flow/steps/2/title"
+      },
+      "body.1.0.0.7.0.1.2.2.2": {
+        "xv": "i18n/ambassador/flow/steps/2/description"
+      },
+      "body.1.0.0.7.0.1.3.2.1": {
+        "xv": "screen/ambassador/9cf9f570"
+      },
+      "body.1.0.0.7.0.1.3.2.2": {
+        "xv": "i18n/ambassador/flow/steps/3/description~2aeb3b47"
+      },
+      "body.1.0.0.8.0.0.0": {
+        "xv": "i18n/ambassador/faq/title~aafacef1"
+      },
+      "body.1.0.0.8.0.0.1.0.0": {
+        "xv": "i18n/ambassador/faq/items/0/q"
+      },
+      "body.1.0.0.8.0.0.1.0.1": {
+        "xv": "i18n/ambassador/faq/items/0/a~8c91cb33"
+      },
+      "body.1.0.0.8.0.0.1.1.0": {
+        "xv": "i18n/ambassador/faq/items/1/q~ce0c6c64"
+      },
+      "body.1.0.0.8.0.0.1.1.1": {
+        "xv": "i18n/ambassador/faq/items/1/a~085552fb"
+      },
+      "body.1.0.0.8.0.0.1.2.0": {
+        "xv": "i18n/ambassador/faq/items/2/q"
+      },
+      "body.1.0.0.8.0.0.1.2.1": {
+        "xv": "i18n/ambassador/faq/items/2/a~83c70e01"
+      },
+      "body.1.0.0.8.0.0.1.3.0": {
+        "xv": "i18n/ambassador/faq/items/3/q~d4b7364e"
+      },
+      "body.1.0.0.8.0.0.1.3.1": {
+        "xv": "i18n/ambassador/faq/items/3/a~a30e9094"
+      },
+      "body.1.0.0.9.0.1.0.0.0": {
+        "xv": "i18n/ambassador/final/title/0"
+      },
+      "body.1.0.0.9.0.1.0.0.1": {
+        "xv": "i18n/ambassador/final/title/1"
+      },
+      "body.1.0.0.9.0.1.0.1": {
+        "xv": "i18n/ambassador/final/body~2ed4836f"
+      },
+      "body.1.0.0.9.0.1.0.2.0": {
+        "iv": "i18n/ambassador/hero/apply"
+      }
+    },
     "/blog/[slug] @ desktop-1920x1080": {
       "body.1.0.0.1.0.2.0.0.t": {
         "xv": "screen/home/831ffbce"
@@ -23402,6 +25700,222 @@
       },
       "body.1.0.0.2.0.0.4.0": {
         "xv": "i18n/modelPages/otherModels"
+      }
+    },
+    "/deck @ desktop-1920x1080": {
+      "body.1.0.0.0.0.1.0": {
+        "xv": "i18n/deck/manage"
+      },
+      "body.1.0.0.0.0.1.1": {
+        "xv": "i18n/deck/backToApp"
+      },
+      "body.1.0.0.0.1.0.0": {
+        "xv": "i18n/deck/libraryTitle"
+      },
+      "body.1.0.0.0.1.0.1": {
+        "xv": "i18n/deck/libraryDescription"
+      },
+      "body.1.0.0.0.2.0.0.1.0.0": {
+        "xv": "i18n/deck/courseEyebrow"
+      },
+      "body.1.0.0.0.2.0.0.1.0.2": {
+        "xv": "screen/deck/9eec1d5a"
+      },
+      "body.1.0.0.0.2.1.0.1.0.0": {
+        "xv": "i18n/deck/deckEyebrow"
+      },
+      "body.1.0.0.0.2.1.0.1.0.2": {
+        "xv": "screen/deck/72c0fe27"
+      },
+      "body.1.0.0.0.2.2.0.1.0.0": {
+        "xv": "i18n/deck/deckEyebrow"
+      },
+      "body.1.0.0.0.2.2.0.1.0.2": {
+        "xv": "screen/deck/f7de21b8"
+      },
+      "body.1.0.0.0.2.3.0.1.0.0": {
+        "xv": "i18n/deck/deckEyebrow"
+      },
+      "body.1.0.0.0.2.3.0.1.0.2": {
+        "xv": "screen/deck/9202757e"
+      }
+    },
+    "/deck @ mobile-402x874": {
+      "body.1.0.0.0.0.1.0": {
+        "xv": "i18n/deck/manage"
+      },
+      "body.1.0.0.0.0.1.1": {
+        "xv": "i18n/deck/backToApp"
+      },
+      "body.1.0.0.0.1.0.0": {
+        "xv": "i18n/deck/libraryTitle"
+      },
+      "body.1.0.0.0.1.0.1": {
+        "xv": "i18n/deck/libraryDescription"
+      },
+      "body.1.0.0.0.2.0.0.1.0.0": {
+        "xv": "i18n/deck/courseEyebrow"
+      },
+      "body.1.0.0.0.2.0.0.1.0.2": {
+        "xv": "screen/deck/9eec1d5a"
+      },
+      "body.1.0.0.0.2.1.0.1.0.0": {
+        "xv": "i18n/deck/deckEyebrow"
+      },
+      "body.1.0.0.0.2.1.0.1.0.2": {
+        "xv": "screen/deck/72c0fe27"
+      },
+      "body.1.0.0.0.2.2.0.1.0.0": {
+        "xv": "i18n/deck/deckEyebrow"
+      },
+      "body.1.0.0.0.2.2.0.1.0.2": {
+        "xv": "screen/deck/f7de21b8"
+      },
+      "body.1.0.0.0.2.3.0.1.0.0": {
+        "xv": "i18n/deck/deckEyebrow"
+      },
+      "body.1.0.0.0.2.3.0.1.0.2": {
+        "xv": "screen/deck/9202757e"
+      }
+    },
+    "/deck/c/[course] @ desktop-1920x1080": {
+      "body.1.0.0.0.0.1.0": {
+        "xv": "i18n/deck/backToApp"
+      },
+      "body.1.0.0.0.1.0.1": {
+        "xv": "screen/deck-c--course-/25073e4c"
+      },
+      "body.1.0.0.0.2.0.0.1.0.2": {
+        "xv": "screen/deck-c--course-/946823d4"
+      },
+      "body.1.0.0.0.2.1.0.1.0.2": {
+        "xv": "screen/deck/9202757e"
+      },
+      "body.1.0.0.0.2.2.0.1.0.2": {
+        "xv": "screen/deck-c--course-/1f83a27f"
+      }
+    },
+    "/deck/c/[course] @ mobile-402x874": {
+      "body.1.0.0.0.0.1.0": {
+        "xv": "i18n/deck/backToApp"
+      },
+      "body.1.0.0.0.1.0.1": {
+        "xv": "screen/deck-c--course-/25073e4c"
+      },
+      "body.1.0.0.0.2.0.0.1.0.2": {
+        "xv": "screen/deck-c--course-/946823d4"
+      },
+      "body.1.0.0.0.2.1.0.1.0.2": {
+        "xv": "screen/deck/9202757e"
+      },
+      "body.1.0.0.0.2.2.0.1.0.2": {
+        "xv": "screen/deck-c--course-/1f83a27f"
+      }
+    },
+    "/deck/manage @ desktop-1920x1080": {
+      "body.1.0.0.0.0.1.0": {
+        "xv": "i18n/deck/backToApp"
+      },
+      "body.1.0.0.0.1.0.0.1.0": {
+        "xv": "i18n/admin/deck/description/0"
+      },
+      "body.1.0.0.0.1.0.0.1.1": {
+        "xv": "i18n/admin/deck/description/1"
+      },
+      "body.1.0.0.0.1.1.0.0.0": {
+        "xv": "i18n/admin/deck/releases"
+      },
+      "body.1.0.0.0.1.1.1.0.0.0": {
+        "xv": "screen/deck-manage/ab18cafa"
+      },
+      "body.1.0.0.0.1.1.1.0.0.2": {
+        "xv": "screen/deck-manage/8bf60dc8"
+      },
+      "body.1.0.0.0.1.1.1.0.1.0": {
+        "xv": "i18n/admin/deck/statusCurrent"
+      },
+      "body.1.0.0.0.1.1.1.0.1.1.0": {
+        "xv": "i18n/admin/deck/preview"
+      },
+      "body.1.0.0.0.1.1.1.1.0.0": {
+        "xv": "screen/deck-manage/40317fdd"
+      },
+      "body.1.0.0.0.1.1.1.1.0.2": {
+        "xv": "screen/deck-manage/39ea73f4"
+      },
+      "body.1.0.0.0.1.1.1.1.1.0.0": {
+        "xv": "i18n/admin/deck/preview"
+      },
+      "body.1.0.0.0.1.1.1.1.1.1": {
+        "iv": "i18n/admin/deck/activate"
+      },
+      "body.1.0.0.0.1.2.0.0.0": {
+        "xv": "i18n/admin/deck/token"
+      },
+      "body.1.0.0.0.1.2.0.0.1.0": {
+        "xv": "i18n/admin/deck/tokenDescription/0"
+      },
+      "body.1.0.0.0.1.2.0.0.1.1": {
+        "xv": "i18n/admin/deck/tokenDescription/1"
+      },
+      "body.1.0.0.0.1.2.0.0.1.2": {
+        "xv": "i18n/admin/deck/tokenDescription/2"
+      },
+      "body.1.0.0.0.1.2.1.0": {
+        "iv": "i18n/admin/deck/tokenCreate"
+      }
+    },
+    "/deck/manage @ mobile-402x874": {
+      "body.1.0.0.0.0.1.0": {
+        "xv": "i18n/deck/backToApp"
+      },
+      "body.1.0.0.0.1.0.0.1.0": {
+        "xv": "i18n/admin/deck/description/0~ba857147"
+      },
+      "body.1.0.0.0.1.0.0.1.1": {
+        "xv": "i18n/admin/deck/description/1~0113e761"
+      },
+      "body.1.0.0.0.1.1.0.0.0": {
+        "xv": "i18n/admin/deck/releases"
+      },
+      "body.1.0.0.0.1.1.1.0.0.0": {
+        "xv": "screen/deck-manage/ab18cafa"
+      },
+      "body.1.0.0.0.1.1.1.0.0.2": {
+        "xv": "screen/deck-manage/8bf60dc8"
+      },
+      "body.1.0.0.0.1.1.1.0.1.0": {
+        "xv": "i18n/admin/deck/statusCurrent"
+      },
+      "body.1.0.0.0.1.1.1.0.1.1.0": {
+        "xv": "i18n/admin/deck/preview"
+      },
+      "body.1.0.0.0.1.1.1.1.0.0": {
+        "xv": "screen/deck-manage/40317fdd"
+      },
+      "body.1.0.0.0.1.1.1.1.0.2": {
+        "xv": "screen/deck-manage/39ea73f4"
+      },
+      "body.1.0.0.0.1.1.1.1.1.0.0": {
+        "xv": "i18n/admin/deck/preview"
+      },
+      "body.1.0.0.0.1.1.1.1.1.1": {
+        "iv": "i18n/admin/deck/activate"
+      },
+      "body.1.0.0.0.1.2.0.0.0": {
+        "xv": "i18n/admin/deck/token"
+      },
+      "body.1.0.0.0.1.2.0.0.1.0": {
+        "xv": "i18n/admin/deck/tokenDescription/0"
+      },
+      "body.1.0.0.0.1.2.0.0.1.1": {
+        "xv": "i18n/admin/deck/tokenDescription/1"
+      },
+      "body.1.0.0.0.1.2.0.0.1.2": {
+        "xv": "i18n/admin/deck/tokenDescription/2"
+      },
+      "body.1.0.0.0.1.2.1.0": {
+        "iv": "i18n/admin/deck/tokenCreate"
       }
     },
     "part:Product/Auth Floating Field Shape=Top, State=Focused, Viewport=Desktop": {
@@ -26426,6 +28940,10 @@
     "stateScreensUnmeasured": [
       "/highlight/[projectId] completed @ desktop-1920x1080",
       "/highlight/[projectId] completed @ mobile-402x874",
+      "/ambassador apply.channel @ desktop-1920x1080",
+      "/ambassador apply.channel @ mobile-402x874",
+      "/ambassador apply.received @ desktop-1920x1080",
+      "/ambassador apply.received @ mobile-402x874",
       "/analytics/youtube overview @ desktop-1920x1080",
       "/analytics/youtube overview @ mobile-402x874",
       "/analytics/youtube performance @ desktop-1920x1080",
@@ -26452,6 +28970,21 @@
       "/nodecanvas?project= panel.help @ mobile-402x874",
       "/nodecanvas?project= panel.image-edit @ desktop-1920x1080",
       "/nodecanvas?project= panel.image-edit @ mobile-402x874",
+      "/highlight history @ desktop-1920x1080",
+      "/highlight history @ mobile-402x874",
+      "/highlight/[projectId]/shorts/[shortId] upload @ desktop-1920x1080",
+      "/highlight/[projectId]/shorts/[shortId] upload @ mobile-402x874",
+      "/highlight/[projectId]/shorts/[shortId] upload.connect @ desktop-1920x1080",
+      "/highlight/[projectId]/shorts/[shortId] upload.connect @ mobile-402x874",
+      "/highlight/[projectId]/shorts/[shortId] edit.templates @ desktop-1920x1080",
+      "/ models @ desktop-1920x1080",
+      "/ models @ mobile-402x874",
+      "/archive survey.question @ desktop-1920x1080",
+      "/archive survey.question @ mobile-402x874",
+      "/archive survey.other @ desktop-1920x1080",
+      "/archive survey.other @ mobile-402x874",
+      "/archive survey.done @ desktop-1920x1080",
+      "/archive survey.done @ mobile-402x874",
       "/archive palette @ desktop-1920x1080",
       "/archive palette @ mobile-402x874",
       "/archive palette.flyout @ desktop-1920x1080",
@@ -26472,10 +29005,24 @@
       "/nodecanvas seeded @ mobile-402x874",
       "/nodecanvas seeded.loading-more @ desktop-1920x1080",
       "/nodecanvas seeded.loading-more @ mobile-402x874",
+      "/subscription active @ desktop-1920x1080",
+      "/subscription active @ mobile-402x874",
+      "/subscription tab.group @ desktop-1920x1080",
+      "/subscription tab.group @ mobile-402x874",
+      "/subscription tab.billing @ desktop-1920x1080",
+      "/subscription tab.billing @ mobile-402x874",
+      "/subscription cancel-confirm @ desktop-1920x1080",
+      "/subscription cancel-confirm @ mobile-402x874",
+      "/subscription/group-purchase plan-selected @ desktop-1920x1080",
+      "/subscription/group-purchase plan-selected @ mobile-402x874",
       "/videoeditor/[projectId] panel.assets @ desktop-1920x1080",
       "/videoeditor/[projectId] panel.assets @ mobile-402x874",
+      "/videoeditor/[projectId] panel.audio @ desktop-1920x1080",
+      "/videoeditor/[projectId] panel.audio @ mobile-402x874",
       "/videoeditor/[projectId] panel.clip-color @ desktop-1920x1080",
       "/videoeditor/[projectId] panel.clip-color @ mobile-402x874",
+      "/videoeditor/[projectId] panel.clip @ desktop-1920x1080",
+      "/videoeditor/[projectId] panel.clip @ mobile-402x874",
       "/videoeditor/[projectId] panel.settings @ desktop-1920x1080",
       "/videoeditor/[projectId] panel.settings @ mobile-402x874"
     ],
@@ -50113,6 +52660,966 @@
         "fixedAncestor": null
       },
       {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.3.1.0.3.0",
+        "locale": "ko",
+        "dw": 43.86,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.3.1.0.3"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.3.1.0.3.0",
+        "locale": "ja",
+        "dw": 207.91,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.3.1.0.3"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.1.0.1.1.0.8",
+        "locale": "ko",
+        "dw": -26.31,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0.1.0.1.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.1.0.1.1.0.8",
+        "locale": "ja",
+        "dw": 11.98,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0.1.0.1.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.1.0.2",
+        "locale": "ko",
+        "dw": 46.63,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.1.0.2",
+        "locale": "ja",
+        "dw": 197.27,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.1.0",
+        "locale": "ko",
+        "dw": -38.17,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.1.0",
+        "locale": "ja",
+        "dw": 3.16,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.1.1",
+        "locale": "ko",
+        "dw": -11.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.1.1",
+        "locale": "ja",
+        "dw": -12.08,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.2.0.0.0",
+        "locale": "ko",
+        "dw": -86.22,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.2.0.0.0",
+        "locale": "ja",
+        "dw": 140.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.2.0.0.1",
+        "locale": "ko",
+        "dw": 17.3,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.2.0.0.2",
+        "locale": "ko",
+        "dw": 19.06,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.2.0.1.0",
+        "locale": "ko",
+        "dw": -33.75,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.2.0.1.0",
+        "locale": "ja",
+        "dw": 248.89,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.2.0.1.1",
+        "locale": "ko",
+        "dw": 13.64,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.0.2.0.1.2",
+        "locale": "ko",
+        "dw": 81.36,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.1.0",
+        "locale": "ko",
+        "dw": -44.25,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.1.1",
+        "locale": "ko",
+        "dw": 7.09,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.1.1",
+        "locale": "ja",
+        "dw": 35.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.0",
+        "locale": "ko",
+        "dw": -53.48,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.0",
+        "locale": "ja",
+        "dw": 389.22,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.1",
+        "locale": "ko",
+        "dw": 47.53,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.2",
+        "locale": "ko",
+        "dw": -13.75,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.3",
+        "locale": "ko",
+        "dw": 41.59,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.0",
+        "locale": "ko",
+        "dw": 28.98,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.0",
+        "locale": "ja",
+        "dw": 465.77,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.1",
+        "locale": "ko",
+        "dw": 78.19,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.2",
+        "locale": "ko",
+        "dw": 19.86,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.3",
+        "locale": "ko",
+        "dw": 19.36,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.4",
+        "locale": "ko",
+        "dw": 95.72,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.5.0.1.1.2",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -37.8,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.5.0.1.1.3",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.5.0.1.2.3",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.5.0.1.2.3",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.6.0.3.0.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.6.0.3.0.1",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.6.0.3.1.0.2",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.6.0.3.1.0.2",
+        "locale": "ja",
+        "dw": 0,
+        "dh": 24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.7.0.1.0.2.2",
+        "locale": "ja",
+        "dw": 0,
+        "dh": 24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.7.0.1.2.2.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -30,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.0.0.t",
+        "locale": "ko",
+        "dw": -21.95,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.0.0.t",
+        "locale": "ja",
+        "dw": -6.91,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.1.0.t",
+        "locale": "ko",
+        "dw": -7.95,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.1.0.t",
+        "locale": "ja",
+        "dw": 46.05,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.2.0.t",
+        "locale": "ko",
+        "dw": -19,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.2.0.t",
+        "locale": "ja",
+        "dw": -16.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.3.0.t",
+        "locale": "ko",
+        "dw": -26.66,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.3.0.t",
+        "locale": "ja",
+        "dw": 27.34,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.4.0.t",
+        "locale": "ko",
+        "dw": -29.77,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.2.4.0.t",
+        "locale": "ja",
+        "dw": -13.7,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.1.0.1.1.0.8",
+        "locale": "ko",
+        "dw": -15.22,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0.1.0.1.1"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.1.0.1.1.0.8",
+        "locale": "ja",
+        "dw": 6.27,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0.1.0.1.1"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.1.0.2",
+        "locale": "ko",
+        "dw": 25.11,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.1.0.2",
+        "locale": "ja",
+        "dw": 109.39,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.1.0",
+        "locale": "ko",
+        "dw": -30.55,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.1.0",
+        "locale": "ja",
+        "dw": 2.53,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.1.1",
+        "locale": "ko",
+        "dw": -11.87,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.1.1",
+        "locale": "ja",
+        "dw": -12.08,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.2.0.0.0",
+        "locale": "ko",
+        "dw": -56.69,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.2.0.0.0",
+        "locale": "ja",
+        "dw": 90.77,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.2.0.0.1",
+        "locale": "ko",
+        "dw": 11.13,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.2.0.0.2",
+        "locale": "ko",
+        "dw": 12.08,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.2.0.1.0",
+        "locale": "ko",
+        "dw": -22.78,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.2.0.1.0",
+        "locale": "ja",
+        "dw": 160.7,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.2.0.1.1",
+        "locale": "ko",
+        "dw": 8.59,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.2.0.1.2",
+        "locale": "ko",
+        "dw": 52.66,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.3.1.0",
+        "locale": "ja",
+        "dw": 100.33,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.3.1.1",
+        "locale": "ja",
+        "dw": 100.33,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.3.1.2",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.3.1.2",
+        "locale": "ja",
+        "dw": 100.33,
+        "dh": -21,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.4.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.4.1",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.5.1.3",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.0.5.1.3",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.1.0",
+        "locale": "ko",
+        "dw": -35.41,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.1.1",
+        "locale": "ko",
+        "dw": 7.09,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.1.1",
+        "locale": "ja",
+        "dw": 35.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.0",
+        "locale": "ko",
+        "dw": -35.11,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.0",
+        "locale": "ja",
+        "dw": 101.92,
+        "dh": 24.3,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.1",
+        "locale": "ko",
+        "dw": 30.92,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.2",
+        "locale": "ko",
+        "dw": -9.37,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.0.3",
+        "locale": "ko",
+        "dw": 26.73,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.0",
+        "locale": "ko",
+        "dw": 18.45,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.0",
+        "locale": "ja",
+        "dw": 268.72,
+        "dh": 24.3,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.1",
+        "locale": "ko",
+        "dw": 50.81,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.2",
+        "locale": "ko",
+        "dw": 8.48,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.3",
+        "locale": "ko",
+        "dw": 12.09,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.2.0.1.4",
+        "locale": "ko",
+        "dw": 66.19,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.4.0"
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.4.0.2.1.6.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.5.0.0.0",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -27,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.5.0.0.0",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -27,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.5.0.1.0.3",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.5.0.1.1.2",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -24.3,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.5.0.1.1.3",
+        "locale": "ja",
+        "dw": 0,
+        "dh": 21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.5.0.1.3.3",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.5.0.1.3.3",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.6.0.3.0.0",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -27,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.6.0.3.0.0",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -27,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.6.0.3.0.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.6.0.3.1.0.2",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.6.0.3.1.0.2",
+        "locale": "ja",
+        "dw": 0,
+        "dh": 21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.6.0.3.1.2.2",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.7.0.0.0",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -27,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.7.0.0.0",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -27,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.7.0.1.1.2.2",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.7.0.1.3.2.2",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.0",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -27,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.0",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -27,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.1.0.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.1.0.1",
+        "locale": "ja",
+        "dw": 0,
+        "dh": 21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.1.1.0",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.1.1.0",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.1.1.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.1.2.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.1.3.0",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -24,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.8.0.0.1.3.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.9.0.1.0.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/ambassador @ mobile-402x874",
+        "path": "body.1.0.0.9.0.1.0.1",
+        "locale": "ja",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
         "target": "/blog/[slug] @ desktop-1920x1080",
         "path": "body.1.0.0.1.0.2.0.0.t",
         "locale": "ko",
@@ -52629,6 +56136,390 @@
         "path": "body.1.0.0.2.0.0.3.2.4.1.0",
         "locale": "ja",
         "dw": 36.72,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.0.1.0",
+        "locale": "ko",
+        "dw": -41.84,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.0.1.1",
+        "locale": "ko",
+        "dw": 12.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.0.0.1.0.0",
+        "locale": "ko",
+        "dw": -20.22,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.0.0.1"
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.0.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.0.0.1"
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.1.0.1.0.0",
+        "locale": "ko",
+        "dw": -26.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.1.0.1"
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.1.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.5,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.1.0.1"
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.2.0.1.0.0",
+        "locale": "ko",
+        "dw": -26.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.2.0.1"
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.2.0.1.0.2",
+        "locale": "ko",
+        "dw": -6.77,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.2.0.1"
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.3.0.1.0.0",
+        "locale": "ko",
+        "dw": -26.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.3.0.1"
+      },
+      {
+        "target": "/deck @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.3.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.3.0.1"
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.0.1.0",
+        "locale": "ko",
+        "dw": -41.84,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.0.1.1",
+        "locale": "ko",
+        "dw": 12.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.2.0.0.1.0.0",
+        "locale": "ko",
+        "dw": -20.22,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.0.0.1"
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.2.0.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.0.0.1"
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.2.1.0.1.0.0",
+        "locale": "ko",
+        "dw": -26.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.1.0.1"
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.2.1.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.5,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.1.0.1"
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.2.2.0.1.0.0",
+        "locale": "ko",
+        "dw": -26.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.2.0.1"
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.2.2.0.1.0.2",
+        "locale": "ko",
+        "dw": -6.77,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.2.0.1"
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.2.3.0.1.0.0",
+        "locale": "ko",
+        "dw": -26.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.3.0.1"
+      },
+      {
+        "target": "/deck @ mobile-402x874",
+        "path": "body.1.0.0.0.2.3.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.3.0.1"
+      },
+      {
+        "target": "/deck/c/[course] @ desktop-1920x1080",
+        "path": "body.1.0.0.0.0.1.0",
+        "locale": "ko",
+        "dw": 12.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/c/[course] @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.0.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.5,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.0.0.1"
+      },
+      {
+        "target": "/deck/c/[course] @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.1.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.1.0.1"
+      },
+      {
+        "target": "/deck/c/[course] @ desktop-1920x1080",
+        "path": "body.1.0.0.0.2.2.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.2.0.1"
+      },
+      {
+        "target": "/deck/c/[course] @ mobile-402x874",
+        "path": "body.1.0.0.0.0.1.0",
+        "locale": "ko",
+        "dw": 12.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/c/[course] @ mobile-402x874",
+        "path": "body.1.0.0.0.2.0.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.5,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.0.0.1"
+      },
+      {
+        "target": "/deck/c/[course] @ mobile-402x874",
+        "path": "body.1.0.0.0.2.1.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.1.0.1"
+      },
+      {
+        "target": "/deck/c/[course] @ mobile-402x874",
+        "path": "body.1.0.0.0.2.2.0.1.0.2",
+        "locale": "ko",
+        "dw": -13.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.0.2.2.0.1"
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.0.1.0",
+        "locale": "ko",
+        "dw": 12.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.0.0.0",
+        "locale": "ko",
+        "dw": 30.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.0.0.1",
+        "locale": "ko",
+        "dw": 30.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.0.0.2",
+        "locale": "ko",
+        "dw": 30.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.0.1.0",
+        "locale": "ko",
+        "dw": -19.19,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.0.1.1.0",
+        "locale": "ko",
+        "dw": -11.47,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.1.0.0",
+        "locale": "ko",
+        "dw": 58.89,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.1.0.1",
+        "locale": "ko",
+        "dw": 58.89,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.1.0.2",
+        "locale": "ko",
+        "dw": 58.89,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ desktop-1920x1080",
+        "path": "body.1.0.0.0.1.1.1.1.1.0.0",
+        "locale": "ko",
+        "dw": -11.47,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.0.1.0",
+        "locale": "ko",
+        "dw": 12.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.0.0.1.1",
+        "locale": "ko",
+        "dw": 0,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.1.0.0.0",
+        "locale": "ko",
+        "dw": -26.91,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.1.1.0.1.0",
+        "locale": "ko",
+        "dw": -19.19,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.1.1.0.1.1.0",
+        "locale": "ko",
+        "dw": -11.47,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.1.1.1.1.0.0",
+        "locale": "ko",
+        "dw": -11.47,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.2.0.0.0",
+        "locale": "ko",
+        "dw": -17.73,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.2.0.0.1.0",
+        "locale": "ko",
+        "dw": -17.73,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.2.0.0.1.1",
+        "locale": "ko",
+        "dw": -17.73,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/deck/manage @ mobile-402x874",
+        "path": "body.1.0.0.0.1.2.0.0.1.2",
+        "locale": "ko",
+        "dw": -17.73,
         "dh": 0,
         "fixedAncestor": null
       },
@@ -56811,6 +60702,7 @@
     "figma/locale-strings.05.draw.js",
     "figma/locale-strings.06.draw.js",
     "figma/locale-strings.07.draw.js",
-    "figma/locale-strings.08.draw.js"
+    "figma/locale-strings.08.draw.js",
+    "figma/locale-strings.09.draw.js"
   ]
 }

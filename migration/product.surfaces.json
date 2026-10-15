@@ -13,15 +13,15 @@
   "filesScanned": 394,
   "counts": {
     "total": 616,
-    "mapped": 271,
+    "mapped": 274,
     "scoped": 335,
-    "needed": 10,
+    "needed": 7,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 0,
-    "screen": 9,
+    "screen": 6,
     "oneoff": 1,
     "unclear": 0,
     "kindless": 0
@@ -5268,12 +5268,13 @@
         "louis-overlay-mode",
         "louis-state"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "이미지 편집 모달 본체(1,085줄)다 — 오버레이·모달 셸·헤더·닫기·비율 툴바(표시자 + 비율 버튼 두 톤)·크롭 영역·스티커 층을 자기 상수로 그린다. LOUIS 를 무는 것은 토큰 넷뿐이고(`accent-primary` · `media-indicator-active` · `hairline-inset` · `transform-frame`) 셸은 전부 자기 것이다. VideoEditModal 이 같은 성질로 needed(screen)/high 인 선례와 같은 자리다. 2026-10-16 판정 3차: 보드 panel.image-edit 모바일(3549:23842)이 늘림 run 2026-10-16p3(03-app)의 w360 시험에서 자식 넘침 둘로 실패한다(DS-D-0098 조건 2).",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "화면 한 장이다 — 소비처 하나(노드 캔버스의 이미지 노드)에서 전면 모달로 뜨고 그 안에 툴바·캔버스·팔레트가 딸린다. 부품으로 쪼개 세우면 셸의 다분할 배치가 어디에도 안 남는다."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas?project= panel.image-edit",
+      "reason": "이미지 편집 모달 본체다(DS-D-0098). 보드 panel.image-edit(3549:23841 · 3549:23842, 새 앵커 97d4950e 판), 늘림 run 2026-10-16rl1(03-app)에서 데스크톱 실패 0 · 모바일은 360 의 떠 있는 도구 막대(내용 폭 394, 제품 같음 — RESIZE_PRODUCT_SAME) 하나만 남는다. 크롭 그림 감싸개 넘침은 조립 규칙 15조의 50 으로 풀었다. 같은 파일의 나머지 표면은 범위 밖 · 컴포넌트 대응이다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "레시피 측정 — 이미지 노드 메뉴 「Edit image」 로 연 이미지 편집 모달의 크롭 탭 — 크롭 · 스티커 탭, 비율 버튼 넷(Free · 16:9 · 9:16 · 1:1), 시드 이미지(highlight-short)와 크롭 틀 · 손잡이 여덟, 취소 · 적용 단추가 채운다. 빈 모달이 아니다."
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx#EditNode": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
@@ -5610,12 +5611,13 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipInspector.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "`…/nodes/VideoEditModal.tsx#VideoEditModal` 안의 독립 영역이다. 비디오 클립 속성 패널 — 재생 속도·Ken Burns·필터·비율을 세그먼트 토글 그룹으로 고른다. SegmentedControl 정본이 있지만 여기 토글은 auto-fill 그리드로 줄바꿈되고 선택 면 값이 패널 실측값이라 정본과 갈라져 있다. 2026-10-16 판정 3차: 보드 panel.clip(3774:12173 · 3774:12174)이 섰지만 모바일이 늘림 run 2026-10-16p3(03-app)의 w360 · w430 시험에서 자식 넘침으로 실패한다(DS-D-0098 조건 2).",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: segmented-control] import 1곳(VideoEditModal), 라우트 3. 854줄의 우측 속성 패널 한 절이고 자식은 InspectorSectionHead·InspectorMetric(5회)·InspectorPill·ClipColorControls 다. 다만 인스펙터 넷 중 «유일하게» LOUIS 를 전혀 안 문다(형제 셋은 louis-segmented-control 을 문다) — 여기 토글만 vemClass 벌이다. 그래서 이건 새 표면이 아니라 형제와 갈라진 코드 부채이고, 보드로 그리면서 정본으로 수렴시킬 자리다."
+      "verdict": "figma",
+      "figma": "screen:/videoeditor/[projectId] panel.clip",
+      "reason": "편집기 비디오 클립 속성 패널이다(DS-D-0098). 보드 panel.clip(3774:12173 · 3774:12174, 새 앵커 97d4950e 판), 늘림 run 2026-10-16rl2(03-app)에서 데스크톱은 필름 칸 · 눈금자 끝(제품 같음), 모바일은 스크롤 동작 줄의 단추와 측정 원장 그대로의 아이콘 22/20 넘침(제품 같음 — RESIZE_PRODUCT_SAME)만 남는다. 미리보기 선택 테두리의 0.6 어긋남은 조립 규칙 15조의 51 로 풀었다. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "레시피 측정 — 편집기 fixture 프로젝트에서 클립 A 를 고르고 연 「Output clips」 인스펙터 — 요약 표(Track V1 · Length 00:05:00 · Start 0:00 · End 0:05 · Audio Included)와 오디오 절(Clip audio · Sound on), 모바일은 「Properties」 시트와 동작 줄 일곱이 채운다. 빈 패널이 아니다."
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx#ColorRulerSlider": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx",
@@ -7041,12 +7043,13 @@
       "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "유튜브 대시보드 화면. 채널 헤더(배너·아바타·설명 더보기)·기간 선택기(thumb 슬라이딩)·연결 안내 패널·채널 상세 모달·지연 안내를 자체로 그린다. louis-tabs · louis-avatar 는 이미 소비 중이라 남는 것이 그 다섯이다. 2026-10-16 판정 3차: 개요 보드(3587:2 · 3587:3)는 늘림 run 2026-10-16p3(03-app)에서 실패 0 이지만, 이 파일이 소유한 채널 상세 대화상자 보드(3587:9, channel-info)가 모바일 w360 에서 넘침으로 실패한다 — 그 몫으로 남긴다(DS-D-0098 조건 2).",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/analytics/youtube/page.tsx), JSX 1곳. 2384줄 화면이자 네 analytics 탭의 유일한 소비처다. louis-tabs · louis-avatar 는 이미 물고 있어 남는 미모델은 채널 헤더·기간 선택기(thumb 슬라이딩)·연결 안내 패널·채널 상세 모달·지연 안내 다섯. 그중 앞 넷은 InstagramAnalyticsScene 과 겹치는 대시보드 셸이라 primitive 로 꺼낼 후보다."
+      "verdict": "figma",
+      "figma": "screen:/analytics/youtube channel-info",
+      "reason": "유튜브 대시보드 화면이다(DS-D-0098). 채널 헤더 · 기간 선택기 · 연결 안내 · 지연 안내는 개요 · 성과 · 시청자 · 데이터 부족 보드가, 이 파일이 소유한 채널 상세 대화상자는 channel-info 보드(3587:8 · 3587:9, 새 앵커 97d4950e 판)가 그린다. 늘림 run 2026-10-16rl1(03-app)에서 데스크톱 · 모바일 실패 0 — 모바일 360 의 대화 상자 넘침(`max-w-[90vw]` 상한이 측정 폭 361.8 로 굳었던 것)은 조립 규칙 15조의 49 로 풀었다. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "레시피 analytics — 연결된 채널(자리표시)의 개요 화면 위에 채널 정보 대화 상자를 연 상태 — 배너 자리 · 아바타 · 채널 이름 · 구독자 12,800 · 영상 142 · 총 조회 1,846,000 · 설명이 채운다. 빈 대화 상자가 아니다."
     },
     "apps/web/components/signup/SignupLegalModal.tsx#SignupLegalModal": {
       "file": "apps/web/components/signup/SignupLegalModal.tsx",

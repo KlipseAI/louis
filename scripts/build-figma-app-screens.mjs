@@ -2170,6 +2170,88 @@ function hoistBleed(spec) {
  * 정렬이 다르면 묶지 않는다(`unresolved`). 묶음은 첫 자식의 위 · 둘째의 아래 음수 margin 을 들고 가 다음 이웃과 다시 묶일 수 있다.
  */
 /**
+ * **뷰포트 폭 비율 상한으로 선 상자는 보드 폭을 비례로 따른다(2026-10-16, 조립 규칙 15조의 49).** 유튜브 분석 채널 정보 대화 상자는
+ * `w-[640px] max-w-[90vw]`(YoutubeAnalyticsScene.tsx)라 모바일 402 에서 상한 90vw = 361.8 로 선다 — 측정 원장 계산값 `width 361.797px ·
+ * max-width 361.8px`. 크기 판정은 그 상한을 측정 뷰포트 상수로 풀어 FIXED 361.8 · 최대 폭 361.8 로 굳혔고, 덮개(가로 가운데 정렬 · 뷰포트
+ * 폭)를 360 으로 줄이자 상자가 양쪽으로 0.9 나갔다(제품은 324). 선언된 `max-width` 가 뷰포트 폭 단위 하나(`Nvw`)이고 그 상한이 측정 폭을
+ * 정했으며(폭 = 최대 폭, 0.5 안) 부모가 뷰포트 폭이고 흐름 자식이 그 상자 하나면, 상자를 부모 안 절대 배치 · 가로 SCALE 로 옮긴다 — 부모가
+ * 뷰포트 폭이라 SCALE 이 `N%` 와 같은 폭 · 자리를 낸다(360 에서 324). 세로는 부모의 세로 정렬을 따른다(가운데면 CENTER, 아니면 MIN).
+ * 측정 폭에서는 자리 · 크기가 그대로다. 제품의 px 폭 상한(640)은 뷰포트 711 위에서만 걸리므로 모바일 보드의 늘림 폭(360 · 430)에서는 닿지 않는다.
+ */
+const VIEWPORT_WIDTH_ONLY = /^\s*[\d.]+(?:dvw|svw|lvw|vw)\s*$/;
+function scaleViewportCappedBoxes(spec, declaredOf, viewportWidth) {
+  const changed = [];
+  const near = (a, b) => Math.abs(a - b) <= HALF_PIXEL;
+  const walk = (node) => {
+    const mode = node.layout?.layoutMode;
+    const flow = (node.children ?? []).filter((child) => child.positioning !== "ABSOLUTE");
+    if (!node.instance && (mode === "HORIZONTAL" || mode === "VERTICAL") && flow.length === 1 && node.rect && near(node.rect.width, viewportWidth)) {
+      const child = flow[0];
+      if (!child.instance && child.rect && child.sizing?.maxWidth != null && near(child.sizing.maxWidth, child.rect.width)
+        && VIEWPORT_WIDTH_ONLY.test(String(declaredOf(child.path)?.["max-width"] ?? ""))) {
+        const vertical = mode === "HORIZONTAL" ? node.layout.align?.counterAxis : node.layout.align?.primaryAxis;
+        child.positioning = "ABSOLUTE";
+        child.offset = { x: child.rect.x - node.rect.x, y: child.rect.y - node.rect.y };
+        child.constraints = { horizontal: "SCALE", vertical: vertical === "CENTER" ? "CENTER" : "MIN" };
+        child.sizing = { ...child.sizing, layoutSizingHorizontal: "FIXED", maxWidth: null };
+        child.margin = null;
+        changed.push(child.path);
+      }
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  walk(spec);
+  return changed;
+}
+
+/**
+ * **내용 폭 감싸개 안에서 칸 폭에 묶인 그림은 감싸개째 칸을 따른다(2026-10-16, 조립 규칙 15조의 50 — 15조의 31 넓힘).** 15조의 31 은 흐름 블록 칸
+ * 바로 안의 `max-width: 100%` 그림만 FILL + 비율 잠금으로 옮긴다 — flex · 인라인 블록 감싸개 안이면 감싸개가 내용(그림)으로 폭을 정해 HUG 부모 안에
+ * FILL 이 접히기 때문이다. 이미지 편집 모달의 크롭 그림(ReactCrop — `.ReactCrop`(block · `max-width: 100%`) > 자식 감싸개(flex) > img
+ * `max-w-full max-h-[…] w-auto h-auto`)은 그 사슬이라 측정 폭 290 = 무대 안쪽 290 인데도 HUG 로 굳어, 모바일 360 에서 무대가 좁아지자 감싸개째
+ * 무대 밖으로 9 나갔다(제품은 그림이 무대 폭으로 줄고 높이가 비율로 따른다). 그림이 폭 auto · 높이 auto · `max-width: 100%` 이고, 그림부터 위로
+ * 가로 HUG 감싸개(흐름 자식 하나 · 폭이 그림과 같음, 0.5 안)를 지나 처음 만나는 가로 HUG 아닌 칸의 안쪽 폭이 그림 폭과 같으면(0.5 안) — 그림은 가로 FILL ·
+ * 세로 FIXED · 비율 잠금(`ar`), 감싸개는 가로 FILL 이다. 감싸개의 세로 HUG 는 그림 높이를 따른다. 측정 크기에서 FILL 폭 = 칸 안쪽 = 측정 폭이라
+ * 자리 · 크기가 같다. 높이가 상한(`max-height`)으로 정해진 그림(폭 < 칸)은 이 규칙 밖이다.
+ */
+function fillCappedImageWrappers(spec, declaredOf) {
+  const changed = [];
+  const near = (a, b) => Math.abs(a - b) <= HALF_PIXEL;
+  const clean = (value) => String(value ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+  const parentOf = new Map();
+  const index = (node) => { for (const child of node.children ?? []) { parentOf.set(child, node); index(child); } };
+  index(spec);
+  const visit = (node) => {
+    for (const child of node.children ?? []) visit(child);
+    if (node.instance || node.tag !== "img" || !node.rect || node.aspectLock || node.positioning === "ABSOLUTE") return;
+    if (node.sizing?.layoutSizingHorizontal === "FILL") return;
+    const declared = declaredOf(node.path) ?? {};
+    if (!/^100%$/.test(clean(declared["max-width"]))) return;
+    if (clean(declared.width) && clean(declared.width) !== "auto") return;
+    if (clean(declared.height) && clean(declared.height) !== "auto") return;
+    const wrappers = [];
+    let at = parentOf.get(node);
+    let below = node;
+    while (at && !at.instance && at.sizing?.layoutSizingHorizontal === "HUG") {
+      const flow = (at.children ?? []).filter((kid) => kid.positioning !== "ABSOLUTE");
+      if (flow.length !== 1 || flow[0] !== below || !at.rect || !near(at.rect.width, node.rect.width) || at.positioning === "ABSOLUTE") return;
+      wrappers.push(at);
+      below = at;
+      at = parentOf.get(at);
+    }
+    if (!at || at.instance || !at.rect || !at.layout || wrappers.length === 0) return;
+    const padding = at.layout.padding ?? {};
+    if (!near(at.rect.width - (padding.left ?? 0) - (padding.right ?? 0), node.rect.width)) return;
+    node.sizing = { ...node.sizing, layoutSizingHorizontal: "FILL", layoutSizingVertical: "FIXED", maxWidth: null };
+    node.aspectLock = true;
+    for (const wrapper of wrappers) wrapper.sizing = { ...wrapper.sizing, layoutSizingHorizontal: "FILL", maxWidth: null };
+    changed.push(node.path);
+  };
+  visit(spec);
+  return changed;
+}
+
+/**
  * **비례(SCALE) 층을 덮은 절대 배치 자식은 SCALE 이다(2026-10-16, 조립 규칙 15조의 27).** 부모를 한 축에서 꼭 덮은(자리 0 · 크기 같음, 0.5 안) 자식은
  * STRETCH 와 SCALE 이 수학적으로 같은 자리 · 크기다. 그런데 Figma 는 SCALE 로 줄어든 부모 안의 STRETCH 자식을 다르게 푼다 — 라이브 탐침: 402 → 360
  * 에서 SCALE 부모 187.33 → 167.76 인데 STRETCH 인스턴스는 168.33 으로 부모 밖 0.57, SCALE 이면 167.76 그대로. 랜딩 모바일 하이라이트 숏폼 카드의
@@ -2181,12 +2263,16 @@ function scaleCoversInScaledLayers(spec) {
   const near = (a, b) => Math.abs(a - b) <= 0.5;
   const walk = (node) => {
     for (const child of node.children ?? []) {
-      if (child.positioning === "ABSOLUTE" && child.constraints && node.constraints && node.rect && child.rect) {
+      // (15조의 51, 2026-10-16) 비율 잠금(`ar`) 상자도 두 축이 비례로 바뀌는 층이다 — 편집기 클립 인스펙터 모바일의 미리보기 출력 틀(15조의 15 ·
+      // FILL + 비율 잠금)을 덮은 선택 테두리 층(`inset-0`, STRETCH 두 겹)이 360 에서 틀 밖으로 세로 0.6 나갔다(늘림 run 2026-10-16p3 3774:12174 —
+      // 15조의 27 의 라이브 탐침과 같은 소수 어긋남). 비율 잠금 상자는 제약이 없어도 두 축을 SCALE 로 본다.
+      const scaled = node.aspectLock ? { horizontal: "SCALE", vertical: "SCALE" } : node.constraints;
+      if (child.positioning === "ABSOLUTE" && child.constraints && scaled && node.rect && child.rect) {
         const next = { ...child.constraints };
         // (15조의 27 넓힘, 2026-10-16) 시작 변에 붙은(MIN) 자식이 부모를 그 축에서 꼭 덮어도 같다 — 편집기 오디오 인스펙터 데스크톱의 파형 그림(`left: 0%;
         // height: 100%; width: auto` — 폭이 높이 비율로 정해진다)이 SCALE 상자 39.6 을 덮고도 MIN 이라 1440 에서 상자 밖으로 9.6(늘림 run 2026-10-16p2).
-        if (["STRETCH", "MIN"].includes(child.constraints.horizontal) && node.constraints.horizontal === "SCALE" && near(child.rect.x, node.rect.x) && near(child.rect.width, node.rect.width)) next.horizontal = "SCALE";
-        if (["STRETCH", "MIN"].includes(child.constraints.vertical) && node.constraints.vertical === "SCALE" && near(child.rect.y, node.rect.y) && near(child.rect.height, node.rect.height)) next.vertical = "SCALE";
+        if (["STRETCH", "MIN"].includes(child.constraints.horizontal) && scaled.horizontal === "SCALE" && near(child.rect.x, node.rect.x) && near(child.rect.width, node.rect.width)) next.horizontal = "SCALE";
+        if (["STRETCH", "MIN"].includes(child.constraints.vertical) && scaled.vertical === "SCALE" && near(child.rect.y, node.rect.y) && near(child.rect.height, node.rect.height)) next.vertical = "SCALE";
         if (next.horizontal !== child.constraints.horizontal || next.vertical !== child.constraints.vertical) {
           child.constraints = next;
           changed.push(child.path);
@@ -2790,6 +2876,10 @@ for (const screen of SCREENS) {
     const frameHeight = round(measured.fullPage ? measured.rootRect.height : Math.min(measured.rootRect.height, Number(context.id.split("x").pop())));
     const screenHeightFilled = [];
     fillScreenHeight(spec, (path) => declaredByPath.get(path) ?? null, Number(context.id.split("x").pop()), frameHeight, screenHeightFilled);
+    // 뷰포트 폭 비율 상한 상자(scaleViewportCappedBoxes 주석, 조립 규칙 15조의 49).
+    scaleViewportCappedBoxes(spec, (path) => declaredByPath.get(path) ?? null, Number(context.id.split("-").pop().split("x")[0]));
+    // 내용 폭 감싸개 안의 칸 폭 그림(fillCappedImageWrappers 주석, 조립 규칙 15조의 50).
+    fillCappedImageWrappers(spec, (path) => declaredByPath.get(path) ?? null);
     totalScreenHeightFilled += screenHeightFilled.length;
     if (screenHeightFilled.length) screenHeightBoards += 1;
     totalSizingReconciled += sizingFix.reconciled.length;

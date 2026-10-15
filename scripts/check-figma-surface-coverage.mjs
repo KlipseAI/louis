@@ -357,6 +357,13 @@ const RESIZE_PRODUCT_SAME = {
   // `span`(가로 flex · `overflow: hidden`)의 날짜 글자는 `flex: none` · `white-space: nowrap` 이고, 그 줄을 품은 칸은 `flex: 1 1 0%` · `min-width: 0` 이라
   // 감기는 행이 줄면 칸이 먼저 줄고 날짜가 메타 줄 끝에서 잘린다. Figma 도 메타 줄이 clipsContent 라 보이는 그림이 같다(탐침은 자르는 부모 안의 가로 넘침도 센다).
   "3521:252": { "w360 자식 넘침": "/admin templates 모바일 — 날짜 글자(flex none)가 자르는 메타 줄(overflow hidden) 끝에서 잘림(제품 같음)" },
+  // 2026-10-16(판정 2차 ⑤, 측정 원장 앵커 97d4950e migration/product-states/vem-assets.json · vem-settings.json 모바일): 편집기 모바일 시트의 판 묶음
+  // (`position: relative` · `overflow: hidden` · 365 × 420) 안에서 지난 판이 `absolute` `inset: 0` 으로 부모 폭을 받고 한 판 왼쪽(x −328 = 37 − 365)에
+  // 밀려 있다 — 보이지 않는 판이다. 판 폭이 부모를 따르므로 430 에서 393 이 되는 것은 제품도 같다(Figma 의 STRETCH 판 +365 = 측정 크기에서부터 밖에 있던 판).
+  // run 2026-10-16ro31: 각도 모달 모바일 360 은 궤도 무대(15조의 47)와 조각 01 을 보낸 뒤 3549:23840 과 같은 떠 있는 도구 막대(+17) 하나만 남았다.
+  "3549:23844": { "w360 자식 넘침": "/nodecanvas?project= 각도 모바일 — 내용 폭 도구 막대(394)가 360 밖으로(3549:23840 과 같은 노드, 제품 같음)" },
+  "3549:23846": { "w430 자식 넘침": "/videoeditor/[projectId] 에셋 시트 모바일 — overflow hidden 판 묶음 밖에 밀어 둔 inset 0 판이 부모 폭을 따른다(제품 같음)" },
+  "3549:23856": { "w430 자식 넘침": "/videoeditor/[projectId] 설정 시트 모바일 — overflow hidden 판 묶음 밖에 밀어 둔 inset 0 판이 부모 폭을 따른다(제품 같음)" },
 };
 const viewportHeight = (context) => Number(String(context).match(/x(\d+)$/)?.[1] ?? 0);
 const resizeFailures = (board) => {

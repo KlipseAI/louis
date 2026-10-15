@@ -277,7 +277,10 @@ const placeGridChild = (node, spec) => {
 // **아래 변에 붙은 절대 배치 자동 배치 상자는 세로 HUG 로 끝낸다(2026-10-15, 조립 규칙 15조의 18).** 측정 크기 · 자리를 건 뒤 HUG 로 돌리고,
 // 내용 높이가 측정과 다르면 아래 변을 측정 자리에 맞춘다 — 아래(MAX) 제약의 HUG 프레임은 내용이 늘면 위로 자란다.
 const pendingAbsolute = [];
+// 이 조각에서 건 절대 배치 — 줄 옮긴 글자를 폭 맞춤으로 되돌린 뒤(settleResizeResponse) 한 번 더 건다.
+const settledAbsolute = [];
 const settleAbsolute = () => {
+  settledAbsolute.push(...pendingAbsolute);
   for (const [node, size, offset, hugVertical] of pendingAbsolute) {
     try { node.resize(Math.max(0.01, size[0]), Math.max(0.01, size[1])); } catch (error) {}
     if (offset) { try { node.x = offset[0]; node.y = offset[1]; } catch (error) {} }
@@ -289,6 +292,54 @@ const settleAbsolute = () => {
     }
   }
   pendingAbsolute.length = 0;
+};
+// **보드가 다 선 뒤에 거는 늘림 반응 둘(2026-10-15).**
+// ① 칸을 채운 줄 옮긴 글자(`fw` [줄 수, 줄 높이], 조립 규칙 15조의 22) — FILL + 높이 자동으로 세웠다. 측정 폭에서 Figma 글꼴이 한 줄을 더 감았으면
+//    (높이가 줄 수 × 줄 높이보다 반 줄 넘게 크다) 그 글자만 종전의 폭 맞춤(HUG)으로 되돌린다 — 측정 폭의 그림은 종전과 같다. 되돌린 수는 결과의
+//    `fillWrappedHugged` 다. 텍스트 스타일 · 범위 서식 · 절대 배치가 다 걸린 뒤라야 높이가 최종이다.
+// ② 상자를 따라 늘어나는 그림(`vz`, `preserveAspectRatio="none"`, 15조의 26) — 그림 프레임과 그 안의 도형을 SCALE 로 건다. 트리를 짓는 동안 상자가
+//    잠시 다른 크기일 때 걸면 그림이 그 비율로 틀어지므로, 상자가 측정 크기로 선 끝에 건다.
+const pendingFillWrapped = [];
+const pendingStretchGlyphs = [];
+let fillWrappedHugged = 0;
+const settleResizeResponse = () => {
+  let undone = 0;
+  for (const [node, [lines, lineHeight, truncates], measuredHeight] of pendingFillWrapped) {
+    try {
+      // 기대 높이는 측정 높이와 줄 수 × 줄 높이 중 큰 쪽 — 맞춘 텍스트 스타일의 줄 높이가 조금 달라도 여러 줄 글자가 잘못 되돌려지지 않게.
+      const expected = Math.max(lineHeight > 0 ? lines * lineHeight : 0, measuredHeight || 0);
+      const slack = lineHeight > 0 ? lineHeight / 2 : 4;
+      let rewrapped = node.height > expected + slack;
+      // 잘리지 않았던 말줄임 글자(`fw` 셋째 칸) — Figma 글꼴의 한 줄 폭이 상자보다 넓으면 측정 폭에서 없는 «…» 가 생긴다. 페이지에 복제본을 띄워 잰다.
+      if (!rewrapped && truncates) {
+        const probe = node.clone();
+        figma.currentPage.appendChild(probe);
+        try { probe.textTruncation = "DISABLED"; probe.maxWidth = null; probe.textAutoResize = "WIDTH_AND_HEIGHT"; rewrapped = probe.width > node.width + 0.5; }
+        finally { probe.remove(); }
+      }
+      if (rewrapped) {
+        node.layoutSizingHorizontal = "HUG";
+        node.maxWidth = null;
+        node.textAutoResize = "WIDTH_AND_HEIGHT";
+        fillWrappedHugged += 1;
+        undone += 1;
+      }
+    } catch (error) {}
+  }
+  pendingFillWrapped.length = 0;
+  // 되돌린 글자가 있으면 조상 높이가 바뀌었으므로 절대 배치의 측정 크기 · 자리를 한 번 더 건다(settleAbsolute 주석).
+  if (undone > 0) { pendingAbsolute.push(...settledAbsolute.splice(0)); settleAbsolute(); }
+  for (const glyph of pendingStretchGlyphs) {
+    for (const part of glyph.findAll((child) => "constraints" in child)) { try { part.constraints = { horizontal: "SCALE", vertical: "SCALE" }; } catch (error) {} }
+    // svg 상자는 자식 없는 자동 배치 프레임으로 서기도 한다 — 그때 그림은 흐름 자식이라 제약 대신 두 축 FILL 로 상자를 따른다.
+    const host = glyph.parent;
+    if (host && "layoutMode" in host && host.layoutMode && host.layoutMode !== "NONE") {
+      try { glyph.layoutSizingHorizontal = "FILL"; glyph.layoutSizingVertical = "FILL"; } catch (error) {}
+    } else {
+      try { glyph.constraints = { horizontal: "SCALE", vertical: "SCALE" }; } catch (error) {}
+    }
+  }
+  pendingStretchGlyphs.length = 0;
 };
 // 텍스트 스타일 적용은 비동기다. 트리를 다 만든 뒤 한 번에 건다.
 const pendingTextStyles = [];
@@ -532,6 +583,8 @@ const buildNode = (spec, parent) => {
     // 줄 수를 자르는 글자(`lc`, `-webkit-line-clamp`) — 칸 폭 글자를 그 줄 수에서 말줄임으로 자른다(조립 규칙 15조의 10).
     if (isText && spec.lc && h !== "HUG") { try { node.textTruncation = "ENDING"; node.maxLines = spec.lc; } catch (error) {} }
     if (isText && spec.tt === 2 && h === "HUG") { try { node.maxWidth = Math.max(0.01, spec.r[0]); node.textTruncation = "ENDING"; node.maxLines = 1; } catch (error) {} }
+    // 칸을 채운 줄 옮긴 글자(`fw`, 조립 규칙 15조의 22) — 보드가 다 선 뒤 측정 폭에서 다시 감겼는지 잰다(settleResizeResponse).
+    if (isText && spec.fw && h === "FILL") pendingFillWrapped.push([node, spec.fw, spec.r[1]]);
   }
 
   if (spec.mh) { try { node.minHeight = spec.mh; } catch (error) {} }
@@ -660,6 +713,7 @@ const buildNode = (spec, parent) => {
       if (Array.isArray(shape.strokes) && shape.strokes.length) shape.strokes = rebind(shape.strokes);
     }
     node.appendChild(glyph);
+    if (spec.vz === 1) pendingStretchGlyphs.push(glyph);
   }
 
   // **HUG 행에서 칸이 전부 세로 FILL 이면 행이 접힌다.** CSS grid 는 칸 내용이 행 높이를 정하고 칸이 그 높이까지 늘어나는데
@@ -792,6 +846,7 @@ if (P.head) {
   live.pin(root);
   await flushTextStyles();
   settleAbsolute();
+  settleResizeResponse();
   // 글자 속성 부품: 세트에 TEXT 속성을 열고 글자 노드를 묶는다(빌더 PARTS 의 label).
   if (P.label) {
     const set = frame.parent, text = root.findOne((n) => n.type === "TEXT"), defs = set.componentPropertyDefinitions;
@@ -828,6 +883,7 @@ if (P.head) {
   }
   await flushTextStyles();
   settleAbsolute();
+  settleResizeResponse();
   result = { chunk: slots.map((slot) => slot.path.join(".")).join(" "), replaced: replaced.join(" · ") };
 }
 
@@ -838,5 +894,6 @@ return {
   unboundColors: [...unboundColors].sort(),
   missingTextStyles: [...missingTextStyles],
   ...(gridTrackFailures.length ? { gridTrackFailures } : {}),
+  ...(fillWrappedHugged ? { fillWrappedHugged } : {}),
   ...(P.locale ? { boundTexts: localeCounts.texts, boundVisible: localeCounts.visible, boundLabels: localeCounts.labels } : {}),
 };

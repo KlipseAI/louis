@@ -534,7 +534,10 @@ function glyphMarkup(node, childrenOf) {
       body = `<g transform='translate(${cx} ${cy}) matrix(${a} ${b} ${c} ${d} 0 0) translate(${-cx} ${-cy})'>${body}</g>`;
     }
   }
-  return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='${quote(viewBox)}' width='${size(node.rect.width)}' height='${size(node.rect.height)}' fill='none'>${body}</svg>`;
+  // **비율을 버리는 그림(`preserveAspectRatio="none"`, 2026-10-15 조립 규칙 15조의 26).** 분석 KPI 꼬리선(viewBox 800 × 200 을 778 × 155.59 상자에)은
+  // 제품이 상자에 맞춰 늘인다 — 속성을 빼면 SVG 기본(`xMidYMid meet`)이 비율을 지켜 가운데에 작게 그린다. 측정한 속성을 그대로 싣는다.
+  const stretch = String(node.vector?.preserveAspectRatio ?? "").trim() === "none" ? " preserveAspectRatio='none'" : "";
+  return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='${quote(viewBox)}'${stretch} width='${size(node.rect.width)}' height='${size(node.rect.height)}' fill='none'>${body}</svg>`;
 }
 
 /**
@@ -1097,7 +1100,11 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         return w > 0 && h > 0 && w * h > area * 0.5;
       });
     };
-    const placeholder = children.length === 0 && !hasOwnPaint(node) && !formControl
+    // **표의 열(`<col>` · `<colgroup>`)은 자리를 차지하지 않는다(2026-10-15, 조립 규칙 15조의 25).** `display: table-column(-group)` 은 열 폭만 정하는 상자라 측정
+    // 상자가 표 전체 높이로 겹쳐 잡힌다. 칠 없는 열을 빈 자리 상자로 남기자 /admin ambassador.links 데스크톱의 `colgroup` 이 열 여덟(높이 193)을 세로로 쌓아
+    // 1544 로 서서 표 줄을 그만큼 아래로 밀었다. 칠 없는 열은 버린다.
+    const tableColumn = /^table-column(-group)?$/.test(node.style?.display ?? "");
+    const placeholder = children.length === 0 && !hasOwnPaint(node) && !formControl && !tableColumn
       && parent != null && !decision.absolute && node.rect.width > 0 && node.rect.height > 0 && !insideSvg() && !stackedInGrid();
     if (children.length === 0 && !hasOwnPaint(node) && !formControl && !placeholder && !node.looseMarkup) { stats.droppedEmpty += 1; return null; }
     if (placeholder) stats.placeholderBoxes = (stats.placeholderBoxes ?? 0) + 1;
@@ -1253,11 +1260,24 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", maxWidth: fit.heightLimited ? node.rect.width : nodeSizing.maxWidth };
       stats.containFit = (stats.containFit ?? 0) + 1;
     }
+    // 줄어드는 flex 항목(`min-w-0` + 잘리거나 감기는 글자, flexShrinkItemOf 주석 · 조립 규칙 15조의 23) — 가로 FILL, 측정 폭에서 줄지 않았으면 측정 폭이 상한.
+    const shrinkItem = !floatingLine && !placeholder && !wrappedRows && !fit && !decision.absolute && nodeSizing.layoutSizingHorizontal === "HUG"
+      ? flexShrinkItemOf(node, parent, children, childrenOf) : null;
+    let shrinkWhy = null;
+    if (shrinkItem) {
+      nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", maxWidth: shrinkItem.shrunk ? null : node.rect.width };
+      shrinkWhy = {
+        verdict: "FILL",
+        reason: `줄어드는 flex 항목(min-width 0 · flex-shrink ${node.style?.flexShrink} · ${shrinkItem.cut}) — 줄의 남는 폭을 채운다${shrinkItem.shrunk ? "(측정 폭에서 이미 줄었다)" : " · 측정 폭이 상한"}(조립 규칙 15조의 23)`,
+        source: "min-width:0", value: null,
+      };
+      stats.flexShrinkFill = (stats.flexShrinkFill ?? 0) + 1;
+    }
     const absConstraints = decision.absolute
       ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null, parent ? {
         viewport: viewportStage(parent, byPath),
         siblings: (childrenOf.get(parent.path) ?? []).filter((sibling) => sibling !== node),
-      } : null, { text: Boolean(node.ownText) })
+      } : null, { text: Boolean(node.ownText), cover: parent ? coverOf(node, parent, byPath) : null })
       : null;
     // **아래 변에 붙은 절대 배치 상자는 내용 높이다 — 위로 자란다(2026-10-15, 조립 규칙 15조의 18).** 높이 선언이 없는 절대 배치 상자는 CSS 에서
     // 내용 높이이고, `bottom` 만 걸렸으면 내용이 늘 때 위로 자란다. 절대 배치는 늘 측정 높이(FIXED)로 서서, 카드 아래 글 상자(`absolute inset-x-0
@@ -1311,6 +1331,15 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       glyph: glyphSignature(node, childrenOf),
       // **아이콘의 그림.** 측정한 도형(기하 속성 + 계산된 칠 · 획)을 SVG 로 조립한다 — 렌더러가 이것으로 아이콘을 그린다(glyphMarkup).
       ...(node.tag === "svg" ? (() => { const markup = glyphMarkup(node, childrenOf); return markup ? { glyphSvg: markup } : {}; })() : {}),
+      // 줄어드는 flex 항목이 글자 잎이면 렌더러가 측정 폭에서 다시 감겼는지 잰다(조립 규칙 15조의 22 와 같은 되돌림, payload `fw`).
+      ...(shrinkItem && !textMoved && node.ownText && children.length === 0 ? { fillWrapped: {
+        lines: Array.isArray(node.wrapLines) && node.wrapLines.length > 0 ? node.wrapLines.length : String(node.ownText).split("\n").length,
+        lineHeight: px(style.lineHeight) ?? null,
+        // 측정 폭에서 잘리지 않은 말줄임 글자 — 렌더러가 Figma 글꼴의 한 줄 폭이 상한을 넘는지 재서 넘으면 폭 맞춤으로 되돌린다(없는 말줄임표가 생기지 않게).
+        ...(shrinkItem.truncates && !shrinkItem.shrunk ? { truncates: true } : {}),
+      } } : {}),
+      // 그림이 상자를 따라 늘어나는가(`preserveAspectRatio="none"`, 조립 규칙 15조의 26) — 렌더러가 상자가 바뀔 때 그림을 SCALE 로 늘인다.
+      ...(node.tag === "svg" && String(node.vector?.preserveAspectRatio ?? "").trim() === "none" ? { glyphStretch: true } : {}),
       ...(node.looseMarkup ? { glyphSvg: node.looseMarkup } : {}),
       // **이미지의 정체.** `<img>` 의 src — 생성기가 LOUIS 자산 컴포넌트와 잇는 열쇠다(IMAGE_COMPONENTS).
       // `<video>` 는 측정기가 포스터를 src 로 싣는다(조립 규칙 15조의 21) — 같은 열쇠로 잇는다.
@@ -1354,7 +1383,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         ? { x: node.rect.x - parent.rect.x, y: node.rect.y - parent.rect.y }
         : null,
       constraints: absConstraints,
-      why: { horizontal: decision.h, vertical: decision.v },
+      why: { horizontal: shrinkWhy ?? decision.h, vertical: decision.v },
       // **자동 배치 없는 글자 상자의 안쪽 여백(2026-10-12 오후).** 입력칸처럼 자식 없이 글자(placeholder)를 그리는 면은 layout 이 null 이라
       // padding 이 실리지 않아, 렌더러가 글자를 면 전체에 펼쳤다 — 노드캔버스 레이어 검색칸(pl 28)의 「Search layers」 가 x 0 에서 돋보기와 겹쳤다.
       ...(layoutMode === "NONE" && node.ownText
@@ -1582,18 +1611,106 @@ export function constraintsFor(rawDeclared, computed = null, parentComputed = nu
   };
   const horizontalPercent = percentAnchor("left", "right", "width", "borderLeftWidth", "borderRightWidth");
   const verticalPercent = percentAnchor("top", "bottom", "height", "borderTopWidth", "borderBottomWidth");
+  // **크기가 포함 블록을 따르는 절대 배치(2026-10-15, 조립 규칙 15조의 24).** 크기 선언이 백분율(`width: 100%`)이면 상자는 부모 크기를 따른다 — 측정
+  // 자리에서 부모를 덮었으면(자리 · 크기가 같다) STRETCH, 가운데에 둔 백분율 상자(`left: 50%` + `translate(-50%)`)는 자리와 크기가 함께 비례하므로
+  // SCALE 이다. 글자는 SCALE 이 폭을 줄여 다시 감으므로 넣지 않는다(15조의 11). 뷰포트 무대를 덮은 px 상자(제품 스크립트가 무대 크기를 px 로 쓴다 —
+  // 랜딩 크리에이터 장면의 창 `width: stage.width`)도 두 축 STRETCH 다(`self.cover.stage`, coverOf 주석).
+  const sizePercent = (size) => position === "absolute" && percentOf(declared[size]) && !self.text;
+  const coverStretch = (axis, size) => Boolean(self.cover?.[axis]) && position === "absolute" && !self.text
+    && (sizePercent(size) || (self.cover.stage && lengthDeclaredPx(String(declared[size] ?? "").replace(/\s*!\s*important\s*$/i, "").trim())));
+  const percentCentre = (start, size) => sizePercent(size) && centred(declared[start]);
   return {
-    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") || equalInsets("left", "right", "width") ? "STRETCH"
-      : centred(declared.left) || (centred(declared.right) && !has(declared.left)) || staticCentre(flexColumn, "left", "right") ? "CENTER"
-        : placed.horizontal ? "SCALE"
-          : horizontalPercent ? horizontalPercent
-            : has(declared.right) ? "MAX" : "MIN",
-    vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") || equalInsets("top", "bottom", "height") ? "STRETCH"
-      : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) || staticCentre(flexRow, "top", "bottom") ? "CENTER"
-        : placed.vertical ? "SCALE"
-          : verticalPercent ? verticalPercent
-            : has(declared.bottom) ? "MAX" : "MIN",
+    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") || equalInsets("left", "right", "width") || coverStretch("horizontal", "width") ? "STRETCH"
+      : percentCentre("left", "width") ? "SCALE"
+        : centred(declared.left) || (centred(declared.right) && !has(declared.left)) || staticCentre(flexColumn, "left", "right") ? "CENTER"
+          : placed.horizontal ? "SCALE"
+            : horizontalPercent ? horizontalPercent
+              : has(declared.right) ? "MAX" : "MIN",
+    vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") || equalInsets("top", "bottom", "height") || coverStretch("vertical", "height") ? "STRETCH"
+      : percentCentre("top", "height") ? "SCALE"
+        : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) || staticCentre(flexRow, "top", "bottom") ? "CENTER"
+          : placed.vertical ? "SCALE"
+            : verticalPercent ? verticalPercent
+              : has(declared.bottom) ? "MAX" : "MIN",
   };
+}
+
+/**
+ * **절대 배치 상자가 측정 자리에서 부모를 덮었는가(2026-10-15, 조립 규칙 15조의 24).** 축마다 자리 · 크기가 부모 상자와 0.5 안에서 같으면 참이다.
+ * `stage` 는 두 축을 다 덮었고, 부모에서 위로 «부모를 덮은 상자»만 건너 처음 만나는 상자의 높이 선언이 뷰포트 높이 단위(`100vh` · `100lvh` …)일 때
+ * 참이다 — 그 상자는 뷰포트 무대이고, 무대를 px 로 덮은 층은 제품 스크립트가 무대 크기를 쓴 것이다(랜딩 크리에이터 장면 `CreatorProgramScene.tsx`:
+ * 창 `width · height` 는 `windowRect(expand, stage)`, 안쪽 판은 `width: stage.width`). 디자인 px 가 우연히 무대(뷰포트) 두 축과 같을 일은 없다.
+ */
+function coverOf(node, parent, byPath) {
+  if (!node.rect || !parent?.rect) return null;
+  const near = (a, b) => Math.abs(a - b) <= 0.5;
+  const covers = (a, b, axis) => (axis === "x" ? near(a.rect.x, b.rect.x) && near(a.rect.width, b.rect.width) : near(a.rect.y, b.rect.y) && near(a.rect.height, b.rect.height));
+  const horizontal = covers(node, parent, "x");
+  const vertical = covers(node, parent, "y");
+  let stage = false;
+  if (horizontal && vertical) {
+    let at = parent;
+    for (let hop = 0; at && hop < 4; hop++) {
+      if (/^\d+(\.\d+)?(l|s|d)?vh$/.test(String(at.declared?.height ?? "").trim())) { stage = true; break; }
+      const up = byPath.get(at.parentPath);
+      if (!up?.rect || !covers(at, up, "x") || !covers(at, up, "y")) break;
+      at = up;
+    }
+  }
+  return { horizontal, vertical, stage };
+}
+
+/**
+ * **줄어드는 flex 항목(2026-10-15, 조립 규칙 15조의 23).** 감기지 않는 가로 flex 줄(`flex-wrap: nowrap`)의 흐름 항목이 `min-width: 0`(Tailwind `min-w-0`)을
+ * 선언하고 `flex-shrink` 가 0 이 아니며, 안에 줄일 수 있는 글자(한 줄 말줄임 `white-space: nowrap` + `overflow: hidden` 또는 감긴 글자)를 가지면 그 항목은
+ * 줄의 남는 폭까지 줄어든다 — 제품의 말줄임 관용구(`min-w-0 truncate`)다. 크기 판정은 「grow 0 · 폭 선언 없음 — 콘텐츠가 결정한다」로 HUG 를 내, 보드를
+ * 줄이면 측정 폭에 남아 줄 밖으로 나갔다(/admin roles 모바일 360 — 권한 체크 줄의 설명 묶음 span 336 이 label 348 밖으로 29, /admin ambassador 모바일 —
+ * 지원자 이름 묶음 320 이 줄 308 밖으로, 뒤의 갈매기 아이콘까지 밀려났다). Figma 의 같은 뜻은 가로 FILL 이다 — 측정 폭에서 이미 줄었으면(안의 글자가 실제로
+ * 잘렸거나 감겼다) 그 폭이 곧 남는 폭이고, 줄지 않았으면 측정 폭을 최대 폭으로 둔다(FILL 이 측정 폭보다 넓어지지 않아 측정 폭의 그림이 같다).
+ * 같은 줄에 그런 항목이 둘 이상이면 Figma 가 남는 폭을 똑같이 나눠 측정 폭이 달라지므로 서지 않는다.
+ */
+function flexShrinkItemOf(node, parent, specChildren, childrenOf) {
+  const outer = parent?.style ?? {};
+  if (!/flex/.test(outer.display ?? "") || !(outer.flexDirection ?? "row").startsWith("row") || /^wrap/.test(outer.flexWrap ?? "")) return null;
+  const zeroMin = (entry) => /^0(px)?$/.test(String(entry.declared?.["min-width"] ?? entry.declared?.["min-inline-size"] ?? "").replace(/\s*!\s*important\s*$/i, "").trim());
+  const flowItem = (entry) => Number(entry.style?.flexShrink ?? 1) > 0 && !/^(absolute|fixed)$/.test(entry.style?.position ?? "");
+  // 감기는 글자 잎 — 칠 없는 제 글자뿐인 항목(`white-space` 가 줄바꿈을 허용 · `overflow: visible`). `min-width: auto` 여도 내용 최소 폭(가장 긴 낱말)까지
+  // 줄어들며 감긴다(CSS flex 의 자동 최소 크기). 칠이 있는 글자(칩 · 배지)는 면이 함께 줄어 뜻이 달라 넣지 않는다.
+  const wrappingLeaf = (entry) => Boolean(entry.ownText) && !(childrenOf.get(entry.path) ?? []).length && !hasOwnPaint({ ...entry, ownText: null })
+    && !/^(nowrap|pre)$/.test(entry.style?.whiteSpace ?? "") && !/hidden|clip|auto|scroll/.test(`${entry.style?.overflow ?? ""} ${entry.style?.overflowX ?? ""}`)
+    && !/^(center|right|end|justify)$/.test(entry.style?.textAlign ?? "");
+  const shrinks = (entry) => flowItem(entry) && (zeroMin(entry) || wrappingLeaf(entry));
+  if (!shrinks(node)) return null;
+  const peers = (childrenOf.get(parent.path) ?? []).filter((sibling) => isVisible(sibling) && shrinks(sibling));
+  if (peers.length !== 1) return null;
+  // 늘어나는 형제(`flex-grow > 0`)가 있으면 Figma 는 남는 폭을 FILL 끼리 똑같이 나눠 측정 폭이 무너진다 — 서지 않는다.
+  const flowSiblings = (childrenOf.get(parent.path) ?? []).filter((sibling) => isVisible(sibling) && !/^(absolute|fixed)$/.test(sibling.style?.position ?? ""));
+  if (flowSiblings.some((sibling) => sibling !== node && Number(sibling.style?.flexGrow ?? 0) > 0)) return null;
+  // 측정 폭에서 이미 줄었는가 — 줄의 흐름 항목 폭 + 간격이 줄 안쪽 폭을 채웠다(감긴 글자가 다른 까닭(max-width · <br>)으로 감겼을 수 있어 기하로 본다).
+  const edge = (side) => (px(outer[`padding${side}`]) ?? 0) + (px(outer[`border${side}Width`]) ?? 0);
+  const inner = parent.rect.width - edge("Left") - edge("Right");
+  const used = flowSiblings.reduce((sum, sibling) => sum + sibling.rect.width + (px(sibling.style?.marginLeft) ?? 0) + (px(sibling.style?.marginRight) ?? 0), 0)
+    + Math.max(0, flowSiblings.length - 1) * (px(outer.columnGap ?? outer.gap) ?? 0);
+  const rowFull = Math.abs(used - inner) <= 1;
+  const style = node.style ?? {};
+  const truncatingStyle = (entry) => /^(nowrap|pre)$/.test(entry.whiteSpace ?? "") && /hidden|clip/.test(`${entry.overflow ?? ""} ${entry.overflowX ?? ""}`);
+  // 자기 글자(잎)이면 계산값으로, 상자면 변환된 자식 spec 으로 본다(인스턴스 안은 보지 않는다).
+  let cut = null, shrunk = false;
+  if (node.ownText && specChildren.length === 0) {
+    if (zeroMin(node) && truncatingStyle(style)) { cut = "말줄임 글자"; shrunk = Boolean(node.truncated); }
+    else if (wrappingLeaf(node)) { cut = "감기는 글자"; shrunk = rowFull && Array.isArray(node.wrapLines) && node.wrapLines.length > 1; }
+  } else if (!zeroMin(node)) {
+    return null;
+  } else {
+    const walk = (spec, depth) => {
+      if (!spec || spec.instance || spec.positioning === "ABSOLUTE" || depth > 4) return;
+      if (spec.typography?.truncate) { cut ??= "말줄임 글자"; if (spec.typography.truncated) shrunk = true; }
+      else if (spec.text && spec.wrapLines?.length > 1) { cut ??= "감긴 글자"; if (rowFull) shrunk = true; }
+      for (const child of spec.children ?? []) walk(child, depth + 1);
+    };
+    for (const child of specChildren) walk(child, 0);
+  }
+  return cut ? { cut, shrunk, truncates: cut === "말줄임 글자" } : null;
 }
 
 /**

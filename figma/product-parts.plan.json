@@ -36,7 +36,7 @@
           "stats": {
             "kept": 12,
             "unresolved": [],
-            "sizingReconciled": 1,
+            "sizingReconciled": 0,
             "marginWrapped": [
               {
                 "path": "body.1.0.0.1.0.0.1.0.3.1.1.0.0",
@@ -314,7 +314,7 @@
           "stats": {
             "kept": 101,
             "unresolved": [],
-            "sizingReconciled": 6,
+            "sizingReconciled": 12,
             "spaceBetweenHug": [
               {
                 "path": "body.1.0.0.3.1.2.1.0.0",
@@ -425,7 +425,7 @@
           "stats": {
             "kept": 62,
             "unresolved": [],
-            "sizingReconciled": 7,
+            "sizingReconciled": 19,
             "spaceBetweenHug": [
               {
                 "path": "body.1.0.0.3.1.2.1.0.0",
@@ -997,7 +997,7 @@
           "stats": {
             "kept": 674,
             "unresolved": [],
-            "sizingReconciled": 1,
+            "sizingReconciled": 18,
             "marginWrapped": [
               {
                 "path": "body.1.0.0.2.0.0.4.0",
@@ -1191,7 +1191,7 @@
           "stats": {
             "kept": 453,
             "unresolved": [],
-            "sizingReconciled": 76,
+            "sizingReconciled": 18,
             "marginWrapped": [
               {
                 "path": "body.1.0.0.2.0.0.4.0",
@@ -2052,7 +2052,7 @@
           "stats": {
             "kept": 69,
             "unresolved": [],
-            "sizingReconciled": 5,
+            "sizingReconciled": 7,
             "marginWrapped": [
               {
                 "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0",
@@ -2217,7 +2217,7 @@
           "stats": {
             "kept": 95,
             "unresolved": [],
-            "sizingReconciled": 4,
+            "sizingReconciled": 1,
             "marginWrapped": [
               {
                 "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.5.0.0.0",
@@ -2295,7 +2295,7 @@
           "stats": {
             "kept": 56,
             "unresolved": [],
-            "sizingReconciled": 2,
+            "sizingReconciled": 1,
             "marginWrapped": [
               {
                 "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.3.0.0.2",
@@ -2434,7 +2434,7 @@
           "stats": {
             "kept": 39,
             "unresolved": [],
-            "sizingReconciled": 3,
+            "sizingReconciled": 0,
             "marginWrapped": [
               {
                 "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.0.1",

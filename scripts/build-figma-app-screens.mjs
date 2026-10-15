@@ -1226,6 +1226,10 @@ const slimNode = (node) => ({
   ...(node.sizing.maxWidth ? { mw: round(node.sizing.maxWidth) } : {}),
   // 비율 잠금(figma-tree-spec containFitOf, 조립 규칙 15조의 15) — 스크립트가 부모 안에 비율을 지켜 맞춘 상자. 있을 때만 싣는다.
   ...(node.aspectLock ? { ar: 1 } : {}),
+  // 칸을 채운 줄 옮긴 글자 [줄 수, 줄 높이](hugCarriedLines 주석, 조립 규칙 15조의 22) — 렌더러가 측정 폭에서 한 줄 더 감겼으면 폭 맞춤으로 되돌린다.
+  ...(node.fillWrapped && node.sizing.layoutSizingHorizontal === "FILL" ? { fw: [node.fillWrapped.lines, round(node.fillWrapped.lineHeight ?? 0), ...(node.fillWrapped.truncates ? [1] : [])] } : {}),
+  // 상자를 따라 늘어나는 그림(`preserveAspectRatio="none"`, 조립 규칙 15조의 26) — 상자 크기가 바뀌는 svg 에만. 렌더러가 그림을 SCALE 로 건다.
+  ...(node.glyphSvg && node.glyphStretch && svgResizes(node) ? { vz: 1 } : {}),
   // 폭 하한 — 하한에 닿은 자리만(측정 폭 = 하한). 요금제 비교표(`min-width: 640px`)가 스크롤 칸(370)에 FILL 로 눌려 열이 좁아지고
   // 글자가 여러 줄로 꺾여 모바일 보드가 1269 길었다(2026-09-30, 글자 전부 대조).
   // auto margin 감싸개(wrapSiblingMargins)의 하한은 측정 폭에서 닿지 않아도 싣는다 — 줄이 좁아질 때 자식 상자 아래로 접히지 않게.
@@ -1378,6 +1382,7 @@ let totalMarginWrapped = 0;
 let totalSpaceBetweenHug = 0;
 let totalCarriedLinesHugged = 0;
 let totalCollapsedTables = 0;
+let totalTableRowsFilled = 0;
 let totalBleedHoisted = 0;
 let totalBleedUnresolved = 0;
 let totalGapsPaired = 0;
@@ -1454,6 +1459,9 @@ const AXIS_OF = {
   vertical: { sizing: "layoutSizingVertical", extent: "height", min: "minHeight", start: "top", end: "bottom", mode: "VERTICAL" },
 };
 const flowChildren = (node) => (node.children ?? []).filter((child) => child.positioning !== "ABSOLUTE");
+/** svg 상자가 보드를 늘리고 줄일 때 크기가 바뀌는가 — 한 축이라도 FILL 이거나 제약이 STRETCH · SCALE(조립 규칙 15조의 26). */
+const svgResizes = (node) => [node.sizing?.layoutSizingHorizontal, node.sizing?.layoutSizingVertical].includes("FILL")
+  || ["STRETCH", "SCALE"].includes(node.constraints?.horizontal) || ["STRETCH", "SCALE"].includes(node.constraints?.vertical);
 /**
  * **빈 `auto` 열은 폭 0 이다(2026-10-12 오후).** CSS grid 의 `auto` 열에 놓인 항목이 없으면 그 열은 0 이 되지만, Figma 의 빈 HUG 열은 FLEX 열과
  * 남은 폭을 똑같이 나눈다(작업 페이지 임시 프레임 — 하이라이트 단계 모바일 상단 바 `auto 1fr auto` 에 항목 둘: 프로필이 제품 x 354 대신 가운데
@@ -1657,8 +1665,11 @@ function reconcileFigmaSizing(spec, declaredOf = () => null) {
   const change = (node, axisName, to, reason, source) => {
     const axis = AXIS_OF[axisName];
     reconciled.push({ path: node.path, axis: axisName, from: node.sizing[axis.sizing], to, reason });
+    // 줄어드는 flex 항목(조립 규칙 15조의 23)의 최대 폭은 FILL 일 때만 뜻이 있다 — HUG 로 되돌리면 걷는다(HUG 글자에 측정 폭 상한이 남으면 Figma 글꼴이
+    // 조금 넓을 때 줄이 꺾인다).
+    const shrinkCap = axisName === "horizontal" && to !== "FILL" && node.why?.horizontal?.source === "min-width:0" ? { maxWidth: null } : {};
     node.why = { ...node.why, [axisName]: { verdict: to, reason, source, value: null, previous: node.why?.[axisName] ?? null } };
-    node.sizing = { ...node.sizing, [axis.sizing]: to };
+    node.sizing = { ...node.sizing, [axis.sizing]: to, ...shrinkCap };
   };
   const walk = (node, parent) => {
     if (node.instance) return;
@@ -1788,6 +1799,11 @@ function reconcileFigmaSizing(spec, declaredOf = () => null) {
         for (const child of fills) {
           const measured = child.rect[axis.extent];
           const content = contentExtent(child, axisName);
+          // 줄어드는 flex 항목(조립 규칙 15조의 23)은 줄에 정해진 폭이 있을 때만 줄어든다 — 내용으로 서는(HUG) 줄에는 남는 폭이 없어 종전의 HUG 다.
+          if (axisName === "horizontal" && child.why?.horizontal?.source === "min-width:0") {
+            change(child, axisName, "HUG", `HUG 부모(${node.path}) 안의 줄어드는 flex 항목 — 내용으로 서는 줄이라 줄어들 남는 폭이 없다`, "min-width:0");
+            continue;
+          }
           if (clamped && content != null && content > measured + HALF_PIXEL) {
             change(child, axisName, "FIXED",
               `최대 크기(${parentMax})에 막힌 HUG 부모(${node.path})의 주축 FILL — 내용 ${Math.round(content * 100) / 100} 이 측정보다 커 넘치는 만큼 스크롤한다. Figma 는 이 FILL 을 내용보다 작게 접는다`,
@@ -2078,14 +2094,24 @@ function hoistBleed(spec) {
  * **예외 — 줄 수를 자르는 글자(`typography.lineClamp`, 2026-10-14 조립 규칙 15조의 10).** `line-clamp` 상자는 블록 폭이고 N 줄보다 길어질 수 없어
  * (렌더러가 `maxLines` 로 자른다) 다시 감겨도 높이가 바뀌지 않는다 — 판정 폭(FILL) 그대로 둔다. 랜딩 모바일 뉴스 카드 제목이 HUG 145 로 360 의 129 칸
  * 밖으로 16 나가던 것이다.
+ *
+ * **칸을 채운 줄 옮긴 글자는 FILL 이다 — 다시 감기는지는 렌더러가 Figma 에서 잰다(2026-10-15, 조립 규칙 15조의 22).** 위 2026-10-12 판단의 막힘은 «원장에
+ * 줄마다의 폭이 없다»였다 — 그 폭은 Figma 만 안다. 그래서 판정 폭이 FILL(블록 · stretch 된 칸을 채운 글자)인 줄 옮긴 글자는 FILL + 높이 자동으로 두고
+ * (`fillWrapped` → payload `fw` [줄 수, 줄 높이]), 렌더러가 보드를 다 세운 뒤 측정 폭에서 높이를 잰다 — 줄 수 × 줄 높이보다 반 줄 넘게 높으면 Figma 글꼴이
+ * 한 줄을 더 감은 것이라 그 글자만 종전의 폭 맞춤(HUG)으로 되돌린다. 측정 폭의 그림은 종전과 같고, 다시 감기지 않는 글자는 보드를 줄이면 제품처럼 칸
+ * 안에서 다시 감긴다. 늘림 시험의 사고: /models 모바일 360(3471:9268) 「Of the models that…」 HUG 312 가 margin 감싸개 296 밖으로, /highlight 모바일 설명
+ * 문단 390. **줄 상자를 혼자 채운 감긴 inline 글자**(`<p><a>Next option…</a></p>` — 판정 HUG, 계산값 `display: inline`)도 같다 — inline 글자는 부모 블록의
+ * 줄 폭에서 감기므로 FILL 이다(/models 모바일 「Next option…」 HUG 307 / p 296). 판정 폭이 FIXED(폭 선언)인 글자는 제품도 줄지 않으므로 종전대로 HUG 다.
  */
-function hugCarriedLines(spec) {
+function hugCarriedLines(spec, styleOf = () => null) {
   const changed = [];
   const walk = (node, parent) => {
     if (node.instance) return;
     const carried = Array.isArray(node.wrapLines) && node.wrapLines.length > 1;
-    if (carried && node.text && parent && !node.splitWrapLine && !node.typography?.align && !node.typography?.lineClamp && node.positioning !== "ABSOLUTE"
-      && node.sizing?.layoutSizingHorizontal !== "HUG" && parent.sizing?.layoutSizingHorizontal !== "HUG") {
+    // 칠 없는 inline 글자 잎 — 부모 블록의 줄 상자에서 감긴다(감기지 않았어도 같다 — 줄이 좁아지면 감긴다). 칠이 있으면(코드 칩) 면이 줄 폭으로 늘어나 뺀다.
+    const inline = node.sizing?.layoutSizingHorizontal === "HUG" && styleOf(node.path)?.display === "inline" && !(node.paint?.fill || node.paint?.gradient || node.paint?.stroke || node.paint?.shadow) && !(node.children ?? []).length;
+    if ((carried || inline) && node.text && parent && !node.splitWrapLine && !node.typography?.align && !node.typography?.lineClamp && node.positioning !== "ABSOLUTE"
+      && (node.sizing?.layoutSizingHorizontal !== "HUG" || inline) && parent.sizing?.layoutSizingHorizontal !== "HUG") {
       const layout = parent.layout ?? {};
       const flow = flowChildren(parent);
       const vertical = layout.layoutMode === "VERTICAL" && (layout.align?.counterAxis ?? "MIN") === "MIN";
@@ -2094,14 +2120,80 @@ function hugCarriedLines(spec) {
       const atStart = Math.abs((node.rect?.x ?? 0) - contentStart) <= 1;
       if ((vertical || alone) && atStart) {
         const before = node.sizing.layoutSizingHorizontal;
-        node.sizing = { ...node.sizing, layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG", minWidth: null, maxWidth: null };
-        node.why = { ...node.why, horizontal: { verdict: "HUG", reason: `제품 줄을 옮긴 글자 — Figma 가 다시 감지 않게 폭 맞춤(전 판정 ${before})` } };
+        if (before === "FIXED") {
+          node.sizing = { ...node.sizing, layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG", minWidth: null, maxWidth: null };
+          node.why = { ...node.why, horizontal: { verdict: "HUG", reason: `제품 줄을 옮긴 글자 — Figma 가 다시 감지 않게 폭 맞춤(전 판정 ${before})` } };
+        } else {
+          node.sizing = { ...node.sizing, layoutSizingHorizontal: "FILL", layoutSizingVertical: "HUG", minWidth: null };
+          node.fillWrapped = { lines: carried ? node.wrapLines.length : String(node.text).split("\n").length, lineHeight: node.typography?.lineHeight ?? null };
+          node.why = { ...node.why, horizontal: { verdict: "FILL", reason: `제품 줄을 옮긴 글자가 칸을 채운다${inline ? "(줄 상자를 혼자 채운 inline 글자)" : ""} — FILL + 높이 자동, Figma 가 측정 폭에서 한 줄 더 감으면 렌더러가 폭 맞춤으로 되돌린다(조립 규칙 15조의 22, 전 판정 ${before})` } };
+        }
         changed.push(node.path);
       }
     }
     for (const child of node.children ?? []) walk(child, node);
   };
   walk(spec, null);
+  return changed;
+}
+
+/**
+ * **표 폭을 채운 표의 줄은 FILL 이다 — 여러 칸 줄은 측정 칸 폭 비율의 grid 다(2026-10-15, 조립 규칙 15조의 25).** CSS 표의 줄 묶음(`thead · tbody · tfoot`)과
+ * 줄(`tr`)은 늘 표의 폭이다. 크기 판정은 `display: table-row(-group)` 에 걸리는 규칙이 없어(UNRESOLVED) 측정 폭 FIXED 로 굳혔고, 칸(`td · th`)도 그랬다 —
+ * 분석 개요 모바일 360(3587:3)에서 `tbody · tr` 366 이 표 324 밖으로 42, 데스크톱 1440(3587:2)에서 1616 이 1136 밖으로 480 나갔다. 표가 가로 FILL(`width: 100%`)이고
+ * 줄 묶음 · 줄의 측정 폭이 표 안쪽 폭과 같으면 FILL 로 둔다. 칸이 하나인 줄은 칸도 FILL 이다. 칸이 여럿인 줄은 칸 폭을 Figma 가로 줄의 FILL 로 둘 수 없다 —
+ * FILL 은 남는 폭을 똑같이 나눠 측정 폭(673 · 168 · 269 …)이 무너진다. 그래서 그 줄을 한 행 grid 로 바꾸고 열을 측정 칸 폭을 무게로 한 `fr` 열(FLEX)로 둔다 —
+ * 측정 폭에서 열 폭 = 측정 칸 폭이고, 표가 줄면 열이 그 비율로 준다. CSS 의 자동 표 배치는 남는 폭을 열의 내용 폭 비율로 나누므로 같은 방향의 근사다(열의
+ * `min-width` 는 Figma grid 열에 없어 싣지 못한다). 표가 칸 폭으로 선(가로 스크롤 표 — 약관 · 개인정보 「표 칸은 측정 폭」)은 FILL 이 아니므로 건드리지 않는다.
+ */
+function fillTableRows(spec) {
+  const changed = [];
+  const near = (a, b) => Math.abs(a - b) <= 1;
+  const cellTag = /^(td|th)$/;
+  const groupTag = /^(thead|tbody|tfoot)$/;
+  const innerOf = (node) => node.rect.width - (node.layout?.padding?.left ?? 0) - (node.layout?.padding?.right ?? 0);
+  const fill = (node, reason) => {
+    if (node.sizing.layoutSizingHorizontal === "FILL") return;
+    node.sizing = { ...node.sizing, layoutSizingHorizontal: "FILL", minWidth: null, maxWidth: null };
+    node.why = { ...node.why, horizontal: { verdict: "FILL", reason: `${reason}(조립 규칙 15조의 25)` } };
+    changed.push(node.path);
+  };
+  const plain = (node) => !node.instance && node.positioning !== "ABSOLUTE" && !(node.margin && (node.margin.left || node.margin.right));
+  const fitRow = (row, inner) => {
+    if (!plain(row) || !near(row.rect.width, inner)) return;
+    if (cellTag.test(row.tag)) { fill(row, "표 폭을 채운 줄의 외동 칸 — 표 폭을 따른다"); return; }
+    if (row.tag !== "tr") return;
+    fill(row, "표 줄 — 표 폭을 따른다");
+    const cells = flowChildren(row);
+    if (cells.length === 0 || !cells.every((cell) => cellTag.test(cell.tag) && plain(cell))) return;
+    if (cells.length === 1) { fill(cells[0], "표 줄의 외동 칸 — 줄 폭을 따른다"); return; }
+    const layout = row.layout;
+    if (layout?.layoutMode !== "HORIZONTAL" || layout.wrap || (layout.itemSpacing ?? 0) !== 0) return;
+    if (!near(cells.reduce((sum, cell) => sum + cell.rect.width, 0), innerOf(row))) return;
+    row.layout = { ...layout, layoutMode: "GRID", columns: cells.length, columnTracks: cells.map((cell) => ["F", Math.round(cell.rect.width * 100) / 100]),
+      itemSpacing: 0, counterAxisSpacing: 0, wrap: false, rows: null };
+    row.why = { ...row.why, layout: "표 줄 — 측정 칸 폭을 무게로 한 fr 열의 한 행 grid(조립 규칙 15조의 25)" };
+    // 가로 줄의 교차축 정렬은 grid 에 없다 — 줄 높이를 채우지 않는 칸에 칸 안 세로 정렬로 넘긴다.
+    const cross = layout.align?.counterAxis;
+    for (const cell of cells) {
+      fill(cell, "표 칸 — 측정 칸 폭 비율의 fr 열을 채운다");
+      if (/^(MIN|CENTER|MAX)$/.test(cross ?? "") && cell.sizing.layoutSizingVertical !== "FILL" && !cell.gridAlign) cell.gridAlign = { horizontal: null, vertical: cross };
+    }
+  };
+  const walk = (node) => {
+    if (node.instance) return;
+    if (node.tag === "table" && node.sizing?.layoutSizingHorizontal === "FILL" && node.layout?.layoutMode === "VERTICAL") {
+      const inner = innerOf(node);
+      for (const child of flowChildren(node)) {
+        if (groupTag.test(child.tag) && plain(child) && near(child.rect.width, inner)) {
+          fill(child, "표 줄 묶음 — 표 폭을 따른다");
+          if (child.layout?.layoutMode === "VERTICAL") for (const row of flowChildren(child)) fitRow(row, innerOf(child));
+        } else fitRow(child, inner);
+      }
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  walk(spec);
   return changed;
 }
 
@@ -2413,8 +2505,9 @@ const pendingAnchors = {};
       const gaps = pairNegativeGaps(spec);
       if (gaps.unresolved.length > 0) fail(`부품 ${part.set} ${variant.variant} 에 묶지 못한 음수 간격이 있습니다: ${JSON.stringify(gaps.unresolved)}`);
       const spaceBetweenHug = dropHugSpaceBetween(spec);
-      hugCarriedLines(spec);
+      hugCarriedLines(spec, (path) => styleByPath.get(path) ?? null);
       halveCollapsedBorders(spec);
+      fillTableRows(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
         ...(signature.leaf ? { leaf: signature.leaf } : {}),
@@ -2532,8 +2625,9 @@ for (const screen of SCREENS) {
     totalGapsUnresolved += gaps.unresolved.length;
     const spaceBetweenHug = dropHugSpaceBetween(spec);
     totalSpaceBetweenHug += spaceBetweenHug.length;
-    totalCarriedLinesHugged += hugCarriedLines(spec).length;
+    totalCarriedLinesHugged += hugCarriedLines(spec, (path) => styleByPath.get(path) ?? null).length;
     totalCollapsedTables += halveCollapsedBorders(spec).length;
+    totalTableRowsFilled += fillTableRows(spec).length;
     // 화면 높이 뿌리(fillScreenHeight 주석) — 크기 조합 풀이 · 감싸개가 다 끝난 뒤, 보드 틀 높이(아래 frameSize 와 같은 식)에 묶는다.
     const frameHeight = round(measured.fullPage ? measured.rootRect.height : Math.min(measured.rootRect.height, Number(context.id.split("x").pop())));
     const screenHeightFilled = [];
@@ -3190,5 +3284,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 비율 상자 고정 ${totalAspectFixed} · 줄어드는 상자 글자 ${totalShrinkFixed} · 가운데 인라인 블록 ${totalInlineCentred} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 화면 크기 묶음 ${totalScreenHeightFilled}(보드 ${screenHeightBoards}) · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 비율 상자 고정 ${totalAspectFixed} · 줄어드는 상자 글자 ${totalShrinkFixed} · 가운데 인라인 블록 ${totalInlineCentred} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 표 줄 FILL ${totalTableRowsFilled} · 화면 크기 묶음 ${totalScreenHeightFilled}(보드 ${screenHeightBoards}) · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

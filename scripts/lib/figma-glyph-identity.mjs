@@ -266,13 +266,7 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "missing",
     why: "요금 화면 크레딧 충전 카드(「Bronze」 · 「₩ 4,900」)의 번개(Phosphor Lightning 채움). LOUIS 31종에 번개가 없다.",
   },
-  {
-    id: "check-stroke",
-    signature: "0 0 24 24|path(d=M5 12.5L10 17.5L19 7)",
-    louis: null,
-    verdict: "missing",
-    why: "요금 화면 요금제 기능 목록의 포함 표시(`aria-label` 「included」, 선 체크 하나). LOUIS 에는 원 안의 체크(`check-circle`)뿐이라 같은 그림이 없다.",
-  },
+
   {
     id: "plus-lines",
     signature: "0 0 24 24|path(d=M3.75 12H20.25)|path(d=M12 3.75V20.25)",
@@ -792,18 +786,27 @@ export const PRODUCT_GLYPHS = Object.freeze([
     why: "커맨드 팔레트에서 하위 목록이 있는 행(「Change theme」 등) 오른쪽 꺾쇠(`components/navigation/CommandPalette.tsx:882` ChevronGlyph — 12 로 그리는 24 상자 lucide chevron-right, 획 2)다. LOUIS 에 같은 뜻의 `icon/caret-right` 가 있지만 제품이 제 인라인 그림을 그린다.",
   },
   {
+    // 앵커 97d4950e(2026-10-15): 키캡 글리프가 LOUIS 아이콘 좌표의 사본(획 1.5)으로 바뀌고 ↓ 가 회전이 아니라 제 그림이 됐다 — 옛 서명
+    // (lucide 판, 획 2.2 · `rotate(180)`)은 어느 측정 원장에도 남지 않아 서명을 갈아 끼웠다.
     id: "key-arrow-up",
-    signature: "0 0 24 24|g()|path(d=M12 19V5)|path(d=m6 11 6-6 6 6)",
+    signature: "0 0 24 24|g()|path(d=M12 20.25V3.75)|path(d=M5.25 10.5 12 3.75l6.75 6.75)",
     louis: "icon/arrow-up",
     verdict: "bespoke",
-    why: "커맨드 팔레트 바닥 힌트의 ↑ · ↓ 키캡(`components/navigation/CommandPalette.tsx:905` KeyArrowGlyph — 12 로 그리는 24 상자, 획 2.2. 아래 화살은 같은 `<g>` 에 `rotate(180 12 12)` 를 걸 뿐이라 서명이 같다)이다. LOUIS 에 같은 뜻의 `icon/arrow-up` 이 있지만 제품이 제 인라인 그림을 그린다.",
+    why: "커맨드 팔레트 바닥 힌트의 ↑ 키캡(`components/navigation/CommandPalette.tsx:691` ArrowUpGlyph — 12 로 그리는 24 상자, 획 1.5 를 `<g>` 에 둔다)이다. 좌표가 LOUIS `icon/arrow-up`(line · polyline)과 같은 기하의 path 사본이다 — 제품은 `@klipse-design/react` 를 물지 않아 인라인으로 그린다.",
+  },
+  {
+    id: "key-arrow-down",
+    signature: "0 0 24 24|g()|path(d=M12 3.75v16.5)|path(d=M5.25 13.5 12 20.25l6.75-6.75)",
+    louis: "icon/arrow-down",
+    verdict: "bespoke",
+    why: "커맨드 팔레트 바닥 힌트의 ↓ 키캡(`components/navigation/CommandPalette.tsx:707` ArrowDownGlyph)이다. LOUIS `icon/arrow-down` 과 같은 기하의 path 사본이다(`key-arrow-up` 과 같은 사정).",
   },
   {
     id: "key-enter",
-    signature: "0 0 24 24|g()|path(d=M20 6v6a3 3 0 0 1-3 3H5)|path(d=m9 11-4 4 4 4)",
+    signature: "0 0 24 24|g()|path(d=M9 12 4.5 16.5 9 21)|path(d=M18 3v13.5H4.5)",
     louis: "icon/arrow-elbow-down-left",
     verdict: "bespoke",
-    why: "커맨드 팔레트 바닥 힌트의 ⏎ 키캡(`components/navigation/CommandPalette.tsx:922` KeyEnterGlyph — 12 로 그리는 24 상자 둥근 꺾임 화살, 획 2.2)이다. LOUIS 에 같은 뜻의 `icon/arrow-elbow-down-left` 가 있지만 꺾임이 각지고 제품은 제 인라인 그림을 그린다.",
+    why: "커맨드 팔레트 바닥 힌트의 ⏎ 키캡(`components/navigation/CommandPalette.tsx:723` EnterGlyph — 24 상자 각진 꺾임 화살, 획 1.5)이다. LOUIS `icon/arrow-elbow-down-left`(polyline 둘)와 같은 기하의 path 사본이다.",
   },
   {
     id: "x-close-node-canvas",
@@ -1187,6 +1190,34 @@ export const PRODUCT_GLYPHS = Object.freeze([
     louis: "icon/caret-down",
     verdict: "bespoke",
     why: "뷰포트 끝에 걸린 `chevron-down-16` 이다(2026-10-15 실측: `/admin jobs` 모바일 402×874 의 둘째 작업 행, svg 상자 y 869–885). 측정은 뷰포트 안의 노드만 적어 y 875 에서 시작하는 path 가 빠졌고 서명에 viewBox 만 남았다. 보드도 874 에서 잘리므로 그 자리에 보이는 획은 제품에도 없다 — 빈 16 상자가 정직한 그림이다. 다른 화면에서 이 서명이 나오면 같은 사정(뷰포트 끝에 걸린 16 아이콘)인지 먼저 확인한다.",
+  },  // ── 2026-10-15 — 운영 main 97d4950e 앵커(DS-D-0117). 제품이 LOUIS 아이콘의 polyline 좌표를 인라인으로 옮겨 그리기 시작한 자리.
+  {
+    id: "check-polyline",
+    signature: "0 0 24 24|polyline(points=5 12.5 10 17.5 19 7)",
+    louis: "icon/check",
+    verdict: "bespoke",
+    why: "요금제 비교표의 포함 표시(`aria-label` 「included」, `components/landing/sections/PricingSection.tsx:300-318` — `louis-icon` · `data-louis-icon=\"check\"` 의 24 상자 1.5 획 polyline)다. 앵커 97d4950e 에서 옛 `check-stroke`(같은 기하의 path — 어느 원장에도 남지 않아 항목을 걷었다)를 LOUIS `icon/check`(packages/react/src/icons/svg/check.svg)와 같은 좌표의 사본으로 바꿨다. 제품은 `@klipse-design/react` 를 물지 않아 인라인으로 그린다 — 푸터 트랙 아이콘과 같은 `bespoke` 다.",
+  },
+  {
+    id: "check-circle-polyline",
+    signature: "0 0 24 24|polyline(points=8.25 12.75 10.5 15 15.75 9.75)|circle(cx=12 cy=12 r=9)",
+    louis: "icon/check-circle",
+    verdict: "bespoke",
+    why: "요금제 카드 기능 목록의 체크(`components/pricing/PlanTierFeatureIcon.tsx` — `louis-icon` · `data-louis-icon=\"check-circle\"`, 18 로 그리는 24 상자 획 1.5)다. 앞 앵커의 마스크(`/icons/CheckCircle.svg` 32 판)를 LOUIS `icon/check-circle` 좌표의 인라인 사본으로 바꿨다(같은 파일 머리 주석). `/pricing` · `/mypage/upgrade` 가 함께 쓴다.",
+  },
+  {
+    id: "caret-left-polyline",
+    signature: "0 0 24 24|polyline(points=15 19.5 7.5 12 15 4.5)",
+    louis: "icon/caret-left",
+    verdict: "bespoke",
+    why: "템플릿 상세 커버플로의 「이전」 원형 단추 글리프(`components/templates/TemplateResultCarousel.tsx:20` CARET_LEFT_POINTS — 16 상자로 그린 24 viewBox 1.5 획)다. 앵커 97d4950e 에서 글자 「‹」 를 LOUIS `icon/caret-left` 좌표의 인라인 사본으로 바꿨다(같은 파일 머리 주석). 같은 좌표를 `PublishFlow.tsx` · `YoutubeSchedulePickers.tsx` 도 쓴다.",
+  },
+  {
+    id: "caret-right-polyline",
+    signature: "0 0 24 24|polyline(points=9 4.5 16.5 12 9 19.5)",
+    louis: "icon/caret-right",
+    verdict: "bespoke",
+    why: "템플릿 상세 커버플로의 「다음」 원형 단추 글리프(`components/templates/TemplateResultCarousel.tsx:21` CARET_RIGHT_POINTS)다. `caret-left-polyline` 과 같은 사정이다.",
   },
 ]);
 

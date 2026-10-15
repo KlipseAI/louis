@@ -670,7 +670,9 @@ const PART_SECTION = "S · product/Parts · 측정 서브트리 — build-figma-
 // 다른 측정 화면에도 없다(세션 `/mypage/upgrade/checkout` 은 gift 모드가 아니다). 측정기가 `/subscription/group-purchase` 를 재면 그 원장에서
 // 자리를 찾아 되살린다 — Figma 세트(2086:5881 ~ 5888 · 5890 · 5891)는 그대로 둔다. 옛 항목은 git 기록(이 줄 앞 커밋)에 있다.
 // 세션 원장 `/nodecanvas?project=` 의 노드 카드 층(React Flow 노드 셋 — .0 텍스트 · .1 이미지 · .2 비디오).
-const NODE_CANVAS = "body.1.0.0.0.7.0.0.0.0.0.0.0.2";
+// 앵커 97d4950e(2026-10-15): 노드 뷰 `<main>`(캔버스 카드)이 셸의 .7 에서 .8 로 한 칸 밀렸다 — 셸에 앞 형제가 하나 늘었다(canvas-* 상태 원장
+// 넷 모두 .8 · 도움말을 연 데스크톱은 .7 이 독에 붙은 패널). 이 파일의 노드캔버스 경로(부품 · 건너뜀 · 풀지 못한 HUG 기준)를 함께 옮겼다.
+const NODE_CANVAS = "body.1.0.0.0.8.0.0.0.0.0.0.0.2";
 const PRODUCT_PARTS = [
   // **둘째 묶음(2026-09-26 저녁) — 보드 구성 원장의 「미보유」 18 을 0 으로.** 셋 다 LOUIS 컨트롤 사다리에 앉지 않는 제품 전용 자리다.
   // 통합 판(2026-10-08): `Product/Analytics Connect Button`(옛 자리 `/analytics/youtube` body.1.0.0.1.0.0.2.0.3)을 뺐다 — 제품이 지역 알약
@@ -737,13 +739,15 @@ const PRODUCT_PARTS = [
     // 같은 경로(body.1.0.0.3)에 선 `/inquiry` 에서 찍는다(랜딩 · 문의 · 요금 · 템플릿 · 블로그 · 공개 시드 둘이 같은 글자 서열). 되살림(2026-10-08):
     // 공개 `/` 가 한때 오류 경계로 재져 푸터가 없었다가 다시 재자 랜딩 데스크톱 푸터도 이 세트의 인스턴스가 됐다(CONTENT_INSTANCES_BY_SET).
     variants: [
-      ["Viewport=Desktop", "desktop-1920x1080", { length: 62, fnv: "f262472e" }, "2677:4185"],
+      // 앵커 97d4950e(2026-10-15, DS-D-0117): 링크 묶음에 Newsroom(「Coming soon」) · Ambassador 가 서고 사업자 정보가 두 줄(ul 둘)로 갈렸다
+      // (TimelineFooter.tsx BIZ · BIZ_LINE, en.ts footer). 데스크톱 서명 62 → 61, 모바일은 슬로건이 로고 아래로 내려와 폰에서도 선다(23 → 24).
+      ["Viewport=Desktop", "desktop-1920x1080", { length: 61, fnv: "7d71f82e" }, "2677:4185"],
       // 모바일(2677:4186)은 한때 뺐다가 되살렸다(2026-10-08) — 사업자 정보 줄(flex-wrap ul)에서 주소 칸(body.1.0.0.3.2.0.3 li, 362×36)이
       // 혼자 한 줄을 차지해 줄 폭까지 줄어들며 두 줄로 감기는데, 크기 조합 풀이(reconcileFigmaSizing)가 그 꼴을 풀지 못해 부품이 멈췄다.
       // 「감기는 줄에서 혼자 한 줄을 차지한 감긴 글자」 규칙(조립 규칙 28조)이 푼다 — 첫 판(2026-10-08)은 측정 폭 FIXED 였고 늘림 시험 360 에서
       // 넘쳐, 2026-10-09 부터 그 자리에서 줄을 끊고 글자는 줄 폭 FILL 이다(splitWrapRowsAtLoneText). 모바일 글자 서열은
       // 트랙 이름이 아이콘만 남아 데스크톱보다 짧다(23).
-      ["Viewport=Mobile", "mobile-402x874", { length: 23, fnv: "98743518" }, "2677:4186"],
+      ["Viewport=Mobile", "mobile-402x874", { length: 24, fnv: "9a7c8036" }, "2677:4186"],
     ].map(([variant, context, anchor, component]) => ({ variant, route: "/inquiry", context, path: "body.1.0.0.3", fixture: "public", anchor, component })),
   },
   {
@@ -776,8 +780,9 @@ const PRODUCT_PARTS = [
     variants: [
       ["Trigger=Field, Viewport=Desktop", "desktop-1920x1080", "/inquiry", "body.1.0.0.2.0.0.1.1.0.0.0.1", "public", ["Bug report"], "2683:4191"],
       ["Trigger=Field, Viewport=Mobile", "mobile-402x874", "/inquiry", "body.1.0.0.2.0.0.1.1.0.0.0.1", "public", ["Bug report"], "2683:4192"],
-      ["Trigger=Admin, Viewport=Desktop", "desktop-1920x1080", "/creative-media-admin", "body.1.0.0.0.2.1.0.0.1.1.2.1", "session", ["nano-banana-2"], "2683:4193"],
-      ["Trigger=Admin, Viewport=Mobile", "mobile-402x874", "/creative-media-admin", "body.1.0.0.0.2.1.0.0.1.1.2.1", "session", ["nano-banana-2"], "2683:4194"],
+      // 앵커 97d4950e(2026-10-15): 모델 선택 글자가 「nano-banana-2 (2.1)」이 됐다(CreativeMediaAdminClient.tsx 66행 IMAGE_MODEL_OPTIONS).
+      ["Trigger=Admin, Viewport=Desktop", "desktop-1920x1080", "/creative-media-admin", "body.1.0.0.0.2.1.0.0.1.1.2.1", "session", ["nano-banana-2 (2.1)"], "2683:4193"],
+      ["Trigger=Admin, Viewport=Mobile", "mobile-402x874", "/creative-media-admin", "body.1.0.0.0.2.1.0.0.1.1.2.1", "session", ["nano-banana-2 (2.1)"], "2683:4194"],
     ].map(([variant, context, route, path, fixture, anchor, component]) => ({ variant, route, context, path, fixture, anchor, component })),
   },
   {
@@ -805,8 +810,10 @@ const PRODUCT_PARTS = [
     set: "Product/Template Result Carousel",
     about: "템플릿 상세의 3D 커버플로 캐러셀(components/templates/TemplateResultCarousel.tsx. perspective 스테이지 .3.0, 원형 nav ‹ › 와 도트 줄 .3.1(40 높이)). public-seeded 원장에만 그려져 있고, 통합 판에서도 경로가 아침 조사와 같다. 데스크톱 스테이지는 860x540(노드 19), 모바일은 370x440(노드 15)이다. 카드 좌하단 라벨 배지는 측정 항목에 label 이 없어 그려지지 않았다.",
     variants: [
-      { variant: "Viewport=Desktop", route: "/templates/[slug]", context: "desktop-1920x1080", path: "body.1.0.0.2.0.0.3", fixture: "publicSeeded", anchor: ["‹", "›"], component: "2888:4196" },
-      { variant: "Viewport=Mobile", route: "/templates/[slug]", context: "mobile-402x874", path: "body.1.0.0.2.0.0.3", fixture: "publicSeeded", anchor: ["‹", "›"], component: "2888:4197" },
+      // 앵커 97d4950e(2026-10-15): nav 의 글자 「‹」 · 「›」 가 LOUIS caret 좌표의 인라인 svg(NavGlyph)로 바뀌어 글자 서열이 비었다 —
+      // 경로 · 구조(스테이지 .3.0 · nav 줄 .3.1, 40 높이)는 같다. 글리프는 figma-glyph-identity 의 caret-*-polyline 이다.
+      { variant: "Viewport=Desktop", route: "/templates/[slug]", context: "desktop-1920x1080", path: "body.1.0.0.2.0.0.3", fixture: "publicSeeded", anchor: [], component: "2888:4196" },
+      { variant: "Viewport=Mobile", route: "/templates/[slug]", context: "mobile-402x874", path: "body.1.0.0.2.0.0.3", fixture: "publicSeeded", anchor: [], component: "2888:4197" },
     ],
   },
   {
@@ -875,7 +882,7 @@ const PRODUCT_PARTS = [
     // 규칙(figma-tree-spec flexRowTextRect)이 푼다(2026-10-08). 글자 「82%」는 캔버스가 화면에 맞춘 줌(0.815)이다.
     set: "Product/Canvas Zoom Trigger",
     about: "캔버스 우하단 줌 · 보기 옵션 트리거(node-canvas-v2/components/CanvasZoomControl.tsx — 반투명 알약 · 줌 비율 · 캐럿, 높이 36 · 곡률 16 · 배경 흐림). 측정은 메뉴가 닫힌 상태이고 비율은 캔버스가 화면에 맞춘 줌이다. 줌을 타지 않는 크롬이지만 모바일 캔버스에는 이 컨트롤이 없어 데스크톱 하나다.",
-    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project=", context: "desktop-1920x1080", path: "body.1.0.0.0.7.0.0.3.0", fixture: "session", anchor: ["82%"], component: "2979:3679" }],
+    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project=", context: "desktop-1920x1080", path: "body.1.0.0.0.8.0.0.3.0", fixture: "session", anchor: ["82%"], component: "2979:3679" }],
   },
   {
     set: "Product/Canvas Text Node",
@@ -943,8 +950,8 @@ const PRODUCT_PARTS = [
     set: "Product/Canvas Toolbar",
     about: "캔버스 하단 플로팅 툴바 알약(node-canvas-v2/components/Toolbar.tsx — 이동 · 손 도구 · 구분선 · 노드 추가 여섯 · 도움말). 줌을 타지 않는 크롬이라 두 뷰포트다.",
     variants: [
-      { variant: "Viewport=Desktop", route: "/nodecanvas?project=", context: "desktop-1920x1080", path: "body.1.0.0.0.7.0.0.2", fixture: "session", anchor: [], component: "2949:3629" },
-      { variant: "Viewport=Mobile", route: "/nodecanvas?project=", context: "mobile-402x874", path: "body.1.0.0.0.7.0.0.2", fixture: "session", anchor: [], component: "2949:3630" },
+      { variant: "Viewport=Desktop", route: "/nodecanvas?project=", context: "desktop-1920x1080", path: "body.1.0.0.0.8.0.0.2", fixture: "session", anchor: [], component: "2949:3629" },
+      { variant: "Viewport=Mobile", route: "/nodecanvas?project=", context: "mobile-402x874", path: "body.1.0.0.0.8.0.0.2", fixture: "session", anchor: [], component: "2949:3630" },
     ],
   },
   {
@@ -989,13 +996,15 @@ const PRODUCT_PARTS = [
   {
     set: "Product/Mobile Timeline",
     about: "편집기 모바일 타임라인(node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx — 가운데 고정 재생헤드 · 흐르는 트랙 · 클립 필름 줄 · 길이 배지). 데스크톱은 다른 타임라인이라 모바일 하나다.",
-    variants: [{ variant: "Viewport=Mobile", route: "/videoeditor/[projectId]", context: "mobile-402x874", path: "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0", fixture: "session", anchor: ["5.0s"], component: "2949:3646" }],
+    // 앵커 97d4950e(2026-10-15): 타임라인이 LOUIS 눈금자로 옮겨 가며 트랙 위에 시각 눈금(0:00 · 0:02 · 0:04)이 글자로 선다 — 경로는 같다.
+    variants: [{ variant: "Viewport=Mobile", route: "/videoeditor/[projectId]", context: "mobile-402x874", path: "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0", fixture: "session", anchor: ["0:00", "0:02", "0:04", "5.0s"], component: "2949:3646" }],
   },
   {
-    // 글자가 없다(눈금만) — 보드는 묶이지 않는다.
+    // 앵커 97d4950e(2026-10-15): 눈금자가 LOUIS 판(sequenceRuler.tsx 318줄 감소)으로 바뀌어 2초마다 시각 글자(0:00 ~ 0:28)를 든다 — 경로는 같다.
+    // 앞 앵커에서는 글자가 없어(눈금만) 보드에 묶이지 않았다.
     set: "Product/Sequence Ruler",
     about: "편집기 데스크톱 타임라인 눈금자(node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx PremiereSequenceRuler — ppRuler · ppRulerFace 의 보조 · 중간 눈금). 모바일은 다른 타임라인(Mobile Timeline)이라 데스크톱 하나다.",
-    variants: [{ variant: "Viewport=Desktop", route: "/videoeditor/[projectId]", context: "desktop-1920x1080", path: "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.1.0.0.0.1.1", fixture: "session", anchor: [], component: "2949:3648" }],
+    variants: [{ variant: "Viewport=Desktop", route: "/videoeditor/[projectId]", context: "desktop-1920x1080", path: "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.1.0.0.0.1.1", fixture: "session", anchor: ["0:00", "0:02", "0:04", "0:06", "0:08", "0:10", "0:12", "0:14", "0:16", "0:18", "0:20", "0:22", "0:24", "0:26", "0:28"], component: "2949:3648" }],
   },
 ];
 // LOUIS 문서 부품(2026-10-07) — 예시 `document-report` 의 측정 서브트리에서 찍는다. 세트는 문서 스킬 보드의 부품 카탈로그 열에 있다.
@@ -2829,7 +2838,9 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Select Dropdown": 4,
   "Product/Plan Comparison Table": 2,
   // 2026-10-08(통합 판 원장 일곱 세트): 템플릿 상세 캐러셀 · 블로그 글 머리 · 문의 첨부 드롭존 — 측정한 그 자리 × 두 뷰포트.
-  "Product/Template Result Carousel": 2,
+  // 2026-10-15(앵커 97d4950e): 2 → 0 — nav 글자 「‹」 · 「›」 가 svg 로 바뀌어 글자 서열이 비었다(PRODUCT_PARTS 의 주석). 글자 없는 부품은
+  // 매처가 보지 않는다 — 테마 순환 버튼과 같은 사정.
+  "Product/Template Result Carousel": 0,
   "Product/Article Header": 2,
   "Product/Attachment Dropzone": 2,
   // 테마 순환 버튼(/pricing) · 어드민 워드마크(/admin 데스크톱)는 글자가 없어(aria-label · img 뿐) 글자 서열 서명으로 보드에 묶이지 않는다 —
@@ -2839,7 +2850,8 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   // 인증 입력 칸 14 — 로그인 위 칸 포커스 · 아래 칸 쉼, 가입 단칸 포커스(Username) · 단칸 쉼(Email) · 위 칸 쉼(Password), 비밀번호 찾기
   // 단칸 쉼, 새 비밀번호 위 칸 쉼 × 두 뷰포트. 가입 · 새 비밀번호의 「Confirm password」 아래 칸은 글자가 달라(세트의 아래 칸은 「Password」)
   // 날노드로, 탈퇴 복구(/recover)는 글자가 한국어라 묶이지 않는다. AWS 가입 · 설정 · 약관 본문의 같은 글자 칸은 서브트리 모양이 달라 뺀다(strictLook).
-  "Product/Auth Floating Field": 14,
+  // 2026-10-15(앵커 97d4950e): 14 → 18 — 탈퇴 복구(/recover)가 영어(Email · Password)가 되어 위 칸 포커스 · 아래 칸 쉼 × 두 뷰포트가 묶인다.
+  "Product/Auth Floating Field": 18,
   // 약관 동의 줄 — 가입 × 두 뷰포트. AWS 가입의 같은 글자 블록(남색)은 서브트리 모양이 달라 뺀다(strictLook).
   "Product/Signup Legal Agreements": 2,
   // 2026-10-08(저녁) — 오류 경계에서 돌아온 세션 화면의 세트(PRODUCT_PARTS 의 주석). 노드 카드 셋은 노드캔버스 프로젝트 데스크톱 보드에 하나씩,
@@ -2875,7 +2887,9 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Node Header Actions": 0,
   "Product/Node Prompt Copy Button": 0,
   "Product/Prompt Image Strip": 0,
-  "Product/Sequence Ruler": 0,
+  // 2026-10-15(앵커 97d4950e): 0 → 4 — 눈금자가 시각 글자를 들어(PRODUCT_PARTS 의 주석) 편집기 데스크톱 보드와 패널 상태 레시피 셋
+  // (`panel.assets` · `panel.clip-color` · `panel.settings`)의 같은 자리에 묶인다.
+  "Product/Sequence Ruler": 4,
 };
 const contentSets = new Set([...CONTENT_COMPONENTS, ...partContent].map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));
@@ -2909,7 +2923,7 @@ const NODE_CANVAS_MOBILE_SKIPPED = ["/nodecanvas?project=", "/nodecanvas?project
   // 같은 결 — 쇼케이스 이미지 노드 하나를 연 이미지 편집 · 카메라 각도 보드의 모바일 생성 알약(「Regenerate」, 줌 축소판).
   .concat(["/nodecanvas?project= panel.image-edit", "/nodecanvas?project= panel.angle"].map((route) => `${route} @ mobile-402x874 · ${NODE_CANVAS}.0.0.1.0.5.0.0.2.0.1.0.0.1`))
   // 분석 모달 보드 — 모달이 캔버스 앞 형제로 서서 캔버스 경로가 한 칸 밀린다(`…7.0.0.1…`). 비디오 노드의 같은 생성 알약이다.
-  .concat(["/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.7.0.0.1.0.0.0.0.2.0.0.1.0.5.0.0.2.0.1.0.0.1"]);
+  .concat(["/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.8.0.0.1.0.0.0.0.2.0.0.1.0.5.0.0.2.0.1.0.0.1"]);
 const CONTENT_SKIPPED_ALLOWED = new Set([...[1, 2, 3, 4].map((index) => `/pricing @ mobile-402x874 · body.1.0.0.2.0.0.1.${index}`), ...NODE_CANVAS_MOBILE_SKIPPED]);
 const contentSkippedUnexpected = contentSkipped.filter((line) => !CONTENT_SKIPPED_ALLOWED.has(line.split(":")[0]));
 if (contentSkippedUnexpected.length > 0) fail(`본문 세트 치환이 사유와 함께 보류됐습니다 — 세트 plan 이나 매처가 제품과 어긋났습니다:\n  ${contentSkippedUnexpected.join("\n  ")}`);
@@ -3009,9 +3023,9 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   "/videoeditor/[projectId] panel.clip-color @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.5 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
   // 2026-10-15(R2): 패널 상태 레시피 `/nodecanvas?project= panel.analysis` — 분석 시드 유튜브 노드의 영상 미리보기 상자(재생 시간 「0:00 / −0:06」,
   // 두 뷰포트)와 모바일 분석 모달 몸통(탭 · 지연 안내 · KPI 카드 열, 370 × 565.5)의 stretch 자식이다. 기준 화면에는 없던 자리다.
-  "/nodecanvas?project= panel.analysis @ desktop-1920x1080 · body.1.0.0.0.7.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
-  "/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.7.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
-  "/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.7.0.0.0.0.1 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
+  "/nodecanvas?project= panel.analysis @ desktop-1920x1080 · body.1.0.0.0.8.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
+  "/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.8.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
+  "/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.8.0.0.0.0.1 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
   // 2026-10-15 — 어드민 상태 레시피 보드(섹션 3521:223). 문의 카드를 펼친 상세 줄의 세로 stretch 자식이다. 보드를 보낸 뒤 캡처로 대조한다.
   "/admin inquiries @ desktop-1920x1080 · body.1.0.0.1.0.0.0.1.2.0.1.1.1 · vertical": { count: 1, why: ADMIN_PENDING_WHY },
   "/admin inquiries @ mobile-402x874 · body.1.0.0.1.0.0.0.1.2.0.1.1.1 · vertical": { count: 1, why: ADMIN_PENDING_WHY },

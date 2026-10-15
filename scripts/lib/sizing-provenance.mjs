@@ -111,7 +111,7 @@ function splitTopLevel(input) {
 /** 바깥 display가 block-level인 집합. `flex`·`grid`도 바깥은 block이다(안쪽만 flex/grid). */
 const BLOCK_LEVEL = /^(block|flow-root|list-item|table|flex|grid)$/;
 
-export function decideAxis({ declared: rawDeclared, computed, axis, parentComputed = null, isReplaced = false, gridTrack = null, selfAlign = null }) {
+export function decideAxis({ declared: rawDeclared, computed, axis, parentComputed = null, isReplaced = false, gridTrack = null, selfAlign = null, stretchesAcross = false }) {
   const horizontal = axis === "horizontal";
   const position = computed?.position;
   // CDP는 `!important`를 값에 붙여 준다(`"50px !important"`). 우선순위는 collectDeclaredStyles가 이미
@@ -321,7 +321,11 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
     const alignSelf = computed?.alignSelf ?? "auto";
     const parentAlignItems = parentComputed?.alignItems ?? "normal";
     const effectiveAlign = alignSelf !== "auto" ? alignSelf : parentAlignItems;
-    if (crossAxisOfParent && /^(normal|stretch)$/.test(effectiveAlign) && !isReplaced) {
+    // **여러 줄 입력은 교차축 stretch 로 늘어난다(2026-10-15, 앵커 97d4950e).** textarea 는 고유 비율이 없는 폼 컨트롤이라 CSS 에서
+    // `align-items: stretch` 가 폭을 채운다. 운영 판 문의 본문이 `w-full` 을 걷고 LOUIS 여러 줄 판(`.louis-text-field[data-multiline]
+    // .louis-text-field__box` — column · stretch)에 폭을 맡기자(InquiryClient.tsx COMPOSE_BODY) 치환 요소 제외에 걸려 HUG 가 되고
+    // 자리표시 글자가 8줄 감긴 HUG 로 남았다(측정 폭 769.6 = 부모 폭). 가로축만 연다 — 세로 stretch 는 측정 근거가 없다.
+    if (crossAxisOfParent && /^(normal|stretch)$/.test(effectiveAlign) && (!isReplaced || (stretchesAcross && horizontal))) {
       return { verdict: AXIS.FILL, reason: `부모 ${parentDisplay}의 교차축 + align:${effectiveAlign} — 교차축을 채운다`, source: `align-items:${effectiveAlign}`, value: null };
     }
     return { verdict: AXIS.HUG, reason: `부모 ${parentDisplay}의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다`, source: `기본(${parentDisplay} item)`, value: null };
@@ -531,7 +535,7 @@ export function decideNode({ declared = {}, computed = {}, parentComputed = null
     justifySelf: declared["justify-self"] ?? computed?.justifySelf,
     alignSelf: declared["align-self"] ?? computed?.alignSelf,
   };
-  const h = decideAxis({ declared: sub(declared.width), computed, axis: "horizontal", parentComputed, isReplaced, gridTrack, selfAlign });
+  const h = decideAxis({ declared: sub(declared.width), computed, axis: "horizontal", parentComputed, isReplaced, gridTrack, selfAlign, stretchesAcross: tag === "textarea" });
   const v = decideAxis({ declared: sub(declared.height), computed, axis: "vertical", parentComputed, isReplaced });
   return {
     h,

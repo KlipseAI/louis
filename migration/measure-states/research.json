@@ -1,0 +1,113 @@
+{
+  "$schema": "./_schema.json",
+  "area": "research",
+  "mode": "session",
+  "authoredAgainst": "97d4950e153d",
+  "description": "온보딩 설문(ResearchOnboarding — 루트 레이아웃에 걸린 전면 오버레이, layout.tsx:123) 세 상태. 세션 모드(가짜 Supabase 세션)의 /archive 위에 띄운다 — 설문은 경로 넷(/archive · /highlight · /mypage · /settings)과 /analytics/* 에서만 묻고(surveyVisibility.ts:12), 로그인 뒤 들어오는 첫 화면이 /archive 다. 세션 모드에 /archive 기준 화면이 없어 shell 영역처럼 pattern 으로 연다. 자격은 같은 출처 GET /api/onboarding 이 정한다 — 가짜 Supabase 시드의 설문 행이 끝난 상태라 기본은 뜨지 않으므로, 라우트의 미응답 응답({ ok: true, data: { eligible: true, status: null } }, route.ts:77)을 가로채 띄운다. 노출 기록 · 답 저장(POST /api/onboarding)은 라우트 성공 모양({ ok: true }, route.ts:162)으로 받는다. 지어낸 것은 고른 답과 「기타」 글뿐이다.",
+  "recipes": [
+    {
+      "id": "/archive survey.question",
+      "pattern": "/archive",
+      "description": "첫 질문(「Where did you first hear about Klipse?」 — discovery, 그림 타일 여덟 장)에서 YouTube 타일을 고른 상태. 고른 칸은 안쪽 링 · 채운 표식, 아래 막대는 고른 이름 요약과 켜진 Next. 진행 막대 1/5.",
+      "surfaces": ["apps/web/components/analytics/ResearchOnboarding.tsx#ResearchOnboarding"],
+      "cite": [
+        { "path": "apps/web/app/layout.tsx", "line": 123, "expect": "<ResearchOnboarding />" },
+        { "path": "apps/web/lib/product-insights/surveyVisibility.ts", "line": 12, "expect": "const SURVEY_PATHS = [\"/archive\", \"/highlight\", \"/mypage\", \"/settings\"];" },
+        { "path": "apps/web/components/analytics/ResearchOnboarding.tsx", "line": 317, "expect": "void fetch(\"/api/onboarding\")" },
+        { "path": "apps/web/components/analytics/ResearchOnboarding.tsx", "line": 251, "expect": "return fetch(\"/api/onboarding\", {" },
+        { "path": "apps/web/components/analytics/ResearchOnboarding.tsx", "line": 45, "expect": "const OVERLAY = \"fixed inset-0 z-10200 bg-[var(--app-page-bg)] text-fg-primary\";" },
+        { "path": "apps/web/components/analytics/ResearchOnboarding.tsx", "line": 526, "expect": "role=\"dialog\"" },
+        { "path": "apps/web/app/api/onboarding/route.ts", "line": 77, "expect": "data: { eligible: !isSurveyFinished(status), status }," },
+        { "path": "apps/web/app/api/onboarding/route.ts", "line": 162, "expect": "return NextResponse.json({ ok: true });" },
+        { "path": "apps/web/lib/product-insights/research.ts", "line": 28, "expect": "discovery: [" },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 125, "expect": "discovery: \"Where did you first\\nhear about Klipse?\"," },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 131, "expect": "next: \"Next\"," }
+      ],
+      "api": [
+        { "method": "GET", "path": "/api/onboarding", "json": { "ok": true, "data": { "eligible": true, "status": null } }, "required": true, "description": "미응답 사용자 — 행이 없다(route.ts:77, status null). 화면은 eligible 로 띄운다." },
+        { "method": "POST", "path": "/api/onboarding", "json": { "ok": true }, "description": "status null 이라 띄운 뒤 노출 기록(shown)을 보낸다(ResearchOnboarding.tsx:343)." }
+      ],
+      "steps": [
+        { "waitFor": { "role": "heading", "name": "Where did you first hear about Klipse?" } },
+        { "click": { "role": "radio", "name": "YouTube", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "waitFor": { "css": "[data-option=\"youtube\"][aria-checked=\"true\"]" } }
+      ],
+      "pointer": "park",
+      "assert": { "text": ["Where did you first", "YouTube", "Skip survey", "Next"], "apiHit": "all" },
+      "contentNote": "고른 답(YouTube)만 고른 것이다. 타일 글자 · 그림은 제품 사전과 public 그림이다."
+    },
+    {
+      "id": "/archive survey.other",
+      "pattern": "/archive",
+      "description": "첫 질문에서 「Other」 타일을 골라 그 칸이 입력(louis-text-field, 그림을 걷는다)으로 바뀌고 글을 적은 상태. 글이 있어야 Next 가 켜진다(needsOtherText). 마지막에 포커스를 풀어 칸 링 없이 잰다.",
+      "surfaces": ["apps/web/components/analytics/ResearchOnboarding.tsx#ResearchOnboarding"],
+      "cite": [
+        { "path": "apps/web/components/analytics/ResearchOnboarding.tsx", "line": 317, "expect": "void fetch(\"/api/onboarding\")" },
+        { "path": "apps/web/components/analytics/ResearchOnboarding.tsx", "line": 526, "expect": "role=\"dialog\"" },
+        { "path": "apps/web/app/api/onboarding/route.ts", "line": 77, "expect": "data: { eligible: !isSurveyFinished(status), status }," },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 152, "expect": "discovery: \"Tell us where you heard of us\"," }
+      ],
+      "api": [
+        { "method": "GET", "path": "/api/onboarding", "json": { "ok": true, "data": { "eligible": true, "status": null } }, "required": true },
+        { "method": "POST", "path": "/api/onboarding", "json": { "ok": true } }
+      ],
+      "steps": [
+        { "waitFor": { "role": "heading", "name": "Where did you first hear about Klipse?" } },
+        { "click": { "role": "radio", "name": "Other", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "fill": { "placeholder": "Tell us where you heard of us" }, "value": "Placeholder answer" },
+        { "blur": true },
+        { "waitFor": { "placeholder": "Tell us where you heard of us" } }
+      ],
+      "pointer": "park",
+      "assert": { "text": ["Other", "Skip survey"], "apiHit": "all" },
+      "contentNote": "「기타」 글(Placeholder answer)만 지어냈다. 입력 값은 원장의 value 칸에 실리고 ownText 에는 없어서, 글이 들어갔는지는 fill 단계(칸이 없으면 실패)와 원장의 value 로 본다. 모바일에서는 「기타」 칸(마지막 타일)에 초점이 가며 질문 영역이 내려가 제목이 뷰포트 위로 나가므로 제목은 assert 에 넣지 않는다(2026-10-15 측정)."
+    },
+    {
+      "id": "/archive survey.done",
+      "pattern": "/archive",
+      "description": "다섯 질문에 답하고 Done 을 눌러 저장한 뒤의 마지막 화면 — 고른 답 세 장의 콜라주(donePicks: use_case → channels 순, surveyFlow.ts) · 체크 표식 · 「Thanks for sharing」 · 「Start using Klipse」. 진행 막대는 가득, 「Skip survey」는 없다. 답: discovery YouTube · use_case Social content · role Creator · blocker It takes too long · channels Instagram + YouTube(복수) → 콜라주 Social content · Instagram · YouTube.",
+      "surfaces": ["apps/web/components/analytics/ResearchOnboarding.tsx#ResearchOnboarding"],
+      "cite": [
+        { "path": "apps/web/components/analytics/ResearchOnboarding.tsx", "line": 317, "expect": "void fetch(\"/api/onboarding\")" },
+        { "path": "apps/web/components/analytics/ResearchOnboarding.tsx", "line": 251, "expect": "return fetch(\"/api/onboarding\", {" },
+        { "path": "apps/web/app/api/onboarding/route.ts", "line": 77, "expect": "data: { eligible: !isSurveyFinished(status), status }," },
+        { "path": "apps/web/app/api/onboarding/route.ts", "line": 162, "expect": "return NextResponse.json({ ok: true });" },
+        { "path": "apps/web/lib/product-insights/research.ts", "line": 39, "expect": "channels: [" },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 123, "expect": "use_case: \"What do you want to make\\nfirst with Klipse?\"," },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 122, "expect": "role: \"What kind of work\\ndo you do?\"," },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 124, "expect": "blocker: \"What is the hardest part\\nof making content?\"," },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 126, "expect": "channels: \"Where would you like\\nto use your content?\"," },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 132, "expect": "done: \"Done\"," },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 157, "expect": "doneTitle: \"Thanks for sharing\"," },
+        { "path": "apps/web/components/landing/system/messages/product-insights.ts", "line": 160, "expect": "confirm: \"Start using Klipse\"," }
+      ],
+      "api": [
+        { "method": "GET", "path": "/api/onboarding", "json": { "ok": true, "data": { "eligible": true, "status": null } }, "required": true },
+        { "method": "POST", "path": "/api/onboarding", "json": { "ok": true }, "required": true, "description": "노출 기록(shown)과 답 저장(submitted) 모두 라우트 성공 모양. 화면은 response.ok 만 본다." }
+      ],
+      "steps": [
+        { "waitFor": { "role": "heading", "name": "Where did you first hear about Klipse?" } },
+        { "click": { "role": "radio", "name": "YouTube", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "click": { "role": "button", "name": "Next", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "waitFor": { "role": "heading", "name": "What do you want to make first with Klipse?" } },
+        { "click": { "role": "radio", "name": "Social content", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "click": { "role": "button", "name": "Next", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "waitFor": { "role": "heading", "name": "What kind of work do you do?" } },
+        { "click": { "role": "radio", "name": "Creator", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "click": { "role": "button", "name": "Next", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "waitFor": { "role": "heading", "name": "What is the hardest part of making content?" } },
+        { "click": { "role": "radio", "name": "It takes too long", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "click": { "role": "button", "name": "Next", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "waitFor": { "role": "heading", "name": "Where would you like to use your content?" } },
+        { "click": { "role": "checkbox", "name": "Instagram", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "click": { "role": "checkbox", "name": "YouTube", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } } },
+        { "click": { "role": "button", "name": "Done", "exact": true, "within": { "css": "[aria-labelledby=\"research-title\"][role=\"dialog\"]" } }, "expectResponse": { "method": "POST", "path": "/api/onboarding" } },
+        { "waitFor": { "role": "heading", "name": "Thanks for sharing", "exact": true } },
+        { "waitFor": { "role": "button", "name": "Start using Klipse", "exact": true } }
+      ],
+      "pointer": "park",
+      "assert": { "text": ["Thanks for sharing", "Start using Klipse", "Social content", "Instagram", "YouTube"], "apiHit": "all" },
+      "contentNote": "고른 답만 지어냈다(위 다섯). 콜라주 카드의 이름 · 그림은 제품 사전과 public 그림이다."
+    }
+  ]
+}

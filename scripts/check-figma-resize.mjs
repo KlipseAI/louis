@@ -125,17 +125,29 @@ const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 88, "04-billing": 34,
 // 다시 감기면 폭 맞춤으로 되돌린다), 줄어드는 flex 항목(`min-w-0` · 감기는 글자) FILL, 백분율 크기 · 뷰포트 무대를 덮은 절대 배치 STRETCH · SCALE, 표 줄 FILL ·
 // 여러 칸 줄은 측정 칸 폭 비율의 fr grid, `preserveAspectRatio="none"` 그림 SCALE. 겨냥한 실패: /admin roles · ambassador 모바일 360, /models 모바일 360, 랜딩 ·
 // 편집기 클립 색 패널의 덮개 층, 분석 개요 · 성과 · 시청자 · 채널 정보의 표 줄과 꼬리선. 보드를 보내고 03-app · 05-ops · 01-public 을 다시 잰 뒤 줄어든 만큼 내린다.
+// run 2026-10-16rpa2(02-auth) · 2026-10-16rpa5(01-public) — 조립 규칙 15조의 27 ~ 31 을 생성기에 더하고, 15조의 22 ~ 26 이 들어간 뒤 보내지 않았던 공개 · 인증 보드를
+// 다시 보낸 뒤(랜딩 데스크톱 · 모바일 조각 전부, 요금 · 블로그 · 블로그 글 모바일 · 약관 · 개인정보 넷, 인증 열넷, 가입 약관 부품 둘): 01-public 넘침 5 → 2 · 부모 밖 12 → 9 ·
+// 글자 잘림 1 → 0 · 측정 크기 넘침 2 → 1, 02-auth 부모 밖 5 → 1.
+// 풀린 것: 랜딩 「/」 모바일(359:2986) 0 — 뷰포트 무대 덮개 STRETCH(15조의 24, 이번에 처음 보냄)와 SCALE 층 안 덮개 SCALE(15조의 27). 랜딩 데스크톱 하이라이트 글 띠
+// 760.8(15조의 27, 소수 px 자리 SCALE). /blog/[slug] 모바일 0 — 본문 그림 FILL + 비율(15조의 31) · 표 줄 FILL(15조의 25 를 처음 보냄). /terms 모바일 0 — 섞인 문단 줄을
+// 옮기지 않음(15조의 30) · 표 폭보다 좁은 줄 · 줄 묶음 내용 맞춤(15조의 28). 인증 넷(/aws/signup · /signup/check-email · /expired · /verified 모바일) 0 — 칸 정렬 grid 항목
+// FILL + 최대 폭(15조의 28) · 가운데 정렬 inline 글자 FILL(15조의 29) · 감기는 글자 상자(15조의 30) · 줄 옮긴 글자 FILL(15조의 22 를 처음 보냄).
+// 남은 것: 01 부모 밖 9 = 공개 데스크톱 1440 의 푸터 눈금자 여덟(제품 같음, check-figma-surface-coverage 의 RESIZE_PRODUCT_SAME) + 랜딩 데스크톱 1440 의 같은 시험에
+// 컴포지션 장면 캔버스 카드 셋(+363 · +192 · +161 — 제품은 캔버스를 `matrix(0.361…)` 로 축소해 배율을 다시 계산하는데 Figma 는 글자를 담은 자동 배치 카드를 비례로 줄일
+// 수 없다, 같은 시험이라 수는 그대로). 01 넘침 2 · 측정 크기 넘침 1 = /privacy 모바일(제품도 표 최소 폭 484 가 본문 grid 열을 넓혀 뷰포트 밖 — SAME 등록). 높이 따름
+// 21 은 문서 길이 보드의 기대값(위 2026-10-08b). 02 부모 밖 1 = /signup 모바일 360 의 가입 약관 부품 인스턴스 칸(렌더러가 grid 칸의 인스턴스를 측정 높이 FIXED 로 두어
+// 안의 글이 두 줄로 감기면 10 넘친다 — 렌더러를 고치면 모든 러너의 lib 해시가 바뀌어 이 작업에서는 남겼다).
+// 03-app 부모 밖 42 → 40 · 05-ops 13 → 10 은 이 작업이 아니라 run 2026-10-15names(98d63a72)가 원장에 넣은 값을 맞춘 것이다.
 const BASELINE = {
-  // run 2026-10-15n(01 · 03 만, 밤 작업 합본을 Figma 에 다시 넣은 뒤): 01 자식 넘침 13 → 14 — 랜딩 · 모델 보드가 새 렌더러(15조의 18 · 19 · 20 · 21)로 다시 그려졌다.
-  "01-public": { overflow: 6, childOutside: 14, textClip: 1, heightFollow: 21, baseOverflow: 2 },
-  "02-auth": { childOutside: 5 },
+  "01-public": { overflow: 2, childOutside: 9, heightFollow: 21, baseOverflow: 1 },
+  "02-auth": { childOutside: 1 },
   // 같은 run: 03 보드 56 → 88(분석 연결 상태 열여덟 · 편집기 · 캔버스 패널 상태 열넷). 넘침 0 → 3 · 자식 넘침 16 → 42 는 거의 모두 새 보드의
   // 1440 · 360 폭이다 — 그 화면들은 대응으로 세지 않았다(DS-D-0098 조건 2). 옛 보드에서 바뀐 것은 없다.
-  "03-app": { overflow: 3, childOutside: 42, heightFollow: 2 },
+  "03-app": { overflow: 3, childOutside: 40, heightFollow: 2 },
   "04-billing": { childOutside: 7, heightFollow: 2 },
   // run 2026-10-15m(05-ops 만): 관리자 탭 보드 서른넷이 채워져 뿌리 없음 34 → 0. 자식 넘침 4 → 13 은 모두 새 관리자 모바일 보드의 360 폭이다 —
   // 권한 · 앰배서더 둘 · 지표 · 환불 · 배너 셋. 그 여덟 화면은 대응으로 세지 않았다(DS-D-0098 조건 2). 옛 열네 보드는 그대로다.
-  "05-ops": { overflow: 4, childOutside: 13 },
+  "05-ops": { overflow: 4, childOutside: 10 },
 };
 
 const fail = (message) => {

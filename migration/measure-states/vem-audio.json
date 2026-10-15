@@ -3,7 +3,7 @@
   "area": "vem-audio",
   "mode": "session",
   "authoredAgainst": "97d4950e153d",
-  "description": "비디오 편집기(/videoeditor/[projectId])의 패널 상태 하나(panel.audio)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 비디오 편집기(/videoeditor/[projectId])의 패널 상태를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). videoeditor 영역의 같은 상태 레시피는 데스크톱 전용이고 인용이 앵커 54b62a8a 와 어긋나 있으며 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다. 모바일(≤719)은 같은 aside.vem-propertiesPanel · div.vem-assets-panel 을 아래 시트로 쓰고, 고르기만으로는 시트가 열리지 않아(VideoEditModal 「Properties」 · 「Adjust」 · 「Assets」 단추가 시트를 연다) stepsByContext 로 그 단추를 누른다. 닫힌 시트는 translateY 로 화면 밖에 있을 뿐 DOM 에 남아 글자 assert 만으로는 열림을 증명하지 못한다 — 모바일의 마지막 waitFor 는 data-vem-sheet-open 이 선 시트다. CompositionInspector 는 넣지 않았다 — 앵커에서 selId 를 \"__composition__\" 으로 두는 코드가 없어(VideoEditModal.tsx 15065 비교 한 곳뿐) 여는 길이 없다. 【2026-10-15 R2 상태】 측정 실패 — 데스크톱 단계 #3 waitFor 「Delete audio clip」 30초 시간 초과(.vem-audio-clip 클릭 뒤 오디오 인스펙터가 서지 않았다, 원인 미확인 — videoeditor 영역의 같은 레시피도 앵커 54b62a8a 에서 잰 적이 없다). 보드 자리는 지웠다.",
+  "description": "비디오 편집기(/videoeditor/[projectId])의 패널 상태 하나(panel.audio)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 비디오 편집기(/videoeditor/[projectId])의 패널 상태를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). videoeditor 영역의 같은 상태 레시피는 데스크톱 전용이고 인용이 앵커 54b62a8a 와 어긋나 있으며 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다. 모바일(≤719)은 같은 aside.vem-propertiesPanel · div.vem-assets-panel 을 아래 시트로 쓰고, 고르기만으로는 시트가 열리지 않아(VideoEditModal 「Properties」 · 「Adjust」 · 「Assets」 단추가 시트를 연다) stepsByContext 로 그 단추를 누른다. 닫힌 시트는 translateY 로 화면 밖에 있을 뿐 DOM 에 남아 글자 assert 만으로는 열림을 증명하지 못한다 — 모바일의 마지막 waitFor 는 data-vem-sheet-open 이 선 시트다. CompositionInspector 는 넣지 않았다 — 앵커에서 selId 를 \"__composition__\" 으로 두는 코드가 없어(VideoEditModal.tsx 15065 비교 한 곳뿐) 여는 길이 없다. 【2026-10-15 밤 고침】 R2 의 데스크톱 단계 #3 실패는 인스펙터가 안 선 것이 아니었다 — 운영 main 97d4950e 에서 다시 재 보니 클립을 누르면 AudioClipInspector 가 서고, 「Delete audio clip」 단추가 둘(타임라인 클립 안 .vem-audio-clip-btn · 인스펙터 머리 .vem-overlay-delete-btn)이라 엄격 모드에 걸렸다. 마지막 waitFor 를 속성 패널(.vem-propertiesPanel) 안으로 좁혔다. 채운 상태: BGM 클립(A1 · 볼륨 30% · 페이드 1/2초)을 고른 오디오 인스펙터. assert.text 의 「♪ 30%」(타임라인 클립 라벨)는 제품이 「♪」 · 「30」 · 「%」를 따로 된 글자 노드로 그려(VideoEditModal.tsx 14471–14481) 측정기의 ownText 가 「♪ 30 %」로 이어 붙이므로 맞지 않는다 — 인스펙터 안의 「Auto ducking」(절 머리)으로 바꿨다. 【2026-10-16 측정】 운영 main 97d4950e fixture 에서 데스크톱 1529초 · 모바일 231초로 원장(migration/product-states/vem-audio.json)이 섰다. 보드 자리는 아직 없다(조정자가 생성).",
   "recipes": [
     {
       "id": "/videoeditor/[projectId] panel.audio",
@@ -143,6 +143,11 @@
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
           "line": 1457,
           "expect": "\"vem-mobile-tab-bar\","
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 2948,
+          "expect": "audioDuckTitle: \"Auto ducking\""
         }
       ],
       "api": [
@@ -171,9 +176,12 @@
           "waitFor": {
             "role": "button",
             "name": "Delete audio clip",
-            "exact": true
+            "exact": true,
+            "within": {
+              "css": ".vem-propertiesPanel"
+            }
           },
-          "description": "AudioClipInspector 머리의 삭제"
+          "description": "AudioClipInspector 머리의 삭제 — 같은 이름의 단추가 타임라인 클립 안(.vem-audio-clip-btn, 호버 전 opacity 0)에도 있어 속성 패널 안으로 좁힌다"
         }
       ],
       "stepsByContext": {
@@ -212,7 +220,7 @@
       "assert": {
         "text": [
           "♪ BGM",
-          "♪ 30%"
+          "Auto ducking"
         ],
         "apiHit": "all"
       }

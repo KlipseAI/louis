@@ -12,7 +12,7 @@
         "mobile": "3549:23838"
       },
       "base": "/nodecanvas?project=",
-      "description": "캔버스 툴바 오른쪽의 도움말 단추(aria 「Help」)로 연 도움말 패널 첫 쪽(CanvasHelpPanel — 검색 · 할 일 · 둘러보기. 운영 판(97d4950e)은 첫 영상 세 단계를 모두 끝낸 캔버스에서 「Make your first video」 묶음을 숨긴다 — CanvasHelpPanel.tsx:587-596, 시드 캔버스가 그렇다). 데스크톱은 오른쪽 도킹, 모바일(<768)은 아래 시트 dialog. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
+      "description": "캔버스 툴바 오른쪽의 도움말 단추(aria 「Help」)로 연 도움말 패널 첫 쪽(CanvasHelpPanel — 검색 · 첫 영상 만들기 · 할 일 · 둘러보기. 운영 판(97d4950e)은 첫 영상 세 단계를 모두 끝낸 캔버스에서만 「Make your first video」 묶음을 숨긴다(CanvasHelpPanel.tsx:587-597) — 시드 캔버스는 1단계만 끝나 2단계가 현재라 묶음이 선다(측정 캡처 2026-10-15). 데스크톱은 오른쪽 도킹, 모바일(<768)은 아래 시트 dialog. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
       "surfaces": [
         "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx#CanvasHelpPanel"
       ],
@@ -61,6 +61,16 @@
           "path": "apps/web/components/landing/system/messages/en.ts",
           "line": 3221,
           "expect": "title: \"Make your first video\","
+        },
+        {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx",
+          "line": 667,
+          "expect": "<LinkRow title={h.browse.nodes}"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 3236,
+          "expect": "nodes: \"Node types\","
         }
       ],
       "steps": [
@@ -83,6 +93,7 @@
       ],
       "assert": {
         "text": [
+          "Make your first video",
           "Node types"
         ]
       }

@@ -3,7 +3,7 @@
   "area": "highlight",
   "mode": "session",
   "authoredAgainst": "97d4950e153d",
-  "description": "하이라이트 영역 상태 레시피(설계서 4-6). 리뷰 단계 셋은 제품의 개발 전용 미리보기 후크 ?preview=review · review-chat(HighlightProjectScene.tsx:669, NODE_ENV 게이트)로 연다 — 제품이 직접 쓴 데모 값(reviewPreview.ts)이라 시드 · API 가 필요 없고, 화면이 요청을 하나도 보내지 않는다(reviewPreview.ts 12–13 주석). 쇼츠 셋은 세션 기준 화면(결과 보기, 시드 쇼츠 한 행) 위에서 클릭한다 — 쇼츠의 ?preview=result 는 결과 버튼이 아무것도 하지 않아(page.tsx 1472) 업로드 창 · 편집기를 열 수 없다.",
+  "description": "하이라이트 영역 상태 레시피(설계서 4-6). 리뷰 단계 셋은 제품의 개발 전용 미리보기 후크 ?preview=review · review-chat(HighlightProjectScene.tsx:669, NODE_ENV 게이트)로 연다 — 제품이 직접 쓴 데모 값(reviewPreview.ts)이라 시드 · API 가 필요 없고, 화면이 요청을 하나도 보내지 않는다(reviewPreview.ts 12–13 주석). 쇼츠 셋은 세션 기준 화면(결과 보기, 시드 쇼츠 한 행) 위에서 클릭한다 — 쇼츠의 ?preview=result 는 결과 버튼이 아무것도 하지 않아(page.tsx 1472) 업로드 창 · 편집기를 열 수 없다. 【2026-10-16 측정】 운영 main 97d4950e fixture 에서 쇼츠 셋을 쟀다(원장 migration/product-states/highlight.json) — upload(연결됨 폼: watch 모사 미리보기 · 채널 「풋볼 클립 스튜디오」 · 제목 · 설명 · 태그 · Publish) 데스크톱 272초 · 모바일 203초, upload.connect(미연결 연결 상자) 데스크톱 214초 · 모바일 152초, edit.templates 데스크톱 1617초(데스크톱 전용). 보드 자리는 아직 없다(조정자가 생성).",
   "recipes": [
     {
       "id": "/highlight/[projectId]/shorts/[shortId] upload",

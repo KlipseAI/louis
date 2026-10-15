@@ -80,10 +80,14 @@ for (const [mode, ledger] of Object.entries(enLedgers)) {
 
 /** 보드 화면이 어느 en 원장에서 왔는가 — 보드 계획은 원장 키를 싣지 않으므로 경로 · 노드 수로 가린다. */
 const modeOfScreen = (screen) => {
-  const hits = Object.entries(enLedgers).filter(([, ledger]) => {
+  // 뿌리 경로로 먼저 가리고, 둘 이상일 때만 노드 수로 가린다(2026-10-16) — range 입력의 트랙 · 손잡이(조립 규칙 15조의 37)처럼 측정이
+  // 원장 트리 밖 노드를 싣게 되면 보드의 measured 수가 원장 트리 길이와 달라진다.
+  const byRoot = Object.entries(enLedgers).filter(([, ledger]) => {
     const measured = ledger.screens?.[screen.context]?.[screen.route];
-    return measured?.tree?.length === screen.stats.measured && measured.rootPath === screen.spec.path;
+    return measured && measured.rootPath === screen.spec.path;
   });
+  const hits = byRoot.length <= 1 ? byRoot
+    : byRoot.filter(([, ledger]) => ledger.screens[screen.context][screen.route].tree?.length === screen.stats.measured);
   if (hits.length !== 1) fail(`보드 ${screen.route} @ ${screen.context} 의 en 원장을 하나로 정하지 못했습니다(${hits.map(([mode]) => mode).join(", ") || "없음"})`);
   return hits[0][0];
 };

@@ -13,7 +13,7 @@ const measuredPath = resolve(repoRoot, "migration/product.measured.json");
 const outputPath = resolve(repoRoot, "migration/product-evidence.lock.json");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
 // **앵커는 운영에 배포된 `main` 의 커밋이다(DS-D-0117, 2026-10-15).** 운영(prd)은 GitHub
-// `KlipseAI/klipse-web` 의 `main` push 로 배포된다(제품 `.github/workflows/deploy.yml`). 그래서
+// `KlipseAI/klipse-web` 의 `main` push 로 배포된다(제품 저장소의 배포 워크플로 deploy.yml — 이 저장소 경로가 아니다). 그래서
 // KLIPSE_PRODUCT_REPO 는 운영 커밋의 읽기 전용 체크아웃이고 기준선은 그 체크아웃의 `HEAD` 다.
 // (그전 정본은 `design` 브랜치(2026-08-21) → 작업 브랜치 통합 판(DS-D-0079)이었다.)
 const productRef = process.env.KLIPSE_PRODUCT_REF ?? "HEAD";

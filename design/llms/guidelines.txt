@@ -2534,7 +2534,7 @@ DS-D-0008 3항의 항목 형식을 아래로 **바꾼다.** 3항의 나머지 �
 
 1. **앵커는 「`origin/dev` + 작업 갈래 끝 브랜치 전부」를 차례로 병합한 통합 판이다.** 끝 브랜치는 「`origin/dev` 위 커밋이 있고 다른
    갈래의 조상이 아닌 브랜치」로 전수 조사해 고른다 — 쌓인 줄기의 끝만 보면 따로 갈라진 갈래를 놓친다. 갈래 목록 · 커밋 · 충돌 해소는
-   `migration/product-integration/integration.json` 이 갖는다. 해소가 파일 하나로 안 되는 충돌은 해소본(`*.resolved`)을 같은 폴더에 둔다.
+   통합 판 기록 파일(migration/product-integration/integration.json — 2026-10-15 DS-D-0117 로 앵커를 옮기며 커밋 6113aafa 에서 지웠다, git 이력에 남는다)이 가졌다. 해소가 파일 하나로 안 되는 충돌은 해소본(`*.resolved`)을 같은 폴더에 둔다.
 2. **병합 커밋은 별도 통합 저장소에만 있다.** `migration/product-integration/build.sh` 가 제품 저장소에서 커밋만 가져와 병합한다. 이름과
    날짜를 고정해 같은 `integration.json` 이면 같은 SHA 가 나온다(2026-10-08 아침 판 `76b6cf15`, 저녁 판 `54b62a8a`, 각각 두 번 만들어 같음). 결과 커밋은 `integration.json` 의
    `result` 에 적고, lock 생성기(`build-product-evidence`)는 원격에 없는 커밋 가운데 이것 하나만 기준선으로 받는다. 그래서

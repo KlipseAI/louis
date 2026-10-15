@@ -57,6 +57,12 @@ const RUNNER_PREFIX = LOUIS_EXAMPLES ? "louis-document" : "app-screens";
 const PART_RUNNER_PREFIX = LOUIS_EXAMPLES ? "louis-document-parts" : "product-parts";
 const planPath = resolve(repoRoot, `figma/${RUNNER_PREFIX}.plan.json`);
 const partsPlanPath = resolve(repoRoot, `figma/${PART_RUNNER_PREFIX}.plan.json`);
+// **계획은 보드 한 장 = 한 줄로 쓴다(2026-10-15).** 들여쓰기 2 칸으로 쓰던 판이 관리자 탭 보드 서른넷이 더해지자 110MB 로 GitHub 의
+// 파일 한도(100MB)를 넘었다 — 깊은 spec 트리의 공백이 대부분이었다. 늘림 원장(`figma/resize-check.json`)과 같은 모양이라 diff 가 보드 단위로 읽힌다.
+const planText = (plan) => JSON.stringify({ ...plan, screens: "__SCREENS__" }, null, 2).replace(
+  '"__SCREENS__"',
+  "[\n" + plan.screens.map((screen) => `    ${JSON.stringify(screen)}`).join(",\n") + "\n  ]",
+) + "\n";
 const templatePath = resolve(repoRoot, "scripts/templates/figma-app-screens-renderer.js");
 const checkOnly = process.argv.includes("--check");
 const fail = (message) => { throw new Error(`[figma-app-screens] ${message}`); };
@@ -2857,6 +2863,7 @@ const ANALYTICS_PENDING_WHY = "분석 연결 상태 보드(시청자 탭 행 · 
 const SHORT_RESULT_PLAYER_WHY ="쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const VEM_INSPECTOR_PENDING_WHY = "편집기 클립 인스펙터 섹션(Adjustments · Source crop)의 stretch 자식 — 2026-10-15 새 패널 상태 보드(인스펙터를 처음 그린다), 캡처 대조 전";
 const CANVAS_PANEL_PENDING_WHY = "노드캔버스 분석 모달 몸통 · 분석 시드 유튜브 노드 미리보기의 stretch 자식 — 2026-10-15 새 패널 상태 보드, 캡처 대조 전";
+const ADMIN_PENDING_WHY = "어드민 탭 상태 보드(펼친 문의 카드 상세 줄)의 stretch 자식 — 2026-10-15 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
   // 되살림(2026-10-08): 아래 자리는 통합 판(DS-D-0079)에서 세션 `/videoeditor/[projectId]` 가 오류 경계로 재져 잠시 빠졌다가, fixture 에
   // CDN 주소를 세워 다시 재자 서브트리가 돌아와 되살렸다. 같이 빠졌던 공개 `/` 데스크톱 `body.1.0.0.2.1.0.1 · vertical`(LANDING_PENDING_WHY)은
@@ -2911,6 +2918,9 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   "/nodecanvas?project= panel.analysis @ desktop-1920x1080 · body.1.0.0.0.7.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
   "/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.7.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
   "/nodecanvas?project= panel.analysis @ mobile-402x874 · body.1.0.0.0.7.0.0.0.0.1 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },
+  // 2026-10-15 — 어드민 상태 레시피 보드(섹션 3521:223). 문의 카드를 펼친 상세 줄의 세로 stretch 자식이다. 보드를 보낸 뒤 캡처로 대조한다.
+  "/admin inquiries @ desktop-1920x1080 · body.1.0.0.1.0.0.0.1.2.0.1.1.1 · vertical": { count: 1, why: ADMIN_PENDING_WHY },
+  "/admin inquiries @ mobile-402x874 · body.1.0.0.1.0.0.0.1.2.0.1.1.1 · vertical": { count: 1, why: ADMIN_PENDING_WHY },
 };
 {
   const actual = {};
@@ -2995,7 +3005,7 @@ const plan = {
   screens,
 };
 
-outputs.push({ absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n` });
+outputs.push({ absolute: planPath, expected: planText(plan) });
 
 // **조각 런너.** 화면 하나가 `use_figma` 한 번에 안 들어가므로(위 splitSpec 주석 참조) 화면·문맥마다
 // 조각 파일을 낸다. 조각 0을 먼저 돌리고 나머지를 순서대로 돌리면 화면이 완성된다.
@@ -3079,7 +3089,7 @@ for (const entry of screens) {
 }
 plan.runners = manifest;
 // plan 갱신 후 다시 직렬화해야 manifest가 담긴다.
-outputs[0] = { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n` };
+outputs[0] = { absolute: planPath, expected: planText(plan) };
 
 // ── 제품 부품 러너 · 계획 ──────────────────────────────────────────────────────
 // 보드와 같은 렌더러로 부품 variant(빈 컴포넌트) 안을 채운다. 계획의 `setName` 은 표면 원장의 제품 세트 어휘가 된다(DS-D-0071).

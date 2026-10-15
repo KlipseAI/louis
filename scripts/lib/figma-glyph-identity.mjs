@@ -1029,9 +1029,9 @@ export const PRODUCT_GLYPHS = Object.freeze([
   {
     id: "admin-sort-arrow-down-10",
     signature: "0 0 10 10|path(d=M5 1.5v7M2 5.5l3 3 3-3)",
-    louis: null,
-    verdict: "missing",
-    why: "어드민 사용자 표 머리의 정렬 단추(`aria-label` 「Sort by Joined, descending」)가 활성 열 옆에 그리는 내림차순 화살표다 — 10 상자에 세로 선 하나와 아래 화살촉, 1.4 획(`app/admin/AdminClient.tsx:626-633`, 오름차순이면 같은 자리에 위 화살표). 표에 사용자가 한 명이라도 있어야 머리가 서므로 프로필 시드(2026-10-15)부터 재졌다. LOUIS 화살표는 `arrow-up` 뿐이고 방향을 축으로 두지 않는다(위 `arrow-left` 와 같은 판정).",
+    louis: "icon/arrow-down",
+    verdict: "bespoke",
+    why: "어드민 사용자 목록 머리의 정렬 표시(`aria-label` 「Sort by Joined, descending」, `app/admin/AdminClient.tsx:628` — 10 상자 세로 화살, 오름차순이면 위를 본다)다. LOUIS 에 같은 뜻의 `icon/arrow-down` 이 있지만 제품이 제 인라인 그림을 그린다.",
   },
   {
     id: "check-12",
@@ -1165,6 +1165,28 @@ export const PRODUCT_GLYPHS = Object.freeze([
     louis: null,
     verdict: "missing",
     why: "아이콘이 아니라 노드캔버스 분석 모달(유튜브 갈래, 개요 탭) KPI 카드 「Shares 9」의 스파크라인(`components/scenes/analytics/shared.tsx:463-483` `KpiSparkline` — 800×200 viewBox 영역 채움 + 곡선, 좌표는 `analyticsUtils.ts` areaD · pathD 가 시계열에서 만든다)이다. 레시피가 가로챈 5일 시계열(data/canvas-analysis/youtube-video-analytics.json)이 그린 데이터 그림이라 LOUIS 아이콘 대응 대상이 아니다.",
+  },
+  // 2026-10-15 — 어드민 상태 레시피(migration/measure-states/admin.json)의 탭 보드에서 처음 잰 글리프 셋.
+  {
+    id: "chevron-down-16",
+    signature: "0 0 16 16|path(d=M4 6l4 4 4-4)",
+    louis: "icon/caret-down",
+    verdict: "bespoke",
+    why: "어드민 펼침 카드 · 행의 꺾쇠(`app/admin/RefundManagement.tsx:441` · `InquiryManagement.tsx:384` · `AmbassadorApplications.tsx:935` · `JobMonitor.tsx:326` — 16 상자 1.5 획, 펼치면 뒤집힌다)다. LOUIS 에 같은 뜻의 `icon/caret-down` 이 있지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "dots-three-horizontal-16",
+    signature: "0 0 16 16|circle(cx=3.5 cy=8 r=1.5)|circle(cx=8 cy=8 r=1.5)|circle(cx=12.5 cy=8 r=1.5)",
+    louis: "icon/dots-three-vertical",
+    verdict: "bespoke",
+    why: "어드민 목록 행의 더보기 메뉴 단추(`aria-label` 「More actions for …」 · 「More for …」, `app/admin/AdminSection.tsx:528` — 16 상자 가로 원 셋)다. LOUIS 에는 세로 점 셋(`icon/dots-three-vertical`)만 있어 방향이 다르다 — 같은 뜻의 다른 그림이다.",
+  },
+  {
+    id: "viewport-cropped-16",
+    signature: "0 0 16 16",
+    louis: "icon/caret-down",
+    verdict: "bespoke",
+    why: "뷰포트 끝에 걸린 `chevron-down-16` 이다(2026-10-15 실측: `/admin jobs` 모바일 402×874 의 둘째 작업 행, svg 상자 y 869–885). 측정은 뷰포트 안의 노드만 적어 y 875 에서 시작하는 path 가 빠졌고 서명에 viewBox 만 남았다. 보드도 874 에서 잘리므로 그 자리에 보이는 획은 제품에도 없다 — 빈 16 상자가 정직한 그림이다. 다른 화면에서 이 서명이 나오면 같은 사정(뷰포트 끝에 걸린 16 아이콘)인지 먼저 확인한다.",
   },
 ]);
 

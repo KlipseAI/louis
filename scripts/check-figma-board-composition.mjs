@@ -233,7 +233,8 @@ const REPLACEABLE_BASELINE = 0;
 // 같은 날 뒤: 302 → 310 — **발견이다.** /creative-media 보드가 활성 행사 · 템플릿 넷으로 채워지며 +8(DS-D-0109).
 // 2026-10-15 아침 합본: 310 → 676 — **발견이다.** 밤사이 새 보드(분석 연결 상태 열여덟 · 편집기 · 캔버스 패널 상태 · 관리자 사용자 · 랜딩 끈적 장면)가
 // 제품이 LOUIS 를 물지 않는 자리를 드러냈다. 지금 수로 조여 하락 canary 가 다시 문다.
-const BESPOKE_BASELINE = 676; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 같은 아침 뒤: 676 → 809 — **발견이다.** 관리자 탭 상태 보드 서른넷.
+const BESPOKE_BASELINE = 809; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -310,7 +311,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 에셋 · 설정 × 두 뷰포트)의 프로젝트 머리 2 · 캔버스 카드 3 · 줌 트리거 1 · 생성 알약 3 · 모바일 타임라인 3 과 LOUIS 인스턴스(버튼 · 탭 등)다.
 // 옛 보드의 instance 는 바뀌지 않았다.
 // 2026-10-15 아침 합본(P · Q · R1 · R2 의 밤 작업을 합쳐 다시 잼): 383 — 분석 · 패널 상태 · 관리자 · 랜딩 장면 보드가 얻은 인스턴스.
-const INSTANCE_FLOOR = 383;
+// 같은 아침 뒤: 383 → 448 — 관리자 탭 상태 보드 서른넷(상단 바 · 표 · 단추 인스턴스).
+const INSTANCE_FLOOR = 448;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -392,7 +394,8 @@ const INSTANCE_FLOOR = 383;
 // 에셋 · 설정 몸통, 캔버스 도움말 · 분석 · 이미지 편집 · 카메라 각도 모달)를 함께 잠근다. 수는 instance 354 + replaceable 0 + bespoke 566 +
 // blocked 37 + missing 3180.
 // 2026-10-15 아침 합본: 4137 → 5144(instance 383 + bespoke 676 + blocked 57 + missing 4028).
-const CANDIDATE_FLOOR = 5144;
+// 같은 아침 뒤: 5144 → 6225 — 관리자 탭 상태 보드 서른넷.
+const CANDIDATE_FLOOR = 6225;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.
@@ -494,6 +497,24 @@ const SHELL_INSTANCES_BY_BOARD = {
   "subscription.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   // 2026-09-30 — 세션 원장 보드(허브 셋 · 결제 진행 · 관리자 모바일): 상단 바 · 사이드바 셸이 측정 서브트리 그대로 붙었다(보드 글자 자리 대조 · 캡처로 확인).
   "admin.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  // 2026-10-15 — 관리자 탭 상태 보드(상태 레시피 admin, 섹션 3521:223). 기준 /admin 모바일과 같은 상단 바가 래퍼가 아니라 바 자리에 붙었다.
+  "admin-ambassador-links.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-ambassador.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-banners-landing.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-banners-models.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-banners.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-blog.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-captions.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-coupons.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-inquiries.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-jobs.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-metrics.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-payments.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-refunds.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-roles.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-templates.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-usage.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "admin-users.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "highlight.desktop": ["Product/Gnb Desktop Shell · Current=Highlight"],
   "highlight.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-upgrade-checkout.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],

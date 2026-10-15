@@ -1446,7 +1446,10 @@ try {
             // 안에 1600×1000 판을 넘쳐 그린다 — 상자째 버려져 판과 그 위 영상이 원장에 오지 않았다(보드에 「Assets」 설명만 남았다). 넘침이
             // 보이는(`overflow: visible`) 크기 0 HTML 상자가 면이 있는 자식을 가지면 svg 의 경우처럼 건너뛰고 안으로 내려간다. 불투명도 0 인
             // 상자는 그대로 버린다.
-            const zeroSizeCamera = !visible && rect.width === 0 && rect.height === 0 && node instanceof HTMLElement
+            // **한 변만 0 인 상자도 같다(2026-10-15, 앵커 97d4950e).** 운영 판 노드캔버스는 고정 배치 머리 · 캔버스를 1920×0 블록
+            // (CreateScene 안, 높이 없는 `div`)에 담는다 — 면이 없어 상자째 버려져 `/nodecanvas?project=` 의 뿌리 트리가 3 노드로 비었고
+            // 도움말 패널 · 분석 모달의 글자가 원장에 오지 않았다. 넘침이 보이면 자식은 그대로 그려지므로 한 변이 0 이어도 건너뛰고 내려간다.
+            const zeroSizeCamera = !visible && (rect.width === 0 || rect.height === 0) && node instanceof HTMLElement
               && computed.opacity !== "0" && computed.overflowX === "visible" && computed.overflowY === "visible"
               && [...node.children].some((child) => { const r = child.getBoundingClientRect(); return r.width > 0 && r.height > 0; });
             const passThrough = computed.display !== "none" && computed.visibility !== "hidden" && (zeroSizeOwner(node) || zeroSizeCamera

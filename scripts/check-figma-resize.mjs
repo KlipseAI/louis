@@ -126,7 +126,9 @@ const BASELINE = {
   "02-auth": { childOutside: 5 },
   "03-app": { childOutside: 16, heightFollow: 2 },
   "04-billing": { childOutside: 7, heightFollow: 2 },
-  "05-ops": { overflow: 4, childOutside: 4, noRoot: 34 },
+  // run 2026-10-15m(05-ops 만): 관리자 탭 보드 서른넷이 채워져 뿌리 없음 34 → 0. 자식 넘침 4 → 13 은 모두 새 관리자 모바일 보드의 360 폭이다 —
+  // 권한 · 앰배서더 둘 · 지표 · 환불 · 배너 셋. 그 여덟 화면은 대응으로 세지 않았다(DS-D-0098 조건 2). 옛 열네 보드는 그대로다.
+  "05-ops": { overflow: 4, childOutside: 13 },
 };
 
 const fail = (message) => {

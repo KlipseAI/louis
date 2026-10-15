@@ -13,15 +13,15 @@
   "filesScanned": 392,
   "counts": {
     "total": 612,
-    "mapped": 203,
+    "mapped": 212,
     "scoped": 327,
-    "needed": 82,
+    "needed": 73,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 0,
-    "screen": 82,
+    "screen": 73,
     "oneoff": 0,
     "unclear": 0,
     "kindless": 0
@@ -177,12 +177,13 @@
         "louis-border-width-hairline",
         "louis-color-stroke-hairline"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "어드민 콘솔의 셸이 아니라 화면 자체다 — Gnb 사이드바 위에 사용자 검색(자동완성 목록)·사용자 목록·사용자 상세·일괄 지급 폼·지급 확인 모달 두 개를 자기 JSX 로 1400줄 그린다. Figma 어드민 보드가 셋 있으나 이 화면의 컴포넌트는 없다. 다른 어드민 탭이 모두 이 안에 꽂히므로 먼저 세워야 하는 그릇이다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: dialog] 실측: import 자리 하나 — app/admin/page.tsx:4, 렌더 :16. /admin 라우트의 본체 그 자체다. 1400줄 안에 사용자 검색(자동완성 목록) · 사용자 목록 · 사용자 상세 · 일괄 지급 폼 · 확인 모달 둘 · 생성 현황 타일을 자기 JSX 로 그리고, 나머지 어드민 탭 열둘이 전부 이 안에 꽂힌다. 그리는 것이 「부품」이 아니라 「화면」이므로 Figma 보드가 갈 자리다. 다만 이 안에서 꺼낼 것이 하나 있다 — MODAL_OVERLAY/MODAL_CARD(`fixed inset-0 z-[1400]`)가 손수 만든 다이얼로그인데, 같은 어드민 폴더의 InquiryManagement·RefundManagement 는 이미 louis-dialog 를 문다. 짓는 일이 아니라 **이미 선 Dialog 를 물게 하는 일**이다."
+      "verdict": "figma",
+      "figma": "screen:/admin users",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin users (admin · 레시피 측정 · 사용자 목록 셋 — 요금제 배지 셋(테스터 · 구독 중 · 결제 실패)). 빈 상태가 아니다."
     },
     "apps/web/app/admin/AdminClient.tsx#PlanBadge": {
       "file": "apps/web/app/admin/AdminClient.tsx",
@@ -628,12 +629,13 @@
       "file": "apps/web/app/admin/BlogManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "블로그 글 관리 화면 — 목록 행·커버 이미지 업로드·마크다운 본문 편집기·미리보기·토스트를 그린다. 어드민 편집 폼 계열의 대표형이라 Figma 보드에 세우면 나머지 관리 화면의 기준이 된다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — AdminClient.tsx:10/:1066(activeTab === \"blog\"). 664줄짜리 탭 한 장이다. 목록 행 · 커버 이미지 업로드 · 마크다운 편집기 · 미리보기 · 토스트를 그린다. 공용 프리미티브(AdminSectionHeader·AdminBadge·AdminAlert·AdminState)는 이미 AdminSection 에서 가져다 쓰고 있으므로 남는 것은 화면 조립뿐이다. 원장이 이 화면을 「어드민 편집 폼 계열의 대표형」이라 부르는데, 그 계열(Blog·Landing·Model·Template·Coupon)의 공통 골격은 컴포넌트가 아니라 **보드에서 합의할 레이아웃 규격**이라 보는 편이 맞다."
+      "verdict": "figma",
+      "figma": "screen:/admin blog",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin blog (admin · 레시피 측정 · 블로그 글 목록). 빈 상태가 아니다."
     },
     "apps/web/app/admin/CaptionTemplateManagement.tsx#CaptionTemplateManagement": {
       "file": "apps/web/app/admin/CaptionTemplateManagement.tsx",
@@ -651,12 +653,13 @@
         "louis-text",
         "louis-text-field"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "자막 템플릿 관리 화면 — louis-table 표와, 세그먼트 컨트롤·슬라이더 수십 개·체크박스·캔버스 미리보기가 들어간 대형 편집 모달이다. 컨트롤은 LOUIS 정본을 쓰지만 그것들을 담는 표와 모달 레이아웃 자체가 Figma 에 없다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: dialog] 실측: import·렌더 자리 하나 — AdminClient.tsx:12/:1065(activeTab === \"captions\"). 1364줄로 이 묶음에서 두 번째로 큰 화면이다. 컨트롤은 이미 LOUIS 정본을 두껍게 문다(원장 louis 필드가 checkbox·segmented·segmented-control·slider·slider-fill·text·text-field·hairline-inset·layout-control-height-md 아홉을 나른다) — 즉 부품은 이미 있고 남은 것은 표와 대형 편집 모달의 «조립»이다. 이 화면의 모달도 손수 만든 오버레이(:68 `fixed inset-0 z-[1500]`)라 louis-dialog 로 갈 자리다. 안에 있는 진짜 부품 ColorSwatchRow 는 이 원장에 별 표면으로 이미 서 있고 나는 그것을 primitive 로 판정했다."
+      "verdict": "figma",
+      "figma": "screen:/admin captions",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin captions (admin · 레시피 측정 · 자막 템플릿 표). 빈 상태가 아니다."
     },
     "apps/web/app/admin/CaptionTemplateManagement.tsx#ColorSwatchRow": {
       "file": "apps/web/app/admin/CaptionTemplateManagement.tsx",
@@ -706,12 +709,13 @@
       "file": "apps/web/app/admin/CouponManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "쿠폰 캠페인 관리 화면 — 캠페인 목록, 발행 폼(LOUIS text-field·checkbox 소비), 코드 목록, 인쇄 링크를 그린다. 목록+폼+확인 흐름이 다른 관리 화면과 같은 골격이라 어드민 공통 레이아웃으로 뽑을 후보다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — AdminClient.tsx:9/:1063(activeTab === \"coupons\"). 1098줄짜리 탭 한 장. 캠페인 목록 · 발행 폼 · 코드 목록 · 인쇄 링크를 그린다. AdminSection 에서 여섯(AdminAlert·AdminBadge·AdminSectionHeader·AdminState·AdminStatTile·AdminTileGrid)을 가져다 쓰고 louis-button·louis-popover 도 이미 문다. 되풀이되는 부품은 그 여섯이 이미 갖고 있고 여기 남는 것은 화면 조립이다."
+      "verdict": "figma",
+      "figma": "screen:/admin coupons",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin coupons (admin · 레시피 측정 · 쿠폰 캠페인 둘(진행 중 · 일시 중지)). 빈 상태가 아니다."
     },
     "apps/web/app/admin/coupons/[id]/print/CouponPrintSheet.tsx#CouponPrintSheet": {
       "file": "apps/web/app/admin/coupons/[id]/print/CouponPrintSheet.tsx",
@@ -750,12 +754,13 @@
       "file": "apps/web/app/admin/InquiryManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "문의 관리 화면 — 카테고리별 톤이 다른 배지가 달린 문의 카드 목록, 첨부 이미지, 처리 확인 모달, 토스트. RefundManagement 와 카드 목록·모달 껍데기가 사실상 동일한데 코드에서 일부러 공유하지 않았다(파일 주석) — Figma 에서 한 컴포넌트로 묶을 자리다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: dialog] 실측: import·렌더 자리 하나 — AdminClient.tsx:6/:1057. 499줄짜리 탭 한 장. 문의 카드 목록 · 첨부 이미지 · 처리 확인 모달 · 토스트. 원장은 RefundManagement 와 「골격이 사실상 동일한데 일부러 공유하지 않았다」고 적는데, 그렇다면 세울 것은 **두 화면이 공유할 «신청 카드 행»**이지 이 표면 자체가 아니다. 그 행은 어느 파일에서도 이름 붙은 컴포넌트로 뽑혀 있지 않아 이 원장의 표면이 아니다. 이 파일은 louis-dialog 를 이미 물어서 확인 모달 쪽은 대응이 서 있다."
+      "verdict": "figma",
+      "figma": "screen:/admin inquiries",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin inquiries (admin · 레시피 측정 · 문의 카드 목록 — 첫 카드 펼침(첨부 1)). 빈 상태가 아니다."
     },
     "apps/web/app/admin/JobMonitor.tsx#Chevron": {
       "file": "apps/web/app/admin/JobMonitor.tsx",
@@ -783,12 +788,13 @@
       "file": "apps/web/app/admin/JobMonitor.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "생성 잡 모니터 — 상태 배지(louis-badge), 인라인 오류 배너(louis-alert), 빈 상태(louis-empty-state)까지 정본을 쓰지만 목록 행은 표도 selectable-list-row 도 아닌 펼침 행이라고 파일이 명시한다. 그 펼침 행과 비디오 미리보기가 포함된 화면이 Figma 에 없다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — AdminClient.tsx:14/:1068(activeTab === \"jobs\"). 580줄짜리 탭 한 장. AdminSection 에서 여덟(Alert·Badge·SectionHeader·Segmented·State·StatTile·TileGrid·Toolbar)을 전부 가져다 쓰는 **가장 정본에 잘 붙은 어드민 화면**이라, 여기서 새로 세울 부품이 거의 없다. 파일이 스스로 「목록 행은 표도 selectable-list-row 도 아닌 펼침 행」이라 명시하는데, 그 펼침 행은 이 한 화면 전용이므로 되풀이가 아니다."
+      "verdict": "figma",
+      "figma": "screen:/admin jobs",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin jobs (admin · 레시피 측정 · 생성 작업 목록 — 첫 행 펼침). 빈 상태가 아니다."
     },
     "apps/web/app/admin/JobMonitor.tsx#JobStatusBadge": {
       "file": "apps/web/app/admin/JobMonitor.tsx",
@@ -849,12 +855,13 @@
       "file": "apps/web/app/admin/PaymentManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "결제 내역 화면 — 조회 줄(AdminSearch + AdminSelect 셋 + 날짜 범위 상자), 유형별 가로 막대 행(TYPE_ROW/TYPE_TRACK/TYPE_BAR, :125-149 — 이름·막대·금액·건수), 건별 내역 표(ROW_GRID 5열, lg 미만 2열 재배치 :155-173, 취소선 금액 · 영수증 링크 · AdminStatus), 더 보기 줄을 그린다. 헤더·경고·빈 상태는 AdminSectionHeader · AdminAlert · AdminState 로 이미 대응되지만, 막대 행과 열 맞춘 내역 표를 담은 화면 자체가 Figma 에 없다. 유형별 막대 행은 파일 주석이 「모델 사용량의 행과 같은 모양」이라 적어(:124) UsageByModelDashboard · ProductMetricsDashboard 의 지표 막대 행과 같은 되풀이 후보에 하나를 더한다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — AdminClient.tsx:26/:1464(activeTab === \"payments\"). 613줄짜리 /admin 탭 한 장이다. 파일 주석이 「뼈대는 모델 사용량과 작업 현황을 따른다」고 적어(:31-32) 자기 부품을 새로 만들지 않고 AdminSection 에서 열하나를 가져다 쓴다. 안에서 꺼낼 것은 지표 막대 행(다른 탭과 공유)뿐이고 그것은 ProductMetricsDashboard 쪽 kindReason 이 이미 짚었다. 부품이 아니라 보드로 그릴 화면이다."
+      "verdict": "figma",
+      "figma": "screen:/admin payments",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin payments (admin · 레시피 측정 · 결제 내역 넷 · 유형별 막대 셋 · 기본 30일). 빈 상태가 아니다."
     },
     "apps/web/app/admin/ProductMetricsDashboard.tsx#OnboardingSurveyPanel": {
       "file": "apps/web/app/admin/ProductMetricsDashboard.tsx",
@@ -895,23 +902,25 @@
       "file": "apps/web/app/admin/TemplateManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "템플릿 관리 화면 — 드래그 재정렬 목록, 커버 비디오/이미지 썸네일, 발행 체크박스, LOUIS text-field 기반 편집 폼과 메시지. BannerManagement 와 드래그 재정렬 목록 구현이 같아 그 목록을 공통으로 세울 후보다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — AdminClient.tsx:11/:1067(activeTab === \"templates\"). 1086줄. **원장 사유를 고쳐 읽어야 한다** — 「BannerManagement 와 드래그 재정렬 목록 구현이 같아」라고 적혀 있으나 앵커 실측은 다르다: useDragReorder 소비자는 Banner·Model 둘뿐이고, 이 파일은 :285 `type DragSession` · :302 `buildPreviewOrder` · :603~ 의 pointerup/pointercancel 처리를 **자기 안에 따로** 갖는 두 번째 구현이다. 즉 「같아서 묶는다」가 아니라 「갈라져 있어서 모아야 한다」다. 그 정리 대상은 목록 행이고 이 표면은 그 행을 담는 화면이다."
+      "verdict": "figma",
+      "figma": "screen:/admin templates",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin templates (admin · 레시피 측정 · 템플릿 목록). 빈 상태가 아니다."
     },
     "apps/web/app/admin/UsageByModelDashboard.tsx#UsageByModelDashboard": {
       "file": "apps/web/app/admin/UsageByModelDashboard.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "모델별 크레딧 사용량 화면 — 요약 통계 카드 3장과 카테고리별 가로 막대 행을 그린다. 전부 인라인 style 로 fontSize 18/15/13/24·fontWeight 700 처럼 타입 스케일 밖 값을 쓰고 있어, Figma 에 세우는 일이 곧 스케일 복귀 기준을 만드는 일이 된다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — AdminClient.tsx:15/:1069(activeTab === \"usage\"). 336줄로 어드민에서 가장 작은 탭이다. AdminSection 에서 일곱을 가져다 쓴다(StatTile 3 · TileGrid 1 · Toolbar 2 · Panel 1 · Segmented 1 · SectionHeader 1 · State 3). 남는 자기 시각은 카테고리별 가로 막대 행 하나인데 그것이 ProductMetricsDashboard 와 같은 모양이라 그쪽과 함께 정리할 부품이다. 원장이 지적한 인라인 style 의 타입 스케일 밖 값(fontSize 18/15/13/24 · fontWeight 700)은 화면을 세울 때 복귀시킬 부채이지 새 컴포넌트의 근거가 아니다."
+      "verdict": "figma",
+      "figma": "screen:/admin usage",
+      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin usage (admin · 레시피 측정 · 모델별 크레딧 사용량 — 요약 칸 · 가로 막대). 빈 상태가 아니다."
     },
     "apps/web/app/ambassador/AmbassadorClient.tsx#AmbassadorClient": {
       "file": "apps/web/app/ambassador/AmbassadorClient.tsx",

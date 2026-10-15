@@ -3,7 +3,7 @@
   "$rule": "한 방향이다. 파일의 수는 내려갈 수 있고 절대 오를 수 없으며, 여기 없는 파일은 0 이다. 새 위반을 받아들이려고 재생성하지 마라 — 수는 한쪽으로만 움직인다. 예외는 소유자 결정뿐이고, 그것은 아래 productCleanupCandidates 에 사유와 함께 남는다.",
   "$whyPerFile": "합계 하나로 잠그면 A 에서 하나 고치고 B 에 하나 넣는 것이 통과한다. 제품 저장소의 `lint-baseline.json` 이 per file 로 얼린 것과 같은 이유다.",
   "measuredAt": {
-    "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+    "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
     "refSource": "product-evidence.lock.json"
   },
   "files": {
@@ -18,20 +18,16 @@
     "apps/web/components/navigation/Gnb.tsx": 10,
     "apps/web/components/scenes/appHomeSceneStyles.ts": 3,
     "apps/web/components/scenes/create/node-canvas-v2/components/ActionButton.tsx": 1,
-    "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx": 1,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx": 1,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx": 1,
-    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx": 2,
-    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts": 1,
-    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx": 1,
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx": 1,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts": 11,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx": 1,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx": 2,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx": 1,
     "apps/web/components/scenes/CreateScene.tsx": 2,
-    "apps/web/components/scenes/highlightSceneStyles.ts": 6,
-    "apps/web/components/scenes/NodeCanvasHomeScene.tsx": 1,
-    "apps/web/components/youtube/YoutubeUploadModal.tsx": 2
+    "apps/web/components/scenes/highlightSceneStyles.ts": 1,
+    "apps/web/components/scenes/NodeCanvasHomeScene.tsx": 1
   },
   "productCleanupCandidates": {
     "$comment": "소유자가 기준선에 받아들인 상승(제품 쪽 정리 후보). 면제가 아니다. 정본은 scripts/check-palette-ladder-collision.mjs 의 PRODUCT_CLEANUP_CANDIDATES 다.",

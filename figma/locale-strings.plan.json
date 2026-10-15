@@ -1061,7 +1061,7 @@
   "stats": {
     "boundTexts": 2606,
     "boundLabels": 153,
-    "boundVisible": 87,
+    "boundVisible": 91,
     "literalSameAcrossLocales": 814,
     "variables": 1553,
     "presenceVariables": 2
@@ -18161,7 +18161,7 @@
         "ko": false,
         "ja": false
       },
-      "uses": 21
+      "uses": 25
     },
     {
       "id": "presence-en-ko",
@@ -25582,6 +25582,12 @@
       "body.1.0.0.2.0.0.3.2.2.0": {
         "xv": "screen/models--slug-/f8fd5c8f"
       },
+      "body.1.0.0.2.0.0.3.2.2.1.0.0.0": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.2.0.0.3.2.2.1.0.0.2": {
+        "vv": "presence/en"
+      },
       "body.1.0.0.2.0.0.3.2.2.1.1": {
         "xv": "screen/home/a05c206d"
       },
@@ -25676,6 +25682,12 @@
       },
       "body.1.0.0.2.0.0.3.2.2.0": {
         "xv": "screen/models--slug-/f8fd5c8f"
+      },
+      "body.1.0.0.2.0.0.3.2.2.1.0.0.0": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.2.0.0.3.2.2.1.0.0.2": {
+        "vv": "presence/en"
       },
       "body.1.0.0.2.0.0.3.2.2.1.1": {
         "xv": "screen/home/a05c206d"
@@ -28940,6 +28952,38 @@
     "stateScreensUnmeasured": [
       "/highlight/[projectId] completed @ desktop-1920x1080",
       "/highlight/[projectId] completed @ mobile-402x874",
+      "/admin users @ desktop-1920x1080",
+      "/admin users @ mobile-402x874",
+      "/admin metrics @ desktop-1920x1080",
+      "/admin metrics @ mobile-402x874",
+      "/admin usage @ desktop-1920x1080",
+      "/admin usage @ mobile-402x874",
+      "/admin refunds @ desktop-1920x1080",
+      "/admin refunds @ mobile-402x874",
+      "/admin inquiries @ desktop-1920x1080",
+      "/admin inquiries @ mobile-402x874",
+      "/admin coupons @ desktop-1920x1080",
+      "/admin coupons @ mobile-402x874",
+      "/admin banners @ desktop-1920x1080",
+      "/admin banners @ mobile-402x874",
+      "/admin banners.models @ desktop-1920x1080",
+      "/admin banners.models @ mobile-402x874",
+      "/admin banners.landing @ desktop-1920x1080",
+      "/admin banners.landing @ mobile-402x874",
+      "/admin templates @ desktop-1920x1080",
+      "/admin templates @ mobile-402x874",
+      "/admin captions @ desktop-1920x1080",
+      "/admin captions @ mobile-402x874",
+      "/admin blog @ desktop-1920x1080",
+      "/admin blog @ mobile-402x874",
+      "/admin jobs @ desktop-1920x1080",
+      "/admin jobs @ mobile-402x874",
+      "/admin payments @ desktop-1920x1080",
+      "/admin payments @ mobile-402x874",
+      "/admin roles @ desktop-1920x1080",
+      "/admin roles @ mobile-402x874",
+      "/admin ambassador @ desktop-1920x1080",
+      "/admin ambassador @ mobile-402x874",
       "/ambassador apply.channel @ desktop-1920x1080",
       "/ambassador apply.channel @ mobile-402x874",
       "/ambassador apply.received @ desktop-1920x1080",

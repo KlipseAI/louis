@@ -1010,6 +1010,7 @@ export const PRODUCT_GLYPHS = Object.freeze([
     louis: null,
     verdict: "missing",
     why: "분석 「데이터 부족」 안내의 느낌표 원(`components/scenes/analytics/shared.tsx:531-541` InsufficientNotice — 20 상자 원 · 세로 선 · 점)이다. LOUIS 에는 점이 위 · 선이 아래인 `icon/info` 뿐이고 선이 위 · 점이 아래인 경고 원은 없다(하이라이트 스튜디오의 `alert-circle-studio` 와 같은 뜻의 다른 좌표).",
+  },
   {
     id: "admin-sort-arrow-down-10",
     signature: "0 0 10 10|path(d=M5 1.5v7M2 5.5l3 3 3-3)",

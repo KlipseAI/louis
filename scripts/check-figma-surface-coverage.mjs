@@ -162,7 +162,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-10-16 판정 3차: 251 → 262 — 늘림 run 2026-10-16p3(다섯 페이지, 15조의 41 ~ 48 뒤)로 다시 판정했다. 닫은 스물(아래 MAPPED_SCREEN_BASELINE),
 // 되돌린 아홉 — 랜딩 「/」 절 일곱(모바일 359:2986 이 w360 에서 「pending」 div +42) · 캔버스 분석 모달과 그 유튜브 본문(데스크톱 3549:23839 가 w1440 에서 +480).
 // 같은 날 보정: 262 → 271 — 그 두 보드의 전 조각을 다시 보내 01 · 03 을 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 아홉을 다시 닫았다.
-const MAPPED_BASELINE = 271;
+// 같은 날 늘림 마지막 묶음: 271 → 274 — 유튜브 대시보드 · 이미지 편집 모달 · 클립 인스펙터(run 2026-10-16rl1 · rl2, 조립 규칙 15조의 49 ~ 51).
+const MAPPED_BASELINE = 274;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 // 2026-10-15: 124 → 130 — 위 여섯이 모두 컴포넌트 대응이다.
@@ -217,7 +218,9 @@ const MAPPED_PRODUCT_BASELINE = 45;
 // 앰배서더 절 여덟(IntroHero · WorkHero · Types · Benefits · Criteria · Steps · Questions · FinalLine) · 분석 개요 · 콘텐츠 표 · 성과 탭 · 각도 모달 ·
 // 편집기 에셋 패널 · 설정 패널 · 오디오 인스펙터 · 하이라이트 홈(/highlight history) · 유튜브 업로드 모달. 되돌린 아홉은 위 MAPPED_BASELINE 주석.
 // 같은 날 보정: 69 → 78 — 되돌렸던 아홉(랜딩 「/」 절 일곱 · 캔버스 분석 모달 · 그 유튜브 본문)을 재전송 · 재측정(48afa0d1) 뒤 다시 닫았다.
-const MAPPED_SCREEN_BASELINE = 78;
+// 같은 날 늘림 마지막 묶음: 78 → 81 — YoutubeAnalyticsScene(channel-info 3587:8 · 9) · ImageEditModal(panel.image-edit 3549:23841 · 42) · ClipInspector
+// (panel.clip 3774:12173 · 74). 남은 늘림 SAME 은 RESIZE_PRODUCT_SAME 의 3549:23842 · 3774:12174 주석.
+const MAPPED_SCREEN_BASELINE = 81;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이
@@ -371,6 +374,17 @@ const RESIZE_PRODUCT_SAME = {
   "3549:23844": { "w360 자식 넘침": "/nodecanvas?project= 각도 모바일 — 내용 폭 도구 막대(394)가 360 밖으로(3549:23840 과 같은 노드, 제품 같음)" },
   "3549:23846": { "w430 자식 넘침": "/videoeditor/[projectId] 에셋 시트 모바일 — overflow hidden 판 묶음 밖에 밀어 둔 inset 0 판이 부모 폭을 따른다(제품 같음)" },
   "3549:23856": { "w430 자식 넘침": "/videoeditor/[projectId] 설정 시트 모바일 — overflow hidden 판 묶음 밖에 밀어 둔 inset 0 판이 부모 폭을 따른다(제품 같음)" },
+  // run 2026-10-16p3 · rl(늘림 마지막 묶음, 측정 원장 앵커 97d4950e product-states/vem-clip.json 모바일): 클립 인스펙터 모바일의 아래 동작 줄은 3774:12176 의 탭 줄과
+  // 같은 `display: flex; overflow-x: auto` 줄이고 단추 일곱이 `flex: 1 0 64px`(448 > 402)라 스크롤된다 — 360 에서 여섯째 단추(320 ~ 384)가 줄 끝을 24 가로지르는
+  // 것은 제품도 같다. 같은 시험의 미리보기 선택 테두리 0.6 은 조립 규칙 15조의 51 로 풀었다. 430 의 잠금 아이콘 +2 는 측정 원장에서부터 아이콘 svg 22 × 22 가
+  // `width: 20px` span 안에 선다(x 같음, 일곱 단추 모두) — 제품도 2 넘친다. 탐침은 줄의 자르기 때문에 430 에서 일곱째 단추가 새로 보일 때만 센다.
+  // run 2026-10-16rl1: 이미지 편집 모바일 360 은 크롭 그림 감싸개(+9)를 조립 규칙 15조의 50 으로 푼 뒤 3549:23840 · 23844 와 같은 떠 있는 도구 막대(+17,
+  // `.louis-floating-shell` 내용 폭 394 의 가운데 절대 배치) 하나만 남았다.
+  "3549:23842": { "w360 자식 넘침": "/nodecanvas?project= 이미지 편집 모바일 — 내용 폭 도구 막대(394)가 360 밖으로(3549:23840 과 같은 노드, 제품 같음)" },
+  "3774:12174": {
+    "w360 자식 넘침": "/videoeditor/[projectId] 클립 인스펙터 모바일 — 스크롤 동작 줄(overflow-x auto · 단추 flex 1 0 64px)의 단추가 줄 끝을 가로지름(3774:12176 과 같은 줄, 제품 같음)",
+    "w430 자식 넘침": "/videoeditor/[projectId] 클립 인스펙터 모바일 — 동작 줄 아이콘 svg 22 가 20px span 밖으로 2(측정 원장 그대로, 제품 같음)",
+  },
 };
 const viewportHeight = (context) => Number(String(context).match(/x(\d+)$/)?.[1] ?? 0);
 const resizeFailures = (board) => {

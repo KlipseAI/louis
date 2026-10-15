@@ -48,8 +48,8 @@ const SECTION_NAME = "R · product/Glyphs · 제품 인라인 SVG 글리프 — 
 const INK = { collection: "Klipse Semantic Color", name: "color/gray/000" };
 // 글리프 안의 `var(--…)`(그라디언트 정지점)를 LOUIS Figma 변수로 잇는 표. 근거는 제품 앵커의 선언 줄이다.
 const CSS_VARIABLES = {
-  "--primary-500": { collection: "Klipse Primitive", name: "color/blue/500", declared: ["apps/web/app/globals.css", 202, "  --primary-500: var(--louis-color-blue-500);"] },
-  "--gray-000": { collection: "Klipse Semantic Color", name: "color/gray/000", declared: ["apps/web/app/globals.css", 714, "  --gray-000: var(--palette-gray-000);"] },
+  "--primary-500": { collection: "Klipse Primitive", name: "color/blue/500", declared: ["apps/web/app/globals.css", 209, "  --primary-500: var(--louis-color-blue-500);"] },
+  "--gray-000": { collection: "Klipse Semantic Color", name: "color/gray/000", declared: ["apps/web/app/globals.css", 732, "  --gray-000: var(--palette-gray-000);"] },
 };
 
 // 세트 목록. variant 하나 = 표면 하나다(DS-D-0071 4항: 세트가 그 표면을 통째로 그린다).
@@ -83,9 +83,11 @@ const SETS = [
       {
         value: "Globe", surface: "apps/web/components/ui/GlobeIcon.tsx#GlobeIcon",
         attrs: { stroke: "currentColor", "stroke-width": "1.5" },
-        callSite: ["apps/web/components/creative-media/CreativeMediaClient.tsx", 271, '          <GlobeIcon className="h-10 w-10 [stroke:currentColor] [stroke-width:1.5]" />'],
+        callSite: ["apps/web/components/creative-media/CreativeMediaClient.tsx", 272, '          <GlobeIcon className="h-10 w-10 [stroke:currentColor] [stroke-width:1.5]" />'],
       },
-      { value: "Key Enter", surface: "apps/web/components/navigation/CommandPalette.tsx#KeyEnterGlyph" },
+      // "Key Enter"(CommandPalette.tsx#KeyEnterGlyph)는 2026-10-15 운영 판(97d4950e, DS-D-0117)으로 앵커를 옮기며 뺐다 — 그 표면이
+      // 없어지고 자리를 이은 EnterGlyph 는 그림이 다르다(획 2.2 → 1.5, 경로 새로). 새 그림은 LOUIS 아이콘 arrow-elbow-down-left 와 좌표가
+      // 같아 제품 세트가 아니라 아이콘 정본이 덮는다(표면 원장 scoped). "Pipeline Arrow" 와 같은 사정이다.
       // "Pipeline Arrow"(guide/GettingStartedPanel.tsx#PipelineArrow)는 2026-10-08 통합 판(76b6cf15, DS-D-0079)에서 뺐다 — 제품
       // dbf12277「옛 도움말 창과 가이드 패널을 걷어 낸다」가 guide/ 폴더째 지워 그 글리프를 그리는 표면이 없다(product-surfaces 도
       // 앵커에서 사라진 표면으로 적는다). 옮겨 간 것이 아니라 없어진 글리프라 variant 를 지운다.

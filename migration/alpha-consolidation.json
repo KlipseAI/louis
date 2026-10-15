@@ -20,24 +20,24 @@
   ],
   "visibleThresholdRelative": 0.15,
   "keep": [],
-  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
-  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productRef": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
+  "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
   "totals": {
-    "stops": 47,
-    "trueAlphaStops": 39,
-    "trueAlphaUses": 1578,
-    "movedUses": 589,
-    "visibleUses": 5,
-    "reviewSites": 5
+    "stops": 48,
+    "trueAlphaStops": 40,
+    "trueAlphaUses": 1332,
+    "movedUses": 509,
+    "visibleUses": 4,
+    "reviewSites": 4
   },
   "inkLadder": [
     {
       "ink": "--gray-000-rgb",
-      "uses": 772,
+      "uses": 612,
       "stops": [
         {
           "stop": 4,
-          "uses": 94
+          "uses": 70
         },
         {
           "stop": 6,
@@ -45,61 +45,61 @@
         },
         {
           "stop": 8,
-          "uses": 151
+          "uses": 129
         },
         {
           "stop": 10,
-          "uses": 3
+          "uses": 1
         },
         {
           "stop": 12,
-          "uses": 101
+          "uses": 78
         },
         {
           "stop": 16,
-          "uses": 35
+          "uses": 26
         },
         {
           "stop": 20,
-          "uses": 47
+          "uses": 42
         },
         {
           "stop": 25,
-          "uses": 22
+          "uses": 14
         },
         {
           "stop": 30,
-          "uses": 61
+          "uses": 54
         },
         {
           "stop": 40,
-          "uses": 65
+          "uses": 38
         },
         {
           "stop": 50,
-          "uses": 51
+          "uses": 43
         },
         {
           "stop": 60,
-          "uses": 82
+          "uses": 67
         },
         {
           "stop": 70,
-          "uses": 31
+          "uses": 28
         },
         {
           "stop": 80,
-          "uses": 26
+          "uses": 19
         }
       ]
     },
     {
       "ink": "--palette-gray-000-rgb",
-      "uses": 299,
+      "uses": 278,
       "stops": [
         {
           "stop": 4,
-          "uses": 17
+          "uses": 14
         },
         {
           "stop": 6,
@@ -107,11 +107,11 @@
         },
         {
           "stop": 8,
-          "uses": 46
+          "uses": 43
         },
         {
           "stop": 12,
-          "uses": 19
+          "uses": 18
         },
         {
           "stop": 16,
@@ -119,7 +119,7 @@
         },
         {
           "stop": 20,
-          "uses": 43
+          "uses": 42
         },
         {
           "stop": 25,
@@ -131,11 +131,11 @@
         },
         {
           "stop": 40,
-          "uses": 15
+          "uses": 13
         },
         {
           "stop": 50,
-          "uses": 10
+          "uses": 9
         },
         {
           "stop": 60,
@@ -143,17 +143,17 @@
         },
         {
           "stop": 70,
-          "uses": 13
+          "uses": 12
         },
         {
           "stop": 80,
-          "uses": 40
+          "uses": 31
         }
       ]
     },
     {
       "ink": "--palette-gray-900-rgb",
-      "uses": 142,
+      "uses": 116,
       "stops": [
         {
           "stop": 4,
@@ -161,7 +161,7 @@
         },
         {
           "stop": 8,
-          "uses": 34
+          "uses": 30
         },
         {
           "stop": 12,
@@ -173,7 +173,7 @@
         },
         {
           "stop": 20,
-          "uses": 11
+          "uses": 10
         },
         {
           "stop": 25,
@@ -185,29 +185,29 @@
         },
         {
           "stop": 40,
-          "uses": 6
+          "uses": 3
         },
         {
           "stop": 50,
-          "uses": 21
+          "uses": 11
         },
         {
           "stop": 60,
-          "uses": 9
+          "uses": 6
         },
         {
           "stop": 70,
-          "uses": 9
+          "uses": 6
         },
         {
           "stop": 80,
-          "uses": 5
+          "uses": 3
         }
       ]
     },
     {
       "ink": "--primary-500-rgb",
-      "uses": 34,
+      "uses": 30,
       "stops": [
         {
           "stop": 4,
@@ -223,87 +223,37 @@
         },
         {
           "stop": 20,
-          "uses": 7
-        },
-        {
-          "stop": 30,
-          "uses": 7
-        },
-        {
-          "stop": 40,
-          "uses": 2
-        },
-        {
-          "stop": 50,
-          "uses": 3
-        },
-        {
-          "stop": 60,
-          "uses": 3
-        },
-        {
-          "stop": 70,
-          "uses": 1
-        },
-        {
-          "stop": 80,
-          "uses": 2
-        }
-      ]
-    },
-    {
-      "ink": "--gray-900-rgb",
-      "uses": 28,
-      "stops": [
-        {
-          "stop": 4,
-          "uses": 2
-        },
-        {
-          "stop": 6,
-          "uses": 1
-        },
-        {
-          "stop": 12,
-          "uses": 2
-        },
-        {
-          "stop": 16,
-          "uses": 1
-        },
-        {
-          "stop": 25,
-          "uses": 2
-        },
-        {
-          "stop": 30,
-          "uses": 6
-        },
-        {
-          "stop": 40,
-          "uses": 3
-        },
-        {
-          "stop": 50,
-          "uses": 3
-        },
-        {
-          "stop": 60,
-          "uses": 2
-        },
-        {
-          "stop": 70,
           "uses": 5
         },
         {
-          "stop": 80,
+          "stop": 30,
+          "uses": 7
+        },
+        {
+          "stop": 40,
           "uses": 1
+        },
+        {
+          "stop": 50,
+          "uses": 2
+        },
+        {
+          "stop": 60,
+          "uses": 3
+        },
+        {
+          "stop": 70,
+          "uses": 1
+        },
+        {
+          "stop": 80,
+          "uses": 2
         }
       ]
     },
     {
       "ink": "--palette-gray-1000-rgb",
-      "uses": 26,
+      "uses": 28,
       "stops": [
         {
           "stop": 4,
@@ -339,21 +289,101 @@
         },
         {
           "stop": 40,
-          "uses": 1
-        },
-        {
-          "stop": 50,
-          "uses": 1
+          "uses": 2
         },
         {
           "stop": 60,
+          "uses": 3
+        },
+        {
+          "stop": 70,
+          "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--gray-900-rgb",
+      "uses": 27,
+      "stops": [
+        {
+          "stop": 4,
+          "uses": 2
+        },
+        {
+          "stop": 6,
+          "uses": 1
+        },
+        {
+          "stop": 12,
+          "uses": 2
+        },
+        {
+          "stop": 16,
+          "uses": 1
+        },
+        {
+          "stop": 25,
+          "uses": 2
+        },
+        {
+          "stop": 30,
+          "uses": 4
+        },
+        {
+          "stop": 40,
+          "uses": 3
+        },
+        {
+          "stop": 50,
+          "uses": 3
+        },
+        {
+          "stop": 60,
+          "uses": 2
+        },
+        {
+          "stop": 70,
+          "uses": 5
+        },
+        {
+          "stop": 80,
           "uses": 2
         }
       ]
     },
     {
+      "ink": "--app-main-card-bg-rgb",
+      "uses": 19,
+      "stops": [
+        {
+          "stop": 8,
+          "uses": 3
+        },
+        {
+          "stop": 20,
+          "uses": 3
+        },
+        {
+          "stop": 30,
+          "uses": 3
+        },
+        {
+          "stop": 50,
+          "uses": 3
+        },
+        {
+          "stop": 60,
+          "uses": 4
+        },
+        {
+          "stop": 80,
+          "uses": 3
+        }
+      ]
+    },
+    {
       "ink": "--gray-1000-rgb",
-      "uses": 23,
+      "uses": 19,
       "stops": [
         {
           "stop": 8,
@@ -361,7 +391,7 @@
         },
         {
           "stop": 12,
-          "uses": 8
+          "uses": 4
         },
         {
           "stop": 16,
@@ -382,8 +412,54 @@
       ]
     },
     {
+      "ink": "--gray-800-rgb",
+      "uses": 19,
+      "stops": [
+        {
+          "stop": 4,
+          "uses": 1
+        },
+        {
+          "stop": 6,
+          "uses": 1
+        },
+        {
+          "stop": 12,
+          "uses": 1
+        },
+        {
+          "stop": 16,
+          "uses": 1
+        },
+        {
+          "stop": 25,
+          "uses": 1
+        },
+        {
+          "stop": 30,
+          "uses": 2
+        },
+        {
+          "stop": 40,
+          "uses": 2
+        },
+        {
+          "stop": 50,
+          "uses": 4
+        },
+        {
+          "stop": 60,
+          "uses": 4
+        },
+        {
+          "stop": 70,
+          "uses": 2
+        }
+      ]
+    },
+    {
       "ink": "--accent-green-500-rgb",
-      "uses": 22,
+      "uses": 18,
       "stops": [
         {
           "stop": 4,
@@ -391,7 +467,7 @@
         },
         {
           "stop": 8,
-          "uses": 5
+          "uses": 1
         },
         {
           "stop": 12,
@@ -429,7 +505,7 @@
     },
     {
       "ink": "--accent-red-500-rgb",
-      "uses": 20,
+      "uses": 17,
       "stops": [
         {
           "stop": 4,
@@ -437,7 +513,7 @@
         },
         {
           "stop": 8,
-          "uses": 13
+          "uses": 10
         },
         {
           "stop": 12,
@@ -450,82 +526,6 @@
         {
           "stop": 60,
           "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--gray-800-rgb",
-      "uses": 20,
-      "stops": [
-        {
-          "stop": 4,
-          "uses": 1
-        },
-        {
-          "stop": 6,
-          "uses": 1
-        },
-        {
-          "stop": 12,
-          "uses": 1
-        },
-        {
-          "stop": 16,
-          "uses": 1
-        },
-        {
-          "stop": 25,
-          "uses": 1
-        },
-        {
-          "stop": 30,
-          "uses": 2
-        },
-        {
-          "stop": 40,
-          "uses": 2
-        },
-        {
-          "stop": 50,
-          "uses": 5
-        },
-        {
-          "stop": 60,
-          "uses": 4
-        },
-        {
-          "stop": 70,
-          "uses": 2
-        }
-      ]
-    },
-    {
-      "ink": "--app-main-card-bg-rgb",
-      "uses": 19,
-      "stops": [
-        {
-          "stop": 8,
-          "uses": 3
-        },
-        {
-          "stop": 20,
-          "uses": 3
-        },
-        {
-          "stop": 30,
-          "uses": 3
-        },
-        {
-          "stop": 50,
-          "uses": 3
-        },
-        {
-          "stop": 60,
-          "uses": 4
-        },
-        {
-          "stop": 80,
-          "uses": 3
         }
       ]
     },
@@ -540,42 +540,12 @@
       ]
     },
     {
-      "ink": "--gray-100-rgb",
-      "uses": 11,
-      "stops": [
-        {
-          "stop": 4,
-          "uses": 1
-        },
-        {
-          "stop": 8,
-          "uses": 3
-        },
-        {
-          "stop": 12,
-          "uses": 3
-        },
-        {
-          "stop": 60,
-          "uses": 1
-        },
-        {
-          "stop": 70,
-          "uses": 1
-        },
-        {
-          "stop": 80,
-          "uses": 2
-        }
-      ]
-    },
-    {
       "ink": "--accent-yellow-500-rgb",
-      "uses": 11,
+      "uses": 10,
       "stops": [
         {
           "stop": 8,
-          "uses": 7
+          "uses": 6
         },
         {
           "stop": 20,
@@ -583,28 +553,6 @@
         },
         {
           "stop": 50,
-          "uses": 3
-        }
-      ]
-    },
-    {
-      "ink": "--gray-300-rgb",
-      "uses": 10,
-      "stops": [
-        {
-          "stop": 16,
-          "uses": 3
-        },
-        {
-          "stop": 30,
-          "uses": 3
-        },
-        {
-          "stop": 50,
-          "uses": 1
-        },
-        {
-          "stop": 60,
           "uses": 3
         }
       ]
@@ -631,28 +579,6 @@
         },
         {
           "stop": 50,
-          "uses": 2
-        }
-      ]
-    },
-    {
-      "ink": "--gray-600-rgb",
-      "uses": 9,
-      "stops": [
-        {
-          "stop": 12,
-          "uses": 1
-        },
-        {
-          "stop": 16,
-          "uses": 1
-        },
-        {
-          "stop": 25,
-          "uses": 5
-        },
-        {
-          "stop": 30,
           "uses": 2
         }
       ]
@@ -692,16 +618,6 @@
       ]
     },
     {
-      "ink": "--palette-gray-800-rgb",
-      "uses": 9,
-      "stops": [
-        {
-          "stop": 70,
-          "uses": 9
-        }
-      ]
-    },
-    {
       "ink": "--char-count-overlay-rgb",
       "uses": 8,
       "stops": [
@@ -724,8 +640,88 @@
       ]
     },
     {
-      "ink": "--palette-gray-600-rgb",
+      "ink": "--gray-600-rgb",
+      "uses": 8,
+      "stops": [
+        {
+          "stop": 12,
+          "uses": 1
+        },
+        {
+          "stop": 16,
+          "uses": 1
+        },
+        {
+          "stop": 25,
+          "uses": 4
+        },
+        {
+          "stop": 30,
+          "uses": 2
+        }
+      ]
+    },
+    {
+      "ink": "--palette-gray-800-rgb",
+      "uses": 8,
+      "stops": [
+        {
+          "stop": 70,
+          "uses": 8
+        }
+      ]
+    },
+    {
+      "ink": "--gray-300-rgb",
       "uses": 7,
+      "stops": [
+        {
+          "stop": 16,
+          "uses": 3
+        },
+        {
+          "stop": 30,
+          "uses": 1
+        },
+        {
+          "stop": 50,
+          "uses": 1
+        },
+        {
+          "stop": 60,
+          "uses": 2
+        }
+      ]
+    },
+    {
+      "ink": "--gray-100-rgb",
+      "uses": 6,
+      "stops": [
+        {
+          "stop": 4,
+          "uses": 1
+        },
+        {
+          "stop": 8,
+          "uses": 1
+        },
+        {
+          "stop": 12,
+          "uses": 2
+        },
+        {
+          "stop": 60,
+          "uses": 1
+        },
+        {
+          "stop": 70,
+          "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--palette-gray-600-rgb",
+      "uses": 6,
       "stops": [
         {
           "stop": 12,
@@ -737,22 +733,14 @@
         },
         {
           "stop": 30,
-          "uses": 3
-        },
-        {
-          "stop": 40,
-          "uses": 2
+          "uses": 4
         }
       ]
     },
     {
       "ink": "--accent-yellow-600-rgb",
-      "uses": 7,
+      "uses": 6,
       "stops": [
-        {
-          "stop": 16,
-          "uses": 1
-        },
         {
           "stop": 20,
           "uses": 4
@@ -770,24 +758,6 @@
         {
           "stop": 70,
           "uses": 6
-        }
-      ]
-    },
-    {
-      "ink": "--gray-700-rgb",
-      "uses": 5,
-      "stops": [
-        {
-          "stop": 60,
-          "uses": 1
-        },
-        {
-          "stop": 70,
-          "uses": 1
-        },
-        {
-          "stop": 80,
-          "uses": 3
         }
       ]
     },
@@ -810,6 +780,34 @@
         {
           "stop": 80,
           "uses": 2
+        }
+      ]
+    },
+    {
+      "ink": "--gray-700-rgb",
+      "uses": 5,
+      "stops": [
+        {
+          "stop": 60,
+          "uses": 1
+        },
+        {
+          "stop": 70,
+          "uses": 1
+        },
+        {
+          "stop": 80,
+          "uses": 3
+        }
+      ]
+    },
+    {
+      "ink": "--accent-red-400-rgb",
+      "uses": 4,
+      "stops": [
+        {
+          "stop": 8,
+          "uses": 4
         }
       ]
     },
@@ -882,26 +880,6 @@
       ]
     },
     {
-      "ink": "--gray-200-rgb",
-      "uses": 4,
-      "stops": [
-        {
-          "stop": 60,
-          "uses": 4
-        }
-      ]
-    },
-    {
-      "ink": "--accent-red-400-rgb",
-      "uses": 4,
-      "stops": [
-        {
-          "stop": 8,
-          "uses": 4
-        }
-      ]
-    },
-    {
       "ink": "--accent-violet-500-rgb",
       "uses": 3,
       "stops": [
@@ -920,12 +898,16 @@
       ]
     },
     {
-      "ink": "--accent-red-300-rgb",
+      "ink": "--gray-500-rgb",
       "uses": 2,
       "stops": [
         {
-          "stop": 40,
-          "uses": 2
+          "stop": 30,
+          "uses": 1
+        },
+        {
+          "stop": 70,
+          "uses": 1
         }
       ]
     },
@@ -940,6 +922,16 @@
         {
           "stop": 50,
           "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--accent-red-300-rgb",
+      "uses": 2,
+      "stops": [
+        {
+          "stop": 40,
+          "uses": 2
         }
       ]
     },
@@ -968,20 +960,6 @@
       ]
     },
     {
-      "ink": "--gray-400-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 60,
-          "uses": 1
-        },
-        {
-          "stop": 80,
-          "uses": 1
-        }
-      ]
-    },
-    {
       "ink": "--red-500-rgb",
       "uses": 2,
       "stops": [
@@ -992,85 +970,37 @@
       ]
     },
     {
-      "ink": "--gray-500-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 30,
-          "uses": 1
-        },
-        {
-          "stop": 70,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--accent-yellow-300-rgb",
-      "uses": 2,
+      "ink": "--accent-pink-300-rgb",
+      "uses": 1,
       "stops": [
         {
           "stop": 50,
-          "uses": 2
+          "uses": 1
         }
       ]
     },
     {
       "ink": "--accent-green-300-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 2
-        }
-      ]
-    },
-    {
-      "ink": "--accent-pink-300-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 2
-        }
-      ]
-    },
-    {
-      "ink": "--primary-400-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 1
-        },
-        {
-          "stop": 70,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--primary-200-rgb",
       "uses": 1,
       "stops": [
         {
-          "stop": 40,
-          "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--accent-violet-400-rgb",
-      "uses": 1,
-      "stops": [
-        {
-          "stop": 40,
+          "stop": 50,
           "uses": 1
         }
       ]
     },
     {
       "ink": "--accent-green-400-rgb",
+      "uses": 1,
+      "stops": [
+        {
+          "stop": 50,
+          "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--accent-yellow-300-rgb",
       "uses": 1,
       "stops": [
         {
@@ -1090,11 +1020,31 @@
       ]
     },
     {
-      "ink": "--primary-300-rgb",
+      "ink": "--accent-violet-400-rgb",
       "uses": 1,
       "stops": [
         {
-          "stop": 50,
+          "stop": 40,
+          "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--gray-400-rgb",
+      "uses": 1,
+      "stops": [
+        {
+          "stop": 80,
+          "uses": 1
+        }
+      ]
+    },
+    {
+      "ink": "--primary-400-rgb",
+      "uses": 1,
+      "stops": [
+        {
+          "stop": 70,
           "uses": 1
         }
       ]
@@ -1104,7 +1054,7 @@
     {
       "from": 0,
       "to": null,
-      "uses": 49,
+      "uses": 50,
       "note": "완전 투명 — 알파 스톱이 아니다. 접지 않는다."
     },
     {
@@ -1128,7 +1078,7 @@
       "to": 4,
       "delta": 0,
       "relative": 0,
-      "uses": 127,
+      "uses": 101,
       "visible": false
     },
     {
@@ -1136,7 +1086,7 @@
       "to": 4,
       "delta": 1,
       "relative": 0.2,
-      "uses": 3,
+      "uses": 2,
       "visible": true
     },
     {
@@ -1160,7 +1110,7 @@
       "to": 8,
       "delta": 0,
       "relative": 0,
-      "uses": 276,
+      "uses": 237,
       "visible": false
     },
     {
@@ -1168,7 +1118,7 @@
       "to": 10,
       "delta": 0,
       "relative": 0,
-      "uses": 4,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1176,7 +1126,7 @@
       "to": 12,
       "delta": 0,
       "relative": 0,
-      "uses": 179,
+      "uses": 150,
       "visible": false
     },
     {
@@ -1192,7 +1142,7 @@
       "to": 16,
       "delta": 0,
       "relative": 0,
-      "uses": 84,
+      "uses": 74,
       "visible": false
     },
     {
@@ -1216,15 +1166,7 @@
       "to": 20,
       "delta": 0,
       "relative": 0,
-      "uses": 128,
-      "visible": false
-    },
-    {
-      "from": 22,
-      "to": 20,
-      "delta": 2,
-      "relative": 0.091,
-      "uses": 1,
+      "uses": 120,
       "visible": false
     },
     {
@@ -1232,7 +1174,7 @@
       "to": 25,
       "delta": 1,
       "relative": 0.042,
-      "uses": 37,
+      "uses": 28,
       "visible": false
     },
     {
@@ -1248,7 +1190,15 @@
       "to": 30,
       "delta": 2,
       "relative": 0.071,
-      "uses": 69,
+      "uses": 66,
+      "visible": false
+    },
+    {
+      "from": 30,
+      "to": 30,
+      "delta": 0,
+      "relative": 0,
+      "uses": 1,
       "visible": false
     },
     {
@@ -1264,7 +1214,7 @@
       "to": 30,
       "delta": 2,
       "relative": 0.063,
-      "uses": 75,
+      "uses": 69,
       "visible": false
     },
     {
@@ -1272,15 +1222,7 @@
       "to": 30,
       "delta": 4,
       "relative": 0.118,
-      "uses": 9,
-      "visible": false
-    },
-    {
-      "from": 35,
-      "to": 30,
-      "delta": 5,
-      "relative": 0.143,
-      "uses": 1,
+      "uses": 8,
       "visible": false
     },
     {
@@ -1288,7 +1230,7 @@
       "to": 40,
       "delta": 0,
       "relative": 0,
-      "uses": 95,
+      "uses": 59,
       "visible": false
     },
     {
@@ -1312,7 +1254,7 @@
       "to": 40,
       "delta": 5,
       "relative": 0.111,
-      "uses": 2,
+      "uses": 3,
       "visible": false
     },
     {
@@ -1320,7 +1262,7 @@
       "to": 50,
       "delta": 2,
       "relative": 0.042,
-      "uses": 117,
+      "uses": 91,
       "visible": false
     },
     {
@@ -1344,7 +1286,7 @@
       "to": 50,
       "delta": 5,
       "relative": 0.091,
-      "uses": 3,
+      "uses": 2,
       "visible": false
     },
     {
@@ -1352,7 +1294,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.071,
-      "uses": 132,
+      "uses": 113,
       "visible": false
     },
     {
@@ -1360,6 +1302,14 @@
       "to": 60,
       "delta": 0,
       "relative": 0,
+      "uses": 2,
+      "visible": false
+    },
+    {
+      "from": 62,
+      "to": 60,
+      "delta": 2,
+      "relative": 0.032,
       "uses": 1,
       "visible": false
     },
@@ -1368,7 +1318,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.063,
-      "uses": 25,
+      "uses": 19,
       "visible": false
     },
     {
@@ -1388,11 +1338,19 @@
       "visible": false
     },
     {
+      "from": 70,
+      "to": 70,
+      "delta": 0,
+      "relative": 0,
+      "uses": 1,
+      "visible": false
+    },
+    {
       "from": 72,
       "to": 70,
       "delta": 2,
       "relative": 0.028,
-      "uses": 85,
+      "uses": 77,
       "visible": false
     },
     {
@@ -1408,7 +1366,7 @@
       "to": 80,
       "delta": 0,
       "relative": 0,
-      "uses": 90,
+      "uses": 71,
       "visible": false
     },
     {
@@ -1422,7 +1380,7 @@
     {
       "from": 88,
       "to": null,
-      "uses": 204,
+      "uses": 183,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
@@ -1446,7 +1404,7 @@
     {
       "from": 96,
       "to": null,
-      "uses": 72,
+      "uses": 50,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {
@@ -1458,7 +1416,7 @@
     {
       "from": 100,
       "to": null,
-      "uses": 253,
+      "uses": 236,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     }
   ],
@@ -1472,7 +1430,7 @@
       "sites": [
         {
           "file": "components/landing/sections/TimelineFooter.tsx",
-          "line": 89,
+          "line": 90,
           "ink": "--palette-gray-000-rgb"
         }
       ]
@@ -1496,21 +1454,16 @@
       "to": 4,
       "delta": 1,
       "relative": 0.2,
-      "uses": 3,
+      "uses": 2,
       "sites": [
         {
-          "file": "components/models/ModelLogo.tsx",
-          "line": 12,
-          "ink": "--gray-000-rgb"
-        },
-        {
           "file": "components/navigation/Gnb.tsx",
-          "line": 140,
+          "line": 141,
           "ink": "--gray-900-rgb"
         },
         {
           "file": "components/navigation/Gnb.tsx",
-          "line": 142,
+          "line": 143,
           "ink": "--gray-800-rgb"
         }
       ]

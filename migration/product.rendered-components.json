@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-components.mjs가 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "그전까지 제품 값은 전부 소스 읽기였다. product.measured.json의 187축 중 기계 대조는 12축뿐이고 나머지는 사람이 코드를 읽고 옮긴 값이다. 여기 값은 브라우저가 실제로 계산한 것이다.",
   "$method": "제품 서버를 띄우지 않는다. 클래스 문자열은 손으로 옮기지 않고 제품 소스의 상수 이름을 가리켜 커밋에서 직접 꺼낸다. 그것을 제품 Tailwind로 컴파일하고 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
-  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
-  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productRef": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
+  "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
   "probes": [
     {
       "id": "button-lg",
@@ -187,7 +187,7 @@
     },
     {
       "id": "tooltip-product",
-      "source": "globals.css:1403 [data-tooltip]::after — 노드 핸들 다섯 파일이 쓰는 제품 소유 툴팁",
+      "source": "globals.css:1438 [data-tooltip]::after — 노드 핸들 다섯 파일이 쓰는 제품 소유 툴팁",
       "hover": false,
       "from": null,
       "doc": "default",
@@ -267,13 +267,17 @@
       "html": "<div class=\"tw-ah-074 [position:fixed] [inset:0] [z-index:1200] [display:grid] [place-items:center] [background:var(--louis-color-dim-modal)]\"></div>"
     },
     {
-      "id": "input-box",
-      "source": "myPageSceneStyles.ts modalAuthInputBox + modalAuthInputBoxSingle",
+      "id": "text-field-admin-product",
+      "source": "AdminClient.tsx:1570-1573 FIELD_GROUP > FIELD_BOX > FIELD_CONTROL — 어드민 크레딧 입력(라벨이 박스 밖, data-size 없음 = lg)",
       "hover": false,
-      "from": "apps/web/components/scenes/myPageSceneStyles.ts → modalAuthInputBox + modalAuthInputBoxSingle",
+      "from": null,
       "doc": "default",
-      "wrapper": null,
-      "html": "<div class=\"tw-mp-039 [position:relative] [border:1px_solid_rgb(var(--gray-000-rgb)_/_12%)] [padding:12px_16px] [background:rgb(var(--gray-000-rgb)_/_4%)] [box-sizing:border-box] [transition:border-color_180ms_ease,_box-shadow_180ms_ease] [z-index:1] [cursor:text] tw-mp-042 [border-radius:var(--louis-radius-control)]\"></div>"
+      "wrapper": [
+        {
+          "class": "louis-text-field"
+        }
+      ],
+      "html": "<span class=\"louis-text-field__box\"><input type=\"text\" class=\"louis-text-field__control\" placeholder=\"0\" /></span>"
     },
     {
       "id": "empty-state",
@@ -309,7 +313,7 @@
       "from": "apps/web/components/scenes/highlightSceneStyles.ts → historyCardStatus",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"louis-badge tw-hs-068 [margin:0] [background:var(--palette-gray-800)] [color:var(--palette-gray-200)] [html[data-theme=dark]_&]:[background:var(--palette-gray-900)] [html[data-theme=dark]_&]:[color:var(--palette-gray-200)]\">완료</div>"
+      "html": "<div class=\"louis-badge tw-hs-068 [margin:0]\">완료</div>"
     },
     {
       "id": "spinner-md",
@@ -345,7 +349,7 @@
     },
     {
       "id": "checkbox",
-      "source": "VideoEditProjectPicker.tsx:493 외 다수가 소비하는 LOUIS 정본 .louis-checkbox__control",
+      "source": "VideoEditProjectPicker.tsx:491 외 다수가 소비하는 LOUIS 정본 .louis-checkbox__control",
       "hover": false,
       "from": null,
       "doc": "default",
@@ -386,7 +390,7 @@
       "from": "apps/web/components/scenes/myPageSceneStyles.ts → skeletonBlock",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"tw-mp-115 louis-skeleton [color:var(--gray-000)] [border-radius:var(--louis-radius-pill)]\"></div>"
+      "html": "<div class=\"tw-mp-115 louis-skeleton\"></div>"
     },
     {
       "id": "alert-block-danger",
@@ -872,7 +876,7 @@
       "from": "apps/web/components/landing/system/CarouselArrows.tsx → BUTTON",
       "doc": "default",
       "wrapper": null,
-      "html": "<button class=\"inline-flex items-center justify-center w-16 h-16 rounded-12 [transition:color_160ms_ease,background-color_160ms_ease] disabled:cursor-not-allowed\"></button>"
+      "html": "<button class=\"inline-flex items-center justify-center w-16 h-16 rounded-12 [transition:color_160ms_ease,background-color_160ms_ease,opacity_var(--louis-motion-crossfade-enter-duration)_var(--louis-motion-crossfade-enter-timing-function)] disabled:cursor-not-allowed\"></button>"
     },
     {
       "id": "step-tile",
@@ -1339,7 +1343,7 @@
     },
     {
       "id": "landing-header-blur-product",
-      "source": "landing/navigation/Gnb.tsx:100-105 HEADER_BLUR — 헤더 뒤 고정 120px 점진 흐림 판. 값은 LOUIS 두 토큰이 갖고 제품은 소비만 한다",
+      "source": "landing/navigation/Gnb.tsx:101-106 HEADER_BLUR — 헤더 뒤 고정 120px 점진 흐림 판. 값은 LOUIS 두 토큰이 갖고 제품은 소비만 한다",
       "hover": false,
       "from": "apps/web/components/landing/navigation/Gnb.tsx → HEADER_BLUR",
       "doc": "default",
@@ -1348,7 +1352,7 @@
     },
     {
       "id": "landing-header-wrapper-product",
-      "source": "landing/navigation/Gnb.tsx:107-112 WRAPPER — position:fixed 투명 껍데기. 패딩만 갖는다",
+      "source": "landing/navigation/Gnb.tsx:108-113 WRAPPER — position:fixed 투명 껍데기. 패딩만 갖는다",
       "hover": false,
       "from": "apps/web/components/landing/navigation/Gnb.tsx → WRAPPER",
       "doc": "default",
@@ -1357,7 +1361,7 @@
     },
     {
       "id": "landing-header-rail-product",
-      "source": "landing/navigation/Gnb.tsx:115-119 NAV — 3열 그리드 레일(톤 수식자 NAV_LIGHT/NAV_BLACK 은 상호배타라 뺐다)",
+      "source": "landing/navigation/Gnb.tsx:116-120 NAV — 3열 그리드 레일(톤 수식자 NAV_LIGHT/NAV_BLACK 은 상호배타라 뺐다)",
       "hover": false,
       "from": "apps/web/components/landing/navigation/Gnb.tsx → NAV",
       "doc": "default",
@@ -1366,7 +1370,7 @@
     },
     {
       "id": "landing-header-menu-product",
-      "source": "landing/navigation/Gnb.tsx:159-162 MENU — 가운데 앵커 메뉴 열(ul)",
+      "source": "landing/navigation/Gnb.tsx:160-163 MENU — 가운데 앵커 메뉴 열(ul)",
       "hover": false,
       "from": "apps/web/components/landing/navigation/Gnb.tsx → MENU",
       "doc": "default",
@@ -1384,7 +1388,7 @@
     },
     {
       "id": "landing-header-actions-product",
-      "source": "landing/navigation/Gnb.tsx:325 ACTIONS — 우측 액션 열(LanguageSelector compact + 상단 CTA + 햄버거)",
+      "source": "landing/navigation/Gnb.tsx:326 ACTIONS — 우측 액션 열(LanguageSelector compact + 상단 CTA + 햄버거)",
       "hover": false,
       "from": "apps/web/components/landing/navigation/Gnb.tsx → ACTIONS",
       "doc": "default",
@@ -1393,7 +1397,7 @@
     },
     {
       "id": "landing-mobile-menu-product",
-      "source": "landing/navigation/Gnb.tsx:382-386 MOBILE_MENU — 풀스크린 메뉴의 껍데기(열림/닫힘 수식자는 상호배타라 뺐다)",
+      "source": "landing/navigation/Gnb.tsx:383-387 MOBILE_MENU — 풀스크린 메뉴의 껍데기(열림/닫힘 수식자는 상호배타라 뺐다)",
       "hover": false,
       "from": "apps/web/components/landing/navigation/Gnb.tsx → MOBILE_MENU",
       "doc": "default",
@@ -1498,15 +1502,6 @@
       "html": "<div class=\"vem-timeline-divider [grid-area:divider] louis-pane-divider louis-pane-divider--horizontal\"></div>"
     },
     {
-      "id": "text-link-user-product",
-      "source": "admin/AdminSection.tsx:1127 USER_LINK — 표 칸의 이메일을 누르면 사용자 상세가 열리는 글자 링크(button)",
-      "hover": false,
-      "from": "apps/web/app/admin/AdminSection.tsx → USER_LINK",
-      "doc": "default",
-      "wrapper": null,
-      "html": "<button class=\"p-0 bg-transparent [color:inherit] text-left cursor-pointer underline-offset-2 hover:underline louis-focus-ring\">user@example.com</button>"
-    },
-    {
       "id": "start-card-label-sm-product",
       "source": "CanvasEmptyState.tsx:198 CARD_LABEL (조상 :138 CARD, 카드 폭 200) — 빈 캔버스 시작 카드의 이름",
       "hover": false,
@@ -1530,12 +1525,215 @@
     },
     {
       "id": "dialog-sheet-grabber-bar-product",
-      "source": "videoEditParts/vemClass.ts:1597 mobileSheetGrabberBar — 편집 모달 모바일 시트 손잡이의 막대(MobileSheetGrabber.tsx:71)",
+      "source": "videoEditParts/vemClass.ts:1543 mobileSheetGrabberBar — 편집 모달 모바일 시트 손잡이의 막대(MobileSheetGrabber.tsx:71)",
       "hover": false,
       "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts → mobileSheetGrabberBar",
       "doc": "default",
       "wrapper": null,
       "html": "<div class=\"vem-mobile-sheet-grabber-bar [width:36px] [height:4px] [border-radius:var(--louis-radius-pill)] [background:var(--louis-color-stroke-hairline)]\"></div>"
+    },
+    {
+      "id": "text-link-past-due-product",
+      "source": "PastDueBanner.tsx:39-45 <Link className=\"louis-text-link …\" data-tone=\"inherit\"> — 결제 실패 띠의 「결제 정보」 링크",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<a href=\"/mypage\" class=\"louis-text-link\" data-tone=\"inherit\">결제 정보 확인</a>"
+    },
+    {
+      "id": "switch-publish-product",
+      "source": "PublishFlow.tsx:420-429 <button className=\"louis-switch\" role=\"switch\" aria-checked> — 예약 게시 토글(꺼짐)",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button type=\"button\" class=\"louis-switch\" role=\"switch\" aria-checked=\"false\"><span class=\"louis-switch__thumb\"></span></button>"
+    },
+    {
+      "id": "switch-thumb-on-product",
+      "source": "PublishFlow.tsx:428 louis-switch__thumb — 켜진 토글(aria-checked=true)의 썸",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": [
+        {
+          "class": "louis-switch",
+          "attrs": {
+            "role": "switch",
+            "aria-checked": "true"
+          }
+        }
+      ],
+      "html": "<span class=\"louis-switch__thumb\"></span>"
+    },
+    {
+      "id": "keycap-command-palette-product",
+      "source": "CommandPalette.tsx:621 <kbd className=\"louis-keycap\"> — 팔레트 바닥줄의 Esc 키(글자 판)",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<kbd class=\"louis-keycap\">Esc</kbd>"
+    },
+    {
+      "id": "node-chip-inquiry-product",
+      "source": "InquiryClient.tsx:709-718 ATTACH_BUTTON(louis-node-chip) + __glyph + __label — 문의 첨부 버튼",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button type=\"button\" class=\"louis-node-chip\"><span class=\"louis-node-chip__glyph\"></span><span class=\"louis-node-chip__label\">이미지 첨부</span></button>"
+    },
+    {
+      "id": "node-chip-square-product",
+      "source": "VideoNode.tsx:2679-2681 META_ITEM(louis-node-chip) + data-shape=\"square\" — 영상 노드의 아이콘 전용 알약",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button type=\"button\" class=\"louis-node-chip\" data-shape=\"square\"><span class=\"louis-node-chip__glyph\"></span></button>"
+    },
+    {
+      "id": "loading-word-product",
+      "source": "LoadingWord.tsx:6 WORD(louis-loading-word) — AdminSection.tsx:935 외 2곳의 글자 쉬머",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": null,
+      "html": "<span class=\"louis-loading-word\">불러오는 중</span>"
+    },
+    {
+      "id": "table-header-cell-ad-product",
+      "source": "AdAttributionPanel.tsx:341 · :350-352 <table className=\"louis-table …\"><thead><tr><th scope=\"col\"> — 어드민 광고 성과 표의 머리 칸",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": [
+        {
+          "tag": "table",
+          "class": "louis-table",
+          "after": "<tbody><tr><td>값</td></tr></tbody>"
+        },
+        {
+          "tag": "thead"
+        },
+        {
+          "tag": "tr"
+        }
+      ],
+      "html": "<th scope=\"col\">경로</th>"
+    },
+    {
+      "id": "table-cell-ad-product",
+      "source": "AdAttributionPanel.tsx:433 <td> — 광고 성과 표의 몸 칸(마지막 행이 아닌 행)",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": [
+        {
+          "tag": "table",
+          "class": "louis-table",
+          "after": "<tbody><tr><td>값</td></tr></tbody>"
+        },
+        {
+          "tag": "tbody"
+        },
+        {
+          "tag": "tr"
+        }
+      ],
+      "html": "<td>12</td>"
+    },
+    {
+      "id": "table-cell-last-ad-product",
+      "source": "AdAttributionPanel.tsx:433 <td> — 광고 성과 표의 마지막 행 칸(아래 선이 없다)",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": [
+        {
+          "tag": "table",
+          "class": "louis-table"
+        },
+        {
+          "tag": "tbody"
+        },
+        {
+          "tag": "tr"
+        }
+      ],
+      "html": "<td>12</td>"
+    },
+    {
+      "id": "tab-item-analytics-product",
+      "source": "AnalyticsTabs.tsx:60-69 <nav className={TAB_LIST} role=\"tablist\"> > <button className={TAB} role=\"tab\"> — 분석 탭(선택 안 됨)",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": [
+        {
+          "class": "louis-tabs",
+          "attrs": {
+            "role": "tablist"
+          }
+        }
+      ],
+      "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" class=\"louis-tabs__tab\">개요</button>"
+    },
+    {
+      "id": "video-player-youtube-bottom-product",
+      "source": "YoutubeUploadModal.tsx:543 louis-video-player__bottom (루트 :492-494 data-platform=\"youtube\") — 미리보기 하단 줄",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": [
+        {
+          "class": "louis-video-player",
+          "attrs": {
+            "data-platform": "youtube"
+          }
+        }
+      ],
+      "html": "<div class=\"louis-video-player__bottom\"><div class=\"louis-video-player__scrubber\"></div><div class=\"louis-video-player__controls\"></div></div>"
+    },
+    {
+      "id": "video-player-youtube-scrubber-product",
+      "source": "YoutubeUploadModal.tsx:545 louis-video-player__scrubber — youtube 판의 진행 막대(누르는 높이)",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": [
+        {
+          "class": "louis-video-player",
+          "attrs": {
+            "data-platform": "youtube"
+          }
+        },
+        {
+          "class": "louis-video-player__bottom"
+        }
+      ],
+      "html": "<div class=\"louis-video-player__scrubber\"></div>"
+    },
+    {
+      "id": "video-player-youtube-controls-product",
+      "source": "YoutubeUploadModal.tsx:564 louis-video-player__controls — youtube 판의 조작 줄",
+      "hover": false,
+      "from": null,
+      "doc": "default",
+      "wrapper": [
+        {
+          "class": "louis-video-player",
+          "attrs": {
+            "data-platform": "youtube"
+          }
+        },
+        {
+          "class": "louis-video-player__bottom"
+        }
+      ],
+      "html": "<div class=\"louis-video-player__controls\"></div>"
     }
   ],
   "rendered": {
@@ -1695,11 +1893,14 @@
       "backgroundColor": "color(srgb 0.05098 0.066666 0.094117 / 0.72)",
       "zIndex": "1200"
     },
-    "input-box": {
-      "paddingTop": "12px",
+    "text-field-admin-product": {
+      "height": "40px",
+      "paddingTop": "0px",
       "paddingLeft": "16px",
-      "borderTopWidth": "1px",
-      "borderTopLeftRadius": "12px"
+      "columnGap": "8px",
+      "borderTopWidth": "0px",
+      "borderTopLeftRadius": "12px",
+      "borderBottomLeftRadius": "12px"
     },
     "empty-state": {
       "paddingTop": "80px",
@@ -1757,7 +1958,7 @@
       "top": "4px"
     },
     "skeleton": {
-      "borderTopLeftRadius": "999px",
+      "borderTopLeftRadius": "8px",
       "::after:animationDuration": "0s"
     },
     "alert-block-danger": {
@@ -2474,11 +2675,6 @@
       "::after:insetBlockStart": "-4px",
       "::after:insetInlineStart": "0px"
     },
-    "text-link-user-product": {
-      "paddingTop": "0px",
-      "paddingLeft": "0px",
-      "textUnderlineOffset": "2px"
-    },
     "start-card-label-sm-product": {
       "paddingTop": "14px",
       "paddingLeft": "14px",
@@ -2493,6 +2689,89 @@
       "width": "36px",
       "height": "4px",
       "borderTopLeftRadius": "999px"
+    },
+    "text-link-past-due-product": {
+      "paddingTop": "0px",
+      "paddingLeft": "0px",
+      "textUnderlineOffset": "2px"
+    },
+    "switch-publish-product": {
+      "width": "44px",
+      "height": "24px",
+      "paddingTop": "2px",
+      "borderTopLeftRadius": "999px"
+    },
+    "switch-thumb-on-product": {
+      "width": "20px",
+      "height": "20px",
+      "translate": "20px"
+    },
+    "keycap-command-palette-product": {
+      "minWidth": "22px",
+      "height": "22px",
+      "paddingTop": "0px",
+      "paddingLeft": "4px",
+      "borderTopLeftRadius": "10px",
+      "fontSize": "12px",
+      "lineHeight": "18px"
+    },
+    "node-chip-inquiry-product": {
+      "height": "32px",
+      "paddingTop": "0px",
+      "paddingLeft": "10px",
+      "columnGap": "4px",
+      "borderTopLeftRadius": "12px",
+      "fontSize": "12px",
+      "lineHeight": "18px"
+    },
+    "node-chip-square-product": {
+      "width": "32px",
+      "height": "32px",
+      "paddingLeft": "0px",
+      "columnGap": "4px",
+      "borderTopLeftRadius": "12px"
+    },
+    "loading-word-product": {
+      "paddingTop": "0px",
+      "paddingLeft": "0px",
+      "borderTopLeftRadius": "0px"
+    },
+    "table-header-cell-ad-product": {
+      "height": "26px",
+      "paddingTop": "4px",
+      "paddingLeft": "8px",
+      "fontSize": "12px",
+      "lineHeight": "18px"
+    },
+    "table-cell-ad-product": {
+      "height": "38px",
+      "paddingTop": "8px",
+      "paddingLeft": "8px",
+      "borderBottomWidth": "1px",
+      "fontSize": "14px",
+      "lineHeight": "21px"
+    },
+    "table-cell-last-ad-product": {
+      "height": "37px",
+      "borderBottomWidth": "0px"
+    },
+    "tab-item-analytics-product": {
+      "height": "28px",
+      "paddingTop": "0px",
+      "paddingLeft": "12px",
+      "borderTopLeftRadius": "999px"
+    },
+    "video-player-youtube-bottom-product": {
+      "height": "62px",
+      "rowGap": "6px",
+      "insetInlineStart": "12px",
+      "insetBlockEnd": "12px"
+    },
+    "video-player-youtube-scrubber-product": {
+      "height": "16px"
+    },
+    "video-player-youtube-controls-product": {
+      "height": "40px"
     },
     "button-secondary-light": {
       "backgroundColor": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
@@ -3867,45 +4146,32 @@
       "top": "0px",
       "z-index": "1200"
     },
-    "input-box": {
+    "text-field-admin-product": {
+      ":state cursor": "text",
+      "align-items": "center",
       "background-attachment": "scroll",
       "background-clip": "border-box",
-      "background-color": "rgba(250, 250, 250, 0.04)",
+      "background-color": "color(srgb 0.05098 0.066666 0.094117)",
       "background-image": "none",
       "background-origin": "padding-box",
       "background-position-x": "0%",
       "background-position-y": "0%",
       "background-repeat": "repeat",
       "background-size": "auto",
-      "border-bottom-color": "rgba(250, 250, 250, 0.12)",
       "border-bottom-left-radius": "12px",
       "border-bottom-right-radius": "12px",
-      "border-bottom-style": "solid",
-      "border-bottom-width": "1px",
-      "border-image-outset": "0",
-      "border-image-repeat": "stretch",
-      "border-image-slice": "100%",
-      "border-image-source": "none",
-      "border-image-width": "1",
-      "border-left-color": "rgba(250, 250, 250, 0.12)",
-      "border-left-style": "solid",
-      "border-left-width": "1px",
-      "border-right-color": "rgba(250, 250, 250, 0.12)",
-      "border-right-style": "solid",
-      "border-right-width": "1px",
-      "border-top-color": "rgba(250, 250, 250, 0.12)",
       "border-top-left-radius": "12px",
       "border-top-right-radius": "12px",
-      "border-top-style": "solid",
-      "border-top-width": "1px",
+      "box-shadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
       "box-sizing": "border-box",
+      "column-gap": "8px",
       "cursor": "text",
-      "padding-bottom": "12px",
-      "padding-left": "16px",
-      "padding-right": "16px",
-      "padding-top": "12px",
-      "position": "relative",
-      "z-index": "1"
+      "display": "flex",
+      "min-block-size": "40px",
+      "min-inline-size": "0px",
+      "padding-inline-end": "16px",
+      "padding-inline-start": "16px",
+      "row-gap": "8px"
     },
     "empty-state": {
       "align-items": "center",
@@ -3981,7 +4247,7 @@
       "align-items": "center",
       "background-attachment": "scroll",
       "background-clip": "border-box",
-      "background-color": "color(srgb 0.090196 0.105882 0.133333)",
+      "background-color": "color(srgb 0.05098 0.066666 0.094117)",
       "background-image": "none",
       "background-origin": "padding-box",
       "background-position-x": "0%",
@@ -3993,7 +4259,7 @@
       "border-top-left-radius": "8px",
       "border-top-right-radius": "8px",
       "box-sizing": "border-box",
-      "color": "color(srgb 0.756863 0.764706 0.776471)",
+      "color": "color(srgb 0.647059 0.658824 0.678431)",
       "column-gap": "4px",
       "display": "inline-flex",
       "font-family": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
@@ -4283,11 +4549,10 @@
     },
     "skeleton": {
       "background-color": "color(srgb 0.980392 0.980392 0.980392 / 0.08)",
-      "border-bottom-left-radius": "999px",
-      "border-bottom-right-radius": "999px",
-      "border-top-left-radius": "999px",
-      "border-top-right-radius": "999px",
-      "color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-bottom-left-radius": "8px",
+      "border-bottom-right-radius": "8px",
+      "border-top-left-radius": "8px",
+      "border-top-right-radius": "8px",
       "display": "block"
     },
     "alert-block-danger": {
@@ -6666,18 +6931,6 @@
       "position": "relative",
       "touch-action": "none"
     },
-    "text-link-user-product": {
-      ":state text-decoration-line": "none",
-      "background-color": "rgba(0, 0, 0, 0)",
-      "color": "color(srgb 0.980392 0.980392 0.980392)",
-      "cursor": "pointer",
-      "padding-bottom": "0px",
-      "padding-left": "0px",
-      "padding-right": "0px",
-      "padding-top": "0px",
-      "text-align": "left",
-      "text-underline-offset": "2px"
-    },
     "start-card-label-sm-product": {
       "color": "color(srgb 0.980392 0.980392 0.980392)",
       "font-family": "PretendardHarness",
@@ -6730,6 +6983,405 @@
       "border-top-right-radius": "999px",
       "height": "4px",
       "width": "36px"
+    },
+    "text-link-past-due-product": {
+      ":state color": "color(srgb 0.980392 0.980392 0.980392)",
+      ":state text-decoration-line": "none",
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "border-bottom-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-bottom-style": "none",
+      "border-bottom-width": "0px",
+      "border-image-outset": "0",
+      "border-image-repeat": "stretch",
+      "border-image-slice": "100%",
+      "border-image-source": "none",
+      "border-image-width": "1",
+      "border-left-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-left-style": "none",
+      "border-left-width": "0px",
+      "border-right-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-right-style": "none",
+      "border-right-width": "0px",
+      "border-top-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-top-style": "none",
+      "border-top-width": "0px",
+      "color": "color(srgb 0.980392 0.980392 0.980392)",
+      "cursor": "pointer",
+      "margin-bottom": "0px",
+      "margin-left": "0px",
+      "margin-right": "0px",
+      "margin-top": "0px",
+      "padding-bottom": "0px",
+      "padding-left": "0px",
+      "padding-right": "0px",
+      "padding-top": "0px",
+      "text-align": "start",
+      "text-decoration-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "text-decoration-line": "none",
+      "text-decoration-style": "solid",
+      "text-decoration-thickness": "auto",
+      "text-underline-offset": "2px",
+      "transition-duration": "0.16s",
+      "transition-property": "color",
+      "transition-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+    },
+    "switch-publish-product": {
+      ":state cursor": "pointer",
+      ":state opacity": "1",
+      "align-items": "center",
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "color(srgb 0.980392 0.980392 0.980392 / 0.16)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "block-size": "24px",
+      "border-bottom-color": "rgb(255, 255, 255)",
+      "border-bottom-left-radius": "999px",
+      "border-bottom-right-radius": "999px",
+      "border-bottom-style": "none",
+      "border-bottom-width": "0px",
+      "border-image-outset": "0",
+      "border-image-repeat": "stretch",
+      "border-image-slice": "100%",
+      "border-image-source": "none",
+      "border-image-width": "1",
+      "border-left-color": "rgb(255, 255, 255)",
+      "border-left-style": "none",
+      "border-left-width": "0px",
+      "border-right-color": "rgb(255, 255, 255)",
+      "border-right-style": "none",
+      "border-right-width": "0px",
+      "border-top-color": "rgb(255, 255, 255)",
+      "border-top-left-radius": "999px",
+      "border-top-right-radius": "999px",
+      "border-top-style": "none",
+      "border-top-width": "0px",
+      "box-sizing": "border-box",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex-basis": "auto",
+      "flex-grow": "0",
+      "flex-shrink": "0",
+      "inline-size": "44px",
+      "padding-bottom": "2px",
+      "padding-left": "2px",
+      "padding-right": "2px",
+      "padding-top": "2px",
+      "position": "relative",
+      "transition-duration": "0.22s",
+      "transition-property": "background",
+      "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "switch-thumb-on-product": {
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "block-size": "20px",
+      "border-bottom-left-radius": "999px",
+      "border-bottom-right-radius": "999px",
+      "border-top-left-radius": "999px",
+      "border-top-right-radius": "999px",
+      "box-shadow": "color(srgb 0 0 0 / 0.2) 0px 1px 3px 0px",
+      "display": "block",
+      "inline-size": "20px",
+      "transition-duration": "0.22s",
+      "transition-property": "translate",
+      "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "translate": "20px"
+    },
+    "keycap-command-palette-product": {
+      "align-items": "center",
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "color(srgb 0.05098 0.066666 0.094117)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "block-size": "22px",
+      "border-bottom-left-radius": "10px",
+      "border-bottom-right-radius": "10px",
+      "border-top-left-radius": "10px",
+      "border-top-right-radius": "10px",
+      "box-sizing": "border-box",
+      "color": "color(srgb 0.647059 0.658824 0.678431)",
+      "display": "inline-flex",
+      "flex-basis": "auto",
+      "flex-grow": "0",
+      "flex-shrink": "0",
+      "font-family": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+      "font-size": "12px",
+      "font-weight": "500",
+      "justify-content": "center",
+      "letter-spacing": "-0.12px",
+      "line-height": "18px",
+      "min-inline-size": "22px",
+      "padding-block-end": "0px",
+      "padding-block-start": "0px",
+      "padding-inline-end": "4px",
+      "padding-inline-start": "4px",
+      "text-wrap-mode": "nowrap",
+      "user-select": "none",
+      "white-space-collapse": "collapse"
+    },
+    "node-chip-inquiry-product": {
+      ":state color": "color(srgb 0.980392 0.980392 0.980392)",
+      ":state cursor": "default",
+      "align-items": "center",
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "color(srgb 0.345098 0.360784 0.388235)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "block-size": "32px",
+      "border-bottom-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-bottom-left-radius": "12px",
+      "border-bottom-right-radius": "12px",
+      "border-bottom-style": "none",
+      "border-bottom-width": "0px",
+      "border-image-outset": "0",
+      "border-image-repeat": "stretch",
+      "border-image-slice": "100%",
+      "border-image-source": "none",
+      "border-image-width": "1",
+      "border-left-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-left-style": "none",
+      "border-left-width": "0px",
+      "border-right-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-right-style": "none",
+      "border-right-width": "0px",
+      "border-top-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-top-left-radius": "12px",
+      "border-top-right-radius": "12px",
+      "border-top-style": "none",
+      "border-top-width": "0px",
+      "box-shadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
+      "box-sizing": "border-box",
+      "color": "color(srgb 0.980392 0.980392 0.980392)",
+      "column-gap": "4px",
+      "display": "inline-flex",
+      "flex-basis": "auto",
+      "flex-grow": "0",
+      "flex-shrink": "0",
+      "font-family": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+      "font-size": "12px",
+      "font-weight": "400",
+      "justify-content": "center",
+      "letter-spacing": "-0.12px",
+      "line-height": "18px",
+      "max-inline-size": "100%",
+      "min-inline-size": "0px",
+      "overflow-x": "hidden",
+      "overflow-y": "hidden",
+      "padding-block-end": "0px",
+      "padding-block-start": "0px",
+      "padding-inline-end": "10px",
+      "padding-inline-start": "10px",
+      "row-gap": "4px",
+      "text-overflow": "ellipsis",
+      "text-wrap-mode": "nowrap",
+      "transition-duration": "0.16s",
+      "transition-property": "background, color",
+      "transition-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+      "user-select": "none",
+      "white-space-collapse": "collapse"
+    },
+    "node-chip-square-product": {
+      ":state color": "color(srgb 0.980392 0.980392 0.980392)",
+      ":state cursor": "default",
+      "align-items": "center",
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "color(srgb 0.345098 0.360784 0.388235)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "block-size": "32px",
+      "border-bottom-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-bottom-left-radius": "12px",
+      "border-bottom-right-radius": "12px",
+      "border-bottom-style": "none",
+      "border-bottom-width": "0px",
+      "border-image-outset": "0",
+      "border-image-repeat": "stretch",
+      "border-image-slice": "100%",
+      "border-image-source": "none",
+      "border-image-width": "1",
+      "border-left-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-left-style": "none",
+      "border-left-width": "0px",
+      "border-right-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-right-style": "none",
+      "border-right-width": "0px",
+      "border-top-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-top-left-radius": "12px",
+      "border-top-right-radius": "12px",
+      "border-top-style": "none",
+      "border-top-width": "0px",
+      "box-shadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
+      "box-sizing": "border-box",
+      "color": "color(srgb 0.980392 0.980392 0.980392)",
+      "column-gap": "4px",
+      "display": "inline-flex",
+      "flex-basis": "auto",
+      "flex-grow": "0",
+      "flex-shrink": "0",
+      "font-family": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+      "font-size": "12px",
+      "font-weight": "400",
+      "inline-size": "32px",
+      "justify-content": "center",
+      "letter-spacing": "-0.12px",
+      "line-height": "18px",
+      "max-inline-size": "100%",
+      "min-inline-size": "32px",
+      "overflow-x": "hidden",
+      "overflow-y": "hidden",
+      "padding-block-end": "0px",
+      "padding-block-start": "0px",
+      "padding-inline-end": "0px",
+      "padding-inline-start": "0px",
+      "row-gap": "4px",
+      "text-overflow": "ellipsis",
+      "text-wrap-mode": "nowrap",
+      "transition-duration": "0.16s",
+      "transition-property": "background, color",
+      "transition-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+      "user-select": "none",
+      "white-space-collapse": "collapse"
+    },
+    "loading-word-product": {
+      "--louis-loading-word-ink": "color(srgb 0.980392 0.980392 0.980392 / 1)",
+      "background-image": "linear-gradient(90deg, color(srgb 0.980392 0.980392 0.980392 / 0.2) 0%, color(srgb 0.980392 0.980392 0.980392 / 0.28) 12%, color(srgb 0.980392 0.980392 0.980392 / 0.88) 24%, color(srgb 0.980392 0.980392 0.980392 / 0.32) 36%, color(srgb 0.980392 0.980392 0.980392 / 0.2) 50%, color(srgb 0.980392 0.980392 0.980392 / 0.28) 62%, color(srgb 0.980392 0.980392 0.980392 / 0.88) 74%, color(srgb 0.980392 0.980392 0.980392 / 0.32) 86%, color(srgb 0.980392 0.980392 0.980392 / 0.2) 100%)",
+      "color": "rgba(0, 0, 0, 0)",
+      "display": "inline-block"
+    },
+    "table-header-cell-ad-product": {},
+    "table-cell-ad-product": {},
+    "table-cell-last-ad-product": {},
+    "tab-item-analytics-product": {
+      ":state cursor": "pointer",
+      ":state opacity": "0.48",
+      "align-items": "center",
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "block-size": "28px",
+      "border-bottom-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-bottom-left-radius": "999px",
+      "border-bottom-right-radius": "999px",
+      "border-bottom-style": "none",
+      "border-bottom-width": "0px",
+      "border-image-outset": "0",
+      "border-image-repeat": "stretch",
+      "border-image-slice": "100%",
+      "border-image-source": "none",
+      "border-image-width": "1",
+      "border-left-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-left-style": "none",
+      "border-left-width": "0px",
+      "border-right-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-right-style": "none",
+      "border-right-width": "0px",
+      "border-top-color": "color(srgb 0.980392 0.980392 0.980392)",
+      "border-top-left-radius": "999px",
+      "border-top-right-radius": "999px",
+      "border-top-style": "none",
+      "border-top-width": "0px",
+      "box-sizing": "border-box",
+      "color": "color(srgb 0.980392 0.980392 0.980392)",
+      "cursor": "pointer",
+      "display": "flex",
+      "flex-basis": "auto",
+      "flex-grow": "0",
+      "flex-shrink": "0",
+      "font-family": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+      "font-size": "16px",
+      "font-weight": "500",
+      "justify-content": "center",
+      "letter-spacing": "-0.16px",
+      "line-height": "24px",
+      "opacity": "0.48",
+      "padding-block-end": "0px",
+      "padding-block-start": "0px",
+      "padding-inline-end": "12px",
+      "padding-inline-start": "12px",
+      "text-wrap-mode": "nowrap",
+      "transition-duration": "0.2s",
+      "transition-property": "opacity",
+      "transition-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+      "white-space-collapse": "collapse"
+    },
+    "video-player-youtube-bottom-product": {
+      "align-items": "stretch",
+      "column-gap": "6px",
+      "display": "flex",
+      "flex-direction": "column",
+      "inset-block-end": "12px",
+      "inset-inline-end": "12px",
+      "inset-inline-start": "12px",
+      "padding-bottom": "0px",
+      "padding-left": "0px",
+      "padding-right": "0px",
+      "padding-top": "0px",
+      "position": "absolute",
+      "row-gap": "6px",
+      "transition-behavior": "normal",
+      "transition-delay": "0s",
+      "transition-duration": "0.3s",
+      "transition-property": "opacity",
+      "transition-timing-function": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+    },
+    "video-player-youtube-scrubber-product": {
+      "align-items": "center",
+      "block-size": "16px",
+      "cursor": "pointer",
+      "display": "flex",
+      "flex-basis": "auto",
+      "flex-grow": "0",
+      "flex-shrink": "0",
+      "min-inline-size": "0px",
+      "position": "relative",
+      "touch-action": "none"
+    },
+    "video-player-youtube-controls-product": {
+      "align-items": "center",
+      "block-size": "40px",
+      "display": "flex",
+      "justify-content": "space-between"
     },
     "button-secondary-light": {
       ":state color": "color(srgb 0.345098 0.360784 0.388235)",
@@ -7651,10 +8303,10 @@
       "why": "제품 0, DS 0.5. 제품 모달은 그림자만으로 면을 띄우는데 DS는 라이트 테마에서 그림자가 약해 테두리를 남긴다."
     },
     {
-      "axis": "input-box.borderTopWidth",
-      "product": 1,
+      "axis": "text-field-admin-product.borderTopWidth",
+      "product": 0,
       "ds": 0.5,
-      "why": "제품 1px, DS 0.5px. hairline 결정이다."
+      "why": "제품 0, DS 0.5. button-secondary 와 같은 사정이다 — 제품은 LOUIS `.louis-text-field__box` 를 그대로 그리고 그 레시피는 border 없이 `--louis-hairline-inset`(inset box-shadow)으로 헤어라인을 그린다(text-field.css `.louis-text-field__box`). 0.5 는 그 그림자의 spread 라 계산값 border-width 로 잡히지 않는다. 이 행은 **레시피가 진짜 테두리로 돌아가면 실패하라고** 남긴다."
     },
     {
       "axis": "empty-state.paddingLeft",
@@ -7673,12 +8325,6 @@
       "product": 2,
       "ds": 8,
       "why": "제품 2, DS 8. 제품은 thumb가 세그먼트 폭을 그대로 덮으므로 간격이 거의 필요 없다. DS는 thumb가 세그먼트 안에 놓여 간격이 눌린 세그먼트의 경계를 만든다."
-    },
-    {
-      "axis": "skeleton.borderTopLeftRadius",
-      "product": 999,
-      "ds": 8,
-      "why": "제품 999(알약), DS 8. 제품의 그 벌은 한 줄 텍스트 자리 표시라 알약이 맞지만, 블록·원까지 덮는 컴포넌트는 shape 축이 반경을 정한다(text 8 · block 16 · circle 999)."
     },
     {
       "axis": "skeleton.::after:animationDuration",

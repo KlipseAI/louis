@@ -7,22 +7,22 @@
   "$stateRule": "상태는 표면 하나의 축이다 — 별 표면이 되는 길은 둘뿐이다(DS-D-0040). ① 자식 구성: 본 상태에 없던 «종류»의 자식이 들어오거나 같은 자식이 «다른 개수»로 반복되면 별 표면이다. ③ 자리의 주인: 본 상태를 소유한 표면이 이 원장에 없으면(화면이 인라인으로 그린다) 붙을 축이 없으므로 별 표면이다. ② 배치만 다르거나(축 전치·열 수·정렬) 색·불투명도·문구·글리프만 다르면 표면 하나의 축이므로 scoped 로 남는다. 자식이 «감춰지는» 것은 ①이 아니다 — 오토레이아웃의 정상 결과다. 순서가 있다: 이 시험이 표면을 몇 개로 셀지를 먼저 정하고, 그 축이 VARIANT 인가 BOOLEAN 인가는 design/governance/figma-component-authoring.md §2 가 그다음에 정한다. 두 층을 섞으면 「BOOLEAN 으로 못 그리니까 별 컴포넌트」라는 잘못된 추론이 나온다. 축을 연다고 조합을 전수로 채우는 것도 아니다 — 쓰지 않는 계단은 사다리가 아니다(DS-D-0027 · DS-D-0030).",
   "$kindRule": "`kind` 는 needed «안»의 축이다. 넷이다 — primitive(되풀이되는 부품: 다른 소비처·다른 그림이 실측으로 있다. Figma 컴포넌트로 세울 것) · screen(화면 한 장: 소비처 1 · 라우트 1. 부품이 아니라 보드로 그릴 것) · oneoff(한 자리에만 있는 그림: 되풀이 증거가 없어 부품으로 볼 수 없고 화면도 아니다) · unclear(소유자 판단 대기). 사유는 `kindReason` 에 적는다. 종류 없이 넘기는 길은 없다.\n왜 필요한가: `needed` 는 「Figma 에 세워야 한다」를 한 통에 담아, 화면 한 장과 재사용 12곳짜리 부품을 같은 1 로 센다. 종류가 없으면 목록은 176줄짜리 벽이고 「무엇을 세우는가」에 답하지 못한다.\n**분모를 옮기는 권한은 이 필드에 없다 — 176 은 176 으로 남는다.** screen 을 needed 밖으로 내보내려면 조건이 둘이었다: (가) 그 화면의 보드가 실재하고 (나) 그 화면이 안에서 꺼낼 부품을 다 꺼냈다. (나)를 기계로 재려고 2026-09-09 에 실측했고, **못 잰다**는 결론이 나왔다. 후보였던 「그 보드의 replaceable 이 0 이면 다 꺼낸 것」은 셋에서 깨진다.\n① 공허하다 — migration/figma-board-composition.json 의 replaceable 은 36 보드 «전부»에서 0 이다. 이 시험은 보드가 있는 모든 화면을 아무것도 재지 않고 통과시킨다.\n② 순환이다 — 그 원장의 $verdictRule 이 스스로 「bespoke 가 열리는 조건은 제품이 정본을 물기 시작하는 것이고, 그것은 표면 원장의 needed 가 세는 질문이다」라고 적었다. needed 를 정하려고 needed 의 하류를 읽는 꼴이다.\n③ 보드가 화면이 아니다 — /archive 보드의 데스크톱 spec 은 11 노드이고 그 내용은 「No projects yet」이다. auth fixture 에 프로젝트가 0 건이라 «빈 상태»를 그렸고, 1427줄 AppHomeScene 의 카드 그리드·배너 캐러셀·확인 모달·토스트는 보드에 한 노드도 없다. 그 보드의 `missing 0 · replaceable 0` 을 「다 꺼냈다」로 읽는 것은 빈 방을 보고 이사가 끝났다고 적는 것이다. /analytics/youtube 는 연결 이전 상태를, /highlight/[projectId] 여섯 보드는 전부 결과 이전 상태를 그린다. (가)조차 「그 라우트에 보드가 있다」로는 만족되지 않는다 — 상태 하나의 보드는 화면의 보드가 아니다.\n게다가 두 원장에는 조인 키가 없다. figma-board-composition 의 $overlapRule 이 「draw payload 에는 제품 소스 경로가 한 글자도 없다」고 적었고, 그쪽 식별자는 `<route>@<context>#<자식 인덱스 체인>` 이라 «위치»다. 라우트↔표면을 사람이 그어 잇는 순간 그것이 곧 손으로 센 원장이고, 이 열거기가 없애려던 물건이다.\n(나)를 재려면 두 가지가 먼저 움직여야 한다 — 보드가 화면의 «채워진» 상태를 그리는 것, 그리고 대응 규칙이 LOUIS 51종 중 6종만 보는 상한($upperBound)이 걷히는 것. 둘 다 measure-figma-board-composition 이 할 일이지 이 원장이 할 일이 아니다.\n**2026-10-14 소유자 결정(DS-D-0098)으로 (나)를 이렇게 잰다** — 같은 파일(`file`)에 needed · unclear 표면이 0 이면 꺼낼 것이 남지 않았다(입자도 규칙상 파일 안 시각 단위는 모두 표면으로 열거된다). 여기에 (가)를 «채운» 보드로 좁히고(시드 데이터, 근거는 `filled`) 늘림 시험 실패 0 을 더해 셋을 모두 만족하면 `verdict: figma` · `figma: \"screen:<보드 라우트>\"` 로 대응이 된다. check-figma-surface-coverage 가 셋을 잰다.",
   "$upperBound": "이 수는 상한이 아니라 하한이다 — 다른 함수 안에서 정의된 컴포넌트(앵커에서 2개)와 camelCase 렌더 헬퍼(14개)는 세지 않는다. `louis` 도 하한이다: 클래스 맵 파일을 import 해서 쓰는 컴포넌트는 자기 본문에 louis 이름을 갖지 않는다.",
-  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
-  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productRef": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
+  "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
   "tree": "apps/web",
-  "filesScanned": 392,
+  "filesScanned": 394,
   "counts": {
-    "total": 612,
-    "mapped": 213,
-    "scoped": 327,
-    "needed": 72,
+    "total": 616,
+    "mapped": 215,
+    "scoped": 328,
+    "needed": 73,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 0,
     "screen": 72,
-    "oneoff": 0,
+    "oneoff": 1,
     "unclear": 0,
     "kindless": 0
   },
@@ -223,6 +223,19 @@
       "kind": null,
       "kindReason": null
     },
+    "apps/web/app/admin/AdminEmailSuggestInput.tsx#AdminEmailSuggestInput": {
+      "file": "apps/web/app/admin/AdminEmailSuggestInput.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-text"
+      ],
+      "verdict": "figma",
+      "figma": "Menu",
+      "reason": "계정 이메일 입력칸 + 추천 목록이다(AdminEmailSuggestInput.tsx:36-163). 칸은 호출부가 넘기는 louis-text-field 상자 · 컨트롤(FIELD_BOX · FIELD_CONTROL, AdminClient.tsx:1523 · CouponManagement.tsx:1436)이라 Figma TextField 몫이고, 이 파일이 더하는 시각은 아래에 붙는 목록 하나다 — 면 · 반경 14 · 안쪽 4 · 헤어라인 그림자(SUGGEST_LIST :6-15)에 항목 반경 10 · 이메일 body-14-medium 옆에 이름 caption-12 · 고른 줄은 끝에 ml-auto 꼬리 글(:17-27, :149-155). 이것이 Figma Menu 의 패널 + 항목 Layout=inline(이름 옆 설명, 꼬리 ml-auto) 구성 그대로다. 패널 반경 14 대 16 · 안쪽 4 대 6 · gray-900 80% 면은 값 차이라 DS-D-0040 ② 로 한 표면의 축이다. 소비처 둘(유저 검색 일괄 지급 · 쿠폰 담당자 칸).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
     "apps/web/app/admin/AdminRoleManagement.tsx#AdminRoleManagement": {
       "file": "apps/web/app/admin/AdminRoleManagement.tsx",
       "binding": "default",
@@ -322,17 +335,6 @@
       "kind": null,
       "kindReason": null
     },
-    "apps/web/app/admin/AdminSection.tsx#AdminOpenUserButton": {
-      "file": "apps/web/app/admin/AdminSection.tsx",
-      "binding": "named",
-      "louis": [],
-      "verdict": "figma",
-      "figma": "Button",
-      "reason": "자기 클래스가 없다. 공용 `<Button variant=\"secondary\">` 에 라벨 「사용자 상세 →」를 넣어 돌려줄 뿐이다(AdminSection.tsx:1157-1166). Figma Button 의 Variant=secondary · Size=md(제품 기본 size md, Button.tsx:35) · Label TEXT 가 그대로 이 표면이다. 권한이나 이메일이 없으면 null 인 것은 로직이지 시각 축이 아니다. 글리프 없이 화살표를 글자 「→」로 붙인 점은 남는 수렴 거리다. 같은 뜻의 icon/arrow-right 가 아이콘 세트에 있으므로 Icon=right · RightIconGlyph 로 옮길 수 있다. CopyPromptButton(Button 호출 → figma:Button)과 같은 판정이다. 소비 3자리(Inquiry · JobMonitor · Refund).",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
     "apps/web/app/admin/AdminSection.tsx#AdminPanel": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
@@ -410,17 +412,6 @@
       "kind": null,
       "kindReason": null
     },
-    "apps/web/app/admin/AdminSection.tsx#AdminStatus": {
-      "file": "apps/web/app/admin/AdminSection.tsx",
-      "binding": "named",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "고르기만 하는 분기 래퍼다(AdminSection.tsx:1105-1116). exception 이면 AdminBadge 를 돌려주고, AdminBadge 는 원장에서 이미 figma:Badge 다. 아니면 `type-caption-12-regular text-fg-secondary` 맨 글자 한 줄이다. 두 갈래 모두 새 시각 단위가 아니다. 앞의 것은 Badge 인스턴스이고, 뒤의 것은 표 칸 안의 텍스트 스타일이다. GnbProfileAvatar(Avatar 와 기본 아바타 사이의 분기 → scoped)와 같은 모양이다. 9개 파일 14자리가 쓰는 것은 «평소는 글자, 예외만 알약»이라는 문구 규칙이지 컴포넌트가 아니다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
     "apps/web/app/admin/AdminSection.tsx#AdminTileGrid": {
       "file": "apps/web/app/admin/AdminSection.tsx",
       "binding": "named",
@@ -439,17 +430,6 @@
       "verdict": "scoped",
       "figma": null,
       "reason": "면·색·타이포·경계를 하나도 그리지 않는다 — 클래스가 `flex items-center gap-6 flex-wrap min-w-0` 한 줄뿐인 순수 배치 래퍼다. Figma 에서는 컴포넌트가 아니라 부모 프레임의 가로 auto-layout(gap 12 · wrap)으로 표현되고, 그 안에 서는 컨트롤(AdminSegmented · 네이티브 select · TextField)이 각자 자기 표면을 갖는다. 함께 export 되는 ADMIN_TOOLBAR_LABEL 은 컴포넌트가 아닌 상수라 DS-D-0037 의 표면 정의에 들어오지 않는다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/app/admin/AdminSection.tsx#AdminUserLink": {
-      "file": "apps/web/app/admin/AdminSection.tsx",
-      "binding": "named",
-      "louis": [],
-      "verdict": "figma",
-      "figma": "TextLink",
-      "reason": "Figma TextLink 의 Tone=inherit · Underline=hover 칸이 이 표면이다. USER_LINK(AdminSection.tsx:1127)가 `[color:inherit]` · `hover:underline` · `underline-offset-2` · `louis-focus-ring` 이고, 버튼 면은 걷었다. design/components/text-link.md:35 가 이 상수와 소비처 셋(AdAttributionPanel · CouponManagement · PaymentManagement)을 inherit 변형의 근거로 직접 적는다. 같은 문서 :43 의 예시도 이메일 버튼이다. 권한이 없을 때의 `<span>` 폴백(:1135)은 시각 축이 아니라 링크를 세우지 않는 로직이다. 남은 것은 채택이다. 제품은 아직 `.louis-text-link` 대신 자기 유틸리티를 적고, 호버 가드(`@media (hover: hover)`)가 없다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -504,17 +484,6 @@
       "kind": null,
       "kindReason": null
     },
-    "apps/web/app/admin/AmbassadorAdmin.tsx#AmbassadorAdmin": {
-      "file": "apps/web/app/admin/AmbassadorAdmin.tsx",
-      "binding": "default",
-      "louis": [],
-      "verdict": "figma",
-      "figma": "Tabs",
-      "reason": "needed 사유가 「Tabs underline 에 활성 2px 밑줄 · px0 · 14px · gap20 이 없다」였다. Tabs 에 하위 묶음 줄 `bar` 변형이 이 서브탭(`contentListStyles.ts:171-174`, 소비 `AmbassadorAdmin.tsx:30`)을 출처로 섰다(design/components/tabs.md). Figma `Tabs` · `TabItem` 의 `Variant=bar` 가 그린다. 어드민 제품 (나)는 feat/admin-ops-review 뒤다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
     "apps/web/app/admin/AmbassadorApplications.tsx#AmbassadorApplications": {
       "file": "apps/web/app/admin/AmbassadorApplications.tsx",
       "binding": "default",
@@ -526,17 +495,6 @@
       "kind": "screen",
       "kindReason": "실측: import · 렌더 한 자리(AmbassadorAdmin.tsx:6/:58). Inquiry · Refund 와 같은 어드민 탭 한 장이다. 꺼낼 부품은 이미 섰다 — 카드 행은 RecordCard(record-card.md 가 이 파일을 출처로 든다), 확인 모달은 Dialog. 남는 것은 화면 조립이라 보드로 그린다."
     },
-    "apps/web/app/admin/AmbassadorApplications.tsx#DesignationValue": {
-      "file": "apps/web/app/admin/AmbassadorApplications.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "선정 지원서 상세 격자의 「앰버서더」 값 한 칸(렌더 :1118 한 자리). 다섯 갈래(:411-487)가 AdminLines · Button(secondary/inverse) · InlineLoadingLabel · CopyIconButton 조합만 바꾸고 자기 면 · 경계가 없다. RecordCard 상세 슬롯 내용으로 부모 화면(needed)에 딸린다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
     "apps/web/app/admin/AmbassadorApplications.tsx#ExternalLink": {
       "file": "apps/web/app/admin/AmbassadorApplications.tsx",
       "binding": "local",
@@ -544,61 +502,6 @@
       "verdict": "scoped",
       "figma": null,
       "reason": "상세 값 칸의 외부 링크 조각(:328-342; 렌더 :992 · :1044 같은 파일). 안전한 주소면 primary-400 상시 밑줄 <a>, 아니면 글자 그대로다. 밑줄 상시 여부만 다른 TextLink 의 값 차이이고 RecordCard 상세 안에서만 쓰여 부모 화면에 딸린다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/app/admin/AmbassadorManagement.tsx#AmbassadorGroup": {
-      "file": "apps/web/app/admin/AmbassadorManagement.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "louis-table(AmbassadorManagement.tsx:305) 안 앰버서더 한 명의 <tbody> 조각(:463-573, 렌더 :331). 칸은 부모 표가 그리고, 두 · 세 단 이름 칸 · ghost 펼침 IconButton · 하위 링크 줄은 GroupRows 와 같은 구조(:497 「광고 표와 같다」)라 결손은 부모 화면에 센다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/app/admin/AmbassadorManagement.tsx#AmbassadorManagement": {
-      "file": "apps/web/app/admin/AmbassadorManagement.tsx",
-      "binding": "default",
-      "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "「링크와 성과」 탭(986줄, 렌더 AmbassadorAdmin.tsx:59). 기간 SegmentedControl · 혜택 줄 도구막대(:387-409), 펼침 그룹 louis-table(:305-343) · 주석 줄(:345), 편집 창 둘을 그린다. 표의 두 단 이름 칸 · 펼침 버튼 칸 · 들여쓴 하위 줄이 Figma TableCell(Label · Align · State)에 없다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: 렌더 한 자리(AmbassadorAdmin.tsx:59), 탭 한 장이라 보드로 그린다. 다만 표 결손(두 단 칸 · 트레일링 펼침 버튼 칸)이 AdAttributionTable 에 이어 두 번째 소비처를 얻었다 — 그 표면의 oneoff 근거(「다른 소비처 없음」)가 깨졌으니 Table/TableCell 축 확장(primitive)으로 재판정을 제안한다."
-    },
-    "apps/web/app/admin/AmbassadorManagement.tsx#BenefitEditor": {
-      "file": "apps/web/app/admin/AmbassadorManagement.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "추천 혜택 편집 창(:797-985, 렌더 :420). 셸은 AdminEditorDialog(figma Dialog), 본문은 AdminSegmented(SegmentedControl) · AdminSelect(SelectTrigger) · louis-text-field FORM_*(contentListStyles.ts:136-142) · 요약 줄의 조립이라 새 시각이 없고 배치는 부모 화면 몫이다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/app/admin/AmbassadorManagement.tsx#LinkEditor": {
-      "file": "apps/web/app/admin/AmbassadorManagement.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "링크 만들기/고치기 창(:585-787, 렌더 :434). 셸은 AdminEditorDialog(figma Dialog), 칸은 AdminSelect 와 louis-text-field 셋(:721-776)이다. 코드 칸의 호스트 글자 접두(:102, :738)는 TextField Prefix(글리프 스왑)와 값 간극으로 적어 두고 부모 화면에 딸린다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/app/admin/AmbassadorManagement.tsx#MetricCells": {
-      "file": "apps/web/app/admin/AmbassadorManagement.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "지표 <td> 여섯을 Fragment 로 돌려주는 표 칸 조각(:447-460; 렌더 :508 · :548 같은 파일). 칸은 louis-table data-align=end 이고 0 을 fg-tertiary 로 흐리는 ZERO(:88)는 색만 다르다. 자기 면이 없어 부모 판정에 딸린다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -650,6 +553,7 @@
         "louis-segmented-control",
         "louis-slider",
         "louis-slider-fill",
+        "louis-table",
         "louis-text",
         "louis-text-field"
       ],
@@ -668,17 +572,6 @@
       "verdict": "figma",
       "figma": "ColorSwatch",
       "reason": "색 칩 + 헥스 칸 형제 조합이 color-swatch 의 출처다(design/components/color-swatch.md — `CaptionTemplateManagement.tsx:296-316`). Figma `ColorSwatch` 의 `Layout=row` 칸이 이 자리를 그린다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/app/admin/CaptionTemplateManagement.tsx#Field": {
-      "file": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "라벨+컨트롤을 세로로 묶는 래퍼다 — 루트가 LOUIS 정본 `louis-text-field`(data-size=md, :104 FORM_FIELD) 이고 라벨이 `louis-text-field__label` 에 caption 12/regular 만 되돌린 것(:109 FORM_LABEL)이다(:414-421). children 은 셀렉트 · 세그먼트 · 슬라이더 · ColorSwatchRow 등 각자 표면을 가진 컨트롤이라 이 래퍼가 그리는 것은 라벨 한 줄뿐이다. CreativeMediaAdminClient.tsx#Field 와 같은 사유로 정본(Figma TextField 의 Label · HasLabel stacked) 채택 대상이지 별도 컴포넌트가 아니며, 부모 CaptionTemplateManagement(needed screen) 모달 안에서만 쓰인다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -991,7 +884,10 @@
     "apps/web/app/blog/[slug]/page.tsx#BlogPostPage": {
       "file": "apps/web/app/blog/[slug]/page.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-section",
+        "louis-section-header"
+      ],
       "verdict": "figma",
       "figma": "Product/Article Header",
       "reason": "Figma 제품 세트 `Product/Article Header` 가 이 표면의 남는 시각(아티클 머리 조판 — heading-36 제목 · body-20 부제 · 밑줄 메타 행)이다 — 공개 시드 원장 `/blog/[slug]` body.1.0.0.2.0.0.1(데스크톱 · 모바일). 본문은 MarkdownContent, 뒤로가기는 LOUIS Button 몫이고, reason 의 커버와 구분선은 측정에 없어 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
@@ -1002,7 +898,10 @@
     "apps/web/app/blog/page.tsx#BlogPage": {
       "file": "apps/web/app/blog/page.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-content",
+        "louis-content-card"
+      ],
       "verdict": "figma",
       "figma": "ContentCard",
       "reason": "needed 사유였던 블로그 인덱스 카드(16:9 커버 · 커버 밖 제목 · 발췌 2줄 · 날짜)가 DS-D-0088 의 content-card 출처 둘 중 하나다(`app/blog/page.tsx:78-176`). Figma `ContentCard` 세트가 그 카드를 그린다. 페이지의 나머지(머리 · 격자)는 조립이다.",
@@ -1084,7 +983,6 @@
         "louis-color-accent-secondary-selected",
         "louis-floating",
         "louis-floating-shell",
-        "louis-focus-ring",
         "louis-project-card-adornment"
       ],
       "verdict": "figma",
@@ -1108,9 +1006,7 @@
     "apps/web/app/deck/DeckParts.tsx#DeckTopBar": {
       "file": "apps/web/app/deck/DeckParts.tsx",
       "binding": "named",
-      "louis": [
-        "louis-focus-ring"
-      ],
+      "louis": [],
       "verdict": "figma",
       "figma": "BrandBar",
       "reason": "덱 화면군의 머리 막대(왼쪽 락업 · 오른쪽 Text Link 묶음)를 부품 brand-bar 로 올렸다(DS-D-0112). App Top Bar 의 변형이 아니다. 2026-10-15 대응.",
@@ -1133,8 +1029,7 @@
       "file": "apps/web/app/deck/manage/DeckManager.tsx",
       "binding": "default",
       "louis": [
-        "louis-button",
-        "louis-focus-ring"
+        "louis-button"
       ],
       "verdict": "needed",
       "figma": null,
@@ -1160,8 +1055,7 @@
       "louis": [
         "louis-button",
         "louis-empty",
-        "louis-empty-state",
-        "louis-focus-ring"
+        "louis-empty-state"
       ],
       "verdict": "figma",
       "figma": "EmptyState",
@@ -1176,8 +1070,7 @@
       "louis": [
         "louis-alert",
         "louis-empty",
-        "louis-empty-state",
-        "louis-focus-ring"
+        "louis-empty-state"
       ],
       "verdict": "needed",
       "figma": null,
@@ -1237,9 +1130,8 @@
       "file": "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx",
       "binding": "local",
       "louis": [
-        "louis-color-bg-surface",
-        "louis-color-fg-primary",
-        "louis-color-fg-tertiary"
+        "louis-color",
+        "louis-color-swatch"
       ],
       "verdict": "figma",
       "figma": "ColorSwatch",
@@ -1627,7 +1519,9 @@
       "binding": "default",
       "louis": [
         "louis-alert",
-        "louis-tooltip"
+        "louis-plan-tier",
+        "louis-tooltip",
+        "louis-visually-hidden"
       ],
       "verdict": "figma",
       "figma": "PlanTierCard",
@@ -1797,7 +1691,9 @@
       "file": "apps/web/app/templates/[slug]/page.tsx",
       "binding": "default",
       "louis": [
-        "louis-alert"
+        "louis-alert",
+        "louis-section",
+        "louis-section-header"
       ],
       "verdict": "figma",
       "figma": "CopyPanel",
@@ -1809,7 +1705,11 @@
     "apps/web/app/templates/page.tsx#TemplatesPage": {
       "file": "apps/web/app/templates/page.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-badge",
+        "louis-content",
+        "louis-content-card"
+      ],
       "verdict": "figma",
       "figma": "ContentCard",
       "reason": "needed 사유였던 템플릿 인덱스 카드(4:3 커버 · 우상단 미디어 수 배지 · 제목 · 설명 2줄)가 DS-D-0088 의 content-card 출처 둘 중 하나다(`app/templates/page.tsx:77-130`). Figma `ContentCard` 세트가 그 카드를 그린다. 배지는 기존 Badge(media 면)다.",
@@ -1929,6 +1829,66 @@
       "verdict": "scoped",
       "figma": null,
       "reason": "브랜드 패널 배경에 까는 `<video>` 한 장의 로딩 로직이다 — 어드민 슬롯 주소를 /api/landing/hero 로 한 번만 묻고(resolveHeroSrc), 실패·미등록·재생 불가면 /videos/login-brand.mp4 로 떨어지며, 720px 미만과 prefers-reduced-motion 에서 그리지 않거나 멈춘다(AuthBrandVideo.tsx:44-105). 자기 클래스가 없고 className 은 AuthBrandPanel 이 BRAND_VIDEO(absolute inset-0 · object-cover)로 넘긴다. 시각은 패널의 「Brand panel 배경」 칸이 소유하므로 따로 세울 조형이 없다 — 훅성 미디어 래퍼다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/auth/AuthFloatingField.tsx#AuthFieldButton": {
+      "file": "apps/web/components/auth/AuthFloatingField.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-text"
+      ],
+      "verdict": "figma",
+      "figma": "IconButton",
+      "reason": "입력 칸 안의 지우기 · 비밀번호 보기 버튼이다 — `louis-text-field__adornment` 슬롯 안에 제품 IconButton 을 variant ghost · size sm(24, 글리프 16)으로 고정해 돌려줄 뿐이다(AuthFloatingField.tsx:93-101). Figma IconButton 의 Variant=ghost · Size=sm 칸이고, 자리는 TextField 의 Suffix 슬롯이다(text-field.md:64). 소비처는 로그인 · 회원가입 · 재설정 · 복구 · 설정 인증 모달(login/page.tsx:244 등 열네 자리).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/auth/AuthFloatingField.tsx#AuthFloatingField": {
+      "file": "apps/web/components/auth/AuthFloatingField.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-text",
+        "louis-text-field"
+      ],
+      "verdict": "figma",
+      "figma": "TextField",
+      "reason": "인증 화면의 떠오르는 라벨 입력이 공용 하나로 올라왔다 — 루트 `louis-text-field` + `data-label-behavior=\"floating\"` + `data-join`(start · end), 안에 `__box` · `__control` · `__label`(input 뒤) · suffix 슬롯뿐이고 화면 전용 클래스가 없다(AuthFloatingField.tsx:57-86). Figma TextField 의 LabelBehavior · Join 축이 그 조형이다. 원장이 로그인 · 재설정 · 복구 페이지에 「제품이 그 클래스를 물면 값이 맞는다」로 적어 둔 대응을 이제 제품이 실제로 문다. 렌더 열다섯 자리(login :233 · :262, signup :264 · :274 · :284 · :314, reset-password :151, reset-password/new :121 · :147, recover :139 · :167, SettingsScene :1445 · :1537 · :1573 · :1608).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/auth/AuthFloatingField.tsx#ClearGlyph": {
+      "file": "apps/web/components/auth/AuthFloatingField.tsx",
+      "binding": "named",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "입력 칸 지우기 버튼 안의 글리프다(AuthFloatingField.tsx:143-152; 렌더 login :256 · :291 · recover :161 · :188). 32 뷰박스에 채운 원에서 X 를 잘라 낸 path 한 장이고 public/icons/XCircle.svg 와 같은 그림이다. DS-D-0038 상 아이콘 축이라 컴포넌트 판정으로는 범위 밖이다. 아이콘 축의 대응은 없다 — LOUIS icon/x-circle 은 24 뷰박스 획 1.5 외곽선(원 + 선 둘)이라 그림이 다르다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/auth/AuthFloatingField.tsx#EyeGlyph": {
+      "file": "apps/web/components/auth/AuthFloatingField.tsx",
+      "binding": "named",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "비밀번호 보기 버튼의 뜬 눈 글리프다(AuthFloatingField.tsx:107-126; 렌더 login :301 · signup :308 · :341 등 열 자리, EyeSlashGlyph 와 삼항으로 짝). 아이콘 축(DS-D-0038)이라 컴포넌트 판정으로는 범위 밖이다. 기하는 LOUIS icon/eye 와 같다 — 호 M3 13C6.6 5 17.4 5 21 13 과 (12,14) 반지름 3 원, 획 1.5 · round(정본은 원을 베지어로 적었을 뿐). 그 아이콘이 Figma DS · Icons 에 있다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/auth/AuthFloatingField.tsx#EyeSlashGlyph": {
+      "file": "apps/web/components/auth/AuthFloatingField.tsx",
+      "binding": "named",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "비밀번호 숨김 상태의 글리프다(AuthFloatingField.tsx:128-141; 렌더 login :301 · signup :308 · :341 등 열 자리). 같은 호 위에 (12,14) 반지름 4 채운 원 — public/icons/eyeslash.svg 와 같은 그림이다. 아이콘 축(DS-D-0038)이라 컴포넌트 판정으로는 범위 밖이다. 아이콘 축의 대응은 없다 — LOUIS icon/eye-slash 는 감은 눈 + 속눈썹 세 획이라 다른 그림이다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -2160,7 +2120,12 @@
     "apps/web/components/creative-media/CreativeMediaClient.tsx#CreativeMediaClient": {
       "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-lightbox",
+        "louis-lightbox-ratio",
+        "louis-node",
+        "louis-state"
+      ],
       "verdict": "figma",
       "figma": "screen:/creative-media",
       "reason": "부스 체험 화면의 보드다(DS-D-0098 · DS-D-0109). 고정 다크 화면이고 palette 고정 토큰만 써서 보드도 다크로 그려진다. 2026-10-15 대응.",
@@ -2176,6 +2141,17 @@
       "verdict": "scoped",
       "figma": null,
       "reason": "부모 부스 화면의 닫힘 상태다 — Shell 과 BoothHeader 를 그대로 두고 가운데에 제목·설명 두 줄만 얹는다. 별도 시각 규칙이 없어 apps/web/components/creative-media/CreativeMediaClient.tsx#CreativeMediaClient 의 한 상태로 다루는 것이 맞다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/creative-media/CreativeMediaClient.tsx#LightboxCloseGlyph": {
+      "file": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+      "binding": "local",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "라이트박스 닫기 단추(`louis-lightbox__action`, CreativeMediaClient.tsx:1075-1082) 안의 X 글리프다(:1111-1126). 선 둘(18.75,5.25 → 5.25,18.75 · 18.75,18.75 → 5.25,5.25) · 획 1.5 · round 로 LOUIS icon/x 와 좌표까지 같고, 크기 20 은 레시피가 준다. 같은 파일 CloseIcon 과 같은 아이콘 축(DS-D-0038) 판정이다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -2325,9 +2301,9 @@
       "file": "apps/web/components/landing/sections/ambassador/ApplyFlow.tsx",
       "binding": "default",
       "louis": [
+        "louis-choice-card",
         "louis-color-fg-danger-on-surface",
         "louis-color-stroke-hairline",
-        "louis-focus-ring",
         "louis-text"
       ],
       "verdict": "needed",
@@ -2341,7 +2317,9 @@
       "file": "apps/web/components/landing/sections/ambassador/ApplyFlow.tsx",
       "binding": "local",
       "louis": [
-        "louis-focus-ring"
+        "louis-choice",
+        "louis-choice-card",
+        "louis-choice-group"
       ],
       "verdict": "figma",
       "figma": "ChoiceCard",
@@ -2350,171 +2328,173 @@
       "kind": null,
       "kindReason": null
     },
-    "apps/web/components/landing/sections/ambassador/ApplyFlow.tsx#Mark": {
-      "file": "apps/web/components/landing/sections/ambassador/ApplyFlow.tsx",
-      "binding": "local",
-      "louis": [
-        "louis-color-stroke-hairline"
-      ],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "Choice 안 선택 표식(:102-119, 렌더 :165 한 자리) — 20px 원/rounded-4 사각, 고르면 primary-500 채움 + 점/체크. 단일 · 복수 · 고름은 모양 · 색 · 글리프만 달라 ChoiceCard 의 Marker 파트에 해당하고 부모 Choice 판정에 딸린다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/Closing.tsx#CriteriaRead": {
-      "file": "apps/web/components/landing/sections/ambassador/Closing.tsx",
+    "apps/web/components/landing/sections/ambassador/BadgeIntro.tsx#IntroHero": {
+      "file": "apps/web/components/landing/sections/ambassador/BadgeIntro.tsx",
       "binding": "named",
       "louis": [],
       "verdict": "needed",
       "figma": null,
-      "reason": "검토 기준 띠(Closing.tsx:15-49, 렌더 AmbassadorClient.tsx:93). 흑백 사진 + 25→80% 세로 스크림(:23-24) 위 display 48 문장 · 20 Medium 설명, 아래 윗선 28% 기준 셋 3열(:34-45). 사진 밴드 결이지만 BAND_SCRIM 이 아닌 자기 스크림이고 Figma 대응이 없다.",
+      "reason": "/ambassador 첫 화면이다(BadgeIntro.tsx:491-497, 렌더 AmbassadorClient.tsx:74). h-[100svh] · min-h 560 · data-surface=dark 칸 안에 IntroScene 이 끝 장면을 그린다 — gray-950 위 분광 하늘 캔버스(heroSky, :457), 아래 160 페이드(:460), 제목 위 배지 그림 1.35em(:96-106) · display 48 두 줄 흰 제목(:107-114) · Button lg inverse(:471-477). 나머지(배지 영상 회전 · 막 · 제목 물결)는 약 3초 여는 연출이다. 옛 히어로 WorkHero 는 그 아래 절로 내려갔다. Figma 대응이 없다.",
       "weight": "low",
       "kind": "screen",
-      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:93), /ambassador 한 절. 기준 칸(윗선 · 이름 · 설명)은 이 절 전용이고 되풀이 0. CreatorProgram · Testimonials 와 같은 결이지만 스크림 값이 달라 공유분이 없어 화면으로 둔다."
+      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:74), /ambassador 첫 화면 한 칸이다. 정지 시각은 하늘 바탕 · 배지 · 제목 · 버튼 한 묶음이고 버튼은 Button 정본이라 되풀이되는 부품이 없다. 랜딩 Hero 와 같은 결로 화면으로 둔다. 10-14 공개되어 GNB(Gnb.tsx:878)에서 링크되지만 랜딩 절들과 같은 low 로 둔다."
     },
-    "apps/web/components/landing/sections/ambassador/Closing.tsx#FinalNext": {
-      "file": "apps/web/components/landing/sections/ambassador/Closing.tsx",
+    "apps/web/components/landing/sections/ambassador/BadgeIntro.tsx#IntroScene": {
+      "file": "apps/web/components/landing/sections/ambassador/BadgeIntro.tsx",
+      "binding": "default",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "부모 표면 IntroHero 의 유일한 내용이다(default export, 렌더 BadgeIntro.tsx:494 한 자리). 그리는 것은 부모 사유가 적은 하늘 캔버스 · 페이드 · IntroTitle · 버튼과, 끝나면 사라지는 막 · 회전 영상 · 날아가는 배지(:480-486)다. 연출 타임라인(T, :46)과 스크롤 막기는 동작이다. CreatorProgramBody 와 같은 판정으로 부모에 딸린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/landing/sections/ambassador/BadgeIntro.tsx#IntroTitle": {
+      "file": "apps/web/components/landing/sections/ambassador/BadgeIntro.tsx",
+      "binding": "named",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "히어로 제목 묶음 조각이다(BadgeIntro.tsx:81-117, 렌더 :467 한 자리) — 배지 그림 한 장(높이 1.35em · mb-12)과 T_ON_MEDIA.display(48 SemiBold 흰 글) 두 줄 h1. 자기 면 없이 이미지와 글자 역할만 쌓고, showInline · hideTitle 은 연출 중 불투명도 축이다. 부모 IntroHero 보드 안에서 정의된다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/landing/sections/ambassador/EdgeTunnel.tsx#EdgeTunnel": {
+      "file": "apps/web/components/landing/sections/ambassador/EdgeTunnel.tsx",
+      "binding": "named",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "혜택 카드 배경의 셰이더 층이다(EdgeTunnel.tsx:31-184, 렌더 Program.tsx:387 한 자리). absolute inset-0 aria-hidden 안에 포스터 webp 한 장과 WebGL 캔버스(edges · prism · spark · flare 넷)를 겹치고, 호버 · 화면 진입 · 동작 줄이기에 따라 시계만 돌린다(:75-160). 면 · 타이포 · 상태가 없는 미디어 동작 층이라 StageMedia · UploadedBackdrop 과 같은 판정이다. 끝 그림은 부모 Benefits 카드의 배경으로 그 보드에 딸린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/landing/sections/ambassador/Program.tsx#Benefits": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-radius-card-lg"
+      ],
+      "verdict": "needed",
+      "figma": null,
+      "reason": "혜택 절이다(Program.tsx:369-404, 렌더 AmbassadorClient.tsx:90). 가운데 제목(Head) 아래 2×2 카드 넷 — min-h 340 · radius card-lg(20) · p-24 · gray-950 면 위 셰이더 배경(EdgeTunnel) + 왼쪽 위 50% 그늘, 그 위 28 SemiBold 제목 · 16 설명 흰 글(:375-401). 옛 Points(목록 + 제품 화면 판, needed low screen)를 대신한다. Figma 대응이 없다.",
+      "weight": "low",
+      "kind": "screen",
+      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:90), /ambassador 한 절. 카드 넷은 이 절 안에서만 반복되고(데이터 넷) 다른 화면에 같은 조형이 없다. 옛 Points 와 같은 이유로 화면으로 둔다."
+    },
+    "apps/web/components/landing/sections/ambassador/Program.tsx#Criteria": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
       "binding": "named",
       "louis": [],
       "verdict": "needed",
       "figma": null,
-      "reason": "마지막 절(Closing.tsx:63-98, 렌더 AmbassadorClient.tsx:95). 어두운 바탕 + CSS 점 격자 33.6px(:67), display 두 줄 제목 · 설명 · Button lg(:74-88), 오른쪽 빈 영상 노드 그림(:90-97). 랜딩 FinalCtaScene 과 같은 끝 장면 역할이고 Figma 대응이 없다.",
+      "reason": "검토 기준 띠다(Program.tsx:420-459, 렌더 AmbassadorClient.tsx:91). 화면 폭 흑백 사진(:429) 위 세 겹 그늘(:432, 좁은 화면 한 겹 더 :434), 왼쪽 위 36 제목 · 16 설명(:436-443), 아래 3열 기준 셋 — 흰 20% 윗선 · 흐린 번호 14 · 20 SemiBold 제목 · 16 설명(:444-454). 옛 Closing#CriteriaRead(needed low screen)의 후속이고 스크림 값이 photoBand BAND_SCRIM 이 아니다. Figma 대응이 없다.",
       "weight": "low",
       "kind": "screen",
-      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:95). 노드는 그림 한 장, 버튼은 Button 정본이라 이 절만의 조립이 남는다. 되풀이 0 이므로 화면으로 둔다."
+      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:91), /ambassador 한 절. 기준 칸(윗선 · 번호 · 제목 · 설명)은 이 절 전용이고 되풀이 0 이라 옛 CriteriaRead 와 같이 화면으로 둔다."
     },
-    "apps/web/components/landing/sections/ambassador/CollabColumns.tsx#Clip": {
-      "file": "apps/web/components/landing/sections/ambassador/CollabColumns.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "playing 동안만 재생하는 <video> 한 장(CollabColumns.tsx:51-61; 렌더 :99 · :149 같은 파일). 면 · 타이포 · 상태가 없는 미디어 동작 래퍼라 그릴 것이 없다. TimelineFooter#Clip 과는 이름만 같은 다른 함수다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/CollabColumns.tsx#CollabColumns": {
-      "file": "apps/web/components/landing/sections/ambassador/CollabColumns.tsx",
-      "binding": "default",
+    "apps/web/components/landing/sections/ambassador/Program.tsx#FinalLine": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
+      "binding": "named",
       "louis": [],
       "verdict": "needed",
       "figma": null,
-      "reason": "협업 유형 절(366줄, 렌더 AmbassadorClient.tsx:81). SectionHead + 스크롤 고정 두 줄기 장면(16:10 rounded-24 판, :205-254) + 다른 점 넷 비교 행(160px 이름 열 · 윗선, :327-348) + 단마다 Button lg(:353-362). 비교 행 · 줄기 판 모두 Figma 대응이 없다.",
+      "reason": "페이지 끝 띠다(Program.tsx:553-640, 렌더 AmbassadorClient.tsx:94). gray-950 바탕 위 WebGL 분광 링 캔버스(finalGL, :617), 가운데 36 흰 제목 줄들 · 16 설명 · Button lg inverse(:618-634), 위 200 · 아래 300 여백. 옛 Closing#FinalNext(needed low screen)를 대신한다. 링은 1.6초 떠오름 + 일렁임 동작이다. Figma 대응이 없다.",
       "weight": "low",
       "kind": "screen",
-      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:81). 한 달 판 · 2.35:1 판 · 비교 행은 이 절 전용이고 다른 화면에 같은 모양이 없다(넓은/좁은/낮은 세 판은 배치 차이). 되풀이 0 이라 화면으로 둔다."
+      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:94). 버튼은 Button 정본, 링은 셰이더 그림이라 이 절만의 조립이 남는다. 되풀이 0 이므로 옛 FinalNext 와 같이 화면으로 둔다."
     },
-    "apps/web/components/landing/sections/ambassador/CollabColumns.tsx#LaneHead": {
-      "file": "apps/web/components/landing/sections/ambassador/CollabColumns.tsx",
+    "apps/web/components/landing/sections/ambassador/Program.tsx#Head": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
       "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "줄기 이름(heading-28, T.column)과 한 줄 소개(16 soft)를 쌓는 머리 조각(:193-200; 같은 파일 4자리). 자기 면 없이 typeRoles 글자 역할 둘만 그리는 텍스트 묶음이라 부모 CollabColumns 보드 안에서 정의된다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/CollabColumns.tsx#MonthLane": {
-      "file": "apps/web/components/landing/sections/ambassador/CollabColumns.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "정기형 한 달 판(:65-124; 렌더 :214 · :245 · :317) — 날짜 36 · 눈금 막대 · 9:16 점선 빈 자리 넷이 날이 오면 채워진다. 스크롤 진행에 묶인 그림이고 4열/2×2 는 배치 차이다. 부모 CollabColumns(needed)에서 이미 세므로 따로 세지 않는다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/CollabColumns.tsx#NarrowLane": {
-      "file": "apps/web/components/landing/sections/ambassador/CollabColumns.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "좁은 화면용 줄기 장면(:231-254; 렌더 :308 · :309) — 200vh 트랙 + sticky 안에 LaneHead 와 판을 얹는 배치 래퍼다. 자기 시각은 판의 rounded-24 · --panel 뿐이고 WideLanes 와 배치만 달라 부모 판정에 딸린다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/CollabColumns.tsx#ProjectLane": {
-      "file": "apps/web/components/landing/sections/ambassador/CollabColumns.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "프로젝트형 판(:128-174; 같은 파일 3자리) — 검은 판 위 2.35:1 콘티→완성 컷 칠하기 · 편집 영상, 아래 단계 셋 2px 진행선 · 이름. 대부분 스크롤 모션 프레임이고 단계 줄도 이 판 전용이라 부모 CollabColumns 보드 안의 그림으로 둔다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/CollabColumns.tsx#Value": {
-      "file": "apps/web/components/landing/sections/ambassador/CollabColumns.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "비교 값 한 칸(:257-267; 렌더 :344 · :345) — 줄바꿈마다 한 줄, 첫 줄 T.item(20 SemiBold) · 나머지 T.body(16). 면 없는 텍스트 조각이라 비교 행을 그리는 부모 CollabColumns 판정에 딸린다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/CollabColumns.tsx#WideLanes": {
-      "file": "apps/web/components/landing/sections/ambassador/CollabColumns.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "넓은 화면용 두 줄기 장면(:205-228, 렌더 :305 한 자리) — 260vh 트랙 + sticky 2열 격자에 LaneHead · 판 · 한 줄 설명을 얹는 배치 래퍼다. NarrowLane 과 배치만 달라 새 시각이 없다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/ContentUse.tsx#ContentUse": {
-      "file": "apps/web/components/landing/sections/ambassador/ContentUse.tsx",
-      "binding": "default",
-      "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "콘텐츠 쓰임 절(57줄, 렌더 AmbassadorClient.tsx:91). SectionHead 옆에 3:4 결과물 그림(rounded-16)과 세 갈래 — 그어지는 선 · 「별도 동의」 세로 막대 둘 · 점선 · 흐린 갈래 이름(ContentUse.tsx:29-50)을 그린다. 이 끊긴 선 도식은 Figma 에 없다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:91). 갈래 도식은 이 절 전용 그림이고 되풀이 0 이라 화면 한 절로 보드에서 그린다."
-    },
-    "apps/web/components/landing/sections/ambassador/Points.tsx#Points": {
-      "file": "apps/web/components/landing/sections/ambassador/Points.tsx",
-      "binding": "default",
-      "louis": [
-        "louis-focus-ring"
-      ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "혜택 절(80줄, 렌더 AmbassadorClient.tsx:80). 윗선으로 가른 혜택 넷 버튼(heading-28 + body-16, 고름은 잉크 색만, Points.tsx:35-57)과 4:3 rounded-24 제품 화면 판(:58-77)을 5:7 로 놓는다. Stage · OverviewTabs 와 같은 「목록+무대」 꼴이나 조형이 달라 대응이 없다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:80). 목록 행 · 무대 판은 이 절 전용이고, 닮은 꼴(Stage · OverviewTabs)은 행 높이 · 반경 · 면이 달라 같은 부품의 되풀이로 셀 수 없다. 화면으로 둔다."
-    },
-    "apps/web/components/landing/sections/ambassador/ScrubTitle.tsx#ScrubTitle": {
-      "file": "apps/web/components/landing/sections/ambassador/ScrubTitle.tsx",
-      "binding": "default",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "제목 글자 스크럽 모션(87줄, 렌더 SectionHead.tsx:16 한 자리) — 글자마다 span 으로 나눠 스크롤에 따라 불투명도 · 이동 · 흐림을 쓴다(:24-66). 글자 스타일은 호출부 className(T.title)이고 끝 프레임은 평범한 제목이라 시각이 아닌 동작이다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/landing/sections/ambassador/SectionHead.tsx#SectionHead": {
-      "file": "apps/web/components/landing/sections/ambassador/SectionHead.tsx",
-      "binding": "default",
       "louis": [],
       "verdict": "figma",
       "figma": "SectionHeader",
-      "reason": "앰버서더 섹션 머리(28줄; 렌더 Points:28 · ContentUse:23 · CollabColumns:300). 제목 heading-36 + 설명 16 Regular(typeRoles.ts:30-32)로 SectionHeader Level=page(Title 36 · Description 16, Meta · Actions 끔)가 그 자리다. 간격 16 대 4 · 문장별 줄은 값 차이, 스크럽 · 리빌은 동작이다.",
+      "reason": "앰버서더 섹션 제목이다(Program.tsx:56-71; 렌더 :374 Benefits · :488 Steps). 36 SemiBold 제목(T.title) + 선택적 16 Regular soft 설명(T.lede, GAP.lede 16)으로, 옛 SectionHead(figma SectionHeader Level=page)와 같은 값을 잇는 후속이다. 달라진 것은 가운데 정렬(text-center · max-w 760)과 리빌 동작이고, 정렬은 DS-D-0040 ② 로 한 표면의 축이다. 두 렌더 자리 모두 lede 를 넘기지 않아 실사용은 제목 한 줄뿐이다. 가운데 글자 정렬 칸은 Figma SectionHeader 에 없다 — 축 간극으로 적는다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/landing/sections/ambassador/Program.tsx#Questions": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
+      "binding": "named",
+      "louis": [],
+      "verdict": "needed",
+      "figma": null,
+      "reason": "질문 절이다(Program.tsx:526-546, 렌더 AmbassadorClient.tsx:93). 1fr:2fr 격자에 왼쪽 36 제목, 오른쪽 dl — 행마다 --line 윗선 · py-24 · 20 SemiBold 질문 · 16 muted 답(:535-542), 접지 않고 펼친 채다. 옛 페이지가 쓰던 랜딩 FAQ(FaqRow)는 radius 12 채운 상자 + 펼침 단추라 조형이 다르다. Figma 대응이 없다.",
+      "weight": "low",
+      "kind": "screen",
+      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:93), /ambassador 한 절. 면 없는 헤어라인 질문 행은 이 절 전용이고 다른 화면에 같은 모양이 없다. FaqRow 와는 면 · 단추 유무가 달라 그 축으로 셀 수 없다. 화면으로 둔다."
+    },
+    "apps/web/components/landing/sections/ambassador/Program.tsx#RollerHead": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
+      "binding": "local",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "협업 유형 절의 머리 조각이다(Program.tsx:220-344, 렌더 :158 한 자리). 「[형식] 크리에이터를 찾습니다」 한 줄(36 SemiBold, 가운데)에서 형식 낱말이 세로로 굴러가는 롤러 동작이고(:251-275), 정지 시각은 제목 글자와 낱말 칸 아래 6px 분광 빛줄(ROLL_LINE :213) 하나다. ScrubTitle 처럼 끝 프레임은 평범한 제목이라 동작이 본체다. 부모 Types 보드 안에서 정의된다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/landing/sections/ambassador/Program.tsx#Section": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
+      "binding": "local",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "섹션 배치 래퍼다(Program.tsx:47-53; 렌더 :155 · :373 · :487 · :530 같은 파일). <section> 에 위 여백 160/96(SECTION :31)과 CONTAINER 폭(track.ts:23)만 준다 — 면 · 색 · 타이포가 없다. 랜딩 SectionShell 과 리듬 값이 다르지만(세로 120 · 88 · 60) 그릴 것이 없어 부모 절 판정에 딸린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/landing/sections/ambassador/Program.tsx#Steps": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-motion-content-fade-duration"
+      ],
+      "verdict": "needed",
+      "figma": null,
+      "reason": "지원 후 진행 절이다(Program.tsx:479-521, 렌더 AmbassadorClient.tsx:92). 가운데 제목(Head) 아래 4열 — 1px 가로 흐름선 구간(--line, 채움 --text-muted, :494-502) · 10px 원 마디(:503-507) · 14 번호 · 20 SemiBold 제목 · 16 설명(:508-514), 1024 미만은 왼쪽 세로선으로 바뀐다. 선이 차례로 채워지는 것은 동작이다. Figma 대응이 없다.",
+      "weight": "low",
+      "kind": "screen",
+      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:92), /ambassador 한 절. 흐름선 · 마디 단계 줄은 이 절 전용이고 다른 화면에 같은 모양이 없다. 되풀이 0 이라 화면으로 둔다."
+    },
+    "apps/web/components/landing/sections/ambassador/Program.tsx#Stream": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
+      "binding": "local",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "유형 카드의 큰 글이 낱말 하나씩 흘러나오는 동작 조각이다(Program.tsx:98-138, 렌더 :180 한 자리). 정지 시각은 28 SemiBold 흰 문단(:120) 하나이고 낱말 불투명도 0 → 0.18~0.8 → 1 은 70ms 간격 동작이다(:94-95, :126). 끝 프레임은 평범한 문단이라 부모 Types 판정에 딸린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/landing/sections/ambassador/Program.tsx#Types": {
+      "file": "apps/web/components/landing/sections/ambassador/Program.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-radius-card-lg"
+      ],
+      "verdict": "needed",
+      "figma": null,
+      "reason": "협업 유형 절이다(Program.tsx:142-203, 렌더 AmbassadorClient.tsx:79). RollerHead 아래 2열 유형 카드 둘 — radius card-lg · px24 · 짙은 그라디언트 면에 유형별 푸른/주황 방사광 + 안쪽 빛 그림자(SCREEN :83-88), 1px 무지개 고리(RIM :90), 28 이름 + 14 운영 단위, Stream 큰 글, 96px 이름표 행 넷(10% 윗선, ROW_DARK :92), Button lg inverse(:192-196). 넓은 화면은 subgrid 로 행을 맞춘다. 옛 CollabColumns(needed low screen)의 후속이다. Figma 대응이 없다.",
+      "weight": "low",
+      "kind": "screen",
+      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:79), /ambassador 한 절. 유형 카드는 이 절에서 데이터 둘로만 반복되고 다른 화면에 같은 조형(빛 면 · 무지개 고리 · 이름표 행)이 없다. 화면으로 둔다."
+    },
+    "apps/web/components/landing/sections/ambassador/TitleWave.tsx#TitleWave": {
+      "file": "apps/web/components/landing/sections/ambassador/TitleWave.tsx",
+      "binding": "default",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "히어로 제목이 나타나는 물결 효과다(TitleWave.tsx:266-463, 렌더 BadgeIntro.tsx:462 한 자리). aria-hidden 전면 WebGL 캔버스 한 장(:458-461)이 h1 을 텍스처로 옮겨 1.6초 밀림 · 색 갈라짐 · 흐림을 그리고, 끝나면 h1 에 자리를 넘기고 떼어진다(머리말 :3-20). 끝 프레임에 남는 것이 없는 동작이라 그릴 것이 없다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -2701,7 +2681,9 @@
     "apps/web/components/landing/sections/HeroNotice.tsx#HeroNoticeBody": {
       "file": "apps/web/components/landing/sections/HeroNotice.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-notice"
+      ],
       "verdict": "figma",
       "figma": "NoticePill",
       "reason": "notice-pill 의 제품 정본이 `HeroNotice.tsx:41-91` 이다(design/components/notice-pill.md). 점 → 로고 → 문구 속과 겉면을 Figma `NoticePill`(Logo · Interactive · State)이 함께 그린다.",
@@ -2752,20 +2734,6 @@
       "weight": null,
       "kind": null,
       "kindReason": null
-    },
-    "apps/web/components/landing/sections/ModelShowcase.tsx#Stage": {
-      "file": "apps/web/components/landing/sections/ModelShowcase.tsx",
-      "binding": "local",
-      "louis": [
-        "louis-motion-tab-select-duration",
-        "louis-motion-tab-select-timing-function"
-      ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "데스크톱 랜딩의 모델 절이다(소유자가 2026-09-23 채택). 5:8 두 칸에 왼쪽 모델 목록과 오른쪽 무대를 놓는다. 목록 행은 radius 12, 로고 20(흰 실루엣을 invert), body-16-semibold 모델명, caption-12 New/Top, 진행선 2px 이고(ModelShowcase.tsx:53 ROW, :69 PROGRESS), 선택 여부를 면 --panel 과 잉크 000/300 으로 가른다. 무대는 16:10 · radius 16 · --panel-strong 이고, 아래 절반에 55% 셰이드를 깔고 heading-28 이름과 body-16 설명을 얹는다(:73 STAGE). 1024 아래의 캐러셀(MediaCard + CarouselArrow)과 달리 이 두 칸은 Figma 에 대응이 없다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측 결과 렌더 자리는 같은 파일 :84 하나뿐이고, 그 바깥 ModelShowcase 의 소비처도 app/HomePageClient.tsx:11/:87 하나다. 즉 랜딩 한 절의 1024 이상 모양이다. 목록 행과 무대 카드 둘 다 이 절 전용이고 다른 화면에 같은 모양이 없다. 행은 SelectableListRow 와 닮았지만 진행선과 로고 실루엣 반전을 갖는 다른 조형이다. 되풀이가 0이므로 화면으로 둔다."
     },
     "apps/web/components/landing/sections/ModelShowcase.tsx#StageMedia": {
       "file": "apps/web/components/landing/sections/ModelShowcase.tsx",
@@ -2858,7 +2826,12 @@
     "apps/web/components/landing/sections/PricingSection.tsx#PlanComparisonTable": {
       "file": "apps/web/components/landing/sections/PricingSection.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-icon",
+        "louis-plan",
+        "louis-plan-comparison",
+        "louis-plan-comparison-columns"
+      ],
       "verdict": "figma",
       "figma": "Product/Plan Comparison Table",
       "reason": "Figma 제품 세트 `Product/Plan Comparison Table`(Viewport=Desktop|Mobile)이 이 표면을 통째로 그린다 — 공개 원장 /pricing 측정 서브트리(데스크톱 노드 754 · 모바일 493, 러너 조각으로 나눔)(Updates (199)). /mypage/upgrade 의 같은 표는 측정 화면 밖이다. DS-D-0071: 제품 세트 대응이지 LOUIS 컴포넌트가 아니다.",
@@ -2869,7 +2842,11 @@
     "apps/web/components/landing/sections/PricingSection.tsx#PricingSection": {
       "file": "apps/web/components/landing/sections/PricingSection.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-plan-tier",
+        "louis-plan-tier-card",
+        "louis-visually-hidden"
+      ],
       "verdict": "figma",
       "figma": "screen:/pricing",
       "reason": "요금 화면의 보드다(DS-D-0098). 요금제 티어 카드 덱은 plan-tier-card(DS-D-0091), 비교표는 Product/Plan Comparison Table · plan-comparison(DS-D-0092)이 대응하고, 크레딧 팩 카드와 절 조립을 이 보드가 그린다. 같은 파일에 needed 가 없고, 두 보드가 늘림 시험을 통과한다(데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다 — RESIZE_PRODUCT_SAME, run 2026-10-14a).",
@@ -2947,7 +2924,10 @@
     "apps/web/components/landing/system/Carousel.tsx#CarouselHeader": {
       "file": "apps/web/components/landing/system/Carousel.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-section",
+        "louis-section-header"
+      ],
       "verdict": "figma",
       "figma": "SectionHeader",
       "reason": "heading-36 제목 + 우측 화살표 쌍 조합이 section-header 의 `display` 레벨로 올라갔다(design/components/section-header.md 표 — `Carousel.tsx:128-150`). Figma `SectionHeader` 의 `Level=display` 와 Actions 슬롯(CarouselArrow)이 그린다.",
@@ -3184,7 +3164,11 @@
     "apps/web/components/models/ModelLogo.tsx#ModelLogo": {
       "file": "apps/web/components/models/ModelLogo.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-logo",
+        "louis-logo-tile",
+        "louis-logo-tile-image"
+      ],
       "verdict": "figma",
       "figma": "LogoTile",
       "reason": "logo-tile 의 제품 정본이 `ModelLogo.tsx:8-22` 다(design/components/logo-tile.md). 크기 셋과 글리프 · 첫 글자 대체를 Figma `LogoTile`(Size × Content)이 그린다.",
@@ -3225,10 +3209,36 @@
       "kind": "screen",
       "kindReason": "2026-10-15 아침 재판정: 보드 /models/[slug] 모바일(3471:9270)이 늘림 run q-1015-r 에서 w360 넘침 · 자식 넘침(안내 글 20px)으로 실패해 DS-D-0098 조건 2 를 잃었다. 늘림을 다시 재 통과하면 다시 대응으로 닫는다."
     },
-    "apps/web/components/navigation/CommandPalette.tsx#ChevronGlyph": {
+    "apps/web/components/navigation/CommandPalette.tsx#ArrowDownGlyph": {
       "file": "apps/web/components/navigation/CommandPalette.tsx",
       "binding": "local",
       "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "푸터 키캡(`louis-keycap`, CommandPalette.tsx:614-617) 안의 아래 화살표 글리프다(:707-721). 머리말(:688-689)대로 LOUIS icon/arrow-down 의 지오메트리 — 세로선 12,3.75→20.25 + 꺾쇠 5.25 13.5 → 12 20.25 → 18.75 13.5, 획 1.5 — 를 그대로 옮겼다. 옛 KeyArrowGlyph 의 rotate(180) 대신 정본 아이콘과 좌표가 같아졌다. 아이콘 축(DS-D-0038)이고 키캡 껍데기는 Figma Keycap 이 소유한다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/navigation/CommandPalette.tsx#ArrowUpGlyph": {
+      "file": "apps/web/components/navigation/CommandPalette.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-keycap"
+      ],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "푸터 키캡(`louis-keycap`, CommandPalette.tsx:610-613) 안의 위 화살표 글리프다(:691-705). LOUIS icon/arrow-up 과 좌표 · 획 1.5 · round 까지 같다(세로선 + 5.25 10.5 → 12 3.75 → 18.75 10.5). 옛 KeyArrowGlyph(scoped, 획 2.2 의 다른 그림)의 후속이고 같은 아이콘 축(DS-D-0038) 판정이다. 키캡 껍데기는 Figma Keycap 이 소유한다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/navigation/CommandPalette.tsx#ChevronGlyph": {
+      "file": "apps/web/components/navigation/CommandPalette.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-command"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "하위 목록(언어·테마)이 있는 행의 오른쪽 갈매기다. 24 뷰박스에 m9 6 6 6-6 6 한 획이라 DS·Icons 의 icon/caret-right 와 같은 형태이고, 그 아이콘 정본이 Figma 에 이미 있다. 남은 차이는 스트로크뿐(제품 2 · 정본 1.5)이라 새 컴포넌트가 아니라 토큰 수렴 과제다.",
@@ -3250,7 +3260,21 @@
     "apps/web/components/navigation/CommandPalette.tsx#CommandPalette": {
       "file": "apps/web/components/navigation/CommandPalette.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-command",
+        "louis-command-palette",
+        "louis-command-palette-flyout-top",
+        "louis-command-palette-from-scale-x",
+        "louis-command-palette-from-scale-y",
+        "louis-command-palette-from-x",
+        "louis-command-palette-from-y",
+        "louis-icon",
+        "louis-keycap",
+        "louis-popover",
+        "louis-scroll-locked",
+        "louis-state",
+        "louis-visually-hidden"
+      ],
       "verdict": "figma",
       "figma": "CommandPalette",
       "reason": "DS-D-0095 가 이 팔레트를 command-palette 로 세웠다. 면 · 검색 머리 · 묶음 · 바닥 키캡을 Figma `CommandPalette` 세트(빈 상태 `CommandPaletteEmpty` · `Keycap`)가 그린다. 행은 Menu `Layout=inline` 변형이다.",
@@ -3258,24 +3282,13 @@
       "kind": null,
       "kindReason": null
     },
-    "apps/web/components/navigation/CommandPalette.tsx#KeyArrowGlyph": {
+    "apps/web/components/navigation/CommandPalette.tsx#EnterGlyph": {
       "file": "apps/web/components/navigation/CommandPalette.tsx",
       "binding": "local",
       "louis": [],
       "verdict": "scoped",
       "figma": null,
-      "reason": "푸터 키캡 안의 위/아래 화살표 글리프이고 down 은 같은 path 를 rotate(180) 한 것이다. DS·Icons 의 icon/arrow-up 이 같은 구성(세로선 + 갈매기 두 벡터)으로 이미 있어 그 정본의 회전 인스턴스로 덮인다. 키캡 껍데기 자체는 Figma Keycap 컴포넌트가 소유한다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/navigation/CommandPalette.tsx#KeyEnterGlyph": {
-      "file": "apps/web/components/navigation/CommandPalette.tsx",
-      "binding": "local",
-      "louis": [],
-      "verdict": "figma",
-      "figma": "Product/Glyph",
-      "reason": "Figma 제품 세트 `Product/Glyph` 의 `Name=Key Enter` 가 이 표면을 통째로 그린다 — 생성기 build-figma-product-glyphs 가 제품 앵커 2c6bdacf 의 인라인 <svg>(apps/web/components/navigation/CommandPalette.tsx:921)를 기계로 옮겼다(svg sha256 e31b8487d01d). DS-D-0071: 제품 세트 대응이지 LOUIS 아이콘이 아니다.",
+      "reason": "푸터 「선택」 키캡(CommandPalette.tsx:626-629) 안의 엔터 글리프다(:723-738). 옛 KeyEnterGlyph(figma Product/Glyph Name=Key Enter, svg sha256 e31b8487d01d — 둥근 모서리 M20 6v6a3 3 0 0 1-3 3H5 · 획 2.2)와 그림이 다르다 — 이제 M9 12 4.5 16.5 9 21 · M18 3v13.5H4.5 · 획 1.5 로 LOUIS icon/arrow-elbow-down-left 와 좌표가 같다. 그래서 Product/Glyph 대응은 이어지지 않고, 정본 아이콘이 있는 아이콘 축(DS-D-0038)으로 범위 밖이다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -3283,7 +3296,10 @@
     "apps/web/components/navigation/CommandPalette.tsx#SearchGlyph": {
       "file": "apps/web/components/navigation/CommandPalette.tsx",
       "binding": "local",
-      "louis": [],
+      "louis": [
+        "louis-command",
+        "louis-icon"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "팔레트 검색 아이콘이다. 주석이 public/icons/MagnifyingGlass.svg 와 같은 지오메트리라고 적고 있고 DS·Icons 에 icon/magnifying-glass 정본이 이미 있다. 남은 차이는 박스·스트로크뿐(제품 32/2.4 · 정본 24/1.5)이라 수렴 과제다.",
@@ -3417,10 +3433,28 @@
     "apps/web/components/PastDueBanner.tsx#PastDueBanner": {
       "file": "apps/web/components/PastDueBanner.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-alert",
+        "louis-text-link"
+      ],
       "verdict": "figma",
       "figma": "Alert",
       "reason": "연체 배너 — LOUIS alert banner 레이아웃과 닫기(__dismiss)로 덮인다 (2026-10-13 승격 조사, DS-D-0084)",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/pricing/PlanTierFeatureIcon.tsx#PlanTierFeatureIcon": {
+      "file": "apps/web/components/pricing/PlanTierFeatureIcon.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-color-plan-tier-card-feature-icon",
+        "louis-icon",
+        "louis-plan-tier"
+      ],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "요금 카드 기능 목록의 체크다(PlanTierFeatureIcon.tsx:9-39; 렌더 PricingSection.tsx:486 · UpgradePlanPageClient.tsx:684). 겉은 PlanTierCard 의 파트 `louis-plan-tier-card__feature-icon`(18 · 색 토큰은 레시피, plan-tier-card.md:83)이고 안은 LOUIS icon/check-circle 과 좌표 · 획 1.5 가 같은 인라인 svg 다. 파트는 Figma PlanTierCard 가, 글리프는 아이콘 축(DS-D-0038)이 이미 갖고 있어 독립 컴포넌트가 아니다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -3457,7 +3491,12 @@
     "apps/web/components/scenes/analytics/AnalyticsChannelHeader.tsx#AnalyticsChannelHeader": {
       "file": "apps/web/components/scenes/analytics/AnalyticsChannelHeader.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-avatar",
+        "louis-bare-button",
+        "louis-channel",
+        "louis-skeleton"
+      ],
       "verdict": "figma",
       "figma": "ChannelHeader",
       "reason": "DS-D-0087 이 이 채널 헤더(배너 띠 · 프로필 행 · 설명 더보기)를 channel-header 로 세웠다. Figma `ChannelHeader` · `ChannelHeaderDescription` 이 그린다.",
@@ -3531,17 +3570,6 @@
       "kind": null,
       "kindReason": null
     },
-    "apps/web/components/scenes/analytics/KpiCard.tsx#AnalyticsKpiCardSkeleton": {
-      "file": "apps/web/components/scenes/analytics/KpiCard.tsx",
-      "binding": "named",
-      "louis": [],
-      "verdict": "figma",
-      "figma": "ChartCard",
-      "reason": "같은 .louis-chart-card(data-chart=\"spark\") 틀의 헤더 라벨 줄과 수치 줄 안에 .louis-skeleton 을 인라인으로 얹은 로딩 자리다(KpiCard.tsx:74-91) — Figma ChartCard 의 Chart=spark × State=loading 칸이고, 슬롯 내용은 형제 Skeleton 이 그린다(chart-card.md:93). 소비처는 YoutubeVideoAnalyticsView:323·:328 · NodeCanvasAnalysisModal:654. 다만 그 Figma 칸은 옛 ReportKpiRowSkeleton(REPORT_KPI_CARD 골격)을 근거로 그렸고 이 스켈레톤은 실물과 같은 chart-card 틀이라, 되그릴 때 줄 폭(90 · 110px)과 안쪽 면 유무를 이 표면에 맞춰 대조해야 한다.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
     "apps/web/components/scenes/analytics/OverviewTab.tsx#AnalyticsOverviewTab": {
       "file": "apps/web/components/scenes/analytics/OverviewTab.tsx",
       "binding": "named",
@@ -3563,6 +3591,19 @@
       "weight": "high",
       "kind": "screen",
       "kindReason": "앵커 실측: import 1곳 · JSX 1곳(YoutubeAnalyticsScene.tsx:2227). 788줄 탭 본문 = 보드. 꺼낼 부품 — 인기 콘텐츠 목록 행(순위·9:16 썸네일·플랫폼 로고·지표)과 트래픽 소스 바 행(점·라벨·퍼센트·채워지는 바). 바 행은 AudienceTab · YoutubeVideoAnalyticsView 와 같은 벌이라 3파일에 걸친다. 기간 토글은 LOUIS SegmentedControl 로 수렴할 자리다."
+    },
+    "apps/web/components/scenes/analytics/shared.tsx#AnalyticsKpiCardSkeleton": {
+      "file": "apps/web/components/scenes/analytics/shared.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-chart"
+      ],
+      "verdict": "figma",
+      "figma": "ChartCard",
+      "reason": "옛 KpiCard.tsx#AnalyticsKpiCardSkeleton(figma ChartCard)가 순환을 피해 이 파일로 옮겨졌다(KpiCard.tsx:52-55 가 다시 내보낸다). 마크업이 같다 — `louis-chart-card[data-chart=\"spark\"]` 틀의 헤더 줄 · `__panel` · `__metric` 안에 `louis-skeleton` 막대 90 · 110px(shared.tsx:157-179), 바뀐 것은 data-shape text → line 하나다. Figma ChartCard 의 Chart=spark × State=loading 칸이다. 이제 ReportKpiRowSkeleton 도 이 한 벌을 쓴다(:562) — 옛 사유가 적은 「Figma 칸은 옛 REPORT_KPI_CARD 골격을 근거로 그렸다」는 대조 과제는 남는다. 소비처 YoutubeVideoAnalyticsView:323 · :328 · NodeCanvasAnalysisModal:654.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/analytics/shared.tsx#AnalyticsStatePanel": {
       "file": "apps/web/components/scenes/analytics/shared.tsx",
@@ -3670,7 +3711,9 @@
     "apps/web/components/scenes/analytics/SpacedItems.tsx#SpacedItems": {
       "file": "apps/web/components/scenes/analytics/SpacedItems.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-visually-hidden"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "문자열 배열을 span 들로 펼치는 fragment 다(SpacedItems.tsx:21-45) — 자기 요소도 클래스도 없고, 간격(gap-x 12 · gap-y 2 · wrap)은 감싸는 쪽이 SPACED_ITEMS_ROW(:19)로 건다. 마지막이 아닌 항목 끝의 sr-only 구분은 보조기술용이라 픽셀이 없다. Figma 에서는 줄바꿈하는 가로 auto-layout(간격 12) 안의 텍스트 레이어들이며, 쓰이는 자리(AnalyticsChannelHeader:208 · ContentTable:682 · InstagramAnalyticsScene:1699 · NodeCanvasAnalysisModal:794)의 표면이 그 줄을 그린다.",
@@ -3683,7 +3726,8 @@
       "binding": "default",
       "louis": [
         "louis-banner",
-        "louis-glass-surface"
+        "louis-glass-surface",
+        "louis-project-card-overlay"
       ],
       "verdict": "figma",
       "figma": "screen:/archive seeded",
@@ -3767,7 +3811,12 @@
     "apps/web/components/scenes/create/ImageCropModal.tsx#ImageCropModal": {
       "file": "apps/web/components/scenes/create/ImageCropModal.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-dialog",
+        "louis-overlay-mode",
+        "louis-overlay-panel",
+        "louis-state"
+      ],
       "verdict": "figma",
       "figma": "Dialog",
       "reason": "이미지 크롭 모달 — LOUIS dialog large + header · body · footer 와 transform-frame 조합이다 (2026-10-13 승격 조사, DS-D-0084)",
@@ -3793,6 +3842,45 @@
       "verdict": "scoped",
       "figma": null,
       "reason": "앵커 전체에서 import · JSX 렌더 지점이 0 인 죽은 코드다(DS-D-0106). 제품에 보이는 부품이 아니므로 범위 밖이다. 제품 저장소에서 지울 후보로 적는다. 2026-10-15 판정.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/AssistantPanel.tsx#AssistantPanel": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/AssistantPanel.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-chat",
+        "louis-chat-panel-pill-inline-size",
+        "louis-color-fg-primary"
+      ],
+      "verdict": "figma",
+      "figma": "ChatPanel",
+      "reason": "캔버스 어시스턴트 대화창이고 셸이 LOUIS chat-panel(DS-D-0094) 레시피다 — `louis-chat-panel` · `__header` · `__trigger`(접힌 알약) · `__controls` · `__body` · `__log` · `__bubble[data-from]` · `__dock` · `__composer` · `__input`(AssistantPanel.tsx:439-619). Figma ChatPanel · ChatBubble · ChatDock 이 그 구성이다. 이 화면이 덮는 값(소유자 판정 10-14): 안쪽 빛 끔(:146), 질문 말풍선 반전 면(:149), 답 말풍선 라이트 8%(:166), 닫기는 옆 패널 테두리 ✕(:472), 옆 카드 도킹판은 면 · 그림자 끔(:115-126), 창이 캔버스 테마를 따름(Figma 는 Dark 고정). 빈 상태 예시 단추(:485-496)는 ChatSuggestion 과 닮은 테두리 행이다. 제안 카드는 ProposalCard(별 표면)다. 렌더 node-canvas-v2/index.tsx:11922 한 자리.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/AssistantPanel.tsx#ProposalCard": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/AssistantPanel.tsx",
+      "binding": "local",
+      "louis": [],
+      "verdict": "needed",
+      "figma": null,
+      "reason": "어시스턴트 답 아래의 변경 제안 카드다(AssistantPanel.tsx:641-729, 렌더 :520). 창에서 면을 갖는 유일한 덩어리로 bg-raised · radius 12 · p-12 · 헤어라인(PROPOSAL :158-161), 안에 caption 머리 + 14 SemiBold 장면 이름 · 구성 한 줄 또는 요약, 변경 목록 caption, SceneChooser, 상태별 끝 줄 — pending 이면 ghost 「닫기」 + primary 「적용/만들기」, applied 면 설정 한 줄 + secondary 「되돌리기」, 그 밖은 caption 한 줄(:702-726). Figma chat-panel 가족(ChatBubble · ChatDock · ChatSuggestion · ChatGate)에 이 카드가 없다.",
+      "weight": "medium",
+      "kind": "oneoff",
+      "kindReason": "실측: 렌더 한 자리(AssistantPanel.tsx:520, 같은 파일 대화 로그 안). 하이라이트 ClipRefinementChat 은 제안을 칩(ChatSuggestion)으로 내고 이런 카드를 그리지 않아 다른 소비처가 없다. 라우트 한 장의 화면도 아니라 oneoff 로 둔다. 버튼은 Button 정본, 고르기는 SegmentedControl 이라 남는 것은 카드 면과 상태별 줄 배치다."
+    },
+    "apps/web/components/scenes/create/node-canvas-v2/components/AssistantPanel.tsx#SceneChooser": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/AssistantPanel.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-color-stroke-hairline"
+      ],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "새 장면의 품질 · 길이 고르기 조각이다(AssistantPanel.tsx:750-816, 렌더 :693 한 자리). 헤어라인 윗선 아래 caption-12-medium 라벨 + SegmentedToggle md 두 줄(:779-788, :797-804 — 원장에서 figma SegmentedControl) · 모델/해상도 caption · 14 SemiBold 예상 크레딧 줄뿐이다. 새 면이 없어 부모 ProposalCard(needed) 판정에 딸린다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -4215,7 +4303,9 @@
     "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx#NodePromptResizeHandle": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-node"
+      ],
       "verdict": "figma",
       "figma": "NodeResizeHandle",
       "reason": "그립 바 + 호버 안내 글이 node-shell 의 리사이즈 손잡이로 섰다(design/components/node-shell.md — Figma 는 `NodeResizeHandle`, State Rest · Hover).",
@@ -4292,7 +4382,9 @@
     "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx#ProjectVideosPopover": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-scope"
+      ],
       "verdict": "figma",
       "figma": "Menu",
       "reason": "프로젝트 영상 팝오버 — LOUIS menu-popover 와 selectable-list-row 조합이다 (2026-10-13 승격 조사, DS-D-0084)",
@@ -4318,6 +4410,9 @@
         "louis-dialog",
         "louis-overlay-mode",
         "louis-overlay-panel",
+        "louis-prompt",
+        "louis-prompt-variant",
+        "louis-prompt-variant-grid",
         "louis-state"
       ],
       "verdict": "figma",
@@ -4330,7 +4425,10 @@
     "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx#SmartGuideOverlay": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-canvas",
+        "louis-canvas-guide"
+      ],
       "verdict": "figma",
       "figma": "CanvasGuide",
       "reason": "canvas-guide 의 제품 정본이 `SmartGuideOverlay.tsx:13-66` 이다(design/components/canvas-guide.md). 리터럴 `#ff2d55` 는 pink 토큰으로 접혔고 Figma `CanvasGuide`(Orientation)가 그린다.",
@@ -4349,10 +4447,28 @@
       "kind": null,
       "kindReason": null
     },
+    "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#CaretGlyph": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx",
+      "binding": "local",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "날짜 고르개 달 이동 버튼 안의 캐럿 글리프다(YoutubeSchedulePickers.tsx:40-52; 렌더 :452 · :467). polyline 15 19.5 7.5 12 15 4.5 / 9 4.5 16.5 12 9 19.5 · 획 1.5 로 LOUIS icon/caret-left · caret-right 와 좌표가 같다(머리말 :29). 아이콘 축(DS-D-0038)이고 버튼과 팝오버는 형제 DatePickerCalendar 대응이 갖는다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
     "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleDatePopover": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-button",
+        "louis-date",
+        "louis-date-picker",
+        "louis-icon",
+        "louis-icon-button",
+        "louis-scope"
+      ],
       "verdict": "figma",
       "figma": "DatePickerCalendar",
       "reason": "DS-D-0096 이 이 달력 팝오버를 date-picker 의 date 모드로 세웠다. 면은 composite-popover, 속을 Figma `DatePickerCalendar` · `DatePickerCell` 이 그린다.",
@@ -4363,7 +4479,11 @@
     "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleTimePopover": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-date",
+        "louis-date-picker",
+        "louis-scope"
+      ],
       "verdict": "figma",
       "figma": "DatePickerTime",
       "reason": "DS-D-0096 이 이 시각 팝오버(시 · 분 열)를 date-picker 의 time 모드로 세웠다. Figma `DatePickerTime` 이 그린다.",
@@ -4660,7 +4780,13 @@
     "apps/web/components/scenes/create/node-canvas-v2/index.tsx#NodeCanvasV2Inner": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
       "binding": "local",
-      "louis": [],
+      "louis": [
+        "louis-floating-shell",
+        "louis-node-chip",
+        "louis-pill-trigger",
+        "louis-popover",
+        "louis-scope"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "캔버스 화면 셸 — 툴바·레이어 패널·줌 컨트롤·노드·엣지·모달을 배치하고 상태를 잇는 조립이다. 시각 단위가 아니라 다른 표면들의 합성이고, 이 파일이 소유한 시각은 이미 자식 표면 키들로 따로 세어져 있다.",
@@ -4973,7 +5099,9 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#CloseIcon": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
       "binding": "local",
-      "louis": [],
+      "louis": [
+        "louis-icon"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "SVG 글리프 한 장 — 면·타이포·상태 없이 `public/icons` 원본 패스를 currentColor 로 옮긴 아이콘 자산이다. Figma 에선 컴포넌트 51종이 아니라 아이콘 세트 축(readback 의 `icons`)에서 관리해야 할 물건이라 컴포넌트 대응물이 없어도 된다.",
@@ -4984,7 +5112,17 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#ColorPopover": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-color",
+        "louis-color-picker",
+        "louis-color-picker-alpha",
+        "louis-color-picker-brightness",
+        "louis-color-picker-color",
+        "louis-color-picker-hue",
+        "louis-color-picker-option-value",
+        "louis-color-picker-saturation",
+        "louis-icon-button"
+      ],
       "verdict": "figma",
       "figma": "ColorPicker",
       "reason": "DS-D-0097 이 이 색 팝오버(채도 · 밝기 면 · 색조 · 불투명도 띠 · 헥스 입력)를 color-picker 로 세웠다. Figma `ColorPicker` · `ColorPickerOption` 이 그린다.",
@@ -4995,7 +5133,11 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#ColorSwatchButton": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-color",
+        "louis-color-swatch",
+        "louis-color-swatch-value"
+      ],
       "verdict": "figma",
       "figma": "ColorSwatch",
       "reason": "DS-D-0097 이 이 트리거를 color-swatch 의 판 트리거 변형(sm 버튼 칩 · 체크무늬 · 호버 테두리 · 누름)으로 올렸다. Figma `ColorSwatch` 의 State(Default · Hover · Active) 칸이 그린다.",
@@ -5006,7 +5148,9 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx#EyedropperIcon": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
       "binding": "local",
-      "louis": [],
+      "louis": [
+        "louis-color"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "SVG 글리프 한 장 — 면·타이포·상태 없이 `public/icons` 원본 패스를 currentColor 로 옮긴 아이콘 자산이다. Figma 에선 컴포넌트 51종이 아니라 아이콘 세트 축(readback 의 `icons`)에서 관리해야 할 물건이라 컴포넌트 대응물이 없어도 된다.",
@@ -5017,7 +5161,10 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#BatchCropModal": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-overlay-mode",
+        "louis-state"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "같은 `…/nodes/CropModal.tsx#CropModalInner` 를 여러 소스에 대해 순서대로 보여주는 진행 래퍼다. 추가하는 시각은 본체가 받는 batchIndex/batchTotal 표시뿐이라 본체의 변형으로 흡수된다.",
@@ -5028,7 +5175,10 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#CropModal": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-overlay-mode",
+        "louis-state"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "`…/nodes/CropModal.tsx#CropModalInner` 를 오버레이에 한 장만 띄우는 래퍼다. 자기 마크업은 포털과 오버레이 뿐이라 그릴 시각이 본체와 겹친다.",
@@ -5047,10 +5197,31 @@
       "kind": null,
       "kindReason": null
     },
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#CropSegmented": {
+      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
+      "binding": "local",
+      "louis": [
+        "louis-segmented",
+        "louis-segmented-control",
+        "louis-segmented-control-thumb-block-size",
+        "louis-segmented-control-thumb-inline-size",
+        "louis-segmented-control-thumb-x",
+        "louis-segmented-control-thumb-y"
+      ],
+      "verdict": "figma",
+      "figma": "SegmentedControl",
+      "reason": "크롭 · 스티커 탭과 비율 고르기에 쓰는 토글이다(CropModal.tsx:67-110; 렌더 :725 · :737). `louis-segmented-control[data-size=\"md\"]` 트랙 + `__thumb`(공용 useSegmentedThumb 실측 지역 변수 넷) + `__segment[data-selected]` 로 정본을 그대로 물고, 자기 몫은 가운데 정렬 줄(SEGMENT_ROW :65) 하나다. Figma SegmentedControl 의 Size=md 트랙 · 세그먼트 칸이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#ImageEditModal": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-overlay-mode",
+        "louis-state"
+      ],
       "verdict": "needed",
       "figma": null,
       "reason": "이미지 편집 모달 본체(1,085줄)다 — 오버레이·모달 셸·헤더·닫기·비율 툴바(표시자 + 비율 버튼 두 톤)·크롭 영역·스티커 층을 자기 상수로 그린다. LOUIS 를 무는 것은 토큰 넷뿐이고(`accent-primary` · `media-indicator-active` · `hairline-inset` · `transform-frame`) 셸은 전부 자기 것이다. VideoEditModal 이 같은 성질로 needed(screen)/high 인 선례와 같은 자리다.",
@@ -5083,7 +5254,11 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx#ExampleGallery": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-media",
+        "louis-media-slot",
+        "louis-media-slot-strip"
+      ],
       "verdict": "figma",
       "figma": "GalleryPanel",
       "reason": "편집 모달 안을 덮는 예시 패널을 부품 gallery-panel 로 올렸다(DS-D-0104). 닫기 · 안내 글 대비(라이트 2.63 · 다크 3.80)를 고쳐 올렸다. 2026-10-15 대응.",
@@ -5094,7 +5269,9 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerCanvas.tsx#StickerCanvas": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerCanvas.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-transform"
+      ],
       "verdict": "figma",
       "figma": "TransformFrame",
       "reason": "스티커의 위치 · 크기 · 회전 손잡이는 Transform Frame 이 이미 이 파일을 정본으로 인용한다(DS-D-0106). 바닥은 편집 대상 그림이라 시스템이 정의할 시각이 없다. 2026-10-15 대응.",
@@ -5105,7 +5282,11 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx#StickerPalette": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-asset",
+        "louis-asset-tile",
+        "louis-asset-tile-grid"
+      ],
       "verdict": "figma",
       "figma": "AssetTile",
       "reason": "asset-tile 의 제품 정본이 이 스티커 팔레트다(design/components/asset-tile.md — `StickerPalette.tsx:30-56`). 고를 수 있는 그림 칸 격자를 Figma `AssetTile`(State Default · Hover · Active, INSTANCE_SWAP Media)이 그린다. 격자 배치는 조립이다.",
@@ -5263,6 +5444,7 @@
       "binding": "named",
       "louis": [
         "louis-button",
+        "louis-node",
         "louis-state"
       ],
       "verdict": "needed",
@@ -5330,7 +5512,11 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx#ClipCropModal": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-overlay-mode",
+        "louis-scrim",
+        "louis-state"
+      ],
       "verdict": "figma",
       "figma": "TransformFrame",
       "reason": "클립 크롭 — LOUIS transform-frame 이다 (2026-10-13 승격 조사, DS-D-0084)",
@@ -5385,7 +5571,13 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx#ColorRulerSlider": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-slider",
+        "louis-slider-ruler-minor",
+        "louis-slider-ruler-neutral",
+        "louis-slider-ruler-offset",
+        "louis-slider-ruler-span"
+      ],
       "verdict": "figma",
       "figma": "Slider",
       "reason": "가운데 고정 지시선 + 흐르는 눈금이 slider 의 `ruler` 변형으로 섰다(design/components/slider.md — `ColorRulerSlider.tsx:253-313`). Figma `Slider` 의 `Variant=ruler` 와 `SliderRulerTicks` 가 그린다.",
@@ -5396,7 +5588,11 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorValueRing.tsx#ColorValueRing": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorValueRing.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-progress",
+        "louis-progress-ring",
+        "louis-progress-value"
+      ],
       "verdict": "figma",
       "figma": "ProgressRing",
       "reason": "양방향 값 링이 progress 의 bipolar 링으로 섰다(design/components/progress.md — `ColorValueRing.tsx`). Figma `ProgressRing` 의 `Mode=bipolar` × Direction × Selected 가 그린다.",
@@ -5806,7 +6002,11 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx#MobileTimeline": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-timeline-extent",
+        "louis-timeline-w",
+        "louis-timeline-x"
+      ],
       "verdict": "figma",
       "figma": "Product/Mobile Timeline",
       "reason": "Figma 제품 세트 `Product/Mobile Timeline` 이 이 표면이다 — 세션 원장 `/videoeditor/[projectId]` 모바일 body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0(가운데 고정 재생헤드 · 흐르는 트랙 · 클립 필름 줄 · 길이 배지). 눈금 라벨은 원장에 실리지 않았고 여러 트랙 · 선택 상태는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
@@ -5817,7 +6017,9 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx#OverlayInspector": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-inspector"
+      ],
       "verdict": "needed",
       "figma": null,
       "reason": "`…/nodes/VideoEditModal.tsx#VideoEditModal` 안의 독립 영역이다. 텍스트·이미지 오버레이 속성 패널(1,810줄) — 폰트·크기·정렬·색·외곽선·그림자·위치까지 인스펙터 중 가장 넓다. 색 스와치·숫자 입력·세그먼트 토글이 한 화면에 모두 나와 인스펙터 문법의 상한을 정한다.",
@@ -5850,21 +6052,12 @@
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx#PremiereSequenceRuler": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-timeline-x"
+      ],
       "verdict": "figma",
       "figma": "Product/Sequence Ruler",
       "reason": "Figma 제품 세트 `Product/Sequence Ruler` 가 이 표면이다 — 세션 원장 `/videoeditor/[projectId]` 데스크톱 body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.1.0.0.0.1.1(ppRuler · ppRulerFace 의 보조 · 중간 눈금). 주 눈금 라벨과 플레이헤드 캡은 원장의 이 서브트리에 없어 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
-      "weight": null,
-      "kind": null,
-      "kindReason": null
-    },
-    "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx#SequenceGridLines": {
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx",
-      "binding": "named",
-      "louis": [],
-      "verdict": "scoped",
-      "figma": null,
-      "reason": "`…/nodes/videoEditParts/sequenceRuler.tsx#PremiereSequenceRuler` 와 같은 눈금 모델로 트랙 뒤에 세로선만 긋는 짝이다. 눈금자를 정본으로 세우면 그 격자 파트로 함께 정의된다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -6180,7 +6373,11 @@
     "apps/web/components/scenes/create/PhotoGrid.tsx#ReferenceSlotRow": {
       "file": "apps/web/components/scenes/create/PhotoGrid.tsx",
       "binding": "local",
-      "louis": [],
+      "louis": [
+        "louis-media",
+        "louis-media-slot",
+        "louis-media-slot-strip"
+      ],
       "verdict": "figma",
       "figma": "MediaSlot",
       "reason": "needed 사유가 「Figma 에 업로드 슬롯 축 자체가 없다」였다. media-slot 이 그 축으로 섰고(design/components/media-slot.md — `PhotoGrid.tsx:86-89` 색 · 반경을 접음), Figma `MediaSlot`(Layout base · empty × RemoveButton)이 채운 칸 · 빈 칸을 그린다. 세 칸을 늘어놓는 행은 조립이다.",
@@ -6234,10 +6431,25 @@
       "kind": null,
       "kindReason": null
     },
+    "apps/web/components/scenes/create/PublishFlow.tsx#CaretGlyph": {
+      "file": "apps/web/components/scenes/create/PublishFlow.tsx",
+      "binding": "local",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "인라인 달력 이동 버튼(`louis-icon-button` secondary md, PublishFlow.tsx:440-471) 안의 캐럿 글리프다(:113-125). polyline 좌표 · 획 1.5 가 LOUIS icon/caret-left · caret-right 와 같다(주석 :103-108). 아이콘 축(DS-D-0038)이라 범위 밖이고 같은 파일 PublishFlow(needed screen)의 보드 안에서는 IconButton 인스턴스의 글리프로 그려진다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
     "apps/web/components/scenes/create/PublishFlow.tsx#PublishFlow": {
       "file": "apps/web/components/scenes/create/PublishFlow.tsx",
       "binding": "default",
       "louis": [
+        "louis-date",
+        "louis-date-picker",
+        "louis-icon",
+        "louis-icon-button",
         "louis-switch"
       ],
       "verdict": "needed",
@@ -6345,7 +6557,6 @@
       "louis": [
         "louis-button",
         "louis-checkbox",
-        "louis-focus-ring",
         "louis-inspector",
         "louis-inspector-row",
         "louis-inspector-section",
@@ -6354,7 +6565,9 @@
         "louis-progress-bar",
         "louis-progress-value",
         "louis-selectable-list",
-        "louis-selectable-list-row"
+        "louis-selectable-list-row",
+        "louis-stage",
+        "louis-stage-bar"
       ],
       "verdict": "figma",
       "figma": "screen:/highlight/[projectId] completed",
@@ -6417,7 +6630,6 @@
       "binding": "named",
       "louis": [
         "louis-dialog",
-        "louis-focus-ring",
         "louis-hit-target",
         "louis-overlay-mode",
         "louis-overlay-panel",
@@ -6433,7 +6645,15 @@
     "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx#FilledTrack": {
       "file": "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx",
       "binding": "local",
-      "louis": [],
+      "louis": [
+        "louis-segment",
+        "louis-segment-track-at",
+        "louis-segment-track-lane",
+        "louis-segment-track-lanes",
+        "louis-segment-track-span",
+        "louis-segment-track-start",
+        "louis-segment-track-weight"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "StudioSegmentTrack 의 채워진 상태로, 지도 막대 · 구간 칸 · 재생헤드 · 가장자리 흐림을 그린다(StudioSegmentTrack.tsx:168-354). 내보내지 않는 로컬 조각이고 렌더는 :143 한 곳이다. 부모 트랙 표면의 한 상태라 부모 판정을 따른다.",
@@ -6444,7 +6664,12 @@
     "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx#StudioSegmentTrack": {
       "file": "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx",
       "binding": "named",
-      "louis": [],
+      "louis": [
+        "louis-segment",
+        "louis-segment-track",
+        "louis-segment-track-at",
+        "louis-segment-track-minor"
+      ],
       "verdict": "figma",
       "figma": "SegmentTrack",
       "reason": "segment-track 의 제품 정본이 `StudioSegmentTrack.tsx:121-158` 이다(design/components/segment-track.md). 지도 막대 · 구간 칸 · 재생헤드를 Figma `SegmentTrack` · `SegmentTrackBlock` · `SegmentTrackMapBar` 가 그린다.",
@@ -6455,7 +6680,9 @@
     "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx#TrackBlockLabel": {
       "file": "apps/web/components/scenes/highlight/StudioSegmentTrack.tsx",
       "binding": "local",
-      "louis": [],
+      "louis": [
+        "louis-segment"
+      ],
       "verdict": "scoped",
       "figma": null,
       "reason": "트랙 칸 안의 번호와 제목 한 줄이다. busy 일 때는 LoadingWord 로 흐른다(StudioSegmentTrack.tsx:357-370). 로컬 조각이고 렌더는 :340 한 곳이다. 칸의 시각은 부모 StudioSegmentTrack 이 가진다.",
@@ -6491,14 +6718,16 @@
       "binding": "default",
       "louis": [
         "louis-alert",
+        "louis-badge",
         "louis-button",
-        "louis-empty",
-        "louis-empty-state",
         "louis-inspector",
         "louis-inspector-row",
         "louis-inspector-section",
         "louis-inspector-section-head",
         "louis-project-card-adornment",
+        "louis-project-card-overlay",
+        "louis-section",
+        "louis-section-header",
         "louis-select",
         "louis-select-trigger"
       ],
@@ -6531,6 +6760,20 @@
       "kind": null,
       "kindReason": null
     },
+    "apps/web/components/scenes/HubEmptyState.tsx#HubEmptyState": {
+      "file": "apps/web/components/scenes/HubEmptyState.tsx",
+      "binding": "named",
+      "louis": [
+        "louis-empty",
+        "louis-empty-state"
+      ],
+      "verdict": "figma",
+      "figma": "EmptyState",
+      "reason": "세 허브(캔버스 · 컴포지션 · 하이라이트)가 함께 쓰는 빈 목록 상태다(HubEmptyState.tsx:17-45; 렌더 NodeCanvasHomeScene :1408 · VideoEditScene :734 · HighlightScene :1189). 마크업이 `louis-empty-state[data-layout=\"base\"]` · `__title` · `__action` 정본 그대로이고 액션은 Button primary md + PlusIcon 이다. Figma EmptyState 의 Layout=base · HasGraphic=false · HasDescription=false 칸이다. 자기 몫은 위 64 · 최대 폭 480 배치뿐이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
     "apps/web/components/scenes/InstagramAnalyticsScene.tsx#IgAreaChartBlock": {
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "binding": "local",
@@ -6557,7 +6800,9 @@
       "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "binding": "default",
       "louis": [
-        "louis-glass-surface"
+        "louis-glass-surface",
+        "louis-section",
+        "louis-section-header"
       ],
       "verdict": "figma",
       "figma": "screen:/nodecanvas seeded.loading-more",
@@ -6699,7 +6944,9 @@
       "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
       "binding": "named",
       "louis": [
-        "louis-checkbox"
+        "louis-checkbox",
+        "louis-selectable-list",
+        "louis-selectable-list-row"
       ],
       "verdict": "figma",
       "figma": "DrillPicker",
@@ -6722,7 +6969,11 @@
     "apps/web/components/scenes/VideoEditScene.tsx#VideoEditScene": {
       "file": "apps/web/components/scenes/VideoEditScene.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-project-card-overlay",
+        "louis-section",
+        "louis-section-header"
+      ],
       "verdict": "figma",
       "figma": "screen:/videoeditor seeded",
       "reason": "영상 편집 프로젝트 목록 화면의 보드다(DS-D-0098). 카드 그리드 · 썸네일 코너 상태 라벨 · 더보기 메뉴(`/videoeditor seeded.more-menu` 보드)를 시드 상태로 그린다. 같은 파일에 needed 가 없고, 두 보드가 늘림 시험을 통과한다(모바일 360 의 카드 제목 넘침은 제품도 같다 — RESIZE_PRODUCT_SAME).",
@@ -6771,10 +7022,26 @@
       "kind": null,
       "kindReason": null
     },
+    "apps/web/components/templates/TemplateResultCarousel.tsx#NavGlyph": {
+      "file": "apps/web/components/templates/TemplateResultCarousel.tsx",
+      "binding": "local",
+      "louis": [],
+      "verdict": "scoped",
+      "figma": null,
+      "reason": "커버플로 이동 버튼(`louis-coverflow__nav`, TemplateResultCarousel.tsx:174-207) 안의 캐럿 글리프다(:26-40). polyline 좌표 · 획 1.5 가 LOUIS icon/caret-left · caret-right 와 같다(머리말 :17-18). 아이콘 축(DS-D-0038)이고 버튼 · 조작 줄은 같은 파일의 Product/Template Result Carousel 대응이 그린다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
+    },
     "apps/web/components/templates/TemplateResultCarousel.tsx#TemplateResultCarousel": {
       "file": "apps/web/components/templates/TemplateResultCarousel.tsx",
       "binding": "default",
-      "louis": [],
+      "louis": [
+        "louis-badge",
+        "louis-coverflow",
+        "louis-coverflow-depth",
+        "louis-coverflow-offset"
+      ],
       "verdict": "figma",
       "figma": "Product/Template Result Carousel",
       "reason": "Figma 제품 세트 `Product/Template Result Carousel` 이 이 표면이다 — 공개 시드 원장 `/templates/[slug]` body.1.0.0.2.0.0.3(perspective 스테이지 · 원형 nav · 도트, 데스크톱 · 모바일). 카드 좌하단 라벨 배지는 측정 항목에 label 이 없어 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
@@ -6975,7 +7242,12 @@
       "file": "apps/web/components/ui/SegmentedThumb.tsx",
       "binding": "named",
       "louis": [
-        "louis-color-accent-secondary-selected"
+        "louis-color-accent-secondary-selected",
+        "louis-segmented-control-thumb-block-size",
+        "louis-segmented-control-thumb-inline-size",
+        "louis-segmented-control-thumb-radius",
+        "louis-segmented-control-thumb-x",
+        "louis-segmented-control-thumb-y"
       ],
       "verdict": "figma",
       "figma": "SegmentedControl",
@@ -7042,7 +7314,13 @@
     "apps/web/components/youtube/YoutubeUploadModal.tsx#YoutubeStylePlayer": {
       "file": "apps/web/components/youtube/YoutubeUploadModal.tsx",
       "binding": "local",
-      "louis": [],
+      "louis": [
+        "louis-video",
+        "louis-video-player",
+        "louis-video-player-buffer",
+        "louis-video-player-progress",
+        "louis-video-player-volume"
+      ],
       "verdict": "figma",
       "figma": "VideoPlayer",
       "reason": "needed 사유가 「VideoPlayer 에 유튜브 크롬 변형을 더하는 일」이었다. video-player 가 YouTube 미리보기 판 `data-platform=\"youtube\"` 를 가졌고(design/components/video-player.md 「플랫폼 미리보기」), Figma `VideoPlayer` 의 Platform=youtube 칸(2026-10-13, dark)과 `VideoPlayerVolume` 이 그린다.",

@@ -327,6 +327,29 @@ const PROBES = [
   // 같은 파일에 남은 것은 칸 묶음의 폭 `modalAuthInputGroup` 하나다(myPageSceneStyles.ts:424-427 주석).
   // `empty-state-actions` 와 같은 사정이다 — 측정 대상이 사라진 것이 아니라 제품이 LOUIS 정본을 물어
   // 잴 필요가 없어진 자리다.
+  //
+  // **그 자리의 `lg/stacked` 대조는 어드민 입력 칸이 이어받는다(2026-10-15).** 인증 모달의 새 칸은
+  // floating(라벨이 박스 안)이라 stacked 계약의 근거가 될 수 없다. 운영 판에서 라벨이 박스 **밖 위**에
+  // 앉고 크기를 고르지 않은(= lg) LOUIS 입력 칸을 그리는 자리는 어드민이다 — `AdminClient.tsx:246-247`
+  // 의 `FIELD_GROUP`(`louis-text-field` + 아래 여백) · `FIELD_LABEL` 과 `:226` 의 `FIELD_BOX` 를
+  // `:1570-1573` 이 라벨 → 박스 → 입력 순으로 그린다(`AdminSection.tsx:81-85` `ADMIN_FIELD` 도 같은 후크다).
+  // 박스에 덧붙는 호출부 유틸리티가 없어 후크 이름만으로 제품 렌더와 같다. `AdminClient.tsx` 는 소스 명부
+  // 밖이라 `from` 이 아니라 후크 탐침이다 — 다른 LOUIS 후크 탐침과 같은 형태다.
+  {
+    id: "text-field-admin-product",
+    source: "AdminClient.tsx:1570-1573 FIELD_GROUP > FIELD_BOX > FIELD_CONTROL — 어드민 크레딧 입력(라벨이 박스 밖, data-size 없음 = lg)",
+    html: `<span class="louis-text-field__box"><input type="text" class="louis-text-field__control" placeholder="0" /></span>`,
+    wrapper: [{ class: "louis-text-field" }],
+    read: [
+      "height",
+      "paddingTop",
+      "paddingLeft",
+      "columnGap",
+      "borderTopWidth",
+      "borderTopLeftRadius",
+      "borderBottomLeftRadius",
+    ],
+  },
   {
     id: "empty-state",
     source: "appHomeSceneStyles.ts emptyState",
@@ -1843,6 +1866,146 @@ const PROBES = [
     tag: "div",
     read: ["width", "height", "borderTopLeftRadius"],
   },
+  // ── 2026-10-14 에 기록에 오른 LOUIS 세트 ↔ 운영 main 97d4950e 의 소비처(2026-10-15) ──
+  // 그날 `figma/components.measured.json` 에 오른 열네 종은 원장이 한 번도 돌지 않은 채 들어와 제품 렌더와
+  // 한 축도 대조되지 않았다. 운영 판이 그 LOUIS 클래스를 **실제로 그리는 자리**가 있는 것만 여기 후크 탐침으로
+  // 세운다 — 소비처는 각 탐침의 source 가 운영 판의 파일:줄로 적는다. 소비처 파일이 소스 명부 밖이라 `from`
+  // 대신 후크 이름만 적는다(위 tooltip · checkbox 와 같은 형태). **호출부가 덮는 축은 재지 않는다** — 후크만
+  // 그린 탐침은 그 덮어쓰기를 모르므로, 덮인 축을 대조하면 제품이 아니라 레시피를 재는 것이 된다.
+  // 소비처가 없는 둘(breadcrumb · form-message — 핀 ac5beeb6 에 레시피가 없다)과 media-scrubber(제품은 youtube
+  // 판 하나만 그린다)는 `$noProductRender` 에 근거와 함께 있다.
+  //
+  // text-link — 운영 판의 유일한 소비처는 결제 실패 띠의 CTA 다(PastDueBanner.tsx:39-45, `app/layout.tsx` 가 건다).
+  // 호출부가 얹는 `type-body-14-semibold whitespace-nowrap` 은 글자 축이라 아래 셋(여백 · 밑줄 간격)을 건드리지 않는다.
+  {
+    id: "text-link-past-due-product",
+    source: 'PastDueBanner.tsx:39-45 <Link className="louis-text-link …" data-tone="inherit"> — 결제 실패 띠의 「결제 정보」 링크',
+    html: `<a href="/mypage" class="louis-text-link" data-tone="inherit">결제 정보 확인</a>`,
+    read: ["paddingTop", "paddingLeft", "textUnderlineOffset"],
+  },
+  // switch — 게시 흐름의 예약 토글(PublishFlow.tsx:420-429). 트랙과 썸을 따로 잰다. 켜진 썸의 이동(translate)은
+  // `aria-checked="true"` 조상이 정하므로 그 상태를 조상에 건다.
+  {
+    id: "switch-publish-product",
+    source: 'PublishFlow.tsx:420-429 <button className="louis-switch" role="switch" aria-checked> — 예약 게시 토글(꺼짐)',
+    html: `<button type="button" class="louis-switch" role="switch" aria-checked="false"><span class="louis-switch__thumb"></span></button>`,
+    read: ["width", "height", "paddingTop", "borderTopLeftRadius"],
+  },
+  {
+    id: "switch-thumb-on-product",
+    source: "PublishFlow.tsx:428 louis-switch__thumb — 켜진 토글(aria-checked=true)의 썸",
+    html: `<span class="louis-switch__thumb"></span>`,
+    wrapper: [{ class: "louis-switch", attrs: { role: "switch", "aria-checked": "true" } }],
+    read: ["width", "height", "translate"],
+  },
+  // keycap — 커맨드 팔레트 바닥줄의 글자 키(CommandPalette.tsx:621 `<kbd className="louis-keycap">{keyEscape}</kbd>`).
+  {
+    id: "keycap-command-palette-product",
+    source: 'CommandPalette.tsx:621 <kbd className="louis-keycap"> — 팔레트 바닥줄의 Esc 키(글자 판)',
+    html: `<kbd class="louis-keycap">Esc</kbd>`,
+    read: ["minWidth", "height", "paddingTop", "paddingLeft", "borderTopLeftRadius", "fontSize", "lineHeight"],
+  },
+  // node-chip — 문의 화면의 첨부 버튼(InquiryClient.tsx:193-195 · :709-718)이 기본 판을, 영상 노드의 소리 토글
+  // (VideoNode.tsx:2679-2681 `data-shape="square"`)이 정사각 판을 그린다. 캔버스 범위(`[data-louis-scope=canvas]`)는
+  // 면 색만 바꾸고 기하를 건드리지 않는다(node-chip.css). ghost 판을 그리는 소비처는 운영 판에 없다.
+  {
+    id: "node-chip-inquiry-product",
+    source: "InquiryClient.tsx:709-718 ATTACH_BUTTON(louis-node-chip) + __glyph + __label — 문의 첨부 버튼",
+    html: `<button type="button" class="louis-node-chip"><span class="louis-node-chip__glyph"></span><span class="louis-node-chip__label">이미지 첨부</span></button>`,
+    read: ["height", "paddingTop", "paddingLeft", "columnGap", "borderTopLeftRadius", "fontSize", "lineHeight"],
+  },
+  {
+    id: "node-chip-square-product",
+    source: 'VideoNode.tsx:2679-2681 META_ITEM(louis-node-chip) + data-shape="square" — 영상 노드의 아이콘 전용 알약',
+    html: `<button type="button" class="louis-node-chip" data-shape="square"><span class="louis-node-chip__glyph"></span></button>`,
+    read: ["width", "height", "paddingLeft", "columnGap", "borderTopLeftRadius"],
+  },
+  // loading-word — `LoadingWord.tsx:6` 의 `WORD` 를 어드민 셋(AdminSection.tsx:935 · ModelManagement.tsx:704 ·
+  // BannerManagement.tsx:707)이 그린다. 레시피는 여백 · 곡률을 선언하지 않는다 — 그 「없음」이 렌더에서도 0 인지를 본다.
+  {
+    id: "loading-word-product",
+    source: "LoadingWord.tsx:6 WORD(louis-loading-word) — AdminSection.tsx:935 외 2곳의 글자 쉬머",
+    html: `<span class="louis-loading-word">불러오는 중</span>`,
+    read: ["paddingTop", "paddingLeft", "borderTopLeftRadius"],
+  },
+  // table — 덮어쓰기 없이 레시피를 그대로 그리는 표는 어드민 광고 성과 표다(AdAttributionPanel.tsx:89-90
+  // `louis-table min-w-[…]`, :341 · :350-352 의 `<th scope="col">`, :433 의 `<td>`). **경쟁 정의가 있다** —
+  // analytics `ContentTable.tsx:74-75 · :94` · `InstagramAnalyticsScene.tsx:487-488 · :509` · `myPageSceneStyles.ts:310-314`
+  // `creditHistoryTable` 셋은 칸 여백을 th 8/12 · td 10/12 로 덮는다(「레시피 4/8, 제품 정본 8/12」). 앞의 둘은 소스
+  // 명부 밖이고, 셋째는 명부 안이지만 덮어쓰기가 표 루트의 `[&_th]` · `[&_td]` 자손 선택자라 칸 자체에 상수가 없다 —
+  // `wrapperFrom` 은 div 조상만 세우므로 그 루트 아래 실제 `<th>` 를 세울 수 없다. 그래서 여기서 재지 않는다.
+  // 이 탐침은 「레시피를 그대로 그린 자리」가 DS 기록과 같은지를 볼 뿐, 제품 표가 하나로 합의됐다는 증거가 아니다.
+  {
+    id: "table-header-cell-ad-product",
+    source: 'AdAttributionPanel.tsx:341 · :350-352 <table className="louis-table …"><thead><tr><th scope="col"> — 어드민 광고 성과 표의 머리 칸',
+    html: `<th scope="col">경로</th>`,
+    wrapper: [
+      { tag: "table", class: "louis-table", after: "<tbody><tr><td>값</td></tr></tbody>" },
+      { tag: "thead" },
+      { tag: "tr" },
+    ],
+    read: ["height", "paddingTop", "paddingLeft", "fontSize", "lineHeight"],
+  },
+  // 몸 칸은 **마지막 행이 아닌** 칸과 마지막 행의 칸이 다르다 — 마지막 tbody 의 마지막 행만 아래 선을 지운다.
+  // 뒤에 tbody 를 하나 더 세워 첫 행을 「가운데 행」으로 만든다.
+  {
+    id: "table-cell-ad-product",
+    source: "AdAttributionPanel.tsx:433 <td> — 광고 성과 표의 몸 칸(마지막 행이 아닌 행)",
+    html: `<td>12</td>`,
+    wrapper: [
+      { tag: "table", class: "louis-table", after: "<tbody><tr><td>값</td></tr></tbody>" },
+      { tag: "tbody" },
+      { tag: "tr" },
+    ],
+    read: ["height", "paddingTop", "paddingLeft", "borderBottomWidth", "fontSize", "lineHeight"],
+  },
+  {
+    id: "table-cell-last-ad-product",
+    source: "AdAttributionPanel.tsx:433 <td> — 광고 성과 표의 마지막 행 칸(아래 선이 없다)",
+    html: `<td>12</td>`,
+    wrapper: [{ tag: "table", class: "louis-table" }, { tag: "tbody" }, { tag: "tr" }],
+    read: ["height", "borderBottomWidth"],
+  },
+  // tabs — 분석 화면 탭 줄(AnalyticsTabs.tsx:19-25 TAB_LIST · :37-43 TAB). **호출부가 덮는 축이 많다** — 줄 간격
+  // `gap-0`(LOUIS 4), 글자색 · 글꼴 · 전환. 그래서 탭의 상자 축(높이 · 여백 · 곡률)만 잰다. 1440 폭에서 호출부는
+  // 그 셋을 덮지 않는다(좌우 여백 덮어쓰기 `px-4!` 는 480 이하, 첫 탭의 `pl-6` 은 12 로 레시피와 같은 값이다).
+  {
+    id: "tab-item-analytics-product",
+    source: 'AnalyticsTabs.tsx:60-69 <nav className={TAB_LIST} role="tablist"> > <button className={TAB} role="tab"> — 분석 탭(선택 안 됨)',
+    html: `<button type="button" role="tab" aria-selected="false" class="louis-tabs__tab">개요</button>`,
+    wrapper: [{ class: "louis-tabs", attrs: { role: "tablist" } }],
+    read: ["height", "paddingTop", "paddingLeft", "borderTopLeftRadius"],
+  },
+  // video-player — 운영 판의 소비처는 유튜브 업로드 모달의 미리보기 하나이고 판은 `data-platform="youtube"` 다
+  // (YoutubeUploadModal.tsx:492-494 루트 · :543 하단 줄 · :545 진행 막대 · :564 조작 줄). 기본 판(base)을 그리는
+  // 소비처는 없어 base 칸은 대조하지 않는다.
+  {
+    id: "video-player-youtube-bottom-product",
+    source: 'YoutubeUploadModal.tsx:543 louis-video-player__bottom (루트 :492-494 data-platform="youtube") — 미리보기 하단 줄',
+    html: `<div class="louis-video-player__bottom"><div class="louis-video-player__scrubber"></div><div class="louis-video-player__controls"></div></div>`,
+    wrapper: [{ class: "louis-video-player", attrs: { "data-platform": "youtube" } }],
+    read: ["height", "rowGap", "insetInlineStart", "insetBlockEnd"],
+  },
+  {
+    id: "video-player-youtube-scrubber-product",
+    source: "YoutubeUploadModal.tsx:545 louis-video-player__scrubber — youtube 판의 진행 막대(누르는 높이)",
+    html: `<div class="louis-video-player__scrubber"></div>`,
+    wrapper: [
+      { class: "louis-video-player", attrs: { "data-platform": "youtube" } },
+      { class: "louis-video-player__bottom" },
+    ],
+    read: ["height"],
+  },
+  {
+    id: "video-player-youtube-controls-product",
+    source: "YoutubeUploadModal.tsx:564 louis-video-player__controls — youtube 판의 조작 줄",
+    html: `<div class="louis-video-player__controls"></div>`,
+    wrapper: [
+      { class: "louis-video-player", attrs: { "data-platform": "youtube" } },
+      { class: "louis-video-player__bottom" },
+    ],
+    read: ["height"],
+  },
 ];
 
 // ── DS와 무엇을 어떻게 맞출지 ──────────────────────────────────────────────
@@ -1981,6 +2144,17 @@ const EXPECT = [
   //
   // **세 행은 2026-10-15 에 탐침과 함께 걷었다**(운영 main 97d4950e — 제품이 그 칸을 LOUIS text-field 로
   // 옮겼다. 탐침 자리의 주석). 위 기록은 lg/stacked 대조가 어디서 왔는지 남기려고 둔다.
+  //
+  // **같은 날 lg/stacked 를 어드민 입력 칸이 다시 잇는다**(`text-field-admin-product` — 라벨이 박스 밖이고
+  // data-size 가 없다). 그전 행과 달리 이 자리는 LOUIS 레시피를 그대로 그리므로 테두리 편차의 뜻이 바뀐다.
+  ["text-field-admin-product", "height", ["input", "sizes", "lg/stacked", "height"], "same"],
+  ["text-field-admin-product", "paddingTop", ["input", "sizes", "lg/stacked", "paddingBlock"], "same"],
+  ["text-field-admin-product", "paddingLeft", ["input", "sizes", "lg/stacked", "paddingInline"], "same"],
+  ["text-field-admin-product", "columnGap", ["input", "sizes", "lg/stacked", "gap"], "same"],
+  ["text-field-admin-product", "borderTopLeftRadius", ["input", "sizes", "lg/stacked", "radius"], "same"],
+  ["text-field-admin-product", "borderBottomLeftRadius", ["input", "sizes", "lg/stacked", "radiusBottom"], "same"],
+  ["text-field-admin-product", "borderTopWidth", ["input", "sizes", "lg/stacked", "borderWidth"], "deviates",
+    "제품 0, DS 0.5. button-secondary 와 같은 사정이다 — 제품은 LOUIS `.louis-text-field__box` 를 그대로 그리고 그 레시피는 border 없이 `--louis-hairline-inset`(inset box-shadow)으로 헤어라인을 그린다(text-field.css `.louis-text-field__box`). 0.5 는 그 그림자의 spread 라 계산값 border-width 로 잡히지 않는다. 이 행은 **레시피가 진짜 테두리로 돌아가면 실패하라고** 남긴다."],
 
   ["empty-state", "paddingTop", ["empty-state", "sizes", "base", "paddingBlock"], "same"],
   ["empty-state", "rowGap", ["empty-state", "sizes", "base", "gap"], "same"],
@@ -2025,8 +2199,9 @@ const EXPECT = [
   ["segmented-track", "columnGap", ["segmented-control", "sizes", "lg", "segmentGap"], "deviates",
     "제품 2, DS 8. 제품은 thumb가 세그먼트 폭을 그대로 덮으므로 간격이 거의 필요 없다. DS는 thumb가 세그먼트 안에 놓여 간격이 눌린 세그먼트의 경계를 만든다."],
 
-  ["skeleton", "borderTopLeftRadius", ["skeleton", "sizes", "base", "radius"], "deviates",
-    "제품 999(알약), DS 8. 제품의 그 벌은 한 줄 텍스트 자리 표시라 알약이 맞지만, 블록·원까지 덮는 컴포넌트는 shape 축이 반경을 정한다(text 8 · block 16 · circle 999)."],
+  // 알약(999) 편차는 운영 main 97d4950e 에서 닫혔다 — 제품 `bcb314ba0`(「… 설정 스켈레톤을 LOUIS 기본으로 돌린다」)가
+  // `skeletonBlock` 을 `tw-mp-115 louis-skeleton`(myPageSceneStyles.ts:1173)으로 바꿔 곡률을 레시피 8 이 정한다.
+  ["skeleton", "borderTopLeftRadius", ["skeleton", "sizes", "base", "radius"], "same"],
   ["skeleton", "::after:animationDuration", ["skeleton", "motion", "duration"], "deviates", 1000,
     "제품 1300ms, DS 1600ms. 제품 shimmer 정의가 1.3s·1.5s·1.6s로 갈리고 DS는 motion-loop 계단의 1600을 쓴다."],
 
@@ -2471,6 +2646,77 @@ const EXPECT = [
   ["dialog-sheet-grabber-bar-product", "width", ["dialog", "sizes", "sheet/grabber", "grabberBarWidth"], "same"],
   ["dialog-sheet-grabber-bar-product", "height", ["dialog", "sizes", "sheet/grabber", "grabberBarHeight"], "same"],
   ["dialog-sheet-grabber-bar-product", "borderTopLeftRadius", ["dialog", "sizes", "sheet/grabber", "grabberBarRadius"], "same"],
+  // ── 2026-10-14 기록 ↔ 운영 main 97d4950e 소비처(2026-10-15, 탐침 자리의 주석) ──
+  // text-link 는 띠 CTA 가 쉬는 상태로 서므로 hover 칸이 아니라 기하가 같은 쉬는 칸(hover/Default)과 잇는다 —
+  // 걷은 `text-link-user-product` 행과 같은 칸이다.
+  ["text-link-past-due-product", "paddingTop", ["text-link", "sizes", "hover/Default", "paddingBlock"], "same"],
+  ["text-link-past-due-product", "paddingLeft", ["text-link", "sizes", "hover/Default", "paddingInline"], "same"],
+  ["text-link-past-due-product", "textUnderlineOffset", ["text-link", "sizes", "hover/Default", "underlineOffset"], "same"],
+  ["switch-publish-product", "width", ["switch", "sizes", "false", "width"], "same"],
+  ["switch-publish-product", "height", ["switch", "sizes", "false", "height"], "same"],
+  ["switch-publish-product", "paddingTop", ["switch", "sizes", "false", "padding"], "same"],
+  ["switch-publish-product", "borderTopLeftRadius", ["switch", "sizes", "false", "radius"], "same"],
+  ["switch-thumb-on-product", "width", ["switch", "sizes", "true", "thumbSize"], "same"],
+  ["switch-thumb-on-product", "height", ["switch", "sizes", "true", "thumbSize"], "same"],
+  ["switch-thumb-on-product", "translate", ["switch", "sizes", "true", "thumbOffset"], "same"],
+  ["keycap-command-palette-product", "minWidth", ["keycap", "sizes", "text", "minWidth"], "same"],
+  ["keycap-command-palette-product", "height", ["keycap", "sizes", "text", "height"], "same"],
+  ["keycap-command-palette-product", "paddingTop", ["keycap", "sizes", "text", "paddingBlock"], "same"],
+  ["keycap-command-palette-product", "paddingLeft", ["keycap", "sizes", "text", "paddingInline"], "same"],
+  ["keycap-command-palette-product", "borderTopLeftRadius", ["keycap", "sizes", "text", "radius"], "same"],
+  ["keycap-command-palette-product", "fontSize", ["keycap", "sizes", "text", "fontSize"], "same"],
+  ["keycap-command-palette-product", "lineHeight", ["keycap", "sizes", "text", "lineHeight"], "same"],
+  ["node-chip-inquiry-product", "height", ["node-chip", "sizes", "default/default", "height"], "same"],
+  ["node-chip-inquiry-product", "paddingLeft", ["node-chip", "sizes", "default/default", "paddingInline"], "same"],
+  ["node-chip-inquiry-product", "columnGap", ["node-chip", "sizes", "default/default", "gap"], "same"],
+  ["node-chip-inquiry-product", "borderTopLeftRadius", ["node-chip", "sizes", "default/default", "radius"], "same"],
+  ["node-chip-inquiry-product", "fontSize", ["node-chip", "sizes", "default/default", "fontSize"], "same"],
+  ["node-chip-inquiry-product", "lineHeight", ["node-chip", "sizes", "default/default", "lineHeight"], "same"],
+  ["node-chip-square-product", "width", ["node-chip", "sizes", "default/square", "width"], "same"],
+  ["node-chip-square-product", "height", ["node-chip", "sizes", "default/square", "height"], "same"],
+  ["node-chip-square-product", "paddingLeft", ["node-chip", "sizes", "default/square", "paddingInline"], "same"],
+  ["node-chip-square-product", "columnGap", ["node-chip", "sizes", "default/square", "gap"], "same"],
+  ["node-chip-square-product", "borderTopLeftRadius", ["node-chip", "sizes", "default/square", "radius"], "same"],
+  // pane-divider — 편집기 두 구분자 탐침(위 `editor-pane-divider-*-product`)이 2026-08-31 부터 그립을 재 왔는데
+  // 「DS 가 이 축을 소유하지 않는다」며 기록만 했다. 2026-10-14 에 `pane-divider` 기록이 생겼으므로 그 측정을 잇는다.
+  ["editor-pane-divider-vertical-product", "width", ["pane-divider", "sizes", "vertical/Default", "width"], "same"],
+  ["editor-pane-divider-vertical-product", "::before:width", ["pane-divider", "sizes", "vertical/Default", "gripWidth"], "same"],
+  ["editor-pane-divider-vertical-product", "::before:height", ["pane-divider", "sizes", "vertical/Default", "gripHeight"], "same"],
+  ["editor-pane-divider-vertical-product", "::before:borderTopLeftRadius", ["pane-divider", "sizes", "vertical/Default", "gripRadius"], "same"],
+  ["editor-pane-divider-horizontal-product", "height", ["pane-divider", "sizes", "horizontal/Default", "height"], "same"],
+  ["editor-pane-divider-horizontal-product", "::before:width", ["pane-divider", "sizes", "horizontal/Default", "gripWidth"], "same"],
+  ["editor-pane-divider-horizontal-product", "::before:height", ["pane-divider", "sizes", "horizontal/Default", "gripHeight"], "same"],
+  ["editor-pane-divider-horizontal-product", "::before:borderTopLeftRadius", ["pane-divider", "sizes", "horizontal/Default", "gripRadius"], "same"],
+  ["loading-word-product", "paddingTop", ["loading-word", "sizes", "flow", "padding"], "same"],
+  ["loading-word-product", "borderTopLeftRadius", ["loading-word", "sizes", "flow", "radius"], "same"],
+  // 표 — 머리 칸 · 몸 칸 · 마지막 행 칸의 높이가 곧 표 기록의 행 높이 셋이다(table.base 는 칸 높이를 행 단위로 다시 적은 것).
+  ["table-header-cell-ad-product", "height", ["table-header-cell", "sizes", "start", "height"], "same"],
+  ["table-header-cell-ad-product", "paddingTop", ["table-header-cell", "sizes", "start", "paddingBlock"], "same"],
+  ["table-header-cell-ad-product", "paddingLeft", ["table-header-cell", "sizes", "start", "paddingInline"], "same"],
+  ["table-header-cell-ad-product", "fontSize", ["table-header-cell", "sizes", "start", "labelFontSize"], "same"],
+  ["table-header-cell-ad-product", "lineHeight", ["table-header-cell", "sizes", "start", "labelLineHeight"], "same"],
+  ["table-header-cell-ad-product", "height", ["table", "sizes", "base", "headerRowHeight"], "same"],
+  ["table-cell-ad-product", "height", ["table-cell", "sizes", "start", "height"], "same"],
+  ["table-cell-ad-product", "paddingTop", ["table-cell", "sizes", "start", "paddingBlock"], "same"],
+  ["table-cell-ad-product", "paddingLeft", ["table-cell", "sizes", "start", "paddingInline"], "same"],
+  ["table-cell-ad-product", "borderBottomWidth", ["table-cell", "sizes", "start", "borderWidth"], "same"],
+  ["table-cell-ad-product", "fontSize", ["table-cell", "sizes", "start", "labelFontSize"], "same"],
+  ["table-cell-ad-product", "lineHeight", ["table-cell", "sizes", "start", "labelLineHeight"], "same"],
+  ["table-cell-ad-product", "height", ["table", "sizes", "base", "rowHeight"], "same"],
+  ["table-cell-last-ad-product", "height", ["table-cell", "sizes", "start", "lastRowHeight"], "same"],
+  ["table-cell-last-ad-product", "height", ["table", "sizes", "base", "lastRowHeight"], "same"],
+  // 탭 — 탭 높이가 줄의 탭 높이다(tabs.default.tabHeight). 줄 간격은 호출부가 `gap-0` 으로 덮어 재지 않는다(탐침 자리의 주석).
+  ["tab-item-analytics-product", "height", ["tab-item", "sizes", "Default", "height"], "same"],
+  ["tab-item-analytics-product", "paddingTop", ["tab-item", "sizes", "Default", "paddingBlock"], "same"],
+  ["tab-item-analytics-product", "paddingLeft", ["tab-item", "sizes", "Default", "paddingInline"], "same"],
+  ["tab-item-analytics-product", "borderTopLeftRadius", ["tab-item", "sizes", "Default", "radius"], "same"],
+  ["tab-item-analytics-product", "height", ["tabs", "sizes", "default", "tabHeight"], "same"],
+  ["video-player-youtube-bottom-product", "height", ["video-player", "sizes", "youtube", "bottomHeight"], "same"],
+  ["video-player-youtube-bottom-product", "rowGap", ["video-player", "sizes", "youtube", "bottomGap"], "same"],
+  ["video-player-youtube-bottom-product", "insetInlineStart", ["video-player", "sizes", "youtube", "bottomInset"], "same"],
+  ["video-player-youtube-bottom-product", "insetBlockEnd", ["video-player", "sizes", "youtube", "bottomInset"], "same"],
+  ["video-player-youtube-scrubber-product", "height", ["video-player", "sizes", "youtube", "scrubberHeight"], "same"],
+  ["video-player-youtube-controls-product", "height", ["video-player", "sizes", "youtube", "controlsHeight"], "same"],
 ];
 
 // 채움(`fill`) 행이 읽는 조상 축. 가로 쓰기 기준 — 내용 폭 = 조상 폭 − 왼쪽 패딩 − 오른쪽 패딩.
@@ -2687,7 +2933,8 @@ try {
       for (const token of match[1].split(/\s+/)) if (token) candidates.add(token);
     }
     for (const entry of [probe.wrapper ?? []].flat()) {
-      candidates.add(typeof entry === "string" ? entry : entry.class);
+      const className = typeof entry === "string" ? entry : entry.class;
+      if (className) candidates.add(className);
     }
   }
   for (const token of bodyMarker.split(/\s+/)) if (token) candidates.add(token);
@@ -2768,15 +3015,22 @@ try {
               // 조상도 속성을 가질 수 있다 — `.louis-spinner[data-size="sm"] .louis-spinner__ring`
               // 처럼 크기를 조상의 data 속성이 정하는 자리가 있다. 문자열이면 클래스만,
               // 객체면 `{ class, attrs }` 로 받는다.
+              // **표는 div 로 감쌀 수 없다.** `.louis-table > thead > tr > th` 처럼 자식 결합자로 겨누는
+              // 레시피는 조상이 실제 `<table>`·`<thead>`·`<tr>` 이어야 매칭되고, 파서는 `<div>` 안의 `<th>` 를
+              // 버린다. 그래서 객체 조상은 `tag` 를, 그리고 **뒤에 오는 형제**(`after`)를 가질 수 있다 —
+              // 「마지막 행이 아닌 칸」은 뒤에 행이 하나 더 있어야 선다(`tbody:last-of-type > tr:last-child`).
+              // 둘 다 구조(태그 · 형제 행)이지 값이 아니다.
               const inner = wrappers.reduceRight((html, entry) => {
-                const className = typeof entry === "string" ? entry : entry.class;
+                const className = typeof entry === "string" ? entry : entry.class ?? "";
+                const tag = typeof entry === "string" ? "div" : entry.tag ?? "div";
+                const after = typeof entry === "string" ? "" : entry.after ?? "";
                 const attributes =
                   typeof entry === "string"
                     ? ""
                     : Object.entries(entry.attrs ?? {})
                         .map(([name, value]) => " " + name + '="' + value + '"')
                         .join("");
-                return '<div class="' + className + '"' + attributes + ">" + html + "</div>";
+                return "<" + tag + ' class="' + className + '"' + attributes + ">" + html + after + "</" + tag + ">";
               }, probe.html);
               return (
                 '<div id="probe-' + index + '" style="position:relative;width:' +

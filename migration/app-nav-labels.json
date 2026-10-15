@@ -2,15 +2,15 @@
   "$comment": "생성물. scripts/measure-app-nav-labels.mjs가 배포본에서 뽑는다. 직접 수정하지 않는다.",
   "$whyThisExists": "`/archive`의 라벨은 「보관함」이 아니라 「홈」이다. 2026-08-21에 app-shell-parts.md가 네 곳에서 경로로부터 유추한 이름을 적고 있었고, 그 문서는 「라벨은 화면의 이름이다」를 규범으로 두므로 틀린 이름이 규칙을 타고 번진다. 라벨은 제품이 소유한 값이라 여기서 고정한다.",
   "$howToRead": "inferable이 false면 **경로에서 라벨을 유추할 수 없다는 뜻**이다. 그런 자리를 문서가 손으로 적으면 틀린다.",
-  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
-  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productRef": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
+  "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
   "sources": {
     "ko": "apps/web/components/landing/system/messages/ko.ts",
     "en": "apps/web/components/landing/system/messages/en.ts",
     "gnb": "apps/web/components/navigation/Gnb.tsx",
     "appPaths": "apps/web/lib/app-paths.ts"
   },
-  "gnbNavMapLine": 2552,
+  "gnbNavMapLine": 2549,
   "labels": [
     {
       "key": "archive",

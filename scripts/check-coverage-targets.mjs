@@ -140,7 +140,9 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 2026-10-15 아침: 80 → 82 — 모델 상세 · 버전 행 되돌림(늘림 실패).
 // 같은 아침 뒤: 82 → 73 — 관리자 탭 아홉.
 // 같은 오전 뒤: 73 → 72 — 설정.
-const NEEDED_BASELINE = 72; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 2026-10-15 앵커 이동(DS-D-0117): 72 → 73 — 사라진 needed 일곱(앰버서더 옛 절 다섯 · 링크 관리 · 랜딩 ModelShowcase Stage), 새 needed 여덟
+// (앰버서더 새 절 일곱 screen · 어시스턴트 제안 카드 oneoff). 발견이므로 올려 잠근다.
+const NEEDED_BASELINE = 73; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -190,7 +192,8 @@ const UNCLEAR_BASELINE = 0; // 하락만 잠근다(소유자만 줄일 수 있�
 // 2026-10-15: 324 → 325 — 캔버스 원형 FAB(ActionButton)는 앵커에서 import · JSX 렌더 지점이 0 인 죽은 코드라 범위 밖으로 옮겼다(DS-D-0106).
 // 같은 날 뒤: 325 → 327 — LandingContent(근거였던 #final-cta 그라디언트가 FinalCtaScene 으로 떠나 조립만 남음) · LayoutThumb(글리프 일곱이 아이콘
 // 축 icon/caption-layout-* 으로, icon/plus 글리프 표면들과 같은 판정). DS-D-0115 · R2 보고.
-const SCOPED_BASELINE = 327; // 표면 총수가 오른 만큼만 오를 수 있다
+// 2026-10-15 앵커 이동(DS-D-0117): 327 → 328 — 사라진 범위 밖 열여덟, 새 범위 밖 열아홉(글리프 열하나 · 동작만 있는 층 넷 · 부모에 딸린 조각 넷).
+const SCOPED_BASELINE = 328; // 표면 총수가 오른 만큼만 오를 수 있다
 // 2026-09-10: 434 → 468. 앵커가 5a67d692 → f19cc41c 로 옮기며 제품 표면이 34종 늘었다
 // (쿠폰·선물하기 화면 등). **기준점을 옮기지 않으면 그만큼 범위 밖 허용치가 벌어진 채로
 // 남아 그물이 무뎌진다** — 실제로 `needed reclassified as out of scope` 카나리아가 그래서
@@ -203,7 +206,8 @@ const SCOPED_BASELINE = 327; // 표면 총수가 오른 만큼만 오를 수 있
 // **앵커를 옮길 때는 이 기준점도 같은 커밋에서 옮긴다.** 두 회차 연속 잊었다.
 // 2026-10-08 밤: 472 → **612.** 앵커가 a4125565 → 76b6cf15 → 54b62a8a 로 옮기며 표면이 555 → 612 로 늘었는데 기준점이 472 에 머물러
 // 범위 밖 허용치가 140칸 벌어져 있었다(위 주석이 두 번 경고한 그 재발). 이번 이동의 신규 62 · 소멸 5.
-const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
+// 2026-10-15: 612 → **616.** 앵커가 54b62a8a → 운영 main 97d4950e(DS-D-0117)로 옮기며 신규 35 · 소멸 31.
+const SURFACE_TOTAL_BASELINE = 616; // 위 천장의 기준점
 // 17 → 18 (2026-09-06): `alert` 가 partial 에서 done 으로 올라갔다. 레이아웃 축(block·inline·
 // banner)을 열며 계약에 `alert` 칸을 처음 세우고 geometry 를 붙였고,
 // packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재므로 DS-D-0035 의 (a)(b)(c) 가

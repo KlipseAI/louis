@@ -13,6 +13,8 @@
       "status": "active",
       "starts_at": null,
       "note": null,
+      "purchaser_name": null,
+      "amount_due": null,
       "created_at": "2026-01-10T12:00:00.000Z",
       "code": "PLACEHOLDERA",
       "name": "Placeholder campaign A",
@@ -23,7 +25,8 @@
       "expires_at": "2026-02-14T12:00:00.000Z",
       "issued_code_count": 300,
       "used_count": 3,
-      "remaining_code_count": 297
+      "remaining_code_count": 297,
+      "receipt": null
     },
     {
       "id": "00000000-0000-4000-8000-0000ad000502",
@@ -37,6 +40,8 @@
       "status": "paused",
       "starts_at": null,
       "note": null,
+      "purchaser_name": null,
+      "amount_due": null,
       "created_at": "2026-01-05T12:00:00.000Z",
       "code": "PLACEHOLDERB",
       "name": "Placeholder campaign B",
@@ -47,7 +52,8 @@
       "expires_at": null,
       "issued_code_count": 100,
       "used_count": 0,
-      "remaining_code_count": 100
+      "remaining_code_count": 100,
+      "receipt": null
     }
   ]
 }

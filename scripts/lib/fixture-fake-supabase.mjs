@@ -96,6 +96,10 @@ const queryRows = (rows, params) => {
     if (op === "eq") out = out.filter((row) => String(row[column]) === value);
     else if (op === "neq") out = out.filter((row) => String(row[column]) !== value);
     else if (op === "is" && value === "null") out = out.filter((row) => row[column] == null);
+    // `gte` · `lte` 바깥 필터(2026-10-15, 운영 판 어드민 지표의 설문 조회 `/api/admin/onboarding-survey` — `created_at` 기간).
+    // `or` 안의 같은 연산과 같은 뜻이다 — ISO 문자열이라 문자열 비교가 시각 비교와 같다. 같은 열이 두 번 와도(기간 양끝) 차례로 거른다.
+    else if (op === "gte") out = out.filter((row) => row[column] != null && String(row[column]) >= value);
+    else if (op === "lte") out = out.filter((row) => row[column] != null && String(row[column]) <= value);
     else if (op === "in" && value.startsWith("(") && value.endsWith(")")) {
       const set = new Set(value.slice(1, -1).split(",").map((item) => item.replace(/^"|"$/g, "")));
       out = out.filter((row) => set.has(String(row[column])));

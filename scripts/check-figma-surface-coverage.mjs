@@ -151,11 +151,15 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-10-15 아침: 205 → 203 — 모델 상세 · 버전 행을 되돌렸다. /models/[slug] 모바일이 늘림 run q-1015-r 에서 w360 넘침으로 실패한다.
 // 같은 아침 뒤: 203 → 212 — 관리자 탭 화면 아홉(사용자 · 결제 · 사용량 · 문의 · 쿠폰 · 템플릿 · 자막 · 블로그 · 잡, 늘림 run 2026-10-15m 실패 0).
 // 같은 날 오전 뒤: 212 → 213 — 설정 화면(프로필 시드로 사용자명 · 이메일이 채워진 보드, 늘림 run 2026-10-15n 실패 0).
-const MAPPED_BASELINE = 213;
+// 2026-10-15 앵커 이동(통합 판 54b62a8a → 운영 main 97d4950e, DS-D-0117): 213 → 215 — 사라진 대응 여섯(어드민 열기 버튼 · 사용자 링크 ·
+// 앰버서더 하위 탭 · 옛 SectionHead · KeyEnterGlyph · KpiCard 스켈레톤), 새 대응 여덟(관리자 이메일 추천 Menu · 인증 칸 TextField · 칸 버튼 IconButton ·
+// 앰버서더 Head SectionHeader · 옮겨 간 KpiCard 스켈레톤 ChartCard · 어시스턴트 ChatPanel · 크롭 SegmentedControl · 허브 빈 상태 EmptyState).
+const MAPPED_BASELINE = 215;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 // 2026-10-15: 124 → 130 — 위 여섯이 모두 컴포넌트 대응이다.
-const MAPPED_COMPONENT_BASELINE = 140;
+// 2026-10-15 앵커 이동(DS-D-0117): 140 → 143 — 위 MAPPED_BASELINE 주석의 사라진 다섯(컴포넌트) · 새 여덟(컴포넌트).
+const MAPPED_COMPONENT_BASELINE = 143;
 // **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
 // 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
 // 제품 세트 대응으로 바꿔치기해도 수가 유지된다.
@@ -176,7 +180,9 @@ const MAPPED_COMPONENT_BASELINE = 140;
 // 대응이 됐다(표면 12). 위 MAPPED_COMPONENT_BASELINE 이 그만큼 올랐다.
 // 2026-10-14: 41 → 46 — 보드 생성기 PRODUCT_PARTS 의 노드 카드 세트 다섯(TTS · BGM · Edit · YouTube · Instagram, 데스크톱 하나씩)이 세션 원장
 // `/nodecanvas?project= more-nodes`(첫 프로젝트의 맞춤 줌을 흔들지 않게 따로 둔 두 번째 프로젝트) 측정 서브트리로 섰다.
-const MAPPED_PRODUCT_BASELINE = 46;
+// 2026-10-15 앵커 이동(DS-D-0117): 46 → 45 — **제품이 바뀐 몫(후퇴 아님).** Product/Glyph 의 Key Enter(KeyEnterGlyph)가 운영 판에서 사라졌고,
+// 자리를 이은 EnterGlyph 는 그림이 달라 LOUIS 아이콘 arrow-elbow-down-left 가 덮는다(scoped). 생성기에서 그 variant 를 뺐다.
+const MAPPED_PRODUCT_BASELINE = 45;
 // **화면 보드 대응(DS-D-0098, 2026-10-14).** 채운 보드 · 늘림 통과 · 안의 부품 needed 0 을 만족한 화면. 따로 잠근다.
 // 2026-10-14: 0 → 3 — VideoEditScene(/videoeditor seeded) · NodeCanvasHomeScene(/nodecanvas seeded.loading-more) ·
 // BulkSuccessContent(/mypage/upgrade/bulk-success?preview=success). 채움이 비어 남긴 것: SubscriptionScene(크레딧 이력 없음) · AdminClient(사용자 없음).

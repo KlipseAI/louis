@@ -30,6 +30,10 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // 화면으로 펴서, 영역 파일의 `mode` 가 정하는 서버 환경(아래 네 불리언)에서 잰다. 결과는 기존 원장이 아니라 영역 원장
 // (`migration/product-states/<영역>.json`)에 쓴다 — 같은 원장에 넣으면 스타일 표 · 요청 목록 · 상위 60 후보가 바뀐다. 레시피 로직은
 // `lib/state-recipes.mjs` 에 있고, 이 파일의 새 갈래는 모두 `statesArea` 나 `spec.recipe` 가 있을 때만 돈다.
+// **`LOUIS_RECIPE_KEEP_GOING=1`(진단, 2026-10-15 앵커 이동).** 레시피 검증 실패에서 멈추지 않고 영역의 나머지 레시피를 끝까지 잰 뒤
+// 실패를 모두 찍고 원장 없이 끝낸다 — 앵커를 옮기면 레시피 여럿이 한꺼번에 어긋나는데, 첫 실패에서 멈추면 고칠 때마다 영역 전체를 다시 돌아야 한다.
+const recipeKeepGoing = process.env.LOUIS_RECIPE_KEEP_GOING === "1";
+const recipeProblems = [];
 const statesArg = process.argv.find((arg) => arg.startsWith("--states="));
 const statesArea = statesArg ? loadArea(statesArg.slice("--states=".length)) : null;
 const statesMode = statesArea?.mode ?? null;
@@ -1226,7 +1230,15 @@ try {
         // **레시피 단계는 기본 흐름 다음에 돈다(설계서 1-5).** 훑기가 스크롤을 움직여 호버 · 팝오버가 풀리지 않게. 단계가 끝나면 다시
         // 가라앉히고(필요하면 훑기를 한 번 더) 글꼴을 기다린다. 그 뒤는 아래 재시도 루프 그대로다.
         if (spec.recipe) {
-          await runRecipeSteps(page, spec.recipe, contextSpec.id);
+          try {
+            await runRecipeSteps(page, spec.recipe, contextSpec.id);
+          } catch (error) {
+            // 진단 실행(LOUIS_RECIPE_KEEP_GOING)에서는 단계 실패도 모아 두고 그대로 잰다 — 원장은 끝에서 쓰지 않는다.
+            if (!recipeKeepGoing) throw error;
+            const message = `[product-auth-fixture] 상태 레시피 단계 실패 (${spec.id} @ ${contextSpec.id}): ${String(error?.message ?? error).split("\n")[0]}`;
+            console.error(message);
+            recipeProblems.push(message);
+          }
           await stabilize(page, spec.id + " (상태 레시피 후)", isQuiet);
           if (spec.recipe.settleAfter) {
             await settleContentVisibility(page);
@@ -1853,7 +1865,10 @@ try {
             });
           }
           if (problems.length > 0) {
-            throw new Error(`[product-auth-fixture] 상태 레시피 검증 실패 (${spec.id} @ ${contextSpec.id}):\n  ` + problems.join("\n  "));
+            const message = `[product-auth-fixture] 상태 레시피 검증 실패 (${spec.id} @ ${contextSpec.id}):\n  ` + problems.join("\n  ");
+            if (!recipeKeepGoing) throw new Error(message);
+            console.error(message);
+            recipeProblems.push(message);
           }
           Object.assign(screens[contextSpec.id][spec.id], {
             stateRecipe: { area: statesArea.area, base: spec.recipe.baseKey, sha256: recipeDigest(spec.recipe) },
@@ -2163,6 +2178,11 @@ if (dumpStatic) {
   }, null, 2) + "\n");
   console.error("[product-auth-fixture] --dump-static: " + dumpStatic);
   process.exit(0);
+}
+if (recipeProblems.length > 0) {
+  // LOUIS_RECIPE_KEEP_GOING 진단 실행 — 레시피 검증 실패를 모두 모아 찍고 원장은 쓰지 않는다.
+  console.error("[product-auth-fixture] 상태 레시피 검증 실패 " + recipeProblems.length + "건 — 원장을 쓰지 않았다(LOUIS_RECIPE_KEEP_GOING)");
+  process.exit(1);
 }
 if (checkOnly) {
   if (!existsSync(outputPath)) {

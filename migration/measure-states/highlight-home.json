@@ -1,0 +1,37 @@
+{
+  "$schema": "./_schema.json",
+  "area": "highlight-home",
+  "mode": "session",
+  "authoredAgainst": "97d4950e153d",
+  "description": "하이라이트 허브(/highlight) 상태 레시피(운영 main 97d4950e, DS-D-0117). 기준 화면 /highlight 는 세션 fixture 의 빈 기록이라 「No highlights yet」 빈 상태만 그렸다. 기록이 있는 허브는 제품의 개발 전용 미리보기 후크 ?preview=hub(HighlightScene.tsx 682–689, NODE_ENV 게이트)로 연다 — 제품이 직접 쓴 예시 기록 다섯(highlight/hubPreview.ts)이라 시드 · 가로채기가 없고, 화면이 목록 조회를 보내지 않는다. upload 상태(highlight.json)와 떼어 다른 영역에 둔다.",
+  "recipes": [
+    {
+      "id": "/highlight history",
+      "base": "/highlight",
+      "url": "/highlight?preview=hub",
+      "fullPage": true,
+      "description": "허브 목록 상태 — 페이지 머리 · 목록 머리(Archive 개수 · 새 하이라이트) · 히스토리 카드 다섯의 격자(분석됨 · 추출됨 셋 · 실패/환불 배지, 썸네일 위 제목 · 메타).",
+      "contentNote": "지어낸 내용 없음 — 기록 다섯은 제품 미리보기 예시(hubPreview.ts 29–), 썸네일은 제품 저장소 public/images/landing/ 의 정지 이미지다.",
+      "surfaces": [
+        "apps/web/components/scenes/HighlightScene.tsx#HighlightScene"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/HighlightScene.tsx", "line": 685, "expect": "isHubPreview(new URLSearchParams(window.location.search).get(\"preview\"))" },
+        { "path": "apps/web/components/scenes/HighlightScene.tsx", "line": 687, "expect": "setHistory(HUB_PREVIEW_HISTORY);" },
+        { "path": "apps/web/components/scenes/HighlightScene.tsx", "line": 1239, "expect": "<div className={styles.historyGrid}>" },
+        { "path": "apps/web/components/scenes/highlight/hubPreview.ts", "line": 18, "expect": "return value?.trim() === \"hub\";" },
+        { "path": "apps/web/components/scenes/highlight/hubPreview.ts", "line": 32, "expect": "project_name: \"주말 리그 결승전 풀영상\"," },
+        { "path": "apps/web/components/scenes/highlight/hubPreview.ts", "line": 89, "expect": "project_name: \"먹방 라이브 하이라이트\"," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1457, "expect": "historyEyebrow: \"Archive\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1461, "expect": "historyStatusExtracted: \"Extracted\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1499, "expect": "historyStatusFailedRefunded: \"Failed · Credits refunded\"" }
+      ],
+      "steps": [
+        { "waitFor": { "text": "먹방 라이브 하이라이트", "exact": true }, "description": "격자의 마지막 카드 제목" }
+      ],
+      "assert": {
+        "text": ["주말 리그 결승전 풀영상", "신제품 라이브 방송 다시보기", "여름 캠핑 브이로그", "게스트 인터뷰 1부", "먹방 라이브 하이라이트", "Extracted", "Failed · Credits refunded"]
+      }
+    }
+  ]
+}

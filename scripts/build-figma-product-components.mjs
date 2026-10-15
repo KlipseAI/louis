@@ -268,8 +268,12 @@ if (Math.abs(betaNode.rect.x - (betaLabel.rect.x + betaLabel.rect.width) - betaG
    걸친 라우트는 19 → 18 이다. 빠진 하나는 `/subscription/coupons` 다 — 통합 판에서 그 페이지가 `redirect("/subscription?tab=group")`
    만 하는 옛 주소가 됐고(구매 내역이 구독 허브의 「단체 구매」 탭으로 갔다), 측정은 redirect 된 화면을 후보에서 뺀다. */
 /* 2026-10-13(측정기에 mixBlendMode 키를 더한 재측정, f54f2c91): 구조는 그대로이고 id 만 갈렸다 — 노드 수 · 라우트 수 · occurrence · roots 의 route·path·tag 가 옛 원장과 바이트 같고 styleRef 만 새 계산값 키 하나 때문에 다시 계산됐다. 9a272be57f7f → ab77de093887 · fe194dab7cd2 → fd6e21d06774 · dbd11b0d31fa → 713bdbca6c0c · 7f409c824481 → c90e25bed317 · c400e3ba235f → 42b2418293fc. */
+/* 2026-10-15 재고정(54b62a8a → 운영 main 97d4950e, DS-D-0117): 41노드 · 18 route · roots 의 route·path·tag·rect 가 옛 원장과 바이트 같고
+   계산값 하나만 바뀌었다 — 「Highlight」 행 아이콘 마스크 `/highlight_symbol.svg` → `/icons/Highlight.svg`(제품 `708235bd`「하이라이트
+   메뉴 아이콘을 다른 메뉴와 같은 선 아이콘으로 바꾼다」, `git show 97d4950e:apps/web/components/navigation/Gnb.tsx` :2189
+   `  "/highlight": "/icons/Highlight.svg",`). ab77de093887 → e0d89e8d59b7. 아래 두 헤더도 같은 한 노드로 갈렸다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-ab77de093887",
+  (entry) => entry.id === "subtree-e0d89e8d59b7",
 );
 if (!candidate || candidate.nodeCount !== 41 || candidate.routeCount !== 18) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
@@ -328,7 +332,9 @@ if (!candidate || candidate.nodeCount !== 41 || candidate.routeCount !== 18) {
    바닥 CTA 묶음 `marginTop` 767 → 759(같은 8) ③ 사이드바 Canvas · Composition 행 아이콘 마스크가 `Graph.svg` → `Canvas.svg` ·
    `MagicWand.svg` → `FilmSlate.svg` ④ 그에 딸린 nav `transformOrigin`. Current=Default 쪽 라우트 13 → 12 는 사이드바 가드의
    `/subscription/coupons` redirect 와 같은 하나다. */
-const headerCandidates = ["subtree-fd6e21d06774", "subtree-713bdbca6c0c"].map((id) =>
+// 2026-10-15(운영 main 97d4950e): fd6e21d06774 → ace4c903e53c · 713bdbca6c0c → 7193a3ec1519. 53/12 · 53/6 · roots 그대로, 바뀐 노드는
+// 사이드바 가드와 같은 Highlight 행 아이콘 마스크 하나(`.0.1.0.4.0.0.0.0`)다.
+const headerCandidates = ["subtree-ace4c903e53c", "subtree-7193a3ec1519"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
 // 2026-09-26: 사이드바 가드와 같은 사유로 걸친 라우트 수만 늘었다 — Current=Default 헤더 6 → 13(bulk 둘 · coupons ·
@@ -677,11 +683,13 @@ const paymentResult = {
 const live = liveVariables({ repoRoot, fail });
 const quote = sourceQuotes({ repoRoot, productRoot, productCommit: fixture.productCommit, fail });
 const GNB = "apps/web/components/navigation/Gnb.tsx";
+// 2026-10-15(운영 main 97d4950e): 이 파일의 Gnb.tsx 인용은 글자 그대로이고 줄만 +1 밀렸다 — 머리에 `import { intlLocale } from
+// "@/lib/localeFormat";`(:53)이 한 줄 늘었다(`git diff -U0 54b62a8a 97d4950e -- apps/web/components/navigation/Gnb.tsx`).
 /* 줄번호와 커밋이 박혀 있어 앵커가 움직일 때마다 조용히 낡던 문장이다(4614-4615 · 564/570 이 `6f6282c1` 에서 4694-4695 ·
    592/598 로 옮겨 있었다). 이제 활성 판정 두 줄은 소스 인용으로 확인하고, 색 줄은 `colorEvidence` 의 역할을 가리킨다. */
 const activeRuleSource = [
-  quote.product(GNB, 4773, "                    const href = row.href;"),
-  quote.product(GNB, 4774, "                    const isActive = isSidebarMenuHrefActive(href);"),
+  quote.product(GNB, 4774, "                    const href = row.href;"),
+  quote.product(GNB, 4775, "                    const isActive = isSidebarMenuHrefActive(href);"),
 ];
 const sharedActiveColourNote =
   `No new visual value: Gnb.tsx:${activeRuleSource[0].line}-${activeRuleSource[1].line} applies the common isSidebarMenuHrefActive result ` +
@@ -694,12 +702,12 @@ const roles = live.colorRoles({
   theme: "light",
   where: "components",
   roles: {
-    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 571, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
+    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 572, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
     gray000: {
       name: "color/gray/000",
       declared: [
-        quote.product(GNB, 577, '    "[color:var(--gray-000)]",'),
-        quote.product(GNB, 2006, '    "[color:var(--gray-000)]",'),
+        quote.product(GNB, 578, '    "[color:var(--gray-000)]",'),
+        quote.product(GNB, 2007, '    "[color:var(--gray-000)]",'),
         quote.product(RESULT, 89, '  "m-0 text-gray-000",'),
         quote.product(RESULT, 114, '  "[&_dd]:text-gray-000",'),
         quote.product(RESULT, 129, '  "[border:none] bg-gray-000 text-gray-900!",'),
@@ -707,16 +715,16 @@ const roles = live.colorRoles({
     },
     paletteGray600: {
       collection: "Klipse Primitive", name: "color/palette-gray/600",
-      declared: [quote.product(GNB, 171, '    "[color:var(--palette-gray-600)]",')],
+      declared: [quote.product(GNB, 172, '    "[color:var(--palette-gray-600)]",')],
     },
     paletteGray500Alpha12: {
       unbound: true, mix: { collection: "Klipse Primitive", name: "color/palette-gray/500", alpha: 0.12 },
-      declared: [quote.product(GNB, 172, '    "[background:rgb(var(--palette-gray-500-rgb)_/_12%)]",')],
+      declared: [quote.product(GNB, 173, '    "[background:rgb(var(--palette-gray-500-rgb)_/_12%)]",')],
       reason: "The BETA chip paints rgb(var(--palette-gray-500-rgb) / 12%). The live file has no palette-gray alpha ramp and no variable resolves to palette-gray-500 at 12% (color/app/nav-chip-tint is static-black-alpha/04 in Light), so the chip keeps the measured colour as a fixed paint.",
     },
-    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1995, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]",')] },
-    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1996, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]",')] },
-    paletteGray000: { collection: "Klipse Primitive", name: "color/palette-gray/000", declared: [quote.product(GNB, 2005, '    "[background:var(--palette-gray-000)]",')] },
+    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1996, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]",')] },
+    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1997, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]",')] },
+    paletteGray000: { collection: "Klipse Primitive", name: "color/palette-gray/000", declared: [quote.product(GNB, 2006, '    "[background:var(--palette-gray-000)]",')] },
     gray000Alpha56: {
       name: "color/gray/000-alpha/56",
       declared: [quote.product(RESULT, 97, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')],
@@ -855,7 +863,9 @@ const plan = {
       "/icons/Canvas.svg": "icon/Canvas",
       "/icons/FilmSlate.svg": "icon/FilmSlate",
       "/highlight_symbol.svg": "root/highlight_symbol",
-      // 2026-10-14: 작업 브랜치 feat/highlight-line-icon 의 메뉴 · 검색 · 새로 만들기 글리프(앵커가 그 판으로 옮겨 가면 이 줄이 쓰인다).
+      // 2026-10-14: 작업 브랜치 feat/highlight-line-icon 의 메뉴 · 검색 · 새로 만들기 글리프. 2026-10-15 운영 main 97d4950e 에서
+      // 사이드바 「Highlight」 행이 이 줄을 쓴다(`708235bd`). 새 auth 원장에는 `/highlight_symbol.svg` 가 0곳이지만
+      // 아직 옛 앵커인 원장(상태 레시피 shell 등)이 남아 있어 위 줄을 지우지 않는다.
       "/icons/Highlight.svg": "icon/Highlight",
       "/icons/youtube.svg": "icon/youtube",
       "/klipse-light.svg": "logo/klipse-light (291×85 · 라이트 서피스용 · 워드마크 black)",
@@ -894,7 +904,7 @@ for (const row of plan.component.rows) {
 if (Object.keys(rowPaints).length !== 1) fail(`inactive sidebar rows disagree on paint: ${Object.keys(rowPaints).join(" | ")}`);
 const [inactiveLabelPaint, inactiveIconPaint, inactiveIconOpacity] = Object.keys(rowPaints)[0].split("/");
 // 제품 사이드바의 활성 행은 면이 없다(`.gnb-menuSidebar` 안에서 투명) — 옛 러너가 칠하던 인디케이터 면은 다크 비사이드바 선언이었다.
-const sidebarActiveTransparent = quote.product(GNB, 583, '    "[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]",');
+const sidebarActiveTransparent = quote.product(GNB, 584, '    "[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]",');
 const activeRowButton = (route, text) => {
   let entry = byText(route, text);
   while (entry && entry.tag !== "button") entry = screen(route).tree.find((item) => item.path === entry.parentPath);

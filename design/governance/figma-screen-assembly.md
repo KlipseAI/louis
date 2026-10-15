@@ -466,10 +466,8 @@ Figma 는 **제약으로 크기가 바뀐 자동 배치 프레임의 FILL 자식
   /terms 모바일 조각 02 · 03, /videoeditor/[projectId] 데스크톱 조각 00 ~ 02 · 모바일, 제품 부품(캔버스 텍스트 노드 · LLM 응답 영역 · 요금 비교표 데스크톱 조각 00 ~ 04).
   자른 칸은 래퍼 접기에서 빠지므로(자르는 칸은 접지 않는다) 노드가 하나 늘어난 보드는 뒤 조각의 자리 경로가 함께 옮겨졌다.
 
-**range 입력 트랙(15조의 20 후보)은 세우지 않았다.** 측정 원장이 트랙을 그릴 값을 갖지 않는다 — ① 채움 비율 `--louis-slider-fill`(인라인 사용자 정의 속성)은
-선언 스타일 수집기가 `DECLARED_PROPERTIES` 밖이라 버린다, ② 트랙 · 썸은 `::-webkit-slider-runnable-track` · `::-webkit-slider-thumb` 의사 요소인데 `pseudoElementProbes` 는
-프로필 링 하나만 잰다, ③ 입력 노드는 `inputType: "range"` 만 있고 `value · min · max` 와 class(`louis-slider__control`)가 없어 LOUIS `Slider` 세트로 바꿀 열쇠도 없다.
-레시피(`packages/css/src/component/slider.css`)에서 값을 지어내지 않는다 — 측정기가 위 셋을 실으면 그때 세운다.
+**range 입력 트랙은 15조의 37 로 세웠다(2026-10-16).** 원장에 트랙을 그릴 값이 없던 셋(인라인 채움 비율 · 트랙 · 손잡이 의사 요소 · 입력의 값 · 범위 · class)을
+측정기가 싣게 고쳤다.
 
 ### 15조의 20. 끈적 장면은 제 스크롤 자리에서 잰다 — 무대마다 가장 많이 보이는 프레임
 
@@ -755,6 +753,24 @@ HUG 로 남았다 — CSS 에서는 둘 다 최소 내용 폭이 가장 긴 낱�
 에서 한 줄(324)이라 서지 않아, 360 에서 HUG 323 이 행 348 밖으로 17 나갔다(2909:19778 · 19780 · 19782 · 19784). 줄바꿈을 허용하는 글자(`white-space` 가 nowrap · pre
 아님 · overflow visible · line-clamp 아님)를 품으면 「감길 글자」로 서고, 줄지 않았으므로 측정 폭이 최대 폭이다(종전 갈래와 같다). 규모: 보드 18(팔레트 여덟 ·
 /archive · 관리자 roles · 분석 시청자 · 편집기 클립 색 데스크톱, 공개 /inquiry · /models 데스크톱 · 모바일).
+
+### 15조의 37. range 입력은 트랙 · 채운 구간 · 손잡이 셋으로 그린다 — 측정기가 그림자 트리에서 잰다
+
+`/models/[slug]` 의 크레딧 계산기 길이 줄(`ModelCreditCalculator.tsx` 의 `louis-slider` · `data-size="md"`)이 보드에서 빈 상자 360×16 이었다. 네이티브
+`<input type="range">` 는 칠이 없고 트랙 · 손잡이를 `::-webkit-slider-runnable-track` · `::-webkit-slider-thumb` 가 그리는데, 측정이 그 둘을 싣지 않았다.
+
+- **측정(`measure-product-auth-fixture.mjs` 의 `range` · `captureRangeParts`).** range 입력 노드에 값 · 범위 · 칸(`value · min · max · step`), 인라인 채움 비율
+  (`--louis-slider-fill`), class 를 싣는다. 트랙 · 손잡이는 `getComputedStyle(input, "::-webkit-slider-thumb")` 로 잡히지 않는다 — Chromium 이 입력 자신의 계산값을
+  돌려준다(탐침: 손잡이 폭 = 입력 폭 360). 실체는 사용자 에이전트 그림자 트리의 `div[pseudo=-webkit-slider-runnable-track]` 와 그 안의 `div#thumb` 이라, CDP
+  (`DOM.getDocument` pierce · `CSS.getComputedStyleForNode` · `DOM.getBoxModel`)로 두 상자의 계산 스타일과 입력 기준 자리를 `range.track` · `range.thumb` 에 싣는다.
+  range 입력이 없는 화면은 CDP 세션을 열지 않아 원장이 종전과 같다.
+- **그리기(`figma-tree-spec.mjs` 의 `rangePartNodes`).** 입력의 절대 배치 자식 셋으로 편다. 트랙 배경이 LOUIS 레시피의 두 색 경계 그라디언트(`A 0, A p%, B p%,
+  B 100%`, `slider.css`)이면 트랙은 B 단색, 채운 구간은 A 단색(트랙 폭의 p%, 왼쪽 모서리만 트랙 반경)으로 갈라 시맨틱 변수에 묶이게 한다. 다른 그라디언트는 트랙에
+  그대로 둔다. 손잡이는 잰 면 · 테두리 · 반경 그대로, 숨긴 손잡이(폭 0 · 투명 · `display: none`)는 그리지 않는다. 트랙이 입력 폭을 채우면 가로 STRETCH, 채운 구간은
+  백분율 폭이다.
+- **LOUIS `Slider` 인스턴스로 바꾸지 않는다.** 화면 보드의 인스턴스 치환은 제품 부품 세트(`figma-component-substitution.mjs` 의 `COMPONENT_SETS`)만 하고, 같은 줄의
+  세그먼트 토글도 측정 도형으로 그린다(원시 부품 치환은 원장 probe 로 막혀 있다). 슬라이더도 같은 층에서 측정 도형이다.
+- 값을 지어내지 않는다 — 측정기가 트랙을 싣지 않은 원장은 종전처럼 칠 없는 입력 상자다.
 
 **늘림 탐침 — 자르는 칸 안의 아래쪽 길어짐(2026-10-16).** 보드를 줄이면 글이 다시 감겨 스크롤 본문(자르는 `main` · 스크롤 칸 안의 흐름 HUG 자식)이 아래로
 길어진다 — /admin metrics 모바일 360 의 본문 열이 자르는 main 874 아래로 95, /mypage/upgrade/checkout 모바일의 결제 본문이 135. 제품도 그 칸이 스크롤하거나

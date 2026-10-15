@@ -83,22 +83,119 @@ export function hasOwnPaint(node) {
  */
 export function normalizeAuthFixtureTree(tree, computedStyles) {
   const table = new Map(computedStyles.map((entry) => [entry.id, entry.value]));
-  return tree.map((node) => {
+  return tree.flatMap((node) => {
     const style = table.get(node.styleRef);
     if (!style) throw new Error(`[figma-tree-spec] styleRef를 찾지 못했습니다: ${node.styleRef} (${node.path})`);
-    // **입력칸의 값은 그 칸의 글자다(2026-09-29).** 값은 글자 노드가 아니라 측정기가 `value` 로 따로 싣는다 — 쿠폰 수량
-    // 입력칸의 「1」이 보드에서 비어 있었다. 제품이 그 칸에 그 글자를 그리므로 글자로 옮긴다.
-    if (node.vector?.bbox && GLYPH_SHAPES.has(node.tag)) {
-      // **svg 상자 밖으로 넘친 도형(2026-10-07).** 측정기가 React Flow 연결선처럼 제 상자 밖으로 넘치는 svg 안의 도형을 svg 없이 싣는다(`vector.bbox`).
-      // 흐름에 끼지 않게 절대 배치로 두고, 변환기가 그 상자로 도형 하나짜리 svg 를 만든다(looseShapeMarkup).
-      return { ...node, looseShape: true, style: { ...style, position: "absolute" } };
+    // range 입력은 측정기가 실은 트랙 · 손잡이를 자식 상자로 편다(rangePartNodes, 조립 규칙 15조의 37).
+    if (node.range?.track) {
+      const parts = rangePartNodes(node, style);
+      if (parts.length) return [{ ...node, style }, ...parts];
     }
-    if (!node.value && !node.ownText && node.placeholderColor && node.placeholder?.trim()) {
-      // **비어 있는 입력칸의 placeholder(2026-10-07).** 제품은 그 칸에 placeholder 를 `::placeholder` 색으로 그린다 — 색만 그 값으로 덮는다.
-      return { ...node, ownText: node.placeholder, style: { ...style, color: node.placeholderColor } };
-    }
-    return { ...node, ...(node.value && !node.ownText ? { ownText: node.value } : {}), style };
+    return [normalizeNode(node, style)];
   });
+}
+
+/**
+ * **range 입력의 트랙 · 채운 구간 · 손잡이(2026-10-16, 조립 규칙 15조의 37).** 네이티브 `<input type="range">` 는 칠이 없는 상자이고 트랙 · 손잡이는
+ * 사용자 에이전트 그림자 트리의 의사 요소가 그린다 — 측정기가 그 둘의 계산 스타일과 상자(입력 기준 자리)를 `range.track` · `range.thumb` 로 싣는다
+ * (`captureRangeParts`). 여기서 입력의 절대 배치 자식 셋으로 편다:
+ *   · 트랙 — 트랙 상자 그대로. 칠은 트랙 배경이다. LOUIS 레시피(`slider.css` 의 `::-webkit-slider-runnable-track`)는 채운 구간을 따로 갖지 않고
+ *     두 색 경계 그라디언트(`A 0, A p%, B p%, B 100%`)로 그린다 — 그 꼴이면 트랙은 뒤 색 B 단색, 채운 구간은 앞 색 A 단색 상자(트랙 폭의 p%,
+ *     왼쪽 모서리만 트랙 반경)로 가른다. 단색이어야 렌더러가 시맨틱 변수에 묶는다. 다른 그라디언트는 트랙에 그대로 둔다.
+ *   · 손잡이 — 손잡이 상자 그대로(면 · 테두리 · 반경). 숨긴 손잡이(폭 0 · 투명 · `display: none`)는 그리지 않는다.
+ * 값을 지어내지 않는다 — 측정기가 싣지 않은 원장(트랙 없음)은 종전처럼 칠 없는 입력 상자다.
+ */
+const RANGE_PART_BASE = Object.freeze({
+  display: "block", position: "absolute", boxSizing: "border-box", minWidth: "0px", minHeight: "0px", maxWidth: "none", maxHeight: "none",
+  marginTop: "0px", marginRight: "0px", marginBottom: "0px", marginLeft: "0px",
+  paddingTop: "0px", paddingRight: "0px", paddingBottom: "0px", paddingLeft: "0px",
+  backgroundImage: "none", backgroundColor: "rgba(0, 0, 0, 0)", boxShadow: "none", opacity: "1", transform: "none", filter: "none",
+  overflow: "visible", overflowX: "visible", overflowY: "visible", clipPath: "none", maskImage: "none",
+  borderTopWidth: "0px", borderRightWidth: "0px", borderBottomWidth: "0px", borderLeftWidth: "0px",
+  borderTopStyle: "none", borderRightStyle: "none", borderBottomStyle: "none", borderLeftStyle: "none",
+  outlineStyle: "none",
+});
+const roundPart = (value) => Math.round(value * 10_000) / 10_000;
+/** `linear-gradient(to right, A 0px, A p%, B p%, B 100%)` → `{ fill: A, rest: B, share: p }`. 그 꼴이 아니면 null. */
+export function hardStopSplit(backgroundImage) {
+  const match = /^linear-gradient\((.*)\)$/.exec(String(backgroundImage ?? "").trim());
+  if (!match) return null;
+  const args = splitTopLevel(match[1]);
+  if (args[0] !== "to right" && args[0] !== "90deg") return null;
+  const stops = args.slice(1).map((stop) => {
+    const found = /^(.*\S)\s+(-?\d+(?:\.\d+)?)(%|px)$/.exec(stop);
+    return found ? { color: found[1], at: Number(found[2]), unit: found[3] } : { color: stop, at: null, unit: null };
+  });
+  if (stops.length !== 4) return null;
+  const [a0, a1, b0, b1] = stops;
+  if (a0.color !== a1.color || b0.color !== b1.color) return null;
+  if (a1.unit !== "%" || b0.unit !== "%" || Math.abs(a1.at - b0.at) > 1e-6) return null;
+  if (!(a0.at === 0) || !(b1.unit === "%" && b1.at === 100)) return null;
+  return { fill: a0.color, rest: b0.color, share: Math.min(100, Math.max(0, a1.at)) };
+}
+function rangePartNodes(node, style) {
+  const { track, thumb } = node.range ?? {};
+  const shown = (part) => part?.rect && part.rect.width > 0 && part.rect.height > 0 && part.style
+    && part.style.display !== "none" && part.style.visibility !== "hidden" && Number(part.style.opacity ?? 1) !== 0;
+  if (!shown(track)) return [];
+  const base = { ...style, ...RANGE_PART_BASE, fontSize: style.fontSize, color: style.color };
+  const at = (rect) => ({ x: roundPart(node.rect.x + rect.x), y: roundPart(node.rect.y + rect.y), width: rect.width, height: rect.height });
+  const corners = (source, keep = { left: true, right: true }) => ({
+    borderTopLeftRadius: keep.left ? source.borderTopLeftRadius ?? "0px" : "0px",
+    borderBottomLeftRadius: keep.left ? source.borderBottomLeftRadius ?? "0px" : "0px",
+    borderTopRightRadius: keep.right ? source.borderTopRightRadius ?? "0px" : "0px",
+    borderBottomRightRadius: keep.right ? source.borderBottomRightRadius ?? "0px" : "0px",
+  });
+  const part = (index, name, rect, paint, declared) => ({
+    path: `${node.path}.${index}`,
+    parentPath: node.path,
+    tag: "div",
+    rangePart: name,
+    rect: at(rect),
+    declared: { position: "absolute", top: `${rect.y}px`, height: `${rect.height}px`, ...declared },
+    style: {
+      ...base, ...paint,
+      top: `${rect.y}px`, left: `${rect.x}px`, right: `${roundPart(node.rect.width - rect.x - rect.width)}px`, bottom: "auto",
+      width: `${rect.width}px`, height: `${rect.height}px`,
+    },
+  });
+  const t = track.style;
+  const split = hardStopSplit(t.backgroundImage);
+  const spansInput = Math.abs(track.rect.x) <= 0.5 && Math.abs(node.rect.width - track.rect.x - track.rect.width) <= 0.5;
+  const trackDeclared = spansInput ? { left: "0px", right: "0px" } : { left: `${track.rect.x}px`, width: `${track.rect.width}px` };
+  const parts = [part(0, "track", track.rect, split
+    ? { backgroundColor: split.rest, ...corners(t) }
+    : { backgroundColor: t.backgroundColor, backgroundImage: t.backgroundImage ?? "none", ...corners(t) }, trackDeclared)];
+  if (split && split.share > 0) {
+    const width = roundPart(track.rect.width * split.share / 100);
+    parts.push(part(1, "fill", { ...track.rect, width }, { backgroundColor: split.fill, ...corners(t, { left: true, right: split.share >= 100 }) },
+      { left: `${track.rect.x}px`, width: spansInput ? `${roundPart(split.share)}%` : `${width}px` }));
+  }
+  if (shown(thumb)) {
+    const h = thumb.style;
+    const ring = px(h.borderTopWidth) > 0 && h.borderTopStyle !== "none";
+    parts.push(part(2, "thumb", thumb.rect, {
+      backgroundColor: h.backgroundColor, boxShadow: h.boxShadow ?? "none", ...corners(h),
+      ...(ring ? Object.fromEntries(["Top", "Right", "Bottom", "Left"].flatMap((side) => [
+        [`border${side}Width`, h.borderTopWidth], [`border${side}Style`, h.borderTopStyle], [`border${side}Color`, h.borderTopColor]])) : {}),
+    }, { left: `${thumb.rect.x}px`, width: `${thumb.rect.width}px` }));
+  }
+  return parts;
+}
+
+function normalizeNode(node, style) {
+  // **입력칸의 값은 그 칸의 글자다(2026-09-29).** 값은 글자 노드가 아니라 측정기가 `value` 로 따로 싣는다 — 쿠폰 수량
+  // 입력칸의 「1」이 보드에서 비어 있었다. 제품이 그 칸에 그 글자를 그리므로 글자로 옮긴다.
+  if (node.vector?.bbox && GLYPH_SHAPES.has(node.tag)) {
+    // **svg 상자 밖으로 넘친 도형(2026-10-07).** 측정기가 React Flow 연결선처럼 제 상자 밖으로 넘치는 svg 안의 도형을 svg 없이 싣는다(`vector.bbox`).
+    // 흐름에 끼지 않게 절대 배치로 두고, 변환기가 그 상자로 도형 하나짜리 svg 를 만든다(looseShapeMarkup).
+    return { ...node, looseShape: true, style: { ...style, position: "absolute" } };
+  }
+  if (!node.value && !node.ownText && node.placeholderColor && node.placeholder?.trim()) {
+    // **비어 있는 입력칸의 placeholder(2026-10-07).** 제품은 그 칸에 placeholder 를 `::placeholder` 색으로 그린다 — 색만 그 값으로 덮는다.
+    return { ...node, ownText: node.placeholder, style: { ...style, color: node.placeholderColor } };
+  }
+  return { ...node, ...(node.value && !node.ownText ? { ownText: node.value } : {}), style };
 }
 
 /**

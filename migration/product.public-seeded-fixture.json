@@ -90384,6 +90384,64 @@
             "parentPath": "body.1.0.0.2.0.0.3.2.2.1.0",
             "tag": "input",
             "inputType": "range",
+            "range": {
+              "value": 0,
+              "min": 0,
+              "max": 2,
+              "step": "1",
+              "fill": "0%",
+              "className": "louis-slider__control",
+              "track": {
+                "rect": {
+                  "x": 0,
+                  "y": 6,
+                  "width": 360,
+                  "height": 4
+                },
+                "style": {
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "linear-gradient(to right, color(srgb 0 0.533333 1) 0px, color(srgb 0 0.533333 1) 0%, color(srgb 0.647059 0.658824 0.678431) 0%, color(srgb 0.647059 0.658824 0.678431) 100%)",
+                  "borderBottomLeftRadius": "999px",
+                  "borderBottomRightRadius": "999px",
+                  "borderTopColor": "rgb(16, 16, 16)",
+                  "borderTopLeftRadius": "999px",
+                  "borderTopRightRadius": "999px",
+                  "borderTopStyle": "none",
+                  "borderTopWidth": "0px",
+                  "boxShadow": "none",
+                  "display": "block",
+                  "height": "4px",
+                  "opacity": "1",
+                  "visibility": "visible",
+                  "width": "360px"
+                }
+              },
+              "thumb": {
+                "rect": {
+                  "x": 0,
+                  "y": 2,
+                  "width": 12,
+                  "height": 12
+                },
+                "style": {
+                  "backgroundColor": "color(srgb 0 0.533333 1)",
+                  "backgroundImage": "none",
+                  "borderBottomLeftRadius": "999px",
+                  "borderBottomRightRadius": "999px",
+                  "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
+                  "borderTopLeftRadius": "999px",
+                  "borderTopRightRadius": "999px",
+                  "borderTopStyle": "solid",
+                  "borderTopWidth": "2px",
+                  "boxShadow": "none",
+                  "display": "block",
+                  "height": "12px",
+                  "opacity": "1",
+                  "visibility": "visible",
+                  "width": "12px"
+                }
+              }
+            },
             "rect": {
               "x": 604,
               "y": 1448,
@@ -112527,6 +112585,64 @@
             "parentPath": "body.1.0.0.2.0.0.3.2.2.1.0",
             "tag": "input",
             "inputType": "range",
+            "range": {
+              "value": 0,
+              "min": 0,
+              "max": 2,
+              "step": "1",
+              "fill": "0%",
+              "className": "louis-slider__control",
+              "track": {
+                "rect": {
+                  "x": 0,
+                  "y": 6,
+                  "width": 306,
+                  "height": 4
+                },
+                "style": {
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "linear-gradient(to right, color(srgb 0 0.533333 1) 0px, color(srgb 0 0.533333 1) 0%, color(srgb 0.647059 0.658824 0.678431) 0%, color(srgb 0.647059 0.658824 0.678431) 100%)",
+                  "borderBottomLeftRadius": "999px",
+                  "borderBottomRightRadius": "999px",
+                  "borderTopColor": "rgb(16, 16, 16)",
+                  "borderTopLeftRadius": "999px",
+                  "borderTopRightRadius": "999px",
+                  "borderTopStyle": "none",
+                  "borderTopWidth": "0px",
+                  "boxShadow": "none",
+                  "display": "block",
+                  "height": "4px",
+                  "opacity": "1",
+                  "visibility": "visible",
+                  "width": "306px"
+                }
+              },
+              "thumb": {
+                "rect": {
+                  "x": 0,
+                  "y": 2,
+                  "width": 12,
+                  "height": 12
+                },
+                "style": {
+                  "backgroundColor": "color(srgb 0 0.533333 1)",
+                  "backgroundImage": "none",
+                  "borderBottomLeftRadius": "999px",
+                  "borderBottomRightRadius": "999px",
+                  "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
+                  "borderTopLeftRadius": "999px",
+                  "borderTopRightRadius": "999px",
+                  "borderTopStyle": "solid",
+                  "borderTopWidth": "2px",
+                  "boxShadow": "none",
+                  "display": "block",
+                  "height": "12px",
+                  "opacity": "1",
+                  "visibility": "visible",
+                  "width": "12px"
+                }
+              }
+            },
             "rect": {
               "x": 16,
               "y": 1586.2969,

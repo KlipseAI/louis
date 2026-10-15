@@ -1077,6 +1077,75 @@ const rehydrate = (screen) => {
 let browser = null;
 const screens = {};
 const round = (value) => Math.round(value * 10_000) / 10_000;
+
+/**
+ * **range 입력의 트랙 · 손잡이를 잰다(2026-10-16, 조립 규칙 15조의 37).** 네이티브 `<input type="range">` 는 트랙과 손잡이를
+ * `::-webkit-slider-runnable-track` · `::-webkit-slider-thumb` 로 그린다. 이 둘은 `getComputedStyle(node, "::-webkit-slider-thumb")` 로는
+ * 잡히지 않는다 — Chromium 은 그 의사 요소 이름을 모르는 것으로 보고 입력 자신의 계산값을 돌려준다(탐침: 손잡이 「폭」이 입력 폭 360).
+ * 실체는 사용자 에이전트 그림자 트리의 `div[pseudo=-webkit-slider-runnable-track]` 와 그 안의 `div#thumb` 이다. CDP 로 그림자 트리까지
+ * 받아(`pierce`) 두 상자의 계산 스타일과 상자 모델을 재고, 자리는 입력 상자 기준으로 싣는다(문서 스크롤과 상관없게).
+ * `indices` 는 측정 evaluate 가 남긴 `window.__louisAuthFixtureNodes` 의 순번이다(선언 조인과 같은 키).
+ */
+const RANGE_PART_AXES = Object.freeze({
+  width: "width", height: "height", "background-color": "backgroundColor", "background-image": "backgroundImage",
+  "border-top-left-radius": "borderTopLeftRadius", "border-top-right-radius": "borderTopRightRadius",
+  "border-bottom-right-radius": "borderBottomRightRadius", "border-bottom-left-radius": "borderBottomLeftRadius",
+  "border-top-width": "borderTopWidth", "border-top-style": "borderTopStyle", "border-top-color": "borderTopColor",
+  "box-shadow": "boxShadow", opacity: "opacity", display: "display", visibility: "visibility",
+});
+const captureRangeParts = async (context, page, indices) => {
+  const parts = new Map();
+  if (indices.length === 0) return parts;
+  const cdp = await context.newCDPSession(page);
+  try {
+    await cdp.send("DOM.enable");
+    await cdp.send("CSS.enable");
+    const { root } = await cdp.send("DOM.getDocument", { depth: -1, pierce: true });
+    const byBackend = new Map();
+    const index = (node) => {
+      byBackend.set(node.backendNodeId, node);
+      for (const child of [...(node.children ?? []), ...(node.shadowRoots ?? []), ...(node.contentDocument ? [node.contentDocument] : [])]) index(child);
+    };
+    index(root);
+    const attribute = (node, name) => {
+      const list = node.attributes ?? [];
+      for (let at = 0; at < list.length; at += 2) if (list[at] === name) return list[at + 1];
+      return null;
+    };
+    const find = (node, test) => {
+      if (test(node)) return node;
+      for (const child of [...(node.shadowRoots ?? []), ...(node.children ?? [])]) {
+        const hit = find(child, test);
+        if (hit) return hit;
+      }
+      return null;
+    };
+    const border = async (node) => (await cdp.send("DOM.getBoxModel", { nodeId: node.nodeId })).model.border;
+    const styleOf = async (node) => {
+      const { computedStyle } = await cdp.send("CSS.getComputedStyleForNode", { nodeId: node.nodeId });
+      return Object.fromEntries(computedStyle.filter((entry) => RANGE_PART_AXES[entry.name]).map((entry) => [RANGE_PART_AXES[entry.name], entry.value]));
+    };
+    for (const at of indices) {
+      const { result } = await cdp.send("Runtime.evaluate", { expression: "window.__louisAuthFixtureNodes[" + at + "]", returnByValue: false });
+      if (!result?.objectId) continue;
+      const { node: described } = await cdp.send("DOM.describeNode", { objectId: result.objectId });
+      const input = byBackend.get(described.backendNodeId);
+      const shadow = input?.shadowRoots?.find((entry) => entry.shadowRootType === "user-agent");
+      const track = shadow ? find(shadow, (node) => attribute(node, "pseudo") === "-webkit-slider-runnable-track") : null;
+      if (!track) continue;
+      const thumb = find(track, (node) => node !== track && attribute(node, "id") === "thumb");
+      const origin = await border(input);
+      const placed = async (node) => {
+        const box = await border(node);
+        return { rect: { x: round(box[0] - origin[0]), y: round(box[1] - origin[1]), width: round(box[2] - box[0]), height: round(box[5] - box[1]) }, style: await styleOf(node) };
+      };
+      parts.set(at, { track: await placed(track), ...(thumb ? { thumb: await placed(thumb).catch(() => null) } : {}) });
+    }
+    return parts;
+  } finally {
+    await cdp.detach().catch(() => {});
+  }
+};
 try {
   browser = dumpStatic ? null : await chromium.launch({ headless: true });
   for (const contextSpec of CONTEXTS) {
@@ -1499,6 +1568,13 @@ try {
               ...(node instanceof HTMLImageElement && node.alt ? { alt: node.alt } : {}),
               ...(src ? { src } : {}),
               ...(node instanceof HTMLInputElement && node.type ? { inputType: node.type } : {}),
+              // **range 입력의 값(2026-10-16, 조립 규칙 15조의 37).** 트랙 · 손잡이는 아래 CDP 패스(`captureRangeParts`)가 싣고, 여기서는 값 ·
+              // 범위 · 칸과 채움 비율 사용자 정의 속성(LOUIS `--louis-slider-fill`, 인라인), 부품을 알아볼 class 를 싣는다.
+              ...(node instanceof HTMLInputElement && node.type === "range"
+                ? { range: { value: Number(node.value), min: Number(node.min || 0), max: Number(node.max || 100), step: node.step || "1",
+                    ...(node.style.getPropertyValue("--louis-slider-fill") ? { fill: node.style.getPropertyValue("--louis-slider-fill").trim() } : {}),
+                    ...(node.className && typeof node.className === "string" ? { className: node.className } : {}) } }
+                : {}),
               ...(node instanceof HTMLInputElement && node.placeholder
                 ? { placeholder: node.placeholder }
                 : {}),
@@ -1793,6 +1869,10 @@ try {
           if (attached === 0) {
             throw new Error("[product-auth-fixture] 선언 스타일이 하나도 붙지 않았습니다 (" + spec.id + ")");
           }
+          // range 입력의 트랙 · 손잡이(captureRangeParts). range 입력이 없는 화면은 CDP 세션을 열지 않는다 — 원장은 종전과 같다.
+          const rangeIndices = joined.flatMap((node, index) => (node.range ? [index] : []));
+          const rangeParts = await captureRangeParts(context, page, rangeIndices);
+          for (const [index, parts] of rangeParts) joined[index].range = { ...joined[index].range, ...parts };
           settleCentredMargins(measured.tree);
           for (const overlay of measured.overlays) settleCentredMargins(overlay.tree);
           break;

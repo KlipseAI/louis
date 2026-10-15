@@ -34,7 +34,7 @@ const TYPES = ["overflow", "childOutside", "textClip", "heightFollow", "widthFol
 const FOLLOW_MIN = 0.99;
 
 // 2026-10-08 run 2026-10-08a 실측(보드 142장 · 시험 426). 줄면 여기를 같은 수로 내린다.
-const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 56, "04-billing": 34, "05-ops": 48 };
+const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 88, "04-billing": 34, "05-ops": 48 };
 // 무엇이 들어 있나: heightFollow 는 거의 전부다 — 보드 루트가 세로 HUG 라 보드 높이를 따라오지 않는다(루트 높이 / 보드 높이
 // 0.769 = 1/1.3). overflow 의 뿌리는 대부분 고정 폭 상단 바(`header`, 1920 · 402 에 묶여 1440 에서 +480, 360 에서 +42)다.
 // clamped 6 은 랜딩 · /privacy · /terms 의 데스크톱 2560 · 모바일 430(보드가 넓어지지 않는다), noRoot 16 은 03 앱의
@@ -122,9 +122,12 @@ const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 그림)은 넘침 0 · 1440 의 부모 밖 6(시험 하나) · 높이 0.769 로 전과 같은 칸에 든다. 랜딩 모바일(359:2986)은 조각 00 만 들어간 상태로 쟀다(조각 01 이
 // 두 번 막혀 소유자 꾸러미로 넘겼다) — 남은 조각을 넣으면 01-public 을 다시 잰다.
 const BASELINE = {
-  "01-public": { overflow: 6, childOutside: 13, textClip: 1, heightFollow: 21, baseOverflow: 2 },
+  // run 2026-10-15n(01 · 03 만, 밤 작업 합본을 Figma 에 다시 넣은 뒤): 01 자식 넘침 13 → 14 — 랜딩 · 모델 보드가 새 렌더러(15조의 18 · 19 · 20 · 21)로 다시 그려졌다.
+  "01-public": { overflow: 6, childOutside: 14, textClip: 1, heightFollow: 21, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
-  "03-app": { childOutside: 16, heightFollow: 2 },
+  // 같은 run: 03 보드 56 → 88(분석 연결 상태 열여덟 · 편집기 · 캔버스 패널 상태 열넷). 넘침 0 → 3 · 자식 넘침 16 → 42 는 거의 모두 새 보드의
+  // 1440 · 360 폭이다 — 그 화면들은 대응으로 세지 않았다(DS-D-0098 조건 2). 옛 보드에서 바뀐 것은 없다.
+  "03-app": { overflow: 3, childOutside: 42, heightFollow: 2 },
   "04-billing": { childOutside: 7, heightFollow: 2 },
   // run 2026-10-15m(05-ops 만): 관리자 탭 보드 서른넷이 채워져 뿌리 없음 34 → 0. 자식 넘침 4 → 13 은 모두 새 관리자 모바일 보드의 360 폭이다 —
   // 권한 · 앰배서더 둘 · 지표 · 환불 · 배너 셋. 그 여덟 화면은 대응으로 세지 않았다(DS-D-0098 조건 2). 옛 열네 보드는 그대로다.

@@ -154,7 +154,10 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-10-15 앵커 이동(통합 판 54b62a8a → 운영 main 97d4950e, DS-D-0117): 213 → 215 — 사라진 대응 여섯(어드민 열기 버튼 · 사용자 링크 ·
 // 앰버서더 하위 탭 · 옛 SectionHead · KeyEnterGlyph · KpiCard 스켈레톤), 새 대응 여덟(관리자 이메일 추천 Menu · 인증 칸 TextField · 칸 버튼 IconButton ·
 // 앰버서더 Head SectionHeader · 옮겨 간 KpiCard 스켈레톤 ChartCard · 어시스턴트 ChatPanel · 크롭 SegmentedControl · 허브 빈 상태 EmptyState).
-const MAPPED_BASELINE = 215;
+// 2026-10-16: 215 → 234 — 새 앵커 판 보드(늘림 run 2026-10-16p1)로 화면 열아홉을 닫았다(아래 MAPPED_SCREEN_BASELINE). 같은 날 운영 판에서
+// 렌더 지점에 닿을 수 없는 일곱(ComposerBar · PhotoSection · ShotCarousel · PublishFlow · InstagramAnalyticsScene · CompositionInspector · PricingModal)은
+// needed 에서 범위 밖으로 갔다(소유자 확인 대기 — 제품에서 지울 후보, check-coverage-targets 의 SCOPED_BASELINE 주석). 대응 수와는 무관하다.
+const MAPPED_BASELINE = 234;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 // 2026-10-15: 124 → 130 — 위 여섯이 모두 컴포넌트 대응이다.
@@ -196,7 +199,12 @@ const MAPPED_PRODUCT_BASELINE = 45;
 // 같은 아침: 14 → 12 — 위 둘.
 // 같은 아침 뒤: 12 → 21 — 관리자 탭 아홉.
 // 같은 오전 뒤: 21 → 22 — 설정.
-const MAPPED_SCREEN_BASELINE = 22;
+// 2026-10-16: 22 → 41 — 새 앵커 97d4950e 판 보드(늘림 run 2026-10-16p1)로 닫은 화면 열아홉: 랜딩 「/」 절 일곱(Hero · CompositionShowcase ·
+// HighlightShowcase · OverviewCanvasScene · Testimonials · CreatorProgram · FinalCtaScene — 보드가 스크롤 장면을 고정해 9 조각으로 그린다) · /blog 준비 중 안내 ·
+// /models 넷(목록 · 배너 · 추천기 · 비교 표) · /models/[slug] 둘(상세 · 버전 행) · /aws/signup · /archive 새로 만들기 목록 · 캔버스 레이어 패널 ·
+// 편집기 본체(VideoEditModal) · 분석 Audience 탭. 03 페이지 넷은 다른 갈래가 03 늘림을 고치는 중이라 그 재측정까지 잠정이다. OverviewSection 은
+// 같은 파일의 OverviewTabs(SCENE_QUERY 밖 낮은 창의 탭 판, 보드 없음) 때문에, ModelCreditCalculator 는 길이 슬라이더 트랙이 비어 needed 로 남겼다.
+const MAPPED_SCREEN_BASELINE = 41;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

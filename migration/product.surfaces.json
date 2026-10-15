@@ -13,15 +13,15 @@
   "filesScanned": 394,
   "counts": {
     "total": 616,
-    "mapped": 215,
-    "scoped": 328,
-    "needed": 73,
+    "mapped": 234,
+    "scoped": 335,
+    "needed": 47,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 0,
-    "screen": 72,
+    "screen": 46,
     "oneoff": 1,
     "unclear": 0,
     "kindless": 0
@@ -874,12 +874,13 @@
       "file": "apps/web/app/aws/signup/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "auth-two-panel 셸을 AWS Squid Ink 팔레트(--aws-navy 계열 리터럴 넷)로 통째로 덮어쓴 변형이다. **테마를 따르지 않는 유일한 인증 화면**이고 언어 선택 드롭다운과 AWS 워드마크가 추가로 붙는다. 패턴을 세울 때 이 브랜드 변형을 변형 축으로 넣을지, 별도 화면으로 둘지 정해야 하므로 그 결정 없이는 셸만으로 덮이지 않는다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "필드 복제분(6번째)은 /login 행에서 이미 세었다. 이 표면만의 미충족분은 **테마를 따르지 않는 AWS Squid Ink 브랜드 팔레트**(--aws-navy 계열 리터럴 넷) + 언어 드롭다운 + AWS 워드마크다. 그건 컴포넌트가 아니라 (가) 보드 한 장과 (나) 브랜드 스코프 토큰 결정이다. 라우트 1, 형제 0. app-screens 축이 받을 그림이므로 screen."
+      "verdict": "figma",
+      "figma": "screen:/aws/signup",
+      "reason": "AWS Marketplace 가입 화면이다(AWS Squid Ink 팔레트를 보드가 그대로 그린다 — 변형 축 결정은 보드 닫기와 무관)(DS-D-0098). 보드 187:1300 · 187:1387(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(02-auth)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "가입 폼 한 상태만 갖는 화면이고 보드가 그것을 그린다 — 안내 세 줄 · 「AWS Marketplace」 표지 · 사용자명 · 이메일 · 비밀번호 두 칸 · 규칙 안내 · 약관 동의 두 줄. 빈 상태가 없다."
     },
     "apps/web/app/blog/[slug]/page.tsx#BlogPostPage": {
       "file": "apps/web/app/blog/[slug]/page.tsx",
@@ -1316,23 +1317,25 @@
       "file": "apps/web/app/models/[slug]/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "모델 상세 화면의 보드다(DS-D-0098). 히어로 · 버전 행 · 계산기 · 다른 모델 카드를 이 파일이 배치한다. 2026-10-15 대응.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "2026-10-15 아침 재판정: 보드 /models/[slug] 모바일(3471:9270)이 늘림 run q-1015-r 에서 w360 넘침 · 자식 넘침(안내 글 20px)으로 실패해 DS-D-0098 조건 2 를 잃었다. 늘림을 다시 재 통과하면 다시 대응으로 닫는다."
+      "verdict": "figma",
+      "figma": "screen:/models/[slug]",
+      "reason": "모델 상세 화면이다(10-15 에 run q-1015-r 모바일 넘침으로 되돌렸던 것을 새 판에서 다시 닫는다)(DS-D-0098). 보드 3471:9269 · 3471:9270(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 시드 Veo 3.1 상세 — 버전 셋(Lite · Fast · Pro) 행 · 크레딧 계산기(320 credits) · 다른 모델 셋이 채운다. 계산기 길이 슬라이더 트랙은 측정 값이 없어 비어 있고 그 몫은 ModelCreditCalculator(needed)에 남긴다."
     },
     "apps/web/app/models/page.tsx#ModelsIndexPage": {
       "file": "apps/web/app/models/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "2026-10-07 시안 2 로 새로 선 /models 화면이다 — 머리 HEAD(heading-48 제목 · body-20 text-soft 설명 · 구분선 없음, page.tsx:18-20) → 최신 모델 배너 → #recommend 추천기 → #compare 비교 표 순서를 이 파일이 정하고, 절 제목·리드는 modelPageStyles 의 SECTION_TITLE(body-20-semibold) · SECTION_LEAD(body-16 text-soft)를 문다. 보드가 없다 — figma/app-screens.plan.json 의 route 목록에 /models 가 없고 figma/ 에 app-screens.models* 파일도 없다. PricingPage 처럼 기존 보드가 있는 라우트 조립이 아니므로 scoped 로 내릴 수 없다. 셸은 ModelShell(랜딩 Gnb + TimelineFooter)이라 landing-shell 을 «쓰는» 것이고 DS-D-0039 상 figma 판정 근거가 되지 않는다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "공개 모델 목록 라우트 본체다(소비처 1 · 라우트 1). 자기 시각은 머리(제목 + 설명)와 절 제목·리드뿐이고 배너·추천기·비교 표는 각자 표면(ModelBanner · ModelRecommender · ModelCompare)이다 — 되풀이되는 부품이 아니라 그 셋을 한 장에 놓는 순서가 미충족분이다. 보드로 간다."
+      "verdict": "figma",
+      "figma": "screen:/models",
+      "reason": "모델 목록 화면이다(DS-D-0098). 보드 3471:9267 · 3471:9268(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 시드(landing_models)가 최신 모델 배너(Seedance 2.5) · 추천기 세 문항과 결과(Seedance 2.0 Mini, 870 credits) · 비교 표 일곱 행(Veo 3.1 · Kling 3.0 · Gemini Omni 1.1 …)을 채운다 — 빈 목록이 아니다."
     },
     "apps/web/app/mypage/topup/fail/page.tsx#TopupFailPage": {
       "file": "apps/web/app/mypage/topup/fail/page.tsx",
@@ -2550,34 +2553,37 @@
       "file": "apps/web/components/landing/sections/BlogComingSoon.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "발행 글이 0건일 때 뜨는 준비중 화면(배지 칩 + 2줄 heading-48 + 설명)이다. EmptyState 가 이미 있으므로 새 벌을 만들기보다 그 컴포넌트의 마케팅/풀페이지 변형으로 세우는 것이 맞다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: empty-state] 실측: import·렌더 자리 하나 — app/blog/page.tsx:6/:201, 발행 글이 0건일 때만 반환된다. 스스로 Gnb 와 Footer 를 붙이는 **완결된 한 페이지**라(파일 :5 에서 Footer, :3 에서 Gnb import) 부품이 아니라 화면이다. 안의 시각은 배지 칩 + 2줄 heading-48 + 설명 한 덩어리인데, 그 덩어리는 이미 서 있는 EmptyState 의 마케팅/풀페이지 변형으로 두는 편이 낫다 — 새 벌을 만들 자리가 아니다."
+      "verdict": "figma",
+      "figma": "screen:/blog",
+      "reason": "블로그 화면의 「준비 중」 안내다(DS-D-0098). 보드 214:2767 · 214:2865(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "이 표면은 글 목록이 아니라 「Coming soon · The Klipse blog is on its way.」 안내 자체이고 /blog 보드가 그 안내(배지 · 제목 두 줄 · 설명)를 온전히 그린다 — 표면이 가질 상태가 이것 하나다."
     },
     "apps/web/components/landing/sections/CompositionShowcase.tsx#CompositionShowcase": {
       "file": "apps/web/components/landing/sections/CompositionShowcase.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "랜딩의 컴포지션 소개 절이다(#composition, CompositionShowcase.tsx:403). sticky 무대 위에 실제 편집기 녹화를 담은 판(1600×1000 :54 · 두께 면 셋 :407 · radius 10 · 안쪽 헤어라인 + 그림자 :56)이 있고, 카메라 transform 이 그 판을 눕히고 당긴다. 판 밖에는 2줄 heading-36 장면 제목(≥1680 에서 48, :73)과 단계 설명 일곱(heading-28 + body-16, :85~:92)을 얹는다. 그 밑에 점진 블러 띠(:118)와 방사형 그늘(:99)이 깔린다. 51 컴포넌트와 templates 아홉 어디에도 이 절의 대응이 없다. 한 화면 전용이고 그림의 대부분이 녹화 영상과 스크롤 모션이라 우선순위는 낮다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/HomePageClient.tsx:8/:90. 랜딩의 한 절이다. 이 절만 소유한 정지 시각은 둘이다 — 편집기 판의 껍데기(PLANE_EDGE · PLANE_SURFACE)와 판 밖 글자 층(제목 · 단계 설명). 단계 설명의 글자·간격은 OverviewCanvasScene 의 COPY_TITLE/COPY_DESC 와 같은 값이라고 주석이 적는다(:75~:79). 그러나 같은 값을 따로 적을 뿐 같은 부품을 import 하지 않으므로 되풀이되는 부품의 증거가 아니다. 블러 띠는 LOUIS progressive-blur 토큰을 그대로 쓴다(:120~:124). 되풀이 0 이므로 화면으로 둔다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 Composition 소개 장면이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 편집기 장면의 「Assets」 단계 카드(「Brings in videos generated on the canvas and uploaded files, organized by type.」)가 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/CreatorProgram.tsx#CreatorProgram": {
       "file": "apps/web/components/landing/sections/CreatorProgram.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "사진 밴드 계열(photoBand: 배경 사진 + 스크림 + 잉크 두 단)의 두 벌 중 하나로, 앰배서더 씰 + 2줄 제목/설명 + 버튼 2개를 얹는다. Testimonials 와 골격이 같으므로 「PhotoBand」 셸 하나를 세우고 두 섹션을 그 변형으로 두는 편이 낫다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/HomePageClient.tsx:13/:92. 랜딩의 한 절이다. Testimonials 와 골격을 공유하는 사진 밴드지만, **공유하는 부분은 이미 뽑혀 있다** — system/photoBand.ts 가 BAND_SCRIM·BAND_INK·BAND_INK_SOFT 를 소유하고 두 파일이 그것을 import 한다(photoBand.ts 머리말이 「두 파일이 글자 단위로 같은 스크림 문자열을 각자 갖고 있었다」며 그 이관을 기록한다). 남는 것은 이 절만의 조립(앰배서더 씰 + 2줄 제목/설명 + 버튼 둘)이고 버튼은 Button 정본이다. 두 밴드를 「PhotoBand 셸 하나 + 변형 둘」로 묶자는 원장의 제안은 보드 층의 이야기지 부품이 아니다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 크리에이터 프로그램 절이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 「We build Klipse together with creators」 제목 · 설명 · 「Learn more」 가 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/CreatorProgram.tsx#CreatorProgramBody": {
       "file": "apps/web/components/landing/sections/CreatorProgram.tsx",
@@ -2616,12 +2622,13 @@
       "file": "apps/web/components/landing/sections/FinalCtaScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "랜딩을 닫는 끝 장면이고, 예전 최종 CTA 띠(그라디언트 + 제목 + 버튼)를 대신한다(FinalCtaScene.tsx:27~:32). sticky 검정 무대(:93) 안에 셋을 겹친다 — 하강 프레임을 그리는 하늘 캔버스(:99 · :484~:490), 깊이 세 겹으로 흩어진 클립 여섯(radius 16 · gray-900 바닥, :97), 그 위의 heading-36 문장 + 설명 + 시작 버튼(BAND_INK, :104~:114 · :492~:516). 51 컴포넌트와 templates 어디에도 대응이 없다. 시작 버튼은 호출부가 넘기는 Button inverse 정본이다(HomePageClient.tsx:104~:108). 나머지는 영상·프레임·스크롤 모션이고 한 화면 전용이라 우선순위는 낮다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/HomePageClient.tsx:18/:103. 랜딩의 마지막 절이다. 이 절만 소유한 정지 시각은 클립 카드 껍데기(rounded-16 · gray-900)와 문장 묶음뿐이다. 클립 카드는 영상 한 편을 담는 둥근 상자라 MediaCard 같은 캡션·배지가 없고, 다른 자리에 같은 모양이 없다. 문장 잉크는 photoBand 의 BAND_INK 를 import 한다(:105) — 공유분은 이미 뽑혀 있다. 되풀이 0 이므로 화면으로 둔다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 마지막 CTA 장면이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 「Until every story becomes a video.」 단어별 문구와 아래 안내 두 줄이 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/footerContent.tsx#InstagramGlyph": {
       "file": "apps/web/components/landing/sections/footerContent.tsx",
@@ -2660,12 +2667,13 @@
       "file": "apps/web/components/landing/sections/Hero.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "히어로 밴드(뷰포트 높이 고정 + 2줄 heading-36 + primary/뉴트럴 버튼 2개)로 랜딩 첫 화면 전체를 차지한다. 버튼은 Button 정본을 쓰지만 밴드 자체는 대응이 없다. 한 화면 전용이라 우선순위는 낮다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/HomePageClient.tsx:6/:84. 뷰포트 높이를 통째로 차지하는(`[height:var(--hero-initial-vh,100svh)]`) 랜딩 첫 화면이라 정의상 화면이다. 배경은 어드민이 올린 영상 두 장을 겹쳐 교차 페이드하는 장치이고 위·아래 페이드는 페이지 바닥으로 녹는 층이다 — 어느 쪽도 되풀이되는 부품이 아니다. **다만 이 파일이 갖고 있는 NOTICE 알약은 다르다** — PricingSection 의 PricingNotice 와 글자 단위로 같은 클래스 문자열이고, 그쪽을 primitive 로 판정하면서 이 사본을 근거로 삼았다. 즉 Hero 에서 꺼낼 것은 그 알약 하나뿐이고 나머지는 밴드다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 히어로 절이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 히어로 문구 「Every moment of AI video creation, / in one workspace.」 가 데스크톱 · 모바일 보드에 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/Hero.tsx#UploadedBackdrop": {
       "file": "apps/web/components/landing/sections/Hero.tsx",
@@ -2706,12 +2714,13 @@
       "file": "apps/web/components/landing/sections/HighlightShowcase.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "랜딩의 하이라이트 소개 절(#highlight)이다. 스크롤에 맞춰 움직이는 장면인데, 고정 검정 무대(HighlightShowcase.tsx:29 `sticky … [height:100lvh] bg-[var(--palette-gray-1000)]`) 위에 5×5 격자 칸(highlightScene.ts:21 SIZE=5), 제품 캡처 판 한 장과 행 넷, 숏폼 칸, 2줄 제목(:34 heading-36 → ≥1680 에서 heading-48, BAND_INK)이 차례로 선다. 칸·판·숏폼은 전부 캡처 그림(webp)과 영상이고, 흐름과 좌표는 highlightScene.ts 의 frame() 이 정한다. 이 파일은 그 값을 DOM 에 적기만 한다. Figma 에는 이 절의 시작 장면도 끝 장면도 없다. 한 화면 전용이라 Hero 와 같이 낮게 잡는다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측 결과 import·렌더 자리는 하나다(app/HomePageClient.tsx:9/:91). 랜딩의 한 절이고 뷰포트 높이 무대를 통째로 쓰므로 화면이다. 자기 조형은 검정 무대와 제목 한 덩어리뿐이고, 나머지는 캡처 그림과 스크롤 안무다. 되풀이되는 부품이 없다. 보드로 그린다면 시작 프레임(격자 + 왼쪽 아래 제목)과 끝 프레임(판 옆 끝 문구 + 숏폼) 두 장이면 된다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 Highlight 소개 장면이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 데스크톱은 「From a long-form video / to standout short clips.」, 모바일은 끝 문구 「From analysis to clips, / in a single step.」 장면이 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/ModelCarousel.tsx#ModelCarousel": {
       "file": "apps/web/components/landing/sections/ModelCarousel.tsx",
@@ -2794,12 +2803,13 @@
       "file": "apps/web/components/landing/sections/OverviewCanvasScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "넓고 높은 데스크톱(SCENE_QUERY)에서 개요 절을 대신하는 「모니터 속 캔버스」 스크롤 장면이다(OverviewSection.tsx:263). 캔버스 자체는 제품 NodeCanvasV2 에 쇼케이스 문서를 넣어 그리므로(OverviewCanvasScene.tsx:47) 노드는 각자 원장에 있다. 그러나 이 파일만 소유한 시각이 넷 있다. ① 라이트 캔버스 면과 점 격자(:79 CANVAS_FLOOR, 간격 24 · 지름 2) ② 왼쪽 문구와 문구 가림막(:87-:101, heading-28 → 36 · body-16 → 20) ③ 아이콘 여섯을 연결선으로 잇는 진행 줄(:105-:110, :564, 앞 단계는 opacity 35 + grayscale) ④ 끝 장면의 중앙 제목(:114). 넷 다 Figma 에 없다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측 결과 렌더 자리는 하나다(OverviewSection.tsx:19/:263). 랜딩 개요 절의 데스크톱 모양이고, 100vh sticky 무대를 쓰는 스크롤 장면이라 화면이다. 탭 개요(OverviewTabs)와 자식의 종류가 통째로 다르므로(진행 줄 · 캔버스 면 · 끝 제목) DS-D-0040 ①에 따라 별 표면이다. 진행 줄은 이 장면 전용이고 다른 화면에 같은 모양이 없어 부품으로 볼 수 없다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 개요 캔버스 장면이다(SCENE_QUERY 가 1920×1080 · 402×874 둘 다 이 장면을 고른다)(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 개요 문구와 캔버스 노드(AI image prompt · Video Seedance 2.0 Mini · Composition · YouTube 업로드 · TTS)와 시드 글이 채운다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/OverviewSection.tsx#OverviewSection": {
       "file": "apps/web/components/landing/sections/OverviewSection.tsx",
@@ -2881,12 +2891,13 @@
       "file": "apps/web/components/landing/sections/Testimonials.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "사진 밴드 계열의 다른 한 벌 — 배경 사진 + 스크림 + 제목 + 화자 캡슐(아바타 20px + 이름 + 직함) + 캐러셀 화살표. 아바타와 화살표는 Figma 에 있으나 밴드와 화자 캡슐 조합이 없다. CreatorProgram 과 골격을 공유하므로 함께 세우는 편이 낫다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: carousel-arrow] 실측: import·렌더 자리 하나 — app/HomePageClient.tsx:8/:86. 랜딩의 한 절이다. CreatorProgram 과 같은 사진 밴드 계열이지만 공유분은 이미 photoBand.ts 로 뽑혀 있어 남는 것은 이 절만의 조립(제목 + 화자 캡슐 + 캐러셀 화살표)이다. 화살표는 carousel-arrow, 아바타는 avatar 로 31종에 이미 서 있으므로 새로 지을 부품은 화자 캡슐(아바타 20 + 이름 + 직함) 하나인데 그것도 이 한 자리 전용이다. 파일 주석이 「시안에 후기 카드 본문이 없다 — 카드가 생기면 Carousel 로 갈아끼우면 된다」고 적어 두었으니, 지금 세우면 곧 바뀔 자리다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 사용자 후기 절이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 후기 인용(「The node-based structure and clean UI made it remarkably intuitive.」)과 화자 캡슐이 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/TimelineFooter.tsx#Clip": {
       "file": "apps/web/components/landing/sections/TimelineFooter.tsx",
@@ -3073,12 +3084,13 @@
       "file": "apps/web/components/models/ModelBanner.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "목록 맨 위 최신 모델 배너다 — 테마와 무관한 어두운 고정 면(palette-gray-950 + louis-hairline-inset · rounded-16 · p-20 pl-24) 위에 이름 heading-48 · 한 줄 소개 body-20 86% · 회사·사양 body-16 60% · 버튼 둘, 오른쪽 400px 결과 영상(≤959 에서 280 · ≤719 에서 영상이 먼저 오는 1열 · rounded-12, ModelBanner.tsx:11-21). Figma 에 대응이 없다 — 65 컴포넌트 중 MediaCard · NewsCard 는 카드 벌이라 이 텍스트+미디어 2열 배너를 담지 못하고, /models 보드도 없다(app-screens.plan.json 에 /models route 없음). 화면 보드를 세울 때 함께 그려야 한다. (검증 메모: needed 는 맞지만 kind 가 screen 으로 확정될 근거가 약하다. primitive 또는 unclear 로 올려야 한다. 「형제가 없다 — 상세 머리와 다른 별벌」이라는 판단은 $stateRule 과 맞지 않는다. 상세 HERO(models/[slug]/page.tsx:39-53)도 같은 자식 종류(heading-48 이름 · body-20 한 줄 · body-16 회사·사양 줄 · ModelHeroActions · ModelHeroMedia)를 같은 2열(미디어 400/440) → 959(280/320) → 719 1열)",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측 소비처 1 — `/models` 목록 페이지뿐이다(models/page.tsx:67). 즉 위 ModelsIndexPage 와 같은 한 장의 그림의 안쪽이다. 안의 버튼 둘은 ModelHeroActions(Button primary + ghost onDark), 영상은 ModelHeroMedia 로 이미 다른 표면이 갖고, 남는 어두운 패널 격자는 형제가 없다 — 상세 머리(HERO)와 어휘는 같지만 면·격자 폭·잉크가 다른 별벌이다. 두 번째 배너 자리가 생기면 그때 승격."
+      "verdict": "figma",
+      "figma": "screen:/models",
+      "reason": "모델 목록 화면의 최신 모델 배너다(DS-D-0098). 보드 3471:9267 · 3471:9268(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 시드(landing_models)의 최신 모델 Seedance 2.5 — 이름 · 한 줄 설명 · 「ByteDance, Up to 30s, 1080p, sound」 사양 줄이 배너를 채운다."
     },
     "apps/web/components/models/ModelCardGrid.tsx#ModelCardGrid": {
       "file": "apps/web/components/models/ModelCardGrid.tsx",
@@ -3095,12 +3107,13 @@
       "file": "apps/web/components/models/ModelCompare.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "영상·이미지·오디오를 토글로 오가는 비교 표(데스크톱)와 썸네일 + 사양 한 줄 + 크레딧의 줄 목록(폰)을 한 행 데이터로 두 벌 그린다(ModelCompare.tsx:76-163 · :165-184). 표는 louis-table 을 물지 않는 자체 구현이다 — 머리 칸 body-14-medium text-soft · 본문 body-16 py14/pr16 · 잉크 8% 헤어라인 · 행 hover 3% 면 · tabular-nums(:32-40)로, Figma Table/TableCell(14px · padding 8 · State Default|Hover)과 규범이 다르다. 행 전체가 누름을 받는 이동 행 + 장식 화살표 열(:102-121 · :157-159), 로고 + 이름 링크 + 회사·버전 수의 모델 칸(:122-136)도 Table 에 없다. PricingModal 이 받은 것과 같은 「Table 정본과 다른 두 번째 표 구현」 처리라 Table 수렴 대상으로 medium 에 둔다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/models/page.tsx:8/:80. /models 의 「모든 모델 비교」 한 절이라 화면의 절이다. 토글은 SegmentedToggle(=Figma SegmentedControl) 정본을 쓰고(:67-73) 로고 칸은 ModelLogo 를 부른다(:124 · :168) — 꺼낼 부품 둘은 이미 각자 서 있거나 따로 판정되므로, 남는 것은 표 조판과 폰 목록이다. /models 와 /models/[slug] 는 product.scenes.json:272-283 에서 concreteMeasurements · measuredContexts 가 둘 다 비어 보드도 측정도 없다."
+      "verdict": "figma",
+      "figma": "screen:/models",
+      "reason": "모델 목록 화면의 비교 표다(DS-D-0098). 보드 3471:9267 · 3471:9268(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 시드 모델 일곱이 비교 표 행(길이 · 해상도 · 소리 · 참조 그림 · 크레딧)과 종류 탭(Video 7 · Image 2 · Audio 1)을 채운다 — 모바일은 카드 목록 판이다."
     },
     "apps/web/components/models/ModelCreditCalculator.tsx#AudioLengthRow": {
       "file": "apps/web/components/models/ModelCreditCalculator.tsx",
@@ -3180,12 +3193,13 @@
       "file": "apps/web/components/models/ModelRecommender.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "세 문항(시작 재료 · 길이 · 가장 중요한 것)에 답하면 추천 한 버전과 이유 · 예상 크레딧 · 다음 후보를 보이는 절이다. 왼쪽 문항 줄(헤어라인 위아래 · 라벨 위 · 토글 아래, ModelRecommender.tsx:29-32 · :73-108)은 SegmentedToggle 정본을 문다. Figma 에 없는 것은 오른쪽 결과 면이다 — radius 16 · p20 · 잉크 4% 면 + 헤어라인 인셋(:33-37) 위에 로고 lg + 이름 body-20 + 회사(:117-123), 이유 한 줄, heading-36 크레딧 숫자 + 단위(:125-128), 플랜 안내, 헤어라인 위 다음 후보 밑줄 링크(:139-148), 버튼 둘(:150-154), 그리고 결과 없음 상태(:133)까지 이 파일에만 있다. 문항·결과 2열(380px)이 959px 아래 쌓이는 배치(:28)는 축이다. 한 화면 전용이라 낮게 잡는다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/models/page.tsx:7/:74. /models 의 「어떤 모델을 쓸까요?」 한 절이다. 문항 조작은 SegmentedToggle 정본(=Figma SegmentedControl), 로고는 ModelLogo, 버튼은 ModelHeroActions(Button 둘), 다음 후보 링크는 밑줄 링크라 꺼낼 부품은 각자 서 있거나 따로 판정된다. 남는 결과 면은 이 절 한 자리에만 있어 화면의 일부다. 라우트 보드 없음(product.scenes.json:279-283 measuredContexts [])."
+      "verdict": "figma",
+      "figma": "screen:/models",
+      "reason": "모델 목록 화면의 모델 추천기다(DS-D-0098). 보드 3471:9267 · 3471:9268(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세 문항(시작 재료 · 길이 · 우선순위)의 선택지와 결과 면(Seedance 2.0 Mini · 870 credits · 다음 후보 Minimax H3)이 공개 시드로 채워져 있다."
     },
     "apps/web/components/models/ModelShell.tsx#ModelShell": {
       "file": "apps/web/components/models/ModelShell.tsx",
@@ -3202,12 +3216,13 @@
       "file": "apps/web/components/models/ModelVersionRows.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "모델 상세 화면의 버전 행 묶음이다(DS-D-0098, 보드 /models/[slug]). 2026-10-15 대응.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "2026-10-15 아침 재판정: 보드 /models/[slug] 모바일(3471:9270)이 늘림 run q-1015-r 에서 w360 넘침 · 자식 넘침(안내 글 20px)으로 실패해 DS-D-0098 조건 2 를 잃었다. 늘림을 다시 재 통과하면 다시 대응으로 닫는다."
+      "verdict": "figma",
+      "figma": "screen:/models/[slug]",
+      "reason": "모델 상세 화면의 버전 행이다(DS-D-0098). 보드 3471:9269 · 3471:9270(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 시드 Veo 3.1 의 버전 셋(Lite · Fast · Pro) — 길이 · 해상도 · 기능(소리 · 끝 프레임 · 참조 그림) · 요금제 가용 줄이 행마다 채워져 있다."
     },
     "apps/web/components/navigation/CommandPalette.tsx#ArrowDownGlyph": {
       "file": "apps/web/components/navigation/CommandPalette.tsx",
@@ -3530,12 +3545,13 @@
       "file": "apps/web/components/scenes/analytics/AudienceTab.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "시청자 탭 본문 — 도넛 카드, 연령 성별 피라미드(좌우 바 + 가운데 구분 라벨 + 행별 스태거 애니메이션), 지역/기기 바 목록, 범례 점을 자체로 그린다. 차트 계열이 Figma 에 전무해 피라미드·도넛·바 목록은 새로 세워야 한다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳 · JSX 1곳(YoutubeAnalyticsScene.tsx:2254). 1224줄짜리 탭 «본문» — 화면의 큰 절이라 보드다. 다만 같은 본문을 InstagramAnalyticsScene 이 인라인으로 다시 그리므로 그림은 2라우트에 뜬다. 꺼낼 부품은 도넛 카드 · 연령 성별 피라미드(좌우 바 + 가운데 라벨) · 지역/기기 바 목록 · 범례 점 — 모두 PerformanceTab·YoutubeVideoAnalyticsView 와 같은 차트 축이다."
+      "verdict": "figma",
+      "figma": "screen:/analytics/youtube audience",
+      "reason": "유튜브 분석 「Audience」 탭이다(DS-D-0098). 보드 3587:6 · 3587:7(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 페이지는 다른 갈래가 늘림 실패를 고치는 중이라 이 판정은 그 재측정까지 잠정이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "레시피 시드 채널(Placeholder Channel · 12.8K subscribers)의 시청자 탭 — 구독 증감 · 구독/비구독 도넛 · 연령 성별 일곱 줄 · 지역 다섯 · 기기 넷 · 운영체제 넷이 채운다. 데이터 부족 상태가 아니다."
     },
     "apps/web/components/scenes/analytics/ContentTable.tsx#AnalyticsContentTable": {
       "file": "apps/web/components/scenes/analytics/ContentTable.tsx",
@@ -3774,12 +3790,12 @@
       "file": "apps/web/components/scenes/create/ComposerBar.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "create 화면의 주 컨트롤 바다. 프롬프트 카드(글자수 페이드 오버레이 포함) · 샷모드 텍스트 탭 · 뷰모드 SegmentedControl · 에셋 알약 2개 · 기간 스테퍼 팝오버 · 모델 드롭다운 · 사운드 세그먼트 · 전송 버튼이 한 카드에 붙는다. Figma 에 이 조립을 담은 컴포넌트가 없고, 안의 기간 스테퍼(−/값/+ 를 담은 h-36 알약, 좌우 그라디언트 프레스 면)는 재사용 축인데도 정본이 없다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: SegmentedControl (뷰모드·사운드 세그먼트에 한정)] 앵커 실측: import 1곳 · JSX 1곳(CreateScene.tsx:896) / 라우트 /nodecanvas 하나. 595줄에 프롬프트 카드·샷모드 탭·뷰모드 세그먼트·에셋 알약 2개·기간 스테퍼·모델 드롭다운·사운드 세그먼트·전송 버튼을 한 카드에 붙인 create 화면의 큰 절이라 보드다. 꺼낼 부품은 «기간 스테퍼»(−/값/+ h-36 알약, 좌우 그라디언트 프레스 면) 하나 — 재사용 축인데 정본이 없다. 모델 드롭다운은 이미 CustomDropdown(:519)을 문다."
+      "reason": "운영 판(97d4950e)에서 렌더 지점에 닿을 수 없는 표면이다. CreateScene.tsx:976-977 에서 viewMode === 「default」 일 때만 선다. CreateScene 의 viewMode 는 useCreateSceneController.ts:546 에서 「node」 로 시작하고 setViewMode 를 부르는 곳(useCreateSceneController.ts:2489 · :3137, useGenerationPolling.ts:308)이 모두 「node」 를 넣는다. 다른 값으로 바꾸는 유일한 길은 ComposerBar 의 onViewModeChange(CreateScene.tsx:994)인데 ComposerBar 자신이 viewMode === 「default」 일 때만 선다 — 스스로를 여는 단추가 자기 안에 있어 닫힌 고리다. 측정 · 보드가 원리상 불가능하므로 범위 밖이다. 소유자 확인 대기 — 제품에서 지울 후보. 2026-10-16 판정(앞선 ActionButton 범위 밖 관례).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/ConfirmModal.tsx#ConfirmModal": {
       "file": "apps/web/components/scenes/create/ConfirmModal.tsx",
@@ -4216,12 +4232,13 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 좌상단 레이어 패널(875줄) — 프레임 없는 프로그레시브 블러 표면 위에 노드 목록 행이 얹히고 행마다 타입 아이콘/썸네일·선택·인라인 편집 3단 상태를 갖는다. SelectableListRow 정본이 있지만 이 패널의 행은 블러 표면 위 투명 행이라 면 규범이 다르다. 캔버스의 주요 화면 요소.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: SelectableListRow] JSX 1 (index.tsx). 875줄짜리 좌상단 패널 — 프레임 없는 프로그레시브 블러 스트립(`--louis-progressive-blur` + inline-start 마스크, collapsed 분기까지) 위에 목록이 얹힌 화면 요소다. 안의 행은 LOUIS SelectableListRow 가 이미 있으나 이 패널 행은 블러 표면 위 투명 행이라 면 규범이 다르다 — 지어야 할 것은 패널이 아니라 그 행의 「프레임 없는 표면 위」 변형이고, 패널 전체는 보드에 그린다."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas?project=",
+      "reason": "캔버스 좌상단 레이어 패널이다(DS-D-0098). 보드 38:3 · 38:3843(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(03-app)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 · 모바일 360 의 React Flow 뷰포트 밖 노드는 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 페이지는 다른 갈래가 늘림 실패를 고치는 중이라 이 판정은 그 재측정까지 잠정이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "session fixture 시드 캔버스 프로젝트의 노드 셋이 패널을 채운다 — 「Search layers」 검색과 레이어 행 셋(요청 문장 · Image · Video). 빈 캔버스가 아니다."
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx#RowLeading": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx",
@@ -5447,12 +5464,13 @@
         "louis-node",
         "louis-state"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "영상 편집기 화면 셸(14,013줄) — 상단 바 · 에셋 패널 · 프리뷰 · 속성 패널 · 타임라인의 다분할 레이아웃과 그 사이 분할선·줌·플레이헤드를 소유한다. 제품에서 가장 큰 단일 화면이고 Figma 보드에 이 셸이 없으면 아래 videoEditParts 14종을 놓을 자리가 생기지 않는다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "reuse=라우트 실측 3 — 인스턴스화 지점 셋(app/videoeditor/[projectId]/EditorProjectWorkspace.tsx:1141 · app/highlight/[projectId]/shorts/[shortId]/page.tsx:1140 · nodes/EditNode.tsx:1068). 13,995줄로 상단 바·에셋 패널·프리뷰·속성 패널·타임라인의 다분할 레이아웃과 분할선·줌·플레이헤드를 소유한다. 부품이 아니라 화면 셸이고, 이건 figma/app-screens 축이 보드로 그릴 그림이다. 아래 videoEditParts 를 놓을 «자리»로서만 필요하다."
+      "verdict": "figma",
+      "figma": "screen:/videoeditor/[projectId]",
+      "reason": "영상 편집기 본체다(EditorProjectWorkspace 와 같은 보드)(DS-D-0098). 보드 39:3 · 39:1520(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(03-app)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 필름 칸 끝 걸침은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 페이지는 다른 갈래가 늘림 실패를 고치는 중이라 이 판정은 그 재측정까지 잠정이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "auth fixture 시드 편집 프로젝트(Fixture edit project)의 클립 둘(Clip A 00:10:00 · Clip B 00:08:00)이 에셋 목록 · 미리보기 · 타임라인을 채운다 — 빈 편집기가 아니다. 인스펙터 상태(클립 · 오디오 · 오버레이)는 각 파일의 needed 로 따로 남는다."
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx#AssetPanel": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx",
@@ -5604,12 +5622,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/CompositionInspector.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "`…/nodes/VideoEditModal.tsx#VideoEditModal` 안의 독립 영역이다. 전체 영상(컴포지션) 속성 패널 — 비율·FPS·길이. 인스펙터 행 문법의 한 사례이고 51종에 대응이 없다. 넷 중 가장 단순해 인스펙터 정본의 기준 화면으로 쓰기 좋다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: segmented-control] import 1곳(VideoEditModal), 라우트 3. 464줄로 인스펙터 넷 중 가장 단순하고, 자식이 InspectorSectionHead(:126)·InspectorSectionAction(:129)·InspectorMetric(4회) 그리고 이미 무는 louis-segmented-control 뿐이다 — 새 문법이 하나도 없다. 부품의 배치이므로 보드 프레임이며, 원장 말대로 인스펙터 정본의 기준 화면으로 쓰기 좋다."
+      "reason": "운영 판(97d4950e)에서 렌더 지점에 닿을 수 없는 표면이다. 유일한 렌더 지점 VideoEditModal.tsx:14815 가 selId === 「__composition__」 비교인데 그 값을 setSelId 로 세우는 코드가 저장소 어디에도 없다(「__composition__」 출현은 그 비교 한 줄뿐). 진입점은 제품 커밋 2171e98b4(「전체영상 인스펙터 제거」)에서 빠졌다. 측정 · 보드가 원리상 불가능하므로 범위 밖이다. 소유자 확인 대기 — 제품에서 지울 후보. 2026-10-16 판정(앞선 ActionButton 범위 밖 관례).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx#EditorSettingsPanelBody": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/EditorSettingsPanel.tsx",
@@ -6363,12 +6381,12 @@
       "file": "apps/web/components/scenes/create/PhotoGrid.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "기본 뷰의 에셋 블록 2열 — 메인 이미지(라벨 · 필수 메타 · 교체 버튼 · 프리뷰 또는 빈 상태 버튼 · 제거 버튼)와 참조 그룹(슬롯 행 + 태그 칩 목록)이다. Figma MediaCard 는 썸네일 + 정보 바 카드라 「업로드 슬롯 + 빈 상태 + 제거」 축이 없다. create 화면의 주 콘텐츠 영역이라 보드가 필요하다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳 · JSX 1곳(CreateScene.tsx:837) / 1라우트. create 기본 뷰의 주 콘텐츠 영역(메인 이미지 열 + 참조 그룹 2열)이라 화면의 큰 절 = 보드다. 되풀이되는 부분은 이 블록이 아니라 그 안의 ReferenceSlotRow 이고, 그건 따로 primitive 로 판정했다."
+      "reason": "운영 판(97d4950e)에서 렌더 지점에 닿을 수 없는 표면이다. CreateScene.tsx:916-918 에서 viewMode === 「default」 일 때만 선다. CreateScene 의 viewMode 는 useCreateSceneController.ts:546 에서 「node」 로 시작하고 setViewMode 를 부르는 곳(useCreateSceneController.ts:2489 · :3137, useGenerationPolling.ts:308)이 모두 「node」 를 넣는다. 다른 값으로 바꾸는 유일한 길은 ComposerBar 의 onViewModeChange(CreateScene.tsx:994)인데 ComposerBar 자신이 viewMode === 「default」 일 때만 선다(CreateScene.tsx:976-977). 측정 · 보드가 원리상 불가능하므로 범위 밖이다. 소유자 확인 대기 — 제품에서 지울 후보. 2026-10-16 판정(앞선 ActionButton 범위 밖 관례).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/PhotoGrid.tsx#ReferenceSlotRow": {
       "file": "apps/web/components/scenes/create/PhotoGrid.tsx",
@@ -6389,12 +6407,12 @@
       "file": "apps/web/components/scenes/create/PricingModal.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "모델별 크레딧 가격 모달 — 반경 24 헤어라인 면 + 헤더(heading-36 + 자체 닫기 버튼) + 스크롤 본문에 섹션마다 4열 고정폭 표(대문자 헤더 · 행 hover 면 · 우측 정렬 수치). Figma Dialog 는 표를 담는 본문 슬롯이 없고 Table 정본과도 규범이 다르다(대문자 letter-spacing 0.05em 헤더, 행 hover). 닫기 버튼이 IconButton 정본이 아니라 별도 구현인 것도 함께 정리해야 한다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: Dialog · Table (수렴 대상)] 앵커 실측: import 1곳 · JSX 1곳(CreateScene.tsx:951) / 1라우트. 455줄 모달 전체 = 화면 층 보드다. 안의 4열 고정폭 표(대문자 letter-spacing 0.05em 헤더 · 행 hover 면 · 우측 정렬 수치)는 LOUIS Table 정본과 규범이 다른 두 번째 표 구현이라 SubscriptionScene 의 이력 표와 «함께» Table 축으로 수렴시켜야 한다 — 이 모달만 보고 정하지 마라. 자체 닫기 버튼은 IconButton 정본으로 바꿀 자리다."
+      "reason": "운영 판(97d4950e)에서 열 수 없는 표면이다. CreateScene.tsx:1032-1035 에 렌더되지만 open 을 세우는 setPricingOpen(true)는 CreateScene.tsx:899 의 onOpenPricing 하나뿐이고, 그것을 부르는 유일한 단추(VideoModelMenu.tsx:491-509 의 「$」 가격 버튼)가 「임시 주석 처리」 로 막혀 있다. 측정 · 보드가 원리상 불가능하므로 범위 밖이다. 주석을 풀면 needed 로 되돌린다. 소유자 확인 대기 — 제품에서 지울 후보. 2026-10-16 판정(앞선 ActionButton 범위 밖 관례).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/ProjectHeader.tsx#NodeCanvasHeaderMark": {
       "file": "apps/web/components/scenes/create/ProjectHeader.tsx",
@@ -6452,12 +6470,12 @@
         "louis-icon-button",
         "louis-switch"
       ],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "업로드/예약 발행 화면 전체 — 제목·설명 메타 필드 + 자동 생성 버튼 + LOUIS Switch 예약 토글 + grid-template-rows 0fr↔1fr 로 열리는 예약 영역 + 자체 구현 달력(월 네비 · 요일 헤더 · 7열 날짜 그리드 · 선택/비활성 상태) + VideoPlayer 열 + 푸터 액션. 특히 **달력/날짜 선택기가 Figma 에 통째로 없다** — 다른 화면에서도 다시 필요해질 축이다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: Switch (예약 토글은 이미 소비)] 앵커 실측: import 1곳 · JSX 1곳(CreateScene.tsx:928) / 1라우트. 541줄 발행 화면 전체라 보드다. 이미 LOUIS Switch·focus-ring 을 물고 있다. 여기서 꺼내야 할 단 하나는 «달력/날짜 선택기» — 월 네비 · 요일 헤더 · 7열 날짜 그리드 · 선택/비활성 상태를 자체 구현했고 Figma 51종에 통째로 없다. 예약 발행 말고도 다시 필요해질 축이므로 이 보드와 별개로 세워라."
+      "reason": "운영 판(97d4950e)에서 렌더 지점에 닿을 수 없는 표면이다. CreateScene.tsx:1008-1009 에서 flowState === 「publishing」 이고 viewMode !== 「node」 일 때만 선다. CreateScene 의 viewMode 는 useCreateSceneController.ts:546 에서 「node」 로 시작하고 setViewMode 를 부르는 곳(useCreateSceneController.ts:2489 · :3137, useGenerationPolling.ts:308)이 모두 「node」 를 넣는다. 다른 값으로 바꾸는 유일한 길은 ComposerBar 의 onViewModeChange(CreateScene.tsx:994)인데 ComposerBar 자신이 viewMode === 「default」 일 때만 선다(CreateScene.tsx:976-977). 측정 · 보드가 원리상 불가능하므로 범위 밖이다. 소유자 확인 대기 — 제품에서 지울 후보. 2026-10-16 판정(앞선 ActionButton 범위 밖 관례).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/ReferenceTagChips.tsx#ReferenceTagChips": {
       "file": "apps/web/components/scenes/create/ReferenceTagChips.tsx",
@@ -6474,12 +6492,12 @@
       "file": "apps/web/components/scenes/create/ShotCarousel.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "샷 카드 가로 캐러셀 — 5:4 카드가 활성/미입력/호버로 면이 갈리고(미입력은 주황 inset 링), 카드마다 호버로 드러나는 원형 삭제 버튼과 글자수 페이드 오버레이가 달린 여러 줄 프롬프트 입력이 들어간다. 파일 주석이 `.louis-text-field` 비채택 근거를 적어 뒀다 — 정본은 한 줄 컨트롤이고 여기는 카드 높이를 채우는 textarea 에 자기 면색을 변수로 들고 focus 에서 갈아끼운다. 카드도 입력도 Figma 에 대응이 없다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳 · JSX 1곳(CreateScene.tsx:857) / 1라우트. 267줄. LOUIS 에 BannerCarousel·CarouselArrow 가 있으나 그건 배너 축이고 이건 5:4 샷 카드 가로 열이라 다른 물건이다. 그럼에도 primitive 로 올리지 않는 이유는 소비처가 하나이고 두 번째 그림이 제품에 없기 때문 — create 화면 보드의 한 절로 그려라. 파일 주석이 `.louis-text-field` 비채택 근거(정본은 한 줄 컨트롤, 여기는 카드 높이를 채우는 textarea 가 자기 면색을 변수로 들고 focus 에서 갈아끼움)를 이미 적어 뒀으니 TextField 축을 억지로 늘리지 마라. (앞 회차 두 묶음이 같은 키를 갈라 판정했다 — A=screen · B=oneoff. 둘 다 결론이 「부품으로 세우지 않는다」로 같고 슬라이스 정본이 A 라 screen 으로 접었다.)"
+      "reason": "운영 판(97d4950e)에서 렌더 지점에 닿을 수 없는 표면이다. CreateScene.tsx:935-938 에서 viewMode === 「default」 일 때만 선다. CreateScene 의 viewMode 는 useCreateSceneController.ts:546 에서 「node」 로 시작하고 setViewMode 를 부르는 곳(useCreateSceneController.ts:2489 · :3137, useGenerationPolling.ts:308)이 모두 「node」 를 넣는다. 다른 값으로 바꾸는 유일한 길은 ComposerBar 의 onViewModeChange(CreateScene.tsx:994)인데 ComposerBar 자신이 viewMode === 「default」 일 때만 선다(CreateScene.tsx:976-977). 측정 · 보드가 원리상 불가능하므로 범위 밖이다. 소유자 확인 대기 — 제품에서 지울 후보. 2026-10-16 판정(앞선 ActionButton 범위 밖 관례).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/CreateScene.tsx#CreateScene": {
       "file": "apps/web/components/scenes/CreateScene.tsx",
@@ -6742,12 +6760,13 @@
       "file": "apps/web/components/scenes/HomeCreateNewMenu.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "빈 홈(/archive) 시작 자리의 세 행이다 — 목록 머리 「새로 만들기」 메뉴와 같은 배열을 팝오버 없이 본문에 펼치고 이름 아래 설명 줄(hint)을 더한다(HomeCreateNewMenu.tsx:175-252). 항목은 louis-menu__item 레시피를 물지만 값을 덮어 쓴다 — 여백 py-7 px-6(14/12) · 간격 gap-5(10) · 이름 body-16-medium · 설명 body-14-regular · 면 없음 · 둘째 행부터 행 윗변 헤어라인(:193-204). Figma Menu 의 Layout=description(2026-10-08)이 가장 가깝지만 그 칸은 여백 8/12 · 간격 6 · 이름 14 · 설명 12 · 높이 57 이라(figma/components.measured.json descriptionItem) 1:1 이 아니다. 상태 둘은 이미 Figma 에 있다 — 고른 행의 설명 줄이 LoadingWord 쉬머로 바뀌고(:240-241) 나머지 행은 aria-disabled 로 Menu 의 State=Disabled 레시피를 탄다(:222). (검증 메모: needed 는 맞지만 kind 가 틀렸다. oneoff 가 아니라 screen 이다. 쓰는 곳이 하나(AppHomeScene.tsx:1098)이고 라우트도 /archive 하나뿐인 화면의 한 절이다. 원장 선례(CreatorProgram · OverviewSection · ClipInspector)와 이번 묶음의 ModelVersionRows · GroupPurchasePanel 은 이런 절을 모두 screen 으로 적었는데, 이 항목만 「화면 전체가 아니다」를 이유로 oneoff 로 갈랐다. 이유 문단에 적은 「Menu 에 본문)",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: Menu (Layout=description · State=Disabled) · LoadingWord · EmptyState] 실측: 렌더 1자리 — AppHomeScene.tsx:1098, 빈 홈의 EmptyState 행동 슬롯(appHomeSceneStyles.ts:701 이 「행동 슬롯은 LOUIS .louis-empty-state__action」이라 적는다). 다른 import 는 0이고 homeStartChoice.ts 는 id 유니언 타입만 나눈다. 되풀이가 없어 부품이 아니고, 화면 전체도 아니다(화면은 AppHomeScene 이 needed/screen). 할 일은 새 컴포넌트가 아니라 결정 하나다 — Menu 에 「본문 크기」 칸(16/14 · 14/12 여백)을 여는지, 빈 홈 보드에서 Menu Layout=description 인스턴스를 덮어 쓰는지. 면 없이 행 윗변 헤어라인으로 가르는 것은 louis-menu__separator 와 같은 선이라 새 시각이 아니다."
+      "verdict": "figma",
+      "figma": "screen:/archive",
+      "reason": "홈 「새로 만들기」 목록이다(DS-D-0098). 보드 20:2 · 23:2(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 페이지는 다른 갈래가 늘림 실패를 고치는 중이라 이 판정은 그 재측정까지 잠정이다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "이 표면은 프로젝트가 없는 홈에서만 서는 목록이고 /archive 보드가 그 세 행(Canvas · Composition · Highlight 와 설명 줄)을 온전히 그린다 — 「No projects yet」 머리말은 이 표면이 놓이는 자리다."
     },
     "apps/web/components/scenes/HomeCreateNewMenu.tsx#HomeCreateNewMenu": {
       "file": "apps/web/components/scenes/HomeCreateNewMenu.tsx",
@@ -6789,12 +6808,12 @@
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
+      "verdict": "scoped",
       "figma": null,
-      "reason": "인스타그램 대시보드 화면. 유튜브 씬과 같은 셸(채널 헤더·기간 선택기·연결 안내·탭 행)을 두 번째로 복제해 들고 있다. 두 씬을 하나의 대시보드 셸로 세우는 것이 이 도메인에서 가장 큰 중복 제거다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/analytics/instagram/page.tsx), JSX 1곳. 2008줄. 화면 자체다. 다만 채널 헤더·기간 선택기·연결 안내·탭 행의 대시보드 셸을 YoutubeAnalyticsScene 과 두 벌로 들고 있고, 탭 본문(KPI 행·차트 카드·상태 패널)도 analytics/ 탭들을 쓰지 않고 인라인으로 다시 그렸다 — 그 셸이 이 도메인의 진짜 primitive 인데 표면으로 서 있지 않다."
+      "reason": "운영 판(97d4950e)에서 렌더 지점에 닿을 수 없는 표면이다. 유일한 렌더 지점 app/analytics/instagram/page.tsx:11 의 라우트를 middleware.ts:203-214 가 INSTAGRAM_HIDDEN(lib/app-paths.ts:52, true)일 때 /analytics/youtube 로 돌려보낸다(matcher 「/analytics/:path*」, middleware.ts:262). 숨김을 풀기 전에는 화면이 서지 않으므로 범위 밖이다. 숨김 해제 시 needed 로 되돌린다. 소유자 확인 대기 — 제품에서 지울 후보. 2026-10-16 판정(앞선 ActionButton 범위 밖 관례).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/NodeCanvasHomeScene.tsx#NodeCanvasHomeScene": {
       "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",

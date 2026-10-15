@@ -142,7 +142,9 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 같은 오전 뒤: 73 → 72 — 설정.
 // 2026-10-15 앵커 이동(DS-D-0117): 72 → 73 — 사라진 needed 일곱(앰버서더 옛 절 다섯 · 링크 관리 · 랜딩 ModelShowcase Stage), 새 needed 여덟
 // (앰버서더 새 절 일곱 screen · 어시스턴트 제안 카드 oneoff). 발견이므로 올려 잠근다.
-const NEEDED_BASELINE = 73; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 2026-10-16: 73 → 47 — Figma 에 세웠다 19(새 앵커 판 화면 보드, check-figma-surface-coverage 의 MAPPED_SCREEN_BASELINE 주석) ·
+// 범위 밖으로 옮겼다 7(운영 판 도달 불가, 아래 SCOPED_BASELINE 주석). 판단 대기로 미룬 것은 없다.
+const NEEDED_BASELINE = 47; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -193,7 +195,13 @@ const UNCLEAR_BASELINE = 0; // 하락만 잠근다(소유자만 줄일 수 있�
 // 같은 날 뒤: 325 → 327 — LandingContent(근거였던 #final-cta 그라디언트가 FinalCtaScene 으로 떠나 조립만 남음) · LayoutThumb(글리프 일곱이 아이콘
 // 축 icon/caption-layout-* 으로, icon/plus 글리프 표면들과 같은 판정). DS-D-0115 · R2 보고.
 // 2026-10-15 앵커 이동(DS-D-0117): 327 → 328 — 사라진 범위 밖 열여덟, 새 범위 밖 열아홉(글리프 열하나 · 동작만 있는 층 넷 · 부모에 딸린 조각 넷).
-const SCOPED_BASELINE = 328; // 표면 총수가 오른 만큼만 오를 수 있다
+// 2026-10-16: 328 → 335 — **총수 616 그대로, 판정이 옮긴 일곱이다.** 운영 판 97d4950e 에서 렌더 지점에 닿을 수 없는 needed 화면 일곱을
+// 범위 밖으로 내렸다(ActionButton 판례): CreateScene 의 viewMode 가 「node」 에 고정돼(useCreateSceneController.ts:546 · :2489 · :3137,
+// useGenerationPolling.ts:308) 「default」 판에서만 서는 ComposerBar · PhotoSection · ShotCarousel · PublishFlow 넷, middleware 의 INSTAGRAM_HIDDEN
+// 리다이렉트에 막힌 InstagramAnalyticsScene, selId 「__composition__」 을 세우는 코드가 없는 CompositionInspector(진입점은 제품 2171e98b4 에서 제거),
+// 여는 단추가 주석 처리된 PricingModal(VideoModelMenu.tsx:491-509). 각 reason 에 파일:줄 근거가 있다. **소유자 확인 대기 — 제품에서 지울 후보**이고,
+// 제품이 그 길을 다시 열면 needed 로 되돌리고 이 수를 내린다.
+const SCOPED_BASELINE = 335; // 표면 총수가 오른 만큼만 오를 수 있다
 // 2026-09-10: 434 → 468. 앵커가 5a67d692 → f19cc41c 로 옮기며 제품 표면이 34종 늘었다
 // (쿠폰·선물하기 화면 등). **기준점을 옮기지 않으면 그만큼 범위 밖 허용치가 벌어진 채로
 // 남아 그물이 무뎌진다** — 실제로 `needed reclassified as out of scope` 카나리아가 그래서

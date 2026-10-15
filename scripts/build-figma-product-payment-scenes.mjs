@@ -143,6 +143,10 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 //   subtree-8728712c4402(21, body.1.0.0.1, success)  → subtree-670cbd56cc87
 // 2026-10-13(측정기에 mixBlendMode 키를 더한 재측정, f54f2c91): 구조는 그대로이고 id 만 갈렸다 — 노드 수 · 라우트 수 · occurrence · roots 의 route·path·tag 가 옛 원장과 바이트 같고 styleRef 만 새 계산값 키 하나 때문에 다시 계산됐다.
 //   subtree-b80dfc739aad → subtree-3321fc40dbe3 · subtree-670cbd56cc87 → subtree-7641df9ae215
+// 2026-10-15 재고정(54b62a8a → 운영 main 97d4950e, DS-D-0117): 77 짝만 id 가 갈렸다(3321fc40dbe3 → feffd7bcfb5d). 77/2 · roots 의 route ·
+// path · tag · rect 가 옛 원장과 바이트 같고, 바뀐 계산값은 품고 있는 사이드바 「Highlight」 행 아이콘 마스크 하나다 — `/highlight_symbol.svg`
+// → `/icons/Highlight.svg`(제품 `708235bd`, 상품 컴포넌트 생성기의 사이드바 가드와 같은 하나). 21(main 카드)은 사이드바를 품지 않아 id 그대로다.
+// 직접 세는 fail 쪽(81 · 25 · 모바일 28~25)도 노드 수 그대로다.
 const directFailSubtree = (ctx, path, nodeCount) => {
   const route = "/mypage/upgrade/billing-change-fail";
   const tree = fixture.screens[ctx]?.[route]?.tree ?? [];
@@ -152,7 +156,7 @@ const directFailSubtree = (ctx, path, nodeCount) => {
 };
 const candidateContracts = [
   directFailSubtree(context, "body.1", 81),
-  ["subtree-3321fc40dbe3", 77, 2],
+  ["subtree-feffd7bcfb5d", 77, 2],
   directFailSubtree(context, "body.1.0.0.1", 25),
   ["subtree-7641df9ae215", 21, 2],
 ].map((entry) => {
@@ -349,21 +353,23 @@ const spacingBindings = Object.fromEntries([...new Set([layout, mobileLayout].fl
 const quote = sourceQuotes({ repoRoot, productRoot, productCommit: fixture.productCommit, fail });
 const PAGE = "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx";
 const GLOBALS = "apps/web/app/globals.css";
+// 2026-10-15 운영 main 97d4950e: globals.css 면 선언 셋은 글자 그대로이고 줄만 +33 · +34 밀렸다(804 → 837 · 805 → 838 · 966 → 1000) —
+// 같은 문자열이 다크 스코프(:762 · :763)에도 있어 두 앵커 사이 diff 의 바뀌지 않은 줄 대응으로 라이트 스코프 줄을 골랐다.
 const roles = live.colorRoles({
   theme: "light",
   where: "payment-scenes",
   roles: {
     appPageBg: {
       name: "color/bg-canvas",
-      declared: [quote.product(PAGE, 33, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 804, "  --app-page-bg: var(--louis-color-bg-canvas);")],
+      declared: [quote.product(PAGE, 33, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 837, "  --app-page-bg: var(--louis-color-bg-canvas);")],
     },
     appPageBgNarrow: {
       name: "color/bg-surface",
-      declared: [quote.product(PAGE, 33, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 966, "    --app-page-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(PAGE, 33, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1000, "    --app-page-bg: var(--louis-color-bg-surface);")],
     },
     appMainCardBg: {
       name: "color/bg-surface",
-      declared: [quote.product(PAGE, 54, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 805, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(PAGE, 54, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 838, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
     },
     boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
     docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },

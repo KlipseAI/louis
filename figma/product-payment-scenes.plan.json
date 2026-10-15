@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma composition; not a normative design-system contract",
-  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
   "context": "desktop-1920x1080",
   "sourceCandidates": [
     {
@@ -12,7 +12,7 @@
       "routeCount": 1
     },
     {
-      "id": "subtree-3321fc40dbe3",
+      "id": "subtree-feffd7bcfb5d",
       "nodeCount": 77,
       "roots": [
         {
@@ -484,15 +484,15 @@
       "appPageBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 33,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 804,
+            "line": 837,
             "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
           }
         ],
@@ -507,15 +507,15 @@
       "appPageBgNarrow": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 33,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 966,
+            "line": 1000,
             "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
           }
         ],
@@ -530,15 +530,15 @@
       "appMainCardBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 54,
             "quote": "  \"bg-[var(--app-main-card-bg)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 97d4950e153de329c0b81eb7dde7c149ebbc07da:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 805,
+            "line": 838,
             "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
           }
         ],

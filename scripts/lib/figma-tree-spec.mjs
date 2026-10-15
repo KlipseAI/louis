@@ -1289,7 +1289,18 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       const [only] = children;
       const declaredWidth = String(byPath.get(only.path)?.declared?.width ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
       const share = /^(\d+(?:\.\d+)?)%$/.exec(declaredWidth);
-      if (share && Number(share[1]) < 100 && only.positioning !== "ABSOLUTE" && !(only.children ?? []).length && only.rect && node.rect) {
+      // **변수로 쓴 백분율 폭도 같다(2026-10-16, 조립 규칙 15조의 43).** LOUIS 진행 막대의 채움(`width: calc(var(--louis-progress-value) * 1%)`)은 크기 판정이
+      // 풀지 못해(해석하지 못한 선언) 측정 폭 FIXED 로 굳었다 — 설문 완료 모바일의 100% 막대 370 이 360 에서 트랙 밖으로 42(늘림 run 2026-10-16p2). 길이 단위
+      // 없이 `%` 만 품은 calc 는 포함 블록의 백분율이다 — 측정 비율(채움 폭 / 트랙 안쪽 폭)로 판정한다: 100% 면 트랙을 채운다(FILL), 아니면 위와 같은 SCALE.
+      const edgeX = (side) => (px(style[`padding${side}`]) ?? 0) + (px(style[`border${side}Width`]) ?? 0);
+      const percentCalc = !share && /^calc\(/.test(declaredWidth) && /%/.test(declaredWidth) && !/\d(px|r?em|vw|vh|ch|ex)\b/.test(declaredWidth)
+        && only.positioning !== "ABSOLUTE" && !(only.children ?? []).length && only.rect && node.rect;
+      const innerWidth = node.rect ? node.rect.width - edgeX("Left") - edgeX("Right") : 0;
+      if (percentCalc && innerWidth > 0 && Math.abs(only.rect.width - innerWidth) <= 0.5) {
+        const why = { verdict: "FILL", reason: `변수로 쓴 백분율 폭(${declaredWidth})이 측정에서 트랙을 채웠다 — FILL(조립 규칙 15조의 43)`, source: `width:${declaredWidth}`, value: null };
+        children = [{ ...only, sizing: { ...only.sizing, layoutSizingHorizontal: "FILL", minWidth: null, maxWidth: null }, why: { ...only.why, horizontal: why } }];
+        stats.percentShareScaled = (stats.percentShareScaled ?? 0) + 1;
+      } else if ((share && Number(share[1]) < 100 || percentCalc && innerWidth > 0 && only.rect.width < innerWidth - 0.5) && only.positioning !== "ABSOLUTE" && !(only.children ?? []).length && only.rect && node.rect) {
         const edge = (side) => (px(style[`padding${side}`]) ?? 0) + (px(style[`border${side}Width`]) ?? 0);
         const innerHeight = node.rect.height - edge("Top") - edge("Bottom");
         const fullHeight = Math.abs(only.rect.height - innerHeight) <= 0.5;
@@ -1476,7 +1487,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     const crossClamped = !shrinkItem && !floatingLine && !placeholder && !wrappedRows && !fit && !decision.absolute && nodeSizing.layoutSizingHorizontal === "HUG"
       ? crossClampedItemOf(node, parent, children) : null;
     if (crossClamped) {
-      nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", maxWidth: null };
+      nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", maxWidth: crossClamped.cap != null ? Math.max(crossClamped.cap, nodeSizing.maxWidth ?? 0) : null };
       shrinkWhy = {
         verdict: "FILL",
         reason: `세로 flex 의 교차축 맞춤(${crossClamped.align}) 항목이 칸 폭에 닿았다 — 내용 폭(fit-content)이 칸 폭으로 잘렸으므로 칸을 따라 줄어든다 · ${crossClamped.cut}(조립 규칙 15조의 32)`,
@@ -1543,11 +1554,11 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       // **아이콘의 그림.** 측정한 도형(기하 속성 + 계산된 칠 · 획)을 SVG 로 조립한다 — 렌더러가 이것으로 아이콘을 그린다(glyphMarkup).
       ...(node.tag === "svg" ? (() => { const markup = glyphMarkup(node, childrenOf); return markup ? { glyphSvg: markup } : {}; })() : {}),
       // 줄어드는 flex 항목이 글자 잎이면 렌더러가 측정 폭에서 다시 감겼는지 잰다(조립 규칙 15조의 22 와 같은 되돌림, payload `fw`).
-      ...(shrinkItem && !textMoved && node.ownText && children.length === 0 ? { fillWrapped: {
+      ...((shrinkItem || crossClamped?.cap) && !textMoved && node.ownText && children.length === 0 ? { fillWrapped: {
         lines: Array.isArray(node.wrapLines) && node.wrapLines.length > 0 ? node.wrapLines.length : String(node.ownText).split("\n").length,
         lineHeight: px(style.lineHeight) ?? null,
         // 측정 폭에서 잘리지 않은 말줄임 글자 — 렌더러가 Figma 글꼴의 한 줄 폭이 상한을 넘는지 재서 넘으면 폭 맞춤으로 되돌린다(없는 말줄임표가 생기지 않게).
-        ...(shrinkItem.truncates && !shrinkItem.shrunk ? { truncates: true } : {}),
+        ...(shrinkItem?.truncates && !shrinkItem.shrunk ? { truncates: true } : {}),
       } } : {}),
       // 그림이 상자를 따라 늘어나는가(`preserveAspectRatio="none"`, 조립 규칙 15조의 26) — 렌더러가 상자가 바뀔 때 그림을 SCALE 로 늘인다.
       ...(node.tag === "svg" && String(node.vector?.preserveAspectRatio ?? "").trim() === "none" ? { glyphStretch: true } : {}),
@@ -1857,13 +1868,29 @@ export function constraintsFor(rawDeclared, computed = null, parentComputed = nu
     if (/(^|\s)(flex-end|end|right)$/.test(justify)) return false;
     return !/center$/.test(justify) || Math.abs(left - right) > 1;
   })();
+  // **flex 가로 줄이 아닌 부모의 버려진 논리 변(2026-10-16, 조립 규칙 15조의 44).** 위 15조의 39 는 flex 가로 줄 안만 본다. block · grid 부모 안의 절대 배치는
+  // 가로 변 선언이 없으면 정적 자리(부모 안쪽 시작 — grid 는 안쪽 여백 상자 시작)에 선다. 계산값 왼쪽이 그 자리가 아니면 버려진 논리 변(`inset-inline` ·
+  // `inset-inline-end`)이 세운 것이다 — 두 변이 같고 폭을 px 로 선언하지 않았으면 양쪽 변(`inset-x-3` → STRETCH), 오른쪽이 왼쪽보다 작으면 끝 변(MAX).
+  // 쇼츠 업로드 모바일의 영상 아래 글 묶음(왼쪽 · 오른쪽 12, grid 330 안 306)이 MIN 에 묶여 360 에서 칸 밖으로 30, 덱 모바일 카드의 단추 묶음(오른쪽 16)이
+  // 26 나갔다(늘림 run 2026-10-16p2). 세로 flex 의 교차축 가운데(15조의 5 staticCentre)는 위 판정이 먼저다.
+  const blockLogical = (() => {
+    if (position !== "absolute" || ["left", "right", "inset"].some((key) => has(declared[key]))) return null;
+    if (/flex/.test(parentComputed?.display ?? "") && (parentComputed?.flexDirection ?? "row").startsWith("row")) return null;
+    if (staticCentre(flexColumn, "left", "right")) return null;
+    const left = px(computed?.left), right = px(computed?.right);
+    if (left == null || right == null) return null;
+    const startPad = px(parentComputed?.paddingLeft) ?? 0;
+    if (Math.abs(left) <= 0.5 || Math.abs(left - startPad) <= 0.5) return null;
+    if (Math.abs(left - right) <= 0.5 && !lengthDeclaredPx(String(declared.width ?? "").replace(/\s*!\s*important\s*$/i, "").trim())) return "STRETCH";
+    return right + 0.5 < left ? "MAX" : null;
+  })();
   return {
-    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") || equalInsets("left", "right", "width") || coverStretch("horizontal", "width") ? "STRETCH"
+    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") || equalInsets("left", "right", "width") || coverStretch("horizontal", "width") || blockLogical === "STRETCH" ? "STRETCH"
       : percentCentre("left", "width") ? "SCALE"
         : centred(declared.left) || (centred(declared.right) && !has(declared.left)) || staticCentre(flexColumn, "left", "right") ? "CENTER"
           : placed.horizontal || scriptPx("left", "right", "width") ? "SCALE"
             : horizontalPercent ? horizontalPercent
-              : has(declared.right) || logicalEnd ? "MAX" : "MIN",
+              : has(declared.right) || logicalEnd || blockLogical === "MAX" ? "MAX" : "MIN",
     vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") || equalInsets("top", "bottom", "height") || coverStretch("vertical", "height") ? "STRETCH"
       : percentCentre("top", "height") ? "SCALE"
         : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) || staticCentre(flexRow, "top", "bottom") ? "CENTER"
@@ -1923,7 +1950,10 @@ function flexShrinkItemOf(node, parent, specChildren, childrenOf) {
   // 15조의 22(줄 상자를 혼자 채운 inline 글자 FILL)로 칸을 따라 감긴다.
   const wrappingBox = (entry) => !entry.ownText && !hasOwnPaint(entry)
     && !/^(nowrap|pre)$/.test(entry.style?.whiteSpace ?? "") && !/hidden|clip|auto|scroll/.test(`${entry.style?.overflow ?? ""} ${entry.style?.overflowX ?? ""}`)
-    && (() => { const kids = (childrenOf.get(entry.path) ?? []).filter((kid) => isVisible(kid)); return kids.length > 0 && kids.every(wrappingLeaf); })();
+    // (15조의 30 넓힘, 2026-10-16) 감기는 글자 곁의 아이콘(`svg` · `img` 잎)은 최소 내용 폭에 제 폭만 더한다 — 쇼츠 업로드 모바일 카드 머리의 「아이콘 +
+    // Upload to YouTube」 묶음(HUG 203.8)이 360 에서 줄 밖으로 9(늘림 run 2026-10-16p2). 제품은 묶음이 줄며 제목이 두 줄로 감긴다.
+    && (() => { const kids = (childrenOf.get(entry.path) ?? []).filter((kid) => isVisible(kid)); return kids.some(wrappingLeaf)
+      && kids.every((kid) => wrappingLeaf(kid) || ((kid.tag === "svg" || kid.tag === "img") && !(childrenOf.get(kid.path) ?? []).some((g) => g.ownText))); })();
   const shrinks = (entry) => flowItem(entry) && (zeroMin(entry) || wrappingLeaf(entry));
   const measuredByPath = new Map();
   for (const list of childrenOf.values()) for (const entry of list) measuredByPath.set(entry.path, entry);
@@ -1995,6 +2025,25 @@ function crossClampedItemOf(node, parent, specChildren) {
   if (!node.rect || !parent.rect) return null;
   const edge = (side) => (px(outer[`padding${side}`]) ?? 0) + (px(outer[`border${side}Width`]) ?? 0);
   const inner = parent.rect.width - edge("Left") - edge("Right");
+  // **칸보다 좁은 줄바꿈 허용 글자도 칸을 따라 줄어든다(2026-10-16, 조립 규칙 15조의 45).** 교차축 맞춤 항목의 폭 `min(max-content, 칸 폭)` 은 칸이 넓은
+  // 동안 글자 폭이고, 칸이 글자보다 좁아지면 칸 폭으로 줄어 다시 감긴다. 칸에 닿지 않은 글자 잎(칠 없음 · 낱말 둘 이상 · 줄바꿈 허용 · 말줄임 아님)은
+  // 가로 FILL + 최대 폭 = 측정 폭이 같은 반응이다(측정 폭에서 같은 그림, 칸이 좁아지면 칸 폭). 쇼츠 업로드 연결 모바일의 안내 「Connect your YouTube
+  // account…」(`p` 320.6, 칸 330)가 HUG 로 360 에서 칸 밖으로 32 나갔다(늘림 run 2026-10-16p2). Figma 글꼴이 측정 폭에서 더 감기면 렌더러가 폭 맞춤으로
+  // 되돌린다(`fw`).
+  if (node.rect.width < inner - 1) {
+    // 칸 폭을 상한으로 선언한 항목(`max-width: 100%`)도 같다 — 하이라이트 기록 모바일 카드 제목(`truncate max-w-full`, 153.4 / 칸 161)이 360 에서 칸 밖으로 14.
+    // 제품은 칸 폭에서 잘리고 말줄임이다.
+    const capDeclared = String(node.declared?.["max-width"] ?? node.declared?.["max-inline-size"] ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+    if (capDeclared === "100%") return { align, cut: "칸 폭 상한(max-width 100%)", cap: node.rect.width };
+    const wraps = !/^(nowrap|pre)$/.test(String(node.style?.whiteSpace ?? "normal")) && !/^(nowrap)$/.test(String(node.style?.textWrapMode ?? "wrap"));
+    const bare = !/^rgba\(0, 0, 0, 0\)$|^transparent$/.test(String(node.style?.backgroundColor ?? "transparent")) ? false
+      : !(px(node.style?.borderLeftWidth) > 0 || px(node.style?.borderRightWidth) > 0) && !(px(node.style?.paddingLeft) > 0 || px(node.style?.paddingRight) > 0);
+    if (node.ownText && specChildren.length === 0 && wraps && bare && /\S\s+\S/.test(String(node.ownText))
+      && !/ellipsis/.test(String(node.style?.textOverflow ?? "")) && String(node.style?.overflowX ?? "visible") === "visible") {
+      return { align, cut: "줄바꿈 허용 글자(칸보다 좁다)", cap: node.rect.width };
+    }
+    return null;
+  }
   if (Math.abs(node.rect.width - inner) > 1) return null;
   let cut = null;
   if (node.ownText && specChildren.length === 0) {

@@ -1950,7 +1950,25 @@ function wrapSiblingMargins(spec, declaredOf = () => null) {
   // 것처럼 앞 항목 뒤에 붙어(splitWrapRowsAtLoneText 주석의 라이브 탐침), 뒤 항목(업로드 진행 막대, `flex-basis: 100%`)이 그 줄로
   // 올라온다. 오른쪽 auto 로 줄을 채운 글자는 그보다 앞서 splitWrapRowsAtLoneText 가 줄을 끊어 margin 을 버리므로(2026-10-12) 여기까지
   // 오지 않는다 — 남는 것은 그 규칙 밖(칠 · 정렬 · 왼쪽 auto 등)의 감싸개다.
+  // **세로 쌓기의 가로 auto 여백도 남는 폭이다(2026-10-16, 조립 규칙 15조의 42).** block 흐름(세로 쌓기)의 항목이 `margin-inline: auto` 로 가운데 서면
+  // (논리 여백이라 선언 수집기는 리셋의 `margin-left: 0px` 만 본다 — 15조의 38 과 같은 버림) 측정 margin(134.08 · 134.08)이 감싸개 padding 으로 옮겨져
+  // 감싸개가 HUG 306 에 굳었다 — 앰배서더 모바일의 지원서 카드 머리 그림이 360 에서 카드 밖으로 42(늘림 run 2026-10-16p2). 세로 쌓기에서 항목은 혼자 한
+  // 줄이므로, 선언한 px 와 측정 margin 이 어긋나고 항목의 바깥 폭이 줄 안쪽 폭과 같으면 그 변은 auto 다 — 감싸개를 가로 FILL, 자식을 반대쪽(교차축)에 붙인다.
+  const verticalAutoSidesOf = (node, child) => {
+    if (node.layout.layoutMode !== "VERTICAL" || node.sizing.layoutSizingHorizontal === "HUG" || child.sizing.layoutSizingHorizontal === "FILL") return [];
+    const declared = declaredOf(child.path) ?? {};
+    const room = node.rect.width - node.layout.padding.left - node.layout.padding.right;
+    const outer = child.rect.width + Math.max(0, child.margin.left ?? 0) + Math.max(0, child.margin.right ?? 0);
+    if (Math.abs(outer - room) > 1) return [];
+    const said = (side) => {
+      const m = /^(-?\d+(?:\.\d+)?)(px)?$/.exec(String(declared[`margin-${side}`] ?? "0px").replace(/!important/g, "").trim());
+      return m ? Number(m[1]) : null;
+    };
+    return ["left", "right"].filter((side) => (child.margin[side] ?? 0) > HALF_PIXEL
+      && (isAuto(declared[`margin-${side}`]) || (said(side) != null && (child.margin[side] ?? 0) - said(side) > HALF_PIXEL)));
+  };
   const autoSidesOf = (node, child) => {
+    if (node.layout.layoutMode === "VERTICAL") return verticalAutoSidesOf(node, child);
     if (node.layout.layoutMode !== "HORIZONTAL" || node.sizing.layoutSizingHorizontal === "HUG" || child.sizing.layoutSizingHorizontal === "FILL") return [];
     const declared = declaredOf(child.path) ?? {};
     const room = node.rect.width - node.layout.padding.left - node.layout.padding.right;
@@ -2005,7 +2023,10 @@ function wrapSiblingMargins(spec, declaredOf = () => null) {
         const reason = autoSides.length
           ? `auto margin(${autoSides.join(" · ")}) 감싸개 — 줄의 남는 폭(FILL), 폭 하한은 자식 상자`
           : "형제가 있는 자식의 margin 감싸개 — 자식이 FILL 이면 FILL, 아니면 HUG";
-        const primaryAxis = autoSides.length === 2 ? "CENTER" : autoSides[0] === "left" ? "MAX" : null;
+        const sideAlign = autoSides.length === 2 ? "CENTER" : autoSides[0] === "left" ? "MAX" : null;
+        // 세로 쌓기의 auto 여백(15조의 42)은 감싸개의 교차축(가로) 정렬이다 — 가로 줄(15조의 7)은 주축.
+        const columnAuto = !grid && node.layout.layoutMode === "VERTICAL" && autoSides.length > 0;
+        const primaryAxis = columnAuto ? null : sideAlign;
         return {
           path: `${child.path}~margin`, tag: "margin", name: `margin ${child.path}`, text: null, textLines: null, paints: false,
           rect: { x: child.rect.x - boxLeft, y: child.rect.y - out.top,
@@ -2018,7 +2039,7 @@ function wrapSiblingMargins(spec, declaredOf = () => null) {
           ...(gridAlign ? { gridAlign } : {}),
           ...(gridPlace ? { gridPlace } : {}),
           layout: { layoutMode: grid ? "VERTICAL" : node.layout.layoutMode, itemSpacing: 0, counterAxisSpacing: null, wrap: false,
-            padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis: grid ? null : node.layout.align?.counterAxis ?? null, primaryAxis } },
+            padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis: grid ? null : columnAuto ? sideAlign ?? "MIN" : node.layout.align?.counterAxis ?? null, primaryAxis } },
           clipsContent: false,
           children: [child],
         };
@@ -2135,8 +2156,10 @@ function scaleCoversInScaledLayers(spec) {
     for (const child of node.children ?? []) {
       if (child.positioning === "ABSOLUTE" && child.constraints && node.constraints && node.rect && child.rect) {
         const next = { ...child.constraints };
-        if (child.constraints.horizontal === "STRETCH" && node.constraints.horizontal === "SCALE" && near(child.rect.x, node.rect.x) && near(child.rect.width, node.rect.width)) next.horizontal = "SCALE";
-        if (child.constraints.vertical === "STRETCH" && node.constraints.vertical === "SCALE" && near(child.rect.y, node.rect.y) && near(child.rect.height, node.rect.height)) next.vertical = "SCALE";
+        // (15조의 27 넓힘, 2026-10-16) 시작 변에 붙은(MIN) 자식이 부모를 그 축에서 꼭 덮어도 같다 — 편집기 오디오 인스펙터 데스크톱의 파형 그림(`left: 0%;
+        // height: 100%; width: auto` — 폭이 높이 비율로 정해진다)이 SCALE 상자 39.6 을 덮고도 MIN 이라 1440 에서 상자 밖으로 9.6(늘림 run 2026-10-16p2).
+        if (["STRETCH", "MIN"].includes(child.constraints.horizontal) && node.constraints.horizontal === "SCALE" && near(child.rect.x, node.rect.x) && near(child.rect.width, node.rect.width)) next.horizontal = "SCALE";
+        if (["STRETCH", "MIN"].includes(child.constraints.vertical) && node.constraints.vertical === "SCALE" && near(child.rect.y, node.rect.y) && near(child.rect.height, node.rect.height)) next.vertical = "SCALE";
         if (next.horizontal !== child.constraints.horizontal || next.vertical !== child.constraints.vertical) {
           child.constraints = next;
           changed.push(child.path);
@@ -2192,7 +2215,11 @@ function hugCarriedLines(spec, styleOf = () => null) {
       const flow = flowChildren(parent);
       const cross = layout.align?.counterAxis ?? "MIN";
       const vertical = layout.layoutMode === "VERTICAL" && cross === (align === "center" ? "CENTER" : "MIN");
-      const alone = layout.layoutMode === "HORIZONTAL" && flow.length === 1 && (layout.align?.primaryAxis ?? "MIN") === (align === "center" ? "CENTER" : "MIN");
+      // **가운데 정렬 inline 글자는 줄 상자의 주축 정렬과 상관없이 줄을 채운다(2026-10-16, 조립 규칙 15조의 41).** `text-align: center` 는 글자를 줄 상자 안에서
+      // 가운데 둔다 — 줄 상자(가로 줄)의 주축 정렬은 시작이어도 글자가 칸 가운데에 선다(아래 atStart 가 측정 자리로 확인한다). 랜딩 모델 절 모바일의 인용문
+      // (`<blockquote><span><span>“ The node-based…` — 칸 370 의 가운데 347.6)이 HUG 로 남아 360 에서 칸 밖으로 17 나갔다(늘림 run 2026-10-16p2).
+      const alone = layout.layoutMode === "HORIZONTAL" && flow.length === 1
+        && ((layout.align?.primaryAxis ?? "MIN") === (align === "center" ? "CENTER" : "MIN") || (inline && align === "center"));
       const contentStart = (parent.rect?.x ?? 0) + (layout.padding?.left ?? 0);
       const contentMid = (contentStart + (parent.rect?.x ?? 0) + (parent.rect?.width ?? 0) - (layout.padding?.right ?? 0)) / 2;
       const atStart = align === "center"

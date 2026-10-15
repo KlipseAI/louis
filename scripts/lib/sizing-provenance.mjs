@@ -63,6 +63,14 @@ export function px(value) {
   return match ? Number(match[1]) : null;
 }
 
+/** 물리 단위 길이(`210mm` · `2.5cm` · `1in` · `12pt` · `1pc`) → px(1in = 96px). 아니면 null(조립 규칙 15조의 34). */
+export function physicalPx(value) {
+  const match = /^(-?[\d.]+)(mm|cm|in|pt|pc)$/.exec(String(value ?? "").replace(/\s*!\s*important\s*$/i, "").trim());
+  if (!match) return null;
+  const perUnit = { mm: 96 / 25.4, cm: 96 / 2.54, in: 96, pt: 96 / 72, pc: 16 }[match[2]];
+  return Math.round(Number(match[1]) * perUnit * 100) / 100;
+}
+
 /** `"100%"` → 100. 아니면 null. */
 export function percent(value) {
   const match = PERCENT.exec(String(value ?? "").trim());
@@ -183,7 +191,10 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
       }
       return { verdict: AXIS.HUG, reason: `${declared} — 콘텐츠가 결정한다`, source: `${horizontal ? "width" : "height"}:${declared}`, value: null };
     }
-    const fixed = px(declared);
+    // **물리 단위 고정 폭도 px 다(2026-10-15, 조립 규칙 15조의 34).** 인쇄 화면의 종이 폭(`width: 210mm; max-width: 100%`)은 CSS 에서 1in = 96px 로 풀리는
+    // 고정 길이인데 `px()` 가 px 만 읽어 아래 「고정 폭 + max-width: 100%」 갈래를 지나쳐 측정 폭 FIXED 로 굳었다 — /admin/coupons/[id]/print 모바일 360 에서
+    // 종이 386 이 부모 344 밖으로 34. mm · cm · in · pt · pc 를 px 로 바꿔 같은 갈래를 탄다.
+    const fixed = px(declared) ?? physicalPx(declared);
     // **고정 폭 + `max-width: 100%` 는 FILL + maxWidth 다(2026-10-08, 조립 규칙 15조의 6).** 「그 폭이되 포함 블록보다 넓어지지 않는다」 —
     // 부모가 넓으면 그 폭, 좁으면 부모 폭이다. Figma 의 FILL + maxWidth(그 폭)가 같은 뜻이다. FIXED 로 굳히면 팔레트 대화 상자
     // (`w-[560px] max-w-full`)가 모바일 360 에서 부모를 9.5 넘쳤다. 다만 FILL 은 포함 블록이 아니라 Figma 부모의 남는 자리를 채우므로,

@@ -96,12 +96,42 @@
       }
     ],
     "summary": {
-      "paid": { "count": 3, "payers": 3, "amount": 359900 },
-      "refunded": { "count": 1, "amount": 12900 },
+      "paid": {
+        "count": 3,
+        "payers": 3,
+        "amount": 359900
+      },
+      "refunded": {
+        "count": 1,
+        "amount": 12900
+      },
       "byType": [
-        { "type": "bulk_coupon", "count": 1, "payers": 1, "amount": 299000 },
-        { "type": "subscription", "count": 1, "payers": 1, "amount": 49900 },
-        { "type": "topup", "count": 1, "payers": 1, "amount": 11000 }
+        {
+          "type": "bulk_coupon",
+          "count": 1,
+          "payers": 1,
+          "amount": 299000
+        },
+        {
+          "type": "subscription",
+          "count": 1,
+          "payers": 1,
+          "amount": 49900
+        },
+        {
+          "type": "topup",
+          "count": 1,
+          "payers": 1,
+          "amount": 11000
+        }
+      ],
+      "byProvider": [
+        {
+          "provider": "toss_payments",
+          "count": 3,
+          "payers": 3,
+          "amount": 359900
+        }
       ],
       "truncated": false
     },

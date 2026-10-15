@@ -1182,9 +1182,10 @@
         },
         {
           "waitFor": {
-            "role": "dialog",
-            "name": "New template"
-          }
+            "text": "New template",
+            "exact": true
+          },
+          "description": "운영 판(97d4950e) 편집 창은 role=dialog 가 없는 div 다 — CaptionTemplateManagement.tsx:996-1002 의 AdminSectionHeader 제목을 기다린다"
         }
       ],
       "assert": {
@@ -1257,9 +1258,10 @@
         },
         {
           "waitFor": {
-            "role": "dialog",
-            "name": "New template"
-          }
+            "text": "New template",
+            "exact": true
+          },
+          "description": "운영 판(97d4950e) 편집 창은 role=dialog 가 없는 div 다 — CaptionTemplateManagement.tsx:996-1002 의 AdminSectionHeader 제목을 기다린다"
         },
         {
           "click": {
@@ -1528,7 +1530,7 @@
       "id": "/admin payments",
       "base": "/admin",
       "url": "/admin?view=payments",
-      "description": "결제 내역 — 기본 기간 30일에 결제 넷(구독 · 크레딧 충전 · 쿠폰 대량 구매 결제 완료, 구독 환불)과 유형별 가로 막대 셋 · 합계 줄이 선다. 기간 끝은 브라우저 지금이라 clock 으로 고정한다.",
+      "description": "결제 내역 — 기본 기간 30일에 결제 넷(구독 · 크레딧 충전 · 쿠폰 대량 구매 결제 완료, 구독 환불)과 유형별 가로 막대 셋 · 합계 줄이 선다. 기간 끝은 브라우저 지금이라 clock 으로 고정한다. 운영 판(97d4950e)은 요약에 결제 수단별 `byProvider` 를 읽는다(PaymentManagement.tsx:61 · :548) — 시드에 Toss 결제 셋을 더했다.",
       "contentNote": "결제 유형 키(subscription · topup · bulk_coupon) · 상태 키(paid · refunded) · 요금제 이름(Pro · Lite) · 충전 상품 이름(Bronze)은 제품 표기, 이메일 · 이름 · 금액 · 주문 번호는 지어낸 내용.",
       "surfaces": [
         "apps/web/app/admin/PaymentManagement.tsx#PaymentManagement"

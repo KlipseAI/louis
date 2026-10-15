@@ -1592,7 +1592,10 @@ function splitWrapRowsAtLoneText(spec, declaredOf = () => null) {
     if (node.text && !node.paint && !node.layout && lineHeight && node.sizing.layoutSizingHorizontal === "HUG"
       && node.rect.height >= lineHeight * 2 - HALF_PIXEL) return "wrapped";
     const declared = declaredOf(node.path) ?? {};
-    if (node.sizing.layoutSizingHorizontal === "HUG" && !node.paint && isAuto(declared["margin-right"]) && !isAuto(declared["margin-left"])
+    // 버려진 논리 여백(`margin-inline-end: auto`)도 같다 — 선언한 px 와 측정 margin 이 어긋나면 남는 폭을 먹은 auto 다(조립 규칙 15조의 38, wrapSiblingMargins 주석).
+    const saidRight = /^(-?\d+(?:\.\d+)?)(px)?$/.exec(String(declared["margin-right"] ?? "0px").replace(/!important/g, "").trim());
+    const rightAuto = isAuto(declared["margin-right"]) || (saidRight != null && (node.margin?.right ?? 0) - Number(saidRight[1]) > HALF_PIXEL);
+    if (node.sizing.layoutSizingHorizontal === "HUG" && !node.paint && rightAuto && !isAuto(declared["margin-left"])
       && (plainText(node) || (node.layout?.layoutMode === "VERTICAL" && !node.text && flowChildren(node).length > 0
         && (node.children ?? []).every((child) => plainText(child) && child.positioning !== "ABSOLUTE")))) return "auto";
     const basis = String(declared["flex-basis"] ?? "auto").replace(/!important/g, "").trim();
@@ -1939,9 +1942,28 @@ function wrapSiblingMargins(spec, declaredOf = () => null) {
   const autoSidesOf = (node, child) => {
     if (node.layout.layoutMode !== "HORIZONTAL" || node.sizing.layoutSizingHorizontal === "HUG" || child.sizing.layoutSizingHorizontal === "FILL") return [];
     const declared = declaredOf(child.path) ?? {};
-    const sides = ["left", "right"].filter((side) => isAuto(declared[`margin-${side}`]) && (child.margin[side] ?? 0) > HALF_PIXEL);
-    if (sides.length === 0) return [];
     const room = node.rect.width - node.layout.padding.left - node.layout.padding.right;
+    // **선언에 없는 논리 auto 여백(2026-10-16, 조립 규칙 15조의 38).** 선언 수집기는 물리 여백(`margin-left` …)만 모으고 논리 여백(`margin-inline-start`)은
+    // 버린다 — LOUIS 판 제품의 줄 끝 묶음(`margin-inline-start: auto`)이 리셋의 `margin-left: 0px` 로 읽혀 측정 margin 1248 을 감싸개 padding 으로 옮겼고,
+    // 보드를 1440 으로 줄이자 하이라이트 완료 · 분석 중 · 실패 데스크톱의 알림 줄 단추 묶음이 줄 밖으로 252 ~ 414 나갔다(늘림 run 2026-10-16p1, 15조의 7 과 같은
+    // 모양). 선언한 px 와 측정 margin 이 어긋나고(버려진 선언이 이겼다) 그 항목이 줄의 반대쪽 끝에 붙어 있으면(왼쪽 여백 → 오른쪽 끝, 오른쪽 → 왼쪽 끝)
+    // 남는 폭을 먹은 auto 로 본다. 버려진 선언이 px 였다면 끝에 딱 붙는 일이 드물어 판정 밖이다.
+    const declaredPx = (value) => {
+      const text = String(value ?? "0px").replace(/!important/g, "").trim();
+      const m = /^(-?\d+(?:\.\d+)?)(px)?$/.exec(text);
+      return m ? Number(m[1]) : null;
+    };
+    // 남는 폭을 먹었는지는 같은 줄의 흐름 항목(바깥 폭) + 간격의 합이 줄 안쪽 폭과 같은지로 본다 — auto 여백이 있으면 남는 폭이 0 이 된다.
+    const line = flowChildren(node).filter((sibling) => sibling.rect.y < child.rect.y + child.rect.height - HALF_PIXEL
+      && sibling.rect.y + sibling.rect.height > child.rect.y + HALF_PIXEL);
+    const packed = line.reduce((sum, sibling) => sum + sibling.rect.width + Math.max(0, sibling.margin?.left ?? 0) + Math.max(0, sibling.margin?.right ?? 0), 0)
+      + (node.layout.itemSpacing ?? 0) * Math.max(0, line.length - 1);
+    const logicalAuto = (side) => {
+      const said = declaredPx(declared[`margin-${side}`]);
+      return said != null && (child.margin[side] ?? 0) - said > HALF_PIXEL && Math.abs(packed - room) <= 1;
+    };
+    const sides = ["left", "right"].filter((side) => (isAuto(declared[`margin-${side}`]) || logicalAuto(side)) && (child.margin[side] ?? 0) > HALF_PIXEL);
+    if (sides.length === 0) return [];
     const outer = child.rect.width + Math.max(0, child.margin.left ?? 0) + Math.max(0, child.margin.right ?? 0);
     return node.layout.wrap && Math.abs(outer - room) <= HALF_PIXEL ? [] : sides;
   };

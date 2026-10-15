@@ -34,7 +34,7 @@ const TYPES = ["overflow", "childOutside", "textClip", "heightFollow", "widthFol
 const FOLLOW_MIN = 0.99;
 
 // 2026-10-08 run 2026-10-08a 실측(보드 142장 · 시험 426). 줄면 여기를 같은 수로 내린다.
-const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 88, "04-billing": 34, "05-ops": 48 };
+const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 121, "04-billing": 34, "05-ops": 48 };
 // 무엇이 들어 있나: heightFollow 는 거의 전부다 — 보드 루트가 세로 HUG 라 보드 높이를 따라오지 않는다(루트 높이 / 보드 높이
 // 0.769 = 1/1.3). overflow 의 뿌리는 대부분 고정 폭 상단 바(`header`, 1920 · 402 에 묶여 1440 에서 +480, 360 에서 +42)다.
 // clamped 6 은 랜딩 · /privacy · /terms 의 데스크톱 2560 · 모바일 430(보드가 넓어지지 않는다), noRoot 16 은 03 앱의
@@ -156,7 +156,12 @@ const BASELINE = {
   // 자르는 칸 예외): 03-app 넘침 3 → 1 · 부모 밖 40 → 25(분석 표 줄 · 꼬리선 · 막대, 팔레트 행, 각도 · 이미지 편집 모달의 보드 밖 넘침), 04-billing 부모 밖
   // 7 → 3(결제 확인 · 완료 안내 글 — 15조의 22 판을 처음 보냈다), 05-ops 넘침 4 → 1 · 부모 밖 10 → 2(관리자 머리 묶음 15조의 32, 인쇄 종이 15조의 34 · 35,
   // 권한 데스크톱 15조의 23 판 재전송, 지표 본문의 스크롤 길어짐은 탐침 예외). 남은 것은 run 메모(아래 2026-10-16 문단).
-  "03-app": { overflow: 1, childOutside: 25, heightFollow: 2 },
+  // run 2026-10-16ra2a(03-app 만 — 새 앵커 97d4950e 보드, 조립 규칙 15조의 38 ~ 40 을 생성기에 더하고 바뀐 보드 열다섯(러너 서른)을 보낸 뒤): 넘침 7 → 1 ·
+  // 부모 밖 33 → 24(run 2026-10-16p1 대비). 풀린 것 — 커맨드 팔레트 모바일 360 넷(LOUIS 판 `inline-size: min(var(…), 100%)` 패널 · 15조의 40), /subscription
+  // past-due 1440 · 360(띠 알림 닫기 단추의 `inset-inline-end` · 15조의 39), 하이라이트 완료 · 분석 중 · 실패 1440(`margin-inline-start: auto` · 15조의 38).
+  // 각도 · 이미지 편집 · 분석 모바일의 카드 자식(30 · 22 · 17)도 풀렸지만 같은 시험에 React Flow 노드 · 떠 있는 도구 막대(제품 같음)가 남아 수는 그대로다.
+  // 보드 88 → 121 · 뿌리 없음 0 → 33 은 다른 작업이 세운 새 레시피 측정 보드(3774:12160 ~, 아직 빈 틀)다 — 채우면 그 작업이 다시 재고 내린다.
+  "03-app": { overflow: 1, childOutside: 24, heightFollow: 2, noRoot: 33 },
   "04-billing": { childOutside: 3, heightFollow: 2 },
   "05-ops": { overflow: 1, childOutside: 2 },
 };

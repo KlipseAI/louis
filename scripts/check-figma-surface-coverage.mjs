@@ -321,6 +321,12 @@ const RESIZE_PRODUCT_SAME = {
   "3549:23849": { "w1440 자식 넘침": "/videoeditor/[projectId] 클립 색 데스크톱 — 필름 칸이 클립 상자 끝을 가로지름(39:3 과 같은 노드, 제품 같음)" },
   "3549:23855": { "w1440 자식 넘침": "/videoeditor/[projectId] 설정 패널 데스크톱 — 필름 칸이 클립 상자 끝을 가로지름(39:3 과 같은 노드, 제품 같음)" },
   "2909:19794": { "w360 자식 넘침": "/nodecanvas 시드 모바일 — 카드 제목 nowrap 이 열 140 밖으로(19796 과 같은 카드 제목, 제품 같음)" },
+  // run 2026-10-16ra2a(새 앵커 97d4950e): 도움말 · 분석 모바일 360 의 남은 둘은 38:3843 과 같은 React Flow 노드(+41.6)와 떠 있는 도구 막대(+17)다. 도구 막대는
+  // `.louis-floating-shell`(inline-flex · 조각 flex none · 줄바꿈 없음, packages/css floating-shell.css)을 `left: 50%` + `translate(-50%)` 로 세운 절대 배치라
+  // 폭이 내용 최소 폭 394 에 묶인다(측정 원장 canvas-angle 모바일: 계산값 left 201 · right −193 · `matrix(1,0,0,1,-197,0)`) — 360 뷰포트에서 제품도 양쪽으로
+  // 17 씩 나간다. 카드 자식(15조의 40 이 푼 것)은 이 시험에 남지 않았다.
+  "3549:23838": { "w360 자식 넘침": "/nodecanvas?project= 도움말 모바일 — React Flow 노드 · 내용 폭 도구 막대가 360 밖으로(38:3843 과 같은 노드, 제품 같음)" },
+  "3549:23840": { "w360 자식 넘침": "/nodecanvas?project= 분석 모바일 — 내용 폭 도구 막대(394)가 360 밖으로(제품 같음)" },
 };
 const viewportHeight = (context) => Number(String(context).match(/x(\d+)$/)?.[1] ?? 0);
 const resizeFailures = (board) => {

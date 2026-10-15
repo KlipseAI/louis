@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { sourceQuotes } from "./lib/figma-live-variables.mjs";
 
 // Highlight hub(`/highlight` 앱 화면)의 5열 카드 그리드 Auto Layout 구조를 생성물로 고정한다.
 // 이 구조는 라이브(정본 파일)에서 한 번 손으로 복구됐지만 생성기가 없어 재빌드 시 재현되지 않았다.
@@ -76,28 +77,31 @@ const declared = (quote, pattern, what) => {
 // 여기처럼 값 하나면 아래 sourceEvidence 의 클래스 인용이 드리프트를 잡는다 — 실제로 그렇게 잡혔다.
 const gridGap = 6;
 const sourceEvidence = [
-  // historyGrid(`styles.historyGrid`, 54b62a8a 152~160행 · 76b6cf15 519~527행) — 같은 문자열이 clipGrid(241~254행)에도 있어
+  // historyGrid(`styles.historyGrid`, 54b62a8a 152~160행 · 76b6cf15 519~527행 · 97d4950e 112~120행) — 같은 문자열이 clipGrid(241~254행)에도 있어
   // 블록 시작(`historyGrid: [`)에서 센 오프셋으로 자리를 판정했다.
-  sourceQuote(HIGHLIGHT, 154, '    \"[display:grid]\",'),
-  sourceQuote(HIGHLIGHT, 156, '    \"gap-layout-project-grid-gap\",'),
-  sourceQuote(HIGHLIGHT, 159, '    \"min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\",'),
-  // historySection(54b62a8a 369~377행 · 76b6cf15 736~744행) — `"[width:100%]"` 는 파일에 26번 나오지만, 바로 뒤 두 줄
+  sourceQuote(HIGHLIGHT, 114, '    \"[display:grid]\",'),
+  sourceQuote(HIGHLIGHT, 116, '    \"gap-layout-project-grid-gap\",'),
+  sourceQuote(HIGHLIGHT, 119, '    \"min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\",'),
+  // historySection(54b62a8a 369~377행 · 76b6cf15 736~744행 · 97d4950e 337~345행) — `"[width:100%]"` 는 파일에 26번 나오지만, 바로 뒤 두 줄
   // (`margin:40px_auto_0` · `padding-bottom:200px`)이 이 블록에만 있어 셋이 한 덩어리다.
-  sourceQuote(HIGHLIGHT, 371, '    \"[width:100%]\",'),
-  sourceQuote(HIGHLIGHT, 373, '    \"[margin:40px_auto_0]\",'),
+  sourceQuote(HIGHLIGHT, 339, '    \"[width:100%]\",'),
+  sourceQuote(HIGHLIGHT, 341, '    \"[margin:40px_auto_0]\",'),
   // 2026-10-08 통합 판(76b6cf15): 200 → 40. 옛 200 은 화면 아래 고정 업로드 카드에 마지막 줄이 가리지 않게 비운 몫이었고, 카드가
   // 목록 위 일반 흐름으로 올라와 그 몫이 필요 없어졌다(그 줄 위 제품 주석).
-  sourceQuote(HIGHLIGHT, 376, '    \"[padding-bottom:40px]\",'),
-  // historySectionEyebrow(988~994행) — viewport Auto Layout 의 itemSpacing 근거.
-  sourceQuote(HIGHLIGHT, 391, '    \"[margin:0_0_12px]\",'),
-  // historySectionEyebrowCount(996~1000행) — clipCountValue(63~67행)에도 같은 줄이 있으나
-  // 이쪽만 historySectionEyebrow 바로 다음 블록이다.
-  sourceQuote(HIGHLIGHT, 400, '    \"[margin-left:6px]\",'),
+  sourceQuote(HIGHLIGHT, 344, '    \"[padding-bottom:40px]\",'),
+  // 2026-10-15(운영 main 97d4950e, DS-D-0117): 아카이브 머리가 LOUIS `.louis-section-header[data-level="list"]` 가 됐다(제품 `fbdb2a46` ·
+  // `4cac8ae9`). 옛 `historySectionEyebrow`(`[margin:0_0_12px]`) · `historySectionEyebrowCount`(`[margin-left:6px]`) 블록이 지워지고,
+  // 소비처에는 머리 행의 아래 여백 한 줄만 남았다 — viewport Auto Layout 의 itemSpacing 근거. 값은 둘 다 그대로(12 · 6)다.
+  sourceQuote(HIGHLIGHT, 349, '  historySectionHeader: \"[margin:0_0_12px]\",'),
   ];
+// 제목 ↔ 개수 사이 6 은 이제 LOUIS 레시피가 갖는다(`.louis-section-header__count`). 제품 핀 `ac5beeb6` 과 이 저장소 판이 같은 파일이다.
+const sectionHeaderCountGap = sourceQuotes({ repoRoot, productRoot, productCommit: commit, fail })
+  .ds("packages/css/src/component/section-header.css", 120, "  margin-inline-start: 6px;");
+sourceEvidence.push(sourceQuote("apps/web/components/scenes/HighlightScene.tsx", 1212, '                            <span className="louis-section-header__count">'), sectionHeaderCountGap);
 // 허브 스크롤 영역(`main`)의 좌/우 패딩 — 좌 인셋과 우 `-end` 가 다른 토큰이다(값은 원장이 잰다).
 const MAIN_PADDING = [
-  sourceQuote(HIGHLIGHT, 428, '    "[padding-left:var(--app-gnb-main-inline-padding)]",'),
-  sourceQuote(HIGHLIGHT, 429, '    "[padding-right:var(--app-gnb-main-inline-padding-end)]",'),
+  sourceQuote(HIGHLIGHT, 376, '    "[padding-left:var(--app-gnb-main-inline-padding)]",'),
+  sourceQuote(HIGHLIGHT, 377, '    "[padding-right:var(--app-gnb-main-inline-padding-end)]",'),
 ];
 // **업로드 카드는 이 화면에서 걷혔다(2026-10-08, 통합 판 76b6cf15 · DS-D-0079).** 옛 `uploadCardCompact` 는 main 밖
 // `position:fixed` 로 화면 아래 가운데 400×140 에 떠서 그리드를 가렸다. 통합 판은 그 상수를 지웠고(`highlightSceneStyles.ts`
@@ -106,13 +110,13 @@ const MAIN_PADDING = [
 // 이 보드는 카드 다섯이 있는 목록 화면이라 그릴 업로드 카드가 없다 — 옮겨 간 것이 아니라 이 화면에서 없어진 부품이므로 계획에서
 // 빼고, 렌더러는 라이브의 옛 카드 노드를 지우지 않고 숨긴다(reconciler 는 노드를 만들거나 지우지 않는다).
 const at = (line) => sourceEvidence.find((entry) => entry.line === line) ?? fail(`missing quote ${HIGHLIGHT}:${line}`);
-const columns = declared(at(159), /repeat\((\d+),_1fr\)/, "grid columns");
-const sectionTop = declared(at(373), /\[margin:(\d+)px_auto_0\]/, "section margin-top");
-const sectionBottom = declared(at(376), /\[padding-bottom:(\d+)px\]/, "section padding-bottom");
-const headingGap = declared(at(391), /\[margin:0_0_(\d+)px\]/, "eyebrow margin-bottom");
-const headingCountGap = declared(at(400), /\[margin-left:(\d+)px\]/, "eyebrow count margin-left");
+const columns = declared(at(119), /repeat\((\d+),_1fr\)/, "grid columns");
+const sectionTop = declared(at(341), /\[margin:(\d+)px_auto_0\]/, "section margin-top");
+const sectionBottom = declared(at(344), /\[padding-bottom:(\d+)px\]/, "section padding-bottom");
+const headingGap = declared(at(349), /\[margin:0_0_(\d+)px\]/, "section header margin-bottom");
+const headingCountGap = declared(sectionHeaderCountGap, /^  margin-inline-start: (\d+)px;$/, "section header count margin-inline-start");
 // 5열은 `min-[1800px]` 에서다 — 원장 뷰포트가 그 폭 이상이어야 이 열 수를 쓸 수 있다.
-const breakpoint = declared(at(159), /min-\[(\d+)px\]/, "grid breakpoint");
+const breakpoint = declared(at(119), /min-\[(\d+)px\]/, "grid breakpoint");
 if (ledger.context.viewport.width < breakpoint) fail(`ledger viewport ${ledger.context.viewport.width} is below the ${breakpoint}px ${columns}-column breakpoint`);
 const mainCard = expanded.mainRect;
 const inlineStart = measuredPx("--app-gnb-main-inline-padding");

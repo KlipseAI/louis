@@ -234,7 +234,13 @@ const REPLACEABLE_BASELINE = 0;
 // 2026-10-15 아침 합본: 310 → 676 — **발견이다.** 밤사이 새 보드(분석 연결 상태 열여덟 · 편집기 · 캔버스 패널 상태 · 관리자 사용자 · 랜딩 끈적 장면)가
 // 제품이 LOUIS 를 물지 않는 자리를 드러냈다. 지금 수로 조여 하락 canary 가 다시 문다.
 // 같은 아침 뒤: 676 → 809 — **발견이다.** 관리자 탭 상태 보드 서른넷.
-const BESPOKE_BASELINE = 809; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 2026-10-16(앵커 97d4950e, DS-D-0117): 809 → 1093 — **발견이다.** 직전 원장(e0969bee~1)과 보드별로 견주면 새 보드 41 이 +234(구독 상태 ·
+// 하이라이트 기록 · 쇼츠 편집 · 업로드 · 앰배서더 공개 · 덱 · 설문 · 편집기 패널 오디오 · 클립 · /models 다시 잰 판), 걷힌 보드 둘
+// (admin-ambassador-links, 아래 셸 표)이 −5, 옛 보드가 +55 다. 옛 보드의 +55 는 `/pricing` 비교표의 체크 글리프 38 이 미보유에서 bespoke
+// (`check-circle-polyline` → icon/check-circle)로 옮긴 것(같은 수의 missing −38), 캔버스 보드 열의 IconButton +12 · 글리프 순 −1, 편집기 보드
+// 넷의 Button +4, 관리자 결제 Button +2 · 관리자 · 사용자 탭 검색 돋보기 −4(운영 판 검색 칸에서 구조로 판정), 템플릿 상세 캐러셀 nav 글리프 +4(아래
+// INSTANCE_FLOOR 의 후퇴)다: 38 + 11 + 4 + 2 − 4 + 4 = 55. 팔레트 · 연체 배너 보드의 닫기 · 화살표 글리프는 IconButton 으로 바뀌어 순 0 이다.
+const BESPOKE_BASELINE = 1093; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -312,7 +318,15 @@ const UNCLASSIFIED_BASELINE = 0;
 // 옛 보드의 instance 는 바뀌지 않았다.
 // 2026-10-15 아침 합본(P · Q · R1 · R2 의 밤 작업을 합쳐 다시 잼): 383 — 분석 · 패널 상태 · 관리자 · 랜딩 장면 보드가 얻은 인스턴스.
 // 같은 아침 뒤: 383 → 448 — 관리자 탭 상태 보드 서른넷(상단 바 · 표 · 단추 인스턴스).
-const INSTANCE_FLOOR = 448;
+// 2026-10-16(앵커 97d4950e, DS-D-0117): 448 → 589 = 448 − 7 + 138 + 10. 걷힌 보드 둘(admin-ambassador-links 데스크톱 · 모바일, 셸 1 포함) −7,
+// 새 보드 41 의 인스턴스 +138(셸은 아래 SHELL_INSTANCES_BY_BOARD 의 같은 날 주석), 옛 보드 순 +10 이다. 옛 보드의 증감:
+//   · 이득 — 편집기 데스크톱 넷의 `Product/Sequence Ruler` +4(눈금 미보유 165 씩이 인스턴스 안으로 가지치기됐다), `/recover` 두 보드의
+//     `Product/Auth Floating Field` +4, `/admin` · 사용자 탭 검색 칸의 Button inverse lg +4(옛 판 미보유 자리), 쿠폰 탭 Button secondary +4.
+//   · 제품이 움직였다 — 문의 · 작업 탭 펼친 카드의 Button secondary −4: 운영 판 카드에 그 단추 자리가 없다(노드째 사라졌다, 미보유로도 남지 않음).
+//   · **후퇴 −2** — `/templates/[slug]` 두 보드의 `Product/Template Result Carousel` 이 인스턴스가 아니다. 운영 판에서 nav 글자 「‹」 「›」 가 인라인
+//     svg(caret-*-polyline)로 바뀌어 세트의 글자 앵커가 비었고(build-figma-app-screens 의 그 세트 주석), 매처는 글자 없는 노드를 묶지 않는다.
+//     자리는 구조 · bespoke 2 · 미보유로 흩어졌다. 합계가 올라 이 수는 올리지만 이 −2 는 이득이 아니다 — 매처가 글자 없는 앵커를 받으면 돌아와야 한다.
+const INSTANCE_FLOOR = 589;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -395,12 +409,18 @@ const INSTANCE_FLOOR = 448;
 // blocked 37 + missing 3180.
 // 2026-10-15 아침 합본: 4137 → 5144(instance 383 + bespoke 676 + blocked 57 + missing 4028).
 // 같은 아침 뒤: 5144 → 6225 — 관리자 탭 상태 보드 서른넷.
-const CANDIDATE_FLOOR = 6225;
+// 2026-10-16(앵커 97d4950e, DS-D-0117): 6225 → **6788**(instance 589 + replaceable 0 + bespoke 1093 + blocked 84 + missing 5022). 새 보드 41 이 +1313,
+// 걷힌 보드 둘이 −81, 옛 보드가 −669 다. 옛 보드의 −669 는 재분류가 아니다 — 편집기 데스크톱 넷의 눈금 미보유 660(165 × 4)이 새
+// `Product/Sequence Ruler` 인스턴스 안으로 들어가 가지치기됐고(위 INSTANCE_FLOOR), 나머지는 운영 판에서 화면이 바뀐 자리(팔레트 플라이아웃이
+// LOUIS listbox 로 · 분석 불러오기 판 등)다.
+const CANDIDATE_FLOOR = 6788;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.
 // 2026-09-29 ~ 30: 76 → 106 — 공개 fixture 보드(공개 페이지 열넷 · 랜딩, 두 뷰포트).
-const BOARD_FLOOR = 106;
+// 2026-10-16(앵커 97d4950e, DS-D-0117): 106 → 249. 그 사이 상태 레시피 보드들로 210 까지 오르는 동안 바닥이 따라오지 않았다(104칸이 늘어져
+// 있었다). 이번 판은 새 보드 41 · 걷힌 보드 둘(admin-ambassador-links — 운영 판에 하위 탭이 없다)로 249 다.
+const BOARD_FLOOR = 249;
 const SHELL_COMPONENTS = new Set([
   "Product/Gnb Desktop Shell",
   "Product/Desktop App Top Bar",
@@ -498,7 +518,9 @@ const SHELL_INSTANCES_BY_BOARD = {
   // 2026-09-30 — 세션 원장 보드(허브 셋 · 결제 진행 · 관리자 모바일): 상단 바 · 사이드바 셸이 측정 서브트리 그대로 붙었다(보드 글자 자리 대조 · 캡처로 확인).
   "admin.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   // 2026-10-15 — 관리자 탭 상태 보드(상태 레시피 admin, 섹션 3521:223). 기준 /admin 모바일과 같은 상단 바가 래퍼가 아니라 바 자리에 붙었다.
-  "admin-ambassador-links.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  // 2026-10-16(앵커 97d4950e, DS-D-0117): `admin-ambassador-links.mobile` 을 뺐다 — 매처가 놓친 것이 아니라 보드가 없어졌다. 운영 판에
+  // 앰배서더 하위 탭 · AmbassadorManagement 가 없어(`git grep AmbassadorManagement 97d4950e -- apps/web` 0건, AdminClient.tsx:1499 는
+  // `<AmbassadorApplications />` 만) 레시피 `/admin ambassador.links` 를 6113aafa 가 걷었고, 보드 둘(데스크톱 · 모바일)이 생성 목록에서 빠졌다.
   "admin-ambassador.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "admin-banners-landing.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "admin-banners-models.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
@@ -555,6 +577,30 @@ const SHELL_INSTANCES_BY_BOARD = {
   "nodecanvas-seeded.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "nodecanvas-seeded-loading-more.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
   "nodecanvas-seeded-loading-more.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  // 2026-10-16(앵커 97d4950e, DS-D-0117) — 새 상태 보드의 셸. 측정 원장(migration/product-states/subscription.json · highlight-home.json ·
+  // highlight.json)에서 바 자리를 되짚었다: 붙은 노드는 래퍼(1648 · 390 폭, 자식 하나)가 아니라 그 안의 1672×49 · 402×49 바이고, 자식이
+  // 앞머리 32×32 · nav · 뒷머리 32×32 셋이다. 보드 원장의 경로 · 태그 · 크기가 이미 잠긴 기준 보드(`subscription` · `subscription-past-due` ·
+  // `highlight` · `highlight--projectId--shorts--shortId-`)와 한 칸도 다르지 않고, 사이드바는 header 240×1080(자식 nav 216×1064)에 붙었다.
+  //   · 구독 상태 넷(active · cancel-confirm · tab.billing · tab.group) — 기준 `/subscription` 과 같은 조합(Content=Subscription · Single · GNB Default).
+  //   · `/subscription/group-purchase plan-selected` 데스크톱은 GNB 만 얻었다 — 바의 앞머리가 68×32(뒤로 단추 포함)라 Back=True · Single 조합인데
+  //     세트에 없어 바는 인스턴스가 되지 않았다(모바일도 같은 사유로 셸 없음). 오치환이 아니라 미치환이다.
+  //   · `/highlight history` — 기준 `highlight` 와 같다(데스크톱은 GNB Current=Highlight 만, 모바일은 Full · Single 상단 바).
+  //   · 쇼츠 편집 · 업로드 · 업로드 연결 데스크톱 셋 — 기준 쇼츠 결과 보드처럼 GNB Current=Highlight 만. 바 앞머리가 68×32(뒤로)라 위 쇼츠
+  //     주석의 같은 사유로 상단 바는 없다.
+  "subscription-active.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "subscription-active.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "subscription-cancel-confirm.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "subscription-cancel-confirm.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "subscription-tab-billing.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "subscription-tab-billing.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "subscription-tab-group.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "subscription-tab-group.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "subscription-group-purchase-plan-selected.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "highlight-history.desktop": ["Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight-history.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "highlight--projectId--shorts--shortId-edit-templates.desktop": ["Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId--shorts--shortId-upload.desktop": ["Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId--shorts--shortId-upload-connect.desktop": ["Product/Gnb Desktop Shell · Current=Highlight"],
 };
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 어느 래칫에도 잡히지 않는다.

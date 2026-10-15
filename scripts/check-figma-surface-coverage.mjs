@@ -159,7 +159,9 @@ const UNCLASSIFIED_BASELINE = 0;
 // needed 에서 범위 밖으로 갔다(소유자 확인 대기 — 제품에서 지울 후보, check-coverage-targets 의 SCOPED_BASELINE 주석). 대응 수와는 무관하다.
 // 2026-10-16 판정 2차: 234 → 251 — 새 보드 41 · 관리자 22 상태를 Figma 에 보낸 뒤 늘림 run 2026-10-16p2(다섯 페이지)로 다시 판정했다. 닫은 화면 열여덟(아래
 // MAPPED_SCREEN_BASELINE), 되돌린 하나 — TemplateManagement(/admin templates 모바일 3521:252 가 p2 의 w360 에서 날짜 글자 셋이 행 밖으로, 자식 넘침).
-const MAPPED_BASELINE = 251;
+// 2026-10-16 판정 3차: 251 → 262 — 늘림 run 2026-10-16p3(다섯 페이지, 15조의 41 ~ 48 뒤)로 다시 판정했다. 닫은 스물(아래 MAPPED_SCREEN_BASELINE),
+// 되돌린 아홉 — 랜딩 「/」 절 일곱(모바일 359:2986 이 w360 에서 「pending」 div +42) · 캔버스 분석 모달과 그 유튜브 본문(데스크톱 3549:23839 가 w1440 에서 +480).
+const MAPPED_BASELINE = 262;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 // 2026-10-15: 124 → 130 — 위 여섯이 모두 컴포넌트 대응이다.
@@ -210,7 +212,10 @@ const MAPPED_PRODUCT_BASELINE = 45;
 // 덱 둘(/deck/c/[course] · /deck/manage) · 단체 구매 결제 · 앰배서더 지원서 흐름 · 모델 크레딧 계산기(15조의 37 슬라이더 트랙) · 캔버스 분석 모달과 그 유튜브 본문 ·
 // 캔버스 도움말 · 구독 화면(/subscription active) · 단체 구매 탭 · 결제 내역 탭. 되돌린 하나: TemplateManagement(위 MAPPED_BASELINE 주석).
 // 1차의 03 잠정 넷(HomeCreateNewList · NodeLayersPanel · VideoEditModal · AnalyticsAudienceTab)은 p2 에서도 실패 0 이라 잠정을 걷었다.
-const MAPPED_SCREEN_BASELINE = 58;
+// 2026-10-16 판정 3차(늘림 run 2026-10-16p3): 58 → 69 — 닫은 스물: TemplateManagement(2차에서 되돌렸던 것) · 덱 서재(/deck) · 리서치 설문 ·
+// 앰배서더 절 여덟(IntroHero · WorkHero · Types · Benefits · Criteria · Steps · Questions · FinalLine) · 분석 개요 · 콘텐츠 표 · 성과 탭 · 각도 모달 ·
+// 편집기 에셋 패널 · 설정 패널 · 오디오 인스펙터 · 하이라이트 홈(/highlight history) · 유튜브 업로드 모달. 되돌린 아홉은 위 MAPPED_BASELINE 주석.
+const MAPPED_SCREEN_BASELINE = 69;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

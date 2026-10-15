@@ -148,7 +148,9 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // MAPPED_SCREEN_BASELINE 주석), 대응에서 되돌아왔다 1(TemplateManagement — /admin templates 모바일이 p2 에서 실패). 판단 대기 · 범위 밖으로 옮긴 것은 없다.
 // 2026-10-16 판정 3차: 30 → 19 — Figma 에 세웠다 20(늘림 run 2026-10-16p3, 15조의 41 ~ 48 뒤 다섯 페이지, check-figma-surface-coverage 의
 // MAPPED_SCREEN_BASELINE 주석), 대응에서 되돌아왔다 9(랜딩 「/」 절 일곱 · 캔버스 분석 모달과 그 유튜브 본문 — p3 에서 「pending」 div 가 부모 밖으로). 범위 밖으로 옮긴 것은 없다.
-const NEEDED_BASELINE = 19; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 같은 날 보정: 19 → 10 — 「pending」 두 보드(359:2986 · 3549:23839)의 전 조각을 다시 보내 01 · 03 을 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라
+// 되돌렸던 아홉을 다시 닫았다. OverviewSection 은 같은 파일의 OverviewTabs(보드 없음) 때문에 남는다.
+const NEEDED_BASELINE = 10; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.

@@ -13,15 +13,15 @@
   "filesScanned": 394,
   "counts": {
     "total": 616,
-    "mapped": 262,
+    "mapped": 271,
     "scoped": 335,
-    "needed": 19,
+    "needed": 10,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 0,
-    "screen": 18,
+    "screen": 9,
     "oneoff": 1,
     "unclear": 0,
     "kindless": 0
@@ -2586,23 +2586,25 @@
       "file": "apps/web/components/landing/sections/CompositionShowcase.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "랜딩의 컴포지션 소개 절이다(#composition, CompositionShowcase.tsx:403). sticky 무대 위에 실제 편집기 녹화를 담은 판(1600×1000 :54 · 두께 면 셋 :407 · radius 10 · 안쪽 헤어라인 + 그림자 :56)이 있고, 카메라 transform 이 그 판을 눕히고 당긴다. 판 밖에는 2줄 heading-36 장면 제목(≥1680 에서 48, :73)과 단계 설명 일곱(heading-28 + body-16, :85~:92)을 얹는다. 그 밑에 점진 블러 띠(:118)와 방사형 그늘(:99)이 깔린다. 51 컴포넌트와 templates 아홉 어디에도 이 절의 대응이 없다. 한 화면 전용이고 그림의 대부분이 녹화 영상과 스크롤 모션이라 우선순위는 낮다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 「/」 모바일(359:2986)이 늘림 run 2026-10-16p3(01-public)의 w360 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:16663)가 부모 밖으로 +42 나간다(DS-D-0098 조건 2). run 2026-10-16p1 · p2 에서는 실패 0 이었으니 15조의 41 ~ 48 반영 뒤 새로 생긴 실패다. 생성기 규칙으로 풀거나 제품도 같다고 확인되면 다시 닫는다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/HomePageClient.tsx:8/:90. 랜딩의 한 절이다. 이 절만 소유한 정지 시각은 둘이다 — 편집기 판의 껍데기(PLANE_EDGE · PLANE_SURFACE)와 판 밖 글자 층(제목 · 단계 설명). 단계 설명의 글자·간격은 OverviewCanvasScene 의 COPY_TITLE/COPY_DESC 와 같은 값이라고 주석이 적는다(:75~:79). 그러나 같은 값을 따로 적을 뿐 같은 부품을 import 하지 않으므로 되풀이되는 부품의 증거가 아니다. 블러 띠는 LOUIS progressive-blur 토큰을 그대로 쓴다(:120~:124). 되풀이 0 이므로 화면으로 둔다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 Composition 소개 장면이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p3(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(359:2986 w360 +42)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 편집기 장면의 「Assets」 단계 카드(「Brings in videos generated on the canvas and uploaded files, organized by type.」)가 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/CreatorProgram.tsx#CreatorProgram": {
       "file": "apps/web/components/landing/sections/CreatorProgram.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "사진 밴드 계열(photoBand: 배경 사진 + 스크림 + 잉크 두 단)의 두 벌 중 하나로, 앰배서더 씰 + 2줄 제목/설명 + 버튼 2개를 얹는다. Testimonials 와 골격이 같으므로 「PhotoBand」 셸 하나를 세우고 두 섹션을 그 변형으로 두는 편이 낫다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 「/」 모바일(359:2986)이 늘림 run 2026-10-16p3(01-public)의 w360 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:16663)가 부모 밖으로 +42 나간다(DS-D-0098 조건 2). run 2026-10-16p1 · p2 에서는 실패 0 이었으니 15조의 41 ~ 48 반영 뒤 새로 생긴 실패다. 생성기 규칙으로 풀거나 제품도 같다고 확인되면 다시 닫는다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/HomePageClient.tsx:13/:92. 랜딩의 한 절이다. Testimonials 와 골격을 공유하는 사진 밴드지만, **공유하는 부분은 이미 뽑혀 있다** — system/photoBand.ts 가 BAND_SCRIM·BAND_INK·BAND_INK_SOFT 를 소유하고 두 파일이 그것을 import 한다(photoBand.ts 머리말이 「두 파일이 글자 단위로 같은 스크림 문자열을 각자 갖고 있었다」며 그 이관을 기록한다). 남는 것은 이 절만의 조립(앰배서더 씰 + 2줄 제목/설명 + 버튼 둘)이고 버튼은 Button 정본이다. 두 밴드를 「PhotoBand 셸 하나 + 변형 둘」로 묶자는 원장의 제안은 보드 층의 이야기지 부품이 아니다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 크리에이터 프로그램 절이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p3(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(359:2986 w360 +42)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 「We build Klipse together with creators」 제목 · 설명 · 「Learn more」 가 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/CreatorProgram.tsx#CreatorProgramBody": {
       "file": "apps/web/components/landing/sections/CreatorProgram.tsx",
@@ -2641,12 +2643,13 @@
       "file": "apps/web/components/landing/sections/FinalCtaScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "랜딩을 닫는 끝 장면이고, 예전 최종 CTA 띠(그라디언트 + 제목 + 버튼)를 대신한다(FinalCtaScene.tsx:27~:32). sticky 검정 무대(:93) 안에 셋을 겹친다 — 하강 프레임을 그리는 하늘 캔버스(:99 · :484~:490), 깊이 세 겹으로 흩어진 클립 여섯(radius 16 · gray-900 바닥, :97), 그 위의 heading-36 문장 + 설명 + 시작 버튼(BAND_INK, :104~:114 · :492~:516). 51 컴포넌트와 templates 어디에도 대응이 없다. 시작 버튼은 호출부가 넘기는 Button inverse 정본이다(HomePageClient.tsx:104~:108). 나머지는 영상·프레임·스크롤 모션이고 한 화면 전용이라 우선순위는 낮다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 「/」 모바일(359:2986)이 늘림 run 2026-10-16p3(01-public)의 w360 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:16663)가 부모 밖으로 +42 나간다(DS-D-0098 조건 2). run 2026-10-16p1 · p2 에서는 실패 0 이었으니 15조의 41 ~ 48 반영 뒤 새로 생긴 실패다. 생성기 규칙으로 풀거나 제품도 같다고 확인되면 다시 닫는다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/HomePageClient.tsx:18/:103. 랜딩의 마지막 절이다. 이 절만 소유한 정지 시각은 클립 카드 껍데기(rounded-16 · gray-900)와 문장 묶음뿐이다. 클립 카드는 영상 한 편을 담는 둥근 상자라 MediaCard 같은 캡션·배지가 없고, 다른 자리에 같은 모양이 없다. 문장 잉크는 photoBand 의 BAND_INK 를 import 한다(:105) — 공유분은 이미 뽑혀 있다. 되풀이 0 이므로 화면으로 둔다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 마지막 CTA 장면이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p3(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(359:2986 w360 +42)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 「Until every story becomes a video.」 단어별 문구와 아래 안내 두 줄이 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/footerContent.tsx#InstagramGlyph": {
       "file": "apps/web/components/landing/sections/footerContent.tsx",
@@ -2685,12 +2688,13 @@
       "file": "apps/web/components/landing/sections/Hero.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "히어로 밴드(뷰포트 높이 고정 + 2줄 heading-36 + primary/뉴트럴 버튼 2개)로 랜딩 첫 화면 전체를 차지한다. 버튼은 Button 정본을 쓰지만 밴드 자체는 대응이 없다. 한 화면 전용이라 우선순위는 낮다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 「/」 모바일(359:2986)이 늘림 run 2026-10-16p3(01-public)의 w360 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:16663)가 부모 밖으로 +42 나간다(DS-D-0098 조건 2). run 2026-10-16p1 · p2 에서는 실패 0 이었으니 15조의 41 ~ 48 반영 뒤 새로 생긴 실패다. 생성기 규칙으로 풀거나 제품도 같다고 확인되면 다시 닫는다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/HomePageClient.tsx:6/:84. 뷰포트 높이를 통째로 차지하는(`[height:var(--hero-initial-vh,100svh)]`) 랜딩 첫 화면이라 정의상 화면이다. 배경은 어드민이 올린 영상 두 장을 겹쳐 교차 페이드하는 장치이고 위·아래 페이드는 페이지 바닥으로 녹는 층이다 — 어느 쪽도 되풀이되는 부품이 아니다. **다만 이 파일이 갖고 있는 NOTICE 알약은 다르다** — PricingSection 의 PricingNotice 와 글자 단위로 같은 클래스 문자열이고, 그쪽을 primitive 로 판정하면서 이 사본을 근거로 삼았다. 즉 Hero 에서 꺼낼 것은 그 알약 하나뿐이고 나머지는 밴드다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 히어로 절이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p3(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(359:2986 w360 +42)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 히어로 문구 「Every moment of AI video creation, / in one workspace.」 가 데스크톱 · 모바일 보드에 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/Hero.tsx#UploadedBackdrop": {
       "file": "apps/web/components/landing/sections/Hero.tsx",
@@ -2731,12 +2735,13 @@
       "file": "apps/web/components/landing/sections/HighlightShowcase.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "랜딩의 하이라이트 소개 절(#highlight)이다. 스크롤에 맞춰 움직이는 장면인데, 고정 검정 무대(HighlightShowcase.tsx:29 `sticky … [height:100lvh] bg-[var(--palette-gray-1000)]`) 위에 5×5 격자 칸(highlightScene.ts:21 SIZE=5), 제품 캡처 판 한 장과 행 넷, 숏폼 칸, 2줄 제목(:34 heading-36 → ≥1680 에서 heading-48, BAND_INK)이 차례로 선다. 칸·판·숏폼은 전부 캡처 그림(webp)과 영상이고, 흐름과 좌표는 highlightScene.ts 의 frame() 이 정한다. 이 파일은 그 값을 DOM 에 적기만 한다. Figma 에는 이 절의 시작 장면도 끝 장면도 없다. 한 화면 전용이라 Hero 와 같이 낮게 잡는다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 「/」 모바일(359:2986)이 늘림 run 2026-10-16p3(01-public)의 w360 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:16663)가 부모 밖으로 +42 나간다(DS-D-0098 조건 2). run 2026-10-16p1 · p2 에서는 실패 0 이었으니 15조의 41 ~ 48 반영 뒤 새로 생긴 실패다. 생성기 규칙으로 풀거나 제품도 같다고 확인되면 다시 닫는다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측 결과 import·렌더 자리는 하나다(app/HomePageClient.tsx:9/:91). 랜딩의 한 절이고 뷰포트 높이 무대를 통째로 쓰므로 화면이다. 자기 조형은 검정 무대와 제목 한 덩어리뿐이고, 나머지는 캡처 그림과 스크롤 안무다. 되풀이되는 부품이 없다. 보드로 그린다면 시작 프레임(격자 + 왼쪽 아래 제목)과 끝 프레임(판 옆 끝 문구 + 숏폼) 두 장이면 된다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 Highlight 소개 장면이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p3(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(359:2986 w360 +42)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 데스크톱은 「From a long-form video / to standout short clips.」, 모바일은 끝 문구 「From analysis to clips, / in a single step.」 장면이 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/ModelCarousel.tsx#ModelCarousel": {
       "file": "apps/web/components/landing/sections/ModelCarousel.tsx",
@@ -2819,12 +2824,13 @@
       "file": "apps/web/components/landing/sections/OverviewCanvasScene.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "넓고 높은 데스크톱(SCENE_QUERY)에서 개요 절을 대신하는 「모니터 속 캔버스」 스크롤 장면이다(OverviewSection.tsx:263). 캔버스 자체는 제품 NodeCanvasV2 에 쇼케이스 문서를 넣어 그리므로(OverviewCanvasScene.tsx:47) 노드는 각자 원장에 있다. 그러나 이 파일만 소유한 시각이 넷 있다. ① 라이트 캔버스 면과 점 격자(:79 CANVAS_FLOOR, 간격 24 · 지름 2) ② 왼쪽 문구와 문구 가림막(:87-:101, heading-28 → 36 · body-16 → 20) ③ 아이콘 여섯을 연결선으로 잇는 진행 줄(:105-:110, :564, 앞 단계는 opacity 35 + grayscale) ④ 끝 장면의 중앙 제목(:114). 넷 다 Figma 에 없다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 「/」 모바일(359:2986)이 늘림 run 2026-10-16p3(01-public)의 w360 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:16663)가 부모 밖으로 +42 나간다(DS-D-0098 조건 2). run 2026-10-16p1 · p2 에서는 실패 0 이었으니 15조의 41 ~ 48 반영 뒤 새로 생긴 실패다. 생성기 규칙으로 풀거나 제품도 같다고 확인되면 다시 닫는다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측 결과 렌더 자리는 하나다(OverviewSection.tsx:19/:263). 랜딩 개요 절의 데스크톱 모양이고, 100vh sticky 무대를 쓰는 스크롤 장면이라 화면이다. 탭 개요(OverviewTabs)와 자식의 종류가 통째로 다르므로(진행 줄 · 캔버스 면 · 끝 제목) DS-D-0040 ①에 따라 별 표면이다. 진행 줄은 이 장면 전용이고 다른 화면에 같은 모양이 없어 부품으로 볼 수 없다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 개요 캔버스 장면이다(SCENE_QUERY 가 1920×1080 · 402×874 둘 다 이 장면을 고른다)(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p3(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(359:2986 w360 +42)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 개요 문구와 캔버스 노드(AI image prompt · Video Seedance 2.0 Mini · Composition · YouTube 업로드 · TTS)와 시드 글이 채운다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/OverviewSection.tsx#OverviewSection": {
       "file": "apps/web/components/landing/sections/OverviewSection.tsx",
@@ -2906,12 +2912,13 @@
       "file": "apps/web/components/landing/sections/Testimonials.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "사진 밴드 계열의 다른 한 벌 — 배경 사진 + 스크림 + 제목 + 화자 캡슐(아바타 20px + 이름 + 직함) + 캐러셀 화살표. 아바타와 화살표는 Figma 에 있으나 밴드와 화자 캡슐 조합이 없다. CreatorProgram 과 골격을 공유하므로 함께 세우는 편이 낫다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 「/」 모바일(359:2986)이 늘림 run 2026-10-16p3(01-public)의 w360 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:16663)가 부모 밖으로 +42 나간다(DS-D-0098 조건 2). run 2026-10-16p1 · p2 에서는 실패 0 이었으니 15조의 41 ~ 48 반영 뒤 새로 생긴 실패다. 생성기 규칙으로 풀거나 제품도 같다고 확인되면 다시 닫는다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: carousel-arrow] 실측: import·렌더 자리 하나 — app/HomePageClient.tsx:8/:86. 랜딩의 한 절이다. CreatorProgram 과 같은 사진 밴드 계열이지만 공유분은 이미 photoBand.ts 로 뽑혀 있어 남는 것은 이 절만의 조립(제목 + 화자 캡슐 + 캐러셀 화살표)이다. 화살표는 carousel-arrow, 아바타는 avatar 로 31종에 이미 서 있으므로 새로 지을 부품은 화자 캡슐(아바타 20 + 이름 + 직함) 하나인데 그것도 이 한 자리 전용이다. 파일 주석이 「시안에 후기 카드 본문이 없다 — 카드가 생기면 Carousel 로 갈아끼우면 된다」고 적어 두었으니, 지금 세우면 곧 바뀔 자리다."
+      "verdict": "figma",
+      "figma": "screen:/",
+      "reason": "랜딩 「/」 의 사용자 후기 절이다(DS-D-0098). 보드 359:2032 · 359:2986(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p3(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(359:2986 w360 +42)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 의 랜딩 「/」 를 스크롤 장면을 고정(pinned product · hydrated Canvas)해 9 조각으로 그린 보드다 — 후기 인용(「The node-based structure and clean UI made it remarkably intuitive.」)과 화자 캡슐이 그려져 있다. 빈 상태가 없는 정적 절이다."
     },
     "apps/web/components/landing/sections/TimelineFooter.tsx#Clip": {
       "file": "apps/web/components/landing/sections/TimelineFooter.tsx",
@@ -3786,12 +3793,13 @@
       "file": "apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "영상 1건짜리 애널리틱스 패널(기본/모달 두 변형). KPI 카드·지표 차트 카드·인사이트 카드·트래픽/지역 바 목록·시청 지속 곡선·탭 행·스켈레톤을 analytics/shared 를 쓰지 않고 자기 상수로 다시 적었다. 대시보드 카드 계열을 세울 때 이 파일이 두 번째 정본 후보라 값 차이를 먼저 확정해야 한다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 /nodecanvas?project= panel.analysis 데스크톱(3549:23839)이 늘림 run 2026-10-16p3(03-app)의 w1440 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:93672)가 부모 밖으로 +480 나간다(DS-D-0098 조건 2). 판정 2차(run 2026-10-16p2)에서는 실패 0 이었다. 생성기 규칙으로 풀면 다시 닫는다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳 · JSX 1곳(NodeCanvasAnalysisModal.tsx:764). 1257줄짜리 영상 1건 애널리틱스 패널(기본/모달 두 변형) = 모달 본문이라 보드다. 결정적 사실은 이 파일이 analytics/shared 를 «쓰지 않고» KPI 카드·차트 카드·인사이트 카드·바 목록·탭 행·스켈레톤을 자기 상수로 다시 적었다는 것 — 대시보드 카드 정본을 세울 때 이 파일이 두 번째 후보라 값 차이를 먼저 확정해야 한다. 보드는 그 뒤에 그려라."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas?project= panel.analysis",
+      "reason": "분석 모달의 유튜브 본문이다(NodeCanvasAnalysisModal.tsx:722 가 그린다)(DS-D-0098). 보드 3549:23839 · 3549:23840(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2 · 2026-10-16p3(03-app)에서 데스크톱 · 모바일 실패 0 — 모바일 360 의 내용 폭 도구 막대는 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(3549:23839 w1440 +480)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "업로드를 마친 유튜브 노드에서 「Analyze」 로 연 분석 모달 개요 탭 — 영상 머리(Hydra Glow Sofa Launch Teaser · Klipse Studio · Public · 설명 · 태그)와 KPI 칸 일곱(Views 1.2K · Watch time 1h 2m · Likes 86 · Comments 12 · Shares 9 · Subscribers +14 · Avg. view duration)이 채운다. 지표는 레시피 canvas-analysis 의 지은 개수다."
     },
     "apps/web/components/scenes/ArchiveRailScrollShell.tsx#ArchiveRailScrollShell": {
       "file": "apps/web/components/scenes/ArchiveRailScrollShell.tsx",
@@ -5021,12 +5029,13 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 위 전면 오버레이 + 분석 카드. LOUIS Dialog 레시피를 쓰지 않고 자체 오버레이·카드 모션·애널리틱스 스켈레톤(시머)을 직접 그린다. 유튜브/인스타 성과를 노드에서 바로 보는 화면이라 Dialog 의 large 변형으로 흡수할지, 별도 분석 카드로 세울지 정본이 필요하다. 2026-10-16 판정 3차에서 대응을 되돌렸다: 보드 /nodecanvas?project= panel.analysis 데스크톱(3549:23839)이 늘림 run 2026-10-16p3(03-app)의 w1440 시험에서 자식 넘침 하나로 실패한다 — 「pending」 div(3875:93672)가 부모 밖으로 +480 나간다(DS-D-0098 조건 2). 판정 2차(run 2026-10-16p2)에서는 실패 0 이었다. 생성기 규칙으로 풀면 다시 닫는다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: Dialog] JSX 1 (node-canvas-v2/index.tsx:11067). 원장이 「archive/PlatformSection 도 쓴다」는 뉘앙스를 남겼으나 실측은 반대 방향이다 — PlatformSection 을 소비하는 곳은 이 모달 두 자리(665·772)뿐이다. 전면 오버레이 + 분석 카드를 자체 모션·스켈레톤으로 그리는 한 화면. Dialog 의 큰 변형으로 흡수할지 결정할 대상이지 새 부품이 아니다."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas?project= panel.analysis",
+      "reason": "캔버스 영상 분석 모달이다(DS-D-0098). 보드 3549:23839 · 3549:23840(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2 · 2026-10-16p3(03-app)에서 데스크톱 · 모바일 실패 0 — 모바일 360 의 내용 폭 도구 막대는 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 판정 3차에서 p3 의 「pending」 div 넘침(3549:23839 w1440 +480)으로 한 번 되돌렸다가, 그 보드의 전 조각을 다시 보내 다시 잰 run 2026-10-16p3(48afa0d1)에서 실패 0 이라 다시 닫았다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "업로드를 마친 유튜브 노드에서 「Analyze」 로 연 분석 모달 개요 탭 — 영상 머리(Hydra Glow Sofa Launch Teaser · Klipse Studio · Public · 설명 · 태그)와 KPI 칸 일곱(Views 1.2K · Watch time 1h 2m · Likes 86 · Comments 12 · Shares 9 · Subscribers +14 · Avg. view duration)이 채운다. 지표는 레시피 canvas-analysis 의 지은 개수다."
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/AngleModal.tsx#AngleModal": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/AngleModal.tsx",

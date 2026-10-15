@@ -2078,6 +2078,34 @@ function hoistBleed(spec) {
  * 정렬이 다르면 묶지 않는다(`unresolved`). 묶음은 첫 자식의 위 · 둘째의 아래 음수 margin 을 들고 가 다음 이웃과 다시 묶일 수 있다.
  */
 /**
+ * **비례(SCALE) 층을 덮은 절대 배치 자식은 SCALE 이다(2026-10-16, 조립 규칙 15조의 27).** 부모를 한 축에서 꼭 덮은(자리 0 · 크기 같음, 0.5 안) 자식은
+ * STRETCH 와 SCALE 이 수학적으로 같은 자리 · 크기다. 그런데 Figma 는 SCALE 로 줄어든 부모 안의 STRETCH 자식을 다르게 푼다 — 라이브 탐침: 402 → 360
+ * 에서 SCALE 부모 187.33 → 167.76 인데 STRETCH 인스턴스는 168.33 으로 부모 밖 0.57, SCALE 이면 167.76 그대로. 랜딩 모바일 하이라이트 숏폼 카드의
+ * 바탕 그림(15조의 21, 부모는 15조의 8 의 변환 배치 SCALE)이 360 에서 카드 밖으로 0.6 나가 랜딩 「/」 모바일(359:2986)의 단 하나 남은 실패였다.
+ * 부모의 그 축 제약이 SCALE 이면 덮은 자식의 STRETCH 를 SCALE 로 바꾼다.
+ */
+function scaleCoversInScaledLayers(spec) {
+  const changed = [];
+  const near = (a, b) => Math.abs(a - b) <= 0.5;
+  const walk = (node) => {
+    for (const child of node.children ?? []) {
+      if (child.positioning === "ABSOLUTE" && child.constraints && node.constraints && node.rect && child.rect) {
+        const next = { ...child.constraints };
+        if (child.constraints.horizontal === "STRETCH" && node.constraints.horizontal === "SCALE" && near(child.rect.x, node.rect.x) && near(child.rect.width, node.rect.width)) next.horizontal = "SCALE";
+        if (child.constraints.vertical === "STRETCH" && node.constraints.vertical === "SCALE" && near(child.rect.y, node.rect.y) && near(child.rect.height, node.rect.height)) next.vertical = "SCALE";
+        if (next.horizontal !== child.constraints.horizontal || next.vertical !== child.constraints.vertical) {
+          child.constraints = next;
+          changed.push(child.path);
+        }
+      }
+      walk(child);
+    }
+  };
+  walk(spec);
+  return changed;
+}
+
+/**
  * **제품 줄을 옮긴 글자는 Figma 가 다시 감지 않게 폭을 글자에 맞춘다(2026-10-01).** 측정기의 `wrapLines` 로 제품 줄바꿈을 그대로 넣어도
  * (measured-text.mjs) 글자 상자가 칸 폭(FILL · FIXED, 높이 맞춤)이면 Figma 는 제 글꼴로 한 줄이 칸보다 몇 px 넓을 때 그 줄을 한 번 더 감는다 —
  * 개인정보 데스크톱의 「The Company processes … User Data Policy」 줄이 720 을 넘겨 두 줄 문단이 세 줄이 됐고, 그런 문단이 쌓여 보드 끝이
@@ -2110,14 +2138,22 @@ function hugCarriedLines(spec, styleOf = () => null) {
     const carried = Array.isArray(node.wrapLines) && node.wrapLines.length > 1;
     // 칠 없는 inline 글자 잎 — 부모 블록의 줄 상자에서 감긴다(감기지 않았어도 같다 — 줄이 좁아지면 감긴다). 칠이 있으면(코드 칩) 면이 줄 폭으로 늘어나 뺀다.
     const inline = node.sizing?.layoutSizingHorizontal === "HUG" && styleOf(node.path)?.display === "inline" && !(node.paint?.fill || node.paint?.gradient || node.paint?.stroke || node.paint?.shadow) && !(node.children ?? []).length;
-    if ((carried || inline) && node.text && parent && !node.splitWrapLine && !node.typography?.align && !node.typography?.lineClamp && node.positioning !== "ABSOLUTE"
+    // **가운데 정렬 글자도 칸을 채운다(2026-10-16, 조립 규칙 15조의 29).** 가운데 정렬(`text-align: center`) 글자가 가운데 정렬 세로 쌓기의 칸 가운데에
+    // 서 있으면 FILL + 가운데 정렬(`ta`)이 측정 폭에서 같은 그림이다 — 줄마다 칸 가운데에 선다. 종전에는 정렬 글자를 빼서 HUG 로 남았고, 칸이 좁아지면
+    // 양쪽으로 넘쳤다(/aws/signup 모바일 360 안내 「To activate your subscription…」 inline HUG 331 / 칸 328). 다시 감기면 렌더러가 폭 맞춤으로 되돌린다(`fw`).
+    const align = node.typography?.align ?? null;
+    if ((carried || inline) && node.text && parent && !node.splitWrapLine && (!align || align === "center") && !node.typography?.lineClamp && node.positioning !== "ABSOLUTE"
       && (node.sizing?.layoutSizingHorizontal !== "HUG" || inline) && parent.sizing?.layoutSizingHorizontal !== "HUG") {
       const layout = parent.layout ?? {};
       const flow = flowChildren(parent);
-      const vertical = layout.layoutMode === "VERTICAL" && (layout.align?.counterAxis ?? "MIN") === "MIN";
-      const alone = layout.layoutMode === "HORIZONTAL" && flow.length === 1 && (layout.align?.primaryAxis ?? "MIN") === "MIN";
+      const cross = layout.align?.counterAxis ?? "MIN";
+      const vertical = layout.layoutMode === "VERTICAL" && cross === (align === "center" ? "CENTER" : "MIN");
+      const alone = layout.layoutMode === "HORIZONTAL" && flow.length === 1 && (layout.align?.primaryAxis ?? "MIN") === (align === "center" ? "CENTER" : "MIN");
       const contentStart = (parent.rect?.x ?? 0) + (layout.padding?.left ?? 0);
-      const atStart = Math.abs((node.rect?.x ?? 0) - contentStart) <= 1;
+      const contentMid = (contentStart + (parent.rect?.x ?? 0) + (parent.rect?.width ?? 0) - (layout.padding?.right ?? 0)) / 2;
+      const atStart = align === "center"
+        ? Math.abs((node.rect?.x ?? 0) + (node.rect?.width ?? 0) / 2 - contentMid) <= 1
+        : Math.abs((node.rect?.x ?? 0) - contentStart) <= 1;
       if ((vertical || alone) && atStart) {
         const before = node.sizing.layoutSizingHorizontal;
         if (before === "FIXED") {
@@ -2188,6 +2224,24 @@ function fillTableRows(spec) {
         if (groupTag.test(child.tag) && plain(child) && near(child.rect.width, inner)) {
           fill(child, "표 줄 묶음 — 표 폭을 따른다");
           if (child.layout?.layoutMode === "VERTICAL") for (const row of flowChildren(child)) fitRow(row, innerOf(child));
+        } else if (groupTag.test(child.tag) && plain(child) && child.rect.width < inner - 1 && near(child.rect.x, node.rect.x + (node.layout?.padding?.left ?? 0))) {
+          // **표 폭보다 좁은 줄 묶음은 내용 맞춤 폭이다(2026-10-16, 조립 규칙 15조의 28).** 표가 `display: block` 이면 줄 묶음은 익명 표 상자 안에서
+          // fit-content(= min(max-content, 표 폭))로 선다 — 약관 모바일 표 344.8 / 370. 측정 폭 FIXED 로 두면 360 에서 표 328 밖으로 16.8 나간다.
+          // FILL + 측정 폭 최대 폭이면 측정 폭에서 같고 표가 좁아지면 따라 준다. 안의 줄은 묶음 폭을 따른다(위 fitRow).
+          if (child.sizing.layoutSizingHorizontal !== "FILL") {
+            child.sizing = { ...child.sizing, layoutSizingHorizontal: "FILL", minWidth: null, maxWidth: child.rect.width };
+            child.why = { ...child.why, horizontal: { verdict: "FILL", reason: "표 폭보다 좁은 줄 묶음 — 내용 맞춤 폭(측정 폭이 상한, 조립 규칙 15조의 28)" } };
+            changed.push(child.path);
+          }
+          if (child.layout?.layoutMode === "VERTICAL") for (const row of flowChildren(child)) fitRow(row, innerOf(child));
+        } else if (child.tag === "tr" && plain(child) && child.rect.width < inner - 1 && near(child.rect.x, node.rect.x + (node.layout?.padding?.left ?? 0))) {
+          // 표 바로 아래의 좁은 줄(머리 줄 `tr` 이 `tbody` 밖에 선 경우)도 같은 내용 맞춤 폭이다 — 칸은 줄 폭을 따른다(fitRow).
+          if (child.sizing.layoutSizingHorizontal !== "FILL") {
+            child.sizing = { ...child.sizing, layoutSizingHorizontal: "FILL", minWidth: null, maxWidth: child.rect.width };
+            child.why = { ...child.why, horizontal: { verdict: "FILL", reason: "표 폭보다 좁은 줄 — 내용 맞춤 폭(측정 폭이 상한, 조립 규칙 15조의 28)" } };
+            changed.push(child.path);
+          }
+          fitRow(child, child.rect.width);
         } else fitRow(child, inner);
       }
     }
@@ -2506,6 +2560,7 @@ const pendingAnchors = {};
       if (gaps.unresolved.length > 0) fail(`부품 ${part.set} ${variant.variant} 에 묶지 못한 음수 간격이 있습니다: ${JSON.stringify(gaps.unresolved)}`);
       const spaceBetweenHug = dropHugSpaceBetween(spec);
       hugCarriedLines(spec, (path) => styleByPath.get(path) ?? null);
+      scaleCoversInScaledLayers(spec);
       halveCollapsedBorders(spec);
       fillTableRows(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
@@ -2626,6 +2681,7 @@ for (const screen of SCREENS) {
     const spaceBetweenHug = dropHugSpaceBetween(spec);
     totalSpaceBetweenHug += spaceBetweenHug.length;
     totalCarriedLinesHugged += hugCarriedLines(spec, (path) => styleByPath.get(path) ?? null).length;
+    scaleCoversInScaledLayers(spec);
     totalCollapsedTables += halveCollapsedBorders(spec).length;
     totalTableRowsFilled += fillTableRows(spec).length;
     // 화면 높이 뿌리(fillScreenHeight 주석) — 크기 조합 풀이 · 감싸개가 다 끝난 뒤, 보드 틀 높이(아래 frameSize 와 같은 식)에 묶는다.

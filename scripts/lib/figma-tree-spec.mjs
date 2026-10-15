@@ -334,7 +334,7 @@ function richInlineText(node, childrenOf) {
     if (!piece) continue;
     const start = text.length;
     text += piece;
-    childPieces.push([start, text.length, child.rect?.y ?? null]);
+    childPieces.push([start, text.length, child.rect?.y ?? null, child.rect?.height ?? null]);
     const range = { start, end: text.length };
     if (style.fontWeight && Number(style.fontWeight) !== Number(base.fontWeight)) range.weight = Number(style.fontWeight);
     const colour = cssColorToHex(style.color);
@@ -371,6 +371,11 @@ function mergedWrapLines(node, text, childPieces, ranges) {
   const counts = own.map((line) => line.replace(/\s+/g, "").length);
   if (counts.reduce((sum, count) => sum + count, 0) !== ownChars.length) return null; // 제 글자가 맞지 않으면 되살리지 않는다
   const lineHeight = node.rect.height / own.length;
+  // **줄을 넘는 요소가 있으면 줄 경계를 모른다(2026-10-16, 조립 규칙 15조의 30).** 측정기의 줄(`wrapLines`)은 제 글자만 센다. 요소(`<strong>` · `<a>`)
+  // 자체가 두 줄에 걸치면(상자 높이가 한 줄 반을 넘는다) 그 안의 줄바꿈 자리는 측정에 없는데, 아래 셈은 요소를 통째로 한 줄에 붙여 줄 하나가 칸보다
+  // 훨씬 넓어졌다 — 약관 모바일 「Users may revoke integration at any time via [Settings > Manage Linked Channels]」 한 줄이 Figma 에서 512 로 칸 356 밖
+  // 140(측정 크기 넘침). 그런 문단은 줄을 옮기지 않고 칸 폭에서 감기게 둔다.
+  if (childPieces.some(([, , , height]) => height != null && height > lineHeight * 1.5)) return null;
   const lineOf = (y) => (y == null ? null : Math.round((y - node.rect.y) / lineHeight));
   const breaks = []; // [줄 끝(배타), 다음 줄 시작]
   let consumed = 0;
@@ -1260,6 +1265,16 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", maxWidth: fit.heightLimited ? node.rect.width : nodeSizing.maxWidth };
       stats.containFit = (stats.containFit ?? 0) + 1;
     }
+    // **칸 폭에 묶인 그림은 칸을 따라 비율대로 준다(2026-10-16, 조립 규칙 15조의 31).** `<img>` · `<video>` 가 폭 선언 없이 `max-width` 에 백분율
+    // (`100%` · `min(100%, 700px)`)을 두고 높이가 `auto` 이면, 원본이 칸보다 넓을 때 폭은 칸 폭이고 높이는 비율로 따라온다(블로그 본문 그림 — 측정 폭에서
+    // 칸 370 = 그림 370). 판정 규칙에 걸리지 않아(UNRESOLVED) 측정 폭 FIXED 로 굳어 모바일 360 에서 칸 328 밖으로 42 나갔다(/blog/[slug] 216:2940).
+    // 측정 폭이 부모 안쪽 폭과 같으면(0.5 안) 가로 FILL + 비율 잠금(렌더러 `ar`), `min(100%, Npx)` 의 px 는 최대 폭이다. 측정 크기에서 FILL 폭 = 칸 폭 =
+    // 측정 폭이라 자리 · 크기가 같다. 원본이 칸보다 좁아 제 크기로 선 그림(폭 ≠ 칸)은 그대로다.
+    const capped = !fit && !floatingLine && !placeholder && !decision.absolute ? capFitOf(node, parent) : null;
+    if (capped) {
+      nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", layoutSizingVertical: "FIXED", maxWidth: capped.max };
+      stats.capFit = (stats.capFit ?? 0) + 1;
+    }
     // 줄어드는 flex 항목(`min-w-0` + 잘리거나 감기는 글자, flexShrinkItemOf 주석 · 조립 규칙 15조의 23) — 가로 FILL, 측정 폭에서 줄지 않았으면 측정 폭이 상한.
     const shrinkItem = !floatingLine && !placeholder && !wrappedRows && !fit && !decision.absolute && nodeSizing.layoutSizingHorizontal === "HUG"
       ? flexShrinkItemOf(node, parent, children, childrenOf) : null;
@@ -1272,6 +1287,13 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         source: "min-width:0", value: null,
       };
       stats.flexShrinkFill = (stats.flexShrinkFill ?? 0) + 1;
+      // 안쪽 여백 때문에 갈라 낸 제 글자(`.t`, padTextLeaf)도 상자를 따라 감겨야 한다 — HUG 로 남으면 상자만 줄고 글자는 측정 폭에 남는다(15조의 30).
+      // Figma 글꼴이 측정 폭에서 한 줄 더 감으면 렌더러가 폭 맞춤으로 되돌린다(`fw`, 15조의 22).
+      for (const child of children) {
+        if (child.path !== `${node.path}.t` || child.sizing?.layoutSizingHorizontal !== "HUG") continue;
+        child.sizing = { ...child.sizing, layoutSizingHorizontal: "FILL" };
+        child.fillWrapped = { lines: Array.isArray(child.wrapLines) && child.wrapLines.length > 1 ? child.wrapLines.length : 1, lineHeight: child.typography?.lineHeight ?? null };
+      }
     }
     const absConstraints = decision.absolute
       ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null, parent ? {
@@ -1345,7 +1367,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       // `<video>` 는 측정기가 포스터를 src 로 싣는다(조립 규칙 15조의 21) — 같은 열쇠로 잇는다.
       ...((node.tag === "img" || node.tag === "video") && node.src ? { src: node.src } : {}),
       sizing: nodeSizing,
-      ...(fit ? { aspectLock: true } : {}),
+      ...(fit || capped ? { aspectLock: true } : {}),
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
       paint,
       // **타이포.** 텍스트를 직접 가진 노드만. LOUIS 텍스트 스타일 이름으로 바꿔 싣는다.
@@ -1383,7 +1405,10 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         ? { x: node.rect.x - parent.rect.x, y: node.rect.y - parent.rect.y }
         : null,
       constraints: absConstraints,
-      why: { horizontal: shrinkWhy ?? decision.h, vertical: decision.v },
+      why: {
+        horizontal: shrinkWhy ?? (capped ? { verdict: "FILL", reason: `칸 폭에 묶인 그림(max-width ${node.declared?.["max-width"]}) — 칸을 채우고 비율 잠금(조립 규칙 15조의 31)`, source: "max-width", value: null } : decision.h),
+        vertical: decision.v,
+      },
       // **자동 배치 없는 글자 상자의 안쪽 여백(2026-10-12 오후).** 입력칸처럼 자식 없이 글자(placeholder)를 그리는 면은 layout 이 null 이라
       // padding 이 실리지 않아, 렌더러가 글자를 면 전체에 펼쳤다 — 노드캔버스 레이어 검색칸(pl 28)의 「Search layers」 가 x 0 에서 돋보기와 겹쳤다.
       ...(layoutMode === "NONE" && node.ownText
@@ -1585,6 +1610,15 @@ export function constraintsFor(rawDeclared, computed = null, parentComputed = nu
     .some((sibling) => { const axes = transformPlacedAxes(sibling.declared ?? {}, sibling.style ?? null); return axes.horizontal || axes.vertical; });
   const equalInsets = (start, end, size) => scriptStage && px(declared[start]) > 0 && lengthDeclaredPx(declared[size]) && !has(declared[end])
     && px(computed?.[start]) != null && Math.abs(px(computed[start]) - (px(computed?.[end]) ?? Number.NaN)) <= 0.5;
+  // **스크립트가 px 로 쓴 자리 · 크기(2026-10-16, 조립 규칙 15조의 27).** 같은 무대에 변환으로 서는 형제가 있는 뷰포트 무대(scriptStage)에서 시작 변과
+  // 크기가 둘 다 px 이고 끝 변 선언이 없으며 둘 중 하나라도 소수 px 이면 — 사람이 쓴 디자인 값이 아니라 스크립트가 무대 크기에서 계산해 inline 으로 쓴
+  // 값이다(랜딩 하이라이트 무대의 글 띠 `left: 1117.2px; width: 760.8px` · 거울 판 `left: 921.6px; width: 998.4px`, `highlightScene.ts` 의 무대 비례
+  // 자리). MIN 으로 두면 보드를 1440 으로 줄여도 왼쪽 1117 에 묶여 무대 밖으로 438 나갔다(늘림 run 2026-10-15names). 제품은 무대가 줄면 자리를 다시
+  // 계산한다 — 그 축을 무대에 비례(SCALE)로 둔다. 글자는 SCALE 이 폭을 줄여 다시 감으므로 넣지 않는다(15조의 11). 정수 px(모바일 제목 칸 `left: 20px`,
+  // 데스크톱 제목 `left: 192px`)는 위 같은 여백(STRETCH) · 종전 판정 그대로다.
+  const fractionalPx = (value) => lengthDeclaredPx(value) && /\.\d*[1-9]/.test(String(value));
+  const scriptPx = (start, end, size) => scriptStage && !self.text && !has(declared[end])
+    && lengthDeclaredPx(declared[start]) && lengthDeclaredPx(declared[size]) && (fractionalPx(declared[start]) || fractionalPx(declared[size]));
   const lengthDeclared = (value) => has(value) && px(String(value).replace(/\s*!\s*important\s*$/i, "")) != null;
   const spans = (start, end, size) => (position === "fixed" || (position === "absolute" && !lengthDeclared(declared[size])))
     && zero(computed[start]) && zero(computed[end]);
@@ -1623,13 +1657,13 @@ export function constraintsFor(rawDeclared, computed = null, parentComputed = nu
     horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") || equalInsets("left", "right", "width") || coverStretch("horizontal", "width") ? "STRETCH"
       : percentCentre("left", "width") ? "SCALE"
         : centred(declared.left) || (centred(declared.right) && !has(declared.left)) || staticCentre(flexColumn, "left", "right") ? "CENTER"
-          : placed.horizontal ? "SCALE"
+          : placed.horizontal || scriptPx("left", "right", "width") ? "SCALE"
             : horizontalPercent ? horizontalPercent
               : has(declared.right) ? "MAX" : "MIN",
     vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") || equalInsets("top", "bottom", "height") || coverStretch("vertical", "height") ? "STRETCH"
       : percentCentre("top", "height") ? "SCALE"
         : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) || staticCentre(flexRow, "top", "bottom") ? "CENTER"
-          : placed.vertical ? "SCALE"
+          : placed.vertical || scriptPx("top", "bottom", "height") ? "SCALE"
             : verticalPercent ? verticalPercent
               : has(declared.bottom) ? "MAX" : "MIN",
   };
@@ -1679,9 +1713,18 @@ function flexShrinkItemOf(node, parent, specChildren, childrenOf) {
   const wrappingLeaf = (entry) => Boolean(entry.ownText) && !(childrenOf.get(entry.path) ?? []).length && !hasOwnPaint({ ...entry, ownText: null })
     && !/^(nowrap|pre)$/.test(entry.style?.whiteSpace ?? "") && !/hidden|clip|auto|scroll/.test(`${entry.style?.overflow ?? ""} ${entry.style?.overflowX ?? ""}`)
     && !/^(center|right|end|justify)$/.test(entry.style?.textAlign ?? "");
+  // **감기는 글자만 든 상자도 줄어든다(2026-10-16, 조립 규칙 15조의 30).** 칠 없는 상자(`<span>` · `<div>`)의 보이는 자식이 모두 감기는 글자 잎이면 그 상자의
+  // 최소 내용 폭도 가장 긴 낱말이라 `min-width: auto` 로도 줄어든다 — 가입 약관 동의 줄의 라벨 글 묶음(`label` 가로 flex 안 `span > span` 「I agree to the
+  // Terms of Service (required)」 HUG 252)이 모바일 360 에서 라벨 272 밖으로 12 나갔다(제품은 두 줄로 감긴다). 상자 안 글자는 부모가 FILL 이 되면
+  // 15조의 22(줄 상자를 혼자 채운 inline 글자 FILL)로 칸을 따라 감긴다.
+  const wrappingBox = (entry) => !entry.ownText && !hasOwnPaint(entry)
+    && !/^(nowrap|pre)$/.test(entry.style?.whiteSpace ?? "") && !/hidden|clip|auto|scroll/.test(`${entry.style?.overflow ?? ""} ${entry.style?.overflowX ?? ""}`)
+    && (() => { const kids = (childrenOf.get(entry.path) ?? []).filter((kid) => isVisible(kid)); return kids.length > 0 && kids.every(wrappingLeaf); })();
   const shrinks = (entry) => flowItem(entry) && (zeroMin(entry) || wrappingLeaf(entry));
-  if (!shrinks(node)) return null;
-  const peers = (childrenOf.get(parent.path) ?? []).filter((sibling) => isVisible(sibling) && shrinks(sibling));
+  // 글자 상자(15조의 30)는 줄에 다른 줄어드는 항목이 없을 때만 선다 — 종전 판정이 고른 항목은 그대로 둔다.
+  const box = !shrinks(node) && flowItem(node) && wrappingBox(node);
+  if (!shrinks(node) && !box) return null;
+  const peers = (childrenOf.get(parent.path) ?? []).filter((sibling) => isVisible(sibling) && (sibling === node || shrinks(sibling)));
   if (peers.length !== 1) return null;
   // 늘어나는 형제(`flex-grow > 0`)가 있으면 Figma 는 남는 폭을 FILL 끼리 똑같이 나눠 측정 폭이 무너진다 — 서지 않는다.
   const flowSiblings = (childrenOf.get(parent.path) ?? []).filter((sibling) => isVisible(sibling) && !/^(absolute|fixed)$/.test(sibling.style?.position ?? ""));
@@ -1696,9 +1739,14 @@ function flexShrinkItemOf(node, parent, specChildren, childrenOf) {
   const truncatingStyle = (entry) => /^(nowrap|pre)$/.test(entry.whiteSpace ?? "") && /hidden|clip/.test(`${entry.overflow ?? ""} ${entry.overflowX ?? ""}`);
   // 자기 글자(잎)이면 계산값으로, 상자면 변환된 자식 spec 으로 본다(인스턴스 안은 보지 않는다).
   let cut = null, shrunk = false;
-  if (node.ownText && specChildren.length === 0) {
+  // 안쪽 여백 때문에 제 글자를 `.t` 자식으로 갈라 낸 잎도 잎이다(15조의 30) — 다만 낱말이 둘 이상이라 실제로 감길 수 있을 때만(한 낱말 링크 「Models」는 줄지 않는다).
+  if (node.ownText && specChildren.every((child) => child.path === `${node.path}.t`)
+    && (specChildren.length === 0 || /\S\s+\S/.test(String(node.ownText).trim()))) {
     if (zeroMin(node) && truncatingStyle(style)) { cut = "말줄임 글자"; shrunk = Boolean(node.truncated); }
     else if (wrappingLeaf(node)) { cut = "감기는 글자"; shrunk = rowFull && Array.isArray(node.wrapLines) && node.wrapLines.length > 1; }
+  } else if (!zeroMin(node) && wrappingBox(node)) {
+    cut = "감기는 글자 상자";
+    shrunk = rowFull && specChildren.some((child) => Array.isArray(child.wrapLines) && child.wrapLines.length > 1);
   } else if (!zeroMin(node)) {
     return null;
   } else {
@@ -1761,6 +1809,25 @@ function viewportStage(parent, byPath) {
     at = byPath.get(at.parentPath);
   }
   return false;
+}
+
+/** 칸 폭에 묶인 그림(조립 규칙 15조의 31) — 폭 선언 없이 백분율 max-width · 높이 auto 이고 측정 폭이 부모 안쪽 폭이면 `{ max }`(px 상한, 없으면 null). */
+function capFitOf(node, parent) {
+  if (!(node.tag === "img" || node.tag === "video") || !parent?.rect || !node.rect) return null;
+  const declared = node.declared ?? {};
+  const clean = (value) => String(value ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+  const maxWidth = clean(declared["max-width"]);
+  if (!/100%/.test(maxWidth)) return null;
+  if (clean(declared.width) && clean(declared.width) !== "auto") return null;
+  if (clean(declared.height) && clean(declared.height) !== "auto") return null;
+  const outer = parent.style ?? {};
+  // 칸은 흐름 블록이어야 한다 — 절대 배치 · flex · 인라인 블록 부모는 제 폭이 내용(그림)으로 정해질 수 있어 FILL 이 HUG 부모 안에 선다.
+  if (outer.display !== "block" || /^(absolute|fixed)$/.test(outer.position ?? "")) return null;
+  const edge = (side) => (px(outer[`padding${side}`]) ?? 0) + (px(outer[`border${side}Width`]) ?? 0);
+  const inner = parent.rect.width - edge("Left") - edge("Right");
+  if (Math.abs(node.rect.width - inner) > 0.5) return null;
+  const cap = /(\d+(?:\.\d+)?)px/.exec(maxWidth);
+  return { max: cap ? Number(cap[1]) : null };
 }
 
 /**
@@ -2308,6 +2375,10 @@ function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
     const key = axis === "horizontal" ? "layoutSizingHorizontal" : "layoutSizingVertical";
     return (child.children ?? []).every((kid) => kid.positioning === "ABSOLUTE" || kid.sizing?.[key] !== "FILL");
   };
+  // 칸 맞춤 폭으로 줄 수 있는 상자인가(15조의 28) — 자동 배치 상자이고 안에 가로 고정 폭 흐름 자식이 측정 폭을 꽉 채우지 않는다(고정 폭 자식이
+  // 측정 폭을 정했으면 그 상자는 줄지 않는다). 글자 잎 · 인스턴스 · 그림은 종전대로 FIXED 다.
+  const axisFits = (child) => Boolean(child.layout) && !child.instance && !child.text
+    && (child.children ?? []).every((kid) => kid.positioning === "ABSOLUTE" || kid.sizing?.layoutSizingHorizontal !== "FIXED" || (kid.rect?.width ?? 0) < child.rect.width - 1);
   let aligned = 0;
   let cellLeft = left;
   const fixes = new Map();
@@ -2327,6 +2398,14 @@ function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
           // 글자는 세로도 HUG 여야 렌더러가 폭을 자동(WIDTH_AND_HEIGHT)으로 둔다 — 세로 FILL 이 남으면 폭 고정(HEIGHT)이 되어
           // 새 글자 상자의 좁은 기본 폭에서 줄이 꺾였다(「Check / your / email」, 캡처로 확인).
           if (child.text) sizing.layoutSizingVertical = "HUG";
+        } else if (axisFits(child)) {
+          // **칸 안에 정렬된 상자는 내용 맞춤 폭이다 — 칸이 좁아지면 따라 준다(2026-10-16, 조립 규칙 15조의 28).** `justify-items: center`
+          // · `justify-self` 로 칸 안에 선 grid 항목의 폭은 fit-content(= min(max-content, 칸))다. 측정 폭이 칸보다 좁으면 그 폭이 곧
+          // max-content 라, 측정 폭 FIXED 로 굳히면 칸이 줄어도 줄지 않는다(인증 상태 카드 머리 묶음 340 이 모바일 360 의 칸 328 밖으로 6 —
+          // 제품은 설명 문단 `max-w-[340px]` 이 감기며 328 로 준다). FILL + 측정 폭 최대 폭 + 칸 정렬이면 측정 폭에서 같은 자리 · 크기이고
+          // (라이브 탐침: 칸 370 → x 15 · 폭 340, 칸 328 → 폭 328, 칸 500 → x 80 · 폭 340) 칸이 좁아지면 칸을 채운다.
+          sizing.layoutSizingHorizontal = "FILL";
+          sizing.maxWidth = child.rect.width;
         } else sizing.layoutSizingHorizontal = "FIXED";
       }
     }

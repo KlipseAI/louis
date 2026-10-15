@@ -6,7 +6,7 @@ authority: normative
 
 # DS-D-0079 제품 측정 앵커는 작업 브랜치 통합 판이다
 
-- Status: accepted (통합 판 · fixture 2026-10-08, 저녁 갱신으로 갈래 열셋 · 결과 `54b62a8a`, 원장 재측정은 진행 중)
+- Status: superseded by [DS-D-0117](DS-D-0117-measure-the-deployed-main.md) (2026-10-15 — 앵커는 운영에 배포된 `main` 이다. 아래는 통합 판 · fixture 2026-10-08, 저녁 갱신으로 갈래 열셋 · 결과 `54b62a8a` 의 기록이다)
 - Date: 2026-10-08
 - Owners: design system maintainer (소유자 결정)
 - Affects: `migration/product-evidence.lock.json`, `migration/product-integration/`, 모든 `measure-product-*` 원장, Figma 화면 보드

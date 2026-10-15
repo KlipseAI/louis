@@ -2217,6 +2217,7 @@
         "design/governance/decisions/DS-D-0114-property-stack.md",
         "design/governance/decisions/DS-D-0115-caption-layout-icons-and-thumb.md",
         "design/governance/decisions/DS-D-0116-timeline-footer.md",
+        "design/governance/decisions/DS-D-0117-measure-the-deployed-main.md",
         "design/updates/README.md"
       ]
     },
@@ -2647,6 +2648,15 @@
       "id": "decision-timeline-footer",
       "path": "design/governance/decisions/DS-D-0116-timeline-footer.md",
       "title": "DS-D-0116 공개 화면의 타임라인 푸터를 새 부품 timeline-footer 로 — 늘 다크는 data-theme=\"dark\" 고정, 트랙 색 넷, 흐린 글자 대비를 고친다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-measure-the-deployed-main",
+      "path": "design/governance/decisions/DS-D-0117-measure-the-deployed-main.md",
+      "title": "DS-D-0117 제품 측정 앵커는 운영에 배포된 main 이다",
       "section": "governance",
       "authority": "normative",
       "maturity": "experimental",

@@ -22,7 +22,7 @@ DS-D-0079 는 2026-10-08 소유자 판단(「운영 환경의 디자인은 구�
 `app` · `styles` · `messages`) 401 개가 달랐다(+23,100 / −17,864 줄). 제품이 무는 LOUIS 판도 `bab5efdf` →
 `ac5beeb6` 로 바뀌었다. 디자인 시스템이 아는 화면은 운영 화면이 아니라 일주일 전 통합 판이었다.
 
-배포 경로: `.github/workflows/deploy.yml` — 운영(prd)은 `main` push 로 자동, 개발(dev)은 `dev` 수동 실행.
+배포 경로: 제품 저장소의 배포 워크플로(.github/workflows/deploy.yml) — 운영(prd)은 `main` push 로 자동, 개발(dev)은 `dev` 수동 실행.
 
 ## Decision
 

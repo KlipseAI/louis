@@ -892,7 +892,9 @@ const PRODUCT_PARTS = [
   {
     set: "Product/Canvas Image Node",
     about: "캔버스 이미지 노드 카드(node-canvas-v2/nodes/ImageNode.tsx — 머리 · 결과 이미지 · 연결된 프롬프트 상태 · 모델 · 비율 · 품질 · Regenerate). 측정은 생성이 끝난 상태이고 캔버스 줌 0.815 배다.",
-    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project=", context: "desktop-1920x1080", path: `${NODE_CANVAS}.1`, fixture: "session", anchor: ["Image", "AI image prompt connected", "GPT Image 2.5 Flare", "1:1", "High", "Regenerate"], component: "2949:3619" }],
+    // 앵커 97d4950e(2026-10-15): 예상 크레딧(90)이 가진 크레딧(시드 0)보다 많으면 생성 단추 아래에 부족 안내가 선다(ImageNode.tsx 943-949행
+    // insufficientCreditMessage · en.ts insufficientCreditsDetail). 운영 판이 크레딧 0 사용자에게 그리는 그대로다.
+    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project=", context: "desktop-1920x1080", path: `${NODE_CANVAS}.1`, fixture: "session", anchor: ["Image", "AI image prompt connected", "GPT Image 2.5 Flare", "1:1", "High", "Regenerate", "Insufficient credits. (Required: 90, Available: 0)"], component: "2949:3619" }],
   },
   {
     set: "Product/Canvas Video Node",

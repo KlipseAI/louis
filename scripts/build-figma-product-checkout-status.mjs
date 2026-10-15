@@ -311,6 +311,8 @@ const quote = sourceQuotes({ repoRoot, productRoot, productCommit: fixture.produ
 const SUCCESS = "apps/web/app/mypage/upgrade/billing-success/page.tsx";
 const FAIL = "apps/web/app/mypage/upgrade/billing-fail/page.tsx";
 const GLOBALS = "apps/web/app/globals.css";
+// 2026-10-15 운영 main 97d4950e: globals.css 면 선언 셋은 글자 그대로이고 줄만 +33 · +34 밀렸다(804 → 837 · 805 → 838 · 966 → 1000) —
+// 같은 문자열이 다크 스코프(:762 · :763)에도 있어 두 앵커 사이 diff 의 바뀌지 않은 줄 대응으로 라이트 스코프 줄을 골랐다.
 const alphaReason = (token, step) =>
   `Product paints rgb(var(${token}) / ${step}%) — pure black at ${step}% in light. The live alpha ramp with that step resolves to ` +
   "static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).";
@@ -352,15 +354,15 @@ const roles = live.colorRoles({
     },
     appPageBg: {
       name: "color/bg-canvas",
-      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 804, "  --app-page-bg: var(--louis-color-bg-canvas);")],
+      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 837, "  --app-page-bg: var(--louis-color-bg-canvas);")],
     },
     appPageBgNarrow: {
       name: "color/bg-surface",
-      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 966, "    --app-page-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1000, "    --app-page-bg: var(--louis-color-bg-surface);")],
     },
     appMainCardBg: {
       name: "color/bg-surface",
-      declared: [quote.product(SUCCESS, 59, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 805, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(SUCCESS, 59, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 838, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
     },
     boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
     docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },

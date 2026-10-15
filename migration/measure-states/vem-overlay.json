@@ -175,6 +175,16 @@
           "expect": "clipLabel: \"louis-timeline__label\","
         },
         {
+          "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx",
+          "line": 878,
+          "expect": "vem.timelineClipSubtitleAria(overlay.content)"
+        },
+        {
+          "path": "apps/web/components/landing/system/messages/en.ts",
+          "line": 3155,
+          "expect": "timelineClipSubtitleAria: (text: string) => `Subtitle clip, ${text}`"
+        },
+        {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
           "line": 11522,
           "expect": "label: vem.mobileTabProperties,"
@@ -244,10 +254,13 @@
             "description": "가로챈 state 의 텍스트 오버레이(모바일 자막 레인)"
           },
           {
-            "click": {
-              "css": ".louis-timeline__clip[data-tone=\"caption\"] .louis-timeline__label"
+            "press": "Enter",
+            "on": {
+              "role": "button",
+              "name": "Subtitle clip, Text",
+              "exact": true
             },
-            "description": "자막 클립 → onSelectOverlay(선택만)"
+            "description": "자막 클립 → onSelectOverlay(선택만). 텍스트 · 이미지 오버레이가 같은 0 ~ 3초라 한 레인(MobileTimeline.tsx 867-884)에서 뒤에 그려지는 이미지 클립이 자막 클립을 덮어 포인터 클릭이 가로막힌다(2026-10-16 실측) — 같은 단추를 키보드(Enter)로 누른다"
           },
           {
             "click": {

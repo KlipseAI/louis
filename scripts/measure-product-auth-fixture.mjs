@@ -867,6 +867,13 @@ const stabilize = async (page, label, isQuiet = () => true) => {
   const deadline = Date.now() + STABILIZE_DEADLINE_MS;
   while (stableCount < 6 && Date.now() < deadline) {
     const fingerprint = await page.evaluate(() => {
+      // **문서에 body 가 아직 없을 수 있다(2026-10-16 vem-overlay).** 편집기 화면에서 단계가 끝난 뒤
+      // 이 evaluate 가 `document.body === null` 을 만나 측정기가 TypeError 로 죽었다 — 그 순간의
+      // 문서는 새로 갈아 끼워지는 중(파싱 전)이다. 그때는 안정으로 세지 않도록 매번 다른 지문을 돌려주고
+      // 다음 바퀴에서 다시 본다. body 가 있는 화면(지금까지의 모든 원장)은 이 갈래를 타지 않는다.
+      if (!document.body) {
+        return "no-body:" + location.href + ":" + document.readyState + ":" + performance.now();
+      }
       const rootCandidates = [...document.body.children]
         .filter((node) => node instanceof HTMLElement)
         .map((node) => {
@@ -911,6 +918,7 @@ const stabilize = async (page, label, isQuiet = () => true) => {
           }).length,
       });
     });
+    if (fingerprint.startsWith("no-body:")) process.stderr.write("[product-auth-fixture]   body 없음 — 문서가 갈아 끼워지는 중, 다시 본다: " + label + " · " + fingerprint + "\n");
     if (fingerprint === previous && isQuiet()) stableCount += 1;
     else {
       previous = fingerprint;

@@ -76,22 +76,25 @@ const declaredTrack = (quote, pattern, what) => {
 const [desktopTopBar] = appShell.component.desktopTopBar.variants;
 const VEM = "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts";
 const EDITOR = "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx";
+// 2026-10-15 운영 main 97d4950e: 이 파일의 인용은 모두 글자 그대로이고 줄만 옮겼다 — vemClass.ts 는 −35 ~ −96(제품 `51bc76d8` ·
+// `1d7319a1` 이 포커스 링 줄을 걷고 `5830d56c` 가 인스펙터 행을 LOUIS 기본으로 옮겼다), globals.css 는 +7, Gnb.tsx 는 머리 import 한 줄로 +1.
+// 새 줄은 `git diff -U0 54b62a8a 97d4950e -- <파일>` 의 바뀌지 않은 줄 대응으로 옮겼다.
 // 셸 인셋이 사방이라는 선언 — margin 과 그 짝인 폭 · 높이 뺄셈. `MAIN` 은 여백을 내지 않는다.
 const shellSources = [
-  sourceQuote("apps/web/app/globals.css", 157, "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"),
+  sourceQuote("apps/web/app/globals.css", 164, "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"),
   sourceQuote(EDITOR, 164, '  "[padding:0]",'),
-  sourceQuote(VEM, 1843, '    "[.vem-modal&]:[width:calc(100%_-_var(--app-gnb-main-inline-padding)_*_2)]",'),
-  sourceQuote(VEM, 1846, '    "[.vem-modal&]:[height:calc(100%_-_var(--app-gnb-main-inline-padding)_*_2)]",'),
-  sourceQuote(VEM, 1860, '    "[.vem-modal&]:[margin:var(--app-gnb-main-inline-padding)]",'),
+  sourceQuote(VEM, 1789, '    "[.vem-modal&]:[width:calc(100%_-_var(--app-gnb-main-inline-padding)_*_2)]",'),
+  sourceQuote(VEM, 1792, '    "[.vem-modal&]:[height:calc(100%_-_var(--app-gnb-main-inline-padding)_*_2)]",'),
+  sourceQuote(VEM, 1806, '    "[.vem-modal&]:[margin:var(--app-gnb-main-inline-padding)]",'),
 ];
 // **네 줄은 값이 아니라 스코프가 바뀌었다.** 제품 8a90e3f6 「모바일에서 무너져 있던 격자를 한 열로
 // 세운다」가 데스크톱 격자를 `[@media(min-width:720px)]:` 안으로 넣었다 — 같은 레이어·같은 특이도라
 // Tailwind 정렬 순서로 승패가 갈려 375px 에서 5트랙 격자가 이기던 것을 상호배타 변형으로 가른 것이다.
 const gridSources = [
-  sourceQuote(VEM, 1637, '    "[@media(min-width:720px)]:[grid-template-columns:var(--video-edit-assets-width,_317px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_240px)]",'),
-  sourceQuote(VEM, 1638, '    "[@media(min-width:720px)]:[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_332px)]",'),
-  sourceQuote(VEM, 1640, '    "[@media(min-width:720px)]:[column-gap:2px]",'),
-  sourceQuote(VEM, 1641, '    "[@media(min-width:720px)]:[row-gap:2px]",'),
+  sourceQuote(VEM, 1583, '    "[@media(min-width:720px)]:[grid-template-columns:var(--video-edit-assets-width,_317px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_240px)]",'),
+  sourceQuote(VEM, 1584, '    "[@media(min-width:720px)]:[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_332px)]",'),
+  sourceQuote(VEM, 1586, '    "[@media(min-width:720px)]:[column-gap:2px]",'),
+  sourceQuote(VEM, 1587, '    "[@media(min-width:720px)]:[row-gap:2px]",'),
 ];
 const [assets, assetsDivider, propertiesDivider, properties] = declaredTrack(
   gridSources[0], /\(--video-edit-assets-width,_(\d+)px\)_(\d+)px_minmax\(0,_1fr\)_(\d+)px_var\(--video-edit-properties-width,_(\d+)px\)/, "grid columns");
@@ -106,11 +109,11 @@ const [rowGap] = declaredTrack(gridSources[3], /\[row-gap:(\d+)px\]/, "row gap")
 //   판 안쪽 여백 8 · 간격 0 — `propertiesPanelInner`(vemClass.ts:3493 · :3500 · :3505, 「Figma 1087:2491 pad 8 → 행 폭 224」)
 //   행 가로 패딩 8 · 양 끝 정렬 — `inspectorField` 의 속성 판 분기(vemClass.ts:1047 · :1073)
 const propertiesPanelSources = [
-  sourceQuote(VEM, 3488, '    "vem-propertiesPanel-inner",'),
-  sourceQuote(VEM, 3495, '    "[padding:8px]",'),
-  sourceQuote(VEM, 3500, '    "[gap:0]",'),
-  sourceQuote(VEM, 1056, '    "[justify-content:space-between]",'),
-  sourceQuote(VEM, 1082, '    "[.vem-propertiesPanel_&]:[padding:0_8px]",'),
+  sourceQuote(VEM, 3392, '    "vem-propertiesPanel-inner",'),
+  sourceQuote(VEM, 3399, '    "[padding:8px]",'),
+  sourceQuote(VEM, 3404, '    "[gap:0]",'),
+  sourceQuote(VEM, 1021, '    "[justify-content:space-between]",'),
+  sourceQuote(VEM, 1047, '    "[.vem-propertiesPanel_&]:[padding:0_8px]",'),
 ];
 const [propertiesInnerPadding] = declaredTrack(propertiesPanelSources[1], /^\s*"\[padding:(\d+)px\]",$/, "properties panel inner padding");
 const [propertiesInnerGap] = declaredTrack(propertiesPanelSources[2], /^\s*"\[gap:(\d+)\]",$/, "properties panel inner gap");
@@ -159,15 +162,15 @@ const roles = live.colorRoles({
   theme: themes[0],
   where: "sidebar-states",
   roles: {
-    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 571, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
-    gray000: { name: "color/gray/000", declared: [quote.product(GNB, 577, '    "[color:var(--gray-000)]",')] },
-    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 2000, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-100)]",')] },
-    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 2001, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-900)]",')] },
+    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 572, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
+    gray000: { name: "color/gray/000", declared: [quote.product(GNB, 578, '    "[color:var(--gray-000)]",')] },
+    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 2001, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-100)]",')] },
+    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 2002, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-900)]",')] },
     // 편집기 상단 바 아래 선은 제품이 **선언한** 칠이지만 이 측정(`desktop-1920x1080-dark` 사이드바 상태)이 재지 않는 자리다 —
     // 주석 잉크(문서 프레임)와 다른 종류라 선언 인용을 붙이고 `unmeasured` 로 둔다(측정 대조 없음, `exact: null`).
     topBarDivider: {
       name: "color/stroke-hairline",
-      declared: [quote.product(GNB, 476, '    "[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]",')],
+      declared: [quote.product(GNB, 477, '    "[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]",')],
       unmeasured: "editor top bar bottom line — not measured by this fixture (creation-only path); the same token the app-shell plan binds",
     },
     // 측정 섹션의 바닥 — 형제 세트 러너(체크아웃 · 결제 장면 · 업그레이드 · 컴포넌트)와 같은 주석 역할. 섹션이 측정 모드(Dark)를
@@ -223,14 +226,14 @@ const plan = {
     // `[gap:4px]` 리터럴은 이제 제품에 없다 — 같은 4px 을
     // `.louis-app-top-bar__leading { gap: var(--louis-space-control-xs) }`(app-shell.css:154-156)이
     // 소유한다. 사라진 리터럴을 계속 인용하면 값이 아니라 **소유자**가 바뀐 사실이 지워진다.
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 300, '    "louis-app-top-bar__leading",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 461, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 301, '    "louis-app-top-bar__leading",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 462, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
     sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1169, '        <path'),
     sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1170, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1986, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1987, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2026, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2027, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1987, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1988, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2027, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2028, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
   ],
   figma: {
     pageId: "240:3529",
@@ -253,7 +256,8 @@ const plan = {
       Canvas: "icon/Canvas",
       Composition: "icon/FilmSlate",
       // 2026-10-14: 작업 브랜치 feat/highlight-line-icon(d1e547c93)이 메뉴 글리프를 브랜드 심볼에서 선 아이콘 `/icons/Highlight.svg` 로 바꿨다 —
-      // 앵커(54b62a8a)는 아직 브랜드 심볼이지만 작업 중 브랜치를 먼저 받는다. 자산 `icon/Highlight`(90 · 자산 C 섹션)가 그 원본이다.
+      // 앵커(54b62a8a)는 아직 브랜드 심볼이었지만 작업 중 브랜치를 먼저 받았다. 자산 `icon/Highlight`(90 · 자산 C 섹션)가 그 원본이다.
+      // 2026-10-15: 운영 main 97d4950e 이 그 변경(`708235bd`)을 실어 앵커와 이 매핑이 같아졌다.
       Highlight: "icon/Highlight",
       YouTube: "icon/youtube",
       logo: "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",

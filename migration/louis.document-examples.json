@@ -6,9 +6,9 @@
     "문서 내용 — 예시 문장 · 수치는 패턴 시연용이다"
   ],
   "$method": "packages/css 를 로컬 정적 서버로 내고 예시 문서를 연다. 예시가 CDN 에서 읽는 Pretendard Variable 은 제품 글꼴 파일로 대 주고 나머지 바깥 요청은 끊는다. fullPage 로 문서 끝까지의 노드를 잰다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다. LOUIS CSS(`@klipse-design/css`)는 제품이 고정한 판이 아니라 이 저장소 `packages/css/generated` 판으로 덮어 잰다(`fixture.louisCss` 의 source · productPinned, scripts/lib/louis-css-overlay.mjs).",
-  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productRef": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
   "productRefSource": "product-evidence.lock.json",
-  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
   "fixture": {
     "nodeEnv": "development",
     "devAuthBypass": false,

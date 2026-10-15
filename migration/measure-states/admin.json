@@ -1053,7 +1053,7 @@
       "id": "/admin captions",
       "base": "/admin",
       "url": "/admin?view=captions",
-      "description": "자막 템플릿 — louis-table 두 행(기본 템플릿 · 한영 둘 다).",
+      "description": "자막 템플릿 — louis-table 두 행(기본 템플릿 · 한영 둘 다). 운영 판(97d4950e)의 언어 칸 문구는 「Korean + English」(components/landing/system/messages/admin-en.ts:1190).",
       "contentNote": "이름 · 라벨은 지어낸 내용. 글꼴 · 크기 · 위치는 제품 편집 창 기본값(EMPTY_POSITIONS · FONT_OPTIONS)과 같은 꼴.",
       "surfaces": [
         "apps/web/app/admin/CaptionTemplateManagement.tsx#CaptionTemplateManagement"
@@ -1100,7 +1100,7 @@
       "steps": [
         {
           "waitFor": {
-            "text": "Korean and English",
+            "text": "Korean + English",
             "exact": true
           }
         }
@@ -1108,7 +1108,7 @@
       "assert": {
         "text": [
           "Placeholder A",
-          "Korean and English"
+          "Korean + English"
         ],
         "apiHit": "all"
       },

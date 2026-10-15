@@ -13,15 +13,15 @@
   "filesScanned": 394,
   "counts": {
     "total": 616,
-    "mapped": 234,
+    "mapped": 251,
     "scoped": 335,
-    "needed": 47,
+    "needed": 30,
     "unclear": 0,
     "unclassified": 0
   },
   "neededKinds": {
     "primitive": 0,
-    "screen": 46,
+    "screen": 29,
     "oneoff": 1,
     "unclear": 0,
     "kindless": 0
@@ -240,12 +240,13 @@
       "file": "apps/web/app/admin/AdminRoleManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "어드민 권한 관리 화면 — 슈퍼어드민 배지 줄, 이메일 입력(LOUIS text-field), 역할 프리셋 Button 줄(고른 프리셋만 primary, :233-241), 권한 체크박스 카드 여덟 장 2열 격자, 저장/취소, 부여 목록(contentListStyles ITEM 행 + 수정 · danger-secondary 해제), 해제 확인을 warning AdminAlert 의 action 슬롯으로 받는 인라인 확인(:351-380)을 그린다. 부품은 대부분 이미 있다(AdminSectionHeader · AdminState · AdminAlert · AdminBadge · Button). 자기 시각 하나가 눈에 띈다 — 권한 카드 CAPABILITY_CARD(:46-53: louis-checkbox + rounded-12 · p-6 · 헤어라인 테두리, 선택 시 bg-inset)인데 Figma ChoiceCard(Role=checkbox · Variant=card)가 후보이나 card/md 의 라벨이 20 · 설명 16 이라 이 카드의 14 Medium/설명 줄과 치수가 맞지 않는다. 이 화면을 그린 Figma 보드는 없다(/admin 보드는 사용자 탭).",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import · 렌더 자리 하나 — AdminClient.tsx:29/:1472(activeTab === \"roles\"). 384줄짜리 탭 한 장이고 다른 소비처가 없다. 안에서 꺼낼 후보는 권한 체크박스 카드 하나인데 이 파일 안에서만 쓰이고(:255-273) 되풀이 증거가 없어, 먼저 ChoiceCard 의 sm 칸이나 값 재조율로 덮이는지를 보는 것이 순서다. 나머지는 이미 figma 로 대응된 어드민 공용 부품의 조립이다."
+      "verdict": "figma",
+      "figma": "screen:/admin roles",
+      "reason": "관리자 「Access control」 탭(권한 관리)이다(DS-D-0098). 보드 3521:227 · 3521:228(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(05-ops)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다(상태 레시피 admin, 운영 main 97d4950e 에서 다시 잼) — 슈퍼어드민 줄(세션 사용자 fixture@klipse.test) · 권한 부여 폼(이메일 칸 · 역할 프리셋 · 권한 카드 여덟의 설명)이 보드에 선다. 시드의 부여 목록 셋(「People with permissions」)은 1080 뷰포트 아래라 보드 밖이다 — 다른 관리자 탭 보드와 같은 뷰포트 판이다. 빈 상태가 아니다."
     },
     "apps/web/app/admin/AdminSearch.tsx#AdminSearch": {
       "file": "apps/web/app/admin/AdminSearch.tsx",
@@ -488,12 +489,13 @@
       "file": "apps/web/app/admin/AmbassadorApplications.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "지원서 검토 탭(1225줄, 렌더 AmbassadorAdmin.tsx:58). 접는 지원서 카드 목록(:71-127, :901-941) · 라벨/값 상세 격자(:138, :977) · 상태/검색 도구줄(:792-826) · 손수 만든 확인 모달(:181-201, :1187)을 그린다. 카드는 RecordCard 출처지만 레시피를 안 물고 모달은 louis-dialog 가 아니다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import · 렌더 한 자리(AmbassadorAdmin.tsx:6/:58). Inquiry · Refund 와 같은 어드민 탭 한 장이다. 꺼낼 부품은 이미 섰다 — 카드 행은 RecordCard(record-card.md 가 이 파일을 출처로 든다), 확인 모달은 Dialog. 남는 것은 화면 조립이라 보드로 그린다."
+      "verdict": "figma",
+      "figma": "screen:/admin ambassador",
+      "reason": "관리자 「Ambassador applications」 탭이다(DS-D-0098). 보드 3521:229 · 3521:230(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(05-ops)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다(상태 레시피 admin, 운영 main 97d4950e 에서 다시 잼) — 지원서 카드 셋(Placeholder applicant A · B · C — YouTube 12,000 · Instagram 4,300 · TikTok 800 팔로워, 접수 · 검토 중 · 반려)과 「Showing 3 of 3 matching」 · 상태 필터 · 검색이 채운다. 빈 목록이 아니다."
     },
     "apps/web/app/admin/AmbassadorApplications.tsx#ExternalLink": {
       "file": "apps/web/app/admin/AmbassadorApplications.tsx",
@@ -510,12 +512,13 @@
       "file": "apps/web/app/admin/BannerManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "배너 관리 화면 — 서브탭 바, 포인터 드래그 재정렬 목록(드래그 핸들 마스크 아이콘·삽입 위치 프리뷰), 썸네일 행, 편집 모달을 전부 자기 유틸리티로 그린다. 드래그 재정렬 목록은 TemplateManagement 와 같은 구조라 공통 패턴으로 세울 값이 있다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — ContentManagement.tsx:4/:44. /admin 의 콘텐츠 탭 안 서브탭 한 장이다. 687줄로 서브탭 바 · 드래그 재정렬 목록 · 썸네일 행 · 편집 모달을 그리는 화면. 안에서 꺼낼 프리미티브는 **드래그 재정렬 목록 행**인데 그것은 contentListStyles.ts(ITEM·DRAG_HANDLE·DRAG_GHOST·INSERTION_LINE·ITEM_PLACEHOLDER·THUMB)가 이미 소유한 스타일 모듈이라 이 원장의 표면이 아니다. 소비 실측: contentListStyles 를 import 하는 파일 4개(Banner·Content·Landing·Model), useDragReorder 소비자 2개(Banner·Model)."
+      "verdict": "figma",
+      "figma": "screen:/admin banners",
+      "reason": "관리자 「Home & landing」 탭의 홈 배너 하위 탭이다(DS-D-0098). 보드 3521:245 · 3521:246(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(05-ops)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다(상태 레시피 admin, 운영 main 97d4950e 에서 다시 잼) — 배너 두 행(Placeholder banner A 공개 · B 숨김, 썸네일은 제품 public 의 같은 출처 파일)과 「2 items」 · 재정렬 안내가 채운다. 빈 목록이 아니다."
     },
     "apps/web/app/admin/BannerPreview.tsx#BannerPreview": {
       "file": "apps/web/app/admin/BannerPreview.tsx",
@@ -715,23 +718,25 @@
       "file": "apps/web/app/admin/LandingManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "랜딩 히어로 관리 화면 — 목록이 아니라 슬롯 둘(배경 영상 · 공지 알약)을 그리는 편집 폼이다. 파일 헤더가 「배너·모델과 달리 목록이 아니라 슬롯」이라 명시하고 실제로 드래그 정렬도 활성 토글도 없다. 구성은 파일 업로드 입력(FORM_FILE_INPUT) + 업로드 힌트(FORM_HINT) + 미리보기(video/img, FORM_PREVIEW) + LOUIS text-field 세 벌(한국어·영어 문구·링크) + 오류 줄(FORM_ERROR) + Button 세 종(inverse/ghost)이다. 컨트롤은 LOUIS 정본을 쓰지만 그것들을 담는 어드민 편집 폼 레이아웃 자체가 Figma 에 없다 — 이미 needed 로 잡힌 BlogManagement 가 「어드민 편집 폼 계열의 대표형」이고 이 화면은 그 계열의 슬롯형 사례다. 한 화면 전용이라 low.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — ContentManagement.tsx:5/:46(tab === \"landing\"). 395줄. 파일 헤더가 「배너·모델과 달리 목록이 아니라 슬롯 둘(배경 영상·공지 알약)」이라 명시하고 실제로 드래그 정렬도 활성 토글도 없다. 구성은 파일 업로드 입력 + 힌트 + 미리보기(video/img) + louis-text-field 세 벌 + 오류 줄 + Button 세 종이라 컨트롤은 모두 정본이다. 되풀이되는 부품이 남지 않는 순수 편집 폼 화면."
+      "verdict": "figma",
+      "figma": "screen:/admin banners.landing",
+      "reason": "관리자 「Home & landing」 탭의 「Landing page」 하위 탭이다(DS-D-0098). 보드 3521:249 · 3521:250(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(05-ops)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다(상태 레시피 admin, 운영 main 97d4950e 에서 다시 잼) — 배경 영상 슬롯(제품 기본 브랜드 영상 login-brand.mp4 미리보기)과 공지 알약 미리보기(Placeholder notice) · 한국어 · 영어 공지 · 링크(/pricing) · 로고 입력이 채운다. 「No background video」 빈 상태가 아니다."
     },
     "apps/web/app/admin/ModelManagement.tsx#ModelManagement": {
       "file": "apps/web/app/admin/ModelManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "「최신 AI 모델」 카드 관리 화면 — 포인터 드래그 재정렬 목록(useDragReorder + DRAG_HANDLE 마스크 아이콘 · DRAG_GHOST · INSERTION_LINE · ITEM_PLACEHOLDER), 썸네일 행, 활성/비활성 배지, 그리고 이름·3개국어 설명·미디어·로고·딱지·재생방식까지 담는 대형 모달 폼(MODAL/MODAL_BODY/MODAL_ACTIONS)이다. 파일 주석이 「목록·폼의 조형과 드래그 순서변경은 배너와 공용」이라 적고 실제로 contentListStyles 스물여섯 개 상수를 BannerManagement 와 같이 문다. 즉 이미 needed 인 BannerManagement · TemplateManagement 와 같은 드래그 재정렬 목록 + 모달 폼 골격의 세 번째 사례이고, 그 골격이 Figma 에 없다. 자기만의 것도 있다 — BADGE_ACTIVE 가 rgb(34 197 94) 리터럴(이 저장소가 지운 Tailwind 기본 팔레트)이라 세우는 일이 곧 토큰 복귀 기준이 된다. 골격이 세 화면에 반복되므로 두 peer 와 같은 medium.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — ContentManagement.tsx:6/:45(tab === \"models\"). 638줄. contentListStyles 를 BannerManagement 와 함께 물고 useDragReorder 소비자도 이 둘뿐이다(실측: `git grep -ln useDragReorder` → Banner·Model·훅 자신). 즉 되풀이되는 것은 이 화면이 아니라 **그 스타일 모듈이 이미 소유한 목록 행**이다. 다만 자기만의 부채가 하나 있다 — BADGE_ACTIVE 가 `rgb(34 197 94)` 리터럴로, 이 저장소가 지운 Tailwind 기본 팔레트 값이다. 화면을 세울 때 토큰으로 돌려야 한다."
+      "verdict": "figma",
+      "figma": "screen:/admin banners.models",
+      "reason": "관리자 「Home & landing」 탭의 「AI model cards」 하위 탭이다(DS-D-0098). 보드 3521:247 · 3521:248(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(05-ops)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다(상태 레시피 admin, 운영 main 97d4950e 에서 다시 잼) — 모델 카드 세 행(Seedance 2.0 Mini New · Veo 3.1 Fast · Kling 3.0 Top 숨김, 로고는 제품 public)과 「3 items」 가 채운다. 빈 목록이 아니다."
     },
     "apps/web/app/admin/page.tsx#AdminPage": {
       "file": "apps/web/app/admin/page.tsx",
@@ -771,12 +776,13 @@
       "file": "apps/web/app/admin/ProductMetricsDashboard.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "성과 지표 대시보드 — 기간 세그먼트(LOUIS segmented-control), 세그먼트 필터, 지표 표, --metric-bar-width 로 그리는 가로 막대 행, CSV 내려받기. 가로 막대 행은 UsageByModelDashboard 와 같은 모양이라 지표 막대 행을 공통 컴포넌트로 세울 값이 있다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — AdminClient.tsx:13/:1062(activeTab === \"metrics\"). 858줄. AdminSection 에서 여덟을 가져다 쓴다. 안에 숨은 되풀이 부품이 하나 있다 — `--metric-bar-width` 로 그리는 **지표 가로 막대 행**(:97 `absolute [inset:0_auto_0_0] w-[var(--metric-bar-width)]`, :710·:806 두 자리). UsageByModelDashboard 가 같은 모양을 인라인 style 로 따로 그리므로 2화면 2구현이다. 그 행은 이름 붙은 컴포넌트로 뽑혀 있지 않아 이 원장의 표면이 아니고, 그래서 이 표면 자체는 화면이다."
+      "verdict": "figma",
+      "figma": "screen:/admin metrics",
+      "reason": "관리자 「Product metrics」 탭이다(DS-D-0098). 보드 3521:235 · 3521:236(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(05-ops)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다(상태 레시피 admin, 운영 main 97d4950e 에서 다시 잼) — 가입 전환 칸 다섯(New sign-ups 128 · First project 50% · First result in 24h 25% …, 증감 알약 up · down · flat) · 기간 활동 넷 · 완료율 둘 · 결제 유형 칸(구독 ₩358,800 · 충전 ₩69,300 · 합계 · 환불)이 채운다. 기간은 clock 으로 고정했다. 빈 기간이 아니다."
     },
     "apps/web/app/admin/RefundManagement.tsx#RefundManagement": {
       "file": "apps/web/app/admin/RefundManagement.tsx",
@@ -784,24 +790,24 @@
       "louis": [
         "louis-checkbox"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "환불 관리 화면 — 상태 배지가 달린 신청 카드 목록, 승인/반려 확인 모달(반려는 danger 확인 버튼), 토스트. InquiryManagement 와 같은 골격을 의도적으로 중복해 둔 상태라 Figma 에서 하나로 세우는 것이 정리의 출발점이다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: dialog] 실측: import·렌더 자리 하나 — AdminClient.tsx:7/:1060. 536줄. 상태 배지가 달린 신청 카드 목록 · 승인/반려 확인 모달(반려는 danger 확인) · 토스트. InquiryManagement 와 같은 골격을 의도적으로 중복해 둔 쪽의 나머지 한 짝이므로, 세울 것은 두 화면이 공유할 신청 카드 행이지 이 표면이 아니다. louis-dialog 를 이미 물고, danger 확인 버튼은 LOUIS Button 의 danger-secondary 로 이미 올라간 축이다(AdminSection 주석이 그 이관을 기록한다)."
+      "verdict": "figma",
+      "figma": "screen:/admin refunds",
+      "reason": "관리자 「Withdrawals」 탭(청약철회)이다(DS-D-0098). 보드 3521:239 · 3521:240(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(05-ops)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다(상태 레시피 admin, 운영 main 97d4950e 에서 다시 잼) — 상태가 다른 신청 카드 셋(대기 ₩29,900 · 완료 ₩9,900 · 반려)과 「1 of 3 pending」 · 상태 필터가 채운다. 빈 목록이 아니다."
     },
     "apps/web/app/admin/TemplateManagement.tsx#TemplateManagement": {
       "file": "apps/web/app/admin/TemplateManagement.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "figma",
-      "figma": "screen:/admin templates",
-      "reason": "관리자 탭 상태 보드다(DS-D-0098, 상태 레시피 admin). 늘림 run 2026-10-15m 에서 데스크톱 · 모바일 실패 0. 2026-10-15 대응.",
-      "weight": null,
-      "kind": null,
-      "kindReason": null,
-      "filled": "세션 fixture(관리자 이메일)에 탭별 가짜 행을 시드로 넣어 쟀다 — /admin templates (admin · 레시피 측정 · 템플릿 목록). 빈 상태가 아니다."
+      "verdict": "needed",
+      "figma": null,
+      "reason": "템플릿 관리 화면 — 드래그 재정렬 목록, 커버 비디오/이미지 썸네일, 발행 체크박스, LOUIS text-field 기반 편집 폼과 메시지. 2026-10-16 판정 2차에서 대응을 되돌렸다: 보드 /admin templates 모바일(3521:252)이 늘림 run 2026-10-16p2(05-ops)의 w360 시험에서 자식 넘침 셋으로 실패한다 — 목록 행의 날짜 글자 「2026.01.10」 · 「2026.01.08」 +33, 「2026.01.12」 +8 이 행 밖으로 나간다(DS-D-0098 조건 2). 2026-10-15 대응은 run 2026-10-15m 기준이었다. 제품도 같은지 재 보거나 생성기 규칙으로 풀면 다시 닫는다.",
+      "weight": "medium",
+      "kind": "screen",
+      "kindReason": "실측: import·렌더 자리 하나 — AdminClient.tsx(activeTab === \"templates\"). 드래그 재정렬을 자기 안에 따로 갖는 두 번째 구현(type DragSession · buildPreviewOrder · pointerup/pointercancel)이라 「같아서 묶는다」가 아니라 「갈라져 있어서 모아야 한다」다. 그 정리 대상은 목록 행이고 이 표면은 그 행을 담는 화면이다."
     },
     "apps/web/app/admin/UsageByModelDashboard.tsx#UsageByModelDashboard": {
       "file": "apps/web/app/admin/UsageByModelDashboard.tsx",
@@ -947,12 +953,13 @@
       "file": "apps/web/app/deck/c/[course]/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "과정 차시 목록 /deck/c/<과정>, 로그인 필수(:15-16)이고 판정이 allow 가 아니면 notice 로 보낸다(:22-25). 자기 시각은 1280 컬럼 셸(DECK_COLUMN)에 DeckTopBar(:35) · PageHeader(:36) · DECK_GRID 의 DeckCard 격자(:37-41)를 놓는 배치다. 부품은 각자 대응이 있지만 앱 사이드바 없는 덱 셸 위 이 화면의 보드가 Figma 에 없다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "라우트 1 · 렌더 0(진입점 자체). DeckLibraryPage 와 뼈대가 같고 미리보기 배너 · 빈 상태만 빠졌다. 부품이 아니라 화면이고, 라이브러리 보드의 둘째 프레임으로 그리면 되어 low 다."
+      "verdict": "figma",
+      "figma": "screen:/deck/c/[course]",
+      "reason": "덱 교안 상세 화면이다(DS-D-0098). 보드 3774:12191 · 3774:12192(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "덱 세션 fixture 의 자리표시 교안 — 「3 sessions, 150 min total」 과 회차 셋(Placeholder session 1 · 2 · 3 title, 45 · 50 · 55 min)이 채운다. 빈 교안이 아니다."
     },
     "apps/web/app/deck/DeckParts.tsx#DeckCard": {
       "file": "apps/web/app/deck/DeckParts.tsx",
@@ -1032,12 +1039,13 @@
       "louis": [
         "louis-button"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "/deck/manage 의 본체(최고 관리자 전용) — 교안 판 목록(작성 시각 · 메모 · 메타, 현재 배지 · 미리보기 ghost 링크 · 현재로 단추, :138-164)과 업로드 열쇠 판(mono 열쇠 · 복사 · 만료, :169-185)을 그린다. AdminSectionHeader · Alert · LoadError · Panel · State · Badge(:121-149)를 그대로 쓰지만 이 화면 보드는 없다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: Product/Admin Section Header · EmptyState · Badge · Button] 렌더 1자리(manage/page.tsx:25) · 라우트 1. 조각이 전부 기존 대응이라 새로 세울 부품은 0이고 보드 한 장만 남는다. 같은 류 어드민 화면(CouponManagement · JobMonitor) 판례대로 medium."
+      "verdict": "figma",
+      "figma": "screen:/deck/manage",
+      "reason": "덱 배포 관리 화면이다(DS-D-0098). 보드 3774:12193 · 3774:12194(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "덱 세션 fixture 의 배포 둘(10/1/2026 Current · 9/15/2026, 덱 · 파일 · 용량 · 올린 사람 줄과 「Open preview」)과 업로드 키 절이 채운다. 빈 배포 목록이 아니다."
     },
     "apps/web/app/deck/manage/page.tsx#DeckManagePage": {
       "file": "apps/web/app/deck/manage/page.tsx",
@@ -1650,12 +1658,13 @@
         "louis-color-fg-secondary",
         "louis-hairline-inset"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "자기 마크업이 있다 — Gnb + myPageSceneStyles 셸 위에 heading-36 제목 · body-14 fg-secondary 설명(page.tsx:104-111), body-20 절 제목, **플랜 라디오 카드 격자**(4열 → ≤900 에서 2열 · rounded-16 p-6 · app-main-card-bg · 미선택 louis-hairline-inset ↔ 선택 primary-500 1.5px 링 · 티어 이름 body-16-semibold + 단가 body-14 56%, :117-148), 그 아래 TossPaymentWindowPanel mode=\"gift\". 상단 크롬 뒤로가기는 ChromeBackButton(다른 표면)이다. 보드가 없다 — figma/app-screens.plan.json 의 /subscription 계열은 /subscription · /subscription/coupons 둘뿐이고 /subscription/group-purchase 는 없다. 라디오 카드는 Figma 65 컴포넌트 중 담을 것이 없다(Record Card · Start Card 는 선택 링 축이 없는 다른 벌). 화면 한 장으로 세워야 한다. (검증 메모: needed · screen 은 유지한다. plan.json 의 /subscription 계열 route 는 /subscription · /subscription/coupons 둘뿐이다. 그러나 「라디오 카드는 Figma 65 컴포넌트 중 담을 것이 없다」는 사실이 아니다. readback components 는 74개이고, 그 안에 2026-10-08 에 선 ChoiceCard(Role=radio|checkbox · Checked · Variant card|row · Size md|sm · State)가 있다. 바로 role=ra)",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "단체 구매 결제 화면 본체다(라우트 1). 자기가 그리는 플랜 라디오 카드 격자는 이 파일에만 있다 — `git grep 'role=\"radio\"'` 의 다른 결과는 ComposerBar · CompositionInspector 의 다른 벌이고, 선택 링 `0_0_0_1.5px_rgb(var(--primary-500-rgb))` 단독형도 이 파일뿐이다. 형제가 없어 부품이 아니고, 결제 패널은 TossPaymentWindowPanel(다른 표면)이다. 보드로 간다."
+      "verdict": "figma",
+      "figma": "screen:/subscription/group-purchase plan-selected",
+      "reason": "단체 구매 결제 화면이다(DS-D-0098). 보드 3774:12177 · 3774:12178(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "정적 요금제 표(toss/plans.ts)와 /api/plans 응답 — 플랜 라디오 카드 넷(Lite · Plus · Pro · Ultra) 가운데 Pro 를 고른 상태, 수량 1 · 금액 49,900 KRW · 다음 단계 셋 · 결제 전 동의가 채운다. 패널 안의 「Failed to load the payment window.」 는 결제창 SDK(바깥 요청)가 막힌 TossPaymentWindowPanel 의 오류 갈래이고 그 몫은 그 파일의 needed 로 남는다(/mypage/upgrade/checkout 과 같다)."
     },
     "apps/web/app/subscription/group-purchase/page.tsx#GroupPurchasePage": {
       "file": "apps/web/app/subscription/group-purchase/page.tsx",
@@ -2309,12 +2318,13 @@
         "louis-color-stroke-hairline",
         "louis-text"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "지원서 전면 오버레이(785줄, 렌더 AmbassadorClient.tsx:98). 72px 머리 · 원형 닫기 · 2px 진행선(:700-715), 질문 36 + louis-text-field 입력(:73-78, :429-462), Choice, 동의 dl · 자체 체크 칸(:646-676), 접수 화면(:720-756), 이전/다음 바닥(:771-781)을 혼자 그린다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "실측: 렌더 한 자리(AmbassadorClient.tsx:98), 라우트 하나. 질문 하나씩 넘기는 화면 한 장이라 보드로 그린다. 꺼낼 부품은 Choice(별 표면)이고 동의 체크 칸(:659-666)은 Checkbox, 진행선은 ProgressBar 로 수렴시킬 자리다. 링크되지 않은 페이지(page.tsx:19-21)라 high 는 아니다."
+      "verdict": "figma",
+      "figma": "screen:/ambassador apply.channel",
+      "reason": "앰배서더 지원서 흐름이다(접수 완료 보드 3774:5558 · 3774:5559 도 같은 run 에서 실패 0)(DS-D-0098). 보드 3774:5556 · 3774:5557(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(01-public)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 fixture 로그아웃 — 채널 질문(「Where do you mainly publish?」)에서 YouTube 를 고르고 채널 주소 · 팔로워 칸을 채운 상태(진행 선 3/12)다. 접수 완료 보드는 접수 내용 네 행(Project-based · Placeholder Creator · YouTube · 연락처)과 다음 단계를 그린다. 입력 값만 지어냈다."
     },
     "apps/web/components/landing/sections/ambassador/ApplyFlow.tsx#Choice": {
       "file": "apps/web/components/landing/sections/ambassador/ApplyFlow.tsx",
@@ -3132,12 +3142,13 @@
       "file": "apps/web/components/models/ModelCreditCalculator.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "버전·해상도·길이·소리(영상)나 화질(이미지)을 고르면 그 자리에서 크레딧을 내는 계산기 절이다. 컨트롤은 LOUIS 정본을 문다 — SegmentedToggle(ModelCreditCalculator.tsx:110-121 · :131-137)과 louis-slider(:40 · VideoRows/AudioLengthRow). Figma 에 없는 것은 그것을 담는 조판이다: 160px 라벨 열 + 조작 열의 헤어라인 줄(:31-35, 719px 아래 한 열로 쌓임)과 마지막 결과 줄(heading-48 숫자 + 단위 + 오른쪽 정렬 플랜 안내 1~2줄, :42-46 · :142-151). LandingManagement 처럼 부품은 정본이고 화면 층 조판만 미모델이라 needed 로 두되 한 화면 전용이라 낮게 잡는다.",
-      "weight": "low",
-      "kind": "screen",
-      "kindReason": "실측: import·렌더 자리 하나 — app/models/[slug]/page.tsx:11/:136. 모델 상세의 「크레딧 계산기」 한 절이다. 조작은 전부 정본(SegmentedToggle = Figma SegmentedControl · `.louis-slider` = Figma Slider)이라 새로 지을 컨트롤은 없고, 남는 것은 이 절만의 줄 문법과 결과 줄이다. 같은 「선 문법」을 ModelVersionRows(형제 파일)·ModelRecommender 문항 줄이 각자 다른 열 격자로 적어 되풀이 증거가 아직 한 벌로 모이지 않았다. 라우트 보드도 없다(product.scenes.json:272-276 concreteMeasurements [])."
+      "verdict": "figma",
+      "figma": "screen:/models/[slug]",
+      "reason": "모델 상세 화면의 크레딧 계산기다(1차에서 슬라이더 트랙이 비어 남겼던 것을 15조의 37 뒤 보드로 닫는다)(DS-D-0098). 보드 3471:9269 · 3471:9270(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(01-public)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 푸터 눈금자 끝 글자 잘림은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "공개 시드 Veo 3.1 — 버전 · 해상도 · 소리 토글과 길이 줄(15조의 37 로 range 트랙 360×4 · 손잡이 12×12 를 그린다, 값 4s 최소라 채운 구간은 0) · 결과 줄(320 credits)이 채운다."
     },
     "apps/web/components/models/ModelCreditCalculator.tsx#VideoRows": {
       "file": "apps/web/components/models/ModelCreditCalculator.tsx",
@@ -3547,7 +3558,7 @@
       "louis": [],
       "verdict": "figma",
       "figma": "screen:/analytics/youtube audience",
-      "reason": "유튜브 분석 「Audience」 탭이다(DS-D-0098). 보드 3587:6 · 3587:7(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 페이지는 다른 갈래가 늘림 실패를 고치는 중이라 이 판정은 그 재측정까지 잠정이다.",
+      "reason": "유튜브 분석 「Audience」 탭이다(DS-D-0098). 보드 3587:6 · 3587:7(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p2(03-app 재측정)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 재측정(run 2026-10-16p2)에서도 실패 0 이라 잠정을 걷었다(판정 2차).",
       "weight": null,
       "kind": null,
       "kindReason": null,
@@ -3768,12 +3779,13 @@
       "file": "apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "영상 1건짜리 애널리틱스 패널(기본/모달 두 변형). KPI 카드·지표 차트 카드·인사이트 카드·트래픽/지역 바 목록·시청 지속 곡선·탭 행·스켈레톤을 analytics/shared 를 쓰지 않고 자기 상수로 다시 적었다. 대시보드 카드 계열을 세울 때 이 파일이 두 번째 정본 후보라 값 차이를 먼저 확정해야 한다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳 · JSX 1곳(NodeCanvasAnalysisModal.tsx:764). 1257줄짜리 영상 1건 애널리틱스 패널(기본/모달 두 변형) = 모달 본문이라 보드다. 결정적 사실은 이 파일이 analytics/shared 를 «쓰지 않고» KPI 카드·차트 카드·인사이트 카드·바 목록·탭 행·스켈레톤을 자기 상수로 다시 적었다는 것 — 대시보드 카드 정본을 세울 때 이 파일이 두 번째 후보라 값 차이를 먼저 확정해야 한다. 보드는 그 뒤에 그려라."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas?project= panel.analysis",
+      "reason": "분석 모달의 유튜브 본문이다(NodeCanvasAnalysisModal.tsx:722 가 그린다)(DS-D-0098). 보드 3549:23839 · 3549:23840(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0 — 모바일 360 의 내용 폭 도구 막대는 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "업로드를 마친 유튜브 노드에서 「Analyze」 로 연 분석 모달 개요 탭 — 영상 머리(Hydra Glow Sofa Launch Teaser · Klipse Studio · Public · 설명 · 태그)와 KPI 칸 일곱(Views 1.2K · Watch time 1h 2m · Likes 86 · Comments 12 · Shares 9 · Subscribers +14 · Avg. view duration)이 채운다. 지표는 레시피 canvas-analysis 의 지은 개수다."
     },
     "apps/web/components/scenes/ArchiveRailScrollShell.tsx#ArchiveRailScrollShell": {
       "file": "apps/web/components/scenes/ArchiveRailScrollShell.tsx",
@@ -3964,12 +3976,13 @@
       "louis": [
         "louis-visually-hidden"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 오른쪽 도움말 패널(928줄) — 넓은 화면은 메뉴 면 도킹 패널(폭 340 · 위 48 · 오른쪽 12 · 아래 64, CanvasHelpPanel.tsx:55-67), 768 미만은 아래 시트 + 막(:69-72)이다. 머리(뒤로 · 제목 · 닫기, :885-906) · 검색칸(:909-919) · 쪽 일곱(처음 · 노드 종류 · 노드 하나 · 하고 싶은 일 · 단축키 · 모델 비교 · 자주 묻는 질문, :849-866)을 소유한다. 옛 가이드 모달을 대체한 큰 표면인데 editor-workspace.md:410 이 「Figma 변형은 아직 없다」고 적었다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "JSX 1 (node-canvas-v2/index.tsx:12018) · 라우트 계열 1(/create). 같은 자리의 NodeLayersPanel 이 screen 으로 판정된 것과 같은 모양이다 — 면 자체는 토큰만 쓰는 메뉴 면이라 새 값이 없고(editor-workspace.md:332-334 「CSS 레시피를 세우지 않았다」), 지을 것은 부품이 아니라 쪽마다의 보드(도킹 · 시트 두 모습)다. 안의 행 문법 다섯은 각자 LOUIS 대응 판정이 따로 남아 있다(editor-workspace.md:373-381)."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas?project= panel.help",
+      "reason": "캔버스 도움말 패널이다(데스크톱 오른쪽 도킹 · 모바일 아래 시트)(DS-D-0098). 보드 3549:23837 · 3549:23838(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 · 모바일 360 의 React Flow 노드 · 도구 막대는 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "시드 캔버스(1단계만 끝남)라 「Make your first video」 세 단계(1 Done · 2 현재 · 3)가 서고, 할 일 여섯 · 둘러보기 넷(Node types · Shortcuts · Model comparison · FAQ)과 검색이 채운다."
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx#FaqList": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx",
@@ -4234,7 +4247,7 @@
       "louis": [],
       "verdict": "figma",
       "figma": "screen:/nodecanvas?project=",
-      "reason": "캔버스 좌상단 레이어 패널이다(DS-D-0098). 보드 38:3 · 38:3843(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(03-app)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 · 모바일 360 의 React Flow 뷰포트 밖 노드는 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 페이지는 다른 갈래가 늘림 실패를 고치는 중이라 이 판정은 그 재측정까지 잠정이다.",
+      "reason": "캔버스 좌상단 레이어 패널이다(DS-D-0098). 보드 38:3 · 38:3843(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p2(03-app 재측정)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 · 모바일 360 의 React Flow 뷰포트 밖 노드는 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 재측정(run 2026-10-16p2)에서도 실패 0 이라 잠정을 걷었다(판정 2차).",
       "weight": null,
       "kind": null,
       "kindReason": null,
@@ -5002,12 +5015,13 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 위 전면 오버레이 + 분석 카드. LOUIS Dialog 레시피를 쓰지 않고 자체 오버레이·카드 모션·애널리틱스 스켈레톤(시머)을 직접 그린다. 유튜브/인스타 성과를 노드에서 바로 보는 화면이라 Dialog 의 large 변형으로 흡수할지, 별도 분석 카드로 세울지 정본이 필요하다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: Dialog] JSX 1 (node-canvas-v2/index.tsx:11067). 원장이 「archive/PlatformSection 도 쓴다」는 뉘앙스를 남겼으나 실측은 반대 방향이다 — PlatformSection 을 소비하는 곳은 이 모달 두 자리(665·772)뿐이다. 전면 오버레이 + 분석 카드를 자체 모션·스켈레톤으로 그리는 한 화면. Dialog 의 큰 변형으로 흡수할지 결정할 대상이지 새 부품이 아니다."
+      "verdict": "figma",
+      "figma": "screen:/nodecanvas?project= panel.analysis",
+      "reason": "캔버스 영상 분석 모달이다(DS-D-0098). 보드 3549:23839 · 3549:23840(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0 — 모바일 360 의 내용 폭 도구 막대는 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "업로드를 마친 유튜브 노드에서 「Analyze」 로 연 분석 모달 개요 탭 — 영상 머리(Hydra Glow Sofa Launch Teaser · Klipse Studio · Public · 설명 · 태그)와 KPI 칸 일곱(Views 1.2K · Watch time 1h 2m · Likes 86 · Comments 12 · Shares 9 · Subscribers +14 · Avg. view duration)이 채운다. 지표는 레시피 canvas-analysis 의 지은 개수다."
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/AngleModal.tsx#AngleModal": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/AngleModal.tsx",
@@ -5466,7 +5480,7 @@
       ],
       "verdict": "figma",
       "figma": "screen:/videoeditor/[projectId]",
-      "reason": "영상 편집기 본체다(EditorProjectWorkspace 와 같은 보드)(DS-D-0098). 보드 39:3 · 39:1520(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(03-app)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 필름 칸 끝 걸침은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 페이지는 다른 갈래가 늘림 실패를 고치는 중이라 이 판정은 그 재측정까지 잠정이다.",
+      "reason": "영상 편집기 본체다(EditorProjectWorkspace 와 같은 보드)(DS-D-0098). 보드 39:3 · 39:1520(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p2(03-app 재측정)에서 데스크톱 · 모바일 실패 0 — 데스크톱 1440 의 필름 칸 끝 걸침은 제품도 같다(RESIZE_PRODUCT_SAME). 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 재측정(run 2026-10-16p2)에서도 실패 0 이라 잠정을 걷었다(판정 2차).",
       "weight": null,
       "kind": null,
       "kindReason": null,
@@ -6762,7 +6776,7 @@
       "louis": [],
       "verdict": "figma",
       "figma": "screen:/archive",
-      "reason": "홈 「새로 만들기」 목록이다(DS-D-0098). 보드 20:2 · 23:2(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 페이지는 다른 갈래가 늘림 실패를 고치는 중이라 이 판정은 그 재측정까지 잠정이다.",
+      "reason": "홈 「새로 만들기」 목록이다(DS-D-0098). 보드 20:2 · 23:2(새 앵커 97d4950e 판), 늘림 run 2026-10-16p1 · 2026-10-16p2(03-app 재측정)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응. 03 재측정(run 2026-10-16p2)에서도 실패 0 이라 잠정을 걷었다(판정 2차).",
       "weight": null,
       "kind": null,
       "kindReason": null,
@@ -6873,23 +6887,25 @@
       "file": "apps/web/components/scenes/subscriptionHub/GroupPurchasePanel.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "구독 허브의 「단체 구매」 탭 본문이다. 맨 위 줄(설명 + 「단체 구매하기」 primary Button) · 구매 한 건을 윗선 하나로 가른 접이식 행(이름 · 사용 수 · 「코드 보기」) · 펼쳤을 때의 결제/등록 기한 문장 · 복사/CSV/영수증 secondary Button 줄 · 코드 표(코드 · 상태 · 등록자 · 등록일, 쓴 코드는 취소선)를 소유하고, 로딩(Spinner) · 오류(제목 + 설명 + 다시 시도) · 빈 상태 블록을 갖는다(GroupPurchasePanel.tsx:23-77, :240-423). 버튼과 스피너는 이미 Figma Button · Spinner 지만 행 · 펼침 상세 · 상태 블록은 51개에 없고, 코드 표는 louis-table 을 물지 않고 TH/TD 를 자기 상수로 다시 적은(:57-73) 별벌 표라 Table 정본으로의 수렴 대상이다. figma/app-screens.subscription.*.draw.js 에는 이 탭이 그려져 있지 않다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: Table · Button · Spinner · EmptyState (부분 몫)] 실측 소비처 1 — SubscriptionScene.tsx:1806(activeTab === \"group\")뿐이고 subscriptionDevPreview.ts 는 PurchasedCampaign 타입만 가져간다. 즉 /subscription 화면(SubscriptionScene, needed/screen)의 한 탭이라 부품이 아니라 그 화면 보드의 한 상태로 그린다 — TossPaymentWindowPanel 이 checkout 화면의 안쪽으로 screen 이 된 것과 같다. 접이식 행은 Figma RecordCard(Layout · Expanded)와 뜻이 비슷하지만 카드 면 없이 윗선 하나로 가른 설정 행이라 그 인스턴스가 아니다. 코드 표를 louis-table 로 수렴시키면 남는 고유 시각은 접이식 행 하나다."
+      "verdict": "figma",
+      "figma": "screen:/subscription tab.group",
+      "reason": "구독 화면의 「Group purchase」 탭이다(DS-D-0098). 보드 3774:12181 · 3774:12182(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "제품 개발 예시(subscriptionDevPreview.ts)를 응답으로 옮긴 레시피 subscription — 구매 두 건(Pro 5장 2 of 5 redeemed · Plus 3장) 가운데 첫 건을 펼쳐 결제 문장 · 사용 기한 · 코드 표 다섯 행(쓴 코드 · 사용자 · 날짜, 미사용 셋)이 채운다. 1차의 오류 상태가 아니다."
     },
     "apps/web/components/scenes/subscriptionHub/PaymentHistorySection.tsx#PaymentHistorySection": {
       "file": "apps/web/components/scenes/subscriptionHub/PaymentHistorySection.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "구독 허브 「결제」 탭의 결제 내역 절이다. 섹션 제목(body-20) · 결제 표(날짜 · 내역 · 금액 · 상태 · 영수증/청약철회 열) · 폰(≤560) 목록 · 로딩 행 쉬머 · 오류/빈 상태 블록 · 철회 정책 문구를 갖는다(PaymentHistorySection.tsx:161-256). 틀은 크레딧 내역과 같은 myPageSceneStyles 를 쓴다 — 표는 creditHistoryTable(= louis-table, Figma Table) · 쉬머는 skeletonBlock(= Skeleton) · 상태 블록은 creditHistoryState. 이 절만 소유한 시각은 행 끝 행동 열이다: 영수증 글자 링크(caption-12-medium · 밑줄 · fg-secondary, :39-44 — Figma TextLink 후보), 청약철회 테두리 버튼(radius 4 · gray-500 1px 테두리, myPageSceneStyles.withdrawalButton)과 철회 진행/완료 상태 알약(radius 4 · 완료는 green 16% 면)인데, 뒤의 둘은 Button · Badge 어느 변형과도 치수가 맞지 않는다. 구독 보드(figma/app-screens.subscription.*)에 이 절이 없다.",
-      "weight": "medium",
-      "kind": "screen",
-      "kindReason": "[LOUIS 대응 후보: Table · Skeleton · TextLink · Badge (부분 몫)] 실측 소비처 1 — SubscriptionScene.tsx:1790(billingPanel)뿐이다. /subscription 화면(SubscriptionScene, needed/screen)의 결제 탭 한 절이라 그 보드 안에서 그린다. 표 · 쉬머 · 상태 블록은 같은 화면의 크레딧 내역과 한 스타일 객체를 나눠 써서(creditHistoryTable 은 SubscriptionScene.tsx:1453 과 이 파일 :201 두 곳) 표를 한 번 세우면 둘이 함께 닫힌다. 남는 고유 몫인 청약철회 버튼 · 상태 알약은 이 행 밖에 나오지 않아(withdrawalButton 소비처가 이 파일 하나) 부품으로 올릴 근거가 없다."
+      "verdict": "figma",
+      "figma": "screen:/subscription tab.billing",
+      "reason": "구독 화면 「Billing」 탭의 결제 내역이다(DS-D-0098). 보드 3774:12183 · 3774:12184(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "제품 개발 예시(subscriptionDevPreview.ts)를 응답으로 옮긴 레시피 subscription — 현재 플랜(Pro · 다음 결제 · 결제수단 · 자동 갱신) 아래 결제 내역 여섯 행(구독 둘 · 충전 둘 · 단체 구매 둘, 영수증 · 환불 요청 · Refunded)이 채운다. 1차의 오류 상태가 아니다."
     },
     "apps/web/components/scenes/SubscriptionScene.tsx#SkeletonBlock": {
       "file": "apps/web/components/scenes/SubscriptionScene.tsx",
@@ -6908,12 +6924,13 @@
       "louis": [
         "louis-space-stack-md"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "구독·크레딧 화면. 플랜 카드(분할/병합 두 레이아웃)·크레딧 풀 행·만료 예정 배지와 팁·크레딧 이력 목록과 표·정렬 드롭다운·페이지네이션·해지 확인 모달이 전부 자체 클래스다. 이력 표는 ContentTable 과 다른 두 번째 표 구현이라 Table 정본으로의 수렴 대상이기도 하다.",
-      "weight": "high",
-      "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/subscription/page.tsx), JSX 1곳. 1537줄 화면. 플랜 카드·크레딧 풀 행·이력 목록/표·정렬 드롭다운·페이지네이션·해지 모달이 전부 자체 클래스다. 이력 표는 ContentTable 과 다른 두 번째 표 구현이라 Table 정본 수렴 대상이고, 정렬 드롭다운은 이미 CustomDropdown 을 문다(:1092)."
+      "verdict": "figma",
+      "figma": "screen:/subscription active",
+      "reason": "구독 · 크레딧 화면이다(past-due · cancel-confirm 보드도 같은 run 에서 실패 0)(DS-D-0098). 보드 3774:12179 · 3774:12180(새 앵커 97d4950e 판), 늘림 run 2026-10-16p2(03-app)에서 데스크톱 · 모바일 실패 0. 같은 파일에 needed 가 없다. 2026-10-16 대응.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null,
+      "filled": "제품 개발 예시(subscriptionDevPreview.ts)를 응답으로 옮긴 레시피 subscription — Pro 활성 구독의 크레딧 카드(잔여 21,650 · 플랜 18,450 · 충전 3,200 · 소멸 일정 둘)와 크레딧 이력 표 10행(정렬 「Newest first」 · 필터 · 「1 / 2」 쪽 넘김)이 채운다. 1차가 남긴 사유(크레딧 이력 없음)가 풀렸다."
     },
     "apps/web/components/scenes/VideoEditProjectPicker.tsx#FinderChevronRightGlyph": {
       "file": "apps/web/components/scenes/VideoEditProjectPicker.tsx",

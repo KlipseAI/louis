@@ -144,7 +144,9 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // (앰버서더 새 절 일곱 screen · 어시스턴트 제안 카드 oneoff). 발견이므로 올려 잠근다.
 // 2026-10-16: 73 → 47 — Figma 에 세웠다 19(새 앵커 판 화면 보드, check-figma-surface-coverage 의 MAPPED_SCREEN_BASELINE 주석) ·
 // 범위 밖으로 옮겼다 7(운영 판 도달 불가, 아래 SCOPED_BASELINE 주석). 판단 대기로 미룬 것은 없다.
-const NEEDED_BASELINE = 47; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 2026-10-16 판정 2차: 47 → 30 — Figma 에 세웠다 18(새 보드 41 · 관리자 22 상태, 늘림 run 2026-10-16p2, check-figma-surface-coverage 의
+// MAPPED_SCREEN_BASELINE 주석), 대응에서 되돌아왔다 1(TemplateManagement — /admin templates 모바일이 p2 에서 실패). 판단 대기 · 범위 밖으로 옮긴 것은 없다.
+const NEEDED_BASELINE = 30; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.

@@ -2902,7 +2902,9 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   // 같은 날 뒤: 7 → 14 — 모바일 variant 를 되살렸다(감기는 줄에서 혼자 한 줄을 차지한 감긴 글자 규칙, PRODUCT_PARTS 의 주석). 데스크톱과 같은
   // 일곱 화면(랜딩 · 문의 · 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세)의 모바일 푸터가 인스턴스가 됐다(+7).
   // 2026-10-14: 14 → 18 — 모델 목록 · 상세(공개 시드) × 두 뷰포트에 같은 푸터가 선다(+4).
-  "Product/Landing Footer": 18,
+  // 2026-10-16(앵커 97d4950e, DS-D-0117): 18 → 22 — 새 보드 `/ambassador`(body.1.0.0.10) · 랜딩 상태 `/ models`(body.1.0.0.2.10) × 두 뷰포트에도
+  // 같은 푸터가 선다(+4).
+  "Product/Landing Footer": 22,
   // 같은 날 뒤: 앱 허브 머리(/videoeditor) · 어드민 머리(/admin) × 두 뷰포트, 선택 칸 — 문의(Field) · 부스 운영(Admin) × 두 뷰포트,
   // 요금제 비교표(/pricing) × 두 뷰포트. /mypage/upgrade 의 비교표는 측정 화면 밖이라(노드 2) 인스턴스가 아니다.
   // 2026-10-08: 2 → 6 — 셸 상태 레시피 `/videoeditor seeded` · `/videoeditor seeded.more-menu` × 두 뷰포트에도 같은 허브 머리가 선다.
@@ -2943,7 +2945,10 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Project Header": 4,
   // 2026-10-15(R2): 1 → 4 — 패널 상태 레시피 `/videoeditor/[projectId] panel.clip-color` · `panel.assets` · `panel.settings` 모바일 보드(같은 편집기에
   // 속성 · 에셋 시트를 연 상태)에도 타임라인이 선다.
-  "Product/Mobile Timeline": 4,
+  // 2026-10-16(앵커 97d4950e, DS-D-0117): 4 → 5 — 새 패널 상태 `/videoeditor/[projectId] panel.clip` 모바일 보드에도 타임라인이 선다. 같은 날의
+  // `panel.audio` 모바일은 같은 자리(body.1.0.0.2.0.1.0.0.1.0.0.4)에 타임라인이 있지만 매처가 묶지 않았다(오디오 클립을 고른 상태 — 무엇이
+  // 서명을 가르는지는 보드를 보낸 뒤 캡처로 확인한다). 보드는 측정한 노드 그대로 그린다.
+  "Product/Mobile Timeline": 5,
   // 같은 날 뒤: 줌 비율 트리거 — 노드캔버스 프로젝트 데스크톱 보드 하나(모바일 캔버스에는 이 컨트롤이 없다).
   // 2026-10-15(R2): 1 → 2 — 패널 상태 레시피 `/nodecanvas?project= panel.help` 데스크톱 보드(같은 캔버스 위 도움말 패널)에도 같은 트리거가 선다.
   "Product/Canvas Zoom Trigger": 2,
@@ -2962,7 +2967,9 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Prompt Image Strip": 0,
   // 2026-10-15(앵커 97d4950e): 0 → 4 — 눈금자가 시각 글자를 들어(PRODUCT_PARTS 의 주석) 편집기 데스크톱 보드와 패널 상태 레시피 셋
   // (`panel.assets` · `panel.clip-color` · `panel.settings`)의 같은 자리에 묶인다.
-  "Product/Sequence Ruler": 4,
+  // 2026-10-16(앵커 97d4950e, DS-D-0117): 4 → 7 — 새 패널 상태 `panel.audio` · `panel.clip` 데스크톱과 하이라이트 편집 상태
+  // `/highlight/[projectId]/shorts/[shortId] edit.templates` 데스크톱(같은 VideoEditModal 의 타임라인)에도 같은 눈금자가 선다(+3).
+  "Product/Sequence Ruler": 7,
 };
 const contentSets = new Set([...CONTENT_COMPONENTS, ...partContent].map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));
@@ -3080,6 +3087,9 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   "/videoeditor/[projectId] panel.clip-color @ desktop-1920x1080 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.5 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
   "/videoeditor/[projectId] panel.clip-color @ desktop-1920x1080 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.6.1 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
   "/videoeditor/[projectId] panel.clip-color @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.5 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
+  // 2026-10-16(앵커 97d4950e, DS-D-0117): 새 패널 상태 `panel.clip` 데스크톱 — 같은 클립 인스펙터의 같은 두 자리(Adjustments · Source crop)다.
+  "/videoeditor/[projectId] panel.clip @ desktop-1920x1080 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.5 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
+  "/videoeditor/[projectId] panel.clip @ desktop-1920x1080 · body.1.0.0.2.0.1.0.0.1.0.2.1.0.6.1 · vertical": { count: 1, why: VEM_INSPECTOR_PENDING_WHY },
   // 2026-10-15(R2): 패널 상태 레시피 `/nodecanvas?project= panel.analysis` — 분석 시드 유튜브 노드의 영상 미리보기 상자(재생 시간 「0:00 / −0:06」,
   // 두 뷰포트)와 모바일 분석 모달 몸통(탭 · 지연 안내 · KPI 카드 열, 370 × 565.5)의 stretch 자식이다. 기준 화면에는 없던 자리다.
   "/nodecanvas?project= panel.analysis @ desktop-1920x1080 · body.1.0.0.0.8.0.0.1.0.0.0.0.2.1.0.1.1.0.1.0.0 · vertical": { count: 1, why: CANVAS_PANEL_PENDING_WHY },

@@ -206,6 +206,7 @@ const PRODUCT_CURRENT_PATH = Object.freeze({
   "/mypage/upgrade/bulk-success": "/subscription", // bulk-success/page.tsx:231
   "/mypage/upgrade/bulk-fail": "/subscription", // bulk-fail/page.tsx:57
   "/subscription/coupons": "/subscription", // components/scenes/PurchasedCouponsScene.tsx:483
+  "/subscription/group-purchase": "/subscription", // 2026-10-16 운영 main 97d4950e(DS-D-0117): app/subscription/group-purchase/page.tsx:89 currentPath="/subscription"
   // 허브 셋(세션 원장, 2026-09-29).
   "/nodecanvas": "/nodecanvas", // components/scenes/NodeCanvasHomeScene.tsx:666 gnbCurrentPath = NODE_CANVAS_HUB_PATH(lib/app-paths.ts:6)
   "/videoeditor": "/videoeditor", // components/scenes/VideoEditScene.tsx:716

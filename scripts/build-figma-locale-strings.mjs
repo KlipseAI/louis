@@ -63,6 +63,9 @@ const EN_LEDGERS = {
   session: "migration/product.session-fixture.json",
   public: "migration/product.public-fixture.json",
   "public-seeded": "migration/product.public-seeded-fixture.json",
+  // 2026-10-16(앵커 97d4950e, DS-D-0117): 덱 세션 모드(`--session-deck`) — `/deck` · `/deck/c/[course]` · `/deck/manage` 보드가 이 원장에서 온다.
+  // 제품이 덱 글자를 사전(`messagesByLocale[…].deck`, app/deck/page.tsx:23)에서 꺼내므로 로캘 원장 `session-deck.<ko|ja>.json` 도 잰다.
+  "session-deck": "migration/product.session-deck-fixture.json",
 };
 const readJson = (relative) => JSON.parse(readFileSync(resolve(repoRoot, relative), "utf8"));
 const enLedgers = Object.fromEntries(Object.entries(EN_LEDGERS)

@@ -26,8 +26,8 @@
     "source": "apps/web/components/landing/system/messages",
     "commit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
     "keys": 5276,
-    "i18n": 384,
-    "measured": 964,
+    "i18n": 392,
+    "measured": 1006,
     "disagreements": [
       {
         "key": "subscription.upgradeSuccess.order",
@@ -202,12 +202,12 @@
   "targets": [
     {
       "key": "/archive @ desktop-1920x1080",
-      "texts": 1,
+      "texts": 7,
       "labels": 1
     },
     {
       "key": "/archive @ mobile-402x874",
-      "texts": 1,
+      "texts": 7,
       "labels": 1
     },
     {
@@ -332,12 +332,12 @@
     },
     {
       "key": "/settings @ desktop-1920x1080",
-      "texts": 25,
+      "texts": 26,
       "labels": 8
     },
     {
       "key": "/settings @ mobile-402x874",
-      "texts": 21,
+      "texts": 22,
       "labels": 7
     },
     {
@@ -523,12 +523,12 @@
     {
       "key": "/highlight/[projectId]?__phase=loading @ desktop-1920x1080",
       "texts": 2,
-      "labels": 1
+      "labels": 0
     },
     {
       "key": "/highlight/[projectId]?__phase=loading @ mobile-402x874",
       "texts": 1,
-      "labels": 1
+      "labels": 0
     },
     {
       "key": "/highlight/[projectId]?__phase=uploading @ desktop-1920x1080",
@@ -622,12 +622,12 @@
     },
     {
       "key": "/admin @ desktop-1920x1080",
-      "texts": 24,
+      "texts": 37,
       "labels": 0
     },
     {
       "key": "/admin @ mobile-402x874",
-      "texts": 5,
+      "texts": 12,
       "labels": 1
     },
     {
@@ -692,13 +692,13 @@
     },
     {
       "key": "/ @ desktop-1920x1080",
-      "texts": 42,
-      "labels": 3
+      "texts": 106,
+      "labels": 5
     },
     {
       "key": "/ @ mobile-402x874",
-      "texts": 37,
-      "labels": 2
+      "texts": 101,
+      "labels": 4
     },
     {
       "key": "/privacy @ desktop-1920x1080",
@@ -1022,12 +1022,12 @@
     }
   ],
   "stats": {
-    "boundTexts": 2225,
-    "boundLabels": 134,
-    "boundVisible": 48,
-    "literalSameAcrossLocales": 695,
-    "variables": 1348,
-    "presenceVariables": 1
+    "boundTexts": 2338,
+    "boundLabels": 136,
+    "boundVisible": 63,
+    "literalSameAcrossLocales": 744,
+    "variables": 1398,
+    "presenceVariables": 3
   },
   "variables": [
     {
@@ -1240,13 +1240,13 @@
       "uses": 1
     },
     {
-      "id": "ac395015a69a",
-      "name": "i18n/admin/users/empty",
+      "id": "aea7ddb9a772",
+      "name": "i18n/admin/users/allLoaded",
       "type": "STRING",
       "values": {
-        "en": "No users yet",
-        "ko": "등록된 사용자가 없습니다",
-        "ja": "No users yet"
+        "en": "All users loaded",
+        "ko": "모든 사용자를 불러왔습니다",
+        "ja": "All users loaded"
       },
       "uses": 2
     },
@@ -1260,6 +1260,28 @@
         "ja": "All users"
       },
       "uses": 2
+    },
+    {
+      "id": "38011c907ad2",
+      "name": "i18n/admin/users/generations",
+      "type": "STRING",
+      "values": {
+        "en": "Generations",
+        "ko": "생성 내역",
+        "ja": "Generations"
+      },
+      "uses": 1
+    },
+    {
+      "id": "33fbc20a7332",
+      "name": "i18n/admin/users/joined",
+      "type": "STRING",
+      "values": {
+        "en": "Joined",
+        "ko": "가입일",
+        "ja": "Joined"
+      },
+      "uses": 1
     },
     {
       "id": "88a31f438e1c",
@@ -1306,6 +1328,61 @@
       "uses": 2
     },
     {
+      "id": "fa694f42818c",
+      "name": "i18n/archive/createNewMenu/hints/canvas",
+      "type": "STRING",
+      "values": {
+        "en": "Generate an image, then make a video from that image",
+        "ko": "이미지를 생성하고 그 이미지로 영상을 만듭니다",
+        "ja": "画像を生成し、その画像から動画を作成します"
+      },
+      "uses": 1
+    },
+    {
+      "id": "0cee6cefad45",
+      "name": "i18n/archive/createNewMenu/hints/canvas~0cee6cef",
+      "type": "STRING",
+      "values": {
+        "en": "Generate an image, then make a video from that\nimage",
+        "ko": "이미지를 생성하고 그 이미지로 영상을 만듭니다",
+        "ja": "画像を生成し、その画像から動画を作成します"
+      },
+      "uses": 1
+    },
+    {
+      "id": "2c482ebd9279",
+      "name": "i18n/archive/createNewMenu/hints/highlight~2c482ebd",
+      "type": "STRING",
+      "values": {
+        "en": "Find segments in your uploaded video to use as clips",
+        "ko": "업로드한 영상에서 클립으로 사용할 구간을 찾습니다",
+        "ja": "アップロードした動画からクリップに使用する区間を見つ\nけます"
+      },
+      "uses": 1
+    },
+    {
+      "id": "c2a2c4174509",
+      "name": "i18n/archive/createNewMenu/hints/highlight~c2a2c417",
+      "type": "STRING",
+      "values": {
+        "en": "Find segments in your uploaded video to use as clips",
+        "ko": "업로드한 영상에서 클립으로 사용할 구간을 찾습니다",
+        "ja": "アップロードした動画からクリップに使用する区間を見\nつけます"
+      },
+      "uses": 1
+    },
+    {
+      "id": "6ef05f9c358f",
+      "name": "i18n/archive/createNewMenu/hints/videoEdit",
+      "type": "STRING",
+      "values": {
+        "en": "Trim and join videos you already have",
+        "ko": "보유한 영상을 자르고 이어 붙입니다",
+        "ja": "お持ちの動画をカットしてつなげます"
+      },
+      "uses": 2
+    },
+    {
       "id": "a5c76acb2f07",
       "name": "i18n/archive/empty/title",
       "type": "STRING",
@@ -1314,18 +1391,7 @@
         "ko": "아직 프로젝트가 없습니다",
         "ja": "プロジェクトがまだありません"
       },
-      "uses": 2
-    },
-    {
-      "id": "acac2edc3a57",
-      "name": "i18n/archive/errors/loadProjectsFailed",
-      "type": "STRING",
-      "values": {
-        "en": "Failed to load home projects",
-        "ko": "홈 프로젝트를 불러오지 못했습니다.",
-        "ja": "ホームのプロジェクトを読み込めませんでした。"
-      },
-      "uses": 2
+      "uses": 4
     },
     {
       "id": "2b2ed3c51a38",
@@ -1809,7 +1875,7 @@
         "ko": "AI 이미지 프롬프트 연결됨",
         "ja": "AI画像プロンプト接続済み"
       },
-      "uses": 2
+      "uses": 4
     },
     {
       "id": "fc42b69ec1b8",
@@ -1823,6 +1889,28 @@
       "uses": 2
     },
     {
+      "id": "d72e2ec1c6f3",
+      "name": "i18n/create/nodeCanvas/textConnectedChip",
+      "type": "STRING",
+      "values": {
+        "en": "Text connected",
+        "ko": "텍스트 연결됨",
+        "ja": "テキスト接続済み"
+      },
+      "uses": 2
+    },
+    {
+      "id": "0cbf6472f0dc",
+      "name": "i18n/create/nodeCanvas/toolbarV2/llmNodeTitleAuto",
+      "type": "STRING",
+      "values": {
+        "en": "AI prompt generation",
+        "ko": "AI 프롬프트 생성",
+        "ja": "AIプロンプト生成"
+      },
+      "uses": 2
+    },
+    {
       "id": "c2456f2fe680",
       "name": "i18n/create/nodeCanvas/toolbarV2/llmNodeTitleImage",
       "type": "STRING",
@@ -1831,7 +1919,7 @@
         "ko": "AI 이미지 프롬프트",
         "ja": "AI画像用プロンプト"
       },
-      "uses": 2
+      "uses": 4
     },
     {
       "id": "40122094edd1",
@@ -1842,7 +1930,7 @@
         "ko": "재생성",
         "ja": "再生成"
       },
-      "uses": 4
+      "uses": 12
     },
     {
       "id": "05901f96e581",
@@ -1874,6 +1962,17 @@
         "en": "Describe the video you want to create.",
         "ko": "생성하고자 하는 영상을 설명해 주세요.",
         "ja": "作りたい動画を説明してください。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "7d8574482a92",
+      "name": "i18n/create/nodeCanvas/youtubeNode/tagPlaceholder",
+      "type": "STRING",
+      "values": {
+        "en": "Type a tag and press Enter",
+        "ko": "태그 입력 후 Enter",
+        "ja": "タグを入力して Enter"
       },
       "uses": 2
     },
@@ -2263,17 +2362,6 @@
       "uses": 1
     },
     {
-      "id": "191e006ff197",
-      "name": "i18n/highlight/studio/loadFailed",
-      "type": "STRING",
-      "values": {
-        "en": "Couldn't load this project.",
-        "ko": "프로젝트를 불러오지 못했습니다.",
-        "ja": "プロジェクトを読み込めませんでした。"
-      },
-      "uses": 2
-    },
-    {
       "id": "8968d29a7931",
       "name": "i18n/highlight/studio/noVideoHint",
       "type": "STRING",
@@ -2281,17 +2369,6 @@
         "en": "Upload a video from New highlight.",
         "ko": "새 하이라이트에서 영상을 올려 주세요.",
         "ja": "「新しいハイライト」から動画をアップロードしてください。"
-      },
-      "uses": 2
-    },
-    {
-      "id": "e6a8280d1c50",
-      "name": "i18n/highlight/studio/reload",
-      "type": "STRING",
-      "values": {
-        "en": "Reload",
-        "ko": "다시 불러오기",
-        "ja": "再読み込み"
       },
       "uses": 2
     },
@@ -2370,7 +2447,7 @@
         "ko": "분석부터 클립 추출까지",
         "ja": "分析からクリップ抽出まで"
       },
-      "uses": 2
+      "uses": 1
     },
     {
       "id": "2dc8d41bc57f",
@@ -2381,7 +2458,29 @@
         "ko": "한 번에.",
         "ja": "一度に。"
       },
-      "uses": 2
+      "uses": 1
+    },
+    {
+      "id": "89cebca3984d",
+      "name": "i18n/highlightIntro/titleLine1",
+      "type": "STRING",
+      "values": {
+        "en": "From a long-form video",
+        "ko": "롱폼 영상에서 핵심 장면만",
+        "ja": "長尺動画から、"
+      },
+      "uses": 1
+    },
+    {
+      "id": "8b57550e0288",
+      "name": "i18n/highlightIntro/titleLine2",
+      "type": "STRING",
+      "values": {
+        "en": "to standout short clips.",
+        "ko": "골라 숏클립으로.",
+        "ja": "際立つショートクリップへ。"
+      },
+      "uses": 1
     },
     {
       "id": "ea87cf561978",
@@ -2578,28 +2677,6 @@
         "en": "Enter a title for your inquiry",
         "ko": "문의 제목을 입력해 주세요",
         "ja": "お問い合わせの件名を入力してください"
-      },
-      "uses": 2
-    },
-    {
-      "id": "3b228afb5077",
-      "name": "i18n/landing/creatorProgram/sceneWordEnd",
-      "type": "STRING",
-      "values": {
-        "en": "with creators",
-        "ko": "함께",
-        "ja": "ともに"
-      },
-      "uses": 2
-    },
-    {
-      "id": "728497c7bbbf",
-      "name": "i18n/landing/creatorProgram/sceneWordStart",
-      "type": "STRING",
-      "values": {
-        "en": "Together",
-        "ko": "크리에이터와",
-        "ja": "クリエイターと"
       },
       "uses": 2
     },
@@ -5255,6 +5332,17 @@
       "uses": 1
     },
     {
+      "id": "19f9174cd21e",
+      "name": "i18n/videoEditorIntro/steps/assets/body",
+      "type": "STRING",
+      "values": {
+        "en": "Brings in videos generated on the canvas\nand uploaded files, organized by type.",
+        "ko": "캔버스에서 생성한 영상과 업로드한 파일을\n종류별로 불러옵니다.",
+        "ja": "キャンバスの生成動画とアップロードファイルを\n種類別に読み込みます。"
+      },
+      "uses": 2
+    },
+    {
       "id": "0aca21e2cc0a",
       "name": "screen/404/0aca21e2",
       "type": "STRING",
@@ -5321,6 +5409,39 @@
       "uses": 2
     },
     {
+      "id": "141d1d7a2c3e",
+      "name": "screen/admin/141d1d7a",
+      "type": "STRING",
+      "values": {
+        "en": "Account",
+        "ko": "계정",
+        "ja": "Account"
+      },
+      "uses": 1
+    },
+    {
+      "id": "1608f2b86b82",
+      "name": "screen/admin/1608f2b8",
+      "type": "STRING",
+      "values": {
+        "en": "Image 0",
+        "ko": "이미지 0",
+        "ja": "Image 0"
+      },
+      "uses": 2
+    },
+    {
+      "id": "20ff2cc8b775",
+      "name": "screen/admin/20ff2cc8",
+      "type": "STRING",
+      "values": {
+        "en": "Subscription",
+        "ko": "구독",
+        "ja": "Subscription"
+      },
+      "uses": 1
+    },
+    {
       "id": "2d54163ffafd",
       "name": "screen/admin/2d54163f",
       "type": "STRING",
@@ -5332,13 +5453,13 @@
       "uses": 1
     },
     {
-      "id": "39c8bc20c43b",
-      "name": "screen/admin/39c8bc20",
+      "id": "64e938bc80c8",
+      "name": "screen/admin/64e938bc",
       "type": "STRING",
       "values": {
-        "en": "0 users",
-        "ko": "0명",
-        "ja": "0 users"
+        "en": "No subscription",
+        "ko": "구독 없음",
+        "ja": "No subscription"
       },
       "uses": 2
     },
@@ -5376,6 +5497,17 @@
       "uses": 1
     },
     {
+      "id": "88fbf8a5fe52",
+      "name": "screen/admin/88fbf8a5",
+      "type": "STRING",
+      "values": {
+        "en": "Highlight 0",
+        "ko": "하이라이트 0",
+        "ja": "Highlight 0"
+      },
+      "uses": 2
+    },
+    {
       "id": "a5c2bae27527",
       "name": "screen/admin/a5c2bae2",
       "type": "STRING",
@@ -5409,6 +5541,17 @@
       "uses": 1
     },
     {
+      "id": "aefcaf704962",
+      "name": "screen/admin/aefcaf70",
+      "type": "STRING",
+      "values": {
+        "en": "Video 0",
+        "ko": "영상 0",
+        "ja": "Video 0"
+      },
+      "uses": 2
+    },
+    {
       "id": "b399f5eaba2e",
       "name": "screen/admin/b399f5ea",
       "type": "STRING",
@@ -5418,6 +5561,28 @@
         "ja": "Coupons"
       },
       "uses": 1
+    },
+    {
+      "id": "b9ee2f8dadc9",
+      "name": "screen/admin/b9ee2f8d",
+      "type": "STRING",
+      "values": {
+        "en": "Credits",
+        "ko": "크레딧",
+        "ja": "Credits"
+      },
+      "uses": 1
+    },
+    {
+      "id": "becefe659d8b",
+      "name": "screen/admin/becefe65",
+      "type": "STRING",
+      "values": {
+        "en": "1 users",
+        "ko": "1명",
+        "ja": "1 users"
+      },
+      "uses": 2
     },
     {
       "id": "ebb0eb39eb43",
@@ -5484,6 +5649,39 @@
         "ja": "YouTubeを連携すると、\n分析の確認とアップロードができます。"
       },
       "uses": 1
+    },
+    {
+      "id": "6944fc54530e",
+      "name": "screen/archive/6944fc54",
+      "type": "STRING",
+      "values": {
+        "en": "Composition",
+        "ko": "컴포지션",
+        "ja": "Composition"
+      },
+      "uses": 6
+    },
+    {
+      "id": "9558693951da",
+      "name": "screen/archive/95586939",
+      "type": "STRING",
+      "values": {
+        "en": "Highlight",
+        "ko": "하이라이트",
+        "ja": "Highlight"
+      },
+      "uses": 6
+    },
+    {
+      "id": "9eee0114960f",
+      "name": "screen/archive/9eee0114",
+      "type": "STRING",
+      "values": {
+        "en": "Canvas",
+        "ko": "캔버스",
+        "ja": "Canvas"
+      },
+      "uses": 4
     },
     {
       "id": "1548c5ddc404",
@@ -5750,6 +5948,17 @@
       "uses": 8
     },
     {
+      "id": "7ec014961957",
+      "name": "screen/highlight--projectId-__phase-loading/7ec01496",
+      "type": "STRING",
+      "values": {
+        "en": "Loading",
+        "ko": "불러오는 중",
+        "ja": "読み込み中"
+      },
+      "uses": 2
+    },
+    {
       "id": "140a79b84236",
       "name": "screen/highlight--projectId-__phase-upload/140a79b8",
       "type": "STRING",
@@ -5915,15 +6124,15 @@
       "uses": 1
     },
     {
-      "id": "9558693951da",
-      "name": "screen/highlight/95586939",
+      "id": "01bc0987d895",
+      "name": "screen/home/01bc0987",
       "type": "STRING",
       "values": {
-        "en": "Highlight",
-        "ko": "하이라이트",
-        "ja": "Highlight"
+        "en": "Afternoon sun fills the living room, and black steel window shadows stretch across the concrete floor. Under the wooden ceiling beams, light falls in a diagonal patch on the plaster wall. In that light, an oatmeal bouclé modular sofa sits low. Its rounded modules run long and close to the floor, with no legs. Move in close, and the sunlit bouclé loops come into sharp focus. Below, a warm oak base holds each module. With a thick oak block table and a black ceramic vase beside it, the room settles into oatmeal, oak and matte black. Hydra Glow. The bouclé modular sofa, in the afternoon light.",
+        "ko": "오후 햇살이 드는 거실, 검은 철제 창틀 그림자가 콘크리트 바닥 위로 길게 드리웁니다. 왼쪽 격자 창 너머로는 나무가 보이고, 목재 천장 보 아래 미장 벽에는 창으로 든 빛이 사선으로 비칩니다. 그 빛 속에 오트밀 베이지 부클레 모듈 소파가 낮게 놓여 있습니다. 둥근 블록 모듈은 다리 없이, 바닥 가까이 길게 이어집니다. 가까이 다가가면 햇살이 스치는 부클레 짜임이 또렷해지고, 오돌토돌한 결 사이로 빛과 그림자가 번갈아 내려앉습니다. 카메라가 아래로 내려가면, 따뜻한 오크 받침이 소파 아랫단의 모듈을 받치고 있습니다. 곁에는 두꺼운 오크 블록 테이블과 검은 도자기 화병이 놓여 있습니다. 오트밀과 오크, 무광 블랙이 어우러진 차분한 거실, 그 가운데 낮게 놓인 모듈 소파. 햇살이 머무는 자리, 하이드라 글로우 부클레 모듈 소파.",
+        "ja": "午後の日差しが入るリビング。黒いスチール窓枠の影が、コンクリートの床に長く伸びます。 木の天井梁の下、塗り壁には窓からの光が斜めに差し込みます。 その光の中に、ブークレ張りのモジュールソファが低く置かれています。 丸いモジュールは脚なしで、床に近く長く連なります。 近づくと、日差しがかすめるブークレの粒立ちがくっきりと見え、 足元では、温かみのあるオークの台座がモジュールを支えています。 オークのブロックテーブルと黒い陶器の花瓶まで、リビングはオートミールとオーク、マットブラックのトーンでつながります。 Hydra Glow、ブークレ張りのモジュールソファ。"
       },
-      "uses": 4
+      "uses": 2
     },
     {
       "id": "0408dca58bd3",
@@ -5937,6 +6146,50 @@
       "uses": 2
     },
     {
+      "id": "12f4fa3c8046",
+      "name": "screen/home/12f4fa3c",
+      "type": "STRING",
+      "values": {
+        "en": "596 chars",
+        "ko": "411자",
+        "ja": "282 文字"
+      },
+      "uses": 2
+    },
+    {
+      "id": "159af409dcad",
+      "name": "screen/home/159af409",
+      "type": "STRING",
+      "values": {
+        "en": "Hydra Glow Sofa Launch Teaser",
+        "ko": "하이드라 글로우 소파 런칭 티저",
+        "ja": "Hydra Glow ソファ ローンチティーザー"
+      },
+      "uses": 2
+    },
+    {
+      "id": "15d1faa2365f",
+      "name": "screen/home/15d1faa2",
+      "type": "STRING",
+      "values": {
+        "en": "Until",
+        "ko": "모든",
+        "ja": "すべての物語が、"
+      },
+      "uses": 2
+    },
+    {
+      "id": "1b2a47196b46",
+      "name": "screen/home/1b2a4719",
+      "type": "STRING",
+      "values": {
+        "en": "Write a voiceover script for the sofa ad video. Keep it calm, and only mention what's on screen.",
+        "ko": "소파 광고 영상에 얹을 내레이션 대본을 써줘. 차분한 톤으로, 영상에 보이는 것만.",
+        "ja": "ソファ広告動画に乗せるナレーション台本を書いてください。落ち着いたトーンで、映像に映っているものだけ。"
+      },
+      "uses": 2
+    },
+    {
       "id": "2460a9d17235",
       "name": "screen/home/2460a9d1",
       "type": "STRING",
@@ -5944,6 +6197,83 @@
         "en": "Aug 28, 2026",
         "ko": "2026년 8월 28일",
         "ja": "2026年8月28日"
+      },
+      "uses": 2
+    },
+    {
+      "id": "25a1aa4f1b88",
+      "name": "screen/home/25a1aa4f",
+      "type": "STRING",
+      "values": {
+        "en": "Apply",
+        "ko": "지원하기",
+        "ja": "応募する"
+      },
+      "uses": 2
+    },
+    {
+      "id": "3739fc3a2790",
+      "name": "screen/home/3739fc3a",
+      "type": "STRING",
+      "values": {
+        "en": "video.",
+        "ko": "때까지.",
+        "ja": "video."
+      },
+      "uses": 2
+    },
+    {
+      "id": "40f294813039",
+      "name": "screen/home/40f29481",
+      "type": "STRING",
+      "values": {
+        "en": "A program that supports creators,\nexplores new possibilities together,\nand shapes where Klipse goes next.",
+        "ko": "크리에이터의 창작을 지원하고, 새로운 가능성을 함께 경험하며\nKlipse의 방향을 함께 만들어가는 프로그램입니다.",
+        "ja": "クリエイターの創作を支援し、\n新しい可能性をともに体験しながら\nKlipseの方向性を一緒につくっていくプログラムです。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "582d89f1ac4d",
+      "name": "screen/home/582d89f1",
+      "type": "STRING",
+      "values": {
+        "en": "Start frame",
+        "ko": "시작 프레임",
+        "ja": "開始フレーム"
+      },
+      "uses": 2
+    },
+    {
+      "id": "5995524afab4",
+      "name": "screen/home/5995524a",
+      "type": "STRING",
+      "values": {
+        "en": "105 chars",
+        "ko": "55자",
+        "ja": "52 文字"
+      },
+      "uses": 2
+    },
+    {
+      "id": "5a800e6595ea",
+      "name": "screen/home/5a800e65",
+      "type": "STRING",
+      "values": {
+        "en": "141 chars",
+        "ko": "81자",
+        "ja": "60 文字"
+      },
+      "uses": 2
+    },
+    {
+      "id": "6047d335b93a",
+      "name": "screen/home/6047d335",
+      "type": "STRING",
+      "values": {
+        "en": "every",
+        "ko": "이야기가",
+        "ja": "every"
       },
       "uses": 2
     },
@@ -5970,6 +6300,83 @@
       "uses": 2
     },
     {
+      "id": "6514b3993942",
+      "name": "screen/home/6514b399",
+      "type": "STRING",
+      "values": {
+        "en": "The all-in-one AI video creation platform\nbuilt for creators.",
+        "ko": "크리에이터를 위한\n올인원 AI 영상 제작 플랫폼",
+        "ja": "クリエイターのための\nオールインワンAI動画制作プラットフォーム。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "66a4986f9e49",
+      "name": "screen/home/66a4986f",
+      "type": "STRING",
+      "values": {
+        "en": "A program that supports creators, explores new possibilities together,\nand shapes where Klipse goes next.",
+        "ko": "크리에이터의 창작을 지원하고, 새로운 가능성을 함께 경험하며\nKlipse의 방향을 함께 만들어가는 프로그램입니다.",
+        "ja": "クリエイターの創作を支援し、新しい可能性をともに体験しながら\nKlipseの方向性を一緒につくっていくプログラムです。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "6c69d88538c4",
+      "name": "screen/home/6c69d885",
+      "type": "STRING",
+      "values": {
+        "en": "a",
+        "ko": "될",
+        "ja": "a"
+      },
+      "uses": 2
+    },
+    {
+      "id": "73c84447e4f6",
+      "name": "screen/home/73c84447",
+      "type": "STRING",
+      "values": {
+        "en": "An oatmeal bouclé modular sofa is the hero of a minimal living room in afternoon sun. Its rounded modules run long and sit low, with no legs. Shoot from low eye level, the nearest arm module large and the rest receding diagonally. An oak block table and black ceramic vase sit front right. Low sun through black steel grid windows casts a diagonal patch on the plaster wall and long frame shadows across the concrete floor. A 35mm lens with deep focus keeps bouclé loops and oak grain crisp. Warm oatmeal, oak and matte black in natural-light interior photography. Avoid people, sofa legs, floating furniture, smeared fabric and warped window frames.",
+        "ko": "오후 햇살이 드는 미니멀한 거실, 오트밀 베이지 부클레 모듈 소파가 주인공이다. 둥근 블록 모듈이 길게 이어지고, 다리 없이 바닥에 낮게 놓여 있다. 낮은 눈높이에서 가장 가까운 팔걸이 모듈을 크게 두고, 나머지 모듈이 화면 안쪽으로 비스듬히 물러나게 잡는다. 오른쪽 앞에는 두꺼운 오크 블록 테이블과 검은 도자기 화병. 왼쪽 검은 철제 격자 창으로 낮은 햇살이 들어와 목재 천장 보 아래 미장 벽에 사선 빛을 남기고, 콘크리트 바닥에 창틀 그림자를 길게 드리운다. 35mm 렌즈 화각에 심도를 깊게 잡아 오돌토돌한 부클레 짜임과 오크 나뭇결까지 선명하게. 오트밀 · 오크 · 무광 블랙의 따뜻한 톤, 자연광 인테리어 화보 사진. 피할 것: 사람, 소파 다리, 떠 보이는 가구, 뭉개진 원단 결, 휘어진 창틀.",
+        "ja": "午後の日差しが入るミニマルなリビング。主役はオートミールベージュのモジュールソファ。ブークレ張りの丸いモジュールが脚なしで低く連なる。 低い目線で手前のアームを大きく入れ、残りのモジュールが奥へ斜めに下がる構図。右手前にオークのブロックテーブルと黒い陶器の花瓶。 左の黒いスチール格子窓から日差しが入り、塗り壁に斜めの光、コンクリートの床に窓枠の長い影。 35mmレンズの画角で被写界深度を深く取り、ブークレの粒立ちとオークの木目までくっきり。オートミール、オーク、マットブラックで温かく、自然光のインテリア写真。 避けたいもの：人物、ソファの脚、浮いて見える家具、つぶれた生地の質感、歪んだ窓枠。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "775417deeb63",
+      "name": "screen/home/775417de",
+      "type": "STRING",
+      "values": {
+        "en": "# HydraGlow",
+        "ko": "# 하이드라글로우",
+        "ja": "# HydraGlow"
+      },
+      "uses": 2
+    },
+    {
+      "id": "79376441dcaf",
+      "name": "screen/home/79376441",
+      "type": "STRING",
+      "values": {
+        "en": "From a single idea to image and video\ngeneration, editing, uploading, and analytics —\nan all-in-one platform, all in one workspace.",
+        "ko": "아이디어만 있으면 이미지 및 영상 생성부터 편집, 업로드, 분석까지\n하나의 워크스페이스에서 해결할 수 있는 올인원 플랫폼입니다.",
+        "ja": "ひとつのアイデアから、画像・動画の生成、編集、アップロード、分析まで —\nすべてをひとつのワークスペースで完結できるオールインワンプラットフォーム。"
+      },
+      "uses": 1
+    },
+    {
+      "id": "7944d12e869a",
+      "name": "screen/home/7944d12e",
+      "type": "STRING",
+      "values": {
+        "en": "We build Klipse\ntogether with creators",
+        "ko": "\nKlipse를 만들어갑니다",
+        "ja": "クリエイターとともに\nKlipseをつくっていきます"
+      },
+      "uses": 2
+    },
+    {
       "id": "7efe7e2a1bf2",
       "name": "screen/home/7efe7e2a",
       "type": "STRING",
@@ -5979,6 +6386,17 @@
         "ja": "料金"
       },
       "uses": 11
+    },
+    {
+      "id": "806c933e22b6",
+      "name": "screen/home/806c933e",
+      "type": "STRING",
+      "values": {
+        "en": "From a single idea to image and video generation, editing, uploading, and analytics —\nan all-in-one platform, all in one workspace.",
+        "ko": "아이디어만 있으면 이미지 및 영상 생성부터 편집, 업로드, 분석까지\n하나의 워크스페이스에서 해결할 수 있는 올인원 플랫폼입니다.",
+        "ja": "ひとつのアイデアから、画像・動画の生成、編集、アップロード、分析まで —\nすべてをひとつのワークスペースで完結できるオールインワンプラットフォーム。"
+      },
+      "uses": 1
     },
     {
       "id": "831ffbce82ff",
@@ -5992,6 +6410,50 @@
       "uses": 13
     },
     {
+      "id": "887b20aa9c80",
+      "name": "screen/home/887b20aa",
+      "type": "STRING",
+      "values": {
+        "en": "650 chars",
+        "ko": "397자",
+        "ja": "299 文字"
+      },
+      "uses": 2
+    },
+    {
+      "id": "8960d57e6615",
+      "name": "screen/home/8960d57e",
+      "type": "STRING",
+      "values": {
+        "en": "The camera opens on the bouclé sofa in a sunlit living room, moves in close on the fabric, and ends low where the modules sit on an oak base.",
+        "ko": "햇살이 드는 거실의 부클레 소파에서 시작해 빛이 스치는 원단 결을 가까이 따라가고, 오크 받침 위에 놓인 소파 아랫단에서 끝나는 제품 광고 영상.",
+        "ja": "日差しが入るリビングのソファから始まり、光がかすめるブークレ生地に寄って、オークの台座に載った足元で終わる商品広告動画。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "8fbdac172254",
+      "name": "screen/home/8fbdac17",
+      "type": "STRING",
+      "values": {
+        "en": "# homedecor",
+        "ko": "# 홈인테리어",
+        "ja": "# インテリア"
+      },
+      "uses": 2
+    },
+    {
+      "id": "9283b5d25b8f",
+      "name": "screen/home/9283b5d2",
+      "type": "STRING",
+      "values": {
+        "en": "the world will see far more stories.",
+        "ko": "세상은 훨씬 많은 이야기를 보게 되죠.",
+        "ja": "世界はもっと多くの物語に出会えるはず。"
+      },
+      "uses": 2
+    },
+    {
       "id": "92cffb32ea98",
       "name": "screen/home/92cffb32",
       "type": "STRING",
@@ -6000,7 +6462,18 @@
         "ko": "무료로 시작하기",
         "ja": "無料で始める"
       },
-      "uses": 2
+      "uses": 4
+    },
+    {
+      "id": "a05c206d6a18",
+      "name": "screen/home/a05c206d",
+      "type": "STRING",
+      "values": {
+        "en": "4s",
+        "ko": "4초",
+        "ja": "4秒"
+      },
+      "uses": 4
     },
     {
       "id": "a4a04b6953a7",
@@ -6012,6 +6485,50 @@
         "ja": "始める"
       },
       "uses": 9
+    },
+    {
+      "id": "b5a446fd3698",
+      "name": "screen/home/b5a446fd",
+      "type": "STRING",
+      "values": {
+        "en": "When making a video feels as light as writing,",
+        "ko": "영상을 만드는 일이 글을 쓰는 일만큼 가벼워질 때,",
+        "ja": "映像をつくることが文章を書くほど軽くなったとき、"
+      },
+      "uses": 2
+    },
+    {
+      "id": "b988f038af12",
+      "name": "screen/home/b988f038",
+      "type": "STRING",
+      "values": {
+        "en": "Write an image prompt for a bouclé modular sofa key visual. Keep the product as the hero, with no people.",
+        "ko": "가구 브랜드의 부클레 모듈 소파 광고 키비주얼용 이미지 프롬프트를 써줘. 인물 없이 제품 중심으로.",
+        "ja": "ブークレのモジュールソファ広告のキービジュアル用に、人物なしで商品中心の画像プロンプトを書いてください。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "c27a8a46155c",
+      "name": "screen/home/c27a8a46",
+      "type": "STRING",
+      "values": {
+        "en": "Schedule upload",
+        "ko": "예약 업로드",
+        "ja": "予約アップロード"
+      },
+      "uses": 2
+    },
+    {
+      "id": "c2b96372b67a",
+      "name": "screen/home/c2b96372",
+      "type": "STRING",
+      "values": {
+        "en": "96 chars",
+        "ko": "46자",
+        "ja": "51 文字"
+      },
+      "uses": 2
     },
     {
       "id": "c433a032dd99",
@@ -6047,6 +6564,39 @@
       "uses": 2
     },
     {
+      "id": "d5f3a40116bd",
+      "name": "screen/home/d5f3a401",
+      "type": "STRING",
+      "values": {
+        "en": "becomes",
+        "ko": "영상이",
+        "ja": "映像になるまで。"
+      },
+      "uses": 2
+    },
+    {
+      "id": "d7f4239fd352",
+      "name": "screen/home/d7f4239f",
+      "type": "STRING",
+      "values": {
+        "en": "# sofa",
+        "ko": "# 소파",
+        "ja": "# ソファ"
+      },
+      "uses": 2
+    },
+    {
+      "id": "dab7d7cf5320",
+      "name": "screen/home/dab7d7cf",
+      "type": "STRING",
+      "values": {
+        "en": "0:40",
+        "ko": "0:58",
+        "ja": "0:46"
+      },
+      "uses": 2
+    },
+    {
       "id": "dbb4cde1314b",
       "name": "screen/home/dbb4cde1",
       "type": "STRING",
@@ -6066,7 +6616,40 @@
         "ko": "더 알아보기",
         "ja": "詳しく見る"
       },
+      "uses": 4
+    },
+    {
+      "id": "e463d8b2db54",
+      "name": "screen/home/e463d8b2",
+      "type": "STRING",
+      "values": {
+        "en": "Medium",
+        "ko": "보통",
+        "ja": "標準"
+      },
       "uses": 2
+    },
+    {
+      "id": "eb3e084c1878",
+      "name": "screen/home/eb3e084c",
+      "type": "STRING",
+      "values": {
+        "en": "Composition",
+        "ko": "컴포지션",
+        "ja": "コンポジション"
+      },
+      "uses": 11
+    },
+    {
+      "id": "eb79d02ab603",
+      "name": "screen/home/eb79d02a",
+      "type": "STRING",
+      "values": {
+        "en": "The all-in-one AI video\ncreation platform\nbuilt for creators.",
+        "ko": "크리에이터를 위한\n올인원 AI 영상 제작 플랫폼",
+        "ja": "クリエイターのための\nオールインワンAI動画制作プラットフォーム。"
+      },
+      "uses": 1
     },
     {
       "id": "ec623cac2b14",
@@ -6076,6 +6659,28 @@
         "en": "Jul 24, 2026",
         "ko": "2026년 7월 24일",
         "ja": "2026年7月24日"
+      },
+      "uses": 2
+    },
+    {
+      "id": "fb46df391672",
+      "name": "screen/home/fb46df39",
+      "type": "STRING",
+      "values": {
+        "en": "Meet the Hydra Glow bouclé modular sofa. A close look at sunlit bouclé and its oak base. It sits low on the floor, with no legs showing. #HydraGlow #BoucleSofa #ModularSofa",
+        "ko": "하이드라 글로우의 부클레 모듈 소파를 처음 소개합니다. 햇살이 스치는 부클레 질감과 오크 받침을 가까이 담았습니다. 다리 없이 바닥에 낮게 놓이는 디자인입니다. #하이드라글로우 #부클레소파 #모듈소파",
+        "ja": "Hydra Glow のモジュールソファを初公開します。 午後の光がかすめるブークレとオークの台座を間近に。 脚なしで、床に低く置けるデザインです。 #HydraGlow #ブークレソファ #モジュールソファ"
+      },
+      "uses": 2
+    },
+    {
+      "id": "fe6544b6c84e",
+      "name": "screen/home/fe6544b6",
+      "type": "STRING",
+      "values": {
+        "en": "Upload",
+        "ko": "업로드",
+        "ja": "アップロード"
       },
       "uses": 2
     },
@@ -6274,17 +6879,6 @@
         "en": "On",
         "ko": "켬",
         "ja": "オン"
-      },
-      "uses": 2
-    },
-    {
-      "id": "a05c206d6a18",
-      "name": "screen/models--slug-/a05c206d",
-      "type": "STRING",
-      "values": {
-        "en": "4s",
-        "ko": "4초",
-        "ja": "4秒"
       },
       "uses": 2
     },
@@ -7111,7 +7705,7 @@
         "ko": "비디오",
         "ja": "動画"
       },
-      "uses": 5
+      "uses": 7
     },
     {
       "id": "a2f5362cd2c8",
@@ -7154,17 +7748,6 @@
         "en": "New Canvas",
         "ko": "새 캔버스",
         "ja": "新規キャンバス"
-      },
-      "uses": 2
-    },
-    {
-      "id": "9eee0114960f",
-      "name": "screen/nodecanvas/9eee0114",
-      "type": "STRING",
-      "values": {
-        "en": "Canvas",
-        "ko": "캔버스",
-        "ja": "Canvas"
       },
       "uses": 2
     },
@@ -7552,17 +8135,6 @@
         "ja": "5件"
       },
       "uses": 2
-    },
-    {
-      "id": "eb3e084c1878",
-      "name": "screen/pricing/eb3e084c",
-      "type": "STRING",
-      "values": {
-        "en": "Composition",
-        "ko": "컴포지션",
-        "ja": "コンポジション"
-      },
-      "uses": 9
     },
     {
       "id": "ebfb20768a98",
@@ -12229,17 +12801,6 @@
       "uses": 4
     },
     {
-      "id": "ceaab43f9570",
-      "name": "screen/settings/ceaab43f",
-      "type": "STRING",
-      "values": {
-        "en": "Enter your username",
-        "ko": "사용자 이름을 입력하세요",
-        "ja": "ユーザー名を入力"
-      },
-      "uses": 2
-    },
-    {
       "id": "d5169ecf0ecf",
       "name": "screen/settings/d5169ecf",
       "type": "STRING",
@@ -15823,7 +16384,7 @@
         "ko": "에셋",
         "ja": "アセット"
       },
-      "uses": 2
+      "uses": 4
     },
     {
       "id": "d0f831ca800b",
@@ -15834,7 +16395,7 @@
         "ko": "편집",
         "ja": "編集"
       },
-      "uses": 1
+      "uses": 3
     },
     {
       "id": "0ead19d2e4ff",
@@ -15846,20 +16407,31 @@
         "ja": "新規コンポジション"
       },
       "uses": 2
-    },
-    {
-      "id": "6944fc54530e",
-      "name": "screen/videoeditor/6944fc54",
-      "type": "STRING",
-      "values": {
-        "en": "Composition",
-        "ko": "컴포지션",
-        "ja": "Composition"
-      },
-      "uses": 4
     }
   ],
   "presence": [
+    {
+      "id": "presence-en",
+      "name": "presence/en",
+      "type": "BOOLEAN",
+      "values": {
+        "en": true,
+        "ko": false,
+        "ja": false
+      },
+      "uses": 3
+    },
+    {
+      "id": "presence-en-ja",
+      "name": "presence/en-ja",
+      "type": "BOOLEAN",
+      "values": {
+        "en": true,
+        "ko": false,
+        "ja": true
+      },
+      "uses": 6
+    },
     {
       "id": "presence-en-ko",
       "name": "presence/en-ko",
@@ -15869,7 +16441,7 @@
         "ko": true,
         "ja": false
       },
-      "uses": 48
+      "uses": 54
     }
   ],
   "bindings": {
@@ -15880,7 +16452,25 @@
         }
       },
       "body.1.0.0.1.0.0.2.0": {
-        "xv": "i18n/archive/errors/loadProjectsFailed"
+        "xv": "i18n/archive/empty/title"
+      },
+      "body.1.0.0.1.0.0.2.1.0.0.0.1.0": {
+        "xv": "screen/archive/9eee0114"
+      },
+      "body.1.0.0.1.0.0.2.1.0.0.0.1.1": {
+        "xv": "i18n/archive/createNewMenu/hints/canvas"
+      },
+      "body.1.0.0.1.0.0.2.1.0.1.0.1.0": {
+        "xv": "screen/archive/6944fc54"
+      },
+      "body.1.0.0.1.0.0.2.1.0.1.0.1.1": {
+        "xv": "i18n/archive/createNewMenu/hints/videoEdit"
+      },
+      "body.1.0.0.1.0.0.2.1.0.2.0.1.0": {
+        "xv": "screen/archive/95586939"
+      },
+      "body.1.0.0.1.0.0.2.1.0.2.0.1.1": {
+        "xv": "i18n/archive/createNewMenu/hints/highlight~2c482ebd"
       }
     },
     "/archive @ mobile-402x874": {
@@ -15890,7 +16480,25 @@
         }
       },
       "body.1.0.0.1.0.0.2.0": {
-        "xv": "i18n/archive/errors/loadProjectsFailed"
+        "xv": "i18n/archive/empty/title"
+      },
+      "body.1.0.0.1.0.0.2.1.0.0.0.1.0": {
+        "xv": "screen/archive/9eee0114"
+      },
+      "body.1.0.0.1.0.0.2.1.0.0.0.1.1": {
+        "xv": "i18n/archive/createNewMenu/hints/canvas~0cee6cef"
+      },
+      "body.1.0.0.1.0.0.2.1.0.1.0.1.0": {
+        "xv": "screen/archive/6944fc54"
+      },
+      "body.1.0.0.1.0.0.2.1.0.1.0.1.1": {
+        "xv": "i18n/archive/createNewMenu/hints/videoEdit"
+      },
+      "body.1.0.0.1.0.0.2.1.0.2.0.1.0": {
+        "xv": "screen/archive/95586939"
+      },
+      "body.1.0.0.1.0.0.2.1.0.2.0.1.1": {
+        "xv": "i18n/archive/createNewMenu/hints/highlight~c2a2c417"
       }
     },
     "/login @ desktop-1920x1080": {
@@ -16259,9 +16867,6 @@
       "body.1.0.0.1.0.1.4.0.0": {
         "xv": "screen/aws-signup/1548c5dd"
       },
-      "body.1.0.0.1.0.1.4.0.1": {
-        "xv": "screen/settings/ceaab43f"
-      },
       "body.1.0.0.1.0.1.4.1.0": {
         "iv": "i18n/profile/updateName"
       },
@@ -16334,9 +16939,6 @@
       },
       "body.1.0.0.1.0.1.4.0.0": {
         "xv": "screen/aws-signup/1548c5dd"
-      },
-      "body.1.0.0.1.0.1.4.0.1": {
-        "xv": "screen/settings/ceaab43f"
       },
       "body.1.0.0.1.0.1.4.1.0": {
         "iv": "i18n/profile/updateName"
@@ -17116,22 +17718,16 @@
       }
     },
     "/highlight/[projectId]?__phase=loading @ desktop-1920x1080": {
-      "body.1.0.0.2.0.1.0.1.0.0.t": {
-        "xv": "i18n/highlight/studio/loadFailed"
-      },
-      "body.1.0.0.2.0.1.0.1.0.1.0": {
-        "iv": "i18n/highlight/studio/reload"
+      "body.1.0.0.2.0.1.0.1.0.0.0": {
+        "xv": "screen/highlight--projectId-__phase-loading/7ec01496"
       },
       "body.1.0.0.2.0.1.0.2.0.1.1": {
         "xv": "screen/highlight--projectId-__phase-loading/0d789fba"
       }
     },
     "/highlight/[projectId]?__phase=loading @ mobile-402x874": {
-      "body.1.0.0.2.0.1.0.1.0.0.t": {
-        "xv": "i18n/highlight/studio/loadFailed"
-      },
-      "body.1.0.0.2.0.1.0.1.0.1.0": {
-        "iv": "i18n/highlight/studio/reload"
+      "body.1.0.0.2.0.1.0.1.0.0.0": {
+        "xv": "screen/highlight--projectId-__phase-loading/7ec01496"
       }
     },
     "/highlight/[projectId]?__phase=uploading @ desktop-1920x1080": {
@@ -17264,7 +17860,7 @@
     },
     "/nodecanvas @ desktop-1920x1080": {
       "body.1.0.0.1.0.0.0.0.1.0.0": {
-        "xv": "screen/nodecanvas/9eee0114"
+        "xv": "screen/archive/9eee0114"
       },
       "body.1.0.0.1.0.0.1.0": {
         "xv": "i18n/archive/empty/title"
@@ -17279,7 +17875,7 @@
     "/nodecanvas @ mobile-402x874": {
       "body.1.0.0.1.0.0.0.0": {
         "iv": {
-          "Label": "screen/nodecanvas/9eee0114"
+          "Label": "screen/archive/9eee0114"
         }
       },
       "body.1.0.0.1.0.0.1.0": {
@@ -17294,7 +17890,7 @@
     },
     "/videoeditor @ desktop-1920x1080": {
       "body.1.0.0.1.0.0.0.1.0.0": {
-        "xv": "screen/videoeditor/6944fc54"
+        "xv": "screen/archive/6944fc54"
       },
       "body.1.0.0.1.0.1.1.0.0": {
         "xv": "i18n/videoEdit/emptyEdits"
@@ -17306,7 +17902,7 @@
     "/videoeditor @ mobile-402x874": {
       "body.1.0.0.1.0.0.0": {
         "iv": {
-          "Label": "screen/videoeditor/6944fc54"
+          "Label": "screen/archive/6944fc54"
         }
       },
       "body.1.0.0.1.0.1.1.0.0": {
@@ -17318,7 +17914,7 @@
     },
     "/highlight @ desktop-1920x1080": {
       "body.1.0.0.1.0.0.0.0.1.0.0": {
-        "xv": "screen/highlight/95586939"
+        "xv": "screen/archive/95586939"
       },
       "body.1.0.0.1.0.0.1.0.0": {
         "xv": "screen/highlight--projectId-__phase-loading/0d789fba"
@@ -17336,7 +17932,7 @@
     "/highlight @ mobile-402x874": {
       "body.1.0.0.1.0.0.0.0": {
         "iv": {
-          "Label": "screen/highlight/95586939"
+          "Label": "screen/archive/95586939"
         }
       },
       "body.1.0.0.1.0.0.1.0.0": {
@@ -17422,8 +18018,35 @@
       "body.1.0.0.1.0.0.0.1.1.1.0.0.0.0": {
         "xv": "i18n/admin/users/filters/all"
       },
-      "body.1.0.0.1.0.0.0.1.2.0": {
-        "xv": "i18n/admin/users/empty"
+      "body.1.0.0.1.0.0.0.1.2.0.0": {
+        "xv": "screen/admin/141d1d7a"
+      },
+      "body.1.0.0.1.0.0.0.1.2.0.1.t": {
+        "xv": "i18n/admin/users/joined"
+      },
+      "body.1.0.0.1.0.0.0.1.2.0.2": {
+        "xv": "i18n/admin/users/generations"
+      },
+      "body.1.0.0.1.0.0.0.1.2.0.3": {
+        "xv": "screen/admin/b9ee2f8d"
+      },
+      "body.1.0.0.1.0.0.0.1.2.0.4": {
+        "xv": "screen/admin/20ff2cc8"
+      },
+      "body.1.0.0.1.0.0.0.1.2.1.2.0": {
+        "xv": "screen/admin/aefcaf70"
+      },
+      "body.1.0.0.1.0.0.0.1.2.1.2.1": {
+        "xv": "screen/admin/1608f2b8"
+      },
+      "body.1.0.0.1.0.0.0.1.2.1.2.2": {
+        "xv": "screen/admin/88fbf8a5"
+      },
+      "body.1.0.0.1.0.0.0.1.2.1.4.0": {
+        "xv": "screen/admin/64e938bc"
+      },
+      "body.1.0.0.1.0.0.0.1.3.0.t": {
+        "xv": "i18n/admin/users/allLoaded"
       }
     },
     "/admin @ mobile-402x874": {
@@ -17444,8 +18067,20 @@
       "body.1.0.0.1.0.0.0.1.1.1.1.0.0.1": {
         "xv": "screen/admin/aa4d7807"
       },
-      "body.1.0.0.1.0.0.0.1.2.0": {
-        "xv": "i18n/admin/users/empty"
+      "body.1.0.0.1.0.0.0.1.2.1.2.0": {
+        "xv": "screen/admin/aefcaf70"
+      },
+      "body.1.0.0.1.0.0.0.1.2.1.2.1": {
+        "xv": "screen/admin/1608f2b8"
+      },
+      "body.1.0.0.1.0.0.0.1.2.1.2.2": {
+        "xv": "screen/admin/88fbf8a5"
+      },
+      "body.1.0.0.1.0.0.0.1.2.1.4.0": {
+        "xv": "screen/admin/64e938bc"
+      },
+      "body.1.0.0.1.0.0.0.1.3.0.t": {
+        "xv": "i18n/admin/users/allLoaded"
       }
     },
     "/mypage/upgrade/checkout @ desktop-1920x1080": {
@@ -17815,7 +18450,7 @@
     },
     "/highlight/[projectId]/shorts/[shortId] @ desktop-1920x1080": {
       "body.1.0.0.1.0.0.0.1.0.0": {
-        "xv": "screen/highlight/95586939"
+        "xv": "screen/archive/95586939"
       },
       "body.1.0.0.1.0.1.0.0.0": {
         "xv": "i18n/highlight/themeVlog"
@@ -17862,7 +18497,7 @@
     },
     "/highlight/[projectId]/shorts/[shortId] @ mobile-402x874": {
       "body.1.0.0.1.0.0.0.1.0.0": {
-        "xv": "screen/highlight/95586939"
+        "xv": "screen/archive/95586939"
       },
       "body.1.0.0.1.0.1.0.0.0": {
         "xv": "i18n/highlight/themeVlog"
@@ -17926,6 +18561,9 @@
       "body.1.0.0.1.0.3.2": {
         "iv": "screen/home/a4a04b69"
       },
+      "body.1.0.0.2.0.0.0": {
+        "vv": "presence/en-ja"
+      },
       "body.1.0.0.2.0.0.5.0.0.0": {
         "xv": "i18n/hero/taglineLine1"
       },
@@ -17938,11 +18576,128 @@
       "body.1.0.0.2.0.0.5.0.1.1": {
         "iv": "screen/home/df9bf266"
       },
-      "body.1.0.0.2.3.0.32.1.0": {
-        "xv": "i18n/highlightIntro/endLine1"
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.0.0.0.1.t": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/llmNodeTitleImage"
       },
-      "body.1.0.0.2.3.0.32.1.1": {
-        "xv": "i18n/highlightIntro/endLine2"
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.4.0.0.0.0": {
+        "xv": "screen/home/73c84447"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.4.0.0.1.1": {
+        "xv": "screen/home/887b20aa"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.0.0.1": {
+        "xv": "screen/home/5995524a"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.0.1.t": {
+        "xv": "screen/home/b988f038"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1.1.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/regenerate"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.0.0.1.t": {
+        "xv": "screen/home/582d89f1"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.0.0.1": {
+        "xv": "i18n/create/nodeCanvas/imageConnectedChipAi"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.0.1.1.0.0": {
+        "xv": "screen/home/e463d8b2"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.1.0.0.1.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/regenerate"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.0.0.1.t": {
+        "xv": "screen/nodecanvas-project-/a037faf0"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.1.1": {
+        "xv": "screen/home/5a800e65"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.2.t": {
+        "xv": "screen/home/8960d57e"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.0.1.0.0.0.0": {
+        "xv": "screen/home/a05c206d"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.1.0.0.1.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/regenerate"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.0.0.0.1.t": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/llmNodeTitleAuto"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.4.0.0.0.0": {
+        "xv": "screen/home/01bc0987"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.4.0.0.1.1": {
+        "xv": "screen/home/12f4fa3c"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.0.0.1": {
+        "xv": "screen/home/c2b96372"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.0.1.t": {
+        "xv": "screen/home/1b2a4719"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1.1.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/regenerate"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.2.0.0.1.1.1": {
+        "xv": "screen/home/dab7d7cf"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.3.0.0.0.0.1": {
+        "xv": "i18n/create/nodeCanvas/textConnectedChip"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.0.0.1.t": {
+        "xv": "screen/home/eb3e084c"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.1.2.1.0.1.0": {
+        "vv": "presence/en-ja"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.1.2.2.0.t": {
+        "xv": "screen/videoeditor--projectId-/d0f831ca"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.1.t": {
+        "xv": "screen/home/159af409"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.3": {
+        "xv": "screen/home/fb46df39"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.0.t": {
+        "xv": "screen/home/775417de"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.1.t": {
+        "xv": "screen/home/d7f4239f"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.2.t": {
+        "xv": "screen/home/8fbdac17"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.1.t": {
+        "xv": "i18n/create/nodeCanvas/youtubeNode/tagPlaceholder"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.1.0.0.0": {
+        "xv": "screen/home/c27a8a46"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.2.0.t": {
+        "xv": "screen/home/fe6544b6"
+      },
+      "body.1.0.0.2.1.1.1.0": {
+        "xv": "screen/home/6514b399"
+      },
+      "body.1.0.0.2.1.1.1.1": {
+        "xv": "screen/home/806c933e"
+      },
+      "body.1.0.0.2.2.0.0.0": {
+        "vv": "presence/en-ja"
+      },
+      "body.1.0.0.2.2.0.4.0": {
+        "xv": "screen/videoeditor--projectId-/c0b3dfd0"
+      },
+      "body.1.0.0.2.2.0.4.1": {
+        "xv": "i18n/videoEditorIntro/steps/assets/body"
+      },
+      "body.1.0.0.2.3.0.32.0.0": {
+        "xv": "i18n/highlightIntro/titleLine1"
+      },
+      "body.1.0.0.2.3.0.32.0.1": {
+        "xv": "i18n/highlightIntro/titleLine2"
       },
       "body.1.0.0.2.4.2.1.0.0.0.0.0": {
         "xv": "screen/home/c5bc94bf"
@@ -18001,14 +18756,53 @@
       "body.1.0.0.2.6.0.0.1.4.0.0": {
         "xv": "i18n/faq/items/4/q"
       },
-      "body.1.0.0.2.7.0.0.0.0": {
-        "xv": "i18n/landing/creatorProgram/sceneWordStart"
+      "body.1.0.0.2.7.0.2.0.0.1.0": {
+        "xv": "screen/home/7944d12e"
       },
-      "body.1.0.0.2.7.0.0.0.1": {
-        "xv": "i18n/landing/creatorProgram/sceneWordEnd"
+      "body.1.0.0.2.7.0.2.0.0.1.1": {
+        "xv": "screen/home/66a4986f"
+      },
+      "body.1.0.0.2.7.0.2.0.1.0.0": {
+        "xv": "screen/home/df9bf266"
+      },
+      "body.1.0.0.2.7.0.2.0.1.1": {
+        "iv": "screen/home/25a1aa4f"
+      },
+      "body.1.0.0.2.8.0.2.0.0.0": {
+        "xv": "screen/home/15d1faa2"
+      },
+      "body.1.0.0.2.8.0.2.0.0.1": {
+        "xv": "screen/home/6047d335",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.2.8.0.2.0.0.2": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.2.8.0.2.0.1.0": {
+        "xv": "screen/home/d5f3a401"
+      },
+      "body.1.0.0.2.8.0.2.0.1.1": {
+        "xv": "screen/home/6c69d885",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.2.8.0.2.0.1.2": {
+        "xv": "screen/home/3739fc3a",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.2.8.0.2.1.0": {
+        "xv": "screen/home/b5a446fd"
+      },
+      "body.1.0.0.2.8.0.2.1.1": {
+        "xv": "screen/home/9283b5d2"
+      },
+      "body.1.0.0.2.8.0.2.2.0": {
+        "iv": "screen/home/92cffb32"
       }
     },
     "/ @ mobile-402x874": {
+      "body.1.0.0.2.0.0.0": {
+        "vv": "presence/en-ja"
+      },
       "body.1.0.0.2.0.0.5.0.0.0": {
         "xv": "i18n/hero/taglineLine1~b37b3da1"
       },
@@ -18020,6 +18814,126 @@
       },
       "body.1.0.0.2.0.0.5.0.1.1": {
         "iv": "screen/home/df9bf266"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.0.0.0.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/llmNodeTitleImage"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.4.0.0.0.0": {
+        "xv": "screen/home/73c84447"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.4.0.0.1.1": {
+        "xv": "screen/home/887b20aa"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.0.0.1": {
+        "xv": "screen/home/5995524a"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.0.1.t": {
+        "xv": "screen/home/b988f038"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1.1.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/regenerate"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.0.0.1": {
+        "xv": "screen/home/582d89f1"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.0.0.1": {
+        "xv": "i18n/create/nodeCanvas/imageConnectedChipAi"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.0.1.1.0.0": {
+        "xv": "screen/home/e463d8b2"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.1.0.0.1.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/regenerate"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.0.0.1": {
+        "xv": "screen/nodecanvas-project-/a037faf0"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.1.1": {
+        "xv": "screen/home/5a800e65"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.2.t": {
+        "xv": "screen/home/8960d57e"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.0.1.0.0.0.0": {
+        "xv": "screen/home/a05c206d"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.1.0.0.1.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/regenerate"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.0.0.0.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/llmNodeTitleAuto"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.4.0.0.0.0": {
+        "xv": "screen/home/01bc0987"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.4.0.0.1.1": {
+        "xv": "screen/home/12f4fa3c"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.0.0.1": {
+        "xv": "screen/home/c2b96372"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.0.1.t": {
+        "xv": "screen/home/1b2a4719"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1.1.1": {
+        "xv": "i18n/create/nodeCanvas/toolbarV2/regenerate"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.2.0.0.1.1.1": {
+        "xv": "screen/home/dab7d7cf"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.3.0.0.0.0.1": {
+        "xv": "i18n/create/nodeCanvas/textConnectedChip"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.0.0.1": {
+        "xv": "screen/home/eb3e084c"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.1.2.1.0.1.0": {
+        "vv": "presence/en-ja"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.1.2.2.0.t": {
+        "xv": "screen/videoeditor--projectId-/d0f831ca"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.1.t": {
+        "xv": "screen/home/159af409"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.3": {
+        "xv": "screen/home/fb46df39"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.0.t": {
+        "xv": "screen/home/775417de"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.1.t": {
+        "xv": "screen/home/d7f4239f"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.2.t": {
+        "xv": "screen/home/8fbdac17"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.1": {
+        "xv": "i18n/create/nodeCanvas/youtubeNode/tagPlaceholder"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.1.0.0.0": {
+        "xv": "screen/home/c27a8a46"
+      },
+      "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.2.0.t": {
+        "xv": "screen/home/fe6544b6"
+      },
+      "body.1.0.0.2.1.1.1.0": {
+        "xv": "screen/home/eb79d02a"
+      },
+      "body.1.0.0.2.1.1.1.1": {
+        "xv": "screen/home/79376441"
+      },
+      "body.1.0.0.2.2.0.0.0": {
+        "vv": "presence/en-ja"
+      },
+      "body.1.0.0.2.2.0.4.0": {
+        "xv": "screen/videoeditor--projectId-/c0b3dfd0"
+      },
+      "body.1.0.0.2.2.0.4.1": {
+        "xv": "i18n/videoEditorIntro/steps/assets/body"
+      },
+      "body.1.0.0.2.3.0.31.bg": {
+        "vv": "presence/en"
       },
       "body.1.0.0.2.3.0.32.1.0": {
         "xv": "i18n/highlightIntro/endLine1"
@@ -18084,11 +18998,47 @@
       "body.1.0.0.2.6.0.0.1.4.0.0": {
         "xv": "i18n/faq/items/4/q"
       },
-      "body.1.0.0.2.7.0.0.0.0": {
-        "xv": "i18n/landing/creatorProgram/sceneWordStart"
+      "body.1.0.0.2.7.0.2.0.0.1.0": {
+        "xv": "screen/home/7944d12e"
       },
-      "body.1.0.0.2.7.0.0.0.1": {
-        "xv": "i18n/landing/creatorProgram/sceneWordEnd"
+      "body.1.0.0.2.7.0.2.0.0.1.1": {
+        "xv": "screen/home/40f29481"
+      },
+      "body.1.0.0.2.7.0.2.0.1.0.0": {
+        "xv": "screen/home/df9bf266"
+      },
+      "body.1.0.0.2.7.0.2.0.1.1": {
+        "iv": "screen/home/25a1aa4f"
+      },
+      "body.1.0.0.2.8.0.2.0.0.0": {
+        "xv": "screen/home/15d1faa2"
+      },
+      "body.1.0.0.2.8.0.2.0.0.1": {
+        "xv": "screen/home/6047d335",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.2.8.0.2.0.0.2": {
+        "vv": "presence/en"
+      },
+      "body.1.0.0.2.8.0.2.0.1.0": {
+        "xv": "screen/home/d5f3a401"
+      },
+      "body.1.0.0.2.8.0.2.0.1.1": {
+        "xv": "screen/home/6c69d885",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.2.8.0.2.0.1.2": {
+        "xv": "screen/home/3739fc3a",
+        "vv": "presence/en-ko"
+      },
+      "body.1.0.0.2.8.0.2.1.0": {
+        "xv": "screen/home/b5a446fd"
+      },
+      "body.1.0.0.2.8.0.2.1.1": {
+        "xv": "screen/home/9283b5d2"
+      },
+      "body.1.0.0.2.8.0.2.2.0": {
+        "iv": "screen/home/92cffb32"
       }
     },
     "/privacy @ desktop-1920x1080": {
@@ -22201,7 +23151,7 @@
         "xv": "screen/models--slug-/f8fd5c8f"
       },
       "body.1.0.0.2.0.0.3.2.2.1.1": {
-        "xv": "screen/models--slug-/a05c206d"
+        "xv": "screen/home/a05c206d"
       },
       "body.1.0.0.2.0.0.3.2.3.0": {
         "xv": "screen/models/5e8fcb38"
@@ -22296,7 +23246,7 @@
         "xv": "screen/models--slug-/f8fd5c8f"
       },
       "body.1.0.0.2.0.0.3.2.2.1.1": {
-        "xv": "screen/models--slug-/a05c206d"
+        "xv": "screen/home/a05c206d"
       },
       "body.1.0.0.2.0.0.3.2.3.0": {
         "xv": "screen/models/5e8fcb38"
@@ -22420,7 +23370,7 @@
     },
     "part:Product/Page Header Viewport=Desktop": {
       "body.1.0.0.1.0.1.0.0.0": {
-        "xv": "screen/videoeditor/6944fc54"
+        "xv": "screen/archive/6944fc54"
       },
       "body.1.0.0.1.0.1.0.0.1": {
         "xv": "i18n/videoEdit/pageDescription"
@@ -22428,7 +23378,7 @@
     },
     "part:Product/Page Header Viewport=Mobile": {
       "body.1.0.0.1.0.1.0.0.0": {
-        "xv": "screen/videoeditor/6944fc54"
+        "xv": "screen/archive/6944fc54"
       },
       "body.1.0.0.1.0.1.0.0.1": {
         "xv": "i18n/videoEdit/pageDescription~14dd174a"
@@ -22439,7 +23389,7 @@
         "xv": "screen/admin/fd27acf4"
       },
       "body.1.0.0.1.0.0.0.1.0.0.1": {
-        "xv": "screen/admin/39c8bc20"
+        "xv": "screen/admin/becefe65"
       }
     },
     "part:Product/Admin Section Header Viewport=Mobile": {
@@ -22447,7 +23397,7 @@
         "xv": "screen/admin/fd27acf4"
       },
       "body.1.0.0.1.0.0.0.1.0.0.1": {
-        "xv": "screen/admin/39c8bc20"
+        "xv": "screen/admin/becefe65"
       }
     },
     "part:Product/Checkout Agreement Viewport=Desktop": {
@@ -22673,7 +23623,7 @@
         "xv": "i18n/planComparison/categories/1/rows/2/feature"
       },
       "body.1.0.0.2.0.0.4.1.0.0.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.0.1.2.1.0.0": {
         "xv": "i18n/planComparison/categories/2/rows/0/feature"
@@ -22769,7 +23719,7 @@
         "xv": "i18n/planComparison/categories/1/rows/2/feature"
       },
       "body.1.0.0.2.0.0.4.1.0.1.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.1.1.2.1.0.0": {
         "xv": "i18n/planComparison/categories/2/rows/0/feature"
@@ -22865,7 +23815,7 @@
         "xv": "i18n/planComparison/categories/1/rows/2/feature"
       },
       "body.1.0.0.2.0.0.4.1.0.2.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.2.1.2.1.0.0": {
         "xv": "i18n/planComparison/categories/2/rows/0/feature"
@@ -22958,7 +23908,7 @@
         "xv": "i18n/planComparison/categories/1/rows/2/feature"
       },
       "body.1.0.0.2.0.0.4.1.0.3.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.3.1.2.1.0.0": {
         "xv": "i18n/planComparison/categories/2/rows/0/feature"
@@ -23051,7 +24001,7 @@
         "xv": "i18n/planComparison/categories/1/rows/2/feature"
       },
       "body.1.0.0.2.0.0.4.1.0.4.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.4.1.2.1.0.0": {
         "xv": "i18n/planComparison/categories/2/rows/0/feature"
@@ -23149,7 +24099,7 @@
         "xv": "i18n/planComparison/categories/1/rows/2/feature~e54e2cbb"
       },
       "body.1.0.0.2.0.0.4.1.0.0.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.0.1.2.1.0.0": {
         "xv": "i18n/planComparison/categories/2/rows/0/feature~b0f2b02f"
@@ -23245,7 +24195,7 @@
         "xv": "i18n/planComparison/categories/1/rows/2/feature~54d1535a"
       },
       "body.1.0.0.2.0.0.4.1.0.1.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.1.1.2.1.0.0": {
         "xv": "i18n/planComparison/categories/2/rows/0/feature~b0f2b02f"
@@ -23341,7 +24291,7 @@
         "xv": "i18n/planComparison/categories/1/rows/2/feature~54d1535a"
       },
       "body.1.0.0.2.0.0.4.1.0.2.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.2.1.2.1.0.0": {
         "xv": "i18n/planComparison/categories/2/rows/0/feature~b0f2b02f"
@@ -23413,7 +24363,7 @@
         "xv": "i18n/planComparison/categories/1/name~124feacb"
       },
       "body.1.0.0.2.0.0.4.1.0.3.1.2.0.t": {
-        "xv": "screen/pricing/eb3e084c"
+        "xv": "screen/home/eb3e084c"
       },
       "body.1.0.0.2.0.0.4.1.0.3.1.3.0.t": {
         "xv": "i18n/planComparison/categories/3/name~084ed8a8"
@@ -23453,6 +24403,54 @@
         "locale": "ja",
         "path": "body.1.0.0.1.0.0.1.0.3.1.1.2.2.0",
         "text": "個人（信用）情報の第三者提供への同意"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "locale": "ko",
+        "path": "body.1.0.0.2.7.0.0.0.0",
+        "text": "크리에이터와"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "locale": "ko",
+        "path": "body.1.0.0.2.7.0.0.0.1",
+        "text": "함께"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "locale": "ko",
+        "path": "body.1.0.0.2.7.0.1.0.3.0.0",
+        "text": "크리에이터와"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "locale": "ko",
+        "path": "body.1.0.0.2.7.0.1.0.3.0.1",
+        "text": "함께"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "locale": "ko",
+        "path": "body.1.0.0.2.7.0.0.0.0",
+        "text": "크리에이터와"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "locale": "ko",
+        "path": "body.1.0.0.2.7.0.0.0.1",
+        "text": "함께"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "locale": "ko",
+        "path": "body.1.0.0.2.7.0.1.0.3.0.0",
+        "text": "크리에이터와"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "locale": "ko",
+        "path": "body.1.0.0.2.7.0.1.0.3.0.1",
+        "text": "함께"
       },
       {
         "target": "/privacy @ mobile-402x874",
@@ -25262,6 +26260,32 @@
     "stateScreensUnmeasured": [
       "/highlight/[projectId] completed @ desktop-1920x1080",
       "/highlight/[projectId] completed @ mobile-402x874",
+      "/analytics/youtube overview @ desktop-1920x1080",
+      "/analytics/youtube overview @ mobile-402x874",
+      "/analytics/youtube performance @ desktop-1920x1080",
+      "/analytics/youtube performance @ mobile-402x874",
+      "/analytics/youtube audience @ desktop-1920x1080",
+      "/analytics/youtube audience @ mobile-402x874",
+      "/analytics/youtube insufficient @ desktop-1920x1080",
+      "/analytics/youtube insufficient @ mobile-402x874",
+      "/analytics/youtube insufficient.performance @ desktop-1920x1080",
+      "/analytics/youtube insufficient.performance @ mobile-402x874",
+      "/analytics/youtube insufficient.audience @ desktop-1920x1080",
+      "/analytics/youtube insufficient.audience @ mobile-402x874",
+      "/analytics/youtube loading @ desktop-1920x1080",
+      "/analytics/youtube loading @ mobile-402x874",
+      "/analytics/youtube fatal @ desktop-1920x1080",
+      "/analytics/youtube fatal @ mobile-402x874",
+      "/analytics/youtube channel-info @ desktop-1920x1080",
+      "/analytics/youtube channel-info @ mobile-402x874",
+      "/nodecanvas?project= panel.analysis @ desktop-1920x1080",
+      "/nodecanvas?project= panel.analysis @ mobile-402x874",
+      "/nodecanvas?project= panel.angle @ desktop-1920x1080",
+      "/nodecanvas?project= panel.angle @ mobile-402x874",
+      "/nodecanvas?project= panel.help @ desktop-1920x1080",
+      "/nodecanvas?project= panel.help @ mobile-402x874",
+      "/nodecanvas?project= panel.image-edit @ desktop-1920x1080",
+      "/nodecanvas?project= panel.image-edit @ mobile-402x874",
       "/archive palette @ desktop-1920x1080",
       "/archive palette @ mobile-402x874",
       "/archive palette.flyout @ desktop-1920x1080",
@@ -25281,14 +26305,20 @@
       "/nodecanvas seeded @ desktop-1920x1080",
       "/nodecanvas seeded @ mobile-402x874",
       "/nodecanvas seeded.loading-more @ desktop-1920x1080",
-      "/nodecanvas seeded.loading-more @ mobile-402x874"
+      "/nodecanvas seeded.loading-more @ mobile-402x874",
+      "/videoeditor/[projectId] panel.assets @ desktop-1920x1080",
+      "/videoeditor/[projectId] panel.assets @ mobile-402x874",
+      "/videoeditor/[projectId] panel.clip-color @ desktop-1920x1080",
+      "/videoeditor/[projectId] panel.clip-color @ mobile-402x874",
+      "/videoeditor/[projectId] panel.settings @ desktop-1920x1080",
+      "/videoeditor/[projectId] panel.settings @ mobile-402x874"
     ],
     "layoutDelta": [
       {
         "target": "/archive @ desktop-1920x1080",
         "path": "body.1.0.0.1.0.0.2.0",
         "locale": "ko",
-        "dw": 18.95,
+        "dw": 59.83,
         "dh": 0,
         "fixedAncestor": null
       },
@@ -25296,15 +26326,111 @@
         "target": "/archive @ desktop-1920x1080",
         "path": "body.1.0.0.1.0.0.2.0",
         "locale": "ja",
-        "dw": 151.86,
+        "dw": 122.47,
         "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.0.0.1.0",
+        "locale": "ko",
+        "dw": -84.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.0.0.1.0",
+        "locale": "ja",
+        "dw": -67.97,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.0.0.1.1",
+        "locale": "ko",
+        "dw": -84.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.0.0.1.1",
+        "locale": "ja",
+        "dw": -67.97,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.1.0.1.0",
+        "locale": "ko",
+        "dw": -39.45,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.1.0.1.0",
+        "locale": "ja",
+        "dw": -11.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.1.0.1.1",
+        "locale": "ko",
+        "dw": -39.45,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.1.0.1.1",
+        "locale": "ja",
+        "dw": -11.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.2.0.1.0",
+        "locale": "ko",
+        "dw": -44.02,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.2.0.1.0",
+        "locale": "ja",
+        "dw": 22,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.2.0.1.1",
+        "locale": "ko",
+        "dw": -44.02,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.2.1.0.2.0.1.1",
+        "locale": "ja",
+        "dw": 22,
+        "dh": 21,
         "fixedAncestor": null
       },
       {
         "target": "/archive @ mobile-402x874",
         "path": "body.1.0.0.1.0.0.2.0",
         "locale": "ko",
-        "dw": 18.95,
+        "dw": 59.83,
         "dh": 0,
         "fixedAncestor": null
       },
@@ -25312,8 +26438,104 @@
         "target": "/archive @ mobile-402x874",
         "path": "body.1.0.0.1.0.0.2.0",
         "locale": "ja",
-        "dw": 151.86,
+        "dw": 122.47,
         "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.0.0.1.0",
+        "locale": "ko",
+        "dw": -79.94,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.0.0.1.0",
+        "locale": "ja",
+        "dw": -63.31,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.0.0.1.1",
+        "locale": "ko",
+        "dw": -79.94,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.0.0.1.1",
+        "locale": "ja",
+        "dw": -63.31,
+        "dh": -21,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.1.0.1.0",
+        "locale": "ko",
+        "dw": -39.45,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.1.0.1.0",
+        "locale": "ja",
+        "dw": -11.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.1.0.1.1",
+        "locale": "ko",
+        "dw": -39.45,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.1.0.1.1",
+        "locale": "ja",
+        "dw": -11.59,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.2.0.1.0",
+        "locale": "ko",
+        "dw": -44.02,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.2.0.1.0",
+        "locale": "ja",
+        "dw": 12,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.2.0.1.1",
+        "locale": "ko",
+        "dw": -44.02,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/archive @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.2.1.0.2.0.1.1",
+        "locale": "ja",
+        "dw": 12,
+        "dh": 21,
         "fixedAncestor": null
       },
       {
@@ -28054,17 +29276,17 @@
       },
       {
         "target": "/highlight/[projectId]?__phase=loading @ desktop-1920x1080",
-        "path": "body.1.0.0.2.0.1.0.1.0.0.t",
+        "path": "body.1.0.0.2.0.1.0.1.0.0.0",
         "locale": "ko",
-        "dw": 18.08,
+        "dw": 12.28,
         "dh": 0,
         "fixedAncestor": null
       },
       {
         "target": "/highlight/[projectId]?__phase=loading @ desktop-1920x1080",
-        "path": "body.1.0.0.2.0.1.0.1.0.0.t",
+        "path": "body.1.0.0.2.0.1.0.1.0.0.0",
         "locale": "ja",
-        "dw": 74.27,
+        "dw": 14.14,
         "dh": 0,
         "fixedAncestor": null
       },
@@ -28086,17 +29308,17 @@
       },
       {
         "target": "/highlight/[projectId]?__phase=loading @ mobile-402x874",
-        "path": "body.1.0.0.2.0.1.0.1.0.0.t",
+        "path": "body.1.0.0.2.0.1.0.1.0.0.0",
         "locale": "ko",
-        "dw": 18.08,
+        "dw": 12.28,
         "dh": 0,
         "fixedAncestor": null
       },
       {
         "target": "/highlight/[projectId]?__phase=loading @ mobile-402x874",
-        "path": "body.1.0.0.2.0.1.0.1.0.0.t",
+        "path": "body.1.0.0.2.0.1.0.1.0.0.0",
         "locale": "ja",
-        "dw": 74.27,
+        "dw": 14.14,
         "dh": 0,
         "fixedAncestor": null
       },
@@ -28942,9 +30164,65 @@
       },
       {
         "target": "/admin @ desktop-1920x1080",
-        "path": "body.1.0.0.1.0.0.0.1.2.0",
+        "path": "body.1.0.0.1.0.0.0.1.2.0.0",
         "locale": "ko",
-        "dw": 83.33,
+        "dw": -24.91,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.0.1.2.0.1.t",
+        "locale": "ko",
+        "dw": -5.61,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.0.1.2.0.3",
+        "locale": "ko",
+        "dw": -8.36,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.2.0",
+        "locale": "ko",
+        "dw": -9.78,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.2.1",
+        "locale": "ko",
+        "dw": -2.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.2.2",
+        "locale": "ko",
+        "dw": 4.55,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.4.0",
+        "locale": "ko",
+        "dw": -38.66,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.1.0.0.0.1.2.1.4"
+      },
+      {
+        "target": "/admin @ desktop-1920x1080",
+        "path": "body.1.0.0.1.0.0.0.1.3.0.t",
+        "locale": "ko",
+        "dw": 45.02,
         "dh": 0,
         "fixedAncestor": null
       },
@@ -28966,9 +30244,65 @@
       },
       {
         "target": "/admin @ mobile-402x874",
-        "path": "body.1.0.0.1.0.0.0.1.2.0",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.0.0",
         "locale": "ko",
-        "dw": 83.33,
+        "dw": 38.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.0.1",
+        "locale": "ko",
+        "dw": 38.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.2.0",
+        "locale": "ko",
+        "dw": -9.78,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.2.1",
+        "locale": "ko",
+        "dw": -2.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.2.2",
+        "locale": "ko",
+        "dw": 4.55,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.3",
+        "locale": "ko",
+        "dw": -38.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.0.1.2.1.4.0",
+        "locale": "ko",
+        "dw": -38.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "/admin @ mobile-402x874",
+        "path": "body.1.0.0.1.0.0.0.1.3.0.t",
+        "locale": "ko",
+        "dw": 45.02,
         "dh": 0,
         "fixedAncestor": null
       },
@@ -29202,7 +30536,7 @@
         "locale": "ko",
         "dw": 0,
         "dh": -21,
-        "fixedAncestor": "body.1.0.0.0.6.1.2"
+        "fixedAncestor": null
       },
       {
         "target": "/creative-media @ mobile-402x874",
@@ -29210,7 +30544,7 @@
         "locale": "ko",
         "dw": 0,
         "dh": -21,
-        "fixedAncestor": "body.1.0.0.0.6.2.2"
+        "fixedAncestor": null
       },
       {
         "target": "/creative-media @ mobile-402x874",
@@ -29218,7 +30552,7 @@
         "locale": "ko",
         "dw": 0,
         "dh": -21,
-        "fixedAncestor": "body.1.0.0.0.6.3.2"
+        "fixedAncestor": null
       },
       {
         "target": "/creative-media @ mobile-402x874",
@@ -29918,6 +31252,254 @@
       },
       {
         "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1.1.1",
+        "locale": "ko",
+        "dw": -12.86,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1.1.1",
+        "locale": "ja",
+        "dw": -11.75,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.0.0.1.t",
+        "locale": "ko",
+        "dw": -3.19,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.0.0.1.t",
+        "locale": "ja",
+        "dw": 2.17,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.0.0.1",
+        "locale": "ko",
+        "dw": -10.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.0.0.1",
+        "locale": "ja",
+        "dw": -5.55,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.0.1.1.0.0",
+        "locale": "ko",
+        "dw": -7.94,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.0.1.1.0.0",
+        "locale": "ja",
+        "dw": -7.31,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.1.0.0.1.1",
+        "locale": "ko",
+        "dw": -12.86,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.1.0.0.1.1",
+        "locale": "ja",
+        "dw": -11.75,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.0.0.0.0.0.0",
+        "locale": "ko",
+        "dw": 11.27,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.0.0.0.0.0.0",
+        "locale": "ja",
+        "dw": 9.84,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.1.0.0.1.1",
+        "locale": "ko",
+        "dw": -12.86,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.1.0.0.1.1",
+        "locale": "ja",
+        "dw": -11.75,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1.1.1",
+        "locale": "ko",
+        "dw": -12.86,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1.1.1",
+        "locale": "ja",
+        "dw": -11.75,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.3.0.0.0.0.1",
+        "locale": "ko",
+        "dw": -7.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.3.0.0.0.0.1",
+        "locale": "ja",
+        "dw": 3.1,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.0.0.1.t",
+        "locale": "ko",
+        "dw": -11.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.0.0.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.0.0.1.t",
+        "locale": "ja",
+        "dw": 4.27,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.0.0.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.0.t",
+        "locale": "ko",
+        "dw": 4.33,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.1.t",
+        "locale": "ja",
+        "dw": 3.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.2.t",
+        "locale": "ko",
+        "dw": -3.61,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.0.5.0.2.t",
+        "locale": "ja",
+        "dw": -2.03,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.1.0.0.0",
+        "locale": "ko",
+        "dw": -12.97,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.2.0.t",
+        "locale": "ko",
+        "dw": -3.18,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.2.0.t",
+        "locale": "ja",
+        "dw": 12,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.1.0",
+        "locale": "ko",
+        "dw": -374.14,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.1.0",
+        "locale": "ja",
+        "dw": 59.59,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.1.1",
+        "locale": "ko",
+        "dw": -255.91,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.1.1.1.1",
+        "locale": "ja",
+        "dw": -78.16,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.1"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
         "path": "body.1.0.0.2.4.2.1.0.0.0.0.0",
         "locale": "ko",
         "dw": -228.05,
@@ -30038,35 +31620,139 @@
       },
       {
         "target": "/ @ desktop-1920x1080",
-        "path": "body.1.0.0.2.7.0.0.0.0",
+        "path": "body.1.0.0.2.7.0.2.0.0.1.0",
         "locale": "ko",
-        "dw": 48.97,
+        "dw": -116.83,
         "dh": 0,
-        "fixedAncestor": "body.1.0.0.2.7.0.0"
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
       },
       {
         "target": "/ @ desktop-1920x1080",
-        "path": "body.1.0.0.2.7.0.0.0.0",
+        "path": "body.1.0.0.2.7.0.2.0.0.1.0",
         "locale": "ja",
-        "dw": 114.09,
+        "dw": -53.42,
         "dh": 0,
-        "fixedAncestor": "body.1.0.0.2.7.0.0"
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
       },
       {
         "target": "/ @ desktop-1920x1080",
-        "path": "body.1.0.0.2.7.0.0.0.1",
+        "path": "body.1.0.0.2.7.0.2.0.0.1.1",
         "locale": "ko",
-        "dw": -202.53,
+        "dw": -116.83,
         "dh": 0,
-        "fixedAncestor": "body.1.0.0.2.7.0.0"
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
       },
       {
         "target": "/ @ desktop-1920x1080",
-        "path": "body.1.0.0.2.7.0.0.0.1",
+        "path": "body.1.0.0.2.7.0.2.0.0.1.1",
         "locale": "ja",
-        "dw": -151.47,
+        "dw": -53.42,
         "dh": 0,
-        "fixedAncestor": "body.1.0.0.2.7.0.0"
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.7.0.2.0.1.0.0",
+        "locale": "ko",
+        "dw": -8.38,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.7.0.2.0.1.0.0",
+        "locale": "ja",
+        "dw": -6.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.0.0.0",
+        "locale": "ko",
+        "dw": -12.55,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.0.0.0",
+        "locale": "ja",
+        "dw": 190.91,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.0.0.1",
+        "locale": "ko",
+        "dw": 31.72,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.0.1.0",
+        "locale": "ko",
+        "dw": -57.22,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.0.1.0",
+        "locale": "ja",
+        "dw": 115.84,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.0.1.1",
+        "locale": "ko",
+        "dw": 9.36,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.0.1.2",
+        "locale": "ko",
+        "dw": 2.98,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.1.0",
+        "locale": "ko",
+        "dw": -22.42,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.1.0",
+        "locale": "ja",
+        "dw": 30.03,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.1.1",
+        "locale": "ko",
+        "dw": -22.42,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ desktop-1920x1080",
+        "path": "body.1.0.0.2.8.0.2.1.1",
+        "locale": "ja",
+        "dw": 30.03,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
       },
       {
         "target": "/ @ desktop-1920x1080",
@@ -30182,6 +31868,174 @@
       },
       {
         "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1.1.1",
+        "locale": "ko",
+        "dw": -4.03,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1.1.1",
+        "locale": "ja",
+        "dw": -3.68,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.0.0.1.0.5.0.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.0.0.1",
+        "locale": "ko",
+        "dw": -3.22,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.0.1.1.0.0",
+        "locale": "ko",
+        "dw": -2.49,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.0.1.1.0.0",
+        "locale": "ja",
+        "dw": -2.29,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.1.0.0.1.1",
+        "locale": "ko",
+        "dw": -4.03,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.1.0.0.1.1",
+        "locale": "ja",
+        "dw": -3.68,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.1.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.0.0.0.0.0.0",
+        "locale": "ko",
+        "dw": 3.53,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.0.0.0.0.0.0",
+        "locale": "ja",
+        "dw": 3.08,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.1.0.0.1.1",
+        "locale": "ko",
+        "dw": -4.03,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.1.0.0.1.1",
+        "locale": "ja",
+        "dw": -3.68,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.2.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1.1.1",
+        "locale": "ko",
+        "dw": -4.03,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1.1.1",
+        "locale": "ja",
+        "dw": -3.68,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.3.0.1.0.5.0.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0.3.0.0.0.0.1",
+        "locale": "ko",
+        "dw": -2.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.4.0.1.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.0.0.1",
+        "locale": "ko",
+        "dw": -3.53,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.5.0.0"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.1.0.0.0",
+        "locale": "ko",
+        "dw": -4.06,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1.0.0.2.0.t",
+        "locale": "ja",
+        "dw": 3.76,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0.2.6.0.1.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.1.0",
+        "locale": "ko",
+        "dw": -154.27,
+        "dh": -27,
+        "fixedAncestor": "body.1.0.0.2.1.1.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.1.0",
+        "locale": "ja",
+        "dw": 27.66,
+        "dh": -27,
+        "fixedAncestor": "body.1.0.0.2.1.1.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.1.1",
+        "locale": "ko",
+        "dw": -5.97,
+        "dh": -21,
+        "fixedAncestor": "body.1.0.0.2.1.1.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.1.1.1.1",
+        "locale": "ja",
+        "dw": 118.45,
+        "dh": -21,
+        "fixedAncestor": "body.1.0.0.2.1.1.1"
+      },
+      {
+        "target": "/ @ mobile-402x874",
         "path": "body.1.0.0.2.4.2.1.0.0.0.0.0",
         "locale": "ko",
         "dw": -130.48,
@@ -30286,35 +32140,115 @@
       },
       {
         "target": "/ @ mobile-402x874",
-        "path": "body.1.0.0.2.7.0.0.0.0",
+        "path": "body.1.0.0.2.7.0.2.0.0.1.0",
         "locale": "ko",
-        "dw": 20,
+        "dw": -35.94,
         "dh": 0,
-        "fixedAncestor": "body.1.0.0.2.7.0.0"
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
       },
       {
         "target": "/ @ mobile-402x874",
-        "path": "body.1.0.0.2.7.0.0.0.0",
-        "locale": "ja",
-        "dw": 47.34,
-        "dh": 0,
-        "fixedAncestor": "body.1.0.0.2.7.0.0"
-      },
-      {
-        "target": "/ @ mobile-402x874",
-        "path": "body.1.0.0.2.7.0.0.0.1",
+        "path": "body.1.0.0.2.7.0.2.0.0.1.1",
         "locale": "ko",
-        "dw": -86.59,
-        "dh": 0,
-        "fixedAncestor": "body.1.0.0.2.7.0.0"
+        "dw": -35.94,
+        "dh": -21,
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
       },
       {
         "target": "/ @ mobile-402x874",
-        "path": "body.1.0.0.2.7.0.0.0.1",
-        "locale": "ja",
-        "dw": -65.11,
+        "path": "body.1.0.0.2.7.0.2.0.1.0.0",
+        "locale": "ko",
+        "dw": -8.38,
         "dh": 0,
-        "fixedAncestor": "body.1.0.0.2.7.0.0"
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.7.0.2.0.1.0.0",
+        "locale": "ja",
+        "dw": -6.52,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.7.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.0.0.0",
+        "locale": "ko",
+        "dw": -7.58,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.0.0.0",
+        "locale": "ja",
+        "dw": 106.66,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.0.0.1",
+        "locale": "ko",
+        "dw": 17.42,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.0.1.0",
+        "locale": "ko",
+        "dw": -32.59,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.0.1.0",
+        "locale": "ja",
+        "dw": 64.55,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.0.1.1",
+        "locale": "ko",
+        "dw": 5.2,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.1.0",
+        "locale": "ko",
+        "dw": -19.61,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.1.0",
+        "locale": "ja",
+        "dw": 26.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.1.1",
+        "locale": "ko",
+        "dw": -19.61,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
+      },
+      {
+        "target": "/ @ mobile-402x874",
+        "path": "body.1.0.0.2.8.0.2.1.1",
+        "locale": "ja",
+        "dw": 26.28,
+        "dh": 0,
+        "fixedAncestor": "body.1.0.0.2.8.0.2"
       },
       {
         "target": "/privacy @ desktop-1920x1080",
@@ -54310,6 +56244,7 @@
     "figma/locale-strings.04.draw.js",
     "figma/locale-strings.05.draw.js",
     "figma/locale-strings.06.draw.js",
-    "figma/locale-strings.07.draw.js"
+    "figma/locale-strings.07.draw.js",
+    "figma/locale-strings.08.draw.js"
   ]
 }

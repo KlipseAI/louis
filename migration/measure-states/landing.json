@@ -7,6 +7,10 @@
   "recipes": [
     {
       "id": "/ models",
+      "board": {
+        "desktop": "3774:5550",
+        "mobile": "3774:5551"
+      },
       "pattern": "/",
       "file": "apps/web/app/page.tsx",
       "fullPage": true,

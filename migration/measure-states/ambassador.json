@@ -7,6 +7,10 @@
   "recipes": [
     {
       "id": "/ambassador apply.channel",
+      "board": {
+        "desktop": "3774:5556",
+        "mobile": "3774:5557"
+      },
       "base": "/ambassador",
       "fullPage": false,
       "description": "지원서의 채널 질문(「Where do you mainly publish?」)을 채운 상태 — 플랫폼 고르기(compact choice-card 목록)에서 YouTube 를 고르고, 채널 주소 칸과 팔로워 칸에 값을 넣었다. 이름 · 이메일 질문을 거쳐 온다(질문은 Next 로만 넘어간다). 마지막에 포커스를 풀어 칸의 포커스 링 없이 잰다. 진행 선은 지나온 질문만큼(index 3 / 12) 찬다(ApplyFlow.tsx:666 · 698).",
@@ -47,6 +51,10 @@
     },
     {
       "id": "/ambassador apply.received",
+      "board": {
+        "desktop": "3774:5558",
+        "mobile": "3774:5559"
+      },
       "base": "/ambassador",
       "fullPage": false,
       "description": "지원서를 끝까지 채워 제출한 뒤의 접수 화면 — 제목 「Your application has been received.」, 접수된 내용 네 행(유형 · 이름 · 채널 · 연락처), 다음 단계 넷(사전 ambassador.flow.steps), 「Back to the program」. 진행 선은 가득(progress 1, ApplyFlow.tsx:666), 아래 단추 줄(footer)은 없다(ApplyFlow.tsx:756). 프로젝트형이라 함께 올리는 채널 질문은 없다(ApplyFlow.tsx:213). 고르면 넘어가는 칸(공유 빈도 · 질문 빈도)은 고른 뒤 다음 질문 제목을 기다린다. 제출 응답은 라우트 성공 모양 { ok: true }.",

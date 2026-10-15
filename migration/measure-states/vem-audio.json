@@ -7,6 +7,10 @@
   "recipes": [
     {
       "id": "/videoeditor/[projectId] panel.audio",
+      "board": {
+        "desktop": "3774:12175",
+        "mobile": "3774:12176"
+      },
       "base": "/videoeditor/[projectId]",
       "description": "BGM 오디오 클립을 고른 오디오 인스펙터(AudioClipInspector). 모바일은 오디오 레인 클립을 누르고 「Properties」로 시트를 연다. R2 2026-10-15 — 화면 보드(DS-D-0098) 채움용. 데스크톱 · 모바일 둘 다 잰다.",
       "contentNote": "오디오 클립 값은 제품이 BGM 소스를 트랙으로 바꿀 때의 기본값(timelineModel.ts audioSourceToTrack: 트랙 이름 A1 · 볼륨 0.3 · 페이드 1/2초)이고, 길이 4초만 정했다.",

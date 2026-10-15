@@ -7,6 +7,10 @@
   "recipes": [
     {
       "id": "/subscription active",
+      "board": {
+        "desktop": "3774:12179",
+        "mobile": "3774:12180"
+      },
       "base": "/subscription",
       "fullPage": true,
       "description": "크레딧 탭(기본 탭) — Pro 활성 구독 · 크레딧 카드(잔여 21,650 · 플랜 / 충전 명세 · 충전 크레딧 소멸 일정 둘) · 크레딧 이력 표(필터 · 정렬 「Newest first」 · 10행) · 페이지 넘김 「1 / 2」. 모바일은 같은 이력을 목록(creditHistoryMobileList)으로 그린다.",
@@ -44,6 +48,10 @@
     },
     {
       "id": "/subscription tab.group",
+      "board": {
+        "desktop": "3774:12181",
+        "mobile": "3774:12182"
+      },
       "base": "/subscription",
       "url": "/subscription?__state=paid&tab=group",
       "fullPage": true,
@@ -75,6 +83,10 @@
     },
     {
       "id": "/subscription tab.billing",
+      "board": {
+        "desktop": "3774:12183",
+        "mobile": "3774:12184"
+      },
       "base": "/subscription",
       "url": "/subscription?__state=paid&tab=billing",
       "fullPage": true,
@@ -101,6 +113,10 @@
     },
     {
       "id": "/subscription cancel-confirm",
+      "board": {
+        "desktop": "3774:12185",
+        "mobile": "3774:12186"
+      },
       "base": "/subscription",
       "url": "/subscription?__state=paid&tab=billing",
       "description": "해지 확인 모달 — 결제 탭의 「Cancel at period end」 를 누른 상태(ConfirmModal, 위험 확인 버튼). 기간 끝 날짜가 있어 설명은 cancelConfirmDescriptionOn 갈래다.",
@@ -128,6 +144,10 @@
     },
     {
       "id": "/subscription/group-purchase plan-selected",
+      "board": {
+        "desktop": "3774:12177",
+        "mobile": "3774:12178"
+      },
       "pattern": "/subscription/group-purchase",
       "fullPage": true,
       "description": "단체 구매 결제 화면 — 플랜 라디오 카드 넷(Lite · Plus · Pro · Ultra, 900 이하 두 열) 가운데 Pro 를 고른 상태(1.5px primary 링) + gift 모드 결제 패널(수량 칸). 결제창 SDK 는 바깥 요청이라 막혀 패널이 그 상태대로 그려진다(결제 확인 보드 /mypage/upgrade/checkout 과 같다).",

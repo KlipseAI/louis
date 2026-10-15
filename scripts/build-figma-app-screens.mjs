@@ -543,6 +543,7 @@ const PRODUCT_SCREENS = [
   // `/subscription/coupons`(보드 2076:3371 · 2076:3372)는 통합 판(2026-10-08, DS-D-0079)에서 뺀다 — 넘기기만 하는 옛 주소가 되어
   // `/subscription?tab=group` 으로 **리다이렉트되어** 구독 허브가 재진다(redirected: true, 위 `/analytics/instagram` 과 같은 이유).
   // 결제 화면 `/subscription/group-purchase` 는 원장 라우트에 없다 — 측정기가 그 주소를 재면 보드를 그쪽으로 옮긴다. Figma 보드는 그대로 둔다.
+  // 2026-10-16: 그 결제 화면의 상태 레시피(`/subscription/group-purchase plan-selected`, subscription.json)가 같은 섹션(2076:3369)의 칸 2 에 제 보드를 얻었다.
   // **결제 성공 화면 넷의 실제 성공 상태(2026-09-26).** 쿼리 없이 연 화면은 「결제 정보 없음」 분기라 성공 화면의 본체가 보드에
   // 없었다. 개발 전용 `?preview=` 후크(운영에서 꺼지는 NODE_ENV 게이트 — 인용은 측정기 sourceQuotes)로 연 상태 보드다. 프레임은
   // 라우트 섹션 안 §20 자리에 세웠다(결제 결과 섹션 255:1862 의 항목 7~10, bulk 미등록 섹션 2075:2241 의 항목 2~3).
@@ -609,6 +610,9 @@ const PRODUCT_SCREENS = [
     { route: "/blog", desktop: "214:2767", mobile: "214:2865", fixture: "public" },
     // 루트 오류 경계 — 공개 모드의 부스 체험이 던져 선 `app/error.tsx` 화면(측정기 PUBLIC_ROUTES 의 `error`). 404 와 같은 섹션의 보드다.
     { route: "error", desktop: "37:18", mobile: "37:25", fixture: "public" },
+    // 앰버서더 프로그램(2026-10-16, 운영 main 97d4950e · DS-D-0117) — 로그아웃 문서 전체. 01 · 공개 의 ⚠ 미등록 섹션(3774:5552)에 새로 세운 프레임이다.
+    // 같은 섹션의 지원서 상태 둘(apply.channel · apply.received)은 상태 레시피 board(migration/measure-states/ambassador.json)가 정한다.
+    { route: "/ambassador", desktop: "3774:5554", mobile: "3774:5555", fixture: "public" },
   ].filter((screen) => LEDGERS.public.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   // **공개 시드 원장 화면(2026-10-07).** 블로그 글 · 템플릿 상세 — 가짜 Supabase 의 자리표시 시드(`lib/fixture-seeds.mjs` fixturePublicSeeds)로
   // 연 로그아웃 화면. 옛 손 조립 보드와 같은 상태(블로그 커버 · 부제 있음, 템플릿 미디어 5장)다. 글자는 자리표시, 크기 · 색 · 간격은 잰 값이다.
@@ -620,6 +624,13 @@ const PRODUCT_SCREENS = [
     { route: "/models", desktop: "3471:9267", mobile: "3471:9268", fixture: "publicSeeded" },
     { route: "/models/[slug]", desktop: "3471:9269", mobile: "3471:9270", fixture: "publicSeeded" },
   ].filter((screen) => LEDGERS.publicSeeded.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
+  // **덱 세션 원장 화면(2026-10-16, 운영 main 97d4950e · DS-D-0117).** Klipse Deck 교안 서재 · 교안 · 관리 — 세션 서버에 가짜 S3(자리표시 교안 판)를 붙여 잰
+  // 화면. 03 · 앱 의 ⚠ 미등록 섹션(3774:12187)에 새로 세운 프레임이다. 원장이 없으면 이 항목들이 빠질 뿐 생성기는 멈추지 않는다.
+  ...(LEDGERS.sessionDeck ? [
+    { route: "/deck", desktop: "3774:12189", mobile: "3774:12190", fixture: "sessionDeck" },
+    { route: "/deck/c/[course]", desktop: "3774:12191", mobile: "3774:12192", fixture: "sessionDeck" },
+    { route: "/deck/manage", desktop: "3774:12193", mobile: "3774:12194", fixture: "sessionDeck" },
+  ].filter((screen) => LEDGERS.sessionDeck.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...STATE_RECIPE_SCREENS,
 ];
 // LOUIS 문서 예시 보드 — `DS · Templates` 의 「Pattern · Document — 문서 스킬」 보드 안 프레임(2026-10-07).

@@ -7,6 +7,10 @@
   "recipes": [
     {
       "id": "/highlight/[projectId]/shorts/[shortId] upload",
+      "board": {
+        "desktop": "3774:12168",
+        "mobile": "3774:12169"
+      },
       "base": "/highlight/[projectId]/shorts/[shortId]",
       "description": "유튜브 업로드 창 — 채널 연결됨 · phase form(watch 모사 미리보기 + 제목 · 설명 · 태그). 창을 열면 연결 상태를 다시 묻는다(YoutubeUploadModal.tsx 847) — 두 응답 모두 가로챈다. 플랜 게이트는 열린다: 세션 fixture 는 profiles 가 비어 /api/auth/me 의 billing 이 null 이고(route.ts 86–92), 판정 불가면 막지 않는다(usePlanGating.ts 64).",
       "contentNote": "채널 이름은 제품 데모 값(shortResultPreview.ts 58 「풋볼 클립 스튜디오」). 채널 id 는 자리표시, 썸네일은 비워 아바타가 빈 원이다(바깥 이미지는 측정기가 끊는다). 결과 영상은 기준 시드의 바깥 주소라 플레이어는 검은 면이다. 시각 connected_at 은 고정 절대 시각이고 화면에 그려지지 않는다.",
@@ -61,6 +65,10 @@
     },
     {
       "id": "/highlight/[projectId]/shorts/[shortId] upload.connect",
+      "board": {
+        "desktop": "3774:12170",
+        "mobile": "3774:12171"
+      },
       "base": "/highlight/[projectId]/shorts/[shortId]",
       "description": "유튜브 업로드 창 — 채널 미연결(연결 상자). 가로채기 없이 세션 fixture 그대로다: youtube_accounts 가 비어 /api/auth/youtube/me 가 connected:false 로 답한다(route.ts 60–64).",
       "contentNote": "지어낸 내용 없음 — 글자는 en 메시지다.",
@@ -94,6 +102,9 @@
     },
     {
       "id": "/highlight/[projectId]/shorts/[shortId] edit.templates",
+      "board": {
+        "desktop": "3774:12172"
+      },
       "base": "/highlight/[projectId]/shorts/[shortId]",
       "contexts": ["desktop-1920x1080"],
       "description": "결과 보기 → 「Re-edit」 → 편집기(VideoEditModal) 왼쪽 레일의 「Templates」 탭. 템플릿 목록 둘(기본 · 추천 배지) · 레이아웃 줄(LayoutThumb 일곱) · 색 패널(제목 · 부제목 · 자막 세 줄, 스와치 값 있음 / 없음 두 상태, 배경 여백 슬라이더). 데스크톱만 — 719 이하에서는 에셋 레일이 시트(mobileSheet)라 여는 길이 다르다(VideoEditModal.tsx AssetPanel sheetOpen).",

@@ -7,6 +7,10 @@
   "recipes": [
     {
       "id": "/highlight history",
+      "board": {
+        "desktop": "3774:12166",
+        "mobile": "3774:12167"
+      },
       "base": "/highlight",
       "url": "/highlight?preview=hub",
       "fullPage": true,

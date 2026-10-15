@@ -7,6 +7,10 @@
   "recipes": [
     {
       "id": "/archive survey.question",
+      "board": {
+        "desktop": "3774:12160",
+        "mobile": "3774:12161"
+      },
       "pattern": "/archive",
       "description": "첫 질문(「Where did you first hear about Klipse?」 — discovery, 그림 타일 여덟 장)에서 YouTube 타일을 고른 상태. 고른 칸은 안쪽 링 · 채운 표식, 아래 막대는 고른 이름 요약과 켜진 Next. 진행 막대 1/5.",
       "surfaces": ["apps/web/components/analytics/ResearchOnboarding.tsx#ResearchOnboarding"],
@@ -38,6 +42,10 @@
     },
     {
       "id": "/archive survey.other",
+      "board": {
+        "desktop": "3774:12162",
+        "mobile": "3774:12163"
+      },
       "pattern": "/archive",
       "description": "첫 질문에서 「Other」 타일을 골라 그 칸이 입력(louis-text-field, 그림을 걷는다)으로 바뀌고 글을 적은 상태. 글이 있어야 Next 가 켜진다(needsOtherText). 마지막에 포커스를 풀어 칸 링 없이 잰다.",
       "surfaces": ["apps/web/components/analytics/ResearchOnboarding.tsx#ResearchOnboarding"],
@@ -64,6 +72,10 @@
     },
     {
       "id": "/archive survey.done",
+      "board": {
+        "desktop": "3774:12164",
+        "mobile": "3774:12165"
+      },
       "pattern": "/archive",
       "description": "다섯 질문에 답하고 Done 을 눌러 저장한 뒤의 마지막 화면 — 고른 답 세 장의 콜라주(donePicks: use_case → channels 순, surveyFlow.ts) · 체크 표식 · 「Thanks for sharing」 · 「Start using Klipse」. 진행 막대는 가득, 「Skip survey」는 없다. 답: discovery YouTube · use_case Social content · role Creator · blocker It takes too long · channels Instagram + YouTube(복수) → 콜라주 Social content · Instagram · YouTube.",
       "surfaces": ["apps/web/components/analytics/ResearchOnboarding.tsx#ResearchOnboarding"],

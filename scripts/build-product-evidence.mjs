@@ -12,10 +12,16 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const measuredPath = resolve(repoRoot, "migration/product.measured.json");
 const outputPath = resolve(repoRoot, "migration/product-evidence.lock.json");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
-// 정본은 `design` 브랜치다. `origin/main`이 아니다 — 2026-08-21 확정.
-// `origin/main`에는 이미 폐지된 개념(글래스 섀도우 5겹)이 남아 있어 그것을 읽으면
-// 문서가 죽은 토큰을 가르친다. 저장소 기본 브랜치도 `main`이 아니라 `dev`다.
-const productRef = process.env.KLIPSE_PRODUCT_REF ?? "design";
+// **앵커는 운영에 배포된 `main` 의 커밋이다(DS-D-0117, 2026-10-15).** 운영(prd)은 GitHub
+// `KlipseAI/klipse-web` 의 `main` push 로 배포된다(제품 `.github/workflows/deploy.yml`). 그래서
+// KLIPSE_PRODUCT_REPO 는 운영 커밋의 읽기 전용 체크아웃이고 기준선은 그 체크아웃의 `HEAD` 다.
+// (그전 정본은 `design` 브랜치(2026-08-21) → 작업 브랜치 통합 판(DS-D-0079)이었다.)
+const productRef = process.env.KLIPSE_PRODUCT_REF ?? "HEAD";
+// 배포가 일어나는 원격과 브랜치. lock 의 `productRemote` 는 이 값이다 — 체크아웃의 `origin` 은
+// 원저자 맥의 로컬 클론(/Users/sejunki/klipse-web)일 수 있어 다른 맥에서 뜻이 없다.
+const PUBLISHED_REMOTE =
+  process.env.KLIPSE_PRODUCT_PUBLISHED_REMOTE ?? "https://github.com/KlipseAI/klipse-web.git";
+const PUBLISHED_BRANCH = "main";
 
 if (!existsSync(resolve(productRoot, ".git"))) {
   console.error("[product-evidence] 제품 저장소가 없습니다: " + productRoot);
@@ -34,29 +40,69 @@ const commit = git(["rev-parse", productRef]);
 // 통째로 검증 불가가 되고 `verify:product` 13게이트가 죽는다. 그런데 hosted CI도
 // `pnpm clean-room`도 제품 저장소를 읽지 않으므로 **이 결함에 대해서는 영원히 초록이다.**
 // 사람이 눈치챌 자리가 없으므로 기준선을 박는 이 자리에서 막는다.
-// **예외 하나 — 작업 브랜치 통합 판(DS-D-0079).** 통합 판은 제품 저장소에 없는 병합 커밋이다. `integration.json` 의 `result` 와
-// 같은 커밋만 받는다 — `migration/product-integration/build.sh` 가 같은 이름 · 날짜로 다시 만들어 같은 SHA 가 나온다. 갈래 브랜치가
-// 원저자 맥에만 있으면 다른 맥은 재현할 수 없다는 한계는 그 Decision 이 적는다.
+//
+// **「원격에 있다」는 배포 원격의 `main` 에 있다는 뜻이다(DS-D-0117).** 그전에는 체크아웃의 원격 추적
+// 브랜치(`git branch -r --contains`) 아무 데나 있으면 받았다. 그런데 운영 체크아웃의 `origin` 은 원저자 맥의
+// 로컬 클론이라 그 원격 추적 브랜치는 GitHub 에 없는 로컬 브랜치까지 담고, 거꾸로 GitHub 의 `main` 은
+// 원격 설정 없는 ref 로만 들어와 있을 수 있다. 어느 쪽도 「배포됐다」를 말하지 않는다. 그래서 배포 원격에
+// 직접 묻는다 — `git ls-remote` 로 `main` 의 끝을 받아 기준선이 그 첫 부모 사슬 위에 있는지 본다. 첫 부모
+// 사슬의 커밋은 하나하나가 `main` 이 가리켰던 커밋, 곧 push 로 운영에 배포됐던 커밋이다.
+// 기준선을 옮기는 것은 일부러 하는 일이므로 여기서는 네트워크를 요구한다. 대조 게이트
+// (verify-product-evidence)는 원격에 묻지 않는다.
+//
+// **예외 하나 — 작업 브랜치 통합 판(DS-D-0079, DS-D-0117 이 대신함).** 통합 판은 제품 저장소에 없는 병합
+// 커밋이다. `integration.json` 의 `result` 와 같은 커밋만 받는다 — DS-D-0117 의 Rollback 이 이 길을 쓴다.
 const integrationResult = (() => {
   try { return JSON.parse(readFileSync(resolve(repoRoot, "migration/product-integration/integration.json"), "utf8")).result ?? null; } catch { return null; }
 })();
-if (commit !== integrationResult && git(["branch", "-r", "--contains", commit]) === "") {
-  console.error(
-    "[product-evidence] 원격에 없는 커밋을 기준선으로 박을 수 없습니다: " +
-      commit.slice(0, 8) +
-      " (" +
-      productRef +
-      ")",
-  );
-  console.error(
-    "[product-evidence] 이 커밋은 " +
-      productRoot +
-      " 에만 있습니다. 다른 맥에서는 근거 대조가 불가능합니다.",
-  );
-  console.error(
-    "[product-evidence] 먼저 push 하거나, KLIPSE_PRODUCT_REF=origin/<branch> 로 원격 커밋을 기준선으로 쓰세요.",
-  );
-  process.exit(1);
+if (commit !== integrationResult) {
+  let publishedTip;
+  try {
+    const line = git(["ls-remote", PUBLISHED_REMOTE, "refs/heads/" + PUBLISHED_BRANCH]);
+    publishedTip = /^([0-9a-f]{40})\s/.exec(line)?.[1];
+  } catch (error) {
+    console.error(
+      "[product-evidence] 배포 원격에 묻지 못했습니다: " + PUBLISHED_REMOTE + " (" + String(error.message).split("\n")[0] + ")",
+    );
+    console.error(
+      "[product-evidence] 기준선 이동은 배포 원격의 `" + PUBLISHED_BRANCH + "` 을 확인해야 합니다 — 네트워크를 연결하고 다시 돌리세요.",
+    );
+    process.exit(1);
+  }
+  if (!publishedTip) {
+    console.error("[product-evidence] 배포 원격에 `" + PUBLISHED_BRANCH + "` 이 없습니다: " + PUBLISHED_REMOTE);
+    process.exit(1);
+  }
+  let hasTip = true;
+  try {
+    git(["cat-file", "-e", publishedTip + "^{commit}"]);
+  } catch {
+    hasTip = false;
+  }
+  if (!hasTip) {
+    console.error(
+      "[product-evidence] 배포 원격 `" + PUBLISHED_BRANCH + "` 의 끝 " + publishedTip.slice(0, 8) + " 이 " + productRoot +
+        " 에 없습니다 — 먼저 fetch 하세요.",
+    );
+    process.exit(1);
+  }
+  const deployed = new Set(git(["rev-list", "--first-parent", publishedTip]).split("\n"));
+  if (!deployed.has(commit)) {
+    console.error(
+      "[product-evidence] 운영에 배포된 커밋이 아닙니다: " + commit.slice(0, 8) + " (" + productRef + ") — " +
+        PUBLISHED_REMOTE + " `" + PUBLISHED_BRANCH + "`(" + publishedTip.slice(0, 8) + ") 의 첫 부모 사슬에 없습니다.",
+    );
+    console.error(
+      "[product-evidence] 앵커는 운영 배포를 따라간다(DS-D-0117). KLIPSE_PRODUCT_REPO 를 운영 커밋의 체크아웃으로 두세요.",
+    );
+    process.exit(1);
+  }
+  if (commit !== publishedTip) {
+    console.log(
+      "[product-evidence] 참고: 배포 원격 `" + PUBLISHED_BRANCH + "` 의 끝은 " + publishedTip.slice(0, 8) +
+        " 이다 — 기준선 " + commit.slice(0, 8) + " 은 그보다 앞선 배포다.",
+    );
+  }
 }
 
 // **산문이 인용한 파일도 고정한다.** 2026-08-21까지 이 락은 `product.measured.json`이 인용한
@@ -98,7 +144,7 @@ const payload =
         "생성물. scripts/build-product-evidence.mjs가 배포본에서 뽑는다. 직접 수정하지 않는다.",
       $whyThisExists:
         "migration/product.measured.json의 축들은 제품 파일을 인용한다. 그 파일이 제품에서 바뀌어도 이 저장소는 알 방법이 없었다 — 모든 게이트가 초록인 채로 실측이 낡는다. 여기에 인용 파일의 blob 해시를 고정해, 제품 저장소가 있을 때 어긋남을 실패로 만든다.",
-      productRemote: git(["remote", "get-url", "origin"]),
+      productRemote: commit === integrationResult ? git(["remote", "get-url", "origin"]) : PUBLISHED_REMOTE,
       productRef,
       productCommit: commit,
       evidence,

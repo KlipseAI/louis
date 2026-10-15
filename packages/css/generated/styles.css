@@ -11153,7 +11153,12 @@ a.louis-breadcrumb__parent:hover {
    * 「이전엔」이라 부르는 바로 그 색이다. 둘 다 옮겼고, 두께는 이제 verify-figma-parity의
    * MenuSeparator 계약이 `menu-popover.sizes.panel.separatorWidth`와 대조한다. */
   block-size: var(--louis-border-width-hairline);
-  box-shadow: var(--louis-hairline-inset-block-start);
+  /* **선은 그림자가 아니라 바탕으로 칠한다(2026-10-15).** 0.5px 상자 안의 inset 그림자는 상자의 y 소수부가
+   * 0.5 이상이면 Chrome 이 아예 칠하지 않았다 — 기기 배율 1 · 1.5 · 2 · 3, 라이트 · 다크 48 경우 중 24 에서 선이
+   * 사라졌다(앞 행 높이에 소수가 섞인 메뉴 — 캔버스 우클릭 메뉴 · 줌 메뉴). 같은 0.5px 상자를 바탕색으로 칠하면 48 모두
+   * 보인다. `border` 는 쓰지 않는다 — Chrome 이 0.5px 테두리를 1px 로 올려 두께가 달라진다. 색 · 두께는 그대로라
+   * 헤어라인 토큰(DS-D-0023) · Figma MenuSeparator(높이 0.5 채움) · 기하 계약이 바뀌지 않는다. */
+  background-color: var(--louis-color-stroke-hairline);
   margin-block: var(--louis-space-control-xs);
   margin-inline: 0;
 }

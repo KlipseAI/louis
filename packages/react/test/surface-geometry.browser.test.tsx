@@ -274,8 +274,15 @@ test("Menu 패널과 항목의 구조값이 components.measured.json과 같다",
   const separatorStyle = getComputedStyle(separator);
   expect(px(separatorStyle.blockSize), "separator 두께").toBe(spec.separatorWidth);
   expect(px(separatorStyle.marginBlockStart), "separator margin").toBe(spec.separatorMargin);
-  // 두께만 있고 선이 없으면 빈 자리다 — 선은 방향성 inset 헤어라인이 그린다 (DS-D-0023).
-  expect(separatorStyle.boxShadow, "separator inset 헤어라인").toContain("inset");
+  // 두께만 있고 선이 없으면 빈 자리다. **선은 바탕색이 칠한다(2026-10-15)** — 0.5px 상자 안의 inset 그림자는
+  // 상자의 y 소수부가 0.5 이상이면 Chrome 이 칠하지 않아 메뉴 구분선이 사라졌다(menu-popover.css 의 같은 주석).
+  // 그림자로 되돌리면 이 두 줄이 빨개진다.
+  const hairline = document.createElement("div");
+  hairline.style.color = "var(--louis-color-stroke-hairline)";
+  separator.parentElement!.append(hairline);
+  expect(separatorStyle.backgroundColor, "separator 바탕 = 헤어라인 색").toBe(getComputedStyle(hairline).color);
+  hairline.remove();
+  expect(separatorStyle.boxShadow, "separator 는 그림자로 그리지 않는다").toBe("none");
 });
 
 /**

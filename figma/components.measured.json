@@ -839,7 +839,7 @@
           "separatorMargin": 4,
           "$separatorMargin": "4px 구분선 마진",
           "separatorWidth": 0.5,
-          "$separatorWidth": "0.5px. border-width-hairline (packages/css/generated/tokens.css:245). menu-popover.css:241 의 block-size 가 두께를, :242 의 box-shadow: hairline-inset-block-start 가 선을 나눠 낸다 (DS-D-0023) — box-shadow 는 레이아웃을 건드리지 않으므로 두께가 별도 선언이다. **이 자리는 1 이라고 적혀 있었다(2026-09-01 정정).** 이 파일은 「Figma component set 이 만족해야 하는 코드 실측값」인데 코드가 내는 값은 0.5 였다. 1 은 제품이 a3ed8e0 에서 쓰던 값이고(migration/product-has-refutation.json 의 같은 축이 matches:\"다름\" 으로 그 편차를 이미 기록했다), 그 제품 값이 코드 실측 자리에 들어와 있었다. 어느 게이트도 둘을 만나게 하지 않았다 — 이제 surface-geometry.browser.test.tsx 가 computed blockSize 로 잰다(offsetHeight 는 정수로 반올림해 0.5 를 못 본다)"
+          "$separatorWidth": "0.5px. border-width-hairline (packages/css/generated/tokens.css:245). menu-popover.css 의 block-size 가 두께를, background-color: color-stroke-hairline 이 선을 낸다(2026-10-15 — 전에는 box-shadow: hairline-inset-block-start 였는데 y 소수부 0.5 이상에서 Chrome 이 칠하지 않아 선이 사라졌다). **이 자리는 1 이라고 적혀 있었다(2026-09-01 정정).** 이 파일은 「Figma component set 이 만족해야 하는 코드 실측값」인데 코드가 내는 값은 0.5 였다. 1 은 제품이 a3ed8e0 에서 쓰던 값이고(migration/product-has-refutation.json 의 같은 축이 matches:\"다름\" 으로 그 편차를 이미 기록했다), 그 제품 값이 코드 실측 자리에 들어와 있었다. 어느 게이트도 둘을 만나게 하지 않았다 — 이제 surface-geometry.browser.test.tsx 가 computed blockSize 로 잰다(offsetHeight 는 정수로 반올림해 0.5 를 못 본다)"
         },
         "descriptionItem": {
           "$descriptionItem": "두 줄 항목(이름 + 결과 한 줄, 2026-10-08 Figma `Layout=description`). menu-popover.css 의 `.louis-menu__item:where(:has(.louis-menu__item-description))` 이 정본이다 — 설명 슬롯이 있는 항목만 정렬을 위로 옮기고 줄을 접지 않는다. 바뀌지 않는 칸(여백 · 간격 · 곡률)은 panel 의 항목 값과 같은 수다.",

@@ -1,0 +1,39 @@
+{
+  "$schema": "./_schema.json",
+  "area": "landing",
+  "mode": "public-seeded",
+  "authoredAgainst": "97d4950e153d",
+  "description": "랜딩 영역(공개 시드 모드 --public-seeded). 운영 판 97d4950e 의 「최신 AI 모델」 절(ModelShowcase)은 모든 폭에서 스토리 무대 하나다 — 옛 앵커의 데스크톱 Stage / 모바일 ModelCarousel 분기는 없어졌다(ModelShowcase.tsx 머리 주석 · 96행 default export 하나, 표면 원장에도 #Stage 가 없다). 절은 /api/models 가 빈 목록이거나 실패하면 통째로 null 이라(ModelShowcase.tsx:149) 공개 원장(--public, Supabase 닿지 않음 → 라우트 500)의 / 에는 이 절이 없다. 공개 시드 모드는 가짜 Supabase 의 landing_models 시드(lib/fixture-seeds.mjs FIXTURE_PUBLIC_SEEDS — 카드 10장, 첫 장 Seedance 2.5 · New)를 갖고 있어 제품 라우트(app/api/models/route.ts)가 그대로 카드 목록과 사양 한 줄(spec)을 만들어 내준다 — 가로채기 없이 운영 판 그대로의 응답이다. 랜딩 / 은 PUBLIC_ROUTES(공개 모드)의 화면이고 PUBLIC_SEEDED_ROUTES 에는 없다 — 그래서 base 가 아니라 pattern · file · fullPage · reducedMotion 을 직접 적는다(값은 PUBLIC_ROUTES 의 / 항목과 같다).",
+  "recipes": [
+    {
+      "id": "/ models",
+      "pattern": "/",
+      "file": "apps/web/app/page.tsx",
+      "fullPage": true,
+      "reducedMotion": true,
+      "description": "랜딩 문서 전체에 「Try the newest AI models」 절이 선 상태 — 제목, 21:9(1023 아래 16:10, 719 아래 4:5) 무대, 무대 위 스토리 막대 10칸(첫 칸 지금 모델), 왼쪽(좁은 폭은 아래) 모델명 · 한 줄 소개 · 회사와 사양 한 줄 · 「이 모델로 만들기」 · 「Learn more」. 동작 줄이기라 넘기지 않고 첫 모델(Seedance 2.5)에 선다(진행 선은 찬 채, ModelShowcase.tsx:160-161). 데스크톱 · 모바일 둘 다 잰다.",
+      "surfaces": ["apps/web/components/landing/sections/ModelShowcase.tsx#ModelShowcase"],
+      "cite": [
+        { "path": "apps/web/app/HomePageClient.tsx", "line": 87, "expect": "<ModelShowcase />" },
+        { "path": "apps/web/components/landing/sections/ModelShowcase.tsx", "line": 100, "expect": "const models = useLandingModels(locale).filter((model) => model.media_url);" },
+        { "path": "apps/web/components/landing/sections/ModelShowcase.tsx", "line": 149, "expect": "if (models.length === 0) return null;" },
+        { "path": "apps/web/components/landing/sections/ModelShowcase.tsx", "line": 175, "expect": "<SectionShell id=\"models\">" },
+        { "path": "apps/web/components/landing/sections/ModelShowcase.tsx", "line": 254, "expect": "<p className={STAGE_NAME}>{current.name}</p>" },
+        { "path": "apps/web/components/landing/sections/ModelShowcase.tsx", "line": 257, "expect": "{current.spec ? <p className={STAGE_SPEC}>{current.spec}</p> : null}" },
+        { "path": "apps/web/components/landing/sections/landingModels.ts", "line": 32, "expect": "fetch(`/api/models?locale=${locale}`)" },
+        { "path": "apps/web/app/api/models/route.ts", "line": 21, "expect": "const cards = await loadLandingModelCards(locale);" },
+        { "path": "apps/web/app/api/models/route.ts", "line": 37, "expect": "{ ok: true, data }," },
+        { "path": "apps/web/app/lib/models/publicModelList.ts", "line": 43, "expect": "landingName: \"Seedance 2.5\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 547, "expect": "title: \"Try the newest AI models\"," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 548, "expect": "learnMore: \"Learn more\"," }
+      ],
+      "steps": [
+        { "waitFor": { "role": "heading", "name": "Try the newest AI models", "exact": true }, "description": "응답이 와야 절이 선다(ModelShowcase.tsx:149)." },
+        { "waitFor": { "text": "Placeholder one-line model description.", "within": { "css": "#models" } }, "description": "무대 문구 블록 — 지금 모델(첫 카드)의 한 줄 소개. 섹션 id(SectionShell id=models)로 좁힌다." }
+      ],
+      "pointer": "park",
+      "assert": { "text": ["Try the newest AI models", "Seedance 2.5", "Placeholder one-line model description.", "Learn more"] },
+      "contentNote": "지어낸 것은 시드 카드의 한 줄 소개(자리표시)와 그림 주소뿐이다(lib/fixture-seeds.mjs landing_models 주석). 이름은 제품 PUBLIC_MODELS 의 landingName 그대로라 사양 한 줄과 「Learn more」 링크가 붙는다. 무대 그림은 측정용 CDN 주소라 픽셀은 비고 기하 · 스타일만 잰다."
+    }
+  ]
+}

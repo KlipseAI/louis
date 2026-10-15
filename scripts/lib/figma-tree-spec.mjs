@@ -1210,47 +1210,57 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         stats.percentShareScaled = (stats.percentShareScaled ?? 0) + 1;
       }
     }
-    // **제약으로 늘어나는 자동 배치 덮개의 외동 FILL 은 여백을 둔 가로 STRETCH 다(2026-10-15, 조립 규칙 15조의 33).** 15조의 13 과 같은 Figma 성질 —
+    // (기록 — 2026-10-16 에 아래 15조의 40 가 이 갈래의 NONE 전환을 대신한다.) **제약으로 늘어나는 자동 배치 덮개의 외동 FILL 은 여백을 둔 가로 STRETCH 다(2026-10-15, 조립 규칙 15조의 33).** 15조의 13 과 같은 Figma 성질 —
     // 제약으로 크기가 바뀐 자동 배치 프레임은 FILL 자식을 다시 배치하지 않는다. 15조의 13 은 «NONE 부모 · 패딩 없음 · 두 축 FILL» 만 받아, 모달 덮개
     // (`fixed inset-0 flex items-center justify-center p-4`, 흐름 형제가 있는 자동 배치 부모 안의 절대 배치) 안의 카드(`w-full max-w-[420px]` — 모바일에서
     // 덮개 안쪽 폭을 채운 FILL)가 덮개를 360 으로 줄여도 370 에 남아 덮개 밖으로 5 · 보드 밖으로 나갔다(노드캔버스 각도 · 이미지 편집 · 분석 모달 모바일,
     // 늘림 시험 run 2026-10-15names). 덮개의 자동 배치를 걷고(NONE) 카드를 측정 자리의 절대 배치로 둔다 — 가로는 STRETCH(측정 여백 = 덮개 패딩이 양쪽에
     // 남는다), 세로는 FILL 이면 STRETCH, 아니면 덮개의 세로 정렬(가운데 · 끝 · 시작)이고 세로 HUG 는 그대로(내용이 감기면 자란다). 덮개가 절대 배치 ·
     // 가로 제약 STRETCH · SCALE · 자식이 하나 · 그 자식이 가로 FILL 이고 최대 폭에 닿지 않았을 때만. 측정 크기의 자리 · 크기는 바뀌지 않는다.
+    // **2026-10-16 · 조립 규칙 15조의 40 — 덮개는 자동 배치로 두고 카드를 주축 FILL 로.** 위(15조의 33)처럼 카드를 NONE 덮개 안의 STRETCH 절대 배치로
+    // 두면 이번엔 카드 자신이 제약으로 줄어드는 세로 자동 배치 프레임이 되어 카드의 교차축 FILL 자식(머리 · 본문 · 단추 줄)이 다시 배치되지 않았다(각도 ·
+    // 이미지 편집 · 분석 모바일 360 의 부모 밖 4 · 5 · 2). 라이브 탐침(2026-10-16, 복제본): 제약으로 줄어든 자동 배치 프레임은 **주축 FILL(grow)은 다시
+    // 배치하고 교차축 FILL(stretch)은 다시 배치하지 않는다** — 가로 자동 배치 덮개(팔레트 덮개 · 각도 덮개를 가로로 되돌린 것) 안의 가로 FILL 카드는 402 → 360
+    // 에서 336 · 328 로 줄고, 자동 배치가 줄인 카드 안의 교차축 FILL 자식도 304 로 따라왔다. 1 열 GRID 덮개 안의 FILL 카드도 같다(이미지 편집 320).
+    // 그래서 덮개의 자동 배치를 걷지 않는다 — 가로(또는 1 열 GRID) 덮개면 그대로, 세로 덮개면 흐름 자식이 하나뿐이라 방향을 가로로 바꾸고 두 정렬을
+    // 맞바꾼다(카드가 세로 FILL 이면 세로가 주축이어야 하므로 그대로 둔다). 카드는 가로 FILL, 최대 폭은 폭 선언의 px 갈래(`min(420px, 100vw - 32px)`)나
+    // 이미 선 최대 폭이다. 덮개의 절대 배치 형제(딤 · 숨긴 1px 상자)는 제약으로 서 있으므로 흐름 자식 수에 넣지 않는다. 폭 선언이
+    // `min(var(--…), 100%)` 처럼 px 가 없는 식이면 측정 폭이 덮개 안쪽 폭과 같을 때(백분율 갈래가 이겼다) 같은 판정이다(팔레트 · 대화 상자 —
+    // LOUIS 판 제품의 `inline-size: min(var(--louis-command-palette-inline-size), 100%)`, 최대 폭은 변수라 비운다).
     children = children.map((child) => {
       const c = child.constraints;
-      if (child.positioning !== "ABSOLUTE" || child.layout?.layoutMode !== "HORIZONTAL" || !c) return child;
+      const mode = child.layout?.layoutMode;
+      if (child.positioning !== "ABSOLUTE" || !c || !["HORIZONTAL", "VERTICAL", "GRID"].includes(mode)) return child;
+      if (mode === "GRID" && (child.layout.columns ?? 1) !== 1) return child;
       if (![c.horizontal, c.vertical].every((value) => value === "STRETCH" || value === "SCALE")) return child;
-      if ((child.children ?? []).length !== 1) return child;
-      const [only] = child.children;
-      if (only.positioning === "ABSOLUTE" || !child.rect || !only.rect) return child;
-      // 덮개는 측정 크기로 선(HUG 아님) 여백 둔 판이다 — NONE 은 내용으로 자랄 수 없고, 여백 없는 판은 15조의 13 의 몫이다.
+      const flow = (child.children ?? []).filter((kid) => kid.positioning !== "ABSOLUTE");
+      if (flow.length !== 1) return child;
+      const [only] = flow;
+      if (!child.rect || !only.rect) return child;
       const gutter = child.layout.padding;
       if (child.sizing.layoutSizingHorizontal === "HUG" || child.sizing.layoutSizingVertical === "HUG" || !(gutter.left > 0 || gutter.right > 0)) return child;
-      // `width: min(420px, 100vw - 32px)` — 뷰포트(또는 부모 백분율) 갈래가 이긴 폭은 덮개를 따라 줄어든다. 고정 갈래(측정 폭 = 그 px)면 그대로 둔다.
       const declaredWidth = String(byPath.get(only.path)?.declared?.width ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
-      const capped = /^min\(/.test(declaredWidth) && /vw|%/.test(declaredWidth) && /(\d+(?:\.\d+)?)px/.test(declaredWidth)
-        && only.rect.width < Math.min(...[...declaredWidth.matchAll(/(?<![-\d.])(\d+(?:\.\d+)?)px/g)].map((m) => Number(m[1]))) - 0.5;
+      const caps = [...declaredWidth.matchAll(/(?<![-\d.])(\d+(?:\.\d+)?)px/g)].map((m) => Number(m[1]));
+      const room = child.rect.width - gutter.left - gutter.right;
+      const relative = /^min\(/.test(declaredWidth) && /vw|%/.test(declaredWidth);
+      const capped = relative && (caps.length ? only.rect.width < Math.min(...caps) - 0.5 : Math.abs(only.rect.width - room) <= 0.5);
       if (only.sizing.layoutSizingHorizontal !== "FILL" && !capped) return child;
       if (only.sizing.maxWidth != null && only.rect.width >= only.sizing.maxWidth - 0.5) return child;
-      const verticalAlign = child.layout.layoutMode === "HORIZONTAL" ? child.layout.align?.counterAxis : child.layout.align?.primaryAxis;
-      const fillV = only.sizing.layoutSizingVertical === "FILL";
-      const hugV = only.sizing.layoutSizingVertical === "HUG" && Boolean(only.layout);
-      const vertical = fillV ? "STRETCH" : verticalAlign === "CENTER" ? "CENTER" : verticalAlign === "MAX" ? "MAX" : "MIN";
+      if (mode === "VERTICAL" && only.sizing.layoutSizingVertical === "FILL") return child;
+      const layout = mode === "VERTICAL"
+        ? { ...child.layout, layoutMode: "HORIZONTAL", align: { primaryAxis: child.layout.align?.counterAxis ?? null, counterAxis: child.layout.align?.primaryAxis ?? null } }
+        : child.layout;
+      const maxWidth = only.sizing.maxWidth ?? (caps.length ? Math.min(...caps) : null);
       stats.paddedOverlayFill = (stats.paddedOverlayFill ?? 0) + 1;
-      const why = { verdict: "FIXED", reason: "제약으로 늘어나는 자동 배치 덮개의 외동 FILL — 덮개를 NONE 으로, 자식을 여백 둔 가로 STRETCH 로(조립 규칙 15조의 33)", source: "100%", value: null };
+      const why = { verdict: "FILL", reason: "두 축을 덮은 자동 배치 덮개의 외동 카드 — 덮개 주축 FILL + 최대 폭(조립 규칙 15조의 40)", source: declaredWidth || "100%", value: maxWidth };
       return {
         ...child,
-        layout: null,
-        children: [{
+        layout,
+        children: child.children.map((kid) => (kid !== only ? kid : {
           ...only,
-          positioning: "ABSOLUTE",
-          margin: { top: 0, right: 0, bottom: 0, left: 0 },
-          offset: { x: only.rect.x - child.rect.x, y: only.rect.y - child.rect.y },
-          constraints: { horizontal: "STRETCH", vertical },
-          sizing: { ...only.sizing, layoutSizingHorizontal: "FIXED", layoutSizingVertical: hugV ? "HUG" : "FIXED", layoutPositioning: "ABSOLUTE", maxWidth: null },
-          why: { horizontal: why, vertical: hugV ? only.why?.vertical ?? why : why },
-        }],
+          sizing: { ...only.sizing, layoutSizingHorizontal: "FILL", maxWidth },
+          why: { ...only.why, horizontal: why },
+        })),
       };
     });
     // 늘어난 grid 행과 칸 안 정렬(gridStretchedRow · gridCellAlign 주석).
@@ -1735,13 +1745,28 @@ export function constraintsFor(rawDeclared, computed = null, parentComputed = nu
   const coverStretch = (axis, size) => Boolean(self.cover?.[axis]) && position === "absolute" && !self.text
     && (sizePercent(size) || (self.cover.stage && lengthDeclaredPx(String(declared[size] ?? "").replace(/\s*!\s*important\s*$/i, "").trim())));
   const percentCentre = (start, size) => sizePercent(size) && centred(declared[start]);
+  // **선언에 없는 논리 끝 변(2026-10-16, 조립 규칙 15조의 39).** 선언 수집기(`declared-styles.mjs` DECLARED_PROPERTIES)는 물리 변(`left` · `right` ·
+  // `inset`)만 모으고 논리 변(`inset-inline-end`)은 버린다. LOUIS 판 제품의 띠 알림 닫기 단추(`.louis-alert[data-layout=banner] .louis-alert__dismiss
+  // { position: absolute; inset-inline-end: var(--louis-space-control-md) }`)가 선언 없음으로 읽혀 MIN 에 묶였고, 보드를 1440 으로 줄이자 왼쪽 1876 에
+  // 남아 띠 밖 · 보드 밖으로 468(모바일 360 에서 30) 나갔다(늘림 run 2026-10-16p1, /subscription past-due 두 보드). 계산값은 두 변을 다 px 로 준다 —
+  // 가로 변 선언이 하나도 없는데 정적 자리(flex 주축의 시작 · 가운데)에 서지 않고 오른쪽 계산값이 왼쪽보다 작으면, 버려진 논리 끝 변이 세운 것이다.
+  // 그 축을 MAX 로 둔다. 부모가 끝 정렬(`flex-end` · `end`)이면 정적 자리가 끝이라 이 판정 밖이다(종전 MIN 그대로 — 바꾸지 않는다).
+  const logicalEnd = (() => {
+    if (position !== "absolute" || ["left", "right", "inset"].some((key) => has(declared[key]))) return false;
+    const left = px(computed?.left), right = px(computed?.right);
+    if (left == null || right == null || !(right + 0.5 < left)) return false;
+    if (!/flex/.test(parentComputed?.display ?? "") || !(parentComputed?.flexDirection ?? "row").startsWith("row")) return false;
+    const justify = String(parentComputed?.justifyContent ?? "normal").trim();
+    if (/(^|\s)(flex-end|end|right)$/.test(justify)) return false;
+    return !/center$/.test(justify) || Math.abs(left - right) > 1;
+  })();
   return {
     horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") || equalInsets("left", "right", "width") || coverStretch("horizontal", "width") ? "STRETCH"
       : percentCentre("left", "width") ? "SCALE"
         : centred(declared.left) || (centred(declared.right) && !has(declared.left)) || staticCentre(flexColumn, "left", "right") ? "CENTER"
           : placed.horizontal || scriptPx("left", "right", "width") ? "SCALE"
             : horizontalPercent ? horizontalPercent
-              : has(declared.right) ? "MAX" : "MIN",
+              : has(declared.right) || logicalEnd ? "MAX" : "MIN",
     vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") || equalInsets("top", "bottom", "height") || coverStretch("vertical", "height") ? "STRETCH"
       : percentCentre("top", "height") ? "SCALE"
         : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) || staticCentre(flexRow, "top", "bottom") ? "CENTER"

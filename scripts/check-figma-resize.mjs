@@ -34,7 +34,7 @@ const TYPES = ["overflow", "childOutside", "textClip", "heightFollow", "widthFol
 const FOLLOW_MIN = 0.99;
 
 // 2026-10-08 run 2026-10-08a 실측(보드 142장 · 시험 426). 줄면 여기를 같은 수로 내린다.
-const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 121, "04-billing": 34, "05-ops": 48 };
+const BOARDS = { "01-public": 32, "02-auth": 18, "03-app": 121, "04-billing": 34, "05-ops": 48 };
 // 무엇이 들어 있나: heightFollow 는 거의 전부다 — 보드 루트가 세로 HUG 라 보드 높이를 따라오지 않는다(루트 높이 / 보드 높이
 // 0.769 = 1/1.3). overflow 의 뿌리는 대부분 고정 폭 상단 바(`header`, 1920 · 402 에 묶여 1440 에서 +480, 360 에서 +42)다.
 // clamped 6 은 랜딩 · /privacy · /terms 의 데스크톱 2560 · 모바일 430(보드가 넓어지지 않는다), noRoot 16 은 03 앱의
@@ -146,7 +146,10 @@ const BOARDS = { "01-public": 24, "02-auth": 18, "03-app": 121, "04-billing": 34
 // 결제 업그레이드 카드 가격 줄(부품 안), 결제 동의 부품(부품 안), 채널 정보 대화 상자 0.9(`90vw`), 은퇴 대기 /subscription/coupons.
 // 높이 따름 둘(03 · 04)은 문서 길이 보드의 기대값과 결제 완료 미리보기 둘이다(그대로).
 const BASELINE = {
-  "01-public": { overflow: 2, childOutside: 9, heightFollow: 21, baseOverflow: 1 },
+  // run 2026-10-16p2(새 앵커 보드 전부를 보낸 뒤 다섯 페이지): 01 보드 24 → 32(랜딩 모델 절 둘 · 앰배서더 여섯) — 부모 밖 9 → 13 · 높이 따름 21 → 25 는
+  // 새 보드의 발견이다(앰배서더 · 랜딩 모델 절은 문서 길이 보드라 높이 따름은 기대값). 03 보드 121 의 빈 틀 33 이 채워져 뿌리 없음 33 → 0, 부모 밖 24 → 36 ·
+  // 높이 따름 2 → 5 도 새 보드(구독 · 하이라이트 · 설문 · 덱 · 편집기 인스펙터)의 발견이다. 05 는 관리자 상태를 새 판으로 다시 보낸 뒤에도 그대로.
+  "01-public": { overflow: 2, childOutside: 13, heightFollow: 25, baseOverflow: 1 },
   "02-auth": { childOutside: 1 },
   // 같은 run: 03 보드 56 → 88(분석 연결 상태 열여덟 · 편집기 · 캔버스 패널 상태 열넷). 넘침 0 → 3 · 자식 넘침 16 → 42 는 거의 모두 새 보드의
   // 1440 · 360 폭이다 — 그 화면들은 대응으로 세지 않았다(DS-D-0098 조건 2). 옛 보드에서 바뀐 것은 없다.
@@ -161,7 +164,7 @@ const BASELINE = {
   // past-due 1440 · 360(띠 알림 닫기 단추의 `inset-inline-end` · 15조의 39), 하이라이트 완료 · 분석 중 · 실패 1440(`margin-inline-start: auto` · 15조의 38).
   // 각도 · 이미지 편집 · 분석 모바일의 카드 자식(30 · 22 · 17)도 풀렸지만 같은 시험에 React Flow 노드 · 떠 있는 도구 막대(제품 같음)가 남아 수는 그대로다.
   // 보드 88 → 121 · 뿌리 없음 0 → 33 은 다른 작업이 세운 새 레시피 측정 보드(3774:12160 ~, 아직 빈 틀)다 — 채우면 그 작업이 다시 재고 내린다.
-  "03-app": { overflow: 1, childOutside: 24, heightFollow: 2, noRoot: 33 },
+  "03-app": { overflow: 1, childOutside: 36, heightFollow: 5 },
   "04-billing": { childOutside: 3, heightFollow: 2 },
   "05-ops": { overflow: 1, childOutside: 2 },
 };

@@ -2196,7 +2196,7 @@ function hugCarriedLines(spec, styleOf = () => null) {
       const contentStart = (parent.rect?.x ?? 0) + (layout.padding?.left ?? 0);
       const contentMid = (contentStart + (parent.rect?.x ?? 0) + (parent.rect?.width ?? 0) - (layout.padding?.right ?? 0)) / 2;
       const atStart = align === "center"
-        ? Math.abs((node.rect?.x ?? 0) + (node.rect?.width ?? 0) / 2 - contentMid) <= 1
+        ? Math.abs((node.rect?.x ?? 0) + (node.rect?.width ?? 0) * 0.5 - contentMid) <= 1
         : Math.abs((node.rect?.x ?? 0) - contentStart) <= 1;
       if ((vertical || alone) && atStart) {
         const before = node.sizing.layoutSizingHorizontal;

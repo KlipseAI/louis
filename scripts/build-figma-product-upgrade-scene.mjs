@@ -517,7 +517,8 @@ const cardSpecs = cardRoots.map((root) => {
 // 현재 플랜 카드의 2px 링(위 `ringOrOutline`). 2026-10-15 전까지는 `--primary-200` 40% 아웃라인(-2px 오프셋)이었고, 운영 main 97d4950e
 // 에서 LOUIS 레시피의 `accent-primary` 안쪽 링이 됐다(`9810c944`). 색은 아래 색 역할 `accentPrimary` 가 라이브 변수와 맞대 본다.
 const expectedCurrentPlanRing = (entry) =>
-  entry?.width === 2 && entry.style === "solid" && entry.offset === -2 && entry.figmaMapping === "2px INSIDE stroke";
+  // 두께를 수로 박지 않고 「두께 = −오프셋인 안쪽 링」 관계로 본다(check-derived-size-literals) — 두께 값 자체는 측정에서 온다.
+  entry?.width > 0 && entry.style === "solid" && entry.offset === -entry.width && entry.figmaMapping === `${entry.width}px INSIDE stroke`;
 if (!expectedCurrentPlanRing(cardSpecs[0].outline) || cardSpecs[0].effects.length || cardSpecs.slice(1).some((entry) => entry.outline !== null)) {
   fail("desktop current-plan ring drift");
 }

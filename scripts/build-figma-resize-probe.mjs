@@ -40,6 +40,11 @@
 //   rc   h130 에서 rh<0.99 · 폭 시험에서 rw<0.99 일 때 루트 [이름, 노드 id] (heightFollow · widthFollow 의 원인 — 보드당 하나라 노드는 하나)
 // 칸이 없으면 «원인 없음»이 아니라 «옛 run 이라 기록 안 됨»이다 — 게이트의 실패 수는 pn · tn · rh · rw 로만 센다(칸을 읽지 않는다).
 // 이름 없는 유형 중 clamped(보드 자체)와 noRoot(보이는 자식이 없다)는 보드 id 로 충분해 덧붙이지 않았다.
+// **자르는 칸 안의 아래쪽 길어짐도 부모 밖이 아니다(2026-10-16).** 보드를 줄이면 글이 다시 감겨 스크롤 본문(자르는 `main` · 스크롤 칸 안의 흐름 HUG 자식)이
+// 아래로 길어진다 — /admin metrics 모바일 360 의 본문 열이 자르는 main 874 아래로 95, /mypage/upgrade/checkout 모바일의 결제 본문이 135. 제품도 그 칸이
+// 스크롤하거나 자르므로 보이는 결함이 아니다. 부모가 `clipsContent` 이고 자식이 세로 HUG 흐름 자식이면 아래쪽 넘침을 세지 않는다(위 · 옆은 그대로).
+// 옛 run 의 원장은 이 예외 없이 쟀다 — 그 페이지를 다시 재면 이 몫만큼 준다.
+//
 // **크기**: use_figma 한도는 50,000 문자(String.length)다 — 러너 코드는 5556 → 6,255 문자(실측, 한도의 13%)라 한도와 멀다. 늘어나는 것은 응답이다:
 // 원장(212보드)의 실패 수로 어림하면 부모 밖 81시험 · 137원인, 글자 잘림 1시험, 루트 미추종 25시험, top 39칸에 id 가 붙어 응답 합계 약 +13KB(원장 103KB → 약 116KB).
 // 가장 큰 조각(03-app offset 56)이 약 13.3KB → 약 15.6KB 이고, 시험이 실패하지 않으면 한 바이트도 늘지 않는다(칸을 빼고 쓴다).
@@ -126,7 +131,9 @@ function measure(board, base, key) {
       const dx = Math.max(bb.x + bb.width - (pb.x + pb.width), pb.x - bb.x);
       // 문서 뿌리(보드의 세로 HUG 자식)가 보드 아래로 길어진 것은 부모 밖이 아니다 — 제품 문서는 줄이 늘면 길어진다(DS-D-0098 의 문서 보드 예외).
       const documentRoot = p === board && n.layoutSizingVertical === "HUG";
-      const dy = Math.max(documentRoot ? 0 : bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
+      // 자르는 부모(스크롤 · overflow hidden 칸) 안의 흐름 HUG 자식이 아래로 길어진 것도 부모 밖이 아니다 — 제품도 그 칸이 자르거나 스크롤한다(2026-10-16).
+      const clippedFlow = p.clipsContent && n.layoutSizingVertical === "HUG" && n.layoutPositioning !== "ABSOLUTE";
+      const dy = Math.max(documentRoot || clippedFlow ? 0 : bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
       if (dx > 0.5 || dy > 0.5) { parent++; pset.add(path); if (base && !base.pset.has(path)) { parentNew++; pcs.push([n.name.slice(0, 40), n.id, r1(Math.max(dx, dy))]); } }
       if (n.type === "TEXT" && n.textAutoResize !== "WIDTH_AND_HEIGHT" && bb.width > pb.width + 0.5) {
         text++; tset.add(path); if (base && !base.tset.has(path)) { textNew++; tcs.push([n.name.slice(0, 40), n.id, r1(bb.width - pb.width)]); }

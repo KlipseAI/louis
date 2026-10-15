@@ -1178,6 +1178,76 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         };
       });
     }
+    // **흐름 외동 자식의 백분율 폭은 부모에 비례한다 — 부모를 NONE 으로, 자식을 가로 SCALE 로(2026-10-16, 조립 규칙 15조의 36).** 막대 그래프의 채움
+    // (`<div style="width: 92.093%">` — 트랙의 외동 흐름 자식)은 크기 판정이 백분율을 풀지 못해 측정 폭 FIXED 로 굳었다 — /analytics/youtube 시청자 탭
+    // 데스크톱을 1440 으로 줄이자 연령 막대 320.5 가 트랙 228 밖으로 92.5(모바일 360 은 10.4). Figma 자동 배치에는 부모 비례 폭이 없다. 자식이 하나 ·
+    // 잎(자식 없음) · 폭 선언이 순수 백분율(100% 아님) · 부모가 가로 HUG 아님이면 부모의 자동 배치를 걷고(NONE) 자식을 측정 자리의 절대 배치 · 가로 SCALE
+    // (자리와 폭이 함께 비례)로 둔다. 세로는 부모 안쪽 높이를 채웠으면 STRETCH, 아니면 시작. 측정 크기의 자리 · 크기는 바뀌지 않는다.
+    if ((layoutMode === "HORIZONTAL" || layoutMode === "VERTICAL") && children.length === 1 && sizing.layoutSizingHorizontal !== "HUG") {
+      const [only] = children;
+      const declaredWidth = String(byPath.get(only.path)?.declared?.width ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+      const share = /^(\d+(?:\.\d+)?)%$/.exec(declaredWidth);
+      if (share && Number(share[1]) < 100 && only.positioning !== "ABSOLUTE" && !(only.children ?? []).length && only.rect && node.rect) {
+        const edge = (side) => (px(style[`padding${side}`]) ?? 0) + (px(style[`border${side}Width`]) ?? 0);
+        const innerHeight = node.rect.height - edge("Top") - edge("Bottom");
+        const fullHeight = Math.abs(only.rect.height - innerHeight) <= 0.5;
+        const why = { verdict: "FIXED", reason: `흐름 외동 자식의 백분율 폭(${declaredWidth}) — 부모를 NONE 으로, 자식을 가로 SCALE 로(조립 규칙 15조의 36)`, source: `width:${declaredWidth}`, value: null };
+        children = [{
+          ...only,
+          positioning: "ABSOLUTE",
+          margin: { top: 0, right: 0, bottom: 0, left: 0 },
+          offset: { x: only.rect.x - node.rect.x, y: only.rect.y - node.rect.y },
+          constraints: { horizontal: "SCALE", vertical: fullHeight ? "STRETCH" : "MIN" },
+          sizing: { ...only.sizing, layoutSizingHorizontal: "FIXED", layoutSizingVertical: "FIXED", layoutPositioning: "ABSOLUTE", minWidth: null, maxWidth: null },
+          why: { horizontal: why, vertical: why },
+        }];
+        layoutMode = "NONE";
+        stats.percentShareScaled = (stats.percentShareScaled ?? 0) + 1;
+      }
+    }
+    // **제약으로 늘어나는 자동 배치 덮개의 외동 FILL 은 여백을 둔 가로 STRETCH 다(2026-10-15, 조립 규칙 15조의 33).** 15조의 13 과 같은 Figma 성질 —
+    // 제약으로 크기가 바뀐 자동 배치 프레임은 FILL 자식을 다시 배치하지 않는다. 15조의 13 은 «NONE 부모 · 패딩 없음 · 두 축 FILL» 만 받아, 모달 덮개
+    // (`fixed inset-0 flex items-center justify-center p-4`, 흐름 형제가 있는 자동 배치 부모 안의 절대 배치) 안의 카드(`w-full max-w-[420px]` — 모바일에서
+    // 덮개 안쪽 폭을 채운 FILL)가 덮개를 360 으로 줄여도 370 에 남아 덮개 밖으로 5 · 보드 밖으로 나갔다(노드캔버스 각도 · 이미지 편집 · 분석 모달 모바일,
+    // 늘림 시험 run 2026-10-15names). 덮개의 자동 배치를 걷고(NONE) 카드를 측정 자리의 절대 배치로 둔다 — 가로는 STRETCH(측정 여백 = 덮개 패딩이 양쪽에
+    // 남는다), 세로는 FILL 이면 STRETCH, 아니면 덮개의 세로 정렬(가운데 · 끝 · 시작)이고 세로 HUG 는 그대로(내용이 감기면 자란다). 덮개가 절대 배치 ·
+    // 가로 제약 STRETCH · SCALE · 자식이 하나 · 그 자식이 가로 FILL 이고 최대 폭에 닿지 않았을 때만. 측정 크기의 자리 · 크기는 바뀌지 않는다.
+    children = children.map((child) => {
+      const c = child.constraints;
+      if (child.positioning !== "ABSOLUTE" || child.layout?.layoutMode !== "HORIZONTAL" || !c) return child;
+      if (![c.horizontal, c.vertical].every((value) => value === "STRETCH" || value === "SCALE")) return child;
+      if ((child.children ?? []).length !== 1) return child;
+      const [only] = child.children;
+      if (only.positioning === "ABSOLUTE" || !child.rect || !only.rect) return child;
+      // 덮개는 측정 크기로 선(HUG 아님) 여백 둔 판이다 — NONE 은 내용으로 자랄 수 없고, 여백 없는 판은 15조의 13 의 몫이다.
+      const gutter = child.layout.padding;
+      if (child.sizing.layoutSizingHorizontal === "HUG" || child.sizing.layoutSizingVertical === "HUG" || !(gutter.left > 0 || gutter.right > 0)) return child;
+      // `width: min(420px, 100vw - 32px)` — 뷰포트(또는 부모 백분율) 갈래가 이긴 폭은 덮개를 따라 줄어든다. 고정 갈래(측정 폭 = 그 px)면 그대로 둔다.
+      const declaredWidth = String(byPath.get(only.path)?.declared?.width ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+      const capped = /^min\(/.test(declaredWidth) && /vw|%/.test(declaredWidth) && /(\d+(?:\.\d+)?)px/.test(declaredWidth)
+        && only.rect.width < Math.min(...[...declaredWidth.matchAll(/(?<![-\d.])(\d+(?:\.\d+)?)px/g)].map((m) => Number(m[1]))) - 0.5;
+      if (only.sizing.layoutSizingHorizontal !== "FILL" && !capped) return child;
+      if (only.sizing.maxWidth != null && only.rect.width >= only.sizing.maxWidth - 0.5) return child;
+      const verticalAlign = child.layout.layoutMode === "HORIZONTAL" ? child.layout.align?.counterAxis : child.layout.align?.primaryAxis;
+      const fillV = only.sizing.layoutSizingVertical === "FILL";
+      const hugV = only.sizing.layoutSizingVertical === "HUG" && Boolean(only.layout);
+      const vertical = fillV ? "STRETCH" : verticalAlign === "CENTER" ? "CENTER" : verticalAlign === "MAX" ? "MAX" : "MIN";
+      stats.paddedOverlayFill = (stats.paddedOverlayFill ?? 0) + 1;
+      const why = { verdict: "FIXED", reason: "제약으로 늘어나는 자동 배치 덮개의 외동 FILL — 덮개를 NONE 으로, 자식을 여백 둔 가로 STRETCH 로(조립 규칙 15조의 33)", source: "100%", value: null };
+      return {
+        ...child,
+        layout: null,
+        children: [{
+          ...only,
+          positioning: "ABSOLUTE",
+          margin: { top: 0, right: 0, bottom: 0, left: 0 },
+          offset: { x: only.rect.x - child.rect.x, y: only.rect.y - child.rect.y },
+          constraints: { horizontal: "STRETCH", vertical },
+          sizing: { ...only.sizing, layoutSizingHorizontal: "FIXED", layoutSizingVertical: hugV ? "HUG" : "FIXED", layoutPositioning: "ABSOLUTE", maxWidth: null },
+          why: { horizontal: why, vertical: hugV ? only.why?.vertical ?? why : why },
+        }],
+      };
+    });
     // 늘어난 grid 행과 칸 안 정렬(gridStretchedRow · gridCellAlign 주석).
     const gridRow = layoutMode === "GRID"
       ? gridCellAlign(node, style, stretchedRow, children, (child) => byPath.get(child.path)?.declared ?? {})
@@ -1272,6 +1342,18 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         source: "min-width:0", value: null,
       };
       stats.flexShrinkFill = (stats.flexShrinkFill ?? 0) + 1;
+    }
+    // 세로 flex 의 교차축 맞춤 항목이 칸 폭에 닿았다(crossClampedItemOf 주석 · 조립 규칙 15조의 32) — 가로 FILL, 최대 폭 없음.
+    const crossClamped = !shrinkItem && !floatingLine && !placeholder && !wrappedRows && !fit && !decision.absolute && nodeSizing.layoutSizingHorizontal === "HUG"
+      ? crossClampedItemOf(node, parent, children) : null;
+    if (crossClamped) {
+      nodeSizing = { ...nodeSizing, layoutSizingHorizontal: "FILL", maxWidth: null };
+      shrinkWhy = {
+        verdict: "FILL",
+        reason: `세로 flex 의 교차축 맞춤(${crossClamped.align}) 항목이 칸 폭에 닿았다 — 내용 폭(fit-content)이 칸 폭으로 잘렸으므로 칸을 따라 줄어든다 · ${crossClamped.cut}(조립 규칙 15조의 32)`,
+        source: "align-items", value: null,
+      };
+      stats.crossClampedFill = (stats.crossClampedFill ?? 0) + 1;
     }
     const absConstraints = decision.absolute
       ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null, parent ? {
@@ -1680,6 +1762,12 @@ function flexShrinkItemOf(node, parent, specChildren, childrenOf) {
     && !/^(nowrap|pre)$/.test(entry.style?.whiteSpace ?? "") && !/hidden|clip|auto|scroll/.test(`${entry.style?.overflow ?? ""} ${entry.style?.overflowX ?? ""}`)
     && !/^(center|right|end|justify)$/.test(entry.style?.textAlign ?? "");
   const shrinks = (entry) => flowItem(entry) && (zeroMin(entry) || wrappingLeaf(entry));
+  const measuredByPath = new Map();
+  for (const list of childrenOf.values()) for (const entry of list) measuredByPath.set(entry.path, entry);
+  const wrappableText = (path) => {
+    const entry = measuredByPath.get(path);
+    return Boolean(entry) && !/^(nowrap|pre)$/.test(entry.style?.whiteSpace ?? "") && !/hidden|clip|auto|scroll/.test(`${entry.style?.overflow ?? ""} ${entry.style?.overflowX ?? ""}`);
+  };
   if (!shrinks(node)) return null;
   const peers = (childrenOf.get(parent.path) ?? []).filter((sibling) => isVisible(sibling) && shrinks(sibling));
   if (peers.length !== 1) return null;
@@ -1706,11 +1794,51 @@ function flexShrinkItemOf(node, parent, specChildren, childrenOf) {
       if (!spec || spec.instance || spec.positioning === "ABSOLUTE" || depth > 4) return;
       if (spec.typography?.truncate) { cut ??= "말줄임 글자"; if (spec.typography.truncated) shrunk = true; }
       else if (spec.text && spec.wrapLines?.length > 1) { cut ??= "감긴 글자"; if (rowFull) shrunk = true; }
+      // 감기지 않았어도 줄바꿈을 허용하는 글자(칠 없음 · overflow visible)면 항목이 줄 때 감긴다 — 측정 폭이 상한이다(2026-10-16, 15조의 23 넓힘).
+      else if (spec.text && !spec.typography?.lineClamp && wrappableText(spec.path)) cut ??= "감길 글자";
       for (const child of spec.children ?? []) walk(child, depth + 1);
     };
     for (const child of specChildren) walk(child, 0);
   }
   return cut ? { cut, shrunk, truncates: cut === "말줄임 글자" } : null;
+}
+
+/**
+ * **세로 flex 의 교차축 맞춤 항목이 칸 폭에 닿았으면 칸을 따라 줄어든다(2026-10-15, 조립 규칙 15조의 32).** 세로 flex(`flex-direction: column`)에서
+ * 교차축을 늘이지 않는(`align-items: flex-start` · `center` …) 항목의 폭은 내용 폭(fit-content) — `min(max-content, 칸 폭)` 이다. 크기 판정은
+ * 「콘텐츠가 결정한다」로 HUG 를 내는데, 내용이 칸보다 넓어 칸 폭으로 잘린(감긴) 항목은 CSS 에서 칸 폭이고 칸이 좁아지면 함께 줄며 다시 감긴다.
+ * Figma HUG 는 측정 폭(안의 글자 폭)에 남아 보드를 줄이면 칸 밖으로 나갔다 — LOUIS 쪽 머리(`flex-col flex-wrap items-start`, 제목 묶음
+ * `flex: 1 1 auto; min-width: 0`)의 제목 · 설명 묶음이 /admin metrics · banners 모바일 360 에서 387 로 348 칸 밖으로 39.
+ * 판정: 부모가 세로 flex · 항목의 교차축 맞춤이 stretch 아님 · 흐름 항목 · 폭 선언 없음 · 측정 폭이 부모 안쪽 폭과 1 안에서 같다 · 안에 감긴 글자
+ * (`wrapLines` 2 줄 이상) 또는 말줄임 글자가 있다(내용이 실제로 칸보다 넓었다는 증거 — 우연히 같은 폭인 단추 묶음은 서지 않는다). Figma 는 가로 FILL ·
+ * 최대 폭 없음 — 측정 폭에서 FILL = 칸 안쪽 폭 = 측정 폭이라 그림이 같다.
+ */
+function crossClampedItemOf(node, parent, specChildren) {
+  const outer = parent?.style ?? {};
+  if (!/flex/.test(outer.display ?? "") || !/^column/.test(outer.flexDirection ?? "")) return null;
+  const self = node.style?.alignSelf;
+  const align = self && !/^(auto|normal)$/.test(self) ? self : (outer.alignItems ?? "normal");
+  if (/^(normal|stretch)$/.test(align)) return null;
+  if (/^(absolute|fixed)$/.test(node.style?.position ?? "")) return null;
+  const declaredWidth = String(node.declared?.width ?? node.declared?.["inline-size"] ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+  if (declaredWidth && declaredWidth !== "auto") return null;
+  if (!node.rect || !parent.rect) return null;
+  const edge = (side) => (px(outer[`padding${side}`]) ?? 0) + (px(outer[`border${side}Width`]) ?? 0);
+  const inner = parent.rect.width - edge("Left") - edge("Right");
+  if (Math.abs(node.rect.width - inner) > 1) return null;
+  let cut = null;
+  if (node.ownText && specChildren.length === 0) {
+    if (Array.isArray(node.wrapLines) && node.wrapLines.length > 1) cut = "감긴 글자";
+  } else {
+    const walk = (spec, depth) => {
+      if (!spec || cut || spec.instance || spec.positioning === "ABSOLUTE" || depth > 4) return;
+      if (spec.typography?.truncate) cut = "말줄임 글자";
+      else if (spec.text && spec.wrapLines?.length > 1) cut = "감긴 글자";
+      for (const child of spec.children ?? []) walk(child, depth + 1);
+    };
+    for (const child of specChildren) walk(child, 0);
+  }
+  return cut ? { align, cut } : null;
 }
 
 /**

@@ -2343,7 +2343,11 @@ function centreAutoMargins(spec) {
         const slack = (inner - child.rect.width) / 2;
         const fillAtMax = child.sizing.layoutSizingHorizontal === "FILL" && child.sizing.maxWidth != null
           && Math.abs(child.rect.width - child.sizing.maxWidth) <= HALF_PIXEL;
-        if (!fillAtMax || slack <= HALF_PIXEL) return false;
+        // **고정 폭도 같다(2026-10-16, 조립 규칙 15조의 35).** `width: 210mm; margin-inline: auto` 처럼 폭이 고정이면 측정기는 auto 여백을
+        // 계산값(547 / 547)으로 실어 margin 감싸개가 1888 로 굳었다 — /admin/coupons/[id]/print 데스크톱을 1440 으로 줄이자 감싸개가 부모 밖으로 464.
+        // 고정 폭은 판정이 «그 폭»이라 여백 수의 닫힘(byMargin)만으로 auto 다 — 자리 기하(byGeometry)는 FILL 처럼 최대 폭의 증거가 없어 받지 않는다.
+        const fixedCentred = child.sizing.layoutSizingHorizontal === "FIXED";
+        if ((!fillAtMax && !fixedCentred) || slack <= HALF_PIXEL) return false;
         const byMargin = margin.left > HALF_PIXEL && Math.abs(margin.left - margin.right) <= HALF_PIXEL
           && Math.abs(margin.left - slack) <= HALF_PIXEL;
         // **계산 margin 이 0 으로 읽혀도 자리가 가운데면 auto 다(2026-09-26).** 측정기가 flex 항목의 auto margin 사용값을 때때로 0 으로
@@ -2351,7 +2355,7 @@ function centreAutoMargins(spec) {
         // 좌우 margin 이 둘 다 0 이고 자리가 부모 안쪽의 가운데이면 같은 판정을 준다.
         const byGeometry = Math.abs(margin.left ?? 0) <= HALF_PIXEL && Math.abs(margin.right ?? 0) <= HALF_PIXEL
           && Math.abs(offsetOf(child) - slack) <= HALF_PIXEL;
-        return byMargin || byGeometry;
+        return byMargin || (fillAtMax && byGeometry);
       });
       if (auto.length > 0 && children.every((child) => auto.includes(child) || child.sizing.layoutSizingHorizontal === "FILL")) {
         centred.push({ path: node.path, from: node.layout.align.counterAxis, children: auto.map((child) => child.path),
@@ -2976,20 +2980,6 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   // 규칙(최대 크기에 막힌 HUG 부모의 스크롤 칸)이 풀었다. 플라이아웃 둘은 그 조건이 아니라 남는다.
   "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
   "/archive palette.flyout @ mobile-402x874 · overlay.1.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
-  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.0 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.1 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.2 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.3 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.4 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.5 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ desktop-1920x1080 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.6 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.0 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.1 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.2 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.3 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.4 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.5 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
-  "/analytics/youtube audience @ mobile-402x874 · body.1.0.0.1.0.0.3.1.1.0.0.1.0.6 · vertical": { count: 2, why: ANALYTICS_PENDING_WHY },
   "/analytics/youtube loading @ desktop-1920x1080 · body.1.0.0.1.0.0.3.0.0.0.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
   "/analytics/youtube loading @ desktop-1920x1080 · body.1.0.0.1.0.0.3.0.0.1.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },
   "/analytics/youtube loading @ mobile-402x874 · body.1.0.0.1.0.0.3.0.0.0.1.0 · horizontal": { count: 1, why: ANALYTICS_PENDING_WHY },

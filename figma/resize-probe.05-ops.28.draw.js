@@ -1,5 +1,5 @@
 // 시험용 복제본, 끝에 지움 — 보드 반응 탐침(scripts/build-figma-resize-probe.mjs 가 쓴다). 원본 보드는 복제만 한다.
-const RUN = "2026-10-15names", PAGE_ID = "246:3451", OFFSET = 28, LIMIT = 14, SLOT = 12;
+const RUN = "2026-10-16ra03", PAGE_ID = "246:3451", OFFSET = 28, LIMIT = 14, SLOT = 6;
 const RE = /^(desktop|mobile) \d+×\d+ — /;
 const work = await figma.getNodeByIdAsync("699:2");
 if (!work || work.type !== "PAGE") throw new Error("work page not found");
@@ -45,7 +45,9 @@ function measure(board, base, key) {
       const dx = Math.max(bb.x + bb.width - (pb.x + pb.width), pb.x - bb.x);
       // 문서 뿌리(보드의 세로 HUG 자식)가 보드 아래로 길어진 것은 부모 밖이 아니다 — 제품 문서는 줄이 늘면 길어진다(DS-D-0098 의 문서 보드 예외).
       const documentRoot = p === board && n.layoutSizingVertical === "HUG";
-      const dy = Math.max(documentRoot ? 0 : bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
+      // 자르는 부모(스크롤 · overflow hidden 칸) 안의 흐름 HUG 자식이 아래로 길어진 것도 부모 밖이 아니다 — 제품도 그 칸이 자르거나 스크롤한다(2026-10-16).
+      const clippedFlow = p.clipsContent && n.layoutSizingVertical === "HUG" && n.layoutPositioning !== "ABSOLUTE";
+      const dy = Math.max(documentRoot || clippedFlow ? 0 : bb.y + bb.height - (pb.y + pb.height), pb.y - bb.y);
       if (dx > 0.5 || dy > 0.5) { parent++; pset.add(path); if (base && !base.pset.has(path)) { parentNew++; pcs.push([n.name.slice(0, 40), n.id, r1(Math.max(dx, dy))]); } }
       if (n.type === "TEXT" && n.textAutoResize !== "WIDTH_AND_HEIGHT" && bb.width > pb.width + 0.5) {
         text++; tset.add(path); if (base && !base.tset.has(path)) { textNew++; tcs.push([n.name.slice(0, 40), n.id, r1(bb.width - pb.width)]); }

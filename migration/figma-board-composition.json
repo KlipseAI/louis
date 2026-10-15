@@ -14,15 +14,15 @@
   "productCommit": "97d4950e153de329c0b81eb7dde7c149ebbc07da",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 249,
-  "rawNodesBeforePruning": 26255,
+  "rawNodesBeforePruning": 26253,
   "counts": {
-    "total": 25573,
+    "total": 25571,
     "instance": 589,
     "replaceable": 0,
     "bespoke": 1093,
     "blocked": 84,
     "missing": 5022,
-    "structural": 18785,
+    "structural": 18783,
     "unclassified": 0
   },
   "ratio": {
@@ -113,7 +113,7 @@
   },
   "structuralByKind": {
     "surface": 3314,
-    "frame": 9674,
+    "frame": 9672,
     "text": 5420,
     "image": 377
   },
@@ -752,13 +752,13 @@
         "figma/app-screens.admin-payments.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 91,
+        "total": 90,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 6,
         "blocked": 0,
         "missing": 6,
-        "structural": 78,
+        "structural": 77,
         "unclassified": 0
       }
     },
@@ -943,13 +943,13 @@
         "figma/app-screens.admin-users.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 67,
+        "total": 66,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 3,
         "blocked": 0,
         "missing": 7,
-        "structural": 55,
+        "structural": 54,
         "unclassified": 0
       }
     },
@@ -42442,17 +42442,6 @@
       "board": "figma/app-screens.admin-payments.mobile.00.draw.js",
       "tag": "span",
       "rect": [
-        60.52,
-        26
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/admin payments@mobile-402x874#0.0.0.0.0.0.1.0.2.2.1.0.4.0": {
-      "board": "figma/app-screens.admin-payments.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
         39.52,
         26
       ],
@@ -56498,17 +56487,6 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/admin users@mobile-402x874#0.0.0.0.0.0.1.0.2.0.3": {
-      "board": "figma/app-screens.admin-users.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        55.45,
-        26
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/admin users@mobile-402x874#0.0.0.0.0.0.1.0.2.0.3.0": {
       "board": "figma/app-screens.admin-users.mobile.00.draw.js",
       "tag": "span",
       "rect": [

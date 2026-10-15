@@ -110,7 +110,7 @@
         { "press": "ControlOrMeta+k" },
         { "waitFor": { "placeholder": "Search or type a command..." } },
         { "fill": { "placeholder": "Search or type a command..." }, "value": "zzz-no-match" },
-        { "waitFor": { "text": "No results.", "exact": true } }
+        { "waitFor": { "css": "p.louis-command-palette__empty" }, "description": "같은 글자를 읽기 전용 결과 수(role=status, louis-visually-hidden)도 갖는다(CommandPalette.tsx:633-639) — 보이는 빈 문단을 집는다" }
       ],
       "assert": { "text": ["No results."], "apiHit": "all" }
     },

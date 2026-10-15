@@ -162,6 +162,7 @@ const requested = (key, board) => {
 const errors = [];
 const counts = {};
 const causes = new Map(); // 넘친 뿌리 이름 → { boards, px }
+const childCauses = new Map(); // 부모 밖 새 자식 `이름 id (+px @시험)` → 횟수 — 원장에 pc 칸이 있는 run 부터(옛 run 은 비어 있다). 실패 수에는 쓰지 않는다.
 let tests = 0;
 for (const page of ledger.pages) {
   const c = Object.fromEntries(TYPES.map((t) => [t, 0]));
@@ -181,7 +182,13 @@ for (const page of ledger.pages) {
       tests++;
       const want = requested(key, board);
       if (Math.abs(v.w - want.w) > 1 || Math.abs(v.h - want.h) > 1) c.clamped++;
-      if (v.pn > 0) c.childOutside++;
+      if (v.pn > 0) {
+        c.childOutside++;
+        for (const [name, id, px] of v.pc ?? []) {
+          const label = `${name} ${id} (+${Math.round(px)}px @${key}, ${board.id})`;
+          childCauses.set(label, (childCauses.get(label) ?? 0) + 1);
+        }
+      }
       if (v.tn > 0) c.textClip++;
       if (key === "h130") {
         if (v.rh != null && v.rh < FOLLOW_MIN) c.heightFollow++;
@@ -219,9 +226,11 @@ const table = Object.entries(counts)
   .join("\n");
 const topCauses = [...causes.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([label, n]) => `  ${n}× ${label}`).join("\n");
 
+const topChild = [...childCauses.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([label, n]) => `  ${n}× ${label}`).join("\n");
+
 if (errors.length) {
   for (const error of errors) console.error(`[figma-resize] ${error}`);
-  console.error(`[figma-resize] 지금 수(run ${ledger.run}, 시험 ${tests}):\n${table}\n[figma-resize] 넘친 뿌리 상위:\n${topCauses}`);
+  console.error(`[figma-resize] 지금 수(run ${ledger.run}, 시험 ${tests}):\n${table}\n[figma-resize] 넘친 뿌리 상위:\n${topCauses}${topChild ? `\n[figma-resize] 부모 밖 새 자식 상위(이름 id 보드):\n${topChild}` : ""}`);
   process.exit(1);
 }
 console.log(`[figma-resize] OK: run ${ledger.run} · 페이지 ${ledger.pages.length} · 시험 ${tests} — 기준선과 같다.\n${table}`);

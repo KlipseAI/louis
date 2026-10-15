@@ -16,7 +16,7 @@ authority: normative
 
 제품이 2026-09-14(`bc3e6fa3`)에 사이드바 펼침 폭을 280 에서 240 으로 내렸다. 근거는 제품
 주석에 있다 — 「240 은 소유자 지정(2026-09-14, 280 → 240). 캔버스 레이어 패널 폭(240)과 같다」
-(제품 `globals.css:178-181`, 앵커 `2c6bdacf`).
+(제품 `globals.css:185-188`, 앵커 `2c6bdacf`).
 
 2026-09-15 앵커 이동에서 **제품 실측 기록은 옮겼고 토큰은 옮기지 않았다.**
 `figma/templates.measured.json` 의 `app-shell.railWidth` · `compactDrawerWidth` ·

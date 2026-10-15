@@ -60,7 +60,7 @@ summary: 열린 모달 안을 덮어 예시 그림을 세 열 격자로 보여 �
 
 ## Interaction and responsive behavior
 
-- Escape 는 **패널만** 닫는다. 소비처가 keydown 을 캡처 단계에서 받아 전파를 멈춘다 — 그러지 않으면 편집 모달까지 함께 닫힌다(제품 `ExampleGallery.tsx:57-67`).
+- Escape 는 **패널만** 닫는다. 소비처가 keydown 을 캡처 단계에서 받아 전파를 멈춘다 — 그러지 않으면 편집 모달까지 함께 닫힌다(제품 `ExampleGallery.tsx:49-59`).
 - 패널 위 포인터 내림이 모달 바깥 판정으로 새지 않게 소비처가 `pointerdown` 전파를 멈춘다(제품 `:73`).
 - 격자는 세 열 고정이다. 좁은 모달에서는 칸이 함께 준다(`minmax(0, 1fr)`).
 - 본문만 스크롤한다. 머리는 남는다.

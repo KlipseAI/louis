@@ -12,8 +12,8 @@ summary: 커버 그림과 그 밖의 제목 · 설명을 통째로 누르는 링
 [Media Card](media-card.md)(제목이 그림 위)와 다르다. 갈래는 둘 — 글 목록의 가로 행 `row` 와 격자의 세로 카드 `stack`. 짝 블록
 `.louis-content-card-list` 가 두 목록의 줄 간격을 갖는다.
 
-제품 정본은 공개 블로그 인덱스(`app/blog/page.tsx:78-176` 의 상수, `app/blog/page.tsx:221-257` 의 마크업)와 템플릿 인덱스
-(`app/templates/page.tsx:77-130` 의 상수, `app/templates/page.tsx:168-210` 의 마크업)다(통합 판 `54b62a8aa`). 두 화면이 같은 해부를 각자 상수로 들고 있었다.
+제품 정본은 공개 블로그 인덱스(`app/blog/page.tsx@54b62a8a:78-176` 의 상수, `app/blog/page.tsx:123-142` 의 마크업)와 템플릿 인덱스
+(`app/templates/page.tsx@54b62a8a:77-130` 의 상수, `app/templates/page.tsx@54b62a8a:168-210` 의 마크업)다(통합 판 `54b62a8aa`). 두 화면이 같은 해부를 각자 상수로 들고 있었다.
 
 ```html
 <!-- row — 블로그. data-layout 없음 = row. DOM 은 본문이 먼저, 커버가 나중이다 -->
@@ -137,16 +137,16 @@ React 를 만들지 않는다 — 이 마크업 계약이 공개 계약이다.
 
 1. **stack 테두리(8% · 호버 16%)의 그래픽 대비가 3:1 미만이다** — 카드 전체가 링크이고 이름이 글자로 서므로 경계는 식별에 필요한 그래픽이 아니다.
 2. **호버 박자 320 · 220 은 motion 토큰에 없는 제품 리터럴이다**(곡선은 토큰). 제목 색 전환은 제품 180ms 대신 `control-hover` 토큰 160ms 다.
-3. **제품의 450 이하 본문 16 → 14 규칙(`app/globals.css:829-833`)은 옮기지 않았다** — 제품 전체 `:root` 규칙이라 타이포 기초의 몫이다.
-4. **템플릿 배지가 Badge 정본(상하 4 · regular, 높이 26)으로 접혔다** — 제품은 상하 3 · medium · 검정 56% 덮어쓰기(`app/templates/page.tsx:110-115`)였다.
+3. **제품의 450 이하 본문 16 → 14 규칙(`app/globals.css:862-866`)은 옮기지 않았다** — 제품 전체 `:root` 규칙이라 타이포 기초의 몫이다.
+4. **템플릿 배지가 Badge 정본(상하 4 · regular, 높이 26)으로 접혔다** — 제품은 상하 3 · medium · 검정 56% 덮어쓰기(`app/templates/page.tsx@54b62a8a:110-115`)였다.
 5. **날짜 잉크가 40% 에서 `landing-text-muted`(64%)로, 라이트 호버 제목이 `blue-500` 에서 `blue-620` 으로** 고쳐 올라갔다(DS-D-0084 3항).
 6. **제목 잉크가 제품 `gray-000`(라이트 `#000`)에서 `fg-primary` 로** — `gray-000` 직접 소비는 게이트가 막는다.
 
 ## 제품에서 발견한 것
 
-- 랜딩 제목 계단 주석(`app/globals.css:838-841` 「heading-28: 28 → 20 → 18」)과 계산값(28 → 18 → 18)이 다르다 — `var(--type-body-20-size)` 가
-  같은 규칙에서 덮인 18 을 읽는다(`app/globals.css:848-851`).
+- 랜딩 제목 계단 주석(`app/globals.css:871-874` 「heading-28: 28 → 20 → 18」)과 계산값(28 → 18 → 18)이 다르다 — `var(--type-body-20-size)` 가
+  같은 규칙에서 덮인 18 을 읽는다(`app/globals.css:881-884`).
 - 템플릿 카드가 두 벌이다 — 랜딩 `TemplateGrid` 는 MediaCard, `/templates` 는 이 카드다. 데이터 표가 달라 한 부품으로 모으지 않는다.
-- 블로그 본문 링크도 같은 `--primary-500`(`app/globals.css:1392-1393`, 라이트 3.37)이다 — 밑줄이 있어 식별은 되지만 글자 대비는 미달이다. 이 회차 밖.
-- 죽은 선언 셋 — 템플릿 호버 면 4%(`app/templates/page.tsx:92`, 쉼과 같다) · 블로그 본문 719 이하 `p-0`(`app/blog/page.tsx:151`, 쉼에 패딩이 없다) ·
-  블로그 목록 위 auto-fill 주석(`app/blog/page.tsx:71-72`, 목록은 이제 세로 줄).
+- 블로그 본문 링크도 같은 `--primary-500`(`app/globals.css:1427-1428`, 라이트 3.37)이다 — 밑줄이 있어 식별은 되지만 글자 대비는 미달이다. 이 회차 밖.
+- 죽은 선언 셋 — 템플릿 호버 면 4%(`app/templates/page.tsx@54b62a8a:92`, 쉼과 같다) · 블로그 본문 719 이하 `p-0`(`app/blog/page.tsx@54b62a8a:151`, 쉼에 패딩이 없다) ·
+  블로그 목록 위 auto-fill 주석(`app/blog/page.tsx@54b62a8a:71-72`, 목록은 이제 세로 줄).

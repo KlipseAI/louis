@@ -92,9 +92,9 @@ CSS 에는 `State` 가 없다. 세 상태는 슬롯에 무엇이 들어가느냐
 
 ### 점 바닥 — `__chart data-floor="dots"`
 
-넓은 차트(`data-chart="area"`) 아래에 지름 2 점을 18 격자로 깐다(제품 `components/scenes/analytics/shared.tsx:40-43`). 잉크
+넓은 차트(`data-chart="area"`) 아래에 지름 2 점을 18 격자로 깐다(제품 `components/scenes/analytics/shared.tsx@54b62a8a:40-43`). 잉크
 `gray-000-alpha-12`, 위 12 · 아래 26(축 글자 줄)을 비운 자리, 반경 12(`radius-card`). 곡선과 축은 그 위에 선다 — 숫자 z-index 없이
-칠 순서로 서므로 슬롯 안 `svg` 는 `position: relative` 를 받는다(레시피가 준다). 로딩 스켈레톤의 점(20 격자 · 8%, `shared.tsx:289-290`)은
+칠 순서로 서므로 슬롯 안 `svg` 는 `position: relative` 를 받는다(레시피가 준다). 로딩 스켈레톤의 점(20 격자 · 8%, `shared.tsx:271-272`)은
 이 바닥이 아니라 [Skeleton](skeleton.md) 의 몫이다. 강제 색에서는 점을 걷는다. 같은 기법의 캔버스 바닥은
 [Editor Workspace](../patterns/editor-workspace.md) 의 `.louis-canvas-dots` 다.
 
@@ -129,11 +129,11 @@ hover(세로선 + 점 + 툴팁)는 소비처가 가리킨 날을 계산해 그�
 
 **경로 좌표는 소비처, 그 둘레는 레시피다.** 곡선의 `d` 는 데이터 좌표라 화면이 계산하고(DS-D-0084 §2 예외), 선 굵기 · 면
 그라디언트 알파 · 십자선 · 점 · 축 글자는 화면마다 같아야 하므로 레시피가 갖는다. 제품은 공용 `AreaChart` 하나가
-그린다(통합 판 `54b62a8aa` `analytics/shared.tsx:375-433`, 스파크 `:489-498`).
+그린다(통합 판 `54b62a8aa` `analytics/shared.tsx:357-415`, 스파크 `:489-498`).
 
 | 부품 | 레시피 | 제품 |
 | --- | --- | --- |
-| `__plot` | 슬롯을 `inset: 0` 으로 채운다. `overflow: visible` | `CHART_SVG`(`shared.tsx:50`) · `preserveAspectRatio="none"`(`:378`) |
+| `__plot` | 슬롯을 `inset: 0` 으로 채운다. `overflow: visible` | `CHART_SVG`(`shared.tsx:47`) · `preserveAspectRatio="none"`(`:378`) |
 | `__line` | `stroke: currentColor` · 2 · 둥근 끝 · `vector-effect: non-scaling-stroke` | `strokeWidth="2"`(`:401`) |
 | `__area-stop` | `stop-color: currentColor` · 시작 18% → `data-stop="end"` 0. `__spark` 안에서는 22% | `:386-387` · 스파크 `:489-490` |
 | `__crosshair` | `color-gray-000-alpha-20` · `border-width-default` · non-scaling | 테마 잉크 20% · 1(`:415-416`) |
@@ -283,13 +283,13 @@ Figma 쪽에서는 `rawFills` · `rawStrokes` 가 0 이고, 데이터 부족 안
    `spark` 변형에는 `Meta` 노드를 두지 않는다 — 불리언으로 숨기면 component set 단위로
    합쳐져 `area` 의 기간까지 사라진다.
 6. **React 표면이 없다.** `stat-tile` 과 같다.
-7. **점 바닥의 잉크를 한 칸으로 접었다.** 제품은 16% 점에 층 불투명 0.78 을 곱해 실효 12.5% 다(`shared.tsx:41-43`). 레시피는
+7. **점 바닥의 잉크를 한 칸으로 접었다.** 제품은 16% 점에 층 불투명 0.78 을 곱해 실효 12.5% 다(`shared.tsx@54b62a8a:41-43`). 레시피는
    `gray-000-alpha-12` 한 칸에 불투명을 걷는다(DS-D-0084 소유자 판정 11, 2026-10-13 기본값). 제품의 폭 구간별 비율(5/1 · 3/1 · 2.5/1,
    :44-46)은 위 3 과 같이 카드 밖이다.
 8. **점 바닥에 Figma 층 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 는 `Chart=area` 변형의 차트 자리에 점 바닥
    층(새 축이 아니다)을 더한다.
 9. **점(`__marker`) 반지름이 늘린 그림에서 타원이 된다.** 제품 `r="4"` 는 viewBox 단위라 `preserveAspectRatio="none"` 으로
-   늘리면 가로세로가 달리 늘어난다(`shared.tsx:421`). 레시피는 반지름을 갖지 않는다 — 소비처가 점을 SVG 밖 HTML 로 두거나
+   늘리면 가로세로가 달리 늘어난다(`shared.tsx:403`). 레시피는 반지름을 갖지 않는다 — 소비처가 점을 SVG 밖 HTML 로 두거나
    `r` 을 화면 px 로 환산해야 한다.
 10. **영역 차트 부품의 실브라우저 시험이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `Chart=area` 안에 점 바닥(`ChartCardDotTile` 반복, 격자 18 을
     기록 `chart-card-dot-tile` 과 실브라우저 시험이 잰다) · 선 · 면 분리 · 축 글자 줄, BOOLEAN `HasCrosshair`. Figma 패턴 채움이 변수를 받지

@@ -154,7 +154,7 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 | `display` | 필수 | — | — | 선택(화살표 쌍) |
 
 위 세 줄은 취향이 아니라 제품 17 자리의 전수다(아래 세 줄은 각 단의 제품 원천 — 「Hierarchy와 variants」). `section` 에 설명을 넘기는 자리가 0 이고,
-`label` 은 제목만 넘기는 자리 하나뿐이다(`AdminClient.tsx:1176`).
+`label` 은 제목만 넘기는 자리 하나뿐이다(`AdminClient.tsx:1200`).
 
 ## Properties
 
@@ -174,7 +174,7 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 | `label` | 패널 아이브로우 | 12 Medium | `AdminSection.tsx` `TITLE_LABEL` |
 | `list` | 허브의 목록 머리(제목 안 개수 + 버튼 하나) | 16 Medium | `highlightSceneStyles.ts` `historySectionHeader` · `NodeCanvasHomeScene.tsx` `ARCHIVE_SECTION_HEADER` |
 | `article` | 읽는 글의 머리(리드 · 메타 · 아래 구분선) | 36 **Medium** | `app/blog/[slug]/page.tsx` 73-104행 · `app/templates/[slug]/page.tsx` 83-103행 |
-| `display` | 랜딩 캐러셀 · 섹션 머리(가운데 정렬 · 화살표 쌍) | 36 SemiBold | `components/landing/system/Carousel.tsx:128-150` `CarouselHeader` |
+| `display` | 랜딩 캐러셀 · 섹션 머리(가운데 정렬 · 화살표 쌍) | 36 SemiBold | `components/landing/system/Carousel.tsx:128-157` `CarouselHeader` |
 
 **`list` 는 2026-10-12 에 열었다**([DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md)). 하이라이트 ·
 노드 캔버스 두 허브가 같은 배치를 각자 그린다 — 가운데 정렬, 사이 16, 719 이하에서도 한 줄. 세 단과 크기 · 정렬 · 접힘이
@@ -208,7 +208,7 @@ Figma 는 `Level=list` 로 2026-10-13 에 섰다(아래 「Figma」).
 제품도 모바일에서 한 줄이다.
 
 **두 단은 랜딩 셸 안에서 제목이 줄어든다** — ≤1023 32 · ≤767 28 · ≤479 20(글 머리 리드는 18 · 16). 앱 화면에서는 쓰지 않는다 —
-앱 화면의 화면 제목은 `page` 다. 계단은 제품 `app/globals.css:842-878` 의 값을 레시피 지역 변수
+앱 화면의 화면 제목은 `page` 다. 계단은 제품 `app/globals.css:875-911` 의 값을 레시피 지역 변수
 (`--louis-section-header-title-size` · `-title-tracking` · `-lead-size`)로 옮긴 것이다(Known deviations 10).
 
 **Figma 는 2026-10-13 에 섰다.** 세트 `SectionHeader` 의 `Level` 에 `list` · `article` · `display` 를 더했고 기록 `section-header` 의 세 칸을 parity 가 대조한다 —
@@ -305,7 +305,7 @@ Figma 는 `Level=list` 로 2026-10-13 에 섰다(아래 「Figma」).
    갈리는 것은 **아래 여백**이다 — `PageHeader` 는 `mb-16`(32)을 통째로 지고 `page` 는
    `mb-6`(12)만 진다. **어긋난 것이 아니라 분담이 다르다**: 어드민의 소비처는 감싸는 스택의
    `gap-10`(20)이 나머지를 이미 내고 있어 20 + 12 = 32 이고, 그 셈을 제품이
-   `BlogManagement.tsx:50-52` 와 `TemplateManagement.tsx:1009-1012` 에 각각 자기 말로 적어
+   `BlogManagement.tsx:48-50` 와 `TemplateManagement.tsx:1120-1123` 에 각각 자기 말로 적어
    두었다. 합은 두 곳 다 32 다. 이 레시피는 어드민 쪽(12)을 골랐다 — 감싸는 스택이 간격을
    소유하는 편이 형제가 끼어들 때 무너지지 않는다.
 2. **다크의 알파 잉크를 옮기지 않았다.** 제품은 아이브로우를 `rgb(var(--gray-000-rgb)/56%)`,
@@ -345,7 +345,7 @@ Figma 는 `Level=list` 로 2026-10-13 에 섰다(아래 「Figma」).
 9. **템플릿 상세의 부제는 body-14 다**(`app/templates/[slug]/page.tsx` 99-103행). 글 머리 리드는 body-lg 하나로 두고 이 부제를
    그 리드로 접었다(2026-10-13 판정). 템플릿 상세가 레시피를 물면 부제가 20 으로 커진다.
 10. **두 단(`article` · `display`)의 제목 계단은 레시피의 리터럴이다.** LOUIS 타이포 토큰은 반응형이 아니고, 제품 랜딩 셸이 같은
-    계단을 `--type-*` 변수로 덮는다(`app/globals.css:842-878`). 지금은 지역 변수에 출처 주석과 함께 두고, 토큰으로 올리는
+    계단을 `--type-*` 변수로 덮는다(`app/globals.css:875-911`). 지금은 지역 변수에 출처 주석과 함께 두고, 토큰으로 올리는
     것은 `landing-shell` 패턴 회차의 몫이다(2026-10-13 판정).
 
 ## Acceptance tests

@@ -12,7 +12,7 @@ summary: 입력 하나로 앱의 메뉴 · 프로젝트 · 설정을 찾아 바�
 폼의 값 하나를 고르는 검색 목록은 [Select](select.md) 다.
 
 제품 정본은 사이드바 검색과 ⌘K 가 여는 `components/navigation/CommandPalette.tsx`(셸 · 상수 `:45-302`, 수명 `:342-414`, 키보드 `:594-652`, 행 `:677-768`,
-플라이아웃 `:772-818`, 발 `:822-852`)와 여는 자리 `components/navigation/Gnb.tsx:2828-2838`(⌘K) · `components/navigation/Gnb.tsx:5652-5667`(렌더)이다(통합 판 `54b62a8aa`).
+플라이아웃 `:772-818`, 발 `:822-852`)와 여는 자리 `components/navigation/Gnb.tsx:2826-2836`(⌘K) · `components/navigation/Gnb.tsx:5653-5674`(렌더)이다(통합 판 `54b62a8aa`).
 
 **이 부품이 소유하는 것은 셸과 자리뿐이다.** 셸(딤 · 유리 면 · 위쪽 정렬 배치) · 검색줄 · 목록 자리 · 플라이아웃 자리 · 키 안내 발. 그 안에 서는 조각은
 기존 부품이다 — 행은 [Menu](menu-popover.md) 항목의 한 줄 변형 `.louis-menu__item[data-layout="inline"]`, 그룹 제목은 `.louis-menu__group-label`, 닫기는
@@ -131,7 +131,7 @@ summary: 입력 하나로 앱의 메뉴 · 프로젝트 · 설정을 찾아 바�
 | `__hint[data-align="end"]` | — | — | 발 끝에 선다(실행 안내) |
 | (조합) `.louis-menu__item[data-layout="inline"]` | — | — | 이름 옆 한 줄 설명 — [Menu / Popover](menu-popover.md) |
 
-기본값 넷(`0 · -24 · 0.32 · 0.18`)은 제품의 「버튼 없음」 값이다(`components/navigation/CommandPalette.tsx:371`) — ⌘K 로 열면 패널이 위쪽 가운데에서 펼쳐진다.
+기본값 넷(`0 · -24 · 0.32 · 0.18`)은 제품의 「버튼 없음」 값이다(`components/navigation/CommandPalette.tsx:133`) — ⌘K 로 열면 패널이 위쪽 가운데에서 펼쳐진다.
 
 ### 마크업 계약
 
@@ -142,20 +142,20 @@ summary: 입력 하나로 앱의 메뉴 · 프로젝트 · 설정을 찾아 바�
 | 입력 | `role="combobox"` · 이름(placeholder 는 이름이 아니다) · `aria-expanded="true"` · `aria-autocomplete="list"` · `aria-controls` = 지금 커서가 있는 목록(본 목록 또는 열린 플라이아웃) · `aria-activedescendant` = 하이라이트 행 id. 초기 포커스. 한글 조합 중(`isComposing`) Enter 는 실행하지 않는다 |
 | 목록 | `role="listbox"` + 이름. 그룹은 `role="group"` + `aria-labelledby` → 그룹 제목. 행은 `role="option"` · 고유 `id` · **포커스 받지 않음**(Tab 정지 없음) |
 | 하이라이트 | `data-highlighted="true"` 가 한 행에만. 팔레트 목록 행에는 `aria-selected` 를 달지 않는다 — Menu 에서 그것은 「지금 값」 면(12%)이다(`packages/css/src/component/menu-popover.css`). 위치는 `aria-activedescendant` 가 말한다 |
-| 하위 목록 행 | 셰브론(`aria-hidden`) + 현재값을 `__item-trailing` 으로. → · Enter · 클릭 = 플라이아웃 열기, 같은 행 다시 = 닫기(제품 토글, `components/navigation/CommandPalette.tsx:485-489`) |
-| 플라이아웃 | `.louis-popover` + `__flyout`, `role="listbox"` + 이름(그룹 제목 id). **값 목록이라 지금 값에 `aria-selected="true"`** — 제품은 지금 값을 보이지 않았다. ← · Esc = 플라이아웃만 닫고 커서를 트리거 행으로. 검색어가 바뀌면 닫는다(`components/navigation/CommandPalette.tsx:478-480`). 바깥 누름 = 플라이아웃만 닫음(`components/navigation/CommandPalette.tsx:506-521`) |
+| 하위 목록 행 | 셰브론(`aria-hidden`) + 현재값을 `__item-trailing` 으로. → · Enter · 클릭 = 플라이아웃 열기, 같은 행 다시 = 닫기(제품 토글, `components/navigation/CommandPalette.tsx:274-278`) |
+| 플라이아웃 | `.louis-popover` + `__flyout`, `role="listbox"` + 이름(그룹 제목 id). **값 목록이라 지금 값에 `aria-selected="true"`** — 제품은 지금 값을 보이지 않았다. ← · Esc = 플라이아웃만 닫고 커서를 트리거 행으로. 검색어가 바뀌면 닫는다(`components/navigation/CommandPalette.tsx:267-269`). 바깥 누름 = 플라이아웃만 닫음(`components/navigation/CommandPalette.tsx:307-322`) |
 | 위험 행 | `data-tone="danger"`, 이름은 분명한 동사(「로그아웃」) |
 | 결과 없음 | `<p class="louis-command-palette__empty">` 가 목록 자리를 대신한다(`role` 없음). 문구는 무엇을 못 찾았는지 |
 | 결과 수 | `.louis-visually-hidden` `role="status"` — 검색어가 바뀔 때 「결과 N개」 · 「결과 없음」 |
 | 발 | 키캡 글리프는 `aria-hidden` + 숨긴 키 이름. 발은 보조기술에 그대로 읽힌다(조작 안내) |
-| 모달 | 배경 inert · 스크롤 주인 `data-louis-scroll-locked="true"`(`packages/css/src/base.css`) — 제품의 `wheel` · `touchmove` 가로채기(`components/navigation/CommandPalette.tsx:421-446`)를 대신한다. Tab 은 입력 ↔ 닫기 사이에서 돈다. 닫히면 포커스는 연 요소(검색 버튼, ⌘K 면 열기 직전 요소)로. 행이 화면을 옮기면 복귀하지 않는다(Menu `route` 사유와 같은 판단) |
+| 모달 | 배경 inert · 스크롤 주인 `data-louis-scroll-locked="true"`(`packages/css/src/base.css`) — 제품의 `wheel` · `touchmove` 가로채기(`components/navigation/CommandPalette.tsx@54b62a8a:421-446`)를 대신한다. Tab 은 입력 ↔ 닫기 사이에서 돈다. 닫히면 포커스는 연 요소(검색 버튼, ⌘K 면 열기 직전 요소)로. 행이 화면을 옮기면 복귀하지 않는다(Menu `route` 사유와 같은 판단) |
 
 ## 시작 자리는 소비처가 준다
 
 행동 목록 · 거르기 · 실행은 앱의 것이고 레시피는 그 결과를 그리는 자리를 소유한다. 소비처가 갖는 행동은 넷이다.
 
 1. **열기** — `data-louis-state="opening"` 으로 그린다(base.css 가 `visibility: hidden` 으로 감춘다). 이때 패널은 최종 자리이고 from 넷이 시작 변형이라,
-   버튼을 재려면 패널의 `offsetLeft/Top/Width/Height`(변형 무관 레이아웃 값)를 쓴다 — 제품이 이미 그렇게 잰다(`components/navigation/CommandPalette.tsx:396-397`).
+   버튼을 재려면 패널의 `offsetLeft/Top/Width/Height`(변형 무관 레이아웃 값)를 쓴다 — 제품이 이미 그렇게 잰다(`components/navigation/CommandPalette.tsx@54b62a8a:396-397`).
    다음 프레임에 `open`. 포커스는 입력으로.
 2. **거르기 · 하이라이트** — 검색어로 행을 거르고(라벨 · 설명 포함), 하이라이트는 **한 행**이다: ↑/↓ 는 끝에서 돌고, 포인터 이동이 그 행으로 옮긴다.
    하이라이트 행에 `data-highlighted="true"`, 입력에 `aria-activedescendant`. 바뀌면 `scrollIntoView({ block: "nearest" })`.
@@ -256,11 +256,11 @@ use-overlay 로 띄우면(`.louis-overlay-panel` 이 함께 붙는다) 레시피
 
 ## Migration and changelog
 
-- **제품에서 발견한 것.** 보조 글자 40 · 48% 가 라이트 2.40 ~ 2.96, 키캡 3.60, 위험 행 2.55(`components/navigation/CommandPalette.tsx:207`).
-  다이얼로그 이름 · 입력 이름(`components/navigation/CommandPalette.tsx:656-665`) · 목록 의미가 없고, 행이 `<button>` 이라 Tab 이 행을 돌다 패널 밖으로 나간다.
-  배경 inert · 포커스 복귀가 없다. 닫힘 타이머 220 이 전이 300 보다 짧아 퇴장 끝이 잘린다(`components/navigation/CommandPalette.tsx:342`).
-  Enter 처리에 `isComposing` 확인이 없다(`components/navigation/CommandPalette.tsx:641`). 아래쪽 행에서 연 플라이아웃이 패널 밖으로 잘린다.
-  플라이아웃이 지금 값을 보이지 않는다. 닫기 hover 가 `@media (hover: hover)` 밖이다(`components/navigation/CommandPalette.tsx:128-132`).
+- **제품에서 발견한 것.** 보조 글자 40 · 48% 가 라이트 2.40 ~ 2.96, 키캡 3.60, 위험 행 2.55(`components/navigation/CommandPalette.tsx@54b62a8a:207`).
+  다이얼로그 이름 · 입력 이름(`components/navigation/CommandPalette.tsx@54b62a8a:656-665`) · 목록 의미가 없고, 행이 `<button>` 이라 Tab 이 행을 돌다 패널 밖으로 나간다.
+  배경 inert · 포커스 복귀가 없다. 닫힘 타이머 220 이 전이 300 보다 짧아 퇴장 끝이 잘린다(`components/navigation/CommandPalette.tsx@54b62a8a:342`).
+  Enter 처리에 `isComposing` 확인이 없다(`components/navigation/CommandPalette.tsx:448`). 아래쪽 행에서 연 플라이아웃이 패널 밖으로 잘린다.
+  플라이아웃이 지금 값을 보이지 않는다. 닫기 hover 가 `@media (hover: hover)` 밖이다(`components/navigation/CommandPalette.tsx@54b62a8a:128-132`).
 - **고쳐 올린 값**(DS-D-0084 3항) — 보조 글자 → `fg-secondary` · `fg-tertiary`, 키캡 → `.louis-keycap`, 위험 행 → `fg-danger-on-surface`, 면 72% → 88%,
   숫자 z-index 셋 → `layer-critical` + DOM 순서, 타이머 → 계산된 전이 시간, 접근성 계약.
 - 2026-10-14 섰다 — [DS-D-0095](../governance/decisions/DS-D-0095-command-palette.md).

@@ -56,7 +56,7 @@ authority: normative
 ### 왜 content-inset 은 옮기지 않는가
 
 6 은 **데스크톱 값이 아니다.** 제품은 데스크톱에서 여전히 LOUIS 토큰을 그대로 읽고
-(`globals.css:155` — `--app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);`),
+(`globals.css:162` — `--app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);`),
 6 은 `@media (max-width: 719px)` 블록이 그 위에 덮는 값이다(`globals.css:428`). LOUIS 토큰은
 단일값이라 두 값을 담을 자리가 없다 — 토큰을 6 으로 내리면 **제품이 실제로 토큰에서 받고
 있는 데스크톱 자리**가 16 에서 6 으로 틀어진다. 반응형으로 갈라지는 축을 단일 토큰이 덮지
@@ -86,7 +86,7 @@ authority: normative
 ## Alternatives
 
 - **다섯 칸을 그대로 두고 제품을 되돌린다.** 기각. 12 → 8 과 16 → 6 은 둘 다 소유자 지정
-  변경이고 제품 주석이 그 지정을 기록하고 있다(`globals.css:178-180` · `:426-427`).
+  변경이고 제품 주석이 그 지정을 기록하고 있다(`globals.css:185-187` · `:426-427`).
 - **토큰 셋을 전부 8 · 6 으로 내린다.** 기각. 위 두 절. 맞던 자리를 틀리게 만든다.
 - **토큰을 하나도 옮기지 않고 기록만 옮긴다.** 기각. `outer-gap` 이 지배하는 자리에서
   DS 와 제품이 갈린 채 남고, 그 갈림을 말해 주는 게이트가 없다.

@@ -47,7 +47,7 @@ Raw color와 semantic color는 단일 DTCG source 안의 논리적 계층이다.
 | `static-pure-black-alpha/*` | `static/black` `#000000` | 제품이 직접 쓰는 잉크 알파를 비추는 시맨틱 — `color/gray/000-alpha/*` · `scrollbar/thumb(-hover)` 의 라이트 |
 
 제품의 투명 잉크 `rgb(var(--gray-000-rgb) / N%)` 는 라이트에서 순검정, 다크에서 `palette-gray-000`(`#fafafa`) 바탕이다
-(통합 판 `54b62a8aa` `globals.css:782` · `:726`). 그래서 그것을 비추는 `color/gray/000-alpha/*` 는 라이트가
+(통합 판 `54b62a8aa` `globals.css:815` · `:726`). 그래서 그것을 비추는 `color/gray/000-alpha/*` 는 라이트가
 `static-pure-black-alpha`, 다크가 `static-white-alpha`(`#fafafa` 바탕)다 — 이름이 「`gray/000` 의 N%」이고 값도 그렇다.
 **새 시맨틱이 제품의 잉크 알파를 비춘다면 `color/gray/000-alpha/*` 를 읽고, LOUIS 가 정하는 면 · 선이면 `static-black-alpha`
 계열 시맨틱을 읽는다**([DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)).
@@ -112,7 +112,7 @@ token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 �
 걷혔다. 그 위 슬로건 전경은 `text-fg-inverse` 에서 `media-foreground-dark` 로 옮겨 갔다 — 영상 위라
 테마를 따라 뒤집히는 잉크를 쓰면 안 되는 자리이고, 두 mode 모두 `#fafafa`다(`AuthBrandPanel.tsx:77`).
 같은 부류로 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
-`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:358-359`).
+`--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:372-373`).
 
 **이 두 축은 2026-08-24 배포본에서 이미 위 결손을 메웠다.** 예전에는 면이 `bg-[#0093ff]` 리터럴이고
 전경이 `text-palette-gray-000` primitive 별칭이었으며, 이 문단도 「브랜드 면 색 `#0093ff` 자체는 토큰화
@@ -189,14 +189,14 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 대응 `-rgb` 11개를 전부 팔레트 원시값으로 못 박아, 라이트 테마를 켠 사용자에게도 랜딩이 항상 검정
 배경·흰 글자였다. 그 위에서 랜딩 홈만 다시 밝은 램프로 뒤집고 그 안의 몇몇 섹션이 또 되돌리는
 **세 겹**이 쌓여 있었다. 배포본 `df414c24`는 세 겹을 다 걷어냈다 — 그 사유가 제품 소스 주석에 그대로
-적혀 있다(`globals.css:1598-1605`). **랜딩은 이제 테마를 따른다.**
+적혀 있다(`globals.css:1633-1640`). **랜딩은 이제 테마를 따른다.**
 
 **예외 — 테마와 무관하게 라이트로 고정한 페이지가 있다**(소유자 2026-10-02: 랜딩 홈 · 앰배서더). 그 페이지는 제 루트에
 `data-theme="light"` 를 달고(LOUIS 토큰은 중첩된 `[data-theme]` 스코프가 통한다) 제품 `--gray-*` 램프는 따로
 `data-landing-walkthrough-light` 가 라이트로 되돌린다 — **고정은 두 겹이다.** 그런데 실제로 바닥을 칠하는 것은 그 루트가 아니라
 `body` 와 앱 셸 래퍼라 스코프 밖이다. 그래서 제품은 `body:has([data-page-root][data-theme="light"])` 가 `--page-bg` ·
 `--app-page-bg` 를 **`--palette-gray-000`**(라이트 `landing-page-bg` 와 같은 값 `#fafafa`, 리터럴을 새로 적지 않는다)으로 고정한다
-(`globals.css:2107`). 위 `body:has([data-page-root])` 와 같은 `components` 레이어 안에서 특이도가 `(0,2,1)` 대 `(0,1,1)` 이라 **순서와 상관없이** 이긴다.
+(`globals.css:2139`). 위 `body:has([data-page-root])` 와 같은 `components` 레이어 안에서 특이도가 `(0,2,1)` 대 `(0,1,1)` 이라 **순서와 상관없이** 이긴다.
 
 - **「랜딩은 테마를 따른다」는 `data-theme` 를 고정하지 않은 랜딩 페이지(문의 · 가격 · 블로그 · 템플릿)에 한한다.** 고정 페이지는
   다크 사용자에게도 라이트다 — 랜딩·가격을 「다크 전용」으로 그리면 틀린다는 아래 경고의 반대편이 이 예외다.
@@ -210,16 +210,16 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 
 - 랜딩·마케팅 트리 루트 `[data-page-root]`가 지금 세우는 것은 **면 계열 여섯**뿐이고, 값은 전부 LOUIS의
   `landing-*` 시맨틱에서 온다 — `--page-bg`·`--panel`·`--panel-strong`·`--line`·`--text-soft`·
-  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1607-1612`). 회색 램프는 손대지
+  `--text-muted`가 각각 `var(--louis-color-landing-*)`이다(`globals.css:1642-1647`). 회색 램프는 손대지
   않으므로 `html[data-theme]`가 세운 값이 그대로 흐른다.
 - **알파를 여기서 다시 계산하지 않는 것이 규칙이다.** `landing-*`는 테마별 값이 이미 정의돼 있고
   (light `#fafafa` / dark `#000000` 등 — 라이트는 `#f1f1f3` 이던 것이 팔레트 갱신으로 옮겨 갔다), 소비 스코프가 알파를 다시 쓰면 정본이 둘이 된다. 이것이 랜딩
   섹션들이 `bg-gray-900` 대신 `var(--panel-strong)`을 쓰는 이유이기도 하다.
-- 블록은 **`@layer components` 안**에 있다(`globals.css:1170`이 그 레이어를 연다). 파일 끝에 있는 것은
+- 블록은 **`@layer components` 안**에 있다(`globals.css:1190`이 그 레이어를 연다). 파일 끝에 있는 것은
   마케팅 훅을 한곳에 모으려는 조직상의 선택이고 **캐스케이드 승패에 의존하지 않는다** — 사유가
-  `globals.css:1593-1595`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
+  `globals.css:1628-1630`에 있다. 앞선 판이 「`@layer` 밖에 두어 상속을 이긴다」고 적었던 것은 그때의
   구조였고 지금은 아니다.
-- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1616-1617`).
+- 요소 자신은 `background: var(--page-bg); color: var(--gray-000)`을 갖는다(`globals.css:1651-1652`).
   `background`가 단축인 채로 남아 있는 것도 계약이다 — 가격 페이지가 「이 단축이 `background-clip` 등
   롱핸드를 초기화한다」를 근거로 삼고 있다.
 
@@ -242,7 +242,7 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 3.92:1 로 살아 있었다. **램프를 래퍼에서 못 박아 고치려는 시도는 이 이유로 성립하지 않는다.**
 
 색이 아닌 예외로 `[data-page-root] [data-reveal]` 이 진입 애니메이션을 무력화하는 규칙은
-그대로 있다(`globals.css:1662-1666`).
+그대로 있다(`globals.css:1696-1700`).
 
 **이걸 모르면 틀린다 — 방향이 반대다.** 랜딩·가격 화면을 **다크 전용**으로 그리면 틀린다. Figma 시안이
 다크 렌더일 뿐이고 제품은 두 테마를 다 그린다. 라이트에서 무너지는 자리는 램프 인덱스를 대칭으로
@@ -269,21 +269,21 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 
 | 매체 | 아이콘 (두 mode 공통) | 캡션 dark | 캡션 light | 근거 |
 | --- | --- | --- | --- | --- |
-| Image | `--accent-green-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:327` · `ImageNode.tsx:346-347` |
-| Video | `--primary-500` `#0088ff` | `#d6ebff` | `#005fb3` | `VideoNode.tsx:245` · `VideoNode.tsx:267-268` |
-| Text | `--accent-yellow-500` `#ffb200` | `#fff5d6` | `#b87600` | `TextNode.tsx:317` · `TextNode.tsx:331-332` |
-| Edit | `--accent-violet-500` `#6055ff` | `#ebe8ff` | `#3528b8` | `EditNode.tsx:368` · `EditNode.tsx:384-385` |
+| Image | `--accent-green-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:327` · `ImageNode.tsx:351-352` |
+| Video | `--primary-500` `#0088ff` | `#d6ebff` | `#005fb3` | `VideoNode.tsx:247` · `VideoNode.tsx:267-268` |
+| Text | `--accent-yellow-500` `#ffb200` | `#fff5d6` | `#b87600` | `TextNode.tsx:318` · `TextNode.tsx:332-333` |
+| Edit | `--accent-violet-500` `#6055ff` | `#ebe8ff` | `#3528b8` | `EditNode.tsx:368` · `EditNode.tsx:385-386` |
 
 제품의 네 램프는 전부 LOUIS 램프의 별칭이다 — `--primary-*` 는 `color-blue-*`, `--accent-green-*` ·
-`-yellow-*` · `-violet-*` 는 같은 이름의 LOUIS 램프를 읽는다(`globals.css:193-199` ·
-`globals.css:234-240` · `globals.css:253-259` · `globals.css:314-326`). 그래서 위 hex 는 LOUIS
+`-yellow-*` · `-violet-*` 는 같은 이름의 LOUIS 램프를 읽는다(`globals.css:200-206` ·
+`globals.css:241-247` · `globals.css:260-266` · `globals.css:321-333`). 그래서 위 hex 는 LOUIS
 원천 값과 같다. 이 표는 2026-09-13 에 앵커 `6fbdac16` 으로 다시 쟀다 — 그 전 표는 sky 폐지와
 mint → green 개명 이전의 이름과 줄을 적고 있었다.
 
 - **캡션은 색을 두 곳에 같은 값으로 선언한다.** `color`와 `--caption-tone` 둘 다다. 쉬머가
   `background-clip: text` + `-webkit-text-fill-color: transparent`로 그려져 `color`가 무효화되므로
-  (`ImageNode.tsx:348-352`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
-  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:354`). 네 노드가 같은 패턴이다.
+  (`ImageNode.tsx:353-357`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
+  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:359`). 네 노드가 같은 패턴이다.
 - Tts/Bgm(audio) 노드에는 이 생성 중 아이콘·캡션 accent가 없다. audio는 영역 차오름으로 진행을 표시한다.
 
 **sky 결손은 사라졌다(2026-09-13 확인).** 이 자리는 「LOUIS 에 `color-sky-*` 램프가 없어 Video 를

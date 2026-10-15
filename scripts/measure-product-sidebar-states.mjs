@@ -250,6 +250,10 @@ try {
     // (573→571 · 579→577 · 589→587), 로고 블록 +33(1824→1857 · 1898→1931 · 1900→1933). 여섯 자리 모두 앞뒤 여섯 줄 문맥이
     // 구식과 그대로 맞는 한 곳뿐이었고(scratchpad 의 문맥 대조), 형제 간격(+6 · +16, +74 · +2)도 그대로다.
     //
+    // 2026-10-15 재고정(통합 판 `54b62a8a` → 운영 main `97d4950e`, DS-D-0117)에서 `Gnb.tsx` 가 5675 줄이다. 두 블록 모두 +1
+    // (571→572 · 577→578 · 587→588, 1857→1858 · 1931→1932 · 1933→1934). 다섯은 새 커밋에서 바이트 그대로 유일하게 찾았고,
+    // 유일하지 않은 578 은 형제 간격(+6 · +16)으로 고정했다.
+    //
     // 570 만 문자열이 유일하지 않다(`"[color:var(--gray-000)]",` 는 새 커밋에 14번 나온다).
     // 그래서 문자열 검색이 아니라 **형제로** 고정했다: 588 · 594 · 604 는 한 선언 배열 안의
     // 같은 블록이고 옛 564 · 570 · 580 과 **간격이 같다**(+6 · +16). 그 일치가 이 셋이 같은
@@ -259,12 +263,12 @@ try {
     // 대조하지 않는 `measure-product-auth-fixture` 의 `sourceQuote` 와 다른 점이고, 그쪽은
     // 같은 회차에 손으로 찾아야 했다. 인용을 굽는 자리는 대조를 함께 굽는 것이 맞다.
     sourceEvidence: [
-      quote(1857, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
-      quote(1931, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
-      quote(1933, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
-      quote(571, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
-      quote(577, '    "[color:var(--gray-000)]",'),
-      quote(587, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
+      quote(1858, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
+      quote(1932, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
+      quote(1934, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
+      quote(572, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
+      quote(578, '    "[color:var(--gray-000)]",'),
+      quote(588, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
     ],
     states: { expanded, collapsed, activeCollapsedHome },
   };

@@ -14,7 +14,7 @@ authority: normative
 ## Context
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `content-card` 가 있다. 공개 블로그 인덱스
-(`app/blog/page.tsx:78-176`)와 템플릿 인덱스(`app/templates/page.tsx:77-130`, 통합 판 `54b62a8aa`)가 「커버 그림 + 그 **밖**의 제목 · 설명 +
+(`app/blog/page.tsx@54b62a8a:78-176`)와 템플릿 인덱스(`app/templates/page.tsx@54b62a8a:77-130`, 통합 판 `54b62a8aa`)가 「커버 그림 + 그 **밖**의 제목 · 설명 +
 카드 전체가 링크 하나」인 카드를 각자 Tailwind 상수로 들고 있다. 표면 원장의 「16:9 격자 카드 · translateY 호버」 서술은 낡았다 — 블로그는
 2026-09 에 글 왼쪽 · 썸네일 오른쪽의 가로 행이 됐고, 두 화면의 호버 · 비율 · 면이 이미 갈렸다.
 

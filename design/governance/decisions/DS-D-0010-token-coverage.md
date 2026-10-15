@@ -171,7 +171,7 @@ baseline도 함께 되돌린다. Figma는 이전 proposal로 재적용하면 되
 > **2 — 대상이 사라졌다(2026-09-13 확인).** 앵커 `6fbdac16` 에서 제품은 `--palette-gray-200` 과
 > `--palette-gray-200-rgb` 를 둘 다 LOUIS 토큰의 별칭으로 선언한다(`globals.css:49` ·
 > `globals.css:66`). hex 와 미러가 같은 원천을 읽으므로 238/239 어긋남이 생길 자리가 없고,
-> `body:has(...)` 로 램프를 재매핑하던 앱 셸 규칙도 걷혔다(`Gnb.tsx:1391-1396` 주석). 아래 2의 두
+> `body:has(...)` 로 램프를 재매핑하던 앱 셸 규칙도 걷혔다(`Gnb.tsx:1392-1397` 주석). 아래 2의 두
 > 문단(「남은 질문은 하나다」 · 「2도 닫혔다」)과 제품 미러 결함 서술은 2026-08-21 의 기록이다.
 
 **2 — 남은 질문은 하나다.** 앱 셸 램프 네 단계를 전부 쟀고 어긋나는 곳은 `palette-gray-200`
@@ -181,13 +181,13 @@ baseline도 함께 되돌린다. Figma는 이전 proposal로 재적용하면 되
 정해지면 닫힌다. 실측 근거는 [실행 인계서](../execution-handoff.md)의 `DS-P3-014` 절에 있다.
 
 > **3 — 질문을 바꿨다(2026-09-13).** 아래 2026-08-21 실측의 **토큰 표는 지금도 맞다** — 제품
-> 라이트 오버라이드는 여전히 `--node-handle-bg-{channel}` 만 200 으로 바꾼다(`globals.css:626-627`
+> 라이트 오버라이드는 여전히 `--node-handle-bg-{channel}` 만 200 으로 바꾼다(`globals.css:641-642`
 > 등). **그러나 「라이트에서 비활성 핸들이 거의 검정이 된다」는 제품 화면에서 일어나지 않는다.**
 > 제품 소비처는 라이트에서 disabled 토큰을 읽지 않고, 활성 토큰(`--node-handle-bg-{channel}` ·
 > `--node-handle-icon-{channel}`)에 `brightness(0.78) saturate(0.95)` 를 건다
-> (`NodeSideButtons.tsx:182-214` · `VideoNode.tsx:317-350` · `EditNode.tsx:203-230`). 제품 토큰
+> (`NodeSideButtons.tsx:183-215` · `VideoNode.tsx:319-352` · `EditNode.tsx:204-231`). 제품 토큰
 > 주석도 그렇게 적는다 — 「비활성(라이트)은 소비자 유틸리티에서 필터+채널 토큰 유지」
-> (`globals.css:502`).
+> (`globals.css:517`).
 >
 > 그리고 disabled 12종은 이미 원천에 있다 — `color-node-handle-{bg,icon}-disabled-{channel}`
 > (`8de65bb`, 2026-08-26), 두 모드 값이 같은 `{ramp}.900` · `{ramp}.700` 이다. LOUIS 레시피는 두
@@ -243,8 +243,8 @@ baseline도 함께 되돌린다. Figma는 이전 proposal로 재적용하면 되
 
 `instagram`이 `youtube`와 같은 것은 실수가 아니다. 제품이 그 자리에 주석으로 의도를 적어 두었다.
 
-근거: `globals.css:571-598`(일곱 셀렉터) · `:152`·`:191`·`:210`·`:228`·`:247`·`:267`(팔레트) ·
-`components/scenes/create/node-canvas-v2/index.tsx:360`·`:359`(소비).
+근거: `globals.css:586-613`(일곱 셀렉터) · `:152`·`:191`·`:210`·`:228`·`:247`·`:267`(팔레트) ·
+`components/scenes/create/node-canvas-v2/index.tsx:374`·`:359`(소비).
 
 **그래서 단위 4는 절반만 올렸다.** 두 테마에 값이 정의된 축(`surface` 6 · `icon` 6 ·
 `selection accent` 7 = **19종**)을 semantic으로 승격했고, disabled 계열 12종은 **라이트 값이

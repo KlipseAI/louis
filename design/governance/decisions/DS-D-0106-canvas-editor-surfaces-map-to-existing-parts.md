@@ -22,7 +22,7 @@ authority: normative
    `InspectorSectionAction`(원장 `figma: IconButton`, size sm), 메뉴는 `louis-popover` + `louis-menu__item`(`:63-70` · `:91`)을 그대로 문다. 파일이 자기 것으로
    갖는 것은 rAF 펼침 애니와 포털 좌표 · 형제 드롭다운 상호 배제 배선뿐이다.
 2. `…/nodes/imageEditParts/StickerCanvas.tsx#StickerCanvas` — 스티커 상자의 선택 틀 · 손잡이 여덟 · 모서리 바깥 회전 띠는 이미
-   [Transform Frame](../../components/transform-frame.md) 이 이 파일을 정본으로 인용해 소유한다(`__rotate-zone`, `StickerCanvas.tsx:95-106`). 남는 것은
+   [Transform Frame](../../components/transform-frame.md) 이 이 파일을 정본으로 인용해 소유한다(`__rotate-zone`, `StickerCanvas.tsx@54b62a8a:95-106`). 남는 것은
    우물(`WELL`, 프레임을 가운데 두는 어두운 바닥 · 여백 12)과 프레임 그림자인데, 그것은 같은 모달의 크롭 탭이 쓰는 작업 영역과 같은 자리다 —
    크롭 모달 셋(`CropModalInner` · `ClipCropModal` · 미리보기 오버레이)이 이미 `figma: TransformFrame` 으로 닫혔다.
 3. `…/components/ActionButton.tsx#ActionButton` — 44 원형 FAB. 앵커 전체에서 이 이름을 import 하거나 렌더하는 곳이 0이다(자기 파일 · 무관한 주석

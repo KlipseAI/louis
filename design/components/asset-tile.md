@@ -10,7 +10,7 @@ summary: 눌러서 그림 하나를 넣는 칸입니다. 테두리 칸 안에 �
 팔레트에서 스티커 · 도형 같은 그림 하나를 **넣는** 칸이다(`.louis-asset-tile`,
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)). 누르면 넣고 끝이다 — 선택 상태가 없다.
 고른 상태가 남아야 하면 [Choice Card](choice-card.md)이고, 라벨 없는 썸네일이면 [Media Slot](media-slot.md)이다.
-제품 정본은 이미지 편집 모달의 스티커 팔레트다(`StickerPalette.tsx:30-56`, 통합 판 `54b62a8aa`).
+제품 정본은 이미지 편집 모달의 스티커 팔레트다(`StickerPalette.tsx@54b62a8a:30-56`, 통합 판 `54b62a8aa`).
 
 ```html
 <div class="louis-asset-tile-grid">
@@ -35,7 +35,7 @@ summary: 눌러서 그림 하나를 넣는 칸입니다. 테두리 칸 안에 �
 | 누름 | `scale: 0.97`. 줄인 동작에서는 없다 |
 
 **우물은 테마를 따르지 않는다.** 흰 선만으로 된 에셋이 다크 면에서 사라지지 않도록 두 테마 모두 중간 회색을 깐다
-(`StickerPalette.tsx:32-33` 의 주석이 그 의도다). 라이트에서 흰 에셋이 덜 보이는 것은 아래 Known deviations 1 이다.
+(`StickerPalette.tsx@54b62a8a:32-33` 의 주석이 그 의도다). 라이트에서 흰 에셋이 덜 보이는 것은 아래 Known deviations 1 이다.
 
 ## Availability
 
@@ -90,10 +90,10 @@ summary: 눌러서 그림 하나를 넣는 칸입니다. 테두리 칸 안에 �
    그림은 장식이고 이름은 라벨이 말한다(DS-D-0084 「작은 새 부품」 판단 3).
 2. **칸 경계(잉크 12%)는 3:1 미만이다.** 라벨과 그림이 칸을 식별하므로 1.4.11 의 「식별에 필요한 경계」가 아니다.
 3. **작은 값을 사다리로 접었다.** 호버 면 10% → `gray-000-alpha-08`, 라벨 잉크 72% → `fg-secondary`, 전환 120ms → `motion-control-hover`.
-   사다리에 이름이 없는 격자 6 · 우물 반경 4 · 그림 안쪽 2 는 제품 값 그대로다(`StickerPalette.tsx:30` · `:45` · `:50`).
+   사다리에 이름이 없는 격자 6 · 우물 반경 4 · 그림 안쪽 2 는 제품 값 그대로다(`StickerPalette.tsx@54b62a8a:30` · `:45` · `:50`).
 
 ## 제품에서 발견한 것
 
-- 호버가 `@media (hover: hover)` 밖이라 터치에서 탭 뒤 강조가 남는다(`StickerPalette.tsx:39-40`). 레시피는 호버 기기에서만 그린다.
-- 예시 갤러리 칸(`ExampleGallery.tsx:43-47`)은 이 부품이 아니다 — 누를 수 없고 그림이 칸을 다 덮는다.
+- 호버가 `@media (hover: hover)` 밖이라 터치에서 탭 뒤 강조가 남는다(`StickerPalette.tsx@54b62a8a:39-40`). 레시피는 호버 기기에서만 그린다.
+- 예시 갤러리 칸(`ExampleGallery.tsx@54b62a8a:43-47`)은 이 부품이 아니다 — 누를 수 없고 그림이 칸을 다 덮는다.
   [Media Slot](media-slot.md) `data-size="fill"` + `data-ratio="2:3"` 이다.

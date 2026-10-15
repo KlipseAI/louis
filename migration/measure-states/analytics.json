@@ -2,7 +2,7 @@
   "$schema": "./_schema.json",
   "area": "analytics",
   "mode": "session",
-  "authoredAgainst": "76b6cf154ab2",
+  "authoredAgainst": "97d4950e153d",
   "description": "YouTube 분석(/analytics/youtube)의 연결 뒤 상태. 세션 모드 SESSION_ROUTES 에 이 라우트가 없어 pattern 으로 연다. 분석 API 는 모두 브라우저 fetch 라 /api 가로채기로 답하고 Supabase 오버레이는 쓰지 않는다. 통합 앵커에는 「콘텐츠」 탭이 없다(탭 셋 — YoutubeAnalyticsScene.tsx 1065–1069). 콘텐츠 표는 개요 탭 안에서 선다.",
   "recipes": [
     {
@@ -41,27 +41,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -96,12 +96,12 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 443,
+          "line": 444,
           "expect": "useState<DashboardTab>(\"overview\")"
         },
         {
           "path": "apps/web/components/scenes/analytics/KpiCard.tsx",
-          "line": 106,
+          "line": 78,
           "expect": "item.trend.length > 1"
         }
       ],
@@ -217,27 +217,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -277,7 +277,7 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 1067,
+          "line": 1068,
           "expect": "{ key: \"performance\", label: t.performance }"
         }
       ],
@@ -406,27 +406,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -466,7 +466,7 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 1068,
+          "line": 1069,
           "expect": "{ key: \"audience\", label: t.audience }"
         }
       ],
@@ -595,27 +595,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -650,7 +650,7 @@
         },
         {
           "path": "apps/web/components/scenes/analytics/OverviewTab.tsx",
-          "line": 290,
+          "line": 281,
           "expect": "<InsufficientNotice message={insufficientData} />"
         }
       ],
@@ -763,27 +763,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -950,27 +950,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -1143,27 +1143,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -1198,17 +1198,17 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 797,
+          "line": 798,
           "expect": "const showDashboardSkeleton ="
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 788,
+          "line": 789,
           "expect": "traffic: channelExtData?.traffic ?? null"
         },
         {
           "path": "apps/web/components/scenes/analytics/OverviewTab.tsx",
-          "line": 196,
+          "line": 146,
           "expect": "<ReportKpiRowSkeleton count={4} />"
         }
       ],
@@ -1322,27 +1322,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -1377,12 +1377,12 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 1310,
+          "line": 1311,
           "expect": "const showFatalError ="
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 1636,
+          "line": 1637,
           "expect": "{showFatalError && headerError && ("
         },
         {
@@ -1510,27 +1510,27 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 545,
+          "line": 546,
           "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 559,
+          "line": 560,
           "expect": "&topVideoLimit=10&sections=core"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 579,
+          "line": 580,
           "expect": "&sections=extended"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 593,
+          "line": 594,
           "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 732,
+          "line": 733,
           "expect": "/api/youtube/analytics/channel/videos?${params}"
         },
         {
@@ -1565,17 +1565,17 @@
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 1420,
+          "line": 1421,
           "expect": "onDescriptionClick={() => setChannelInfoModalOpen(true)}"
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 1647,
+          "line": 1648,
           "expect": "{channelInfoModalOpen && channel && ("
         },
         {
           "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "line": 1652,
+          "line": 1653,
           "expect": "role=\"dialog\""
         }
       ],

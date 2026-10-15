@@ -122,7 +122,7 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 | `layout` | 자리 | 제품 정본 |
 | --- | --- | --- |
 | `base` | 페이지 본문 | 앱 홈 두 벌(집계 9벌의 합의값) |
-| `compact` | 섹션 카드 **안** | `AnalyticsStatePanel` — `components/scenes/analytics/shared.tsx:123-128` · `561-566` |
+| `compact` | 섹션 카드 **안** | `AnalyticsStatePanel` — `components/scenes/analytics/shared.tsx@54b62a8a:123-128` · `561-566` |
 | `canvas` | 작업 표면 **위** | `CanvasEmptyState` — `components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx:24-38` |
 
 `compact` 은 이 컴포넌트의 **단일 최다 소비처**다 — 앵커 `5a67d692` 전수로 JSX 호출 15곳 / 6파일 /
@@ -277,7 +277,7 @@ Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 �
   표현은 별도 컴포넌트가 소유해야 한다.
 
 - **집계 9벌 밖의 열 번째 정의는 이제 축이다.** 대시보드(분석) 섹션은 빈 상태와 fetch
-  실패를 `AnalyticsStatePanel` 한 컴포넌트로 그린다(`components/scenes/analytics/shared.tsx:549-570`).
+  실패를 `AnalyticsStatePanel` 한 컴포넌트로 그린다(`components/scenes/analytics/shared.tsx:532-544`).
   이 패널은 **배경·1px 테두리·12px 반경을 갖는다** — 위 「9벌 전부 없음」 합의의 유일한 반례다.
   2026-09-06 에 그 실측을 `layout="compact"` 로 세웠으므로 **더 이상 「이 컴포넌트로 그릴 수 없는
   자리」가 아니다.** 아래 표가 그 축의 출처다.
@@ -285,12 +285,12 @@ Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 �
   | 축 | 값 | 근거 |
   | --- | --- | --- |
   | 배경 | `var(--dashboard-chip-bg-strong)` | `shared.tsx:125` |
-  | 테두리 | `1px solid var(--dashboard-input-border)` | `shared.tsx:126-127` |
+  | 테두리 | `1px solid var(--dashboard-input-border)` | `shared.tsx@54b62a8a:126-127` |
   | 반경 | 12px (`--radius-12`, `tailwind.css:173`) | `shared.tsx:124` |
   | 패딩 | 20px (`p-10`, 격자 2px는 `tailwind.css:162`) | `shared.tsx:124` |
   | 블록 간격 | 6px (`gap-3`) | `shared.tsx:124` |
-  | 제목 | `type-body-16-semibold` · `text-gray-000` | `shared.tsx:562` · `shared.tsx:137` |
-  | 본문 | `type-body-14-regular` · `var(--dashboard-muted-color)`, 줄높이만 16 계열로 덮어쓴다 | `shared.tsx:565` · `shared.tsx:138-141` |
+  | 제목 | `type-body-16-semibold` · `text-gray-000` | `shared.tsx@54b62a8a:562` · `shared.tsx:114` |
+  | 본문 | `type-body-14-regular` · `var(--dashboard-muted-color)`, 줄높이만 16 계열로 덮어쓴다 | `shared.tsx@54b62a8a:565` · `shared.tsx:115-118` |
   | 그래픽 · 액션 | **없다** | `shared.tsx:554-568` |
 
   자식은 제목 span과 본문 span 둘뿐이다. **Anatomy의 Graphic·Action 슬롯을 대시보드에서 찾으면
@@ -299,8 +299,8 @@ Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 �
   **픽셀은 바뀌지 않는다**(14 x 1.5 = 21) — 덮어쓰기가 있다는 사실과 값이 갈린다는 사실은 다르다.
 
 - **대시보드에서는 `error`와 `neutral`의 픽셀이 완전히 같다.** 오류 분기가 더하는 클래스 문자열이
-  **빈 문자열**이다(`shared.tsx:132`). 원본 CSS의 오류 배경·테두리색은 특이도 싸움에서 져
-  **원본에서도 그려지지 않던 죽은 선언**이었고, 제품은 분기만 남겼다(`shared.tsx:130-132`, 556-560행).
+  **빈 문자열**이다(`shared.tsx:235`). 원본 CSS의 오류 배경·테두리색은 특이도 싸움에서 져
+  **원본에서도 그려지지 않던 죽은 선언**이었고, 제품은 분기만 남겼다(`shared.tsx@54b62a8a:130-132`, 556-560행).
   아이콘도, 재시도 버튼도, 액센트 색도 없다. **두 톤을 색으로 구분해 그리면 배포본과 어긋난다** —
   구분은 문구가 혼자 진다. 이 컴포넌트가 「없음」과 「실패」를 가르기로 한 판단은 채택 목표이고,
   대시보드는 그 목표에 아직 도달하지 않은 반례다.

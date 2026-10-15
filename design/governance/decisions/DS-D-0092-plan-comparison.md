@@ -14,18 +14,18 @@ authority: normative
 ## Context
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」 첫 줄이 `plan-comparison` 이다. 요금제 비교표는
-`components/landing/sections/PricingSection.tsx:322-504` 의 `PlanComparisonTable` 하나가 공개 가격(`/pricing`, `components/landing/sections/PricingSection.tsx:703`)과
-로그인 뒤 플랜 선택(`/mypage/upgrade`, `app/mypage/upgrade/UpgradePlanPageClient.tsx:907`, 통합 판 `54b62a8aa`) 두 자리에 선다. 정의는 하나고 상수
+`components/landing/sections/PricingSection.tsx:214-409` 의 `PlanComparisonTable` 하나가 공개 가격(`/pricing`, `components/landing/sections/PricingSection.tsx:573`)과
+로그인 뒤 플랜 선택(`/mypage/upgrade`, `app/mypage/upgrade/UpgradePlanPageClient.tsx:781`, 통합 판 `54b62a8aa`) 두 자리에 선다. 정의는 하나고 상수
 열넷(`COMPARISON_TITLE` ~ `COMPARISON_COL_VALUE_TEXT`)이 Tailwind 임의 값으로 모양을 쥐고 있다. LOUIS 에는 대응이 없고, Figma 에는 측정 재현인
 제품 세트 `Product/Plan Comparison Table`(DS-D-0071)만 있다.
 
 이 표는 **열이 플랜인 완전 피벗**이다 — 각 열이 머리(플랜 이름) 아래 묶음별 체크리스트를 자기완결로 담는다(제품 주석
-`components/landing/sections/PricingSection.tsx:426`). [Table](../../components/table.md) 은 `<table>` 행 × 열 격자(헤더 행 면 · 행 구분선 · 숫자 우측)라
+`components/landing/sections/PricingSection.tsx:244`). [Table](../../components/table.md) 은 `<table>` 행 × 열 격자(헤더 행 면 · 행 구분선 · 숫자 우측)라
 이 조형을 담지 못한다. 담게 하려면 피벗을 뒤집어야 하는데, 그것은 부품을 올리는 일이 아니라 화면을 바꾸는 일이다(DS-D-0084 3항은
 「조형을 올린다」이지 「다시 디자인한다」가 아니다). Record Card · Choice Card · Inspector Row 도 열 격자 + 머리 + 묶음 + 값 표시를 함께 갖지 않는다.
 
 대비 부채는 없다. 옛 메모의 다크 대비 미달(`--gray-900` · `--gray-700` 잉크)은 앵커 이전 코드이고, 지금 제품은 잉크를 역할대로 쓴다
-(`app/mypage/upgrade/UpgradePlanPageClient.tsx:329-336` 주석). 글자는 네 바닥(랜딩 · 메인 카드 × 라이트 · 다크)에서 전부 4.5 이상, 체크는 3:1 이상이다.
+(`app/mypage/upgrade/UpgradePlanPageClient.tsx:227-234` 주석). 글자는 네 바닥(랜딩 · 메인 카드 × 라이트 · 다크)에서 전부 4.5 이상, 체크는 3:1 이상이다.
 
 ## Decision
 

@@ -319,11 +319,11 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
 - Tooltip은 포인터를 막지 않는다. 장식 pseudo-element도 항상 `pointer-events:none`이다.
 
 - **팝오버는 앱 셸 램프를 상속한다 — 그런데 표면은 이미 램프 밖으로 나갔다.** 프로필 팝오버는 전용
-  overlay root가 아니라 `document.body`로 포털되고(`Gnb.tsx:4024`, `Gnb.tsx:5360`), 앱 셸 라이트 램프가
-  바로 그 `body`에 얹힌다(`Gnb.tsx:2047-2072`, 선택자 `html[data-theme=light] body:has(.gnb-wrapperSidebar)`).
+  overlay root가 아니라 `document.body`로 포털되고(`Gnb.tsx:4024`, `Gnb.tsx:5361`), 앱 셸 라이트 램프가
+  바로 그 `body`에 얹힌다(`Gnb.tsx:2048-2073`, 선택자 `html[data-theme=light] body:has(.gnb-wrapperSidebar)`).
   램프가 재매핑하는 것은 **고정 팔레트 `--palette-gray-100…600`과 `--app-page-bg`·`--background`뿐**이다.
 
-  패널 표면은 `--louis-color-bg-menu`를 소비한다(`Gnb.tsx:1350`). 그 토큰은 생성된 CSS에서 리터럴
+  패널 표면은 `--louis-color-bg-menu`를 소비한다(`Gnb.tsx:1351`). 그 토큰은 생성된 CSS에서 리터럴
   `color(srgb 0.94902 0.952941 0.960784)`(palette-gray-025 — [DS-D-0069](../governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md))이라
   팔레트 별칭을 밟지 않는다 — **램프가 닿지 않는다.** 그러므로 라이트 표면은 사이드바 유무와 무관하게 `#f2f3f5` 하나다.
 
@@ -350,14 +350,14 @@ Chromium에 얹어 두 문맥을 실측했다(2026-08-30).
 적용해 해결한다**」. 그래서 램프가 덮는 제품 별칭 대신 LOUIS 프리미티브를 직접 부른다
 (`Gnb.tsx@c1543b74:1370`, `--louis-color-palette-gray-200`). **이 고침은 evidence lock 이 고정한
 배포본 뒤에 들어갔다** — 고정본의 같은 자리는 아직 램프가 덮는 제품 별칭
-`--palette-gray-200`(`Gnb.tsx:1370`)이라, 락을 갱신하기 전에는 현재형 좌표로 적을 수 없다.
+`--palette-gray-200`(`Gnb.tsx:1371`)이라, 락을 갱신하기 전에는 현재형 좌표로 적을 수 없다.
 램프는 셸 부품을 위해 그대로 둔다 —
 `app-shell-parts.md`가 사이드바 색을 램프에서 읽는다고 적고 있다.
 
 **아직 수렴하지 않은 것: 구분선 recipe.** [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)은
 일반 0.5px stroke를 inset 헤어라인으로 통일했고 `.louis-menu__separator`가 그것을 쓴다
 ([menu-popover.css:240-250](../../packages/css/src/component/menu-popover.css)).
-제품 구분선은 아직 1px solid다(`Gnb.tsx:1116`). 채택하면 다크에서 선이 `#575d68`(면 대비
+제품 구분선은 아직 1px solid다(`Gnb.tsx:1117`). 채택하면 다크에서 선이 `#575d68`(면 대비
 38/255)에서 paper 10%(20/255)로 **옅어진다** — 라이트 결함을 고치는 일과
 무관한 다크 변경이므로 여기서 하지 않고, 소유자 판정으로 남긴다.
 
@@ -371,8 +371,8 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 ### 세로 배치와 flip
 
 **기본 세로 배치는 트리거 위쪽이다.** 제품의 캔버스 계열 패널은 앵커에서 `bottom: calc(100% + gap)`으로
-서고(`BgmNode.tsx:244`, `Toolbar.tsx:110`), 위쪽 여유가 모자랄 때만 아래로 flip해 `top: calc(100% + gap)`으로
-간다(`metaDropdownViewport.ts:4-5`, `MetaDropdownPanel.tsx:314-322`). Properties 표의 `placement` 기본값
+서고(`BgmNode.tsx:245`, `Toolbar.tsx:110`), 위쪽 여유가 모자랄 때만 아래로 flip해 `top: calc(100% + gap)`으로
+간다(`metaDropdownViewport.ts:4-5`, `MetaDropdownPanel.tsx:360-368`). Properties 표의 `placement` 기본값
 `bottom`은 이 계열과 **정반대**다. 기본값을 그대로 그리면 패널이 트리거 아래로 뒤집혀 캔버스 노드를 덮는다.
 
 **flip 판정 순서는 고정이다.** `need = 패널 높이 + gap`, `aboveAvail = 트리거 top − 8`,
@@ -386,12 +386,12 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 유틸은 `metaDropdownViewport.ts:7`에 살아 있지만 `MetaDropdownPanel`이 호출하지 않는다. 같은 유틸을 실제로
 부르는 `PageMetaDropdownPanel.tsx:134`과 여기서 갈리므로, 「제품에는 shift가 없다」로 일반화하지 않는다.
 
-**닫히는 동안 flip 상태를 유지한다**(`MetaDropdownPanel.tsx:204-206`). 즉시 리셋하면 아래로 열렸던 패널이
+**닫히는 동안 flip 상태를 유지한다**(`MetaDropdownPanel.tsx:207-209`). 즉시 리셋하면 아래로 열렸던 패널이
 페이드 도중 위로 튄다.
 
 **flip하면 `transform-origin`도 반대편으로 함께 갈아탄다.** 원점을 고정한 채 flip하면 패널이 트리거 반대
 방향에서 자라 나온다. 원점 클래스와 앵커 인라인 스타일이 같은 값으로 함께 바뀐다
-(`MetaDropdownPanel.tsx:304-312`, `MetaDropdownPanel.tsx:314-322`).
+(`MetaDropdownPanel.tsx:350-358`, `MetaDropdownPanel.tsx:360-368`).
 
 | `motionOrigin` | 기본 원점 | 아래로 flip한 뒤 |
 | --- | --- | --- |
@@ -404,7 +404,7 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 
 **자동 flip은 `bottom-*`에서만 켜진다.** 별도 지정이 없으면 원점이 `bottom-center` 또는 `bottom-left`일 때만
 활성이고, 측면 서브메뉴(`left-center`·`right-center`·`left-top`·`right-top`)와 `top-*`는 대상이 아니다
-(`MetaDropdownPanel.tsx:155-157`). 서브메뉴에 세로 flip을 붙이면 제품에 없는 동작을 만든다. 원점 상수 8종은
+(`MetaDropdownPanel.tsx:158-160`). 서브메뉴에 세로 flip을 붙이면 제품에 없는 동작을 만든다. 원점 상수 8종은
 `MetaDropdownPanel.tsx:61-68`이 소유한다.
 
 ## Responsive behavior
@@ -547,7 +547,7 @@ composite popover의 inset을 8px로 올리면서 「안쪽 곡률 16 − 8 = 8p
 
 수렴한 소비처: `EditNode.tsx:326`·`329`, `Toolbar.tsx:121`·`125`,
 `AnalyticsAccountMoreMenu.tsx:63`·`66`, `NodeMoreMenu.tsx:58`·`67`, `CanvasZoomControl.tsx:65`,
-`NodeSideButtons.tsx:250`, `TextNode.tsx:184`·`187`.
+`NodeSideButtons.tsx:251`, `TextNode.tsx:185`·`187`.
 
 Known deviations의 「panel padding이 6px이 아니라 4px이다」도 함께 해소됐다 — 지금 정본과 제품이
 **둘 다 6px**이다.
@@ -565,15 +565,15 @@ Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
 
 | 속성 | 값 | 근거 |
 | --- | --- | --- |
-| 치수 | **20×20px** — `w-10 h-10`, `--spacing: 2px` | `EditNode.tsx:333`, `Toolbar.tsx:129`, `tailwind.css:162` |
-| 정렬·수축 | flex 중앙 정렬은 이제 `.louis-menu__item-icon` 이 소유하고, 제품은 `shrink-0` 만 얹는다 | `EditNode.tsx:333-334`, `Toolbar.tsx:129-130` |
-| 곡률 | **5px 리터럴** — `rounded-[5px]`. radius 스케일(2·4·6·8·10·12·14·16·20·24)에 없다 | `EditNode.tsx:333`, `Toolbar.tsx:129`, `tailwind.css:167-178` |
-| 면(다크) | `rgb(var(--gray-700-rgb)/100%)` = **#575d68** | `EditNode.tsx:334`, `Toolbar.tsx:130`, `globals.css:49`(팔레트 채널), `globals.css:654`(다크 램프) |
-| 면(라이트) | 의미 토큰이 아니라 `rgb(var(--palette-gray-200-rgb)/100%)`를 직접 지정한다. 해석값은 램프 밖 **#e3e4e8**, 사이드바 램프 안 **#eeeef1** — §Portal and layer rules의 램프 표와 같은 갈림이다 | `EditNode.tsx:335`, `Toolbar.tsx:131`, `globals.css:44`, `Gnb.tsx:2056` |
-| 내부 아이콘 | 15px | `Toolbar.tsx:161`, `Toolbar.tsx:364`, `Toolbar.tsx:380` |
+| 치수 | **20×20px** — `w-10 h-10`, `--spacing: 2px` | `EditNode.tsx:334`, `Toolbar.tsx:129`, `tailwind.css:162` |
+| 정렬·수축 | flex 중앙 정렬은 이제 `.louis-menu__item-icon` 이 소유하고, 제품은 `shrink-0` 만 얹는다 | `EditNode.tsx:334-335`, `Toolbar.tsx:129-130` |
+| 곡률 | **5px 리터럴** — `rounded-[5px]`. radius 스케일(2·4·6·8·10·12·14·16·20·24)에 없다 | `EditNode.tsx:334`, `Toolbar.tsx:129`, `tailwind.css:167-178` |
+| 면(다크) | `rgb(var(--gray-700-rgb)/100%)` = **#575d68** | `EditNode.tsx:334`, `Toolbar.tsx:130`, `globals.css:49`(팔레트 채널), `globals.css:672`(다크 램프) |
+| 면(라이트) | 의미 토큰이 아니라 `rgb(var(--palette-gray-200-rgb)/100%)`를 직접 지정한다. 해석값은 램프 밖 **#e3e4e8**, 사이드바 램프 안 **#eeeef1** — §Portal and layer rules의 램프 표와 같은 갈림이다 | `EditNode.tsx:335`, `Toolbar.tsx:131`, `globals.css:44`, `Gnb.tsx:2057` |
+| 내부 아이콘 | 15px | `Toolbar.tsx:161`, `Toolbar.tsx:364`, `Toolbar.tsx:400` |
 
 **라이트에서 의미 토큰을 쓰면 칩이 한 계단 어두워진다.** 라이트에서 `--gray-700-rgb`는
-`--palette-gray-300-rgb`(#d5d7dd)로 뒤집혀 있다(`globals.css:696`, 워크스루 라이트 `globals.css:784`). 그래서 제품은 라이트
+`--palette-gray-300-rgb`(#d5d7dd)로 뒤집혀 있다(`globals.css:714`, 워크스루 라이트 `globals.css:817`). 그래서 제품은 라이트
 면만 팔레트를 직접 지정한다 — 다크 값을 의미 토큰으로 그대로 옮기면 칩이 라벨보다 무거워진다.
 
 5px 곡률은 governance/product-confirmations.md의 「모서리 반경 — 토큰 없는 값 상위」 표가 이미 15회·11파일로
@@ -631,7 +631,7 @@ CSS 클래스만 있고 소비처가 마크업을 직접 쓴다.
 
 ### 한 줄 항목 (`data-layout="inline"`)
 
-**출처: 2026-10-14, 커맨드 팔레트(통합 판 `54b62a8aa` `components/navigation/CommandPalette.tsx:214-245`, [DS-D-0095](../governance/decisions/DS-D-0095-command-palette.md)).**
+**출처: 2026-10-14, 커맨드 팔레트(통합 판 `54b62a8aa` `components/navigation/CommandPalette.tsx@54b62a8a:214-245`, [DS-D-0095](../governance/decisions/DS-D-0095-command-palette.md)).**
 팔레트 행은 이름 **옆에** 설명이 같은 줄로 선다. 두 줄 항목과 같은 슬롯(`__item-description`)을 쓰므로 `:has` 로 추론할 수 없다 — 속성으로 고른다.
 [Command Palette](command-palette.md) 의 행이 이 변형이다.
 
@@ -646,8 +646,8 @@ CSS 클래스만 있고 소비처가 마크업을 직접 쓴다.
 | 속성 | 값 | 근거 |
 | --- | --- | --- |
 | 정렬 | `align-items: center` — `:has` 규칙(0,1,0)의 flex-start 를 (0,2,0)으로 되돌린다 | 한 줄이다 |
-| 줄바꿈 | `white-space: nowrap`, 넘치면 설명부터 말줄임(이름 `0 1 auto` · 설명 `1 1 auto`) | 제품 `components/navigation/CommandPalette.tsx:214-237` |
-| 현재값 | `__item-trailing` 에 `margin-inline-start: auto` — 설명이 없는 행에서도 끝에 선다(설명이 있으면 0) | 제품 `shrink-0 ml-auto`(`components/navigation/CommandPalette.tsx:240-245`) |
+| 줄바꿈 | `white-space: nowrap`, 넘치면 설명부터 말줄임(이름 `0 1 auto` · 설명 `1 1 auto`) | 제품 `components/navigation/CommandPalette.tsx@54b62a8a:214-237` |
+| 현재값 | `__item-trailing` 에 `margin-inline-start: auto` — 설명이 없는 행에서도 끝에 선다(설명이 있으면 0) | 제품 `shrink-0 ml-auto`(`components/navigation/CommandPalette.tsx@54b62a8a:240-245`) |
 | 설명 색 | **`color-fg-secondary`**. disabled · forced-colors 에서는 `inherit` | 두 줄 항목의 tertiary 는 하이라이트 면(다크 8%) 위 4.28 로 미달하고, 한 줄에서는 설명이 현재값(`__item-trailing`, secondary)과 같은 층위다 — 제품도 둘을 같은 48% 로 칠한다 |
 | 높이 | 37(Menu 항목 그대로) | 제품 32 → 37, DS-D-0095 판정 5 |
 
@@ -709,9 +709,9 @@ CSS 클래스만 있고 소비처가 마크업을 직접 쓴다.
 - **`Item 내부 gap` 6px은 제품과 2px 다르다.** 제품의 아이콘↔라벨 간격은 `gap-4` = **8px**다
   (`EditNode.tsx:341`). 6px로 그리면 20px 칩이 라벨에 붙는다.
 - **`Anchor offset`은 8px 단일값이 아니다.** 노드 메타 드롭다운은 **4px**
-  (`META_DROPDOWN_DEFAULT_VERTICAL_GAP_PX`, `metaDropdownViewport.ts:5`; 앵커 `BgmNode.tsx:244`,
-  `ImageNode.tsx:587`, `TtsNode.tsx:404`, `VideoNode.tsx:463`, `YoutubeNode.tsx:497`), 캔버스 툴바와 줌
-  컨트롤은 **8px**이다(`Toolbar.tsx:353`, `Toolbar.tsx:417`, `Toolbar.tsx:511`, `CanvasZoomControl.tsx:167`,
+  (`META_DROPDOWN_DEFAULT_VERTICAL_GAP_PX`, `metaDropdownViewport.ts:5`; 앵커 `BgmNode.tsx:245`,
+  `ImageNode.tsx:592`, `TtsNode.tsx:405`, `VideoNode.tsx:465`, `YoutubeNode.tsx:499`), 캔버스 툴바와 줌
+  컨트롤은 **8px**이다(`Toolbar.tsx:373`, `Toolbar.tsx:417`, `Toolbar.tsx:555`, `CanvasZoomControl.tsx:167`,
   `Toolbar.tsx:110`, `CanvasZoomControl.tsx:52`). 8px 하나로 그리면 노드 메타 드롭다운이 트리거에서 4px
   떠서 붙는다.
 - **`Panel width` 최소 160px은 A계열에서만 맞다.** B계열은 140px이다.

@@ -102,19 +102,19 @@ DragOver 의 링은 테두리가 아니라 **안쪽 그림자**다 — 테두리
 ## 미디어 무대 — `data-surface="media"`
 
 하이라이트 스튜디오의 업로드 무대다. 파일을 고르기 전에는 무대 전체가 파일 선택 버튼이고, 고르면 **같은 무대가
-플레이어가 된다**(통합 판 `54b62a8aa` `highlightSceneStyles.ts:1197-1259` 의 `studioStage*`, `HighlightScene.tsx:943-975`).
+플레이어가 된다**(통합 판 `54b62a8aa` `highlightSceneStyles.ts:1145-1170` 의 `studioStage*`, `HighlightScene.tsx:941-973`).
 그래서 면이 페이지 면이 아니라 플레이어와 같은 검정이고, 글자 · 글리프는 미디어 잉크다.
 
 | 칸 | 제품 | LOUIS |
 | --- | --- | --- |
-| 무대 면 · 반경 | `palette-gray-1000` · `radius-card`(`highlightSceneStyles.ts:1205-1206`) | `color-media-stage-surface` · `radius-card` 12 — 두 테마 순검정으로 같다 |
+| 무대 면 · 반경 | `palette-gray-1000` · `radius-card`(`highlightSceneStyles.ts:1153-1154`) | `color-media-stage-surface` · `radius-card` 12 — 두 테마 순검정으로 같다 |
 | 끄는 중 | `::after` 2px `accent-primary` 테두리 · `inset: 0` · `radius: inherit`(`:1214-1219`) | `::after` 안쪽 링 `border-width-ring` · `color-stroke-focus` — 기본 DragOver 와 같은 색 |
 | 빈 무대 여백 · 간격 | 사방 24 · 8(`:1233` · `:1236`) | `space-layout-section` 24 · `space-control-sm` 8 |
 | 호버 | 흰 4%(`:1246`) | `media-foreground-dark` 4% 섞기 |
 | 포커스 | 안쪽 outline(`:1247-1248`) | 그리지 않는다(DS-D-0074) — 강제 색 링만 `base.css` |
-| 제목 | body-16-medium · 위 6 · 흰색(`:1254`, `HighlightScene.tsx:966`) | `typography-body-md` medium · 위 6 · `color-media-foreground-dark` |
+| 제목 | body-16-medium · 위 6 · 흰색(`:1254`, `HighlightScene.tsx:964`) | `typography-body-md` medium · 위 6 · `color-media-foreground-dark` |
 | 안내 | caption · 흰 56%(`:1256`) | caption · `color-media-foreground-dark-muted`(64%) |
-| 버튼 | `louis-button` primary(`HighlightScene.tsx:975`) | 그대로 — 무대 안의 장식 버튼이고 누름은 무대가 받는다 |
+| 버튼 | `louis-button` primary(`HighlightScene.tsx:973`) | 그대로 — 무대 안의 장식 버튼이고 누름은 무대가 받는다 |
 
 **끄는 중의 링은 안쪽 그림자가 아니라 `::after` 다.** 플레이어가 무대를 다 덮어도 링이 그 **위**에 그려져야 하기 때문이다.
 `::after` 는 위치를 가진 마지막 자손이라 z-index 없이 문서 순서로 위에 선다. 놓기를 받는 것은 이 요소이므로 소비처는

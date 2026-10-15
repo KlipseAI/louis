@@ -16,8 +16,8 @@ summary: 채널 · 계정 하나의 머리. 배너 띠 아래 아바타 · 이�
 세 칸), **좁은 화면 단**(띠 비율 · 아바타 크기 · 이름 크기), **로딩 전후 줄 높이가 같게 하는 규칙**뿐이다. 제목 블록 + 액션 한 줄인
 [Section Header](section-header.md) 의 단이 아니다 — 루트가 세로이고 앞쪽 미디어가 서며 가운데 정렬이다(DS-D-0087 판단 1).
 
-제품 정본은 `components/scenes/analytics/AnalyticsChannelHeader.tsx:26-92` 의 상수와 `:138-231` 의 마크업이고, 소비처는 유튜브 분석
-(`components/scenes/YoutubeAnalyticsScene.tsx:1409-1438`)과 인스타그램 분석(`components/scenes/InstagramAnalyticsScene.tsx:1758-1778`)이다
+제품 정본은 `components/scenes/analytics/AnalyticsChannelHeader.tsx:29-33` 의 상수와 `:138-231` 의 마크업이고, 소비처는 유튜브 분석
+(`components/scenes/YoutubeAnalyticsScene.tsx:1410-1439`)과 인스타그램 분석(`components/scenes/InstagramAnalyticsScene.tsx:1752-1772`)이다
 (통합 판 `54b62a8aa`).
 
 ```html
@@ -137,7 +137,7 @@ React 를 만들지 않는다 — 이 마크업 계약이 공개 계약이다.
 2. 아바타 64 · 560 이하 48. 로딩 원도 같은 크기.
 3. 띠 → 줄 16 · 줄 안 16 · 글 칸 4 · 수치 사이 12 · 넘친 수치 줄 사이 2 · 가운데 정렬 · 바깥 여백 0.
 4. **로딩 전후 머리 높이가 같다** — 1440 · 560 · 480 · 375, 띠 있음 · 없음에서 `aria-busy` 판과 불러온 판의 높이를 맞댄다(이름 37.8 · 수치 21 · 설명 21).
-5. 설명이 375 에서도 한 줄이다(제품이 3줄로 풀린 사고, `components/scenes/analytics/AnalyticsChannelHeader.tsx:65-66`).
+5. 설명이 375 에서도 한 줄이다(제품이 3줄로 풀린 사고, `components/scenes/analytics/AnalyticsChannelHeader.tsx@54b62a8a:65-66`).
 6. 이름 481 에서 28 / 37.8, 480 · 375 에서 20 / 30.
 7. 로딩 막대 — `line` 높이는 글자 크기 × 0.75(이름 21 · 수치 10.5), 폭 180 · 260 · 360, 잉크 `fg-primary`.
 8. 설명 호버에서 잉크가 `fg-primary` 로. 대비는 실제로 잰다 — 이름 · 수치 · 설명 · 설명 호버, 두 테마.
@@ -152,13 +152,13 @@ React 를 만들지 않는다 — 이 마크업 계약이 공개 계약이다.
 
 ## 제품에서 발견한 것
 
-- 글자 줄 스켈레톤(`inline-block align-middle h-[0.75em]`)이 네 파일에 복제돼 있었다 — `components/scenes/analytics/AnalyticsChannelHeader.tsx:83-84` ·
-  `components/scenes/analytics/KpiCard.tsx:62-63` · `components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx:148-149` ·
-  `components/scenes/archive/YoutubeVideoAnalyticsView.tsx:253-254`.
+- 글자 줄 스켈레톤(`inline-block align-middle h-[0.75em]`)이 네 파일에 복제돼 있었다 — `components/scenes/analytics/AnalyticsChannelHeader.tsx@54b62a8a:83-84` ·
+  `components/scenes/analytics/KpiCard.tsx@54b62a8a:62-63` · `components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx@54b62a8a:148-149` ·
+  `components/scenes/archive/YoutubeVideoAnalyticsView.tsx@54b62a8a:253-254`.
   → [Skeleton](skeleton.md) 의 `line` 모양.
 - 수치 줄의 간격 떼기(`SpacedItems`)가 분석 두 씬 · 콘텐츠 표 · 영상 분석 모달에서 쓰인다. 지금은 이 머리의 `__stats` 가 갖는다(판단 9).
 - 영상 분석 모달 머리(`components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx:110-146`)가 이 머리의 글 칸 규칙을 주석으로 따른다 —
   띠 · 아바타 없이 제목 두 줄이라 이번 범위 밖이다(판단 8).
 - 계정 더보기 트리거(`components/scenes/analytics/AnalyticsAccountMoreMenu.tsx:77-117`)는 알파 잉크 · 테마 분기 선택자로 그린 32 아이콘 버튼이다 —
   Icon Button ghost 의 일.
-- 설명 호버가 `@media (hover: hover)` 밖이라 터치에서 탭 뒤 진한 잉크가 남는다(`components/scenes/analytics/AnalyticsChannelHeader.tsx:69`).
+- 설명 호버가 `@media (hover: hover)` 밖이라 터치에서 탭 뒤 진한 잉크가 남는다(`components/scenes/analytics/AnalyticsChannelHeader.tsx@54b62a8a:69`).

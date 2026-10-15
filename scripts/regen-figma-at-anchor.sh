@@ -100,7 +100,8 @@ for trap_var in KLIPSE_PRODUCT_MEASURE_URL LOUIS_DUMP_RULE; do
   fi
 done
 
-if [ ! -d "$KLIPSE_PRODUCT_REPO/.git" ]; then
+# 제품 체크아웃도 worktree 일 수 있다(DS-D-0117 — 운영 커밋의 읽기 전용 worktree). 그때 `.git` 은 파일이다.
+if [ ! -e "$KLIPSE_PRODUCT_REPO/.git" ]; then
   echo "  ✗ 제품 저장소가 없다: $KLIPSE_PRODUCT_REPO  (KLIPSE_PRODUCT_REPO 로 지정)"; pre_ok=0
 elif [ -n "$lock_commit" ] && ! git -C "$KLIPSE_PRODUCT_REPO" cat-file -e "$lock_commit^{commit}" 2>/dev/null; then
   echo "  ✗ 제품 저장소에 lock 커밋이 없다 — git -C \"$KLIPSE_PRODUCT_REPO\" fetch"; pre_ok=0

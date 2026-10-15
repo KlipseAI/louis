@@ -14,10 +14,10 @@ authority: normative
 ## Context
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `plan-tier-card` 가 있다. 같은 티어 카드가 공개 가격
-(`components/landing/sections/PricingSection.tsx:100-228`)과 로그인 뒤 플랜 선택(`app/mypage/upgrade/UpgradePlanPageClient.tsx:211-327`, 통합 판
+(`components/landing/sections/PricingSection.tsx@54b62a8a:100-228`)과 로그인 뒤 플랜 선택(`app/mypage/upgrade/UpgradePlanPageClient.tsx@54b62a8a:211-327`, 통합 판
 `54b62a8aa`)에 상수 벌(`TIER_CARD` · `TIER_HEAD` · `TIER_ORIGINAL_PRICE` · `TIER_PRICE_ROW` · `TIER_CREDITS_ROW` · `TIER_INCLUDES` · `TIER_FEATURE_LIST` ·
 `TIER_NOTE`)로 두 번 있고 이미 갈렸다 — 메모 잉크, 상세 툴팁(업그레이드만), 현재 표시 · 예약 안내(업그레이드만). 제품 스스로 두 화면이
-「다른 제품처럼 읽힌다」를 걱정한다(`app/mypage/upgrade/UpgradePlanPageClient.tsx:869-872`).
+「다른 제품처럼 읽힌다」를 걱정한다(`app/mypage/upgrade/UpgradePlanPageClient.tsx:743-746`).
 
 LOUIS 에 요금제 카드가 없다. [Choice Card](../../components/choice-card.md) 는 고르기 컨트롤(역할 radio · checkbox)이고,
 [Stat Tile](../../components/stat-tile.md) 은 지표 네 줄, [Record Card](../../components/record-card.md) 는 접히는 어드민 기록이다 — 가격 줄 · 기능 목록 ·
@@ -40,7 +40,7 @@ LOUIS 에 요금제 카드가 없다. [Choice Card](../../components/choice-card
 5. **바닥 묶음** — 메모 · 안내 · CTA 중 기능 목록 바로 다음 하나만 남은 높이를 먹고(`margin-block-start: auto`) 나머지는 8 씩 띈다.
 6. **고쳐 올리는 값 셋**(DS-D-0084 3항) — 원가는 새 시맨틱 `color-plan-tier-card-price-original`(라이트 `red-700` · 다크 `red-500`), 현재 플랜은
    `accent-primary` 2px 안쪽 링, 갈린 메모 잉크 두 벌은 `fg-tertiary` 하나. 잉크는 fg 계단 셋으로 접는다.
-7. **`data-glow` 축은 없다.** B1 제안에 있던 랜딩 Lite 의 안쪽 파란 광은 소유자 요청으로 10-07 에 걷혔다(`components/landing/sections/PricingSection.tsx:133`).
+7. **`data-glow` 축은 없다.** B1 제안에 있던 랜딩 Lite 의 안쪽 파란 광은 소유자 요청으로 10-07 에 걷혔다(`components/landing/sections/PricingSection.tsx@54b62a8a:133`).
 8. **React 표면은 만들지 않는다.** 마크업 계약을 문서가 소유한다. 새 의존성 없음.
 
 ### 소유자 판정 — 초안의 기본값으로 정했다
@@ -65,7 +65,7 @@ LOUIS 에 요금제 카드가 없다. [Choice Card](../../components/choice-card
 - 화면이 소유한다 — 어떤 티어가 현재 · 예약인지(결제 상태 판정), 원가 빈 줄을 둘지(`hasDiscountedTier`), 아이콘 글리프 · 상세 문장, 상세 열기 · 위치
   (Tooltip), CTA 라벨 · 잠금, 1열 덱의 경계(≤559).
 - 하지 않는 것 — `data-glow`(걷힌 광), 새 breakpoint(788 · 559), 카드 호버 움직임(제품에 없다, 잔재만 있다), subgrid 줄 맞추기(카드 구조가 고정이
-  아니라 빈 줄 방식을 둔다), 크레딧 팩 상자(`components/landing/sections/PricingSection.tsx:276-286`, 기능 목록이 없는 다른 상자), 비교표
+  아니라 빈 줄 방식을 둔다), 크레딧 팩 상자(`components/landing/sections/PricingSection.tsx:168-178`, 기능 목록이 없는 다른 상자), 비교표
   (`plan-comparison`, 따로 승격), React 표면.
 
 ## Consequences

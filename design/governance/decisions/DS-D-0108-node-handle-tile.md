@@ -14,7 +14,7 @@ authority: normative
 ## Context
 
 원장의 `components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx#HandleTile` 이 `unclear` 로 남아 있었다(통합 판 `54b62a8aa`). 캔버스 도움말 패널의
-입력 목록 앞에 붙는 채널 타일이다 — 24 · 반경 6 · 채널 면 `--node-handle-icon-*` 위 팔레트 흰색 글리프 14(`CanvasHelpPanel.tsx:217-237`), 여럿이면 간격 2 로 한 줄
+입력 목록 앞에 붙는 채널 타일이다 — 24 · 반경 6 · 채널 면 `--node-handle-icon-*` 위 팔레트 흰색 글리프 14(`CanvasHelpPanel.tsx:224-244`), 여럿이면 간격 2 로 한 줄
 (`:252-256`). 원장이 남긴 소유자 질문은 「[Node Side Handle](../../components/node-side-handle.md) 에 크기 · 채널 축을 더할지, 패널 보드 안의 그림으로 둘지」였고
 editor-workspace.md 도 같은 판정을 「낮은 우선순위」로 남겼다.
 

@@ -37,7 +37,7 @@ summary: 어드민 기록 하나를 머리 한 줄로 접고 눌러서 라벨/�
 
 **소비처 수.** 기록 카드 3(지원서 검토 `AmbassadorApplications.tsx@2ceec4ed3:69-157` · 문의 관리 `InquiryManagement.tsx@b57cd1f95:66-180` ·
 청약철회 `RefundManagement.tsx@b57cd1f95:62-150`) + 해설 접기 1(`ProductMetricsDashboard.tsx@b57cd1f95:77-107`). 작업 목록
-`JobMonitor.tsx:97`(`JOB_ROW`)도 `aria-expanded` 행이지만 격자 한 줄 행이라 이 카드가 아니다.
+`JobMonitor.tsx:93`(`JOB_ROW`)도 `aria-expanded` 행이지만 격자 한 줄 행이라 이 카드가 아니다.
 
 ## API
 

@@ -491,7 +491,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
 
   | 겹 | 제품 값 | 근거 |
   | --- | --- | --- |
-  | 면 | `linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%)` | `Button.tsx@a3ed8e03:89` · `globals.css:475-480` |
+  | 면 | `linear-gradient(90deg, var(--primary-450) 0%, var(--primary-500) 50%, var(--primary-450) 100%)` | `Button.tsx@a3ed8e03:89` · `globals.css:490-495` |
   | 베벨 페어 (요소 자신의 `box-shadow`) | `inset 0 1px 1px rgb(250 250 250 / 25%), inset 0 -1px 1px rgb(250 250 250 / 25%)` | `Button.tsx@a3ed8e03:91` · `globals.css:26`·`:46` |
   | 글로우 (별도 `::before`) | `inset 0 0 8px 0 rgb(250 250 250 / 100%)` + `mix-blend-mode: overlay` + `pointer-events: none` | `Button.tsx@a3ed8e03:93-96` |
 
@@ -516,7 +516,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   헤더 톤(밝은 면/어두운 면)에 따라 `palette-gray-000`/`gray-900` 고정 팔레트로 뒤집히는 반전 알약이라 페이지 축을 따르는
   `neutral` 로 흡수되지 않는다 — 별도의 고정 팔레트 inverse 변형이나 소비처 예외 중 소유자가 고른다.
 - **캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
-  토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:522-548`, 라이트 덮어쓰기 `:567-573`).
+  토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:537-563`, 라이트 덮어쓰기 `:567-573`).
 
   | 토큰 | 값 | LOUIS `md` 대비 |
   | --- | --- | --- |
@@ -525,15 +525,15 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   | `--node-chrome-btn-radius` | `12px` (`:544`) | **같은 값이 아니라 그 토큰 자체다** — `var(--louis-radius-control)` |
   | `--node-chrome-btn-gap` | `4px` (`:547`) | **같은 값이 아니라 그 토큰 자체다** — `var(--louis-space-control-xs)` |
   | `--node-chrome-btn-bg` | 다크 `#777d89` (`:548`) / 라이트 `#f1f1f3` (`:568`) | **대응 토큰 없음** |
-  | ~~`--node-chrome-btn-border`~~ | **제품에 없다.** 테두리 토큰은 폐지됐고 알약은 `[box-shadow:var(--louis-hairline-inset)]`을 직접 얹는다(`ImageNode.tsx:645`) | 이제 LOUIS 정본을 그대로 쓴다 |
+  | ~~`--node-chrome-btn-border`~~ | **제품에 없다.** 테두리 토큰은 폐지됐고 알약은 `[box-shadow:var(--louis-hairline-inset)]`을 직접 얹는다(`ImageNode.tsx:650`) | 이제 LOUIS 정본을 그대로 쓴다 |
   | `--node-chrome-btn-bg-hover` | 다크 `color-mix(in srgb, var(--palette-gray-000) 8%, var(--node-chrome-btn-bg))` (`:550-554`) / 라이트 `--palette-gray-1000` 5% (`:569-573`) | **없음** |
 
   대상은 메타 툴바 알약(모델·길이·볼륨·비율), 메타 아이콘 버튼, 카드 헤더 액션(다운로드·삭제), 업로드
-  노드 툴바 버튼이다(`globals.css:524-526`). 프라이머리 그라디언트 버튼(생성 FAB·`processButton`·
+  노드 툴바 버튼이다(`globals.css:539-541`). 프라이머리 그라디언트 버튼(생성 FAB·`processButton`·
   `uploadPillButton`)과 세그먼트 컨트롤은 비대상이고 각자 고유 크롬을 갖는다(`:533-534`).
   **토큰군 전부를 쓰는 소비처는 없다**(`:536-537`) — 헤더 액션은 치수만 쓰고 면은 투명 + hover
-  틴트이며(`NodeHeaderActions.tsx:36-37`), 아이콘 전용 버튼은 정사각이라 `-padding-x`를 쓰지 않는다.
-  면과 헤어라인을 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:642-656`). 치수 축은 LOUIS
+  틴트이며(`NodeHeaderActions.tsx:39-40`), 아이콘 전용 버튼은 정사각이라 `-padding-x`를 쓰지 않는다.
+  면과 헤어라인을 전부 쓰는 대표 소비처는 메타 툴바 알약이다(`ImageNode.tsx:647-661`). 치수 축은 LOUIS
   `md`로 그대로 재현되지만 **면 색 두 쌍이 없어 노드 카드 내부 버튼을 LOUIS만으로 칠할 수 없다.**
 - **제품의 결과 화면 액션은 전폭 앵커다.** 결제 결과 화면의 두 액션(`billing-success/page.tsx:140-150`
   primary · `:148-158` secondary)은 높이 32px · padding `0 12px` · radius 12px까지 `md`와 같고
@@ -542,7 +542,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   | 축 | LOUIS `md` | 제품 결과 화면 액션 |
   | --- | --- | --- |
   | 폭 | 내용 폭 (고정 폭 없음) | `width: 100%` (`:137`·`:149`) |
-  | 타이포 | `body-sm-medium` 14px / 21px | 14px **regular** — `--type-body-14-size` + `--type-weight-regular` 400 (`:139`·`:151`; 토큰 정의 `globals.css:312`·`:284`) |
+  | 타이포 | `body-sm-medium` 14px / 21px | 14px **regular** — `--type-body-14-size` + `--type-weight-regular` 400 (`:139`·`:151`; 토큰 정의 `globals.css:319`·`:284`) |
   | 렌더 요소 | 네이티브 `<button>` | `next/link`의 `<a>` + `text-decoration: none !important` |
 
   **높이와 padding은 다른 축이 아니다.** 2026-08-30까지 이 자리는 「높이 40px … 네 축이 다르다」와
@@ -563,35 +563,35 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   공통에, primary는 면 `--gray-000` → hover 90% → active 82% · 글자 `--gray-900`, secondary는 면 페이퍼
   8% → hover 14% → active 18% · 글자 `--gray-000`이고 둘 다 active에서 `scale(0.98)`이다. `!important`가
   필요한 이유는 레이어 **밖** 전역 `a { color: inherit; text-decoration: none }`가 `@layer utilities`를
-  무조건 이기기 때문이다(`globals.css:982-985`).
+  무조건 이기기 때문이다(`globals.css:1016-1019`).
 - **인증 화면 버튼은 대부분 넘어왔다 — 남은 것은 상태 카드의 secondary 하나다.** 이 항목은 원래
   「어떤 인증 화면도 공용 Button을 import 하지 않는다」였는데 **그 명제가 뒤집혔다.** 배포본
   `df414c24` 에서 로그인 제출 CTA 는 LOUIS `Button` 이 됐고 통합 판 `76b6cf15` 에서도 그대로다
-  (`login/page.tsx:481-493`, `variant="inverse" size="lg"`). 비밀번호 재설정의 상태 카드 primary 도
-  그렇다(`reset-password/page.tsx:219`). 그래서 그 둘의 라벨은 이제 LOUIS 의 `body-sm-medium` 14/21 이고,
+  (`login/page.tsx:320-332`, `variant="inverse" size="lg"`). 비밀번호 재설정의 상태 카드 primary 도
+  그렇다(`reset-password/page.tsx@54b62a8a:219`). 그래서 그 둘의 라벨은 이제 LOUIS 의 `body-sm-medium` 14/21 이고,
   아래에 적힌 48px 고정·16px 라벨은 **채택 전 값**이다
   (`login/page.tsx@a3ed8e03:206-211` · `:594-596`).
 
   남은 어긋남은 하나다 — 상태 카드의 **secondary** 는 `/login` 으로 가는 `<Link>` 라 버튼 요소가
   아니고, 아직 손으로 짠 알약이다: 전폭 **48px 최소**(`min-h-24`) · 패딩 `0 18px` · `rounded-12` ·
-  라벨 `type-body-16-medium` **16px**(`reset-password/page.tsx:61-66` 정의 · `:245` 적용).
+  라벨 `type-body-16-medium` **16px**(`reset-password/page.tsx:27-32` 정의 · `:245` 적용).
   **고정과 최소를 같은 것으로 읽으면 틀린다** — 넘어간 두 자리는 고정 48 이었고 이 자리는 최소다.
 
   **아래 피드백 어휘는 채택 전(`a3ed8e03`) 값이다.** 넘어간 두 자리의 hover·press·disabled 는 이제
   LOUIS `.louis-button` 이 소유하고, 남은 secondary 만 여기 적힌 대로다.
   **이 버튼들의 피드백 어휘는 filter와 scale이 전부다.** 제출 버튼은 hover
   `saturate(125%) brightness(125%)` · press `saturate(150%) brightness(150%)` + `scale(0.98)`이고
-  (`login/page.tsx:213-218`), 상태 카드 primary는 hover `saturate(118%) brightness(110%)` ·
-  press `scale(0.99)`다(`reset-password/page.tsx:63-64`). **비활성이 호버와 누름을 이긴다** — 이 둘은
+  (`login/page.tsx:134-139`), 상태 카드 primary는 hover `saturate(118%) brightness(110%)` ·
+  press `scale(0.99)`다(`reset-password/page.tsx:29-30`). **비활성이 호버와 누름을 이긴다** — 이 둘은
   disabled에서 `opacity: .5` · `cursor: not-allowed`이고 filter와 transform을 `none`으로
-  되돌린다(`login/page.tsx:220-223` · `reset-password/page.tsx:65-66`). 상태 카드 secondary만 이 분기가
+  되돌린다(`login/page.tsx:141-144` · `reset-password/page.tsx:31-32`). 상태 카드 secondary만 이 분기가
   아예 없다 — 면 페이퍼 8% → hover 12%가 전부이고 항상 `/login`으로 가는 `<Link>`라 disabled 상태를
   갖지 않는다. 대신 `text-gray-000!` · `no-underline!`가 필요하다 — 앞 항목의 레이어 밖 전역 `a` 규칙
   때문이다.
 
 - **문의 화면만 공용 Button의 높이를 덮는다 — 40px이 아니라 44px이다.** `/inquiry`의 제출 버튼은
   `variant="primary"`로 공용 Button을 그대로 쓰면서 `w-full h-[44px]! mt-4`를 얹는다
-  (`inquiry/InquiryClient.tsx:337`). **`!`는 장식이 아니다** — 높이를 정하는 `--button-height`가
+  (`inquiry/InquiryClient.tsx:334`). **`!`는 장식이 아니다** — 높이를 정하는 `--button-height`가
   `@layer` 안에 있어 유틸리티만으로는 이기지 못하고, 원본 모듈 CSS 시절 이기던 선언을 그대로 고정한
   것이다. 나머지 primary 사양(곡률 12px · 그라디언트 면 · 글래스 베벨 · hover `brightness(1.06)` ·
   active `scale(0.98)` · disabled `opacity .35`)은 전부 공용 그대로다.

@@ -342,6 +342,8 @@ const SESSION_ROUTES = [
 // 카드 격자가 한 열 1920×1080 카드 넷(문서 4468)으로 섰다. 제품은 그 뒤 fca74d3ba(통합 판 dev 합치기)에서 레이아웃에 두 줄을 더했고 그 커밋은 앵커의
 // 조상이 아니다(/ambassador 와 같은 앵커 질문). 가짜 S3 는 판 포인터 · 판 파일 · 판 목록에 모두 200 으로 답했고 화면에 판 데이터가 섰다(관리 판 둘).
 // 앵커가 옮겨지면 이 모드로 다시 재서 원장과 보드를 세운다.
+// **2026-10-15 앵커 이동(운영 main 97d4950e, DS-D-0117)** — 운영 판의 `app/deck/layout.tsx` 가 두 유틸리티 판을 싣는다(위 「두 줄」이
+// 앵커에 들었다). 그래서 이 모드의 원장(`migration/product.session-deck-fixture.json`)을 처음으로 커밋한다.
 const SESSION_DECK_ROUTES = [
   { pattern: "/deck", fullPage: true },
   { pattern: "/deck/c/[course]", url: `/deck/c/${FIXTURE_DECK_COURSE}`, id: "/deck/c/[course]", fullPage: true },
@@ -377,7 +379,9 @@ const PUBLIC_ROUTES = [
   // `app/utilitiesSplit.test.ts`). 통합 판이 그 규칙보다 먼저 갈라진 앰버서더 브랜치를 합치며 레이아웃을 빠뜨렸고, 제품은 뒤에 같은 두 줄의
   // 레이아웃을 더했다(klipse-web 2289e60fa · 통합 저장소 fca74d3ba — 둘 다 앵커의 조상이 아니다). 앵커가 그 레이아웃을 품으면 아래 줄을 살린다
   // (동작 줄이기 — 히어로 · 협업 유형의 sticky 무대를 도착 상태로).
-  // { pattern: "/ambassador", fullPage: true, reducedMotion: true },
+  // **2026-10-15 앵커 이동(운영 main 97d4950e, DS-D-0117)으로 살렸다.** 운영 판의 `app/ambassador/layout.tsx` 가 그 두 줄
+  // (`@/app/utilities-app.css` · `@/app/utilities-important.css`)을 싣는다 — 위 「앵커가 그 레이아웃을 품으면」이 채워졌다.
+  { pattern: "/ambassador", fullPage: true, reducedMotion: true },
 ];
 
 // **공개 시드 모드가 재는 화면(`--public-seeded`, 2026-10-07).** 발행된 한 행이 있어야 서는 공개 상세 — 가짜 Supabase 의 자리표시 시드
@@ -2095,10 +2099,10 @@ const payload = JSON.stringify({
   },
   sourceQuotes: [...(louisExamples ? [] : anonymous || publicMode ? [
     // 로그인된 사용자를 되돌려 보내는 줄 — 인증 화면을 인증 우회 서버에서 잴 수 없는 이유다.
-    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 235),
-    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 237),
-    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 238),
-    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 239),
+    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 156),
+    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 158),
+    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 159),
+    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 160),
     // 우회 플래그는 `=== "1"` 로만 켜진다 — 빈 문자열이 끈다.
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 44),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 45),
@@ -2126,12 +2130,12 @@ const payload = JSON.stringify({
     // `sourceQuote` 는 좌표를 검증하지 않고 그 줄을 그대로 굽는다. 인용이 밀리면 실패하지 않고
     // **다른 코드를 근거로 굽는다**(조용히 틀린 데이터). 앵커를 옮길 때는 이 파일의 좌표
     // 스물다섯을 내용으로 다시 찾아라 — 그 대조가 이 회차에서 다섯 개를 잡았다.
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 369),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 370),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 371),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 372),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 373),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 374),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 375),
     // phase 강제 후크. 인증 바이패스와 **같은 플래그**를 쓴다는 것이 이 두 줄에 있다 —
     // 새 환경변수가 늘지 않았고, 운영에선 NODE_ENV 게이트로 켜지지 않는다.
     sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 126),

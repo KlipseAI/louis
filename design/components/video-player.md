@@ -409,7 +409,7 @@ LOUIS `Slider` 가 아니라 이 컴포넌트의 부품이다 — 아래 「세�
 칩의 hover 는 `media-control-surface-hover`(40%)이고, 카드 · 배너의 `media-control-hover`(흰 12%)와 **방향이 다른 값**이라 다른 이름이다.
 
 **하이라이트의 크게 보기 버튼은 이 칩으로 접는 것이 기본값이다.** 하이라이트 숏폼 완성 칸 무대 오른쪽 위의 크게 보기
-버튼(`studioStageFullscreen`, `highlightSceneStyles.ts:1372-1391`)도 미디어 위에 뜬 아이콘 버튼이다 — 36 × 36 **알약**, 면
+버튼(`studioStageFullscreen`, `highlightSceneStyles.ts:1319-1336`)도 미디어 위에 뜬 아이콘 버튼이다 — 36 × 36 **알약**, 면
 `gray-1000/56%`, 글리프 `gray-000` 100%, 틴트 hover 없음, 좁은 화면(≤900)에서만 보인다. 같은 역할이 값 셋만 다르므로
 `__chip[data-standalone="true"]`(32 · 12 · 28%)로 접는다(DS-D-0084 기본값 표). 제품이 접기 전까지 그 값은 제품 쪽에 남는다.
 
@@ -444,7 +444,7 @@ LOUIS `Slider` 가 아니라 이 컴포넌트의 부품이다 — 아래 「세�
 
 ## 플랫폼 미리보기 — `data-platform="youtube"`
 
-업로드 전에 「YouTube 에서 이렇게 보인다」를 보이는 재현이다(업로드 모달의 시청 화면 하나, `YoutubeUploadModal.tsx:104-228`).
+업로드 전에 「YouTube 에서 이렇게 보인다」를 보이는 재현이다(업로드 모달의 시청 화면 하나, `YoutubeUploadModal.tsx@54b62a8a:104-228`).
 우리 플레이어의 두 번째 스킨이 아니다 — 행동(재생 · 진행 · 볼륨 · 전체화면, 키 계약)은 같고 겉모습만 플랫폼을 따른다. 그래서 축 이름이
 `platform` 이다 — `Chrome` 은 이미 Figma 와 레시피에서 표시 상태(Shown · Hidden)의 이름이다.
 
@@ -549,7 +549,7 @@ LOUIS `Slider` 가 아니라 이 컴포넌트의 부품이다 — 아래 「세�
   그 코드가 사라져 지금은 재현되지 않는다** — 남은 진행 바는 `currentColor` 를 쓴다.
 - **소비처가 그리는 틀.** 하이라이트 합성 미리보기(`CompositeSegmentPreview.tsx:53-58`)와 크게 보기 모달(`VideoPlayer.tsx:289-296`)이
   같은 「무대 판」(검정 · 16:9 · contain)을 각자 상수로 든다 — 레시피 `data-surface="stage"` + `--louis-video-player-aspect: 16/9` 로
-  모인다. 편집 노드 결과 플레이어(`EditNode.tsx:998-1014`)는 톤과 확대 칩만 쓴다 — 레시피에 더할 것이 없다.
+  모인다. 편집 노드 결과 플레이어(`EditNode.tsx:1004-1020`)는 톤과 확대 칩만 쓴다 — 레시피에 더할 것이 없다.
 
 ### 제품 (나) — 이 레시피가 서면 제품이 할 일
 

@@ -34,7 +34,7 @@ authority: normative
 | 글자 | caption-12-medium | 12 · 글자 키만 medium + 자간 0.02em | **`typography-caption-medium`** 전부 |
 | 글리프 | — | 12×12 (`[&_svg]:w-6 h-6`) | 12×12 |
 
-근거: `chore/landing-dead-walkthrough:…/CanvasHelpPanel.tsx@b3c56ed1a:164`(`KBD`), `origin/dev:…/CommandPalette.tsx:285`(`KEY`).
+근거: `chore/landing-dead-walkthrough:…/CanvasHelpPanel.tsx@b3c56ed1a:164`(`KBD`), `origin/dev:…/CommandPalette.tsx@54b62a8a:285`(`KEY`).
 
 **도움말 쪽으로 닫은 이유.**
 
@@ -97,5 +97,5 @@ authority: normative
 
 ## 출처
 
-- 2026-10-07 — CSS recipe 신설. 두 소비처(`CanvasHelpPanel.tsx@b3c56ed1a:164` · `CommandPalette.tsx:285`)의 치수·면을 하나로 정했다.
+- 2026-10-07 — CSS recipe 신설. 두 소비처(`CanvasHelpPanel.tsx@b3c56ed1a:164` · `CommandPalette.tsx@54b62a8a:285`)의 치수·면을 하나로 정했다.
 - 2026-08-26 — 제품 전수 인벤토리에서 미커버 패턴으로 확인.

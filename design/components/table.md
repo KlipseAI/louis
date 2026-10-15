@@ -16,7 +16,7 @@ summary: 여러 항목을 행과 열로 늘어놓고 값끼리 비교하게 합�
 거부한** 가이드 모델 사양 표 1벌(`ModelSpecPanel.tsx@a4125565:42` — 통합 판 `76b6cf15` 에서는 가이드 패널째
 걷혔다, `dbf12277`), 그리고 아직 검토되지 않은 관리자 캡션
 템플릿 표와 요금제 모달 표 2벌. **여섯 중 거부 기록이 있는 것은 그 하나뿐이다** — 관리자 사용자
-목록(`JobMonitor.tsx:62`)도 같은 거부를 적었지만 그것은 `<table>` 이 아니라 div 스택이라 여섯에
+목록(`JobMonitor.tsx:58`)도 같은 거부를 적었지만 그것은 `<table>` 이 아니라 div 스택이라 여섯에
 들어 있지 않다.
 
 **이 레시피는 골격만 소유한다.** 여백과 타이포는 두 소비처가 전부 유틸리티로 되돌린다 — 아래
@@ -51,7 +51,7 @@ Known deviations 첫 항목이 그 실측이다.
 쓰지 않는 자리.
 
 - **목록이 표가 아닐 때.** 항목 하나가 값 하나이고 세로 스택으로 나열되는 것은 목록이다. 관리자
-  사용자 목록(`app/admin/JobMonitor.tsx:56-63`)이 그 자리이며, 그 파일이 "표가 아니라 div
+  사용자 목록(`app/admin/JobMonitor.tsx:52-59`)이 그 자리이며, 그 파일이 "표가 아니라 div
   스택이라 정본이 요구하는 thead/tbody/tr/td 골격이 없다"고 스스로 적어 두었다.
 - **열 폭을 데이터가 정해야 할 때.** 이 레시피(기본 조판)는 `table-layout: fixed` 다. 폭을 주지 않은
   열이 균등 분할되므로 `nowrap` 셀이 넘친다. 가이드의 모델 사양 표
@@ -138,7 +138,7 @@ deviations.
 | 표 | `th` | `td` |
 | --- | --- | --- |
 | 정본 `ContentTable.tsx:72,93` | 8/12 | 10/12 |
-| `InstagramAnalyticsScene.tsx:586,605` | 8/12 | 10/12 |
+| `InstagramAnalyticsScene.tsx:577,605` | 8/12 | 10/12 |
 | 랜딩 스냅샷 `StaticAnalyticsDemo.tsx@a3ed8e03:508-509,531-532` — **없어졌다**(↓) | 8/12 | 10/12 |
 | 가이드 모델 사양 `ModelSpecPanel.tsx@a4125565:52-53` — **없어졌다**(가이드 패널 철거 `dbf12277`) | 8/12 | 8/12 |
 | 관리자 캡션 템플릿 `CaptionTemplateManagement.tsx@ae8fd627:45,54` — **`louis-table` 로 넘어갔다**(↓) | 10/14 | 10/14 |
@@ -181,7 +181,7 @@ deviations.
 | 자식 줄 들여쓰기 `data-indent="child"` | **1** | `AmbassadorManagement.tsx@2ceec4ed3:91,532,557` `LINK_CELL = "pl-12"`(24px). 광고 표는 들여쓰기 대신 서랍 줄을 펼친다 — **소비처가 하나뿐이라 판정 필요로 남겼다**(아래) |
 | 칸 보조 줄 `.louis-table__hint` | **3** | `ProductMetricsDashboard.tsx@b57cd1f95:64` `CELL_HINT` @e88df97bb · `AmbassadorManagement.tsx@2ceec4ed3:501,537` · `AdAttributionPanel.tsx@b57cd1f95:442` @7273a964e 가 같은 `block type-caption-12-regular text-fg-tertiary` 를 각자 적는다 |
 | 표 안 소제목 줄 | **2** | `ProductMetricsDashboard.tsx@b57cd1f95:110,529` `GROUP_HEAD`(`th scope="colgroup"`, 14 medium) @e88df97bb · `AdAttributionPanel.tsx@b57cd1f95:387-392`(`td colSpan`, 14 medium `fg-secondary` + 위 여백 28) @7273a964e. 두 번째는 잉크와 여백이 달라 **레시피는 첫째의 모양이다** |
-| `aria-busy` 흐림 | **7** | `AdAttributionPanel.tsx@b57cd1f95:100,291` · `AmbassadorManagement.tsx@2ceec4ed3:95,304` · `PaymentManagement.tsx@b57cd1f95:102,500` · `UsageByModelDashboard.tsx@b57cd1f95:53` · `JobMonitor.tsx:78,705` · `AdminClient.tsx:383` · `ProductMetricsDashboard.tsx@b57cd1f95:69` @7273a964e. 앞의 다섯은 호버와 같은 전환 토큰을 적고 뒤의 둘만 `120ms ease` 리터럴이다. **표는 둘뿐이고 나머지 다섯은 패널 · 격자 · 목록이다** — 판정 필요(아래) |
+| `aria-busy` 흐림 | **7** | `AdAttributionPanel.tsx@b57cd1f95:100,291` · `AmbassadorManagement.tsx@2ceec4ed3:95,304` · `PaymentManagement.tsx@b57cd1f95:102,500` · `UsageByModelDashboard.tsx@b57cd1f95:53` · `JobMonitor.tsx:78,705` · `AdminClient.tsx:397` · `ProductMetricsDashboard.tsx@b57cd1f95:69` @7273a964e. 앞의 다섯은 호버와 같은 전환 토큰을 적고 뒤의 둘만 `120ms ease` 리터럴이다. **표는 둘뿐이고 나머지 다섯은 패널 · 격자 · 목록이다** — 판정 필요(아래) |
 
 **값.**
 
@@ -237,8 +237,8 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
 - 헤더 라벨은 **한 단어 또는 짧은 명사구**다. `nowrap` 이라 길면 열을 넓힌다.
 - **숫자 열에는 반드시 `data-align="end"` 를 준다.** 자릿수가 흔들리지 않게 tabular 로 바뀌고
   비교하기 쉽게 우측 정렬된다. 제품에서 이 속성이 붙은 자리는 **12곳**이다 — 두 소비처가 숫자 열을
-  셋씩 갖고 그 셋마다 `th` 와 `td` 양쪽에 준다(`ContentTable.tsx:425,431,437` · `528,537,546`,
-  `InstagramAnalyticsScene.tsx:1680-1682` · `1733,1736,1739`). 그래서 `th` 6 · `td` 6 이다 —
+  셋씩 갖고 그 셋마다 `th` 와 `td` 양쪽에 준다(`ContentTable.tsx:374,431,437` · `528,537,546`,
+  `InstagramAnalyticsScene.tsx:1674-1676` · `1733,1736,1739`). 그래서 `th` 6 · `td` 6 이다 —
   `grep -c data-align` 이 세는 20 에는 두 파일의 주석 8줄이 함께 들어간다.
 - 헤더와 셀의 정렬을 어긋나게 두지 않는다. `data-align` 을 `th` 와 `td` 양쪽에 같은 값으로 준다 —
   셀렉터가 둘을 구분하지 않는 이유가 그것이다.
@@ -372,11 +372,11 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   ([table.css:3-5](../../packages/css/src/component/table.css))인데, 실제 선언은 헤더 4/8 · 본문
   8/8 · caption-12 다. 그래서 두 소비처 **모두** 여백을 유틸리티로 되돌린다 — `py-4 px-6`(8/12) ·
   `py-5 px-6`(10/12) (`ContentTable.tsx:71-75`, `ContentTable.tsx:91-96`,
-  `InstagramAnalyticsScene.tsx:585-596`, `InstagramAnalyticsScene.tsx:605`).
+  `InstagramAnalyticsScene.tsx:576-587`, `InstagramAnalyticsScene.tsx:596`).
   **타이포는 둘이 서로 다른 값으로 되돌린다** — 정본 헤더는 `text-body-14 font-medium`
   (`ContentTable.tsx:73`)인데 Instagram 헤더는 `text-body-16 font-normal`
-  (`InstagramAnalyticsScene.tsx:587`)이다. 두 화면의 헤더 크기가 원래 다르고, 그 파일이 스스로
-  그렇게 적어 두었다(`InstagramAnalyticsScene.tsx:583`). 되돌린 값 자체가 갈리므로 헤더 타이포는
+  (`InstagramAnalyticsScene.tsx:578`)이다. 두 화면의 헤더 크기가 원래 다르고, 그 파일이 스스로
+  그렇게 적어 두었다(`InstagramAnalyticsScene.tsx:574`). 되돌린 값 자체가 갈리므로 헤더 타이포는
   "제품 값"이 하나로 정해져 있지도 않다 — 여백과 달리 이쪽은 어느 값에 맞출지부터 미결이다.
   **채택된 것은 골격뿐이다**: `separate`/0 · `fixed` ·
   헤어라인 · 반경 4 · `nowrap` · 박스 모델 · `data-align`. 여백 값을 제품에 맞출지, 제품을 계단에
@@ -422,17 +422,17 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   (`SubscriptionScene.tsx:1418-1419`)와 Enter · Space 처리를 함께 가져 아래 「키보드로 갈 수 없는
   클릭 행」의 모양이 아니다. 콘텐츠 표 두 벌은 앵커에서 여전히 붙이지 않는다 — Instagram 은 "그
   상태는 커서와 행 호버 면을 함께 주는데 이 표에는 호버 면이 없다. 커서만 호출부에 남긴다"
-  (`InstagramAnalyticsScene.tsx:623-624`), 정본은 "이 표는 행을 눌러 들어가지 않으므로 붙이지
+  (`InstagramAnalyticsScene.tsx:614-615`), 정본은 "이 표는 행을 눌러 들어가지 않으므로 붙이지
   않는다"(`ContentTable.tsx:89-90`). 다크 호버 대비 1.00 이 오래 드러나지 않은 것은 결함이 없어서가
   아니라 그 코드 경로를 아무도 밟지 않아서였다. Acceptance test 10 · 11 · 17 은 이제
   `packages/css/test/table.browser.test.ts` 가 잰다.
 - **키보드로 갈 수 없는 클릭 행이 이미 배포돼 있다.** Instagram 표가 `<tr onClick>` 으로 새 창을
   여는데 행에 `tabIndex` 도 `role` 도 `onKeyDown` 도 없고, 셀 안에 링크·버튼도 없다
-  (`InstagramAnalyticsScene.tsx:1687-1692`, 커서는 `TABLE_ROW = "cursor-pointer"` `:599`). 위
+  (`InstagramAnalyticsScene.tsx:1681-1686`, 커서는 `TABLE_ROW = "cursor-pointer"` `:599`). 위
   Accessibility 가 경고한 바로 그 모양이며 가정법이 아니라 실측이다. `data-interactive` 를 쓰지
   않았으니 레시피가 만든 결함은 아니지만, **레시피가 활성화 경로를 만들어 주지 않는다는 사실이
   소비처에서 이렇게 나타난다** — 거부 사유가 "호버 면이 없어서"였으므로 키보드 경로는 애초에 검토
-  대상이 아니었다. 정본(`ContentTable.tsx:447-450`)은 행에 `onClick` 이 없어 이 문제가 없다.
+  대상이 아니었다. 정본(`ContentTable.tsx:396-399`)은 행에 `onClick` 이 없어 이 문제가 없다.
 - **React 표면이 없다.** `packages/react/src/table` 이 없고 public export 0이라, 소비처가 클래스
   문자열과 data 속성 이름을 직접 적는다. 오타를 잡는 것이 타입이 아니라 사람이다.
 - **기하 계약은 2026-10-14 에 섰다 — 본문 칸 높이만 대조 밖이다.** 기록 `table-header-cell` · `table-cell` · `table`
@@ -476,7 +476,7 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   uppercase 헤더)는 계약이 다르다.
 
   **앵커를 `5a67d692` 로 옮기며 후보가 하나 더 줄었다(↓).** 관리자 캡션 템플릿 표는 손수 기하를
-  버리고 `louis-table` 을 문다(`app/admin/CaptionTemplateManagement.tsx:52`·`:54`) — 흡수가 아니라
+  버리고 `louis-table` 을 문다(`app/admin/CaptionTemplateManagement.tsx:51`·`:54`) — 흡수가 아니라
   **제품이 스스로 정본으로 넘어온** 경우다. 셋이 둘이 됐고, 위 벌 표의 그 행도 함께 옮겼다.
 - **어드민 그룹 · 보조 줄 · 흐림은 소비처가 하나뿐이거나 표 밖으로 번진 것이 있다(2026-10-07, 판정 필요).**
   (1) `data-indent="child"` 는 소비처가 앰버서더 표 하나다 — 세워 두었으나 광고 표는 서랍 줄을 펼친다. 두 번째 소비처가

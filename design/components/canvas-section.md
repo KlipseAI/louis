@@ -151,18 +151,18 @@ lime · green · teal → green · cyan · blue → blue · indigo · violet · 
 1. 섹션 크기 조절은 끌기뿐이다(WCAG 2.5.7) — 한 번 누름 대안이 없다. 캔버스 노드 전체의 빚이라 여기서 열지 않는다.
 2. 모서리 손잡이는 Transform Frame 의 12 원이다 — 제품 8 정사각 · 반경 2 · 그림자는 옮기지 않았다(DS-D-0093 판정 4).
 3. 제목 바 전환 160ms(`motion-control-hover`) — 제품 140ms.
-4. 호버는 `@media (hover: hover)` 안이다 — 제품은 가드 없는 `[&:hover]` 로 원본을 옮겼다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:37-38`).
+4. 호버는 `@media (hover: hover)` 안이다 — 제품은 가드 없는 `[&:hover]` 로 원본을 옮겼다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:38-39`).
 5. 색조 면(16%)은 캔버스 대비 1.09~1.35 인 장식이다 — 섹션의 범위는 경계(40%)가 말한다.
 6. **고쳐 올린 값**(DS-D-0084 3항) — 쉼 경계 12% → 40%(라이트 1.38 → 3.03 · 다크 1.47 → 4.02), 견본 테두리 40% → `stroke-strong`(라이트 2.74 → 3.48),
    칸 테두리 12% → `stroke-strong`(1.32 → 4.62), 칸 접근 이름 rgba 문자열 → 색 이름, 액션 잉크 72% 덮기 → Node Chrome Button 기본.
 
 ## 제품에서 발견한 것
 
-- 팔레트가 섹션의 쌓임 맥락(`zIndex: -1001`, `components/scenes/create/node-canvas-v2/index.tsx:955-961`) 안에 떠서 섹션 안 노드 밑에 깔린다(코드로 추론).
+- 팔레트가 섹션의 쌓임 맥락(`zIndex: -1001`, `components/scenes/create/node-canvas-v2/index.tsx:974-980`) 안에 떠서 섹션 안 노드 밑에 깔린다(코드로 추론).
   오버레이 층으로 띄워야 한다.
-- 팔레트 칸의 접근 이름이 rgba 문자열이다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:333`).
-- 이름 바꾸기가 더블클릭으로만 열린다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:287-296`).
-- 긴 이름이 도움말 · 삭제 버튼을 덮는다 — 제목 바(`max-w-full`)와 액션이 각자 `absolute` 다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:102-103` · `:128`).
-- 색 버튼이 `aria-haspopup="true"`(메뉴)인데 열리는 것은 메뉴가 아니다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:309`).
+- 팔레트 칸의 접근 이름이 rgba 문자열이다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:334`).
+- 이름 바꾸기가 더블클릭으로만 열린다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:288-297`).
+- 긴 이름이 도움말 · 삭제 버튼을 덮는다 — 제목 바(`max-w-full`)와 액션이 각자 `absolute` 다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:103-104` · `:128`).
+- 색 버튼이 `aria-haspopup="true"`(메뉴)인데 열리는 것은 메뉴가 아니다(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:310`).
 - 썸네일 재현(`components/scenes/create/node-canvas-v2/lib/archiveThumbnail/drawNodes.ts:1714-1788`)이 라이브와 세 군데 다르다 — 다크 경계 색(241 대 220),
   바 높이(24 대 25), 견본 테두리(빈 때만 대 늘).

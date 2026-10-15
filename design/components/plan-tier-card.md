@@ -12,8 +12,8 @@ summary: 요금제 하나의 가격 · 크레딧 · 기능을 카드 한 장에 
 좌우로 오가며 비교한다. 줄의 자리가 카드마다 같아야 비교가 된다 — 할인 카드가 하나라도 있으면 원가 없는 카드도 그 줄을 비워 둔다.
 하나를 고르는 폼은 [Choice Card](choice-card.md) 다. 플랜마다 모든 기능을 한 표로 펼치는 비교표는 따로 승격한다(`plan-comparison`).
 
-제품 정본은 두 사본이다 — 공개 가격(`components/landing/sections/PricingSection.tsx:100-228` 의 상수)과 로그인 뒤 플랜 선택
-(`app/mypage/upgrade/UpgradePlanPageClient.tsx:211-327` 의 상수, `app/mypage/upgrade/UpgradePlanPageClient.tsx:737-900` 의 마크업, 통합 판 `54b62a8aa`).
+제품 정본은 두 사본이다 — 공개 가격(`components/landing/sections/PricingSection.tsx@54b62a8a:100-228` 의 상수)과 로그인 뒤 플랜 선택
+(`app/mypage/upgrade/UpgradePlanPageClient.tsx@54b62a8a:211-327` 의 상수, `app/mypage/upgrade/UpgradePlanPageClient.tsx:603-711` 의 마크업, 통합 판 `54b62a8aa`).
 두 화면이 같은 카드를 각자 상수로 들고 있었고 이미 갈렸다.
 
 ```html
@@ -161,9 +161,9 @@ React 를 만들지 않는다 — 이 마크업 계약이 공개 계약이다.
 
 ## 제품에서 발견한 것
 
-- 두 사본이 갈렸다 — 메모 잉크(`app/mypage/upgrade/UpgradePlanPageClient.tsx:315` `gray-300` 88% 대 `components/landing/sections/PricingSection.tsx:228` `gray-000` 56%),
+- 두 사본이 갈렸다 — 메모 잉크(`app/mypage/upgrade/UpgradePlanPageClient.tsx@54b62a8a:315` `gray-300` 88% 대 `components/landing/sections/PricingSection.tsx@54b62a8a:228` `gray-000` 56%),
   상세 툴팁(업그레이드만), 현재 표시 · 예약 안내(업그레이드만).
 - 상세 면이 카드 `overflow-hidden` 안의 `absolute` 이고 폭 260 이라, 덱 1300 기준 카드 안쪽 폭 약 225 를 넘어 오른쪽이 약 19px 잘린다(계산).
-  숫자 `z-10` 도 쓰고, 호버로만 열린다(`app/mypage/upgrade/UpgradePlanPageClient.tsx:299-312`).
+  숫자 `z-10` 도 쓰고, 호버로만 열린다(`app/mypage/upgrade/UpgradePlanPageClient.tsx:212-225`).
 - 메모와 CTA 가 둘 다 `mt-auto` 라 빈 높이를 반씩 나누고, 가장 긴 카드에서는 예약 안내와 CTA 가 0 으로 붙는다.
-- `motion-reduce:[transform:none]` 셋은 죽은 선언이다 — 카드에 transform 이 없다(`components/landing/sections/PricingSection.tsx:122-124`).
+- `motion-reduce:[transform:none]` 셋은 죽은 선언이다 — 카드에 transform 이 없다(`components/landing/sections/PricingSection.tsx@54b62a8a:122-124`).

@@ -59,7 +59,7 @@ summary: 표 행을 펼치면 그 아래에 올린 면 · 머리 줄 · 두 번�
 ## Interaction and responsive behavior
 
 - 트리거는 표 행 끝의 IconButton(셰브론)이다 — `aria-expanded` · `aria-controls` 가 서랍의 `id` 를 가리킨다.
-- 「더 보기」를 누르면 새로 열린 첫 줄로 포커스를 옮긴다. 마지막 묶음을 열면 버튼이 사라져 포커스가 문서 처음으로 튀기 때문이다(제품 `AdAttributionPanel.tsx:484-498`).
+- 「더 보기」를 누르면 새로 열린 첫 줄로 포커스를 옮긴다. 마지막 묶음을 열면 버튼이 사라져 포커스가 문서 처음으로 튀기 때문이다(제품 `AdAttributionPanel.tsx:478-492`).
 - 안쪽 표는 열을 숨기지 않고 가로로 민다 — 열마다 뜻이 달라 한 칸에 뭉치면 읽을 수 없다.
 
 ## Content
@@ -78,7 +78,7 @@ summary: 표 행을 펼치면 그 아래에 올린 면 · 머리 줄 · 두 번�
 
 | Part/state | Token or recipe | 구현 근거 |
 | --- | --- | --- |
-| 면 | `color-bg-raised` + `hairline-inset` | 제품 `ADMIN_SURFACE`(`AdminSection.tsx:69-70`) |
+| 면 | `color-bg-raised` + `hairline-inset` | 제품 `ADMIN_SURFACE`(`AdminSection.tsx:67-68`) |
 | 반경 · 여백 · 간격 | `radius-overlay` 16 · `space-control-lg` 16 · `space-control-md` 12 | 제품 `rounded-16 p-8 gap-6`(`AdAttributionPanel.tsx:95`) |
 | 머리 | 양 끝 · 간격 12 · 줄바꿈 | 제품 `justify-between gap-6 flex-wrap`(`:506`) |
 | 제목 | `body-sm-medium` · `fg-primary` | 제품 `type-body-14-medium`(`:507`) |

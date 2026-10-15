@@ -68,7 +68,7 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 모�
 「Get started」가 두 줄로 꺾였다. `MENU` · `MENU_LINK` 의 `max-width:959px` 변형이 갖는다
 (제품 `feat/landing-hero-scroll` `b0d4777f2`).
 
-근거: `landing/navigation/Gnb.tsx:108-113`(헤더) · `:115-119`(레일) · `:148-151`(로고) ·
+근거: `landing/navigation/Gnb.tsx:109-114`(헤더) · `:115-119`(레일) · `:148-151`(로고) ·
 `:159-162`(메뉴) · `:164-172`(메뉴 링크) · `:325`(3열 액션) · `:334-338`(상단 CTA) ·
 `:346-352`(햄버거) · `tailwind.css:162`(간격 기준). LanguageSelector compact 의 기하는 제품
 `LanguageSelector` 의 `TRIGGER`(높이 32) + `TRIGGER_COMPACT`(`padding: 0 8px` · `rounded-12`) +
@@ -100,7 +100,7 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 모�
 **배너 캐러셀의 값을 여기 쓰지 마라.** 그쪽은 `blur(22px) saturate(125%)`에 5스톱 마스크라 흐림이
 두 배 가깝게 짙고 감쇠 곡선이 다르다.
 
-근거: `landing/navigation/Gnb.tsx:101-106`(상수) · `:737`(소비처) · LOUIS `packages/css/src/base.css`(두 토큰).
+근거: `landing/navigation/Gnb.tsx:102-107`(상수) · `:737`(소비처) · LOUIS `packages/css/src/base.css`(두 토큰).
 **z-index 999는 작업 브랜치의 값이다**(`:118-124` `HEADER_BLUR`). `origin/dev` 판은 1000이었고 시트가 없었다.
 
 **한때 스크림이 깔려 있었다.** 제품 `66baeb6f`(2026-08-27)가 대비를 벌려고 페이지 바닥색 88%
@@ -116,7 +116,7 @@ Tone inversion 이 그 자리다.
 프레임 단위로 잰 값을 적는다) 그것을 우리 헤더 위에 옮긴 것이다 — 우리 패널은 헤더 **아래**에서
 시작하므로 토스의 상단 패딩 104는 쓰지 않고 헤더 높이를 뺀 40을 쓴다.
 
-출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:351-410`(@`26d093f6a` 시트 구조 · @`45f0ffad6`
+출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:352-411`(@`26d093f6a` 시트 구조 · @`45f0ffad6`
 항목 간격 · @`d2c5f8dd0` blur plate 연장).
 
 ### 구조
@@ -252,7 +252,7 @@ Tone inversion 이 그 자리다.
 바닥(#fafafa)에서 약 **3.3:1**(제품 주석 3.27 · 이 문서의 계산 3.31)이라 14px 본문 기준 AA(4.5)에 못 미친다 —
 비활성 컨트롤이 아니라 **누를 수 있는 내비게이션 링크**라 면제 대상이 아니다. `.65`는 **5.28:1**이고 활성(1.00)과의
 간격도 남는다. 어두운 면 위(흰 잉크)는 `.70`에서 이미 9.57:1이라 손대지 않는다 — **두 톤의 불투명도가 다른 것이
-맞다.** 근거: `landing/navigation/Gnb.tsx:189-198`. (이 절의 앞선 판이 적은 3.23 · 5.11 은 바닥이 #f1f1f3 이던
+맞다.** 근거: `landing/navigation/Gnb.tsx:190-199`. (이 절의 앞선 판이 적은 3.23 · 5.11 은 바닥이 #f1f1f3 이던
 시절의 값이다 — 결론은 같다.)
 
 **헤더 안에서 `--gray-000`을 팔레트 값으로 되돌린다.** 시맨틱 램프는 테마에서 뒤집히는데 랜딩 헤더는
@@ -269,7 +269,7 @@ LOUIS `.louis-menu-trigger` 는 자기 색을 `color: var(--louis-color-fg-prima
    변수를 테마 범위에서만 선언하고 트리거 자신에는 선언하지 않으므로 겨룰 규칙이 없다.
 2. **nav 가 아니라 트리거에 건다.** nav 에 걸면 그 안의 다른 LOUIS 요소(언어 드롭다운 항목 등)까지 같은 색을
    물려받는다. 드롭다운은 트리거의 형제라 트리거에 건 값은 내려가지 않는다. 앰배서더 브랜치는 아직 nav 에 건다
-   (`NAV_ON_DARK_SURFACE`, `Gnb.tsx:141`) — 두 브랜치가 갈라져 있다.
+   (`NAV_ON_DARK_SURFACE`, `Gnb.tsx:142`) — 두 브랜치가 갈라져 있다.
 3. **셀렉터는 클래스(`.louis-menu-trigger`)로 집는다.** 오른쪽 버튼 둘이 모두 그 클래스인데 **테마 버튼에는
    `aria-haspopup` 이 없다**(언어 선택기만 목록을 연다). 속성으로 집으면 언어만 밝아지고 테마 아이콘은 검정으로 남는다.
 4. **어두운 면 톤은 라이트 테마에서만 의미가 있다.** 다크 테마에서는 그 변수의 값이 이미 그 톤이므로 붙이지 않는다
@@ -280,9 +280,9 @@ LOUIS `.louis-menu-trigger` 는 자기 색을 `color: var(--louis-color-fg-prima
 (`fg-primary` 가 라이트에서 흰색이다). 대안은 `.louis-menu-trigger` 에 「면의 밝기」 입력(`data-surface` 또는 전용 변수)을
 열어 시맨틱 변수를 덮지 않아도 되게 하는 것이다. 정하기 전까지 위 다섯 규칙이 계약이다.
 
-근거: 2026-10-07, 제품 `feat/ambassador-links` `Gnb.tsx:141,527-590`(@`77522e3c1` · `6a106db62` · `cbc5b4cb9`) ·
-`feat/landing-hero-scroll` `Gnb.tsx:185-206`(@`79425db2d`) · `:831-835`(톤 결정) · `landing/system/navTone.ts`
-(@`ab8f0bca1` · `d1136262d` · `5bc42e986`) · 이 절의 폐기된 앞선 판은 `Gnb.tsx:87-104` · `:653-657`(옛 줄 좌표).
+근거: 2026-10-07, 제품 `feat/ambassador-links` `Gnb.tsx:142,527-590`(@`77522e3c1` · `6a106db62` · `cbc5b4cb9`) ·
+`feat/landing-hero-scroll` `Gnb.tsx:186-207`(@`79425db2d`) · `:831-835`(톤 결정) · `landing/system/navTone.ts`
+(@`ab8f0bca1` · `d1136262d` · `5bc42e986`) · 이 절의 폐기된 앞선 판은 `Gnb.tsx:88-105` · `:653-657`(옛 줄 좌표).
 
 ## Actions
 
@@ -305,7 +305,7 @@ LOUIS Button `primary` `md`(높이 32 · 안쪽 12)를 그대로 쓰되 **헤더
 고정 팔레트 변형을 Button 에 둘지. 지금 있는 `variant="inverse"`(인증 플로우 제출 CTA)는 **테마를 따라** 뒤집히는
 다른 축이라 그 자리를 대신하지 못한다 — 헤더의 톤은 테마와 무관하게 정해진다(위 Tone inversion).
 
-출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:495-508`.
+출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:496-509`.
 
 ### 페이지별 주 행동 슬롯 — `primaryAction`
 
@@ -321,7 +321,7 @@ primaryAction?: { label: string; onClick: () => void }
   인증 상태와 무관하다(앰배서더는 「지원하기」로 지원서를 연다).
 - 슬롯은 행동만 바꾼다 — 면 · 크기 · 톤 반전은 위 표 그대로다.
 
-출처: 2026-10-07, 제품 `feat/ambassador-links` `Gnb.tsx:538-540,1066-1078,1221-1228`(@`6dcf59011` 계열).
+출처: 2026-10-07, 제품 `feat/ambassador-links` `Gnb.tsx:539-541,1066-1078,1221-1228`(@`6dcf59011` 계열).
 
 ### 언어 · 테마 트리거
 
@@ -359,10 +359,10 @@ nav의 배경 층에 갇힌다.**
 blur plate 가 **1000** 이었다 — 패널이 헤더 위에 떴다. 시트가 헤더 유리 위로 오면서 순서가
 **헤더 1001 > 시트 1000 > blur plate 999** 로 바뀌었다. 아래 근거 줄 좌표는 옛 판이다.
 
-근거: `landing/navigation/Gnb.tsx:870`(드롭다운 패널의 인라인 `zIndex: 2000` — 옛 판) · `:223`(같은 패널의
+근거: `landing/navigation/Gnb.tsx:882`(드롭다운 패널의 인라인 `zIndex: 2000` — 옛 판) · `:223`(같은 패널의
 클래스 `z-20` — 인라인이 이긴다) · `:108`(헤더 1001) · `:101`(blur plate 1000 — 옛 판) · `:116`(`<nav>`의
 `relative` + `z-2`) · `:382-386`(풀스크린 메뉴 `fixed inset-0 z-[-1]`). 작업 브랜치 판: `feat/landing-hero-scroll`
-`Gnb.tsx:119`(blur plate `z-[999]`) · `:142`(헤더 `z-[1001]`) · `:1443`(시트 인라인 `zIndex: 1000`).
+`Gnb.tsx:120`(blur plate `z-[999]`) · `:142`(헤더 `z-[1001]`) · `:1443`(시트 인라인 `zIndex: 1000`).
 
 ## Fullscreen menu
 
@@ -429,7 +429,7 @@ Apple 도 2단계를 1단계와 같은 원점에 `absolute` 로 겹친다. 높�
 **판정 필요 — 이 값들을 모션 토큰으로 둘지.** 거리 8 · 지연 160 · 길이 240 · 곡선 `0.4, 0, 0.6, 1` 이 제품 상수(`MOBILE_MENU_*`)와
 키프레임에 흩어져 있다. 지금은 제품 인용으로만 적는다.
 
-출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:553-687`(@`1a04d2b55`) · `keyframes.css:1157`.
+출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:554-688`(@`1a04d2b55`) · `keyframes.css:1126`.
 
 ## Footer
 
@@ -535,14 +535,14 @@ Apple 도 2단계를 1단계와 같은 원점에 `absolute` 로 겹친다. 높�
 
 | 축 | 값 | 근거 |
 | --- | --- | --- |
-| blur plate 높이 | `120px` | `landing/navigation/Gnb.tsx:102` |
+| blur plate 높이 | `120px` | `landing/navigation/Gnb.tsx:103` |
 | blur plate 흐림 | `blur(12px)` | `:102` — **소비처다.** 값은 아래 |
 | blur plate 마스크 | 2스톱 `40% → 100%` | `:103-104` — **소비처다.** 값은 아래 |
 | 헤더 패딩 | `12px 12px 12px 20px` (≤450px `12px 16px`) | `:109` · `:111` |
 | 톤 전환 길이 | `320ms ease` | `:117` |
 | 시트 blur plate 틴트 · 높이 식 | `56%` · `시트 바닥 ÷ 0.4` · `300ms / 130ms` | `:131-139` |
 | 시트 패딩 · 열 폭 · 항목 간격 | `40/160/48` · `calc((100% − 72px)/4)` · `4px` | `:388-406` |
-| 모바일 메뉴 드릴 | `8px` · `160ms 지연` · `240ms` · `cubic-bezier(0.4,0,0.6,1)` | `keyframes.css:1157` · `Gnb.tsx:149-153` |
+| 모바일 메뉴 드릴 | `8px` · `160ms 지연` · `240ms` · `cubic-bezier(0.4,0,0.6,1)` | `keyframes.css:1126` · `Gnb.tsx:150-154` |
 | 푸터 전부 | 위 Footer 절의 표 | `TimelineFooter.tsx` |
 
 **흐림과 마스크 두 줄은 2026-08-30에 닫혔다.** 그날 이 자리가 자기 이름을 얻었다 —

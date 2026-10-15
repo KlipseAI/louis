@@ -26,14 +26,14 @@ authority: normative
 > 결론(화면이 거의 검정)도 조건(12종이 대기 중)도 맞지 않는다. 토큰 값 서술만 그대로 맞다.
 
 **토큰 값은 그 말대로다.** 제품의 라이트 오버라이드는 여전히 `--node-handle-bg-{channel}` 만
-200 으로 바꾸고(`globals.css:626-627` 등) disabled 계열은 다크 값(`{ramp}-900` · `-700`)을 그대로
-둔다(`globals.css:575-588`).
+200 으로 바꾸고(`globals.css:641-642` 등) disabled 계열은 다크 값(`{ramp}-900` · `-700`)을 그대로
+둔다(`globals.css:590-603`).
 
 **그러나 제품 화면은 그 값을 라이트에서 칠하지 않는다.** 소비처가 라이트에서 disabled 토큰 대신
 활성 토큰에 필터를 건다 — `light:[filter:brightness(0.78)_saturate(0.95)]!` 와
-`light:[background:var(--node-handle-bg-{channel})]!` 가 한 묶음이다(`NodeSideButtons.tsx:182-214` ·
-`VideoNode.tsx:317-350` · `EditNode.tsx:203-230`). 제품 토큰 주석이 같은 말을 한다 — 「비활성(라이트)은
-소비자 유틸리티에서 필터+채널 토큰 유지」(`globals.css:502`). 그래서 **라이트에서 거의 검정인 비활성
+`light:[background:var(--node-handle-bg-{channel})]!` 가 한 묶음이다(`NodeSideButtons.tsx:183-215` ·
+`VideoNode.tsx:319-352` · `EditNode.tsx:204-231`). 제품 토큰 주석이 같은 말을 한다 — 「비활성(라이트)은
+소비자 유틸리티에서 필터+채널 토큰 유지」(`globals.css:517`). 그래서 **라이트에서 거의 검정인 비활성
 핸들은 제품에 없다.**
 
 **그리고 채널 disabled 12종은 이미 LOUIS 원천에 있다** — `color-node-handle-{bg,icon}-disabled-{channel}`
@@ -70,7 +70,7 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 > **그 근거는 기준선에서 사라졌다.** `98c421ea` 가 그 버튼을 LOUIS `<Button>` 으로 갈아
 > 끼웠고, 지금 기준선(`df414c24`)의 그 파일에는 `180ms` 가 한 번도 나오지 않는다. 판정을
 > **살아 있는 자리로 옮긴다** — 아카이브 프로젝트 카드가 `transform` · `filter` · `box-shadow`
-> 를 셋 다 180ms ease 로 쓰고(`NodeCanvasHomeScene.tsx:271`), 같은 요소의 `:active` 가
+> 를 셋 다 180ms ease 로 쓰고(`NodeCanvasHomeScene.tsx:222`), 같은 요소의 `:active` 가
 > `scale(0.975)` 와 그림자 교체다(:274-275). **결론은 그대로이고 근거만 바뀌었다.**
 
 그 자리에서 움직이는 것은 **누름(`scale(0.975)`)과 밝기·그림자 변화** — 즉 **컨트롤 피드백**이다.
@@ -91,41 +91,41 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 [product.drift.json](../../migration/product.drift.json)이 매 `verify`마다 다섯 축을 잰다.
 
 <!-- GENERATED:product-drift START -->
-배포본 `54b62a8a` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
+배포본 `97d4950e` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
 
 | 축 | 제품 | DS가 덮는 비율 | 최다값 | 결손 최다 |
 | --- | ---: | ---: | --- | --- |
-| alpha | 47단 2167회 | 45.6% | `8%` 276회 | `100%` 253회 / 39파일 |
-| radius | 20단 181회 | 58% | `12px` 26회 | `7px` 20회 / 1파일 |
-| border-width | 4단 117회 | 90.6% | `1px` 83회 | `1.5px` 9회 / 5파일 |
-| spacing | 46단 897회 | 80.9% | `8px` 220회 | `5px` 34회 / 27파일 |
-| duration | 90단 1097회 | 57.2% | `180ms` 147회 **토큰 없음** | `180ms` 147회 / 38파일 |
+| alpha | 48단 1862회 | 44.2% | `8%` 237회 | `100%` 236회 / 36파일 |
+| radius | 19단 148회 | 64.9% | `12px` 23회 | `3px` 16회 / 7파일 |
+| border-width | 4단 95회 | 88.4% | `1px` 63회 | `1.5px` 9회 / 5파일 |
+| spacing | 49단 815회 | 80.4% | `8px` 195회 | `5px` 32회 / 26파일 |
+| duration | 87단 1027회 | 57.7% | `180ms` 119회 **토큰 없음** | `180ms` 119회 / 36파일 |
 
 **투명도 % (`alpha`) — 토큰 없는 값 상위**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `100%` | 253 | 39 |
-| `88%` | 204 | 75 |
-| `56%` | 132 | 67 |
-| `48%` | 117 | 52 |
-| `72%` | 85 | 43 |
-| `32%` | 75 | 37 |
-| `96%` | 72 | 21 |
-| `28%` | 69 | 36 |
+| `100%` | 236 | 36 |
+| `88%` | 183 | 66 |
+| `56%` | 113 | 58 |
+| `48%` | 91 | 43 |
+| `72%` | 77 | 39 |
+| `32%` | 69 | 35 |
+| `28%` | 66 | 33 |
+| `96%` | 50 | 16 |
 
 **모서리 반경 (`radius`) — 토큰 없는 값 상위**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `7px` | 20 | 1 |
-| `3px` | 18 | 8 |
+| `3px` | 16 | 7 |
 | `1px` | 14 | 2 |
-| `5px` | 12 | 9 |
+| `5px` | 11 | 8 |
 | `14px` | 4 | 1 |
 | `18px` | 3 | 2 |
-| `28px` | 2 | 2 |
 | `1.5px` | 2 | 1 |
+| `28px` | 1 | 1 |
+| `22px` | 1 | 1 |
 
 **테두리 두께 (`border-width`) — 토큰 없는 값 상위**
 
@@ -138,12 +138,12 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `5px` | 34 | 27 |
-| `3px` | 32 | 17 |
-| `1px` | 26 | 15 |
-| `9px` | 17 | 9 |
-| `7px` | 16 | 10 |
-| `160px` | 9 | 5 |
+| `5px` | 32 | 26 |
+| `3px` | 28 | 13 |
+| `1px` | 20 | 12 |
+| `9px` | 16 | 9 |
+| `7px` | 15 | 9 |
+| `160px` | 11 | 6 |
 | `11px` | 6 | 5 |
 | `112px` | 5 | 5 |
 
@@ -151,14 +151,14 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `180ms` | 147 | 38 |
-| `240ms` | 40 | 11 |
+| `180ms` | 119 | 36 |
+| `240ms` | 39 | 10 |
+| `800ms` | 29 | 12 |
 | `280ms` | 28 | 12 |
-| `800ms` | 25 | 11 |
 | `80ms` | 21 | 10 |
-| `100ms` | 19 | 9 |
-| `600ms` | 17 | 10 |
+| `100ms` | 20 | 10 |
 | `150ms` | 15 | 9 |
+| `600ms` | 12 | 9 |
 <!-- GENERATED:product-drift END -->
 
 **수치 정정(2026-08-21).** 이 절의 표는 원래 손으로 적었고 **두 칸이 틀렸다** — radius 결손을
@@ -191,7 +191,7 @@ spacing의 홀수 계단은 **전부 이웃과 1px 차**라 화면에서 구분�
 > 토큰의 별칭으로 선언한다 — `--palette-gray-200: var(--louis-color-palette-gray-200);`
 > (`globals.css:49`) · `--palette-gray-200-rgb: var(--louis-color-palette-gray-200-rgb);`
 > (`globals.css:66`). 두 경로가 같은 원천을 읽으므로 G 238/239 가 갈릴 자리가 없고, 앱 셸이
-> `body:has(...)` 로 램프를 `#eeeef1` 에 재매핑하던 규칙도 걷혔다(`Gnb.tsx:1391-1396` 주석).
+> `body:has(...)` 로 램프를 `#eeeef1` 에 재매핑하던 규칙도 걷혔다(`Gnb.tsx:1392-1397` 주석).
 > 아래는 2026-08-21 의 기록이다. 제품에 미러를 고쳐 달라고 요청하지 마라.
 
 **증상.** 앱 셸 램프에서 **같은 색이 소비 경로에 따라 다르게 렌더된다.**
@@ -224,7 +224,7 @@ spacing의 홀수 계단은 **전부 이웃과 1px 차**라 화면에서 구분�
 ## 6 — 루트 폰트 크기 12px가 의도인가
 
 **증상.** `html { font-size: var(--type-caption-12-size) }` = **12px**이고, `1rem = 12px`다
-(`globals.css:918-919`, 변수 `:322`). 브라우저로 4개 문맥 전부 확인했다.
+(`globals.css:951-952`, 변수 `:322`). 브라우저로 4개 문맥 전부 확인했다.
 
 그런데 [legacy-design-system](../../migration/legacy-design-system.md)은 이 변경을 **실수로
 기록**하고 「타입 스케일 토큰으로 바꾸지 말 것 — 폰트 크기만 바꾸고 rem 값은 하나도 조정하지
@@ -255,14 +255,14 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 
 **정해야 할 것.** 셋 중 하나다.
 
-1. **선언을 지운다(권장).** 살아 있는 `rem` 하나(`Gnb.tsx:2005` `max-width:4.5rem`)를 px로 바꾸면
+1. **선언을 지운다(권장).** 살아 있는 `rem` 하나(`Gnb.tsx:2006` `max-width:4.5rem`)를 px로 바꾸면
    환산 기준이라는 것을 아무도 기억할 필요가 없어진다. **오늘 문서 여섯 곳이 틀린 이유가 정확히
    「기억해야 하는 숫자」였기 때문이다.** 그 자리는 상위 상한에 먼저 걸려 발화하지도 않는다.
 2. **`62.5%`로 바꾼다.** 산수는 `1rem = 10px` 그대로이면서 상대값이라 사용자 설정에 비례한다.
    이 제품의 `landing` 쪽이 이미 이 방식이다.
 3. **12px를 의도로 확정한다.** 그러면 문서의 「토큰으로 바꾸지 말 것」 경고를 지운다.
 
-- **의도라면** 문서의 경고를 지운다. 파급은 `Gnb.tsx:2005` 한 곳뿐이고(접힘 사이드바 라벨
+- **의도라면** 문서의 경고를 지운다. 파급은 `Gnb.tsx:2006` 한 곳뿐이고(접힘 사이드바 라벨
   `max-width:4.5rem` = 54px) 그 자리는 상위 상한에 먼저 걸려 발화하지도 않는다.
 - **회귀라면** 되돌릴 때 `4.5rem` 두 자리를 함께 봐야 한다 — 경고가 지적한 것이 정확히 그것이다.
 
@@ -277,7 +277,7 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 
 **왜.** `useMainChromeHeaderScrollProgress`가 `--header-progress`를 두 곳에 쓴다 —
 `headerSlot`과 `wrapper.closest("main")`. 그런데 형태 B에서 페이드를 가진 패널 div는
-**`<main>`의 부모**다(`VideoEditScene.tsx:710-711` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
+**`<main>`의 부모**다(`VideoEditScene.tsx:705-706` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
 않으므로** 패널의 `::before`는 언제나 폴백 `0`을 읽는다.
 
 게다가 페이드를 선언한 3파일(`myPageSceneStyles.ts` · `VideoEditScene.tsx` · `InquiryClient.tsx`)
@@ -319,7 +319,7 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 ## 9 — `dashboardAreaBreathe`는 재생되지 않는다
 
-**증상.** `shared.tsx:52`가 `dashboardAreaBreathe 3.6s ease-in-out infinite 900ms`를 선언하는데
+**증상.** `shared.tsx:49`가 `dashboardAreaBreathe 3.6s ease-in-out infinite 900ms`를 선언하는데
 **`@keyframes dashboardAreaBreathe` 정의가 배포본에 없다.** 같은 파일의 다른 넷은 전부 정의가 있다.
 
     dashboardSkeletonPulse   @keyframes 정의 1
@@ -404,7 +404,7 @@ LOUIS Button 에는 알약 모양이 없어(반경 12) 화면 보드 구성 원�
     button "Connect Google Account"  rect 196.64 × 40  declared height calc(40px) · gap calc(6px)
                                      font 14 / 500 · 면 gray-000(검정) · 글자 gray-1000
 
-레시피는 제품 지역 상수다 — `YoutubeAnalyticsScene.tsx:1116` 과 `InstagramAnalyticsScene.tsx:520` 의 `CONNECT_NOTICE_BTN`
+레시피는 제품 지역 상수다 — `YoutubeAnalyticsScene.tsx:1116` 과 `InstagramAnalyticsScene.tsx:511` 의 `CONNECT_NOTICE_BTN`
 (`inline-flex items-center gap-3 h-20 px-10 [border:0] rounded-full bg-gray-000 … text-gray-1000`)이 **두 벌**로 똑같이 적혀 있고,
 `.louis-button` 을 물지 않는다. hover 는 `filter: brightness(90%)`, 누름은 `scale(0.98)` 로 LOUIS Button 의 상태 표현과도 다르다.
 

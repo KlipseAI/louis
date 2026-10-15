@@ -12,7 +12,7 @@ summary: 카드 여럿을 3D 로 늘어놓고 가운데 한 장을 정면으로 
 카드 여럿이 동시에 3D 로 늘어서고 조작이 페이지 바닥 위에 있는 것이 [Banner Carousel](banner-carousel.md)(사진 배너가 한 장씩 겹쳐 사라지고
 조작이 사진 위)과 다르다.
 
-제품 정본은 `components/templates/TemplateResultCarousel.tsx:26-247`(통합 판 `54b62a8aa`)이고 소비처는 공개 템플릿 상세의 결과 미디어 하나
+제품 정본은 `components/templates/TemplateResultCarousel.tsx@54b62a8a:26-247`(통합 판 `54b62a8aa`)이고 소비처는 공개 템플릿 상세의 결과 미디어 하나
 (`app/templates/[slug]/page.tsx`, 218줄)다.
 
 ```html
@@ -92,7 +92,7 @@ summary: 카드 여럿을 3D 로 늘어놓고 가운데 한 장을 정면으로 
 
 **소비처가 갖는 행동.** 무대 포커스에서 ←/→ 로 한 칸(**무대 자신이 포커스일 때만**), 끌어서 48px 넘으면 한 칸 · 8px 넘게 움직였으면 카드 누름을
 무시, 옆 카드를 누르면 그 카드로, 처음 · 끝에서 이동 버튼 `disabled`, 미디어 수가 줄면 활성 칸 보정, 미디어가 하나면 조작 줄을 그리지 않는다.
-영상은 가운데 카드만 `controls` · 소리를 갖는다(`components/templates/TemplateResultCarousel.tsx:114-143` · `components/templates/TemplateResultCarousel.tsx:180-190`).
+영상은 가운데 카드만 `controls` · 소리를 갖는다(`components/templates/TemplateResultCarousel.tsx:66-97` · `components/templates/TemplateResultCarousel.tsx@54b62a8a:180-190`).
 
 ## Properties
 
@@ -178,18 +178,18 @@ summary: 카드 여럿을 3D 로 늘어놓고 가운데 한 장을 정면으로 
 ## 제품에서 발견한 것
 
 - 무대의 `preserve-3d` 는 같은 요소의 `overflow: hidden` 에 접혀 아무 일도 하지 않고, 겹 순서를 숫자 z-index(`100 − abs`)가 정한다
-  (`components/templates/TemplateResultCarousel.tsx:28-33` · `components/templates/TemplateResultCarousel.tsx:170`).
-- 활성 점을 호버하면 파랑을 잃는다 — 원본 CSS 의 특이도 사고를 이식 때 「보존」했다(`components/templates/TemplateResultCarousel.tsx:22-24`).
-- 무대의 ←/→ 처리가 가운데 영상 컨트롤에서 올라온 키도 받아, 영상을 넘기는 키가 카드까지 넘긴다(`components/templates/TemplateResultCarousel.tsx:114-122`).
-- 이동 글리프가 글자(`‹` · `›`)다. 가운데 카드에 `aria-hidden="false"` 가 찍힌다(`components/templates/TemplateResultCarousel.tsx:179`).
+  (`components/templates/TemplateResultCarousel.tsx@54b62a8a:28-33` · `components/templates/TemplateResultCarousel.tsx@54b62a8a:170`).
+- 활성 점을 호버하면 파랑을 잃는다 — 원본 CSS 의 특이도 사고를 이식 때 「보존」했다(`components/templates/TemplateResultCarousel.tsx@54b62a8a:22-24`).
+- 무대의 ←/→ 처리가 가운데 영상 컨트롤에서 올라온 키도 받아, 영상을 넘기는 키가 카드까지 넘긴다(`components/templates/TemplateResultCarousel.tsx:66-76`).
+- 이동 글리프가 글자(`‹` · `›`)다. 가운데 카드에 `aria-hidden="false"` 가 찍힌다(`components/templates/TemplateResultCarousel.tsx@54b62a8a:179`).
 - 이식 원장(`migration/product-screens/10.3.md`)의 알파 넷이 앵커 값과 다르다(58 · 6 · 22 · 26 → 56 · 4 · 20 · 24). 레시피는 앵커를 따른다.
 
 ## 제품 (나) — 이 레시피가 서면 제품이 할 일
 
 | 제품 자리 | 할 일 |
 | --- | --- |
-| 상수 열셋(`components/templates/TemplateResultCarousel.tsx:26-90`) | `louis-coverflow*` 클래스로. 바깥 `mt-4` 는 소비처 여백으로 남는다 |
-| 무대 · 카드(`components/templates/TemplateResultCarousel.tsx:149-207`) | 무대 안에 `__deck` 한 겹을 더하고 카드를 그 안으로. 인라인 `transform` · `zIndex` 를 지우고 `--louis-coverflow-offset` · `-depth` 와 `data-active` · `data-far` 로 |
+| 상수 열셋(`components/templates/TemplateResultCarousel.tsx@54b62a8a:26-90`) | `louis-coverflow*` 클래스로. 바깥 `mt-4` 는 소비처 여백으로 남는다 |
+| 무대 · 카드(`components/templates/TemplateResultCarousel.tsx@54b62a8a:149-207`) | 무대 안에 `__deck` 한 겹을 더하고 카드를 그 안으로. 인라인 `transform` · `zIndex` 를 지우고 `--louis-coverflow-offset` · `-depth` 와 `data-active` · `data-far` 로 |
 | 카드 접근성 | 비활성만 `aria-hidden="true"`, 카드에 `role="group"` · `aria-roledescription="slide"` · `aria-label="N / 전체"` |
 | 키 | ←/→ 를 `event.target === event.currentTarget` 일 때만 |
 | 라벨 | `<span class="louis-coverflow__label"><span class="louis-badge" data-surface="media">` 로 — 검정 56% · `#fafafa` · `px-5` · `font-medium` 덮어쓰기를 지운다(보이는 변화) |

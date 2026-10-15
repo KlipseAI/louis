@@ -110,16 +110,16 @@ summary: AI 프롬프트 후보 하나 — 스타일 이름 + 프롬프트 본�
 ## Known deviations
 
 1. **스타일 이름 잉크를 고쳤다.** 제품 `accent-yellow-600` 은 라이트 응답 면 위 1.97:1, 비교 알약 위 1.84:1 이다
-   (`node-canvas-v2/nodes/TextNode.tsx:390` · `node-canvas-v2/components/PromptVariantCompareModal.tsx:61`). 같은 노드 결과 글의
+   (`node-canvas-v2/nodes/TextNode.tsx:391` · `node-canvas-v2/components/PromptVariantCompareModal.tsx@54b62a8a:61`). 같은 노드 결과 글의
    `node-text-response-foreground`(라이트 yellow-800)로 옮겼다. 다크는 제품 그대로다.
-2. **라이트 펼침 글리프 40% 와 열 라벨 48% 를 올렸다.** 각각 2.78:1(그래픽 3:1 미달, `TextNode.tsx:395`) · 3.62:1(글 4.5:1 미달,
-   `PromptVariantCompareModal.tsx:71`)이다. 48% · 56% 로 올렸고, 한 시맨틱 이름이 두 테마를 가져서 다크도 같은 수다(라벨 다크 48 → 56).
-3. **라이트 카드 호버를 다크와 같게 접었다.** 제품 라이트는 테두리 24% · 면 4%(호버해도 면이 그대로)다(`TextNode.tsx:385`). 28% · 8% 하나로 둔다.
-4. **사용 버튼의 면 · 반경 · 높이를 접었다.** 제품 면 yellow-600 · 반경 10 · 위아래 10(`PromptVariantCompareModal.tsx:82-84`)을 텍스트 노드 액센트
+2. **라이트 펼침 글리프 40% 와 열 라벨 48% 를 올렸다.** 각각 2.78:1(그래픽 3:1 미달, `TextNode.tsx:396`) · 3.62:1(글 4.5:1 미달,
+   `PromptVariantCompareModal.tsx@54b62a8a:71`)이다. 48% · 56% 로 올렸고, 한 시맨틱 이름이 두 테마를 가져서 다크도 같은 수다(라벨 다크 48 → 56).
+3. **라이트 카드 호버를 다크와 같게 접었다.** 제품 라이트는 테두리 24% · 면 4%(호버해도 면이 그대로)다(`TextNode.tsx:386`). 28% · 8% 하나로 둔다.
+4. **사용 버튼의 면 · 반경 · 높이를 접었다.** 제품 면 yellow-600 · 반경 10 · 위아래 10(`PromptVariantCompareModal.tsx@54b62a8a:82-84`)을 텍스트 노드 액센트
    `node-text-accent`(yellow-500) · 버튼 반경 12 · 컨트롤 높이 40 으로 읽는다.
-5. **펼침 글리프 13 을 16 으로**(`TextNode.tsx:692`, 아이콘 사다리 sm). 글리프 자체(대각 양방향 화살표)는 아이콘 세트에 아직 없다 —
+5. **펼침 글리프 13 을 16 으로**(`TextNode.tsx:693`, 아이콘 사다리 sm). 글리프 자체(대각 양방향 화살표)는 아이콘 세트에 아직 없다 —
    소비처가 제품 글리프를 넣는다.
 6. **사다리 밖 값.** 카드 여백 10 · 간격 6 · 반경 10, 알약 좌우 10 은 제품 값 그대로다 — 반경 10 의 기존 이름(`radius-overlay-item` ·
-   `radius-inspector-control`)은 다른 쓰임새라 빌리지 않았다. 열 라벨 ↔ 본문 5 는 4 로 접었다(`PromptVariantCompareModal.tsx:69`).
-7. **한 열로 접히는 폭 640 을 719 로**(`PromptVariantCompareModal.tsx:48`) — LOUIS 의 모바일 경계와 같은 수다.
+   `radius-inspector-control`)은 다른 쓰임새라 빌리지 않았다. 열 라벨 ↔ 본문 5 는 4 로 접었다(`PromptVariantCompareModal.tsx@54b62a8a:69`).
+7. **한 열로 접히는 폭 640 을 719 로**(`PromptVariantCompareModal.tsx@54b62a8a:48`) — LOUIS 의 모바일 경계와 같은 수다.
 8. **모달 셸의 반경 24 는 이 부품이 아니다** — Dialog `compare` 가 유도값 20 으로 접었다([Dialog](dialog.md) 「넓은 판」).

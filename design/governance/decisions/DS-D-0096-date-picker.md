@@ -15,8 +15,8 @@ authority: normative
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `date-picker` 가 있다(B2 #34 · #35). 제품에는 날짜 · 시각 고르기가
 두 벌 있다 — 캔버스 유튜브 노드의 예약 팝오버(`components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx`, 통합 판 `54b62a8aa`, 날짜 · 시각
-두 팝오버)와 게시 흐름의 인라인 달력(`components/scenes/create/PublishFlow.tsx:347-406`). 두 화면이 상수 마흔여 개로 각자 그린다
-(`YoutubeSchedulePickers.tsx:54-180` 서른 · `PublishFlow.tsx:95-133` 열).
+두 팝오버)와 게시 흐름의 인라인 달력(`components/scenes/create/PublishFlow.tsx:437-473`). 두 화면이 상수 마흔여 개로 각자 그린다
+(`YoutubeSchedulePickers.tsx@54b62a8a:54-180` 서른 · `PublishFlow.tsx:95-133` 열).
 
 LOUIS 에 달력도 시각 열도 없다. 가장 가까운 [Menu / Popover](../../components/menu-popover.md) 값 목록(`.louis-menu__item[aria-selected]`)은 **한 열 목록**이고
 선택 표시가 잉크 12%(흰 면 대비 1.28)다. 달력은 2차원 격자라 표 의미 · 열 맞춤 · 6주 고정 높이 · 오늘 표시가 필요하고, 시각 세 열은 각각 구르는 우물이다.

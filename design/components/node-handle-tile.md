@@ -69,7 +69,7 @@ summary: 노드 채널을 24 타일 그림으로 보여 줍니다 — 누르는 
 
 | Part/state | Token or recipe | 구현 근거 |
 | --- | --- | --- |
-| 타일 | 24 · 반경 6(리터럴) | 제품 `w-12 h-12 rounded-6`(`CanvasHelpPanel.tsx:217`) |
+| 타일 | 24 · 반경 6(리터럴) | 제품 `w-12 h-12 rounded-6`(`CanvasHelpPanel.tsx:224`) |
 | 면 | `color-node-handle-icon-{channel}` | 제품 `HANDLE_TILE_TONE`(`:218-225`) |
 | 글리프 | 14 · `color-fg-on-danger` | 제품 `NodeGlyphSvg size={14}` · 팔레트 흰색(`:217` · `:234`) |
 | 묶음 | 간격 `space-overlay-item-gap`(2) | 제품 `flex gap-1`(`:252`) |

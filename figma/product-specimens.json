@@ -43,7 +43,7 @@
       "id": "avatar/settingsProfile",
       "kind": "avatar",
       "label": "설정 프로필 사진",
-      "jsx": "apps/web/components/scenes/SettingsScene.tsx:990-1006",
+      "jsx": "apps/web/components/scenes/SettingsScene.tsx:912-928",
       "jsxQuote": "                <div className={styles.settingsAvatarFigure}>",
       "file": "apps/web/components/scenes/myPageSceneStyles.ts",
       "node": {
@@ -346,7 +346,7 @@
       "id": "checkbox/awsSignupLegal",
       "kind": "checkbox",
       "label": "AWS 가입 약관 동의 체크박스 — 구조는 같고 색 상수만 다른 두 번째 벌",
-      "jsx": "apps/web/app/aws/signup/page.tsx:607-620",
+      "jsx": "apps/web/app/aws/signup/page.tsx:614-627",
       "jsxQuote": "                <label className={LEGAL_AGREEMENT_LABEL}>",
       "file": "apps/web/app/aws/signup/page.tsx",
       "node": {
@@ -378,46 +378,6 @@
       "host": [
         {
           "file": "apps/web/app/aws/signup/page.tsx",
-          "part": "LEGAL_AGREEMENT_ROW"
-        }
-      ]
-    },
-    {
-      "id": "checkbox/signupLegal",
-      "kind": "checkbox",
-      "label": "가입 약관 동의 체크박스",
-      "jsx": "apps/web/app/(auth-brand)/signup/page.tsx:584-607",
-      "jsxQuote": "                <label className={LEGAL_AGREEMENT_LABEL}>",
-      "file": "apps/web/app/(auth-brand)/signup/page.tsx",
-      "node": {
-        "part": "LEGAL_AGREEMENT_LABEL",
-        "tag": "label",
-        "children": [
-          {
-            "part": "LEGAL_CHECKBOX_OUTER",
-            "tag": "span",
-            "children": [
-              {
-                "part": "LEGAL_CHECKBOX_INPUT",
-                "tag": "input"
-              },
-              {
-                "part": "LEGAL_CHECKBOX_FACE",
-                "tag": "span"
-              }
-            ]
-          },
-          {
-            "part": "LEGAL_AGREEMENT_TEXT",
-            "tag": "span",
-            "typography": "type-body-16-regular",
-            "text": "개인정보 처리방침에 동의합니다"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/(auth-brand)/signup/page.tsx",
           "part": "LEGAL_AGREEMENT_ROW"
         }
       ]
@@ -475,7 +435,7 @@
       "id": "empty-state/appHomeArchive",
       "kind": "empty-state",
       "label": "앱 홈 아카이브 빈 상태 — 제목 (통합 판에서 설명 문단이 빠지고 시작 행 목록이 섰다)",
-      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1093-1100",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1114-1121",
       "jsxQuote": "            <section className={styles.emptyState}>",
       "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "node": {
@@ -501,7 +461,7 @@
       "id": "empty-state/projectVideosPopover",
       "kind": "empty-state",
       "label": "프로젝트 영상 팝오버 빈 상태 — 타이포 클래스를 안 얹는다",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx:258-262",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx:270-274",
       "jsxQuote": "        <div className={EMPTY_STATE}>",
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx",
       "node": {
@@ -526,7 +486,7 @@
       "id": "empty-state/videoEditInspector",
       "kind": "empty-state",
       "label": "비디오 편집 인스펙터 빈 상태",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:22662-22668",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:14833-14839",
       "jsxQuote": "                              <div className={VEM_CLASS.inspectorEmptyState}>",
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "node": {
@@ -726,7 +686,7 @@
       "id": "icon-button/archiveMore",
       "kind": "icon-button",
       "label": "앱 홈 카드 더보기 버튼",
-      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1259-1296",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1417-1454",
       "jsxQuote": "                            className={styles.archiveMoreButton}",
       "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "node": {
@@ -744,7 +704,7 @@
       "id": "icon-button/gnbProjectOptions",
       "kind": "icon-button",
       "label": "GNB 프로젝트 헤더 옵션 버튼",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4243-4270",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4418-4445",
       "jsxQuote": "                      className={gnbStyles.iconButton}",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "node": {
@@ -762,7 +722,7 @@
       "id": "icon-button/historyMore",
       "kind": "icon-button",
       "label": "하이라이트 기록 카드 더보기 버튼",
-      "jsx": "apps/web/components/scenes/HighlightScene.tsx:1379-1420",
+      "jsx": "apps/web/components/scenes/HighlightScene.tsx:1369-1410",
       "jsxQuote": "                                      className={styles.historyMoreButton}",
       "file": "apps/web/components/scenes/highlightSceneStyles.ts",
       "node": {
@@ -871,209 +831,6 @@
       "host": [
         {
           "file": "apps/web/app/aws/signup/page.tsx",
-          "part": "FORM"
-        }
-      ]
-    },
-    {
-      "id": "input-form/loginEmailResting",
-      "kind": "input-form",
-      "label": "로그인 이메일 입력 — 라벨 쉬는 상태 (그룹 상단 상자, 둘째 벌)",
-      "jsx": "apps/web/app/(auth-brand)/login/page.tsx:314-378",
-      "file": "apps/web/app/(auth-brand)/login/page.tsx",
-      "node": {
-        "part": "INPUT_BOX",
-        "tag": "div",
-        "children": [
-          {
-            "part": "INPUT",
-            "tag": "input",
-            "typography": "type-body-16-regular"
-          },
-          {
-            "part": "FLOATING_LABEL_REST",
-            "tag": "span",
-            "text": "이메일"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/(auth-brand)/login/page.tsx",
-          "part": "FORM"
-        }
-      ]
-    },
-    {
-      "id": "input-form/loginPasswordFloated",
-      "kind": "input-form",
-      "label": "로그인 비밀번호 입력 — 라벨 뜬 상태 + 지우기·보기 토글 두 개 (그룹 하단 상자)",
-      "jsx": "apps/web/app/(auth-brand)/login/page.tsx:380-469",
-      "file": "apps/web/app/(auth-brand)/login/page.tsx",
-      "node": {
-        "part": "INPUT_BOX",
-        "tag": "div",
-        "children": [
-          {
-            "part": "INPUT",
-            "tag": "input",
-            "typography": "type-body-16-regular"
-          },
-          {
-            "part": "PASSWORD_TOGGLE",
-            "tag": "button",
-            "children": [
-              {
-                "part": "PASSWORD_TOGGLE_ICON",
-                "tag": "img"
-              }
-            ]
-          },
-          {
-            "part": "PASSWORD_TOGGLE",
-            "tag": "button",
-            "children": [
-              {
-                "part": "PASSWORD_TOGGLE_ICON",
-                "tag": "img"
-              }
-            ]
-          },
-          {
-            "part": "FLOATING_LABEL_FLOATED",
-            "tag": "span",
-            "text": "비밀번호"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/(auth-brand)/login/page.tsx",
-          "part": "FORM"
-        }
-      ]
-    },
-    {
-      "id": "input-form/recoverEmailResting",
-      "kind": "input-form",
-      "label": "계정 복구 이메일 입력 — 라벨 쉬는 상태 (같은 구조의 셋째 벌, 타이포가 INPUT 상수 안에 있다)",
-      "jsx": "apps/web/app/recover/page.tsx:214-276",
-      "file": "apps/web/app/recover/page.tsx",
-      "node": {
-        "part": "INPUT_BOX",
-        "tag": "div",
-        "children": [
-          {
-            "part": "INPUT",
-            "tag": "input"
-          },
-          {
-            "part": "FLOATING_LABEL_RESTING",
-            "tag": "span",
-            "text": "이메일"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/recover/page.tsx",
-          "part": "FORM"
-        }
-      ]
-    },
-    {
-      "id": "input-form/resetPasswordEmailResting",
-      "kind": "input-form",
-      "label": "비밀번호 재설정 이메일 입력 — 반경을 제 몸에 갖는 벌",
-      "jsx": "apps/web/app/(auth-brand)/reset-password/page.tsx:196-224",
-      "file": "apps/web/app/(auth-brand)/reset-password/page.tsx",
-      "node": {
-        "part": "INPUT_BOX",
-        "tag": "div",
-        "children": [
-          {
-            "part": "INPUT",
-            "tag": "input",
-            "typography": "type-body-16-medium"
-          },
-          {
-            "part": "FLOATING_LABEL_RESTING",
-            "tag": "span",
-            "text": "이메일"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/(auth-brand)/reset-password/page.tsx",
-          "part": "FORM"
-        }
-      ]
-    },
-    {
-      "id": "input-form/signupNameResting",
-      "kind": "input-form",
-      "label": "회원가입 이름 입력 — 라벨 쉬는 상태 (단일 라운드 상자)",
-      "jsx": "apps/web/app/(auth-brand)/signup/page.tsx:376-408",
-      "file": "apps/web/app/(auth-brand)/signup/page.tsx",
-      "node": {
-        "part": "INPUT_BOX",
-        "tag": "div",
-        "children": [
-          {
-            "part": "INPUT",
-            "tag": "input",
-            "typography": "type-body-16-medium"
-          },
-          {
-            "part": "FLOATING_LABEL_RESTING",
-            "tag": "span",
-            "text": "이름"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/(auth-brand)/signup/page.tsx",
-          "part": "FORM"
-        }
-      ]
-    },
-    {
-      "id": "input-form/signupPasswordFloated",
-      "kind": "input-form",
-      "label": "회원가입 비밀번호 입력 — 라벨 뜬 상태 + 비밀번호 보기 토글 (그룹 상단 상자)",
-      "jsx": "apps/web/app/(auth-brand)/signup/page.tsx:444-500",
-      "file": "apps/web/app/(auth-brand)/signup/page.tsx",
-      "node": {
-        "part": "INPUT_BOX",
-        "tag": "div",
-        "children": [
-          {
-            "part": "INPUT",
-            "tag": "input",
-            "typography": "type-body-16-medium"
-          },
-          {
-            "part": "PASSWORD_TOGGLE",
-            "tag": "button",
-            "children": [
-              {
-                "part": "PASSWORD_TOGGLE_ICON",
-                "tag": "img"
-              }
-            ]
-          },
-          {
-            "part": "FLOATING_LABEL_FLOATED",
-            "tag": "span",
-            "text": "비밀번호"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/app/(auth-brand)/signup/page.tsx",
           "part": "FORM"
         }
       ]
@@ -1311,65 +1068,6 @@
       ]
     },
     {
-      "id": "insight-card/igOverviewKpi",
-      "kind": "insight-card",
-      "label": "인스타그램 개요 · KPI 카드",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1232-1264",
-      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-      "node": {
-        "part": "REPORT_KPI_CARD",
-        "tag": "div",
-        "children": [
-          {
-            "part": "KPI_CARD_HEADER",
-            "tag": "div",
-            "children": [
-              {
-                "part": "CONTENT_TITLE",
-                "tag": "span",
-                "typography": "type-body-14-medium",
-                "text": "조회수"
-              }
-            ]
-          },
-          {
-            "part": "KPI_CARD_INNER",
-            "tag": "div",
-            "children": [
-              {
-                "part": "KPI_CARD_INNER_TEXT",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "REPORT_KPI_CARD_VALUE",
-                    "tag": "span",
-                    "typography": "type-heading-36-medium",
-                    "text": "12.4만"
-                  },
-                  {
-                    "part": "reportChangePill",
-                    "tag": "span",
-                    "typography": "type-caption-12-medium",
-                    "text": "+12.5%"
-                  }
-                ]
-              },
-              {
-                "part": "KPI_CARD_SPARK",
-                "tag": "div"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-          "part": "REPORT_KPI_ROW"
-        }
-      ]
-    },
-    {
       "id": "menu-popover/homeCreateNew",
       "kind": "menu-popover",
       "label": "앱 홈 새로 만들기 드롭다운",
@@ -1429,7 +1127,7 @@
       "id": "menu-popover/paneContextMenu",
       "kind": "menu-popover",
       "label": "캔버스 빈 곳 우클릭 메뉴",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx:253-316",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx:226-289",
       "jsxQuote": "          className={MENU_WRAP}",
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/PaneContextMenu.tsx",
       "node": {
@@ -1512,7 +1210,7 @@
       "id": "menu-popover/projectVideos",
       "kind": "menu-popover",
       "label": "프로젝트 영상 팝오버 — 헤더와 목록을 가진 벌",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx:237-305",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx:251-319",
       "jsxQuote": "      className={POPOVER}",
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/ProjectVideosPopover.tsx",
       "node": {
@@ -1626,7 +1324,7 @@
       "id": "progress-bar/editNodeProcessing",
       "kind": "progress-bar",
       "label": "편집 노드 처리 진행바 — 퍼센트 글자를 옆에 갖는다",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx:622-640",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx:605-623",
       "jsxQuote": "        className={PROCESSING_PROGRESS}",
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx",
       "node": {
@@ -1708,7 +1406,7 @@
       "id": "project-card/appHome",
       "kind": "project-card",
       "label": "앱 홈 · 프로젝트 카드",
-      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1170-1461",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1210-1501",
       "jsxQuote": "                      className={`${styles.archiveCard} ${",
       "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "node": {
@@ -1815,7 +1513,7 @@
       "id": "project-card/nodeCanvasHome",
       "kind": "project-card",
       "label": "노드캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
-      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1349-1619",
+      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1488-1758",
       "jsxQuote": "                  className={`${ARCHIVE_CARD} ${",
       "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "node": {
@@ -1913,246 +1611,6 @@
       ]
     },
     {
-      "id": "segmented-control/instagramAnalytics",
-      "kind": "segmented-control",
-      "label": "인스타그램 분석 · 기간 선택기 (3구간) — 제품이 정본 `.louis-segmented-control` 을 채택했다",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1878-1908",
-      "jsxQuote": "              className={PERIOD_SELECTOR}",
-      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-      "node": {
-        "part": "PERIOD_SELECTOR",
-        "tag": "div",
-        "attrs": {
-          "data-size": "md",
-          "role": "group"
-        },
-        "children": [
-          {
-            "file": "apps/web/components/ui/SegmentedThumb.tsx",
-            "part": "THUMB_BASE",
-            "parts": [
-              "THUMB_BASE",
-              "THUMB_SURFACE"
-            ],
-            "tag": "span",
-            "attrs": {
-              "aria-hidden": "true"
-            }
-          },
-          {
-            "part": "PERIOD_SEGMENT",
-            "tag": "button",
-            "attrs": {
-              "type": "button",
-              "data-segment-key": "7d"
-            },
-            "children": [
-              {
-                "part": "PERIOD_SEGMENT_LABEL",
-                "tag": "span",
-                "text": "7일"
-              }
-            ]
-          },
-          {
-            "part": "PERIOD_SEGMENT",
-            "tag": "button",
-            "attrs": {
-              "type": "button",
-              "data-segment-key": "28d",
-              "data-selected": "true"
-            },
-            "children": [
-              {
-                "part": "PERIOD_SEGMENT_LABEL",
-                "tag": "span",
-                "text": "1개월"
-              }
-            ]
-          },
-          {
-            "part": "PERIOD_SEGMENT",
-            "tag": "button",
-            "attrs": {
-              "type": "button",
-              "data-segment-key": "90d"
-            },
-            "children": [
-              {
-                "part": "PERIOD_SEGMENT_LABEL",
-                "tag": "span",
-                "text": "3개월"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-          "part": "DASHBOARD_NAV_BAR"
-        }
-      ]
-    },
-    {
-      "id": "segmented-control/youtubeAnalytics",
-      "kind": "segmented-control",
-      "label": "유튜브 분석 · 기간 선택기 (5구간) — 제품이 정본 `.louis-segmented-control` 을 채택했다",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2189-2219",
-      "jsxQuote": "                className={PERIOD_SELECTOR}",
-      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-      "node": {
-        "part": "PERIOD_SELECTOR",
-        "tag": "div",
-        "attrs": {
-          "data-size": "md",
-          "role": "group"
-        },
-        "children": [
-          {
-            "file": "apps/web/components/ui/SegmentedThumb.tsx",
-            "part": "THUMB_BASE",
-            "parts": [
-              "THUMB_BASE",
-              "THUMB_SURFACE"
-            ],
-            "tag": "span",
-            "attrs": {
-              "aria-hidden": "true"
-            }
-          },
-          {
-            "part": "PERIOD_SEGMENT",
-            "tag": "button",
-            "attrs": {
-              "type": "button",
-              "data-segment-key": "7d"
-            },
-            "children": [
-              {
-                "part": "PERIOD_SEGMENT_LABEL",
-                "tag": "span",
-                "text": "7일"
-              }
-            ]
-          },
-          {
-            "part": "PERIOD_SEGMENT",
-            "tag": "button",
-            "attrs": {
-              "type": "button",
-              "data-segment-key": "28d",
-              "data-selected": "true"
-            },
-            "children": [
-              {
-                "part": "PERIOD_SEGMENT_LABEL",
-                "tag": "span",
-                "text": "1개월"
-              }
-            ]
-          },
-          {
-            "part": "PERIOD_SEGMENT",
-            "tag": "button",
-            "attrs": {
-              "type": "button",
-              "data-segment-key": "90d"
-            },
-            "children": [
-              {
-                "part": "PERIOD_SEGMENT_LABEL",
-                "tag": "span",
-                "text": "3개월"
-              }
-            ]
-          },
-          {
-            "part": "PERIOD_SEGMENT",
-            "tag": "button",
-            "attrs": {
-              "type": "button",
-              "data-segment-key": "365d"
-            },
-            "children": [
-              {
-                "part": "PERIOD_SEGMENT_LABEL",
-                "tag": "span",
-                "text": "1년"
-              }
-            ]
-          },
-          {
-            "part": "PERIOD_SEGMENT",
-            "tag": "button",
-            "attrs": {
-              "type": "button",
-              "data-segment-key": "lifetime"
-            },
-            "children": [
-              {
-                "part": "PERIOD_SEGMENT_LABEL",
-                "tag": "span",
-                "text": "전체 기간"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "part": "DASHBOARD_NAV_BAR_CARD"
-        }
-      ]
-    },
-    {
-      "id": "slider/colorPopover",
-      "kind": "slider",
-      "label": "컬러 팝오버 색상·투명도 슬라이더 행",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx:675-719",
-      "jsxQuote": "      <div className={SLIDER_ROW}>",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-      "node": {
-        "part": "SLIDER_ROW",
-        "tag": "div",
-        "children": [
-          {
-            "part": "SLIDER_COLUMN",
-            "tag": "div",
-            "children": [
-              {
-                "part": "HUE_SLIDER",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "SLIDER_HANDLE",
-                    "tag": "span"
-                  }
-                ]
-              },
-              {
-                "part": "ALPHA_SLIDER",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "SLIDER_HANDLE",
-                    "tag": "span"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-          "part": "POPOVER"
-        }
-      ]
-    },
-    {
       "id": "text-field/inspectorFramedInput",
       "kind": "text-field",
       "label": "인스펙터 초·프레임 입력 행 — 숫자 입력 둘과 단위 둘",
@@ -2217,7 +1675,7 @@
       "id": "text-field/settingsRowName",
       "kind": "text-field",
       "label": "설정 이름 편집 입력 — 테두리 없이 알약 배경만",
-      "jsx": "apps/web/components/scenes/SettingsScene.tsx:1095-1111",
+      "jsx": "apps/web/components/scenes/SettingsScene.tsx:1021-1037",
       "jsxQuote": "                      className={`type-body-14-regular ${styles.settingsRowNameInput}`}",
       "file": "apps/web/components/scenes/myPageSceneStyles.ts",
       "node": {
@@ -2272,7 +1730,7 @@
       "id": "tooltip/analyticsBar",
       "kind": "tooltip",
       "label": "애널리틱스 막대 툴팁 — 포인터를 따라간다",
-      "jsx": "apps/web/components/scenes/analytics/useAnalyticsBarTooltip.tsx:169-177",
+      "jsx": "apps/web/components/scenes/analytics/useAnalyticsBarTooltip.tsx:170-178",
       "jsxQuote": "            className={`${TOOLTIP_BASE} ${tooltip.closing ? TOOLTIP_EXIT : TOOLTIP_ENTER}`}",
       "file": "apps/web/components/scenes/analytics/useAnalyticsBarTooltip.tsx",
       "node": {
@@ -2287,7 +1745,7 @@
       "id": "tooltip/chromeTooltip",
       "kind": "tooltip",
       "label": "공용 크롬 툴팁 — body로 포털되는 버블(사이드바·노드 캔버스)",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:293-304",
+      "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:294-305",
       "jsxQuote": "            className={`${PORTAL_ANCHOR} ${anchorClass}`}",
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx",
       "node": {
@@ -2314,7 +1772,7 @@
       "id": "tooltip/composerShotMode",
       "kind": "tooltip",
       "label": "컴포저 모드 힌트 툴팁 — 부모 hover로만 열린다",
-      "jsx": "apps/web/components/scenes/create/ComposerBar.tsx:407-409",
+      "jsx": "apps/web/components/scenes/create/ComposerBar.tsx:414-416",
       "jsxQuote": "              <span className={SHOT_MODE_TOOLTIP}>",
       "file": "apps/web/components/scenes/create/ComposerBar.tsx",
       "node": {
@@ -2329,7 +1787,7 @@
       "id": "tooltip/upgradeTierFeature",
       "kind": "tooltip",
       "label": "업그레이드 요금제 기능 툴팁",
-      "jsx": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx:639-652",
+      "jsx": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx:686-699",
       "jsxQuote": "                            {detail && <span className={`louis-tooltip ${TIER_FEATURE_TIP}`}>{detail}</span>}",
       "file": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
       "node": {
@@ -2575,6 +2033,61 @@
       "id": "selectable-list-row/highlightDetailClip",
       "retired": "2026-10-08",
       "reason": "통합 판(54b62a8a)에서 하이라이트 새 화면 갈래가 예전 리뷰 · 결과 화면을 한 판으로 합치며 그 스타일을 걷었다(2b0f93d31 「판으로 합쳐진 예전 리뷰와 결과 화면의 스타일을 걷는다」). 클립 상세 목록의 `clipDetailList*` 상수 일곱이 모두 사라졌다 — 제품이 그 UI 를 다시 만든 자리라 새 판 구조를 JSX 에서 읽어 표본을 다시 세워야 열린다."
+    },
+    {
+      "id": "checkbox/signupLegal",
+      "retired": "2026-10-15",
+      "reason": "운영 main 97d4950e(DS-D-0117 앵커)에서 가입 약관 동의 상자가 LOUIS `.louis-checkbox` 로 옮겨 가 LEGAL_CHECKBOX_OUTER · LEGAL_CHECKBOX_INPUT · LEGAL_CHECKBOX_FACE · LEGAL_AGREEMENT_TEXT 상수가 없어졌다(제품 bcb314ba0 「인증 입력 칸 · 약관 동의 상자 · 설정 스켈레톤을 LOUIS 기본으로 돌린다」). 남은 LEGAL_AGREEMENT_LABEL 이 `louis-checkbox flex-1 min-w-0` 이다. 그 자리는 checkbox 탐침이 잰다."
+    },
+    {
+      "id": "input-form/loginEmailResting",
+      "retired": "2026-10-15",
+      "reason": "운영 main 97d4950e 에서 인증 입력 칸이 LOUIS `.louis-text-field[data-label-behavior=\"floating\"]`(components/auth/AuthFloatingField.tsx)로 옮겨 가 INPUT_BOX · INPUT · FLOATING_LABEL_* · PASSWORD_TOGGLE* 상수가 화면 파일에서 없어졌다(제품 bcb314ba0). 옮겨 간 자리다 — LOUIS 채택."
+    },
+    {
+      "id": "input-form/loginPasswordFloated",
+      "retired": "2026-10-15",
+      "reason": "위와 같다(bcb314ba0 — 로그인 비밀번호 칸)."
+    },
+    {
+      "id": "input-form/recoverEmailResting",
+      "retired": "2026-10-15",
+      "reason": "위와 같다(bcb314ba0 — 비밀번호 찾기 이메일 칸)."
+    },
+    {
+      "id": "input-form/resetPasswordEmailResting",
+      "retired": "2026-10-15",
+      "reason": "위와 같다(bcb314ba0 — 비밀번호 재설정 이메일 칸)."
+    },
+    {
+      "id": "input-form/signupNameResting",
+      "retired": "2026-10-15",
+      "reason": "위와 같다(bcb314ba0 — 가입 이름 칸)."
+    },
+    {
+      "id": "input-form/signupPasswordFloated",
+      "retired": "2026-10-15",
+      "reason": "위와 같다(bcb314ba0 — 가입 비밀번호 칸)."
+    },
+    {
+      "id": "insight-card/igOverviewKpi",
+      "retired": "2026-10-15",
+      "reason": "운영 main 97d4950e 에서 증감 알약이 LOUIS `.louis-delta-pill[data-tone]` 으로 옮겨 가 `reportChangePill` 상수가 없어졌다(제품 d922d4735 「분석 화면의 덮어쓰기를 걷고 LOUIS 기본으로 돌린다」, InstagramAnalyticsScene.tsx:440 주석). LOUIS 채택."
+    },
+    {
+      "id": "segmented-control/instagramAnalytics",
+      "retired": "2026-10-15",
+      "reason": "운영 main 97d4950e 에서 미끄러지는 알약의 모양과 전환을 LOUIS `.louis-segmented-control__thumb` 가 갖게 되어 SegmentedThumb.tsx 의 THUMB_BASE 상수가 없어졌다(제품 221293c64, 파일 머리 주석). LOUIS 채택."
+    },
+    {
+      "id": "segmented-control/youtubeAnalytics",
+      "retired": "2026-10-15",
+      "reason": "위와 같다(221293c64)."
+    },
+    {
+      "id": "slider/colorPopover",
+      "retired": "2026-10-15",
+      "reason": "운영 main 97d4950e 에서 색 팝오버가 LOUIS color-picker 로 옮겨 가 SLIDER_ROW · SLIDER_COLUMN · HUE_SLIDER · SLIDER_HANDLE · ALPHA_SLIDER 상수가 없어졌다(제품 6cabb8d78 「색 팝오버를 LOUIS timeline · color-picker 로」, DS-D-0097). LOUIS 채택."
     }
   ],
   "$retiredNote": "표본이 가리키던 제품 상수가 **LOUIS 채택으로 사라진** 자리다. 지운 것이 아니라 옮겨 간 것이며, 같은 자리를 이제 LOUIS 후크 탐침(measure-product-components.mjs)이 잰다. 표본을 남겨 두면 측정기가 「상수가 없습니다」로 죽고, 그 빨강이 환경 탓처럼 보인다 — 실제로 verify-product-variants 가 오래 그 상태였다. 2026-09-03 앵커 재고정(ae8fd627 → 5a67d692)에서 셋이 더 내려갔다. 앞의 열여덟과 성격이 다르다 — 저것들은 **LOUIS 채택**으로 옮겨 간 자리이고, 이 셋은 제품이 그 UI 를 **다시 만든** 자리다(어드민 토스트 → AdminAlert · 크레딧 내역 리스트 → 표). 옮겨 간 것은 LOUIS 후크 탐침이 이어서 재지만, 다시 만든 것은 아무도 재지 않는다 — 새 구조를 JSX 에서 읽어 표본을 다시 세워야 열린다."

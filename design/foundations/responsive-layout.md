@@ -79,7 +79,7 @@ compact 구조 또는 명시적인 지원 범위 안내로 전환한다. 문서 
 | 폼 패널(래퍼) | **`display: contents`**                                                            | `display: grid` · `place-items: center` · `min-width: 0` · `overflow-y: auto`                            |
 
 근거: 페이지 그리드는 `(auth-brand)/layout.tsx:21-28` 의 `PAGE` 한 벌, 브랜드 패널 `AuthBrandPanel.tsx:18`·`:20`,
-폼 패널 `AuthStatusCard.tsx:18-20` · `login/page.tsx:22-26` · `(auth-brand)/signup/page.tsx:22-27`. 폼 패널 래퍼가 `role`도 `aria-*`도 없는 평범한 `<div>`라 용해해도 안전하다 —
+폼 패널 `AuthStatusCard.tsx:18-20` · `login/page.tsx:28-32` · `(auth-brand)/signup/page.tsx:26-31`. 폼 패널 래퍼가 `role`도 `aria-*`도 없는 평범한 `<div>`라 용해해도 안전하다 —
 `AuthStatusCard.tsx:72`.
 
 작성 형태는 두 가지가 병존한다. 기본값을 `contents`로 두고 `min-width: 720px` 한 분기만 얹는
@@ -145,15 +145,15 @@ container 기반이어야 하지만 기준 viewport와 기본 shell 상태에서
 
 **슬로건 크기는 auth 표면의 분기가 아니다.** 슬로건은 `type-heading-48-semibold` 하나를 쓰고, 크기
 계단은 그 타입 클래스가 갖는다 — 기본 48px, `≤1023px` 36px, `≤767px` 32px, `≤479px` 28px
-(`globals.css:369-371` · `:844` · `:859` · `:874`). 패널이 `≤719px`에서 숨으므로 28px 단은 보이지 않는다.
+(`globals.css:378-380` · `:844` · `:859` · `:874`). 패널이 `≤719px`에서 숨으므로 28px 단은 보이지 않는다.
 예전의 1200 승급(`heading-36-medium` → `heading-48`)은 통합 판에서 걷혔다 — 자기 계단을 가진
 클래스 위에 계단을 하나 더 얹으면 서로를 덮기 때문이다. 계단마다 바뀌는 선언은 size뿐이다 —
 letter-spacing은 네 단 모두 `-0.02em`, line-height는 `1.35`라 계산된 px만 size를 따라간다.
 
 근거(통합 판 76b6cf15): 2열 분할 · 페이지 패딩은 `(auth-brand)/layout.tsx:21-28` 한 벌(일곱 화면).
-브랜드 패널 소거 `AuthBrandPanel.tsx:18`. 1열 축약 `AuthStatusCard.tsx:18` · `login/page.tsx:22` ·
-`(auth-brand)/signup/page.tsx:23`. 슬로건 `AuthBrandPanel.tsx:96`. 로고 링크 숨김 `AuthStatusCard.tsx:31` ·
-`login/page.tsx:38` · `(auth-brand)/signup/page.tsx:35`.
+브랜드 패널 소거 `AuthBrandPanel.tsx:18`. 1열 축약 `AuthStatusCard.tsx:18` · `login/page.tsx:28` ·
+`(auth-brand)/signup/page.tsx:27`. 슬로건 `AuthBrandPanel.tsx:96`. 로고 링크 숨김 `AuthStatusCard.tsx:31` ·
+`login/page.tsx:44` · `(auth-brand)/signup/page.tsx:39`.
 
 ## Viewport height and safe area
 

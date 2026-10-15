@@ -249,7 +249,7 @@ Tab과 Shift+Tab은 최상위 Dialog 내부에서 순환한다. nested Popover�
 `data-variant="sheet"` 의 surface 첫 자식으로 둘 수 있는 선택 부품이다. 작은 화면에서 아래에서 올라온 시트를
 엄지로 내리는 제스처를 위한 것이며, 두 제품 시트(캔버스 모바일 시트 · 에디터 시트)가 같은 부품을 쓴다.
 출처: 2026-10-07, 제품 캔버스 모바일 작업 브랜치(`feat/canvas-mobile-ux` 의 `CanvasMobileSheet.tsx` ·
-`vemClass.ts:1566-1596` · `MobileSheetGrabber.tsx`).
+`vemClass.ts:1512-1542` · `MobileSheetGrabber.tsx`).
 
 ```html
 <div class="louis-dialog__surface" role="dialog" aria-label="…">
@@ -321,7 +321,7 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 
 ## 넓은 판 — `data-size="compare"`
 
-두 열을 견주는 대화다 — 프롬프트 후보 비교(통합 판 `54b62a8aa` `PromptVariantCompareModal.tsx:34-38`). 폭 880 은 `large`
+두 열을 견주는 대화다 — 프롬프트 후보 비교(통합 판 `54b62a8aa` `PromptVariantCompareModal.tsx@54b62a8a:34-38`). 폭 880 은 `large`
 720 밖이라 새 값이 필요하다. surface 가 `min(…, 100%)` 로 받으므로 좁은 화면에서는 뷰포트를 따라 줄어든다.
 
 **이름이 `xlarge` 가 아니다.** `compact`·`medium`·`large` 는
@@ -334,7 +334,7 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 `compact` 가 24 를 무른 2026-09-03 판정과 같은 근거다.
 
 **발이 없는 대화.** 비교 모달은 액션 행이 없다. 본문이 surface 의 마지막 자식이면 카드 아래 여백을 본문이 진다
-(`padding-block-end: var(--louis-dialog-surface-inset)`, 제품 `PromptVariantCompareModal.tsx:41-44`). 기본 본문 아래 8 은
+(`padding-block-end: var(--louis-dialog-surface-inset)`, 제품 `PromptVariantCompareModal.tsx@54b62a8a:41-44`). 기본 본문 아래 8 은
 발이 뒤따른다는 전제의 값이라, 발이 없으면 카드 바닥이 8 로 붙기 때문이다. 크기와 무관한 일반 규칙이다.
 
 본문의 두 열은 [Prompt Variant](prompt-variant.md) `data-layout="column"` 과 `.louis-prompt-variant-grid` 다.
@@ -346,7 +346,7 @@ Figma 는 `Size` 축에 `compare` 를 더한다(쓰임새 값이라 사다리 �
 본문이 스크롤하는 큰 작업 면(크롭)에서 머리 · 발이 본문과 갈려 보이게 한다. 머리 아래 · 발 위에 한 면 헤어라인
 (`hairline-inset-block-end` · `-block-start`, [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md))이 서고,
 테두리가 아니라 안쪽 그림자라 머리 · 발의 높이가 그대로다. 제품은 크롭 모달 셋 중 둘이 1px 12% 선을 갖는다
-(통합 판 `54b62a8aa` `ImageCropModal.tsx:42` · `:68`, 캔버스 `nodes/CropModal.tsx:72` · `:190`) — 클립 크롭은 전용 덮개라
+(통합 판 `54b62a8aa` `ImageCropModal.tsx@54b62a8a:42` · `:68`, 캔버스 `nodes/CropModal.tsx@54b62a8a:72` · `:190`) — 클립 크롭은 전용 덮개라
 셈하지 않는다. 선 값은 공용 헤어라인으로 접는다.
 
 **선이 서면 발 위 24 가 8 이 된다.** 24 는 「본문과 액션 사이」를 여백으로 가르는 값인데, 선이 이미 가르므로 여백까지
@@ -395,7 +395,7 @@ Figma에서 제품 화면을 그릴 때는 아래를 쓴다.
 **제품 실측이 아니라 DS 계약**이고, 제품이 그것을 소비한다.
 
 **뷰포트 450px 이하에서 위 표의 16px이 전부 14px로 내려간다.** 제품이 `--type-body-16-size`를
-`--type-body-14-size`로 재정의하기 때문이다(`globals.css:804-808`). `line-height`와
+`--type-body-14-size`로 재정의하기 때문이다(`globals.css:837-841`). `line-height`와
 `letter-spacing`은 따라 내려가지 않는다. 결과는 모바일 폭에서 **제목·설명·액션 라벨·부속이 전부
 14px**이 되어 위계가 굵기에만 남는 것이다. 450은 [Responsive Layout](../foundations/responsive-layout.md)의
 다섯 단계에 없는 별도 경계다 — **다섯 단계만 보고 그리면 이 층이 통째로 빠진다.**

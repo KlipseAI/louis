@@ -146,7 +146,7 @@ reduced-motion에서 loop는 짧아지는 것이 아니라 **사라진다.** 자
 cubic-bezier(0.4, 0, 0.2, 1) infinite`이고 차트 영역은 `2s ease-in-out`이다. 두 리듬이 한 화면에서
 같이 돈다.
 
-근거: `components/scenes/analytics/shared.tsx:163-169`(프리미티브) · `:249`(판) ·
+근거: `components/scenes/analytics/shared.tsx@54b62a8a:163-169`(프리미티브) · `:249`(판) ·
 `:252-262`(영역과 파형).
 
 ### 이 자리에 감소-모션 분기가 없다
@@ -181,7 +181,7 @@ DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
   수선을 쓰지 않았다 — 닫으면 14 × 1.5 = **21px**인데 세 곳의 기록이 전부 16이기 때문이다
   (`figma/readback.json`의 `Skeleton.geometry.text.height` · `figma/components.measured.json`의
   `skeleton.sizes.text.height` · 제품의 작은 스켈레톤 줄 `h-8` = 16px,
-  `components/scenes/analytics/shared.tsx:187`). 사유 문장이 기록과 맞은 적이 없었고 무효 선언이
+  `components/scenes/analytics/shared.tsx@54b62a8a:187`). 사유 문장이 기록과 맞은 적이 없었고 무효 선언이
   그것을 가리고 있었다. 16을 리터럴로 적는다 — 값이 같은 토큰은 여럿 있지만 어느 것도 「글자 한
   줄이 차지하는 높이」를 뜻하지 않는다.
 - **텍스트 여러 줄 묶음이 없다.** 마지막 줄을 짧게 하는 것은 호출부가 `inline-size`로 정한다.

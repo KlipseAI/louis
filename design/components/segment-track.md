@@ -15,8 +15,8 @@ summary: 원본 영상의 시간축 위에 구간을 놓고 그중 하나를 무
 같은 파일의 짝 블록 **Stage Bar**(`.louis-stage-bar`, 아래 「Stage Bar — 무대 아래 막대」 절)는 무대 바로 아래의 상태 | 행동 한 줄이다.
 트랙과 같은 올린 면이고, 안의 조작은 전부 LOUIS 부품 그대로다.
 
-제품 정본은 `StudioSegmentTrack.tsx:121-158` · `highlightSceneStyles.ts:1408-1587` · `highlightSceneStyles.ts:1750-1842`(통합 판 `54b62a8aa`)이고
-소비처는 하이라이트 허브의 빈 트랙(`HighlightScene.tsx:985`)과 스튜디오 판(`HighlightStudioBoard.tsx:1528`) 둘이다.
+제품 정본은 `StudioSegmentTrack.tsx@54b62a8a:121-158` · `highlightSceneStyles.ts@54b62a8a:1408-1587` · `highlightSceneStyles.ts@54b62a8a:1750-1842`(통합 판 `54b62a8aa`)이고
+소비처는 하이라이트 허브의 빈 트랙(`HighlightScene.tsx:983`)과 스튜디오 판(`HighlightStudioBoard.tsx:1528`) 둘이다.
 
 ```html
 <section class="louis-segment-track" aria-label="하이라이트" style="--louis-segment-track-minor: 4%">
@@ -115,7 +115,7 @@ summary: 원본 영상의 시간축 위에 구간을 놓고 그중 하나를 무
 | 숏폼 | 면 · 선 `accent-primary` · 글자 `fg-inverse`. 호버로 면을 바꾸지 않는다 |
 | 무대(`aria-current`) | 고리 2 `fg-primary` · 바깥 1. 지도 막대는 키워 고리 1.5 `fg-primary` |
 | 가리킴 | 지도 막대만 키워 고리 1.5 `accent-primary` |
-| 도는 칸(추출 · 렌더) | 모양은 그대로, 제목만 [Loading Word](loading-word.md)로 흐른다(`StudioSegmentTrack.tsx:363-364`) |
+| 도는 칸(추출 · 렌더) | 모양은 그대로, 제목만 [Loading Word](loading-word.md)로 흐른다(`StudioSegmentTrack.tsx@54b62a8a:363-364`) |
 | 줄인 모션 | 칸 전환 시간 0 |
 | 강제 색 | 틀은 `CanvasText` 1px 테두리, 무대 고리는 `Highlight`, 지도 막대 · 두 재생헤드는 `CanvasText` |
 
@@ -129,14 +129,14 @@ summary: 원본 영상의 시간축 위에 구간을 놓고 그중 하나를 무
 
 - 구간 줄은 `role="toolbar"` + `aria-orientation="horizontal"` 이고 탭 정지는 하나다 — 무대에 오른 칸, 없으면 첫 칸. 줄 안에서 옮겨 다니다
   나갔다 돌아오면 마지막 칸으로, 그사이 무대의 칸이 바뀌었으면 무대의 칸으로 들어간다.
-- ←/→ 한 칸, Home/End 처음 · 끝(`StudioSegmentTrack.tsx:249-265`). Alt · Ctrl · Meta 조합은 처리하지 않는다(브라우저 몫). 누르면
+- ←/→ 한 칸, Home/End 처음 · 끝(`StudioSegmentTrack.tsx:300-316`). Alt · Ctrl · Meta 조합은 처리하지 않는다(브라우저 몫). 누르면
   (Enter · Space) 무대에 오른다.
 - 칸의 접근 이름은 **보이는 번호 + 제목 + 상태**다(WCAG 2.5.3, `StudioSegmentTrack.tsx:44-48`) — 모양만으로는 상태를 모른다.
   `title` 에도 같은 이름을 둔다(좁은 칸은 제목이 잘린다).
 - 무대에 오른 칸은 `aria-current="true"` 다. 고리는 포커스가 아니라 상태다.
 - 포커스 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)). 포커스한 칸은 지도에서 그 막대가
   가리킴 고리(`data-hover`)를 받는다.
-- 무대에 오른 칸이 가려져 있으면 줄을 굴려 보인다 — 페이지는 굴리지 않고, 줄인 모션에서는 즉시(`StudioSegmentTrack.tsx:233-246`).
+- 무대에 오른 칸이 가려져 있으면 줄을 굴려 보인다 — 페이지는 굴리지 않고, 줄인 모션에서는 즉시(`StudioSegmentTrack.tsx:284-297`).
 - 눈금과 지도는 `aria-hidden` 이다 — 누르는 곳은 구간 줄이고, 지도는 같은 것을 자리로 다시 말하는 중복 표시다.
 - 대비(`bg-raised` 위, 라이트 · 다크): 클립 칸 글자 `fg-primary` 12.52 · 5.50(호버 10.92 · 6.66), 후보 칸 · 눈금 · 빈 줄 글자
   `fg-tertiary` 6.72 · 5.25, 줄 머리 `fg-secondary` 9.63 · 7.24, 숏폼 칸 `fg-inverse` on `accent-primary` 3.37(Known deviations 2).
@@ -152,10 +152,10 @@ summary: 원본 영상의 시간축 위에 구간을 놓고 그중 하나를 무
 ## Stage Bar — 무대 아래 막대
 
 무대 바로 아래의 한 줄 — 왼쪽은 무대에 오른 칸의 상태, 오른쪽은 그 칸의 다음 행동이다(`.louis-stage-bar`, 제품
-`highlightSceneStyles.ts:1421-1434` · `highlightSceneStyles.ts:1679-1732`). 트랙과 같은 올린 면이고, **안의 조작은 LOUIS 부품 그대로**다 —
+`highlightSceneStyles.ts@54b62a8a:1421-1434` · `highlightSceneStyles.ts@54b62a8a:1679-1732`). 트랙과 같은 올린 면이고, **안의 조작은 LOUIS 부품 그대로**다 —
 [Button](button.md) · [Checkbox](checkbox.md) · [Progress](progress.md) `louis-progress-bar` · [Loading Word](loading-word.md) ·
-[Menu Popover](menu-popover.md). 이 블록은 면과 줄 배치만 갖는다. 제품의 막대 세 벌(판 `HighlightStudioBoard.tsx:833-843`,
-멈춤 `HighlightStudioBoard.tsx:978-1033`, 기다림 `HighlightStudioBoard.tsx:1037-1086`)이 같은 상수를 쓴다.
+[Menu Popover](menu-popover.md). 이 블록은 면과 줄 배치만 갖는다. 제품의 막대 세 벌(판 `HighlightStudioBoard.tsx@54b62a8a:833-843`,
+멈춤 `HighlightStudioBoard.tsx@54b62a8a:978-1033`, 기다림 `HighlightStudioBoard.tsx@54b62a8a:1037-1086`)이 같은 상수를 쓴다.
 
 ```html
 <div class="louis-stage-bar">
@@ -201,7 +201,7 @@ summary: 원본 영상의 시간축 위에 구간을 놓고 그중 하나를 무
 - 만드는 동안의 버튼은 `disabled` 가 아니라 `aria-disabled` 로 잠근다 — 누른 초점이 문서 밖으로 빠지지 않고 실패하면 그 자리에서 다시
   누른다(`HighlightStudioBoard.tsx:781-786`).
 - 대비(`bg-raised` 위, 라이트 · 다크): 상태 `fg-primary`, 안내 `fg-secondary` 9.63 · 7.24, 실패 줄 `fg-danger-on-surface` 6.34 · 6.43.
-- `AnalysisWaitHint` 의 틀을 푸는 `display: contents`(`highlightSceneStyles.ts:1732`)는 소비처 몫이다 — 레시피에 두지 않는다.
+- `AnalysisWaitHint` 의 틀을 푸는 `display: contents`(`highlightSceneStyles.ts:1439`)는 소비처 몫이다 — 레시피에 두지 않는다.
 
 ## Known deviations
 
@@ -210,19 +210,19 @@ summary: 원본 영상의 시간축 위에 구간을 놓고 그중 하나를 무
    함께 말하고 지도는 `aria-hidden` 중복이라 1.4.11 의 「식별에 필요한 그래픽」으로 보지 않았다. 라이트 선을 `blue-500` 으로 올리면
    `accent-primary` 인 다음 추출 · 숏폼과 선 색이 겹쳐 상태 구별을 잃는다.
 2. **숏폼 칸 글자 3.37** — [Button](button.md) primary 의 소유자 수용 편차와 같은 면 · 글자 짝이다. 따로 고치지 않는다.
-3. **실패 줄 잉크를 고쳤다.** 제품 `fg-danger`(`highlightSceneStyles.ts:1862`)는 불투명 위험 면의 짝이라 카드 위에서 라이트 14.27(거의 검정) ·
+3. **실패 줄 잉크를 고쳤다.** 제품 `fg-danger`(`highlightSceneStyles.ts@54b62a8a:1862`)는 불투명 위험 면의 짝이라 카드 위에서 라이트 14.27(거의 검정) ·
    다크 14.49(거의 흰색)로 「실패」가 읽히지 않는다. `fg-danger-on-surface`(6.34 · 6.43)로 옮겼다 — 보이는 변화다.
-4. **칸의 포커스 링을 옮기지 않았다**(`highlightSceneStyles.ts:1567-1568`, DS-D-0074).
-5. **테마 분기를 시맨틱으로 접었다.** 제품은 칸 선 · 지도 막대를 `html[data-theme=dark] &` 로 갈랐다(`highlightSceneStyles.ts:1543` ·
-   `highlightSceneStyles.ts:1786`). component CSS 는 테마 선택자를 쓰지 않으므로 `segment-track-clip-stroke`(라이트 blue-300 · 다크 blue-800)
+4. **칸의 포커스 링을 옮기지 않았다**(`highlightSceneStyles.ts@54b62a8a:1567-1568`, DS-D-0074).
+5. **테마 분기를 시맨틱으로 접었다.** 제품은 칸 선 · 지도 막대를 `html[data-theme=dark] &` 로 갈랐다(`highlightSceneStyles.ts@54b62a8a:1543` ·
+   `highlightSceneStyles.ts@54b62a8a:1786`). component CSS 는 테마 선택자를 쓰지 않으므로 `segment-track-clip-stroke`(라이트 blue-300 · 다크 blue-800)
    한 칸이다. 칸 면 48% 는 원시 알파를 새로 세우지 않고 `color-mix` 로 만든다.
 6. **칸 상태 속성을 하나로 모았다.** 제품은 `data-included` + `data-state` 둘이고 `look` 이 있으면 `included` 를 무시한다
-   (`StudioSegmentTrack.tsx:162-165`). 레시피는 `data-look` 하나다 — `included=false` 는 `candidate` 다.
-7. **촘촘한 판의 경계를 레시피에 두지 않았다.** 제품은 화면 폭 900 미디어 쿼리다(`highlightSceneStyles.ts:1419` · `highlightSceneStyles.ts:1444` ·
-   `highlightSceneStyles.ts:1570`). 900 은 스튜디오 배치 전체의 경계라 트랙이 정할 일이 아니고, LOUIS 에 새 breakpoint 를 세우지 않는다
+   (`StudioSegmentTrack.tsx@54b62a8a:162-165`). 레시피는 `data-look` 하나다 — `included=false` 는 `candidate` 다.
+7. **촘촘한 판의 경계를 레시피에 두지 않았다.** 제품은 화면 폭 900 미디어 쿼리다(`highlightSceneStyles.ts@54b62a8a:1419` · `highlightSceneStyles.ts:1124` ·
+   `highlightSceneStyles.ts@54b62a8a:1570`). 900 은 스튜디오 배치 전체의 경계라 트랙이 정할 일이 아니고, LOUIS 에 새 breakpoint 를 세우지 않는다
    ([Responsive Layout](../foundations/responsive-layout.md)) — 소비처가 `data-layout="compact"` 를 단다.
 8. **틀 · 격자를 한 요소로 접었다.** 제품은 틀(`studioTimeline`, flex 세로)이 격자(`studioTrackGrid`)를 하나 감싼다
-   (`StudioSegmentTrack.tsx:122-126`). 자식이 늘 하나라 레시피는 루트가 격자다.
+   (`StudioSegmentTrack.tsx@54b62a8a:122-126`). 자식이 늘 하나라 레시피는 루트가 격자다.
 9. **사다리 밖 값.** 줄 머리 96 · 줄 사이 6 · 아래 안쪽 14(촘촘 10) · 눈금 28(촘촘 24) · 큰 눈금 8 · 빈 줄 56(촘촘 40) · 칸 최소 88(촘촘 136) ·
    지도 막대 4 · 최소 3 · 키운 8 · 고리 1.5 · 흐림 40 · 진행 묶음 280 은 제품 값 그대로다.
 
@@ -237,9 +237,9 @@ summary: 원본 영상의 시간축 위에 구간을 놓고 그중 하나를 무
 
 | 제품 자리 | 할 일 |
 | --- | --- |
-| `StudioSegmentTrack.tsx:121-158` · `StudioSegmentTrack.tsx:267-353` | 상수를 `louis-segment-track*` 클래스로, `--studio-*` 를 `--louis-segment-track-*` 로, `data-included` + `data-state` 를 `data-look` 하나로 |
-| `highlightSceneStyles.ts:1406-1587` · `highlightSceneStyles.ts:1750-1842` | 트랙 상수를 지운다 |
+| `StudioSegmentTrack.tsx@54b62a8a:121-158` · `StudioSegmentTrack.tsx@54b62a8a:267-353` | 상수를 `louis-segment-track*` 클래스로, `--studio-*` 를 `--louis-segment-track-*` 로, `data-included` + `data-state` 를 `data-look` 하나로 |
+| `highlightSceneStyles.ts@54b62a8a:1406-1587` · `highlightSceneStyles.ts@54b62a8a:1750-1842` | 트랙 상수를 지운다 |
 | 촘촘한 판 | 화면 폭 900 판정을 트랙의 `data-layout="compact"` 로 내린다 |
-| `HighlightStudioBoard.tsx:833-843` · `HighlightStudioBoard.tsx:978-1033` · `HighlightStudioBoard.tsx:1037-1086` | 막대 세 벌을 `louis-stage-bar*` 로. 실패 줄 잉크가 `fg-danger-on-surface` 로 바뀐다 |
-| `highlightSceneStyles.ts:1423-1434` · `highlightSceneStyles.ts:1680-1730` · `highlightSceneStyles.ts:1855-1863` | 막대 상수를 지운다. `studioStageBarHint` 는 소비처에 남는다 |
-| 칸 포커스 링(`highlightSceneStyles.ts:1567-1568`) | 지운다 — 전역 규칙(DS-D-0074)이 소유한다 |
+| `HighlightStudioBoard.tsx@54b62a8a:833-843` · `HighlightStudioBoard.tsx@54b62a8a:978-1033` · `HighlightStudioBoard.tsx@54b62a8a:1037-1086` | 막대 세 벌을 `louis-stage-bar*` 로. 실패 줄 잉크가 `fg-danger-on-surface` 로 바뀐다 |
+| `highlightSceneStyles.ts@54b62a8a:1423-1434` · `highlightSceneStyles.ts@54b62a8a:1680-1730` · `highlightSceneStyles.ts@54b62a8a:1855-1863` | 막대 상수를 지운다. `studioStageBarHint` 는 소비처에 남는다 |
+| 칸 포커스 링(`highlightSceneStyles.ts@54b62a8a:1567-1568`) | 지운다 — 전역 규칙(DS-D-0074)이 소유한다 |

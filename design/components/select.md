@@ -105,7 +105,7 @@ Alert 의 `Layout=block` 과 같은 규칙이다. `lg` 는 2026-10-13 에 열었
 
 TextField lg 와 한 줄에 나란히 서는 트리거다(`data-size="lg"`, 2026-10-13, [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
 높이 · 좌우 여백 · 값 글자가 TextField lg 와 같아서 조회 줄 · 폼 줄에서 입력칸과 선택칸의 바닥선 · 글자가 맞는다. 정본은 제품
-어드민의 선택 필드(`app/admin/AdminSection.tsx:100-103`, 12파일 35자리)다 — 트리거가 `.louis-text-field__box` 를 그대로
+어드민의 선택 필드(`app/admin/AdminSection.tsx:98-101`, 12파일 35자리)다 — 트리거가 `.louis-text-field__box` 를 그대로
 입고 있었다.
 
 | 크기 | 높이 | 좌우 | 간격 | 값 | 반경 |
@@ -195,7 +195,7 @@ parity 가 대조하고 실브라우저 시험(`packages/react/test/select.brows
 | ---------- | --------------- | --------- |
 | 트리거 높이 md | `layout-control-height-md` | 32. Gnb 프로필 언어 · ComposerBar 모델 |
 | 트리거 높이 sm | `layout-control-height-sm` | 24. VideoEditModal 프리뷰 줌 칩 |
-| 트리거 높이 lg | `layout-control-height-lg` | 40. 어드민 선택 필드(`AdminSection.tsx:100-103`) — TextField lg 와 같은 칸 |
+| 트리거 높이 lg | `layout-control-height-lg` | 40. 어드민 선택 필드(`AdminSection.tsx:98-101`) — TextField lg 와 같은 칸 |
 | 곡률 md · sm · lg | `radius-control` · `radius-control-sm` · `radius-control` | 12 · 8 · 12 |
 | 좌우 여백 md | `space-control-md` | 12 · 12 (대칭) |
 | 좌우 여백 sm | `space-control-sm` · `space-overlay-inset` | 8 · 6 (비대칭) |
@@ -269,11 +269,11 @@ Figma 쪽에서는 `rawFills` · `rawStrokes` 가 0 이고 `textUnstyled` 가 0 
 6. **트리거에 `justify-content: space-between` 을 두지 않는다.** 값이 남는 폭을 먹는 이상 그
    선언은 한 번도 적용되지 않는 죽은 값이고, Figma 에는 그릴 자리가 없어 두 곳이 어긋나 보인다.
 7. **lg 의 캐럿과 빈 값 잉크가 제품과 다르다.** 제품 어드민은 캐럿 10 · 잉크 56%, 빈 값 48% 알파
-   (`app/admin/AdminSection.tsx:108-109`)이고 문의 화면은 캐럿 16(`app/inquiry/InquiryClient.tsx:546`)이다.
+   (`app/admin/AdminSection.tsx@54b62a8a:108-109`)이고 문의 화면은 캐럿 16(`app/inquiry/InquiryClient.tsx:546`)이다.
    레시피는 크기마다 캐럿 12 · 트리거 잉크, 빈 값 `fg-tertiary` 로 접었다(2026-10-13 판정).
 8. **문의 화면은 lg 가 아니라 48 이다.** 같은 줄의 입력칸까지 `min-h-24`(48)로 덮은 화면이라
-   (`app/inquiry/InquiryClient.tsx:175`) 트리거만 lg 로 내리면 줄이 어긋난다. **48 칸은 열지 않는다(2026-10-13 판정)** —
-   화면 전체(트리거와 입력칸의 `min-h-24`)를 lg 40 으로 내리는 것은 제품 쪽 일이다. 제품 주석(`InquiryClient.tsx:162-170`)의
+   (`app/inquiry/InquiryClient.tsx@54b62a8a:175`) 트리거만 lg 로 내리면 줄이 어긋난다. **48 칸은 열지 않는다(2026-10-13 판정)** —
+   화면 전체(트리거와 입력칸의 `min-h-24`)를 lg 40 으로 내리는 것은 제품 쪽 일이다. 제품 주석(`InquiryClient.tsx@54b62a8a:162-170`)의
    「md 40 · lg 48」은 틀렸다 — LOUIS md 는 32, lg 는 40 이다.
 
 ## Implementation

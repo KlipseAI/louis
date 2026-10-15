@@ -129,7 +129,7 @@ compact recipe가 assets 진입점을 생략하면 문서 순서나 숨은 impli
 #### 캔버스 하단 바 (노드 캔버스의 compact)
 
 노드 캔버스 편집기는 위 규칙을 **하단 바 한 줄 + 아래 시트**로 푼다. 2026-10-07, 제품
-`feat/canvas-mobile-ux` `Toolbar.tsx:203` · `index.tsx`(`TOOLBAR_ROW`) @3923caf7. 앱 셸이 compact 로 들어가는
+`feat/canvas-mobile-ux` `Toolbar.tsx:219` · `index.tsx`(`TOOLBAR_ROW`) @3923caf7. 앱 셸이 compact 로 들어가는
 `≤719px` 에서 켜진다.
 
 | 칸 | 순서 | 동작 |
@@ -179,15 +179,15 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 
 | CSS variable | 해결값 | 지배하는 자리 |
 | --- | --- | --- |
-| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:483` |
-| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:484` |
-| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:492` |
+| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:498` |
+| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:495` |
+| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:507` |
 | `--node-side-stack-gap` | `8px` | 같은 열 컨트롤끼리 **세로** 간격 — `globals.css:494` |
-| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:495` |
-| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:496` |
-| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:497` |
+| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:510` |
+| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:511` |
+| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:512` |
 
-규범 주석은 `globals.css:486-491`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
+규범 주석은 `globals.css:501-506`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
 재정의하는 곳은 없다.
 
 ### 레일 배치
@@ -274,8 +274,8 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 [DS-D-0010](../governance/decisions/DS-D-0010-token-coverage.md)의 선택 액센트 절이 소유한다.
 **한 색으로 옮기면 일곱 중 여섯이 틀린다.**
 
-근거: `components/scenes/create/node-canvas-v2/index.tsx:353-365` ·
-`globals.css:655`(다크 램프 `--gray-800-rgb`)·`:56`(`--palette-gray-800-rgb`) ·
+근거: `components/scenes/create/node-canvas-v2/index.tsx:367-379` ·
+`globals.css:673`(다크 램프 `--gray-800-rgb`)·`:56`(`--palette-gray-800-rgb`) ·
 `:48`(라이트 `--palette-gray-100-rgb`)·`:30`(`--palette-gray-100`).
 
 ### 같은 숫자가 CSS 밖에 두 벌 더 있다
@@ -305,7 +305,7 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 남겨 두었다. 배포본 `74a7303b`에 **그 토큰은 선언이 하나도 없다.** 지금은 전환을 토큰으로 두지
 않는다는 것 자체가 규범이고, 제품 주석이 그것을 직접 적는다 — 「전환은 토큰이 아니라 소비처
 유틸리티에 직접 적는다 — 셸은 `filter/color/border-color 0.13s ease`, 아이콘 스케일만
-`transform 0.1s ease`」(`globals.css:429-430`).
+`transform 0.1s ease`」(`globals.css:444-445`).
 
 **그래서 승격할 전환 토큰이 없다.** 사이드 컨트롤의 전환 사양은 소비처 유틸리티에서 읽는다.
 
@@ -417,7 +417,7 @@ Figma 변형은 아직 없다. 위 표의 값은 제품 `CanvasHelpPanel.tsx` �
 
 캔버스 작업 면의 채움이다(레시피 `packages/css/src/pattern/editor-workspace.css`). 지름 2 점 · 24 격자 · `color-canvas-dot`(다크 #fafafa 16% ·
 라이트 pg-600 28%) 위 `bg-canvas`. 정본은 제품 `components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx:5-6 · :15-20`(xyflow
-`<Background variant=Dots gap=24 size=2>`)이고 색은 `--canvas-dot`(`node-canvas-v2/index.tsx:505` · `:530`)과 바이트가 같다(DS-D-0082).
+`<Background variant=Dots gap=24 size=2>`)이고 색은 `--canvas-dot`(`node-canvas-v2/index.tsx:523` · `:530`)과 바이트가 같다(DS-D-0082).
 
 점은 **캔버스 좌표**에 박혀 있다 — 줌하면 격자와 점이 함께 커지고, 끌면 함께 흐른다. 살아 있는 캔버스는 `--louis-canvas-dots-scale` ·
 `-x` · `-y` 를 넣고, 목업 · 정적 데모는 클래스만 붙인다. 노드 캔버스 자체는 xyflow 바닥(SVG 패턴)을 같은 값으로 그린다 — 이 클래스는
@@ -433,7 +433,7 @@ Figma 변형은 아직 없다. 위 표의 값은 제품 `CanvasHelpPanel.tsx` �
 강제 색에서는 점을 걷고 면만 남긴다. [Chart Card](../components/chart-card.md) 의 점 바닥(`data-floor="dots"`)과 같은 기법이고 격자 ·
 잉크 · 줌 추종만 다르다.
 
-**랜딩 정적 임베드의 20% 점은 이 칸이 아니다.** 어두운 랜딩 면 위 `palette-gray-000` 20%(`node-canvas-v2/index.tsx:542`)라 테마를 따르는
+**랜딩 정적 임베드의 20% 점은 이 칸이 아니다.** 어두운 랜딩 면 위 `palette-gray-000` 20%(`node-canvas-v2/index.tsx:551`)라 테마를 따르는
 캔버스 점과 다른 칸이다. 새 이름(`color-canvas-dot-on-media`)을 세우지 않고 랜딩 회차로 미룬다(DS-D-0084 소유자 판정 11, 2026-10-13 기본값).
 
 ## Overlay and portal contract

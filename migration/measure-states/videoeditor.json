@@ -2,7 +2,7 @@
   "$schema": "./_schema.json",
   "area": "videoeditor",
   "mode": "session",
-  "authoredAgainst": "76b6cf154",
+  "authoredAgainst": "97d4950e153d",
   "description": "영상 편집기(/videoeditor/[projectId]) 상태 레시피. 기준 화면은 세션 모드의 fixture 편집 프로젝트(소스 둘 · 클립 둘, fixture-seeds.mjs editor_projects). 클릭 전용 여섯은 시드 없이, 오버레이 · 오디오 셋은 편집 프로젝트 조회(/api/editor/projects/<id>)를 가로채, 가져오기 피커 둘은 프로젝트 목록 · 소스 목록을 가로채 세운다. 모바일은 인스펙터가 하단 시트(data-vem-sheet-open)라 단계가 달라 이번에는 데스크톱만 잰다. CompositionInspector 는 통합 앵커에서 selId 를 \"__composition__\" 으로 만드는 코드가 없어(VideoEditModal.tsx:15065 비교 한 곳뿐) 레시피로 세울 수 없다.",
   "recipes": [
     {
@@ -20,32 +20,32 @@
       "cite": [
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 13967,
+          "line": 13718,
           "expect": "data-timeline-clip-id={"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 14160,
+          "line": 13903,
           "expect": "title={`${source.src.name || \"Video\"}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 5696,
+          "line": 5594,
           "expect": "selectClip(clipId);"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4359,
+          "line": 4263,
           "expect": "\"vem-timeline-clip-region\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4319,
+          "line": 4223,
           "expect": "\"vem-timeline-clip-center-label\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15038,
+          "line": 14788,
           "expect": "<ClipInspector"
         },
         {
@@ -55,7 +55,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2778,
+          "line": 3032,
           "expect": "outputClips: \"Output clips\""
         },
         {
@@ -107,32 +107,32 @@
       "cite": [
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 13967,
+          "line": 13718,
           "expect": "data-timeline-clip-id={"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 14160,
+          "line": 13903,
           "expect": "title={`${source.src.name || \"Video\"}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 5696,
+          "line": 5594,
           "expect": "selectClip(clipId);"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4359,
+          "line": 4263,
           "expect": "\"vem-timeline-clip-region\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4319,
+          "line": 4223,
           "expect": "\"vem-timeline-clip-center-label\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15038,
+          "line": 14788,
           "expect": "<ClipInspector"
         },
         {
@@ -142,7 +142,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2778,
+          "line": 3032,
           "expect": "outputClips: \"Output clips\""
         },
         {
@@ -167,22 +167,22 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx",
-          "line": 263,
+          "line": 264,
           "expect": "role=\"slider\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx",
-          "line": 265,
+          "line": 266,
           "expect": "aria-label={label}"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2715,
+          "line": 2969,
           "expect": "vivid: \"Vivid\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2725,
+          "line": 2979,
           "expect": "colorIntensity: \"Strength\""
         }
       ],
@@ -240,32 +240,32 @@
       "cite": [
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 13967,
+          "line": 13718,
           "expect": "data-timeline-clip-id={"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 14160,
+          "line": 13903,
           "expect": "title={`${source.src.name || \"Video\"}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 5696,
+          "line": 5594,
           "expect": "selectClip(clipId);"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4359,
+          "line": 4263,
           "expect": "\"vem-timeline-clip-region\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4319,
+          "line": 4223,
           "expect": "\"vem-timeline-clip-center-label\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15038,
+          "line": 14788,
           "expect": "<ClipInspector"
         },
         {
@@ -275,7 +275,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2778,
+          "line": 3032,
           "expect": "outputClips: \"Output clips\""
         },
         {
@@ -300,12 +300,12 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2724,
+          "line": 2978,
           "expect": "colorTabAdjust: \"Adjust\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2729,
+          "line": 2983,
           "expect": "exposure: \"Exposure\""
         }
       ],
@@ -362,32 +362,32 @@
       "cite": [
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 13967,
+          "line": 13718,
           "expect": "data-timeline-clip-id={"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 14160,
+          "line": 13903,
           "expect": "title={`${source.src.name || \"Video\"}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 5696,
+          "line": 5594,
           "expect": "selectClip(clipId);"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4359,
+          "line": 4263,
           "expect": "\"vem-timeline-clip-region\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4319,
+          "line": 4223,
           "expect": "\"vem-timeline-clip-center-label\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15038,
+          "line": 14788,
           "expect": "<ClipInspector"
         },
         {
@@ -397,7 +397,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2778,
+          "line": 3032,
           "expect": "outputClips: \"Output clips\""
         },
         {
@@ -412,7 +412,7 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
-          "line": 505,
+          "line": 428,
           "expect": "aria-label={label}"
         },
         {
@@ -432,12 +432,12 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2494,
+          "line": 2748,
           "expect": "addEffect: \"Add effect\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2495,
+          "line": 2749,
           "expect": "fadeIn: \"Fade in\","
         }
       ],
@@ -496,32 +496,32 @@
       "cite": [
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 13967,
+          "line": 13718,
           "expect": "data-timeline-clip-id={"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 14160,
+          "line": 13903,
           "expect": "title={`${source.src.name || \"Video\"}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 5696,
+          "line": 5594,
           "expect": "selectClip(clipId);"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4359,
+          "line": 4263,
           "expect": "\"vem-timeline-clip-region\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 4319,
+          "line": 4223,
           "expect": "\"vem-timeline-clip-center-label\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15038,
+          "line": 14788,
           "expect": "<ClipInspector"
         },
         {
@@ -531,47 +531,47 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2778,
+          "line": 3032,
           "expect": "outputClips: \"Output clips\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 11440,
+          "line": 11183,
           "expect": "openSelectedClipCropModal();"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 11448,
+          "line": 11191,
           "expect": "aria-label={tCrop.openAria}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15235,
+          "line": 14985,
           "expect": "<ClipCropModal"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
-          "line": 341,
+          "line": 332,
           "expect": "role=\"dialog\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
-          "line": 343,
+          "line": 334,
           "expect": "aria-labelledby=\"clip-crop-title\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
-          "line": 351,
+          "line": 340,
           "expect": "{tCrop.title}"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2613,
+          "line": 2867,
           "expect": "title: \"Crop\","
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2618,
+          "line": 2872,
           "expect": "openAria: \"Crop selected clip\""
         }
       ],
@@ -653,12 +653,12 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2590,
+          "line": 2844,
           "expect": "menuLabel: \"Editor settings\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2592,
+          "line": 2846,
           "expect": "snapLabel: \"Magnetic snapping\""
         }
       ],
@@ -749,37 +749,37 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
-          "line": 1337,
+          "line": 1327,
           "expect": "export interface VideoOverlay {"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7075,
+          "line": 6975,
           "expect": "const baseX = type === \"text\" ? 0.25 : 0.1;"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7076,
+          "line": 6976,
           "expect": "const baseY = type === \"text\" ? 0.82 : 0.05;"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7080,
+          "line": 6980,
           "expect": "content: type === \"text\" ? vem.text : \"\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7089,
+          "line": 6989,
           "expect": "width: type === \"text\" ? 0.12 : 0.15,"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7090,
+          "line": 6990,
           "expect": "height: type === \"text\" ? 0.05 : 0.08,"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7091,
+          "line": 6991,
           "expect": "style: { ...DEFAULT_OVERLAY_STYLE },"
         },
         {
@@ -789,7 +789,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2521,
+          "line": 2290,
           "expect": "text: \"Text\","
         },
         {
@@ -814,47 +814,47 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2559,
+          "line": 2813,
           "expect": "textOverlayAria: \"Text overlay\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2560,
+          "line": 2814,
           "expect": "imageOverlayAria: \"Image overlay\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15023,
+          "line": 14766,
           "expect": "<OverlayInspector"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 278,
+          "line": 284,
           "expect": "? vem.subtitle"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 279,
+          "line": 285,
           "expect": ": vem.image}"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2777,
+          "line": 3031,
           "expect": "subtitle: \"Subtitle\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx",
-          "line": 330,
+          "line": 253,
           "expect": "role=\"spinbutton\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 334,
+          "line": 340,
           "expect": "ariaLabel={vem.xCoordAria}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 664,
+          "line": 670,
           "expect": "ariaLabel={vem.fontColor}"
         }
       ],
@@ -962,37 +962,37 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
-          "line": 1337,
+          "line": 1327,
           "expect": "export interface VideoOverlay {"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7075,
+          "line": 6975,
           "expect": "const baseX = type === \"text\" ? 0.25 : 0.1;"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7076,
+          "line": 6976,
           "expect": "const baseY = type === \"text\" ? 0.82 : 0.05;"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7080,
+          "line": 6980,
           "expect": "content: type === \"text\" ? vem.text : \"\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7089,
+          "line": 6989,
           "expect": "width: type === \"text\" ? 0.12 : 0.15,"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7090,
+          "line": 6990,
           "expect": "height: type === \"text\" ? 0.05 : 0.08,"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7091,
+          "line": 6991,
           "expect": "style: { ...DEFAULT_OVERLAY_STYLE },"
         },
         {
@@ -1002,7 +1002,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2521,
+          "line": 2290,
           "expect": "text: \"Text\","
         },
         {
@@ -1027,32 +1027,32 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2559,
+          "line": 2813,
           "expect": "textOverlayAria: \"Text overlay\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2560,
+          "line": 2814,
           "expect": "imageOverlayAria: \"Image overlay\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15023,
+          "line": 14766,
           "expect": "<OverlayInspector"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 278,
+          "line": 284,
           "expect": "? vem.subtitle"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 279,
+          "line": 285,
           "expect": ": vem.image}"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2777,
+          "line": 3031,
           "expect": "subtitle: \"Subtitle\""
         }
       ],
@@ -1159,37 +1159,37 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
-          "line": 1337,
+          "line": 1327,
           "expect": "export interface VideoOverlay {"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7075,
+          "line": 6975,
           "expect": "const baseX = type === \"text\" ? 0.25 : 0.1;"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7076,
+          "line": 6976,
           "expect": "const baseY = type === \"text\" ? 0.82 : 0.05;"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7080,
+          "line": 6980,
           "expect": "content: type === \"text\" ? vem.text : \"\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7089,
+          "line": 6989,
           "expect": "width: type === \"text\" ? 0.12 : 0.15,"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7090,
+          "line": 6990,
           "expect": "height: type === \"text\" ? 0.05 : 0.08,"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 7091,
+          "line": 6991,
           "expect": "style: { ...DEFAULT_OVERLAY_STYLE },"
         },
         {
@@ -1199,7 +1199,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2521,
+          "line": 2290,
           "expect": "text: \"Text\","
         },
         {
@@ -1224,72 +1224,72 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2559,
+          "line": 2813,
           "expect": "textOverlayAria: \"Text overlay\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2560,
+          "line": 2814,
           "expect": "imageOverlayAria: \"Image overlay\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15023,
+          "line": 14766,
           "expect": "<OverlayInspector"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 278,
+          "line": 284,
           "expect": "? vem.subtitle"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 279,
+          "line": 285,
           "expect": ": vem.image}"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2777,
+          "line": 3031,
           "expect": "subtitle: \"Subtitle\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
-          "line": 664,
+          "line": 670,
           "expect": "ariaLabel={vem.fontColor}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-          "line": 80,
+          "line": 57,
           "expect": "aria-label={ariaLabel}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-          "line": 626,
+          "line": 501,
           "expect": "role=\"dialog\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-          "line": 675,
+          "line": 561,
           "expect": "aria-label={t.hueAria}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
-          "line": 795,
+          "line": 691,
           "expect": "return createPortal(node, document.body);"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15399,
+          "line": 15149,
           "expect": "<ColorPopover"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2518,
+          "line": 2772,
           "expect": "fontColor: \"Font color\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2903,
+          "line": 3168,
           "expect": "hueAria: \"Hue\""
         }
       ],
@@ -1409,12 +1409,12 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
-          "line": 1810,
+          "line": 1800,
           "expect": "sourceType: \"tts\" | \"bgm\";"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
-          "line": 1835,
+          "line": 1825,
           "expect": "export interface AudioTrack {"
         },
         {
@@ -1429,7 +1429,7 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 14654,
+          "line": 14397,
           "expect": "className={`${VEM_CLASS.audioClip}"
         },
         {
@@ -1439,12 +1439,12 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 9944,
+          "line": 9751,
           "expect": "setSelectedAudioClipId(clip.id);"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15059,
+          "line": 14809,
           "expect": "<AudioClipInspector"
         },
         {
@@ -1459,7 +1459,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2895,
+          "line": 3149,
           "expect": "deleteAudioClipAria: \"Delete audio clip\""
         }
       ],
@@ -1477,7 +1477,7 @@
           "waitFor": {
             "css": ".vem-audio-clip"
           },
-          "description": "가로챈 state 의 오디오 클립(데스크톱 타임라인 전용 훅 클래스 — 모바일은 vem-mobile-timeline-audio-clip)"
+          "description": "가로챈 state 의 오디오 클립(데스크톱 타임라인 전용 훅 클래스 — 모바일은 .louis-timeline__clip[data-tone=audio])"
         },
         {
           "click": {
@@ -1531,23 +1531,23 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2774,
+          "line": 3028,
           "expect": "projectImportSection: \"Import from project\""
         },
         {
           "path": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "line": 335,
+          "line": 328,
           "expect": "fetch(\"/api/projects?limit=80\")"
         },
         {
           "path": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "line": 340,
+          "line": 333,
           "expect": "setProjects(json.projects);"
         },
         {
           "path": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "line": 466,
-          "expect": "<span className={PROJECT_FINDER_NAME}>{p.name}</span>"
+          "line": 462,
+          "expect": "<span className=\"louis-selectable-list-row__title\">{p.name}</span>"
         },
         {
           "path": "apps/web/app/api/projects/route.ts",
@@ -1629,27 +1629,27 @@
       "cite": [
         {
           "path": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "line": 335,
+          "line": 328,
           "expect": "fetch(\"/api/projects?limit=80\")"
         },
         {
           "path": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "line": 362,
+          "line": 355,
           "expect": "video-sources-for-edit`)"
         },
         {
           "path": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "line": 373,
+          "line": 366,
           "expect": "setSources(json.sources ?? []);"
         },
         {
           "path": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "line": 496,
+          "line": 494,
           "expect": "aria-label={row.label}"
         },
         {
           "path": "apps/web/components/scenes/VideoEditProjectPicker.tsx",
-          "line": 525,
+          "line": 523,
           "expect": "{texts.pickerImportSelected}"
         },
         {
@@ -1679,7 +1679,7 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 1441,
+          "line": 1569,
           "expect": "pickerImportSelected: \"Import selected\""
         }
       ],

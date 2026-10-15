@@ -13,8 +13,8 @@ summary: 색 값 하나를 칩으로 보이고, 누르면 고르게 합니다.
 팔레트에서 미리 정한 색 중 하나를 고르는 것은 이 부품이 아니다 — 그것은 고르기 컨트롤이다.
 sm `<button>` 칩은 [Color Picker](color-picker.md) 판을 여는 트리거다(DS-D-0097).
 
-제품 정본은 두 화면의 사본 셋이다(통합 판 `54b62a8aa`) — 어드민 자막 템플릿 모달의 필드 옆 32 칩(`CaptionTemplateManagement.tsx:296-316`)과
-표 칸 16 칩(`CaptionTemplateManagement.tsx:940-944`), 하이라이트 숏츠 편집 모달 자막 색 패널의 라벨 위 30 칩 · 빈 칸 · 지우기
+제품 정본은 두 화면의 사본 셋이다(통합 판 `54b62a8aa`) — 어드민 자막 템플릿 모달의 필드 옆 32 칩(`CaptionTemplateManagement.tsx:333-353`)과
+표 칸 16 칩(`CaptionTemplateManagement.tsx:971-975`), 하이라이트 숏츠 편집 모달 자막 색 패널의 라벨 위 30 칩 · 빈 칸 · 지우기
 (`app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx`, `Swatch` 함수 171~223줄).
 
 ```html
@@ -116,7 +116,7 @@ sm `<button>` 칩은 [Color Picker](color-picker.md) 판을 여는 트리거다(
 1. **크기 · 반경 · 경계를 하나로 모았다.** 제품 패널 30 · 반경 6 · `fg-tertiary` 선, 어드민 32 · 반경 8 · `stroke-control` 안쪽 그림자를
    md 32 · 8 · `stroke-strong` 테두리 하나로. 어드민 칩 테두리가 진해지는 보이는 변화다(DS-D-0084 「작은 새 부품」 판단 5).
 2. **경계 대비를 고쳤다.** 제품 `stroke-control` 은 `bg-surface` 위 라이트 1.27 · 다크 1.63 이라 흰 값 · 검정 값 칩이 사라진다
-   (`CaptionTemplateManagement.tsx:86`). `stroke-default` 도 3:1 미만이라 `stroke-strong` 이다.
+   (`CaptionTemplateManagement.tsx:85`). `stroke-default` 도 3:1 미만이라 `stroke-strong` 이다.
 3. **지우기 15 원을 16 + 히트 24 로**, 글자 「×」 11px 을 SVG 글리프 10 으로 바꿨다. AAA 44 는 칩을 덮어서 쓰지 않는다.
 4. **stack 사이 3 을 4 로**, 더하기 14 를 아이콘 사다리 16 으로 접었다.
 

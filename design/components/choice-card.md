@@ -141,7 +141,7 @@ React 표면이 없어 속성은 마크업 속성이다.
 면 없이 **선으로 가른 줄**에 선택지를 늘어놓는다(앰배서더 지원서, 2026-10-13 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
 표식(원 · 사각 20)이 줄 **앞**에 서고, 고르면 표식만 주색으로 채운다 — 줄의 면은 바뀌지 않는다. 묶음 위 · 줄마다 아래에 헤어라인.
 
-정본은 제품 통합 판 `components/landing/sections/ambassador/ApplyFlow.tsx:102-171`(`<Choice` 1파일 6자리)이다. 통합 판의
+정본은 제품 통합 판 `components/landing/sections/ambassador/ApplyFlow.tsx@54b62a8a:102-171`(`<Choice` 1파일 6자리)이다. 통합 판의
 `Choice` 는 카드형을 버리고 이 줄 목록만 쓴다 — 위 「왜 있는가」 표의 카드형 출처는 `feat/ambassador-links` 시절 값이다.
 
 ```html
@@ -351,9 +351,9 @@ component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자�
 - **Figma 의 `Role` 축은 행형에서 그림이 같다.** 행형은 표식이 없으므로 `radio` · `checkbox` 두 칸이 시각적으로 같다 — 묶음의 역할이
   마크업 계약이라 축은 남겼다.
 - **줄 목록의 선이 제품보다 얇고 다크에서 옅다.** 제품은 1px `landing-line`(라이트 #171b22 12% · 다크 #fafafa 12%,
-  `ApplyFlow.tsx:147` · `:162`)이고 레시피는 헤어라인(0.5 · 다크 8%)이다(DS-D-0023, 2026-10-13 판정).
+  `ApplyFlow.tsx@54b62a8a:147` · `:162`)이고 레시피는 헤어라인(0.5 · 다크 8%)이다(DS-D-0023, 2026-10-13 판정).
 - **줄 목록의 표식이 제품과 셋이 다르다.** 사각 반경 4(레시피 6), 쉼 테두리 1.5px(레시피 헤어라인), 원 고름의 흰 점 8(레시피는
-  체크) — 원 · 사각 모두 같은 체크를 쓰는 기존 편차와 같은 칸이다(`ApplyFlow.tsx:106-116`). 호버에서 표식 테두리가 짙어지는 것
+  체크) — 원 · 사각 모두 같은 체크를 쓰는 기존 편차와 같은 칸이다(`ApplyFlow.tsx@54b62a8a:106-116`). 호버에서 표식 테두리가 짙어지는 것
   (`--text-muted`)도 받지 않았다(2026-10-13 판정).
 - **줄 목록의 호버 면이 라이트에서 순검정 4% 다.** 제품 `landing-panel` 은 #171b22 4% 이고 다크는 같다. 랜딩 전용 토큰을 일반
   컴포넌트가 읽지 않는다는 위 판정 3 과 같은 이유다.
@@ -392,7 +392,7 @@ component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자�
 
 - 2026-10-07 — CSS recipe 신설. 두 소비처(`ApplyFlow.tsx@2ceec4ed3:94-157` · `ResearchOnboarding.tsx@b57cd1f95:77`)의 공통 재료를 한 컴포넌트로 묶고
   갈리는 값(고른 면의 표현)은 변형으로 두었다. 오류 링은 DS-D-0075 와 같은 값이다.
-- 2026-10-13 — 줄 목록 변형 `data-variant="list"`(+ compact `sm`). 통합 판 `ApplyFlow.tsx:102-171` 의 `Choice` 가 카드형을 버리고
+- 2026-10-13 — 줄 목록 변형 `data-variant="list"`(+ compact `sm`). 통합 판 `ApplyFlow.tsx@54b62a8a:102-171` 의 `Choice` 가 카드형을 버리고
   쓰는 모양이다. 카드 고름 규칙의 제외 목록에 `list` 를 넣었다([DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
 - 2026-10-08 — Figma component set `ChoiceCard`(42 변형)와 parity 계약 · 되읽기 · 기록 `choice-card` 세 칸. 레시피의 패딩 선언을
   세로 · 가로 둘로 갈랐다(값은 같다 — `verify-recipe-record` 가 선언 하나를 수 하나로 읽는다).

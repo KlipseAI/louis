@@ -688,7 +688,7 @@ wingOpacity · glow)과 `V2_EDGE_SHIMMER_DUR`. 그래서 「레시피가 없다�
 ##### 왜 content-inset 은 옮기지 않는가
 
 6 은 **데스크톱 값이 아니다.** 제품은 데스크톱에서 여전히 LOUIS 토큰을 그대로 읽고
-(`globals.css:155` — `--app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);`),
+(`globals.css:162` — `--app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);`),
 6 은 `@media (max-width: 719px)` 블록이 그 위에 덮는 값이다(`globals.css:428`). LOUIS 토큰은
 단일값이라 두 값을 담을 자리가 없다 — 토큰을 6 으로 내리면 **제품이 실제로 토큰에서 받고
 있는 데스크톱 자리**가 16 에서 6 으로 틀어진다. 반응형으로 갈라지는 축을 단일 토큰이 덮지
@@ -718,7 +718,7 @@ wingOpacity · glow)과 `V2_EDGE_SHIMMER_DUR`. 그래서 「레시피가 없다�
 #### Alternatives
 
 - **다섯 칸을 그대로 두고 제품을 되돌린다.** 기각. 12 → 8 과 16 → 6 은 둘 다 소유자 지정
-  변경이고 제품 주석이 그 지정을 기록하고 있다(`globals.css:178-180` · `:426-427`).
+  변경이고 제품 주석이 그 지정을 기록하고 있다(`globals.css:185-187` · `:426-427`).
 - **토큰 셋을 전부 8 · 6 으로 내린다.** 기각. 위 두 절. 맞던 자리를 틀리게 만든다.
 - **토큰을 하나도 옮기지 않고 기록만 옮긴다.** 기각. `outer-gap` 이 지배하는 자리에서
   DS 와 제품이 갈린 채 남고, 그 갈림을 말해 주는 게이트가 없다.
@@ -791,7 +791,7 @@ wingOpacity · glow)과 `V2_EDGE_SHIMMER_DUR`. 그래서 「레시피가 없다�
 
 제품이 2026-09-14(`bc3e6fa3`)에 사이드바 펼침 폭을 280 에서 240 으로 내렸다. 근거는 제품
 주석에 있다 — 「240 은 소유자 지정(2026-09-14, 280 → 240). 캔버스 레이어 패널 폭(240)과 같다」
-(제품 `globals.css:178-181`, 앵커 `2c6bdacf`).
+(제품 `globals.css:185-188`, 앵커 `2c6bdacf`).
 
 2026-09-15 앵커 이동에서 **제품 실측 기록은 옮겼고 토큰은 옮기지 않았다.**
 `figma/templates.measured.json` 의 `app-shell.railWidth` · `compactDrawerWidth` ·
@@ -1055,8 +1055,8 @@ Figma 의 불리언은 **component set 단위**다. 한 변형에서 슬롯을 `
 
 | 표 | 행에 붙은 속성 | 표가 놓인 바닥 |
 | --- | --- | --- |
-| 구독 화면 크레딧 사용 이력 | `SubscriptionScene.tsx:1403` | 메인 카드(`myPageSceneStyles.ts:73`) — `globals.css:1576`·`1584` 두 테마 `bg-surface` |
-| 분석 콘텐츠 표 | `ContentTable.tsx@3e3765a9:474` — 원격에 없는 작업 브랜치 | 안쪽 패널(`ContentTable.tsx:43`) — `YoutubeAnalyticsScene.tsx:658` `bg-surface` |
+| 구독 화면 크레딧 사용 이력 | `SubscriptionScene.tsx:1403` | 메인 카드(`myPageSceneStyles.ts:73`) — `globals.css:1611`·`1584` 두 테마 `bg-surface` |
+| 분석 콘텐츠 표 | `ContentTable.tsx@3e3765a9:474` — 원격에 없는 작업 브랜치 | 안쪽 패널(`ContentTable.tsx:43`) — `YoutubeAnalyticsScene.tsx:659` `bg-surface` |
 
 낱말 그대로의 선언이다. 앵커 `6fbdac16` 의 줄은 `git show 6fbdac16:<경로>`, 분석 표의 행
 속성은 `git show 3e3765a9:<경로>` 로 재확인한다.
@@ -1066,15 +1066,15 @@ SubscriptionScene.tsx:1330        <table className={styles.creditHistoryTable}>
 SubscriptionScene.tsx:1403        data-interactive={href ? "true" : undefined}
 myPageSceneStyles.ts:73           "appMainCardChromeSurface",
 myPageSceneStyles.ts:313          "louis-table",
-globals.css:1576                  background-color: var(--louis-color-bg-surface);
-globals.css:1584                  background-color: var(--louis-color-bg-surface);
+globals.css:1611                  background-color: var(--louis-color-bg-surface);
+globals.css:1619                  background-color: var(--louis-color-bg-surface);
 ContentTable.tsx:43               "p-3 rounded-10 bg-[var(--dashboard-inner-panel-bg)]",
 ContentTable.tsx:61               const TABLE = "louis-table";
-YoutubeAnalyticsScene.tsx:658     "[--dashboard-inner-panel-bg:var(--louis-color-bg-surface)]",
+YoutubeAnalyticsScene.tsx:659     "[--dashboard-inner-panel-bg:var(--louis-color-bg-surface)]",
 ContentTable.tsx@3e3765a9:474     data-interactive={onRowClick ? "true" : undefined}
 ```
 
-`globals.css:1576` 은 `html[data-theme="light"] .appMainCardChromeSurface` 블록(`:1573`),
+`globals.css:1611` 은 `html[data-theme="light"] .appMainCardChromeSurface` 블록(`:1573`),
 `:1584` 는 `html[data-theme="dark"]` 블록(`:1583`) 안이다.
 
 #### Decision
@@ -1744,7 +1744,7 @@ surface 는 LOUIS 정본을 직접 소비한다」고 적고, 2026-09-22 전수(
 | 길 | 소비처 |
 | --- | --- |
 | `.louis-popover` 레시피(`menu-popover.css` — `background: var(--louis-color-bg-menu)`) | CustomDropdown(언어 · 정렬 · 모델 · 관리자 선택 · 편집기 드롭다운), 언어 선택, 새로 만들기 메뉴, 분석 계정 메뉴, 편집기 · 하이라이트 기록 메뉴, 캔버스 우클릭 · 노드 더보기 · 확대 메뉴, 노드 메타 드롭다운(이미지 · 영상 모델 · BGM · TTS · 편집 · 글 · 유튜브) |
-| 제품이 같은 토큰을 직접 선언(`[background:var(--louis-color-bg-menu)]`) | 앱 셸 프로필 팝오버 · 프로젝트 드롭다운(`Gnb.tsx:1362` · `:1520`) |
+| 제품이 같은 토큰을 직접 선언(`[background:var(--louis-color-bg-menu)]`) | 앱 셸 프로필 팝오버 · 프로젝트 드롭다운(`Gnb.tsx:1363` · `:1520`) |
 
 라이트 값은 `palette-gray-050`(#ebecee, L\* 93.36)이다. 회색 사다리에서 한 칸 위는 `palette-gray-025`
 (#f2f3f5, L\* 95.81)이고 그 위가 `palette-gray-000`(#fafafa)이다. 이 토큰은 전에도 소유자 재보정으로 한 칸
@@ -1780,10 +1780,10 @@ surface 는 LOUIS 정본을 직접 소비한다」고 적고, 2026-09-22 전수(
 
   | 자리 | 무엇 | 바뀌는 것 |
   | --- | --- | --- |
-  | `VideoEditScene.tsx:332` · `highlightSceneStyles.ts:568` | 더보기 버튼 hover 면 | 아래 면이 pg-050 이라 hover 가 그보다 한 칸 밝게 보인다 — 여전히 보인다 |
+  | `VideoEditScene.tsx:308` · `highlightSceneStyles.ts:516` | 더보기 버튼 hover 면 | 아래 면이 pg-050 이라 hover 가 그보다 한 칸 밝게 보인다 — 여전히 보인다 |
   | 대시보드 성과 탭의 로딩 스켈레톤 | 토글 트랙 | 카드 면(`bg-canvas`)과 같아져 헤어라인만 남는다 |
-  | `nc/index.tsx:488` · 하단 툴바 · 확대 알약 | 미니맵 · 플로팅 셸 · 알약 | 캔버스 pg-100 위라 대비가 커진다 |
-  | `inspectorPrimitives.tsx:38` | 편집기 지표 행 | 판 면(`bg-inset` pg-050)과 같아 안 보이던 행이 한 칸 밝게 보인다 |
+  | `nc/index.tsx@54b62a8a:488` · 하단 툴바 · 확대 알약 | 미니맵 · 플로팅 셸 · 알약 | 캔버스 pg-100 위라 대비가 커진다 |
+  | `inspectorPrimitives.tsx@54b62a8a:38` | 편집기 지표 행 | 판 면(`bg-inset` pg-050)과 같아 안 보이던 행이 한 칸 밝게 보인다 |
   | 메뉴 안 선택 행(pg-100 · pg-200) | 면 위의 채움 | 대비가 커진다 |
   | 프로필 크레딧 카드(pg-100) | 면 위의 채움 | 소유자가 한 칸 따라 올리라고 했다(2026-09-22) — 제품 PR 에서 라이트 pg-050. 면과의 한 칸 간격이 그대로다 |
 
@@ -1842,14 +1842,14 @@ surface 는 LOUIS 정본을 직접 소비한다」고 적고, 2026-09-22 전수(
 
 | 자리 | 원문(제품 `6fbdac16`) | 파일:줄 |
 | --- | --- | --- |
-| 하이라이트 클립 목록 | `    "before:hidden text-inherit",` | `highlightSceneStyles.ts:162` |
+| 하이라이트 클립 목록 | `    "before:hidden text-inherit",` | `highlightSceneStyles.ts:122` |
 | 캔버스 레이어 패널 | ``   정본의 선택 표시(`aria-current` 면 + 선행 `::before` 3px 막대)는 쓰지 않는다: 이 목록의 선택은`` | `NodeLayersPanel.tsx:255` |
 
 명령은 `git grep -n "<원문의 한 조각>" 6fbdac16` 이고, 하이라이트 줄은 `migration/product.measured.json` 의
 「선택을 무엇으로 보이는가」 축이 전체 경로로 인용한다. 세 번째 자리인 프로젝트 영상 팝오버는 `aria-current` 를
 켜지 않아 표식이 설 일이 없다고 스스로 적는다. 그 파일은 제품 근거 잠금(`migration/product-evidence.lock.json`)
 밖이라 여기서 좌표로 인용하지 않는다 — 잠금은 앵커 재고정 때 다시 뽑는다. 레시피를 입은 자리는 이 셋이 전부다 —
-`git grep -n '"louis-selectable-list-row"' 6fbdac16` 이 `NodeLayersPanel.tsx:258`, `highlightSceneStyles.ts:161`,
+`git grep -n '"louis-selectable-list-row"' 6fbdac16` 이 `NodeLayersPanel.tsx:258`, `highlightSceneStyles.ts:121`,
 그리고 그 팝오버 한 곳을 낸다. 제품 `origin/dev` `a499aa89` 에서도 같은 셋이다.
 
 **옛 근거도 성립하지 않는다.** 다크 사다리가 바뀌어(`palette-gray-850` 폐지) 지금 `bg-inset` 은 `bg-canvas` 와 같은
@@ -2812,12 +2812,12 @@ X3 은 보드에서 묶이지 않는 칠의 대부분을 만든다 — 제품의
 
 | 토큰 | 라이트 | 다크 | 제품 근거 |
 | --- | --- | --- | --- |
-| `color-canvas-menu-surface`(신설) | `static/white` | `palette-gray/900` | `canvasMenuSurface.ts:14-15` · `index.tsx:492`. 다크는 덮지 않으므로 `bg-menu` 다크와 같은 칸 |
-| `color-node-card-stroke`(신설) | `static/white` | `palette-gray/700` | `index.tsx:441-442` |
-| `color-canvas-chip-surface` · `-hover`(있음) | `palette-gray/000` · `025` | `palette-gray/700` · `600` | `index.tsx:488-489` · `517-518` |
-| `color/node/chrome-btn-bg`(값 갱신) | `palette-gray/050` → `palette-gray/000` | `palette-gray/600` → `palette-gray/700` | `index.tsx:490` 이 알약 토큰을 읽고, 그 토큰을 캔버스 셸이 488 · 517 로 덮는다 |
-| `color-canvas-dot`(값 갱신) | `static-black-alpha/12` → `palette-gray-600-alpha/28`(원시 신설) | 그대로 | `index.tsx:530` |
-| `color/app/page-bg`(값 갱신) | `palette-gray/100` → `palette-gray/025` | 그대로 | `globals.css:804` |
+| `color-canvas-menu-surface`(신설) | `static/white` | `palette-gray/900` | `canvasMenuSurface.ts:14-15` · `index.tsx:510`. 다크는 덮지 않으므로 `bg-menu` 다크와 같은 칸 |
+| `color-node-card-stroke`(신설) | `static/white` | `palette-gray/700` | `index.tsx@54b62a8a:441-442` |
+| `color-canvas-chip-surface` · `-hover`(있음) | `palette-gray/000` · `025` | `palette-gray/700` · `600` | `index.tsx@54b62a8a:488-489` · `517-518` |
+| `color/node/chrome-btn-bg`(값 갱신) | `palette-gray/050` → `palette-gray/000` | `palette-gray/600` → `palette-gray/700` | `index.tsx@54b62a8a:490` 이 알약 토큰을 읽고, 그 토큰을 캔버스 셸이 488 · 517 로 덮는다 |
+| `color-canvas-dot`(값 갱신) | `static-black-alpha/12` → `palette-gray-600-alpha/28`(원시 신설) | 그대로 | `index.tsx:536` |
+| `color/app/page-bg`(값 갱신) | `palette-gray/100` → `palette-gray/025` | 그대로 | `globals.css:837` |
 
 **`bg-raised` 로 읽지 않는다.** 캔버스 메뉴 면은 지금 `bg-raised` 와 값이 두 테마 모두 같지만, 근거가 다르다 — 캔버스
 면은 「카드보다 한 칸 밝다」이고 `bg-raised` 는 앱의 떠 있는 면이다. 둘 중 하나가 움직이면 다른 하나는 따라가면
@@ -2855,7 +2855,7 @@ X3 은 보드에서 묶이지 않는 칠의 대부분을 만든다 — 제품의
 - LOUIS CSS 가 `color/gray/000-alpha/*` 를 읽는 곳은 없다 — 이 축의 변화는 Figma 결합과 제품 대조에만 닿는다.
   Segmented Code Input 의 Figma 칸 다섯(`color/gray/000-alpha/04 · 08 · 12 · 28 · 88`)은 라이트에서 순검정 바탕이 된다.
 - **Loading Word 의 잉크는 이번에 옮기지 못했다.** 제품은 `rgb(var(--gray-000-rgb)/NN%)`
-  (`components/ui/LoadingWord.tsx:8`)이고 레시피는 `fg-primary`(라이트 `#171b22`)다. 맞는 토큰은 `color-gray-000` 인데
+  (`components/ui/LoadingWord.tsx@54b62a8a:8`)이고 레시피는 `fg-primary`(라이트 `#171b22`)다. 맞는 토큰은 `color-gray-000` 인데
   `build-css` 의 원시 소비 검사 정규식이 `color-gray-` 를 원시 계열로 막는다(그 계열은 이미 `palette-gray` 로 옮겨
   갔으므로 정규식이 낡았다). 검사를 고치는 것은 이 결정의 범위 밖이라 후속으로 남긴다.
 - 보드의 묶이지 않은 칠 가운데 `000000` + 알파 15단계와 `ffffffb8`(캔버스 툴바 · 줌 트리거)는 Figma 변수를 밀고
@@ -2976,7 +2976,7 @@ X3 은 보드에서 묶이지 않는 칠의 대부분을 만든다 — 제품의
 
 **2e 제목 옆 칩.** Badge 변형이 아니라 node-shell 부품이다 — 높이가 헤더에 묶이고 기하(1/6 · 반경 10 · caption medium ·
 글리프 10)가 배지와 축 하나로 접히지 않는다. 색은 제품 값을 옮기지 않았다. 제품 편집 모드는 Tailwind 보라 리터럴
-(`ImageNode.tsx:227-228`)이고, 덱이 그 자리에 `node-edit-accent` 를 같은 색 16% 위에 얹으면 다크에서 3.00:1 이다.
+(`ImageNode.tsx:230-231`)이고, 덱이 그 자리에 `node-edit-accent` 를 같은 색 16% 위에 얹으면 다크에서 3.00:1 이다.
 component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 적응 쌍을 세웠다.
 
 | 이름 | light | dark | 대비 |
@@ -2987,7 +2987,7 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 `violet-alpha` 는 `violet-500` 바탕의 새 primitive 다(08 · 16 두 칸). 「재편집 필요」(`data-tone="warning"`)는 제품
 `yellow-600` on `yellow-200` 이 1.94:1 이라 status 쌍 `bg-warning` · `fg-warning` 으로 간다.
 
-**3e 목록 머리.** 하이라이트 허브(`HSS:381-402`)와 노드 캔버스 허브(`NodeCanvasHomeScene.tsx:220-232`)가 같은 배치를
+**3e 목록 머리.** 하이라이트 허브(`HSS:381-402`)와 노드 캔버스 허브(`NodeCanvasHomeScene.tsx@54b62a8a:220-232`)가 같은 배치를
 각자 그린다. 기존 세 단(20 · 36 · 12, 아래쪽 정렬, 719 접힘)과 크기 · 정렬 · 접힘이 모두 달라 네 번째 단 `list` 를 연다:
 가운데 정렬, 사이 16, 제목 body-md-medium, 719 이하에서도 한 줄. 제목 안 개수는 `__count`(왼쪽 6, `fg-tertiary`).
 제품 제목 잉크 `palette-gray-800/200` 과 개수 `palette-gray-500` 은 역할이 없어 `fg-primary` · `fg-tertiary` 로 간다
@@ -3025,13 +3025,13 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 | 1b | `HSS:236,346` · `AHS:266-270` | 표본 결과를 `data-ink` 로 띠에 단다(`HS:1479`) |
 | 1c | `HSS:198,199,203` | 더보기 면 · 글리프 · hover 덮어쓰기를 지워 `media-control-*` 를 받는다. 앵커 `top/right 8` 은 남는다 |
 | 2d-4 | YouTube 폼 입력 상자 | `.louis-node-shell__field` 로 |
-| 2e | `ImageNode.tsx:225-229` · `EditNode.tsx:549-552` | `louis-node-shell__title-chip`(+ `data-tone="warning"`) |
-| 2f | `analytics/shared.tsx:71` | 축 라벨 `var(--dashboard-muted-color)` → `var(--louis-color-fg-tertiary)` — 두 테마 모두 픽셀이 같다 |
-| 3a | `analytics/OverviewTab.tsx:99-141` | 상수를 `louis-chart-card`(`data-chart="area"`) · `__header` · `__panel` · `__metric` 으로. `KpiCard.tsx:24` 가 이미 그렇다 |
-| 3b | `analytics/ContentTable.tsx:178-201,698` | 일부 공개 → `louis-badge` warning, 비공개 · 초안 → neutral. 공개는 배지가 아니라 caption `fg-secondary` 글자(`badge.md` 「목록 · 표에서는 예외만 배지」) |
+| 2e | `ImageNode.tsx:228-232` · `EditNode.tsx:550-553` | `louis-node-shell__title-chip`(+ `data-tone="warning"`) |
+| 2f | `analytics/shared.tsx@54b62a8a:71` | 축 라벨 `var(--dashboard-muted-color)` → `var(--louis-color-fg-tertiary)` — 두 테마 모두 픽셀이 같다 |
+| 3a | `analytics/OverviewTab.tsx@54b62a8a:99-141` | 상수를 `louis-chart-card`(`data-chart="area"`) · `__header` · `__panel` · `__metric` 으로. `KpiCard.tsx:25` 가 이미 그렇다 |
+| 3b | `analytics/ContentTable.tsx@54b62a8a:178-201,698` | 일부 공개 → `louis-badge` warning, 비공개 · 초안 → neutral. 공개는 배지가 아니라 caption `fg-secondary` 글자(`badge.md` 「목록 · 표에서는 예외만 배지」) |
 | 3c | `HSS:1404-1405` | 핀을 올린 뒤 placeholder 잉크 덮어쓰기를 지운다. 폭(`HSS:1403`)은 호출부 몫이라 남는다 |
-| 3d | `HSS:1623-1626` · `HighlightStudioBoard.tsx:623` | 죽은 `[&::before]:[content:none]` 를 지운다 — LOUIS 는 핀 이전에 표식을 걷었다(DS-D-0070) |
-| 3e | `HSS:381-402` · `NodeCanvasHomeScene.tsx:220-232` | `louis-section-header` `data-level="list"` + `__count` |
+| 3d | `HSS:1623-1626` · `HighlightStudioBoard.tsx@54b62a8a:623` | 죽은 `[&::before]:[content:none]` 를 지운다 — LOUIS 는 핀 이전에 표식을 걷었다(DS-D-0070) |
+| 3e | `HSS:381-402` · `NodeCanvasHomeScene.tsx@54b62a8a:220-232` | `louis-section-header` `data-level="list"` + `__count` |
 | 4b | `SegmentedToggle` 117-121 | 잠금 덮어쓰기를 지운다 |
 | 4d | KpiCard · OverviewTab · Instagram · AdminSection 의 delta 8% 덮어쓰기 | 지운다 |
 | 4c | KpiCard 480px 숨김 | 양보 규칙이 서면 지운다 |
@@ -3046,7 +3046,7 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 - 2c 후보 카드: 소비처 하나. 선택이 아니라 비교 모달을 여는 버튼이라 choice-card 도 아니다.
 - 2d-2 소스 썸네일 줄: 노드 썸네일이 세 크기(28 · 32 · 76×52)로 갈려 node-shell 판정 9 로 접는다. 그 판정이 기다리던
   면 토큰은 DS-D-0082 의 `static-pure-black-alpha-*` 로 풀렸다.
-- 2d-3 「편집」 버튼: LOUIS 에 그라디언트 토큰 형식이 없고, 제품 `globals.css:550` 이 승격하지 않는다고 적는다.
+- 2d-3 「편집」 버튼: LOUIS 에 그라디언트 토큰 형식이 없고, 제품 `globals.css:565` 이 승격하지 않는다고 적는다.
   덧붙여 그 주석의 「하나를 공유」는 사실과 다르다 — 넷(EditNode · InstagramNode · YoutubeNode · CreativeMediaClient)이
   인라인으로 복사한다. 제품에 알릴 일이다.
 - 2d-4 채널 줄 · 예약 버튼: 아바타 32 와 버튼 28 은 LOUIS 사다리(아바타 24 · 28 · 40, 버튼 24 · 32 · 40)에 없다.
@@ -3330,7 +3330,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `lightbox` 가 있다. 제품 두 화면이 그림
 크게 보기를 각자 들고 있고 값이 이미 갈렸다 — 만들기 화면(`components/scenes/create/ImageLightbox.tsx`)은 스크림 72% · 층 1400 · 창 반경 16 ·
-닫기가 창 안, 크리에이티브 미디어(`components/creative-media/CreativeMediaClient.tsx:1039-1060`)는 원시 검정 88% · 층 100 · 그림 반경 12 · 닫기가
+닫기가 창 안, 크리에이티브 미디어(`components/creative-media/CreativeMediaClient.tsx:1045-1083`)는 원시 검정 88% · 층 100 · 그림 반경 12 · 닫기가
 화면 구석이다(통합 판 `54b62a8aa`).
 
 첫 사본은 부채가 다섯이다.
@@ -3479,7 +3479,7 @@ avatar 의 사람 글리프. 제품 글자 줄 스켈레톤 유틸 문자열(`in
 #### Context
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `content-card` 가 있다. 공개 블로그 인덱스
-(`app/blog/page.tsx:78-176`)와 템플릿 인덱스(`app/templates/page.tsx:77-130`, 통합 판 `54b62a8aa`)가 「커버 그림 + 그 **밖**의 제목 · 설명 +
+(`app/blog/page.tsx@54b62a8a:78-176`)와 템플릿 인덱스(`app/templates/page.tsx@54b62a8a:77-130`, 통합 판 `54b62a8aa`)가 「커버 그림 + 그 **밖**의 제목 · 설명 +
 카드 전체가 링크 하나」인 카드를 각자 Tailwind 상수로 들고 있다. 표면 원장의 「16:9 격자 카드 · translateY 호버」 서술은 낡았다 — 블로그는
 2026-09 에 글 왼쪽 · 썸네일 오른쪽의 가로 행이 됐고, 두 화면의 호버 · 비율 · 면이 이미 갈렸다.
 
@@ -3557,15 +3557,15 @@ LOUIS 의 카드 넷은 이 해부가 아니다. [Project Card](../components/pr
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `timeline` 이 있다. 제품 편집기에 시간축 부품이 둘 있고
 둘 다 화면 파일 안의 상수다 — 좁은 화면의 모바일 타임라인(`MobileTimeline.tsx` 1,089줄 · `mobileTimelineClass.ts` 의 `MOBILE_TIMELINE_CLASS` 296줄)과
-데스크톱 시퀀스 눈금자(`sequenceRuler.tsx` 의 `PremiereSequenceRuler`, 통합 판 `54b62a8aa`). 소비처는 편집기 모달 하나다(`VideoEditModal.tsx:12937` 타임라인 ·
-`VideoEditModal.tsx:13289` 눈금자).
+데스크톱 시퀀스 눈금자(`sequenceRuler.tsx` 의 `PremiereSequenceRuler`, 통합 판 `54b62a8aa`). 소비처는 편집기 모달 하나다(`VideoEditModal.tsx:12677` 타임라인 ·
+`VideoEditModal.tsx:13029` 눈금자).
 
 LOUIS 에는 시간축 위 **px 좌표에 클립을 절대 배치**하는 부품이 없다. [Segment Track](../components/segment-track.md) 은 칸이 flex 로 흐르는
 「시간 순서 줄」이고 지도 · 줄 머리 격자를 갖는다. [Video Player](../components/video-player.md) 의 스크러버는 한 줄 진행 바, [Slider](../components/slider.md) 는
 네이티브 range 라 트랙 · 클립이 없다. 가운데 고정 재생헤드 · 스크롤 창 · 고른 클립의 트림 손잡이도 새 조형이다.
 
 대비 · 접근성 부채가 있다. 모바일 눈금 글자 흰색 56%(파인 면 위 라이트 1.07) · 선 흰색 24%(라이트 1.03), 재생헤드 · 선택 고리 · 트림 괄호
-`accent-primary`(라이트 2.98), 필름 전 영상 클립 길이 글자(흰 글자 on `accent-secondary` 라이트 1.32), 접근 이름 없는 「+」 버튼(`MobileTimeline.tsx:978-997`),
+`accent-primary`(라이트 2.98), 필름 전 영상 클립 길이 글자(흰 글자 on `accent-secondary` 라이트 1.32), 접근 이름 없는 「+」 버튼(`MobileTimeline.tsx@54b62a8a:978-997`),
 보조기술에 나가지 않는 고름 상태(`aria-pressed` 없음). 데스크톱 눈금자는 `html[data-theme=light]` 선택자 여덟로 테마를 가른다.
 
 #### Decision
@@ -3643,10 +3643,10 @@ LOUIS 에는 시간축 위 **px 좌표에 클립을 절대 배치**하는 부품
 캐러셀은 제품 한 파일에만 있다 — `components/templates/TemplateResultCarousel.tsx`(247줄, 통합 판 `54b62a8aa`), 소비처는 `app/templates/[slug]/page.tsx`
 하나(218줄). 가운데 카드는 정면, 옆 카드는 뒤로 물러나 기울어 「더 있다」를 보인다.
 
-카드 배치 식(옆 52% · 뒤 140 · 34° · 8% 작게, 하한 70%)이 JS 인라인 `transform` 이라(`components/templates/TemplateResultCarousel.tsx:169`) 클래스만으로는
+카드 배치 식(옆 52% · 뒤 140 · 34° · 8% 작게, 하한 70%)이 JS 인라인 `transform` 이라(`components/templates/TemplateResultCarousel.tsx@54b62a8a:169`) 클래스만으로는
 카드가 한 점에 겹친다. 무대의 `preserve-3d` 는 같은 요소의 `overflow: hidden`(묶음 속성)에 접혀 아무 일도 하지 않고, 겹 순서를 숫자 z-index
-`100 − abs` 가 정한다(`components/templates/TemplateResultCarousel.tsx:170`). 대비 · 접근성 부채도 있다 — 쉬는 점 잉크 20%(바닥 위 라이트 1.60 · 다크 1.64),
-호버 점 40%(2.83 · 3.55), 활성 점을 호버하면 파랑을 잃는 특이도 사고를 이식 때 「보존」했다(`components/templates/TemplateResultCarousel.tsx:22-24`),
+`100 − abs` 가 정한다(`components/templates/TemplateResultCarousel.tsx@54b62a8a:170`). 대비 · 접근성 부채도 있다 — 쉬는 점 잉크 20%(바닥 위 라이트 1.60 · 다크 1.64),
+호버 점 40%(2.83 · 3.55), 활성 점을 호버하면 파랑을 잃는 특이도 사고를 이식 때 「보존」했다(`components/templates/TemplateResultCarousel.tsx@54b62a8a:22-24`),
 카드 라벨은 검정 56% 위라 흰 사진 위 4.73 으로 사진에 흔들리고, 이동 글리프가 글자 `‹` · `›` 다.
 
 있는 부품으로 대 봤다. [Banner Carousel](../components/banner-carousel.md) 은 사진 배너가 **한 장씩 겹쳐 사라지고**(면 = 사진, `color-media-*`),
@@ -3733,10 +3733,10 @@ LOUIS 에는 시간축 위 **px 좌표에 클립을 절대 배치**하는 부품
 #### Context
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `plan-tier-card` 가 있다. 같은 티어 카드가 공개 가격
-(`components/landing/sections/PricingSection.tsx:100-228`)과 로그인 뒤 플랜 선택(`app/mypage/upgrade/UpgradePlanPageClient.tsx:211-327`, 통합 판
+(`components/landing/sections/PricingSection.tsx@54b62a8a:100-228`)과 로그인 뒤 플랜 선택(`app/mypage/upgrade/UpgradePlanPageClient.tsx@54b62a8a:211-327`, 통합 판
 `54b62a8aa`)에 상수 벌(`TIER_CARD` · `TIER_HEAD` · `TIER_ORIGINAL_PRICE` · `TIER_PRICE_ROW` · `TIER_CREDITS_ROW` · `TIER_INCLUDES` · `TIER_FEATURE_LIST` ·
 `TIER_NOTE`)로 두 번 있고 이미 갈렸다 — 메모 잉크, 상세 툴팁(업그레이드만), 현재 표시 · 예약 안내(업그레이드만). 제품 스스로 두 화면이
-「다른 제품처럼 읽힌다」를 걱정한다(`app/mypage/upgrade/UpgradePlanPageClient.tsx:869-872`).
+「다른 제품처럼 읽힌다」를 걱정한다(`app/mypage/upgrade/UpgradePlanPageClient.tsx:743-746`).
 
 LOUIS 에 요금제 카드가 없다. [Choice Card](../components/choice-card.md) 는 고르기 컨트롤(역할 radio · checkbox)이고,
 [Stat Tile](../components/stat-tile.md) 은 지표 네 줄, [Record Card](../components/record-card.md) 는 접히는 어드민 기록이다 — 가격 줄 · 기능 목록 ·
@@ -3759,7 +3759,7 @@ LOUIS 에 요금제 카드가 없다. [Choice Card](../components/choice-card.md
 5. **바닥 묶음** — 메모 · 안내 · CTA 중 기능 목록 바로 다음 하나만 남은 높이를 먹고(`margin-block-start: auto`) 나머지는 8 씩 띈다.
 6. **고쳐 올리는 값 셋**(DS-D-0084 3항) — 원가는 새 시맨틱 `color-plan-tier-card-price-original`(라이트 `red-700` · 다크 `red-500`), 현재 플랜은
    `accent-primary` 2px 안쪽 링, 갈린 메모 잉크 두 벌은 `fg-tertiary` 하나. 잉크는 fg 계단 셋으로 접는다.
-7. **`data-glow` 축은 없다.** B1 제안에 있던 랜딩 Lite 의 안쪽 파란 광은 소유자 요청으로 10-07 에 걷혔다(`components/landing/sections/PricingSection.tsx:133`).
+7. **`data-glow` 축은 없다.** B1 제안에 있던 랜딩 Lite 의 안쪽 파란 광은 소유자 요청으로 10-07 에 걷혔다(`components/landing/sections/PricingSection.tsx@54b62a8a:133`).
 8. **React 표면은 만들지 않는다.** 마크업 계약을 문서가 소유한다. 새 의존성 없음.
 
 ##### 소유자 판정 — 초안의 기본값으로 정했다
@@ -3784,7 +3784,7 @@ LOUIS 에 요금제 카드가 없다. [Choice Card](../components/choice-card.md
 - 화면이 소유한다 — 어떤 티어가 현재 · 예약인지(결제 상태 판정), 원가 빈 줄을 둘지(`hasDiscountedTier`), 아이콘 글리프 · 상세 문장, 상세 열기 · 위치
   (Tooltip), CTA 라벨 · 잠금, 1열 덱의 경계(≤559).
 - 하지 않는 것 — `data-glow`(걷힌 광), 새 breakpoint(788 · 559), 카드 호버 움직임(제품에 없다, 잔재만 있다), subgrid 줄 맞추기(카드 구조가 고정이
-  아니라 빈 줄 방식을 둔다), 크레딧 팩 상자(`components/landing/sections/PricingSection.tsx:276-286`, 기능 목록이 없는 다른 상자), 비교표
+  아니라 빈 줄 방식을 둔다), 크레딧 팩 상자(`components/landing/sections/PricingSection.tsx:168-178`, 기능 목록이 없는 다른 상자), 비교표
   (`plan-comparison`, 따로 승격), React 표면.
 
 #### Consequences
@@ -3817,18 +3817,18 @@ LOUIS 에 요금제 카드가 없다. [Choice Card](../components/choice-card.md
 #### Context
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」 첫 줄이 `plan-comparison` 이다. 요금제 비교표는
-`components/landing/sections/PricingSection.tsx:322-504` 의 `PlanComparisonTable` 하나가 공개 가격(`/pricing`, `components/landing/sections/PricingSection.tsx:703`)과
-로그인 뒤 플랜 선택(`/mypage/upgrade`, `app/mypage/upgrade/UpgradePlanPageClient.tsx:907`, 통합 판 `54b62a8aa`) 두 자리에 선다. 정의는 하나고 상수
+`components/landing/sections/PricingSection.tsx:214-409` 의 `PlanComparisonTable` 하나가 공개 가격(`/pricing`, `components/landing/sections/PricingSection.tsx:573`)과
+로그인 뒤 플랜 선택(`/mypage/upgrade`, `app/mypage/upgrade/UpgradePlanPageClient.tsx:781`, 통합 판 `54b62a8aa`) 두 자리에 선다. 정의는 하나고 상수
 열넷(`COMPARISON_TITLE` ~ `COMPARISON_COL_VALUE_TEXT`)이 Tailwind 임의 값으로 모양을 쥐고 있다. LOUIS 에는 대응이 없고, Figma 에는 측정 재현인
 제품 세트 `Product/Plan Comparison Table`(DS-D-0071)만 있다.
 
 이 표는 **열이 플랜인 완전 피벗**이다 — 각 열이 머리(플랜 이름) 아래 묶음별 체크리스트를 자기완결로 담는다(제품 주석
-`components/landing/sections/PricingSection.tsx:426`). [Table](../components/table.md) 은 `<table>` 행 × 열 격자(헤더 행 면 · 행 구분선 · 숫자 우측)라
+`components/landing/sections/PricingSection.tsx:244`). [Table](../components/table.md) 은 `<table>` 행 × 열 격자(헤더 행 면 · 행 구분선 · 숫자 우측)라
 이 조형을 담지 못한다. 담게 하려면 피벗을 뒤집어야 하는데, 그것은 부품을 올리는 일이 아니라 화면을 바꾸는 일이다(DS-D-0084 3항은
 「조형을 올린다」이지 「다시 디자인한다」가 아니다). Record Card · Choice Card · Inspector Row 도 열 격자 + 머리 + 묶음 + 값 표시를 함께 갖지 않는다.
 
 대비 부채는 없다. 옛 메모의 다크 대비 미달(`--gray-900` · `--gray-700` 잉크)은 앵커 이전 코드이고, 지금 제품은 잉크를 역할대로 쓴다
-(`app/mypage/upgrade/UpgradePlanPageClient.tsx:329-336` 주석). 글자는 네 바닥(랜딩 · 메인 카드 × 라이트 · 다크)에서 전부 4.5 이상, 체크는 3:1 이상이다.
+(`app/mypage/upgrade/UpgradePlanPageClient.tsx:227-234` 주석). 글자는 네 바닥(랜딩 · 메인 카드 × 라이트 · 다크)에서 전부 4.5 이상, 체크는 3:1 이상이다.
 
 #### Decision
 
@@ -3899,7 +3899,7 @@ LOUIS 에 요금제 카드가 없다. [Choice Card](../components/choice-card.md
 #### Context
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `canvas-section` 이 있다. 노드 캔버스에는 노드가 아닌
-「영역」이 하나 있다 — 노드들을 감싸는 배경 프레임이고(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:184-191`, 통합 판 `54b62a8aa`), 이름은
+「영역」이 하나 있다 — 노드들을 감싸는 배경 프레임이고(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:185-192`, 통합 판 `54b62a8aa`), 이름은
 프레임 바깥 위에 얹히며 색조를 고를 수 있다. 섹션을 옮기면 캔버스가 안의 노드를 함께 옮긴다.
 
 LOUIS 에 이 조형(반투명 면 · 안쪽 경계 · 바깥 위 제목 · 색조)을 가진 부품이 없다. [Node Shell](../components/node-shell.md) 은 400 폭 · 반경 24 ·
@@ -3986,8 +3986,8 @@ LOUIS 에 이 조형(반투명 면 · 안쪽 경계 · 바깥 위 제목 · 색�
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `chat-panel` 이 있다. 하이라이트 판의 「AI 클립 수정」
 (`components/scenes/highlight/ClipRefinementWidget.tsx`, 통합 판 `54b62a8aa`)은 화면 구석에 접힌 알약으로 쉬다가 누르면 **같은 요소 그대로** 대화 창으로
-자란다 — 알약 단추가 창의 머리가 되고 그 아래 기록 · 제안 · 입력 줄이 열린다. 제품 상수 서른넷(`components/scenes/highlightSceneStyles.ts:445-1082`)과
-keyframe 넷(`app/keyframes.css:911-958`)으로 그려진다. 그려지는 자리는 판 무대 하나이고(`components/scenes/highlight/HighlightStudioBoard.tsx:1514`),
+자란다 — 알약 단추가 창의 머리가 되고 그 아래 기록 · 제안 · 입력 줄이 열린다. 제품 상수 서른넷(`components/scenes/highlightSceneStyles.ts:393-398`)과
+keyframe 넷(`app/keyframes.css:881-928`)으로 그려진다. 그려지는 자리는 판 무대 하나이고(`components/scenes/highlight/HighlightStudioBoard.tsx:1514`),
 부르는 곳은 실제 장면과 개발 미리보기 둘이다.
 
 LOUIS 에 대응이 없다. 떠 있는 부품 넷 — [Dialog](../components/dialog.md)(가운데 모달 · 스크림 · 포커스 가둠) · [Floating Shell](../components/floating-shell.md)
@@ -4083,7 +4083,7 @@ LOUIS 에 대응이 없다. 떠 있는 부품 넷 — [Dialog](../components/dia
 #### Context
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `command-palette` 가 있다. 제품의 전역 검색 · 실행 모달
-(`components/navigation/CommandPalette.tsx`, 955줄, 통합 판 `54b62a8aa`)은 사이드바 「검색」 버튼과 ⌘K 로 열리고(`components/navigation/Gnb.tsx:2828-2838`),
+(`components/navigation/CommandPalette.tsx`, 955줄, 통합 판 `54b62a8aa`)은 사이드바 「검색」 버튼과 ⌘K 로 열리고(`components/navigation/Gnb.tsx:2826-2836`),
 화면 위쪽(14vh)에 560 폭 유리 패널로 선다. 반경 · 그림자 · 헤어라인 · 메뉴 면 같은 LOUIS 토큰 일부를 물지만 행 · 그룹 제목 · 키캡 · 닫기를 자기 상수
 서른여 개로 다시 그린다.
 
@@ -4111,7 +4111,7 @@ LOUIS 에 대응이 없다. [Dialog](../components/dialog.md)는 제목 · 설�
    기준을 바꾼다). 시작 자리 넷과 플라이아웃 위치 하나는 소비처가 주는 변수 다섯이다. 수명은 overlay 의 `data-louis-state` 어휘다.
 6. **접근성은 combobox + listbox + `aria-activedescendant` + Dialog 모달 계약(가둠 · inert · Esc · 복귀 · 스크롤 잠금) + 결과 수 `role="status"`** 를 문서
    계약으로 두고 제품 (나)에서 고친다.
-7. **아이콘 세트에 phosphor `arrow-down` 을 더한다** — 발의 ↓ 키(제품은 ↑ 를 돌려 그렸다, `components/navigation/CommandPalette.tsx:905-920`).
+7. **아이콘 세트에 phosphor `arrow-down` 을 더한다** — 발의 ↓ 키(제품은 ↑ 를 돌려 그렸다, `components/navigation/CommandPalette.tsx@54b62a8a:905-920`).
 8. **React 표면은 만들지 않는다.** 마크업 계약을 문서가 소유한다. use-overlay 로 띄울 수 있게 `.louis-overlay-panel.louis-command-palette` 되돌림을 레시피에 둔다.
    새 의존성 · 패키지 구조 없음.
 
@@ -4174,8 +4174,8 @@ LOUIS 에 대응이 없다. [Dialog](../components/dialog.md)는 제목 · 설�
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `date-picker` 가 있다(B2 #34 · #35). 제품에는 날짜 · 시각 고르기가
 두 벌 있다 — 캔버스 유튜브 노드의 예약 팝오버(`components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx`, 통합 판 `54b62a8aa`, 날짜 · 시각
-두 팝오버)와 게시 흐름의 인라인 달력(`components/scenes/create/PublishFlow.tsx:347-406`). 두 화면이 상수 마흔여 개로 각자 그린다
-(`YoutubeSchedulePickers.tsx:54-180` 서른 · `PublishFlow.tsx:95-133` 열).
+두 팝오버)와 게시 흐름의 인라인 달력(`components/scenes/create/PublishFlow.tsx:437-473`). 두 화면이 상수 마흔여 개로 각자 그린다
+(`YoutubeSchedulePickers.tsx@54b62a8a:54-180` 서른 · `PublishFlow.tsx:95-133` 열).
 
 LOUIS 에 달력도 시각 열도 없다. 가장 가까운 [Menu / Popover](../components/menu-popover.md) 값 목록(`.louis-menu__item[aria-selected]`)은 **한 열 목록**이고
 선택 표시가 잉크 12%(흰 면 대비 1.28)다. 달력은 2차원 격자라 표 의미 · 열 맞춤 · 6주 고정 높이 · 오늘 표시가 필요하고, 시각 세 열은 각각 구르는 우물이다.
@@ -4255,8 +4255,8 @@ LOUIS 에 달력도 시각 열도 없다. 가장 가까운 [Menu / Popover](../c
 
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `color-picker` 가 있다(B2 #39 · #40). 제품의 색 고르기는
 영상 편집기 인스펙터의 색 팝오버다(`components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx`, 통합 판 `54b62a8aa`, 호출부
-`VideoEditModal.tsx:15399`). 채도 · 밝기 면(2차원) · 색조 띠 · 알파 띠 · 스포이드 · 헥스 · 알파 입력 · 「이 페이지에서」 색 격자가 한 판이고, 상수 열여덟으로 그린다
-(`ColorPopover.tsx:243-404`). 트리거는 인스펙터 줄의 16 칩(`ColorSwatchButton`, `:29-89`)이다.
+`VideoEditModal.tsx:15149`). 채도 · 밝기 면(2차원) · 색조 띠 · 알파 띠 · 스포이드 · 헥스 · 알파 입력 · 「이 페이지에서」 색 격자가 한 판이고, 상수 열여덟으로 그린다
+(`ColorPopover.tsx@54b62a8a:243-404`). 트리거는 인스펙터 줄의 16 칩(`ColorSwatchButton`, `:29-89`)이다.
 
 LOUIS 에 가장 가까운 것은 [Slider](../components/slider.md)(막대 하나 · 채움 하나)와 [Color Swatch](../components/color-swatch.md)(색 값 하나의 칩)다.
 slider 는 2차원 면을 담지 못하고, 색 공간 그라디언트 · 체크무늬 · 「지금 색」으로 칠하는 손잡이는 어느 레시피에도 없다. 면(`.louis-popover`)은 제품도 이미 문다.
@@ -8821,8 +8821,8 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 Open question 3 의 전제(라이트에서 비활성 핸들이 `{ramp}-900` 이라 거의 검정이 된다)는 **토큰
 값으로는 맞지만 제품 화면으로는 틀렸다.** 제품은 라이트에서 disabled 토큰을 읽지 않는다 — 활성
 토큰(`--node-handle-bg-{channel}` 200 면 · `--node-handle-icon-{channel}`)에
-`brightness(0.78) saturate(0.95)` 필터를 건다(`NodeSideButtons.tsx:182-214` ·
-`VideoNode.tsx:317-350` · `EditNode.tsx:203-230`, 제품 토큰 주석 `globals.css:501-502`).
+`brightness(0.78) saturate(0.95)` 필터를 건다(`NodeSideButtons.tsx:183-215` ·
+`VideoNode.tsx:319-352` · `EditNode.tsx:204-231`, 제품 토큰 주석 `globals.css:516-517`).
 LOUIS 레시피는 필터를 옮기지 않고 두 테마 모두 disabled 토큰을 읽으며, 그 차이를
 [Node Side Handle](../components/node-side-handle.md) Known deviations 1이 편차로 적는다.
 
@@ -8851,7 +8851,7 @@ LOUIS 레시피는 필터를 옮기지 않고 두 테마 모두 disabled 토큰�
 **sky 는 대상이 사라졌다 (2026-09-13 확인).** 2026-08-26 에 색 패밀리를 정리하면서 sky 9단을
 blue 로 접었다 — LOUIS `80791e9` 와 제품 `fec3c3b3` 이 같은 작업이다
 ([figma-sync](../governance/figma-sync.md) 「색 팔레트 — 여섯에서 여섯으로」). 앵커 `6fbdac16` 의 비디오 노드
-생성 중 아이콘·캡션은 `--primary-*`(= LOUIS blue)를 읽고(`VideoNode.tsx:245` · `VideoNode.tsx:267-268`),
+생성 중 아이콘·캡션은 `--primary-*`(= LOUIS blue)를 읽고(`VideoNode.tsx:247` · `VideoNode.tsx:267-268`),
 `accent-sky-` 는 주석에만 남았다. 그래서 「sky 램프를 세운다」는 할 일이 아니다 —
 [Color & Theme](../foundations/color-theme.md) 의 매체별 accent 절을 같은 날 고쳤다.
 **남은 것은 editor 범주색이다.**
@@ -8925,7 +8925,7 @@ property 이름 · 바인딩 **개수** · 기하 요약뿐이고 노드 트리�
 > **앱 셸 램프는 그 뒤 대상이 사라졌다(2026-09-13 확인).** 제품이 `--palette-gray-200` 과
 > `--palette-gray-200-rgb` 를 LOUIS 토큰의 별칭으로 바꿨다(`globals.css:49` · `globals.css:66`)
 > — 두 경로가 같은 원천을 읽으므로 G 238/239 어긋남이 생길 자리가 없고, 앱 셸의 `body:has(...)`
-> 재매핑도 걷혔다(`Gnb.tsx:1391-1396` 주석, 앵커에서 `#eeeef1` 은 그 주석에만 남았다). 아래
+> 재매핑도 걷혔다(`Gnb.tsx:1392-1397` 주석, 앵커에서 `#eeeef1` 은 그 주석에만 남았다). 아래
 > 「G 를 238 로 확정」과 blocker 2 는 그날의 기록이다. LOUIS 의 `color-palette-gray-200` 은 회색
 > 램프 재구성을 거쳐 지금 `#c1c3c6` 이다.
 
@@ -12180,7 +12180,7 @@ baseline도 함께 되돌린다. Figma는 이전 proposal로 재적용하면 되
 > **2 — 대상이 사라졌다(2026-09-13 확인).** 앵커 `6fbdac16` 에서 제품은 `--palette-gray-200` 과
 > `--palette-gray-200-rgb` 를 둘 다 LOUIS 토큰의 별칭으로 선언한다(`globals.css:49` ·
 > `globals.css:66`). hex 와 미러가 같은 원천을 읽으므로 238/239 어긋남이 생길 자리가 없고,
-> `body:has(...)` 로 램프를 재매핑하던 앱 셸 규칙도 걷혔다(`Gnb.tsx:1391-1396` 주석). 아래 2의 두
+> `body:has(...)` 로 램프를 재매핑하던 앱 셸 규칙도 걷혔다(`Gnb.tsx:1392-1397` 주석). 아래 2의 두
 > 문단(「남은 질문은 하나다」 · 「2도 닫혔다」)과 제품 미러 결함 서술은 2026-08-21 의 기록이다.
 
 **2 — 남은 질문은 하나다.** 앱 셸 램프 네 단계를 전부 쟀고 어긋나는 곳은 `palette-gray-200`
@@ -12190,13 +12190,13 @@ baseline도 함께 되돌린다. Figma는 이전 proposal로 재적용하면 되
 정해지면 닫힌다. 실측 근거는 [실행 인계서](../governance/execution-handoff.md)의 `DS-P3-014` 절에 있다.
 
 > **3 — 질문을 바꿨다(2026-09-13).** 아래 2026-08-21 실측의 **토큰 표는 지금도 맞다** — 제품
-> 라이트 오버라이드는 여전히 `--node-handle-bg-{channel}` 만 200 으로 바꾼다(`globals.css:626-627`
+> 라이트 오버라이드는 여전히 `--node-handle-bg-{channel}` 만 200 으로 바꾼다(`globals.css:641-642`
 > 등). **그러나 「라이트에서 비활성 핸들이 거의 검정이 된다」는 제품 화면에서 일어나지 않는다.**
 > 제품 소비처는 라이트에서 disabled 토큰을 읽지 않고, 활성 토큰(`--node-handle-bg-{channel}` ·
 > `--node-handle-icon-{channel}`)에 `brightness(0.78) saturate(0.95)` 를 건다
-> (`NodeSideButtons.tsx:182-214` · `VideoNode.tsx:317-350` · `EditNode.tsx:203-230`). 제품 토큰
+> (`NodeSideButtons.tsx:183-215` · `VideoNode.tsx:319-352` · `EditNode.tsx:204-231`). 제품 토큰
 > 주석도 그렇게 적는다 — 「비활성(라이트)은 소비자 유틸리티에서 필터+채널 토큰 유지」
-> (`globals.css:502`).
+> (`globals.css:517`).
 >
 > 그리고 disabled 12종은 이미 원천에 있다 — `color-node-handle-{bg,icon}-disabled-{channel}`
 > (`8de65bb`, 2026-08-26), 두 모드 값이 같은 `{ramp}.900` · `{ramp}.700` 이다. LOUIS 레시피는 두
@@ -12252,8 +12252,8 @@ baseline도 함께 되돌린다. Figma는 이전 proposal로 재적용하면 되
 
 `instagram`이 `youtube`와 같은 것은 실수가 아니다. 제품이 그 자리에 주석으로 의도를 적어 두었다.
 
-근거: `globals.css:571-598`(일곱 셀렉터) · `:152`·`:191`·`:210`·`:228`·`:247`·`:267`(팔레트) ·
-`components/scenes/create/node-canvas-v2/index.tsx:360`·`:359`(소비).
+근거: `globals.css:586-613`(일곱 셀렉터) · `:152`·`:191`·`:210`·`:228`·`:247`·`:267`(팔레트) ·
+`components/scenes/create/node-canvas-v2/index.tsx:374`·`:359`(소비).
 
 **그래서 단위 4는 절반만 올렸다.** 두 테마에 값이 정의된 축(`surface` 6 · `icon` 6 ·
 `selection accent` 7 = **19종**)을 semantic으로 승격했고, disabled 계열 12종은 **라이트 값이
@@ -13143,8 +13143,8 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
    `.louis-banner-carousel__dot` 7px와 `[aria-current="true"]` 20px를, 전환을
    `--louis-motion-layout-change-*`(220ms · `cubic-bezier(0.4, 0, 0.2, 1)`)와
    `--louis-motion-control-hover-duration`(160ms)으로 세운다. 제품은 그것을 그대로 소비한다
-   (`appHomeSceneStyles.ts:436-439`의 `bannerDot`). **활성이 클래스가 아니라 `aria-current="true"`인 것도
-   그 이사에서 바뀐 것이다**(DS-D-0004) — 제품이 `AppHomeScene.tsx:960`에서 그 훅을 건다.
+   (`appHomeSceneStyles.ts:424-427`의 `bannerDot`). **활성이 클래스가 아니라 `aria-current="true"`인 것도
+   그 이사에서 바뀐 것이다**(DS-D-0004) — 제품이 `AppHomeScene.tsx:986`에서 그 훅을 건다.
    이 결정이 근거로 삼은 수치는 무너지지 않았고, 오히려 **그 수치가 DS로 들어왔다.**
 
 **그 폭이 곧 "여기가 지금 몇 번째인가"다.** 점은 라벨이 없으므로 폭 말고 현재 위치를 말하는 것이
@@ -16450,7 +16450,7 @@ Figma 를 projection 으로 정하고, 값이 갈리면 LOUIS 가 제품 외관�
 
 **그 규칙이 여기서 답을 줄 수 없다.** 제품에 연한 danger 버튼이 **없기 때문이다.** 앵커
 `ae8fd627` 에서 `variant="danger"` 는 열여섯 자리이고 전부 꽉 찬 danger 다. 제품 `Button.tsx@ae8fd627:3`
-의 타입에 그 값 자체가 없다. 가장 가까운 알파 빨강 면은 `Gnb.tsx:1175-1177` 의
+의 타입에 그 값 자체가 없다. 가장 가까운 알파 빨강 면은 `Gnb.tsx:1176-1178` 의
 `profileMenuItemDanger` 인데 **버튼이 아니라 메뉴 항목**이고 8% 라 사다리도 다르며, LOUIS 는 이미
 `accent-menu-danger-hover` 로 그 자리를 덮고 있다. 나머지 red-alpha 면은 전부 배지·상태칩·배너로
 클릭 대상이 아니다.
@@ -16996,12 +16996,12 @@ CSS 도 읽지 않는다. `foreground`/`primary-on` 의 역할은 `fg-primary`·
 | --- | --- | --- |
 | 아바타 한 변 | `28px` | `Gnb.tsx:1452` |
 | 링과 아바타 사이 | `2px` | `Gnb.tsx:1456` |
-| 링 두께 | `2px` | `Gnb.tsx:1457` |
-| 한 변 | `avatar + (gap + width) × 2` = **36** | `Gnb.tsx:1458` |
-| 반경 | `0` | `Gnb.tsx:1473` |
-| 면 | `transparent` | `Gnb.tsx:1474` |
-| 그림자 | `none` | `Gnb.tsx:1475` |
-| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1482` |
+| 링 두께 | `2px` | `Gnb.tsx:1458` |
+| 한 변 | `avatar + (gap + width) × 2` = **36** | `Gnb.tsx:1459` |
+| 반경 | `0` | `Gnb.tsx:1474` |
+| 면 | `transparent` | `Gnb.tsx:1475` |
+| 그림자 | `none` | `Gnb.tsx:1476` |
+| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1483` |
 
 **원장 자신이 이것을 이미 증명하고 있었다.** 열다섯 노드의 **직계 자식이 전부
 `Avatar/Size=md` 28×28 인스턴스다**(`byInstanceSet` 의 `Avatar: 15`). 즉 이 자리는 「대응이 없는
@@ -17019,11 +17019,11 @@ CSS 도 읽지 않는다. `foreground`/`primary-on` 의 역할은 `fg-primary`·
 | 축 | 값 | 좌표 |
 | --- | --- | --- |
 | 트랙 패딩 | `4px` | `myPageSceneStyles.ts:978` |
-| 트랙 반경 | `radius-control`(12) | `myPageSceneStyles.ts:979` |
-| 세그먼트 높이 | `28px` | `myPageSceneStyles.ts:942` |
-| 세그먼트 좌우 | `0 12px` | `myPageSceneStyles.ts:943` |
-| 세그먼트 반경 | `radius-control-sm`(8) | `myPageSceneStyles.ts:945` |
-| 썸 | `top: 4` · 높이 `28` · 반경 8 | `myPageSceneStyles.ts:960`·`989`·`990` |
+| 트랙 반경 | `radius-control`(12) | `myPageSceneStyles.ts:882` |
+| 세그먼트 높이 | `28px` | `myPageSceneStyles.ts:845` |
+| 세그먼트 좌우 | `0 12px` | `myPageSceneStyles.ts:846` |
+| 세그먼트 반경 | `radius-control-sm`(8) | `myPageSceneStyles.ts:848` |
+| 썸 | `top: 4` · 높이 `28` · 반경 8 | `myPageSceneStyles.ts:863`·`989`·`990` |
 | 트랙 높이 | `4 + 28 + 4` = **36** | 선언 없음(파생) |
 
 패딩 4 · 트랙 반경 12 · 세그먼트 반경 8 · 세그먼트 좌우 12 · 타이포 14 는 **LOUIS `lg` 와
@@ -17214,14 +17214,14 @@ Figma 도 같다 — `settings` 트랙만 세로가 hug 이고, 되읽기가 36 
 
 | 축 | 선언 | 좌표 |
 | --- | --- | --- |
-| 아바타 한 변 | `--profile-avatar-size` — **고른 값** | `Gnb.tsx:1470` |
-| 링과 아바타 사이 | `--profile-ring-gap` | `Gnb.tsx:1474` |
-| 링 두께 | `--profile-ring-width` | `Gnb.tsx:1475` |
-| 한 변 | `calc(아바타 + (간격 + 두께) × 2)` — **계산값** | `Gnb.tsx:1476`, 폭 · 높이가 그것을 읽는다(`:1478` · `:1479`) |
-| 반경 | `0` | `Gnb.tsx:1491` |
-| 면 | `transparent` | `Gnb.tsx:1492` |
-| 그림자 | `none` | `Gnb.tsx:1493` |
-| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1500` · `:1502` |
+| 아바타 한 변 | `--profile-avatar-size` — **고른 값** | `Gnb.tsx:1471` |
+| 링과 아바타 사이 | `--profile-ring-gap` | `Gnb.tsx:1475` |
+| 링 두께 | `--profile-ring-width` | `Gnb.tsx:1476` |
+| 한 변 | `calc(아바타 + (간격 + 두께) × 2)` — **계산값** | `Gnb.tsx:1477`, 폭 · 높이가 그것을 읽는다(`:1478` · `:1479`) |
+| 반경 | `0` | `Gnb.tsx:1492` |
+| 면 | `transparent` | `Gnb.tsx:1493` |
+| 그림자 | `none` | `Gnb.tsx:1494` |
+| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1501` · `:1502` |
 
 그래서 §1 의 「36 은 그 아바타(28)에 링이 더한 8 이다」와 Decision 1 의 「`28 + (2 + 2) × 2 = 36`」은 이렇게 읽는다 —
 **한 변 = 아바타 + (간격 + 두께) × 2 이고, 수는 아바타 칸을 따른다.** 판정에 필요한 것은 식과 계약(반경 0 · 면 투명 ·
@@ -17250,7 +17250,7 @@ Figma 도 같다 — `settings` 트랙만 세로가 hug 이고, 되읽기가 36 
 
 ##### 같은 이동이 상단 바의 높이를 함께 낮췄다
 
-바는 높이를 선언하지 않으므로(`Gnb.tsx:460` · `:483`) 그 높이도 링을 따르는 계산값이다(패딩 8 + 가장 큰 자식 + 패딩 8 +
+바는 높이를 선언하지 않으므로(`Gnb.tsx:461` · `:483`) 그 높이도 링을 따르는 계산값이다(패딩 8 + 가장 큰 자식 + 패딩 8 +
 헤어라인). Figma 셸 매처가 그 결과를 수로 물던 자리를 구조 판정으로 바꿨고, 앱 셸 러너 · 계획은 높이를 hug 하도록 다시
 지었다 — **라이브 적용 전이다.** 라이브 세트는 아직 높이를 FIXED 로 굳힌 옛 구조이고, 적용 여부는
 [Updates](../updates/README.md) (131) 「라이브 적용 — 현황」이 갖는다.
@@ -17506,10 +17506,10 @@ variants`) 스무 변형 중 다섯만 면제할 방법이 없다. 그래서 cap
 
 | 자리 | 선언 |
 | --- | --- |
-| `AppHomeScene.tsx:1091` | `aspectRatio: "1 / 1"` |
-| `HighlightScene.tsx:1313` | `aspectRatio: "1 / 1"` |
-| `VideoEditScene.tsx:774` | `aspectRatio: "1 / 1"` |
-| `NodeCanvasHomeScene.tsx:1518` | `aspectRatio: "1 / 1"` |
+| `AppHomeScene.tsx:1117` | `aspectRatio: "1 / 1"` |
+| `HighlightScene.tsx@54b62a8a:1313` | `aspectRatio: "1 / 1"` |
+| `VideoEditScene.tsx@54b62a8a:774` | `aspectRatio: "1 / 1"` |
+| `NodeCanvasHomeScene.tsx:1465` | `aspectRatio: "1 / 1"` |
 
 네 벌이 전수 정사각이고, 그 값은 정본의 기본값(`--louis-project-card-aspect-ratio: 1`)과
 같다. 9:16 은 이 그리드가 아니라 애널리틱스의 인기 콘텐츠 목록과 `ContentTable` 의 영상 셀에
@@ -17522,8 +17522,8 @@ variants`) 스무 변형 중 다섯만 면제할 방법이 없다. 그래서 cap
 | --- | --- | --- | --- | --- |
 | 앱 홈 (`appHomeSceneStyles.ts:18`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음(사유 기록됨) |
 | 캔버스 홈 (`NodeCanvasHomeScene.tsx:262`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음 |
-| 하이라이트 허브 (`highlightSceneStyles.ts:725`) | `louis-project-card` | 정본 | 정본 | **정본**(`:946`, top-start 상태 칩) |
-| 비디오 에디터 허브 (`VideoEditScene.tsx:226`) | **자체** | 자체 | 자체(`:298`) | 자체(`:271`) |
+| 하이라이트 허브 (`highlightSceneStyles.ts:497`) | `louis-project-card` | 정본 | 정본 | **정본**(`:946`, top-start 상태 칩) |
+| 비디오 에디터 허브 (`VideoEditScene.tsx:202`) | **자체** | 자체 | 자체(`:298`) | 자체(`:271`) |
 
 제목 오버레이와 더보기는 **CSS·React·Figma 셋 다에 이미 서 있다.** 넷째 벌만 정본을 하나도
 물지 않는데, 그 반경은 `rounded-12` 로 정본 `radius-card`(12)와 **같다** — 값이 갈린 것이
@@ -17544,10 +17544,10 @@ variants`) 스무 변형 중 다섯만 면제할 방법이 없다. 그래서 cap
 
 | 벌 | 정본 채택 | 반경 | 밑줄 |
 | --- | --- | ---: | --- |
-| 앱 홈 (`appHomeSceneStyles.ts:340`) | `louis-project-card-rename` | **2** | 없음 |
-| 캔버스 홈 (`NodeCanvasHomeScene.tsx:402`) | `louis-project-card-rename` | **2** | 없음 |
-| 하이라이트 허브 (`highlightSceneStyles.ts:1040`) | **얹지 않는다** | 0 | `border-bottom: 1px solid palette-gray-400` (다크 `gray-500`) |
-| 비디오 에디터 허브 (`VideoEditScene.tsx:402`) | 얹지 않는다(프레임부터 자체) | 0 | 같은 선언 |
+| 앱 홈 (`appHomeSceneStyles.ts:327`) | `louis-project-card-rename` | **2** | 없음 |
+| 캔버스 홈 (`NodeCanvasHomeScene.tsx:353`) | `louis-project-card-rename` | **2** | 없음 |
+| 하이라이트 허브 (`highlightSceneStyles.ts:796`) | **얹지 않는다** | 0 | `border-bottom: 1px solid palette-gray-400` (다크 `gray-500`) |
+| 비디오 에디터 허브 (`VideoEditScene.tsx@54b62a8a:402`) | 얹지 않는다(프레임부터 자체) | 0 | 같은 선언 |
 
 두 쌍이 각각 글자 그대로 같고, **정본의 반경 8(`radius-control-sm`)을 쓰는 벌은 하나도
 없다.** 하이라이트의 비채택 사유는 제품 주석에 낱말 그대로 있다 — 「정본의 `border: 0` 과
@@ -17698,33 +17698,33 @@ DS-D-0050 의 실측은 앵커 `ae8fd627` 기준이고, 그 사이 제품이 회
 
 | 벌 | 정본 채택 | 반경 | 밑줄 | 아래 여백 | 초점 표시 |
 | --- | --- | ---: | --- | ---: | --- |
-| 앱 홈 `appHomeSceneStyles.ts:341` | `"louis-project-card-rename",` | **2** (`:344`) | 없음 | 0 | 1px 아웃라인 + 2px 띄움 (`:345`·`:346`) |
-| 캔버스 홈 `NodeCanvasHomeScene.tsx:409` | `"louis-project-card-rename",` | **2** (`:405`) | 없음 | 0 | 같음 (`:406`·`:407`) |
-| 하이라이트 허브 `highlightSceneStyles.ts:1040` | **얹지 않는다** (`:1037`) | 0 | `:1046` | 2 (`:1049`) | 없음 |
-| 비디오 에디터 허브 `VideoEditScene.tsx:402` | 얹지 않는다 | 0 | `:404` | 2 (`:406`) | 없음 |
+| 앱 홈 `appHomeSceneStyles.ts:328` | `"louis-project-card-rename",` | **2** (`:344`) | 없음 | 0 | 1px 아웃라인 + 2px 띄움 (`:345`·`:346`) |
+| 캔버스 홈 `NodeCanvasHomeScene.tsx:360` | `"louis-project-card-rename",` | **2** (`:405`) | 없음 | 0 | 같음 (`:406`·`:407`) |
+| 하이라이트 허브 `highlightSceneStyles.ts:796` | **얹지 않는다** (`:1037`) | 0 | `:1046` | 2 (`:1049`) | 없음 |
+| 비디오 에디터 허브 `VideoEditScene.tsx@54b62a8a:402` | 얹지 않는다 | 0 | `:404` | 2 (`:406`) | 없음 |
 
 낱말 그대로의 선언 — `git show 5a67d692:<경로>` 로 재확인한다.
 
 ```
-highlightSceneStyles.ts:1046     "[border-bottom:1px_solid_var(--palette-gray-400)]",
-highlightSceneStyles.ts:1049     "[padding:0_0_2px]",
-highlightSceneStyles.ts:1052     "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
-VideoEditScene.tsx:405           "[border-bottom:1px_solid_var(--palette-gray-400)]",
-VideoEditScene.tsx:407           "pt-0 pr-0 pb-1 pl-0",
+highlightSceneStyles.ts:994     "[border-bottom:1px_solid_var(--palette-gray-400)]",
+highlightSceneStyles.ts:997     "[padding:0_0_2px]",
+highlightSceneStyles.ts:1000     "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
+VideoEditScene.tsx@54b62a8a:405           "[border-bottom:1px_solid_var(--palette-gray-400)]",
+VideoEditScene.tsx:399           "pt-0 pr-0 pb-1 pl-0",
 VideoEditScene.tsx:410           "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
-appHomeSceneStyles.ts:344        "[border-radius:2px]",
-NodeCanvasHomeScene.tsx:410      "[outline:none] rounded-2",
+appHomeSceneStyles.ts:331        "[border-radius:2px]",
+NodeCanvasHomeScene.tsx:361      "[outline:none] rounded-2",
 ```
 
-`VideoEditScene.tsx:407` 의 `pb-1` 은 제품의 `--spacing: 2px` 격자에서 **2px** 다 —
-`highlightSceneStyles.ts:1049` 의 `padding: 0 0 2px` 와 같은 값이고, 그래서 두 벌이 갈리지 않는다.
+`VideoEditScene.tsx:399` 의 `pb-1` 은 제품의 `--spacing: 2px` 격자에서 **2px** 다 —
+`highlightSceneStyles.ts:997` 의 `padding: 0 0 2px` 와 같은 값이고, 그래서 두 벌이 갈리지 않는다.
 `VideoEditScene.tsx` 는 단축을 롱핸드로 푼 것만 다르며, 그 사유가 그 파일 주석에 적혀 있다 —
 「`border: none` 뒤의 `border-bottom` 단축을 롱핸드로 풀어 정렬 의존을 없앤다」.
 
 **값은 움직이지 않았다.** 밑줄 색은 여전히 라이트 `palette-gray-400` · 다크 `gray-500` 이고,
 그 둘은 LOUIS 원시값으로 각각 `palette-gray/400`(139 142 147) · `palette-gray/500`(114 117 123)
 이다. 제품이 그 이름을 LOUIS 에서 그대로 물고 있기 때문이다 — `globals.css:33` 이
-`--palette-gray-400: var(--louis-color-palette-gray-400);` 이고, 다크 스코프의 `globals.css:682`
+`--palette-gray-400: var(--louis-color-palette-gray-400);` 이고, 다크 스코프의 `globals.css:700`
 가 `--gray-500: var(--palette-gray-500);` 다. **채널 단위로 같다.**
 
 #### Decision
@@ -18022,14 +18022,14 @@ DS 의 `ActionMenu`·`CompositePopover` 가 덮는다고 결론지었다.
 | 자리 | 높이 | 곡률 | 좌우 여백 | 간격 | 캐럿 |
 | --- | ---: | --- | --- | ---: | --- |
 | `app/aws/signup/page.tsx:397` 언어 | 36 | 8 | 정사각 | — | 없음(`hideCaret`) |
-| `components/navigation/Gnb.tsx:3314` 언어 | 32 | 10 | 12 · 12 | 6 | 6px 테두리 셰브론 |
+| `components/navigation/Gnb.tsx:3321` 언어 | 32 | 10 | 12 · 12 | 6 | 6px 테두리 셰브론 |
 | `SubscriptionScene.tsx:1092` 정렬 | 28(min) | 8 | 10 · 10 | 6 | 10 |
 | `create/ComposerBar.tsx:519` 모델 | 32 | 알약 | 12 · 32 | — | `▼` 12 |
 | `VideoEditModal.tsx:11616` 프리뷰 줌 | 24 | 8 | 8 · 6 | 4 | 12 |
 | `videoEditParts/CompositionInspector.tsx:205` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/EditorSettingsPanel.tsx:83` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/OverlayInspector.tsx:937` 글꼴 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
-| `videoEditParts/OverlayInspector.tsx:1109` 굵기 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
+| `videoEditParts/OverlayInspector.tsx:1127` 굵기 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 
 `Gnb` 가 물기 때문에 **사실상 전 라우트**에 뜬다. 관리자 도구가 아니라 배포 화면이고,
 0벌이 아니라 아홉이다.
@@ -18174,7 +18174,7 @@ manifest 의 `canvas-dots` 항목 · 문서 · 계약 · 기록 · 시험을 지
    `InspectorSectionAction`(원장 `figma: IconButton`, size sm), 메뉴는 `louis-popover` + `louis-menu__item`(`:63-70` · `:91`)을 그대로 문다. 파일이 자기 것으로
    갖는 것은 rAF 펼침 애니와 포털 좌표 · 형제 드롭다운 상호 배제 배선뿐이다.
 2. `…/nodes/imageEditParts/StickerCanvas.tsx#StickerCanvas` — 스티커 상자의 선택 틀 · 손잡이 여덟 · 모서리 바깥 회전 띠는 이미
-   [Transform Frame](../components/transform-frame.md) 이 이 파일을 정본으로 인용해 소유한다(`__rotate-zone`, `StickerCanvas.tsx:95-106`). 남는 것은
+   [Transform Frame](../components/transform-frame.md) 이 이 파일을 정본으로 인용해 소유한다(`__rotate-zone`, `StickerCanvas.tsx@54b62a8a:95-106`). 남는 것은
    우물(`WELL`, 프레임을 가운데 두는 어두운 바닥 · 여백 12)과 프레임 그림자인데, 그것은 같은 모달의 크롭 탭이 쓰는 작업 영역과 같은 자리다 —
    크롭 모달 셋(`CropModalInner` · `ClipCropModal` · 미리보기 오버레이)이 이미 `figma: TransformFrame` 으로 닫혔다.
 3. `…/components/ActionButton.tsx#ActionButton` — 44 원형 FAB. 앵커 전체에서 이 이름을 import 하거나 렌더하는 곳이 0이다(자기 파일 · 무관한 주석
@@ -18330,7 +18330,7 @@ manifest 의 `canvas-dots` 항목 · 문서 · 계약 · 기록 · 시험을 지
 
 원장의 `components/scenes/VideoEditProjectPicker.tsx#VideoEditProjectPickerContent` 가 `needed` 로 남아 있었다(통합 판 `54b62a8aa`). 영상 편집기 에셋 패널의
 「프로젝트에서 가져오기」 본문이다(`AssetPanel.tsx:1432`) — Finder 식 두 단계: 프로젝트 목록(폴더 글리프 · 이름 · 체브론 행) → 그 프로젝트의 영상 목록(체크박스 ·
-16:9 썸네일 · 종류 배지 또는 노드 아이콘 · 이름 행) + 아래 가져오기 버튼(`VideoEditProjectPicker.tsx:21-168`).
+16:9 썸네일 · 종류 배지 또는 노드 아이콘 · 이름 행) + 아래 가져오기 버튼(`VideoEditProjectPicker.tsx:21-161`).
 
 있는 것: 프로젝트 행은 [Selectable List Row](../components/selectable-list-row.md) 의 이동 행(`data-layout="link"`)이 이미 「영상 편집기 프로젝트 피커가
 그 자리다」라고 적는다. 체크박스는 `louis-checkbox` 를 문다. 로딩은 [Skeleton](../components/skeleton.md) 이 그릴 수 있다. 없는 것: 여럿 고르기 행(Selectable List
@@ -18386,7 +18386,7 @@ LOUIS Button · Badge 와 다른 면(primary 32% · 16%)을 각자 칠한다(대
 #### Context
 
 원장의 `app/admin/AdAttributionPanel.tsx#GroupDrawer` 가 `needed`(oneoff)로 남아 있었다(통합 판 `54b62a8aa`). 광고 성과 표의 줄을 펼치면 그 아래
-`colSpan 6` 칸에 서는 계정 목록 판이다 — 올린 면(`ADMIN_SURFACE` = `bg-raised` + 헤어라인, `AdminSection.tsx:69-70`) · 반경 16 · 여백 16 · 간격 12(`:95`),
+`colSpan 6` 칸에 서는 계정 목록 판이다 — 올린 면(`ADMIN_SURFACE` = `bg-raised` + 헤어라인, `AdminSection.tsx:67-68`) · 반경 16 · 여백 16 · 간격 12(`:95`),
 머리 줄(제목 14 Medium + 「광고 ID」 12 tertiary + 복사 IconButton, `:506-514`), 두 번째 `louis-table`(`:517`), 「더 보기」 secondary Button(`:562`).
 
 있는 것 — 안의 Table · Button · IconButton 은 정본이 있다. 없는 것 — **올린 면 + 머리 줄 + 표를 묶는 판.** [Record Card](../components/record-card.md)
@@ -18436,7 +18436,7 @@ LOUIS Button · Badge 와 다른 면(primary 32% · 16%)을 각자 칠한다(대
 #### Context
 
 원장의 `components/scenes/create/node-canvas-v2/components/CanvasHelpPanel.tsx#HandleTile` 이 `unclear` 로 남아 있었다(통합 판 `54b62a8aa`). 캔버스 도움말 패널의
-입력 목록 앞에 붙는 채널 타일이다 — 24 · 반경 6 · 채널 면 `--node-handle-icon-*` 위 팔레트 흰색 글리프 14(`CanvasHelpPanel.tsx:217-237`), 여럿이면 간격 2 로 한 줄
+입력 목록 앞에 붙는 채널 타일이다 — 24 · 반경 6 · 채널 면 `--node-handle-icon-*` 위 팔레트 흰색 글리프 14(`CanvasHelpPanel.tsx:224-244`), 여럿이면 간격 2 로 한 줄
 (`:252-256`). 원장이 남긴 소유자 질문은 「[Node Side Handle](../components/node-side-handle.md) 에 크기 · 채널 축을 더할지, 패널 보드 안의 그림으로 둘지」였고
 editor-workspace.md 도 같은 판정을 「낮은 우선순위」로 남겼다.
 
@@ -18567,14 +18567,14 @@ editor-workspace.md 도 같은 판정을 「낮은 우선순위」로 남겼다.
 > 결론(화면이 거의 검정)도 조건(12종이 대기 중)도 맞지 않는다. 토큰 값 서술만 그대로 맞다.
 
 **토큰 값은 그 말대로다.** 제품의 라이트 오버라이드는 여전히 `--node-handle-bg-{channel}` 만
-200 으로 바꾸고(`globals.css:626-627` 등) disabled 계열은 다크 값(`{ramp}-900` · `-700`)을 그대로
-둔다(`globals.css:575-588`).
+200 으로 바꾸고(`globals.css:641-642` 등) disabled 계열은 다크 값(`{ramp}-900` · `-700`)을 그대로
+둔다(`globals.css:590-603`).
 
 **그러나 제품 화면은 그 값을 라이트에서 칠하지 않는다.** 소비처가 라이트에서 disabled 토큰 대신
 활성 토큰에 필터를 건다 — `light:[filter:brightness(0.78)_saturate(0.95)]!` 와
-`light:[background:var(--node-handle-bg-{channel})]!` 가 한 묶음이다(`NodeSideButtons.tsx:182-214` ·
-`VideoNode.tsx:317-350` · `EditNode.tsx:203-230`). 제품 토큰 주석이 같은 말을 한다 — 「비활성(라이트)은
-소비자 유틸리티에서 필터+채널 토큰 유지」(`globals.css:502`). 그래서 **라이트에서 거의 검정인 비활성
+`light:[background:var(--node-handle-bg-{channel})]!` 가 한 묶음이다(`NodeSideButtons.tsx:183-215` ·
+`VideoNode.tsx:319-352` · `EditNode.tsx:204-231`). 제품 토큰 주석이 같은 말을 한다 — 「비활성(라이트)은
+소비자 유틸리티에서 필터+채널 토큰 유지」(`globals.css:517`). 그래서 **라이트에서 거의 검정인 비활성
 핸들은 제품에 없다.**
 
 **그리고 채널 disabled 12종은 이미 LOUIS 원천에 있다** — `color-node-handle-{bg,icon}-disabled-{channel}`
@@ -18611,7 +18611,7 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 > **그 근거는 기준선에서 사라졌다.** `98c421ea` 가 그 버튼을 LOUIS `<Button>` 으로 갈아
 > 끼웠고, 지금 기준선(`df414c24`)의 그 파일에는 `180ms` 가 한 번도 나오지 않는다. 판정을
 > **살아 있는 자리로 옮긴다** — 아카이브 프로젝트 카드가 `transform` · `filter` · `box-shadow`
-> 를 셋 다 180ms ease 로 쓰고(`NodeCanvasHomeScene.tsx:271`), 같은 요소의 `:active` 가
+> 를 셋 다 180ms ease 로 쓰고(`NodeCanvasHomeScene.tsx:222`), 같은 요소의 `:active` 가
 > `scale(0.975)` 와 그림자 교체다(:274-275). **결론은 그대로이고 근거만 바뀌었다.**
 
 그 자리에서 움직이는 것은 **누름(`scale(0.975)`)과 밝기·그림자 변화** — 즉 **컨트롤 피드백**이다.
@@ -18632,41 +18632,41 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 [product.drift.json](../../migration/product.drift.json)이 매 `verify`마다 다섯 축을 잰다.
 
 <!-- GENERATED:product-drift START -->
-배포본 `54b62a8a` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
+배포본 `97d4950e` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
 
 | 축 | 제품 | DS가 덮는 비율 | 최다값 | 결손 최다 |
 | --- | ---: | ---: | --- | --- |
-| alpha | 47단 2167회 | 45.6% | `8%` 276회 | `100%` 253회 / 39파일 |
-| radius | 20단 181회 | 58% | `12px` 26회 | `7px` 20회 / 1파일 |
-| border-width | 4단 117회 | 90.6% | `1px` 83회 | `1.5px` 9회 / 5파일 |
-| spacing | 46단 897회 | 80.9% | `8px` 220회 | `5px` 34회 / 27파일 |
-| duration | 90단 1097회 | 57.2% | `180ms` 147회 **토큰 없음** | `180ms` 147회 / 38파일 |
+| alpha | 48단 1862회 | 44.2% | `8%` 237회 | `100%` 236회 / 36파일 |
+| radius | 19단 148회 | 64.9% | `12px` 23회 | `3px` 16회 / 7파일 |
+| border-width | 4단 95회 | 88.4% | `1px` 63회 | `1.5px` 9회 / 5파일 |
+| spacing | 49단 815회 | 80.4% | `8px` 195회 | `5px` 32회 / 26파일 |
+| duration | 87단 1027회 | 57.7% | `180ms` 119회 **토큰 없음** | `180ms` 119회 / 36파일 |
 
 **투명도 % (`alpha`) — 토큰 없는 값 상위**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `100%` | 253 | 39 |
-| `88%` | 204 | 75 |
-| `56%` | 132 | 67 |
-| `48%` | 117 | 52 |
-| `72%` | 85 | 43 |
-| `32%` | 75 | 37 |
-| `96%` | 72 | 21 |
-| `28%` | 69 | 36 |
+| `100%` | 236 | 36 |
+| `88%` | 183 | 66 |
+| `56%` | 113 | 58 |
+| `48%` | 91 | 43 |
+| `72%` | 77 | 39 |
+| `32%` | 69 | 35 |
+| `28%` | 66 | 33 |
+| `96%` | 50 | 16 |
 
 **모서리 반경 (`radius`) — 토큰 없는 값 상위**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `7px` | 20 | 1 |
-| `3px` | 18 | 8 |
+| `3px` | 16 | 7 |
 | `1px` | 14 | 2 |
-| `5px` | 12 | 9 |
+| `5px` | 11 | 8 |
 | `14px` | 4 | 1 |
 | `18px` | 3 | 2 |
-| `28px` | 2 | 2 |
 | `1.5px` | 2 | 1 |
+| `28px` | 1 | 1 |
+| `22px` | 1 | 1 |
 
 **테두리 두께 (`border-width`) — 토큰 없는 값 상위**
 
@@ -18679,12 +18679,12 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `5px` | 34 | 27 |
-| `3px` | 32 | 17 |
-| `1px` | 26 | 15 |
-| `9px` | 17 | 9 |
-| `7px` | 16 | 10 |
-| `160px` | 9 | 5 |
+| `5px` | 32 | 26 |
+| `3px` | 28 | 13 |
+| `1px` | 20 | 12 |
+| `9px` | 16 | 9 |
+| `7px` | 15 | 9 |
+| `160px` | 11 | 6 |
 | `11px` | 6 | 5 |
 | `112px` | 5 | 5 |
 
@@ -18692,14 +18692,14 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `180ms` | 147 | 38 |
-| `240ms` | 40 | 11 |
+| `180ms` | 119 | 36 |
+| `240ms` | 39 | 10 |
+| `800ms` | 29 | 12 |
 | `280ms` | 28 | 12 |
-| `800ms` | 25 | 11 |
 | `80ms` | 21 | 10 |
-| `100ms` | 19 | 9 |
-| `600ms` | 17 | 10 |
+| `100ms` | 20 | 10 |
 | `150ms` | 15 | 9 |
+| `600ms` | 12 | 9 |
 <!-- GENERATED:product-drift END -->
 
 **수치 정정(2026-08-21).** 이 절의 표는 원래 손으로 적었고 **두 칸이 틀렸다** — radius 결손을
@@ -18732,7 +18732,7 @@ spacing의 홀수 계단은 **전부 이웃과 1px 차**라 화면에서 구분�
 > 토큰의 별칭으로 선언한다 — `--palette-gray-200: var(--louis-color-palette-gray-200);`
 > (`globals.css:49`) · `--palette-gray-200-rgb: var(--louis-color-palette-gray-200-rgb);`
 > (`globals.css:66`). 두 경로가 같은 원천을 읽으므로 G 238/239 가 갈릴 자리가 없고, 앱 셸이
-> `body:has(...)` 로 램프를 `#eeeef1` 에 재매핑하던 규칙도 걷혔다(`Gnb.tsx:1391-1396` 주석).
+> `body:has(...)` 로 램프를 `#eeeef1` 에 재매핑하던 규칙도 걷혔다(`Gnb.tsx:1392-1397` 주석).
 > 아래는 2026-08-21 의 기록이다. 제품에 미러를 고쳐 달라고 요청하지 마라.
 
 **증상.** 앱 셸 램프에서 **같은 색이 소비 경로에 따라 다르게 렌더된다.**
@@ -18765,7 +18765,7 @@ spacing의 홀수 계단은 **전부 이웃과 1px 차**라 화면에서 구분�
 #### 6 — 루트 폰트 크기 12px가 의도인가
 
 **증상.** `html { font-size: var(--type-caption-12-size) }` = **12px**이고, `1rem = 12px`다
-(`globals.css:918-919`, 변수 `:322`). 브라우저로 4개 문맥 전부 확인했다.
+(`globals.css:951-952`, 변수 `:322`). 브라우저로 4개 문맥 전부 확인했다.
 
 그런데 [legacy-design-system](../../migration/legacy-design-system.md)은 이 변경을 **실수로
 기록**하고 「타입 스케일 토큰으로 바꾸지 말 것 — 폰트 크기만 바꾸고 rem 값은 하나도 조정하지
@@ -18796,14 +18796,14 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 
 **정해야 할 것.** 셋 중 하나다.
 
-1. **선언을 지운다(권장).** 살아 있는 `rem` 하나(`Gnb.tsx:2005` `max-width:4.5rem`)를 px로 바꾸면
+1. **선언을 지운다(권장).** 살아 있는 `rem` 하나(`Gnb.tsx:2006` `max-width:4.5rem`)를 px로 바꾸면
    환산 기준이라는 것을 아무도 기억할 필요가 없어진다. **오늘 문서 여섯 곳이 틀린 이유가 정확히
    「기억해야 하는 숫자」였기 때문이다.** 그 자리는 상위 상한에 먼저 걸려 발화하지도 않는다.
 2. **`62.5%`로 바꾼다.** 산수는 `1rem = 10px` 그대로이면서 상대값이라 사용자 설정에 비례한다.
    이 제품의 `landing` 쪽이 이미 이 방식이다.
 3. **12px를 의도로 확정한다.** 그러면 문서의 「토큰으로 바꾸지 말 것」 경고를 지운다.
 
-- **의도라면** 문서의 경고를 지운다. 파급은 `Gnb.tsx:2005` 한 곳뿐이고(접힘 사이드바 라벨
+- **의도라면** 문서의 경고를 지운다. 파급은 `Gnb.tsx:2006` 한 곳뿐이고(접힘 사이드바 라벨
   `max-width:4.5rem` = 54px) 그 자리는 상위 상한에 먼저 걸려 발화하지도 않는다.
 - **회귀라면** 되돌릴 때 `4.5rem` 두 자리를 함께 봐야 한다 — 경고가 지적한 것이 정확히 그것이다.
 
@@ -18818,7 +18818,7 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 
 **왜.** `useMainChromeHeaderScrollProgress`가 `--header-progress`를 두 곳에 쓴다 —
 `headerSlot`과 `wrapper.closest("main")`. 그런데 형태 B에서 페이드를 가진 패널 div는
-**`<main>`의 부모**다(`VideoEditScene.tsx:710-711` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
+**`<main>`의 부모**다(`VideoEditScene.tsx:705-706` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
 않으므로** 패널의 `::before`는 언제나 폴백 `0`을 읽는다.
 
 게다가 페이드를 선언한 3파일(`myPageSceneStyles.ts` · `VideoEditScene.tsx` · `InquiryClient.tsx`)
@@ -18860,7 +18860,7 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 #### 9 — `dashboardAreaBreathe`는 재생되지 않는다
 
-**증상.** `shared.tsx:52`가 `dashboardAreaBreathe 3.6s ease-in-out infinite 900ms`를 선언하는데
+**증상.** `shared.tsx:49`가 `dashboardAreaBreathe 3.6s ease-in-out infinite 900ms`를 선언하는데
 **`@keyframes dashboardAreaBreathe` 정의가 배포본에 없다.** 같은 파일의 다른 넷은 전부 정의가 있다.
 
     dashboardSkeletonPulse   @keyframes 정의 1
@@ -18945,7 +18945,7 @@ LOUIS Button 에는 알약 모양이 없어(반경 12) 화면 보드 구성 원�
     button "Connect Google Account"  rect 196.64 × 40  declared height calc(40px) · gap calc(6px)
                                      font 14 / 500 · 면 gray-000(검정) · 글자 gray-1000
 
-레시피는 제품 지역 상수다 — `YoutubeAnalyticsScene.tsx:1116` 과 `InstagramAnalyticsScene.tsx:520` 의 `CONNECT_NOTICE_BTN`
+레시피는 제품 지역 상수다 — `YoutubeAnalyticsScene.tsx:1116` 과 `InstagramAnalyticsScene.tsx:511` 의 `CONNECT_NOTICE_BTN`
 (`inline-flex items-center gap-3 h-20 px-10 [border:0] rounded-full bg-gray-000 … text-gray-1000`)이 **두 벌**로 똑같이 적혀 있고,
 `.louis-button` 을 물지 않는다. hover 는 `filter: brightness(90%)`, 누름은 `scale(0.98)` 로 LOUIS Button 의 상태 표현과도 다르다.
 

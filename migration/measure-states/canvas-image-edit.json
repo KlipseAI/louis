@@ -2,7 +2,7 @@
   "$schema": "./_schema.json",
   "area": "canvas-image-edit",
   "mode": "session",
-  "authoredAgainst": "54b62a8a",
+  "authoredAgainst": "97d4950e153d",
   "description": "노드캔버스 편집기(/nodecanvas?project=)의 패널 상태 하나(panel.image-edit)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 노드캔버스 편집기(/nodecanvas?project=)의 모달 · 패널 넷을 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). nodecanvas 영역의 analysis · image-edit.crop 은 인용이 앵커 54b62a8a 와 어긋나 있고 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다(시드는 같은 내보내기를 state-seeds/canvas-panels.mjs 가 다시 내보낸다). 새로 더한 둘: 툴바 도움말 단추로 연 CanvasHelpPanel(≥768 은 오른쪽 도킹, 좁으면 아래 시트 dialog) · 이미지 노드 메뉴 「Camera angle」로 연 AngleModal.",
   "recipes": [
     {
@@ -21,12 +21,12 @@
       "cite": [
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
-          "line": 12037,
+          "line": 11783,
           "expect": "onNodeContextMenu={staticInSection ? undefined : handleNodeContextMenu}"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
-          "line": 1757,
+          "line": 1777,
           "expect": "x: event.clientX,"
         },
         {
@@ -46,7 +46,7 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx",
-          "line": 7892,
+          "line": 7570,
           "expect": "const handleRequestImageEdit = useCallback"
         },
         {
@@ -61,22 +61,22 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
-          "line": 961,
+          "line": 889,
           "expect": "export function ImageEditModal({"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx",
-          "line": 798,
-          "expect": "{tEdit.tabSticker}"
+          "line": 728,
+          "expect": "label: tEdit.tabSticker"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 1892,
+          "line": 1953,
           "expect": "editImage: \"Edit image\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 1867,
+          "line": 1928,
           "expect": "tabSticker: \"Sticker\""
         },
         {

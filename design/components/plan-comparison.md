@@ -11,8 +11,8 @@ summary: 요금제마다 한 열을 세워, 각 플랜이 무엇을 주는지 �
 [DS-D-0092](../governance/decisions/DS-D-0092-plan-comparison.md)). 한 플랜만 내려 읽어도 그 플랜이 무엇을 주는지 끝까지 읽히고, 옆 열과는 같은 높이의
 같은 줄이 맞서 비교된다. 행 × 열 데이터 표가 필요하면 [Table](table.md) 이다. 요금제 한 단을 카드 한 장으로 보이는 것은 [Plan Tier Card](plan-tier-card.md) 다.
 
-제품 정본은 하나다 — `components/landing/sections/PricingSection.tsx:322-504` 의 `PlanComparisonTable`(통합 판 `54b62a8aa`)이 공개 가격
-(`components/landing/sections/PricingSection.tsx:703`)과 로그인 뒤 플랜 선택(`app/mypage/upgrade/UpgradePlanPageClient.tsx:907`) 두 자리에 선다.
+제품 정본은 하나다 — `components/landing/sections/PricingSection.tsx:214-409` 의 `PlanComparisonTable`(통합 판 `54b62a8aa`)이 공개 가격
+(`components/landing/sections/PricingSection.tsx:573`)과 로그인 뒤 플랜 선택(`app/mypage/upgrade/UpgradePlanPageClient.tsx:781`) 두 자리에 선다.
 
 ```html
 <section class="louis-plan-comparison" aria-labelledby="pc-title">
@@ -159,8 +159,8 @@ React 를 만들지 않는다 — 이 마크업 계약이 공개 계약이다.
 
 ## 제품에서 발견한 것
 
-- `/mypage/upgrade` 의 다크 대비 미달(옛 `--gray-900` · `--gray-700` 잉크)은 앵커 `54b62a8a` 에서 이미 풀렸다(`app/mypage/upgrade/UpgradePlanPageClient.tsx:329-336`).
+- `/mypage/upgrade` 의 다크 대비 미달(옛 `--gray-900` · `--gray-700` 잉크)은 앵커 `54b62a8a` 에서 이미 풀렸다(`app/mypage/upgrade/UpgradePlanPageClient.tsx:227-234`).
 - 체크(`gray-500`)가 대시(`gray-300`)보다 흐리다 — 「포함」이 더 조용하다. 제품 주석이 의도로 적었다(대시가 다크에서 읽히게 올린 결과,
-  `components/landing/sections/PricingSection.tsx:394-397`).
+  `components/landing/sections/PricingSection.tsx@54b62a8a:394-397`).
 - 열 · 묶음에 그룹 의미가 없다(맨 `div` · `ul`) — 레시피 마크업 계약이 더한다.
-- `[-webkit-overflow-scrolling:touch]` 는 낡은 속성이라 옮기지 않았다(`components/landing/sections/PricingSection.tsx:333`).
+- `[-webkit-overflow-scrolling:touch]` 는 낡은 속성이라 옮기지 않았다(`components/landing/sections/PricingSection.tsx@54b62a8a:333`).

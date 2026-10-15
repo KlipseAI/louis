@@ -31,8 +31,8 @@ authority: normative
    `.louis-banner-carousel__dot` 7px와 `[aria-current="true"]` 20px를, 전환을
    `--louis-motion-layout-change-*`(220ms · `cubic-bezier(0.4, 0, 0.2, 1)`)와
    `--louis-motion-control-hover-duration`(160ms)으로 세운다. 제품은 그것을 그대로 소비한다
-   (`appHomeSceneStyles.ts:436-439`의 `bannerDot`). **활성이 클래스가 아니라 `aria-current="true"`인 것도
-   그 이사에서 바뀐 것이다**(DS-D-0004) — 제품이 `AppHomeScene.tsx:960`에서 그 훅을 건다.
+   (`appHomeSceneStyles.ts:424-427`의 `bannerDot`). **활성이 클래스가 아니라 `aria-current="true"`인 것도
+   그 이사에서 바뀐 것이다**(DS-D-0004) — 제품이 `AppHomeScene.tsx:986`에서 그 훅을 건다.
    이 결정이 근거로 삼은 수치는 무너지지 않았고, 오히려 **그 수치가 DS로 들어왔다.**
 
 **그 폭이 곧 "여기가 지금 몇 번째인가"다.** 점은 라벨이 없으므로 폭 말고 현재 위치를 말하는 것이

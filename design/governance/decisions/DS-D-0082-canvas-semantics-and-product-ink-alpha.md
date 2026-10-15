@@ -96,12 +96,12 @@ X3 은 보드에서 묶이지 않는 칠의 대부분을 만든다 — 제품의
 
 | 토큰 | 라이트 | 다크 | 제품 근거 |
 | --- | --- | --- | --- |
-| `color-canvas-menu-surface`(신설) | `static/white` | `palette-gray/900` | `canvasMenuSurface.ts:14-15` · `index.tsx:492`. 다크는 덮지 않으므로 `bg-menu` 다크와 같은 칸 |
-| `color-node-card-stroke`(신설) | `static/white` | `palette-gray/700` | `index.tsx:441-442` |
-| `color-canvas-chip-surface` · `-hover`(있음) | `palette-gray/000` · `025` | `palette-gray/700` · `600` | `index.tsx:488-489` · `517-518` |
-| `color/node/chrome-btn-bg`(값 갱신) | `palette-gray/050` → `palette-gray/000` | `palette-gray/600` → `palette-gray/700` | `index.tsx:490` 이 알약 토큰을 읽고, 그 토큰을 캔버스 셸이 488 · 517 로 덮는다 |
-| `color-canvas-dot`(값 갱신) | `static-black-alpha/12` → `palette-gray-600-alpha/28`(원시 신설) | 그대로 | `index.tsx:530` |
-| `color/app/page-bg`(값 갱신) | `palette-gray/100` → `palette-gray/025` | 그대로 | `globals.css:804` |
+| `color-canvas-menu-surface`(신설) | `static/white` | `palette-gray/900` | `canvasMenuSurface.ts:14-15` · `index.tsx:510`. 다크는 덮지 않으므로 `bg-menu` 다크와 같은 칸 |
+| `color-node-card-stroke`(신설) | `static/white` | `palette-gray/700` | `index.tsx@54b62a8a:441-442` |
+| `color-canvas-chip-surface` · `-hover`(있음) | `palette-gray/000` · `025` | `palette-gray/700` · `600` | `index.tsx@54b62a8a:488-489` · `517-518` |
+| `color/node/chrome-btn-bg`(값 갱신) | `palette-gray/050` → `palette-gray/000` | `palette-gray/600` → `palette-gray/700` | `index.tsx@54b62a8a:490` 이 알약 토큰을 읽고, 그 토큰을 캔버스 셸이 488 · 517 로 덮는다 |
+| `color-canvas-dot`(값 갱신) | `static-black-alpha/12` → `palette-gray-600-alpha/28`(원시 신설) | 그대로 | `index.tsx:536` |
+| `color/app/page-bg`(값 갱신) | `palette-gray/100` → `palette-gray/025` | 그대로 | `globals.css:837` |
 
 **`bg-raised` 로 읽지 않는다.** 캔버스 메뉴 면은 지금 `bg-raised` 와 값이 두 테마 모두 같지만, 근거가 다르다 — 캔버스
 면은 「카드보다 한 칸 밝다」이고 `bg-raised` 는 앱의 떠 있는 면이다. 둘 중 하나가 움직이면 다른 하나는 따라가면
@@ -139,7 +139,7 @@ X3 은 보드에서 묶이지 않는 칠의 대부분을 만든다 — 제품의
 - LOUIS CSS 가 `color/gray/000-alpha/*` 를 읽는 곳은 없다 — 이 축의 변화는 Figma 결합과 제품 대조에만 닿는다.
   Segmented Code Input 의 Figma 칸 다섯(`color/gray/000-alpha/04 · 08 · 12 · 28 · 88`)은 라이트에서 순검정 바탕이 된다.
 - **Loading Word 의 잉크는 이번에 옮기지 못했다.** 제품은 `rgb(var(--gray-000-rgb)/NN%)`
-  (`components/ui/LoadingWord.tsx:8`)이고 레시피는 `fg-primary`(라이트 `#171b22`)다. 맞는 토큰은 `color-gray-000` 인데
+  (`components/ui/LoadingWord.tsx@54b62a8a:8`)이고 레시피는 `fg-primary`(라이트 `#171b22`)다. 맞는 토큰은 `color-gray-000` 인데
   `build-css` 의 원시 소비 검사 정규식이 `color-gray-` 를 원시 계열로 막는다(그 계열은 이미 `palette-gray` 로 옮겨
   갔으므로 정규식이 낡았다). 검사를 고치는 것은 이 결정의 범위 밖이라 후속으로 남긴다.
 - 보드의 묶이지 않은 칠 가운데 `000000` + 알파 15단계와 `ffffffb8`(캔버스 툴바 · 줌 트리거)는 Figma 변수를 밀고

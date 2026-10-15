@@ -24,7 +24,7 @@ summary: 노드 카드 헤더의 아이콘 버튼 — 면이 없고 호버에서
 
 ## 도움말 단추
 
-2026-10-07, 제품 `NodeHeaderActions.tsx:104`(`chore/landing-dead-walkthrough` @d040dce15)의
+2026-10-07, 제품 `NodeHeaderActions.tsx:109`(`chore/landing-dead-walkthrough` @d040dce15)의
 `NodeHelpAction` 이 모든 노드 머리에 붙는다. **새 톤이 아니라 중립 톤의 소비처가 하나 늘었다** —
 다운로드와 같은 `BUTTON_NEUTRAL` 클래스에 글리프만 다르고, 그래서 이 문서의 축(`Tone` · `State`)도
 CSS 선언도 늘지 않았다.
@@ -180,7 +180,7 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
 6. **도움말 글리프 `icon/question-circle` 을 등재했다(2026-10-07).** 2026-10-08 [Node Shell](node-shell.md) 헤더의
    `HelpButton` 칸에 꽂혀 Figma 에도 섰다(Node Shell Known deviations 12). 남은 결손은 없다 — 기록으로 남긴다.
 7. **제품 잉크가 한 단 올랐다.** 제품은 헤더 액션 셋 모두를 다크 `palette-gray-400` 으로 칠한다
-   (`NodeHeaderActions.tsx:50`, 제목과 같은 클래스 · 2026-09-11). 위 CSS 주석의 `palette-gray-500` 은
+   (`NodeHeaderActions.tsx:53`, 제목과 같은 클래스 · 2026-09-11). 위 CSS 주석의 `palette-gray-500` 은
    그 전의 값이다. `fg-secondary` 는 라이트가 정확히 같고 다크 `palette-gray-300` 이라 어긋남의 크기만
    두 단에서 한 단으로 줄었다 — [Node Shell](node-shell.md) Known deviations 3.
 8. **sm 의 잉크와 비활성이 제품과 다르다(DS-D-0084 §3).** 제품은 잉크 `palette-gray-500` 고정이고(다크 입력판 위 2.91:1)

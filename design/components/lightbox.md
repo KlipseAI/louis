@@ -10,7 +10,7 @@ summary: 썸네일을 눌러 그림 하나를 화면 가운데 크게 봅니다.
 그림 하나를 크게 보는 모달 창이다(`.louis-lightbox`, [DS-D-0086](../governance/decisions/DS-D-0086-lightbox.md)). 면 · 제목 · 푸터가 없고
 그림 자체가 창이다. 무엇을 **편집**하는 큰 창이면 [Dialog](dialog.md) `media-workbench` 이고, 작은 썸네일 칸 자체는 [Media Slot](media-slot.md)이다.
 제품 정본은 만들기 화면의 `components/scenes/create/ImageLightbox.tsx:12-57` 과 `components/scenes/create/useCreateSceneUi.ts:57-110` 이고,
-크리에이티브 미디어의 둘째 사본 `components/creative-media/CreativeMediaClient.tsx:1039-1060` 을 같은 부품으로 접는다(통합 판 `54b62a8aa`).
+크리에이티브 미디어의 둘째 사본 `components/creative-media/CreativeMediaClient.tsx:1045-1083` 을 같은 부품으로 접는다(통합 판 `54b62a8aa`).
 
 ```html
 <div class="louis-lightbox" role="dialog" aria-modal="true" aria-label="이미지 크게 보기"
@@ -136,11 +136,11 @@ summary: 썸네일을 눌러 그림 하나를 화면 가운데 크게 봅니다.
   고쳐 올렸다(두 테마 media 색).
 - 레이아웃 속성 넷(`top · left · width · height`)을 전이한다(`components/scenes/create/ImageLightbox.tsx:25-26`) — FLIP 으로 바꿨다.
   `backdrop-filter` · `border-radius` 전이는 값이 바뀌지 않아 죽어 있다.
-- 숫자 층 `z-[1400]`(`components/scenes/create/ImageLightbox.tsx:13`) · `z-[100]`(`components/creative-media/CreativeMediaClient.tsx:1041`) — 두 사본이 다른 층이다.
-- 모달 의미 · Esc · 포커스 이동 · 복귀가 없다. 둘째 사본은 `role` 만 있고 이름이 없다(`components/creative-media/CreativeMediaClient.tsx:1043-1044`).
+- 숫자 층 `z-[1400]`(`components/scenes/create/ImageLightbox.tsx:13`) · `z-[100]`(`components/creative-media/CreativeMediaClient.tsx@54b62a8a:1041`) — 두 사본이 다른 층이다.
+- 모달 의미 · Esc · 포커스 이동 · 복귀가 없다. 둘째 사본은 `role` 만 있고 이름이 없다(`components/creative-media/CreativeMediaClient.tsx:1049-1050`).
 - 그림 `alt` 가 영어 고정 「Enlarged preview」(`components/scenes/create/ImageLightbox.tsx:103`)이고 둘째 사본은 빈 `alt` 다. 액션 이름도 영어 고정이다.
 - 삭제가 확인 · 되돌리기 없이 즉시 일어난다.
 - 닫힘 타이머 280 이 CSS 와 따로 산다(`components/scenes/create/useCreateSceneUi.ts:109`).
 - 둘째 사본의 닫기 이름이 「뒤로」이고 글리프가 글자 `✕` 이며, 흰 12% 원의 경계가 스크림 위에서 1.43 이라 원이 보이지 않는다
-  (`components/creative-media/CreativeMediaClient.tsx:1052-1059`). 같은 부품으로 접으며 창 안 액션이 된다.
+  (`components/creative-media/CreativeMediaClient.tsx@54b62a8a:1052-1059`). 같은 부품으로 접으며 창 안 액션이 된다.
 - 호버가 `@media (hover: hover)` 밖이라 터치에서 탭 뒤 진한 면이 남는다(`components/scenes/create/ImageLightbox.tsx:52`).

@@ -14,7 +14,7 @@ authority: normative
 ## Context
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `command-palette` 가 있다. 제품의 전역 검색 · 실행 모달
-(`components/navigation/CommandPalette.tsx`, 955줄, 통합 판 `54b62a8aa`)은 사이드바 「검색」 버튼과 ⌘K 로 열리고(`components/navigation/Gnb.tsx:2828-2838`),
+(`components/navigation/CommandPalette.tsx`, 955줄, 통합 판 `54b62a8aa`)은 사이드바 「검색」 버튼과 ⌘K 로 열리고(`components/navigation/Gnb.tsx:2826-2836`),
 화면 위쪽(14vh)에 560 폭 유리 패널로 선다. 반경 · 그림자 · 헤어라인 · 메뉴 면 같은 LOUIS 토큰 일부를 물지만 행 · 그룹 제목 · 키캡 · 닫기를 자기 상수
 서른여 개로 다시 그린다.
 
@@ -42,7 +42,7 @@ LOUIS 에 대응이 없다. [Dialog](../../components/dialog.md)는 제목 · �
    기준을 바꾼다). 시작 자리 넷과 플라이아웃 위치 하나는 소비처가 주는 변수 다섯이다. 수명은 overlay 의 `data-louis-state` 어휘다.
 6. **접근성은 combobox + listbox + `aria-activedescendant` + Dialog 모달 계약(가둠 · inert · Esc · 복귀 · 스크롤 잠금) + 결과 수 `role="status"`** 를 문서
    계약으로 두고 제품 (나)에서 고친다.
-7. **아이콘 세트에 phosphor `arrow-down` 을 더한다** — 발의 ↓ 키(제품은 ↑ 를 돌려 그렸다, `components/navigation/CommandPalette.tsx:905-920`).
+7. **아이콘 세트에 phosphor `arrow-down` 을 더한다** — 발의 ↓ 키(제품은 ↑ 를 돌려 그렸다, `components/navigation/CommandPalette.tsx@54b62a8a:905-920`).
 8. **React 표면은 만들지 않는다.** 마크업 계약을 문서가 소유한다. use-overlay 로 띄울 수 있게 `.louis-overlay-panel.louis-command-palette` 되돌림을 레시피에 둔다.
    새 의존성 · 패키지 구조 없음.
 

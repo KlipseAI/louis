@@ -15,15 +15,15 @@ authority: normative
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `timeline` 이 있다. 제품 편집기에 시간축 부품이 둘 있고
 둘 다 화면 파일 안의 상수다 — 좁은 화면의 모바일 타임라인(`MobileTimeline.tsx` 1,089줄 · `mobileTimelineClass.ts` 의 `MOBILE_TIMELINE_CLASS` 296줄)과
-데스크톱 시퀀스 눈금자(`sequenceRuler.tsx` 의 `PremiereSequenceRuler`, 통합 판 `54b62a8aa`). 소비처는 편집기 모달 하나다(`VideoEditModal.tsx:12937` 타임라인 ·
-`VideoEditModal.tsx:13289` 눈금자).
+데스크톱 시퀀스 눈금자(`sequenceRuler.tsx` 의 `PremiereSequenceRuler`, 통합 판 `54b62a8aa`). 소비처는 편집기 모달 하나다(`VideoEditModal.tsx:12677` 타임라인 ·
+`VideoEditModal.tsx:13029` 눈금자).
 
 LOUIS 에는 시간축 위 **px 좌표에 클립을 절대 배치**하는 부품이 없다. [Segment Track](../../components/segment-track.md) 은 칸이 flex 로 흐르는
 「시간 순서 줄」이고 지도 · 줄 머리 격자를 갖는다. [Video Player](../../components/video-player.md) 의 스크러버는 한 줄 진행 바, [Slider](../../components/slider.md) 는
 네이티브 range 라 트랙 · 클립이 없다. 가운데 고정 재생헤드 · 스크롤 창 · 고른 클립의 트림 손잡이도 새 조형이다.
 
 대비 · 접근성 부채가 있다. 모바일 눈금 글자 흰색 56%(파인 면 위 라이트 1.07) · 선 흰색 24%(라이트 1.03), 재생헤드 · 선택 고리 · 트림 괄호
-`accent-primary`(라이트 2.98), 필름 전 영상 클립 길이 글자(흰 글자 on `accent-secondary` 라이트 1.32), 접근 이름 없는 「+」 버튼(`MobileTimeline.tsx:978-997`),
+`accent-primary`(라이트 2.98), 필름 전 영상 클립 길이 글자(흰 글자 on `accent-secondary` 라이트 1.32), 접근 이름 없는 「+」 버튼(`MobileTimeline.tsx@54b62a8a:978-997`),
 보조기술에 나가지 않는 고름 상태(`aria-pressed` 없음). 데스크톱 눈금자는 `html[data-theme=light]` 선택자 여덟로 테마를 가른다.
 
 ## Decision

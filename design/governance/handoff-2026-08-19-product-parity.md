@@ -303,7 +303,7 @@ Figma **Product inventory** 페이지에 표본이 그려져 있다. 값은 전�
   표본에 넣어야 그릴 수 있다. 카드에 그렇게 적혀 있다.
 - **컴포넌트화는 아직이다** — 지금은 프레임이다. 합치기 결정이 끝난 종류부터
   COMPONENT_SET으로 올리는 것이 다음 단계다. 확정된 것: 모달=appHome(빨간 삭제 버튼),
-  아이콘 버튼=iconButton(Gnb.tsx:197). `migration/consolidation-choices.json`에 있다.
+  아이콘 버튼=iconButton(Gnb.tsx:198). `migration/consolidation-choices.json`에 있다.
 
 ## 다음 순서
 
@@ -399,7 +399,7 @@ DS 캐스케이드에 대한 참인 진술이지 **제품을 확인한 진술이
   secondary·ghost만 덮는다) Default의 `background-danger`가 그대로 남는다. 제품
   `overlayDeleteBtn`은 **반대다** — 평소 `background:transparent` · `color:gray-400 92%`이고
   hover에서만 `accent-red-600 88%`를 채우고 전경을 `palette-gray-000 95%`로 뒤집는다
-  (`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:1916`,
+  (`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:1862`,
   `klipse-web` `origin/design`). 극성이 반대이므로 어느 쪽을 정본으로 삼을지 판정이 필요하다.
 - `icon-button.states.secondary.Hover.foreground` — 확인했다. 제품 `backButton`은 hover에서
   전경을 올린다(`[&:hover]:[color:var(--palette-gray-900)]`, 다크는

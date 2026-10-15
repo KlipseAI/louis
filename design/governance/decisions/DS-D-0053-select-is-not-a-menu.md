@@ -34,14 +34,14 @@ DS 의 `ActionMenu`·`CompositePopover` 가 덮는다고 결론지었다.
 | 자리 | 높이 | 곡률 | 좌우 여백 | 간격 | 캐럿 |
 | --- | ---: | --- | --- | ---: | --- |
 | `app/aws/signup/page.tsx:397` 언어 | 36 | 8 | 정사각 | — | 없음(`hideCaret`) |
-| `components/navigation/Gnb.tsx:3314` 언어 | 32 | 10 | 12 · 12 | 6 | 6px 테두리 셰브론 |
+| `components/navigation/Gnb.tsx:3321` 언어 | 32 | 10 | 12 · 12 | 6 | 6px 테두리 셰브론 |
 | `SubscriptionScene.tsx:1092` 정렬 | 28(min) | 8 | 10 · 10 | 6 | 10 |
 | `create/ComposerBar.tsx:519` 모델 | 32 | 알약 | 12 · 32 | — | `▼` 12 |
 | `VideoEditModal.tsx:11616` 프리뷰 줌 | 24 | 8 | 8 · 6 | 4 | 12 |
 | `videoEditParts/CompositionInspector.tsx:205` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/EditorSettingsPanel.tsx:83` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/OverlayInspector.tsx:937` 글꼴 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
-| `videoEditParts/OverlayInspector.tsx:1109` 굵기 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
+| `videoEditParts/OverlayInspector.tsx:1127` 굵기 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 
 `Gnb` 가 물기 때문에 **사실상 전 라우트**에 뜬다. 관리자 도구가 아니라 배포 화면이고,
 0벌이 아니라 아홉이다.

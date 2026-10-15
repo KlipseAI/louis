@@ -15,10 +15,10 @@ summary: 화면 가운데 고정 재생헤드 아래로 트랙이 흐르는 편�
 같은 파일의 짝 블록 **Timeline Ruler**(`.louis-timeline-ruler`, 아래 「Timeline Ruler — 시간 눈금자」 절)는 시간 눈금이다. 데스크톱 시퀀스
 타임라인 위의 3단 눈금과, 이 셸 안의 촘촘한 눈금(`data-layout="compact"`)이 같은 블록이다.
 
-제품 정본은 `components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx:823-1085` ·
-`components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts:4-296` ·
-`components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx:33-150`(통합 판 `54b62a8aa`)이고 소비처는 편집기 모달 하나
-(`components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:12937` 타임라인 · `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13289` 눈금자)다.
+제품 정본은 `components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx@54b62a8a:823-1085` ·
+`components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts:7-46` ·
+`components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx:28-34`(통합 판 `54b62a8aa`)이고 소비처는 편집기 모달 하나
+(`components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:12677` 타임라인 · `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:13029` 눈금자)다.
 
 ```html
 <div class="louis-timeline" style="--louis-timeline-extent: 960px">
@@ -88,7 +88,7 @@ summary: 화면 가운데 고정 재생헤드 아래로 트랙이 흐르는 편�
 
 ## 기하는 소비처가 준다
 
-시간과 픽셀을 잇는 식 `xOf`(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx:271`)와 배율은 프로젝트마다 다르고
+시간과 픽셀을 잇는 식 `xOf`(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx:284`)와 배율은 프로젝트마다 다르고
 CSS 가 할 수 없다. 그 결과만 변수로 받는다.
 
 | 변수 | 단위 | 다는 자리 | 기본값 |
@@ -166,7 +166,7 @@ React 를 만들지 않는다 — 이 마크업 계약이 공개 계약이다.
 - 늘 `aria-hidden` 이다. 끌어 시킹하는 면이면 `data-interactive="true"` — 포인터 전용이고 키보드 시킹은 편집기 단축키가 갖는다.
 - 잉크는 적응 시맨틱이다 — 기본 눈금 `gray-000-alpha-80` · 글자 `fg-primary`, 촘촘한 판 선 `gray-000-alpha-48` · 글자 `gray-000-alpha-56`.
   제품의 테마 분기 여덟 · 그림자 넷은 접었다(파인 면 위라 그림자가 할 일이 없다).
-- 제품의 재생헤드 캡(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx:156-178`)과 격자선(`SequenceGridLines`)은 소비처가 없어 올리지 않았다.
+- 제품의 재생헤드 캡(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx@54b62a8a:156-178`)과 격자선(`SequenceGridLines`)은 소비처가 없어 올리지 않았다.
 
 ```html
 <div class="louis-timeline-ruler" aria-hidden="true">
@@ -187,11 +187,11 @@ React 를 만들지 않는다 — 이 마크업 계약이 공개 계약이다.
 3. **트림 · 옮기기는 포인터 전용이다.** 제품에 키보드 대안이 없다(인스펙터에도 시작 · 끝 값이 없다) — 제품 (나) 과제(DS-D-0089 판단 12).
 4. **고쳐 올린 값** — 모바일 눈금 글자 흰색 56% → `gray-000-alpha-56`, 선 24% → `-48`, 재생헤드 · 고리 · 괄호 `accent-primary` → `timeline-accent`,
    영상 길이 흰 글자 + 그림자 → media 배지, 데스크톱 라이트 눈금 `gray-900` 72% → 검정 80%(DS-D-0084 3항).
-5. **레시피는 719 경계로 숨지 않는다** — 제품 셸의 `display` 분기(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts:9-10`)는 편집기 배치의 일이다.
+5. **레시피는 719 경계로 숨지 않는다** — 제품 셸의 `display` 분기(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts:11-12`)는 편집기 배치의 일이다.
 
 ## 제품에서 발견한 것
 
-- 「+」 버튼에 접근 이름이 없다(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx:978-997`).
+- 「+」 버튼에 접근 이름이 없다(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx@54b62a8a:978-997`).
 - 영상 클립 글자가 필름이 오기 전 라이트에서 1.32 다 — 흰 글자가 `accent-secondary` 위에 선다.
-- 흐르는 층의 `left` 는 폭을 재지 않아도 `50%` 로 같다 — 첫 렌더 폴백 375(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx:31`)가 만드는 한 프레임 어긋남이 레시피에서는 없다.
+- 흐르는 층의 `left` 는 폭을 재지 않아도 `50%` 로 같다 — 첫 렌더 폴백 375(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx:37`)가 만드는 한 프레임 어긋남이 레시피에서는 없다.
 - 고름이 클래스로만 표시되고 보조기술에 나가지 않는다(`aria-pressed` 없음).

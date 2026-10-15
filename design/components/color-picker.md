@@ -11,9 +11,9 @@ summary: 색 하나를 채도 · 밝기 면, 색조 · 불투명도 띠, 헥스 
 [Menu / Popover](menu-popover.md) 의 면 안에 들어가는 **내용**이고, 여는 칩은 [Color Swatch](color-swatch.md) 다. 칩 옆에서 헥스만 고치면 되는 자리는 이 판이 아니라
 Color Swatch + Text Field 다. 미리 정한 색조 중 하나를 고르는 섹션 노드 팔레트는 [Canvas Section](canvas-section.md) 의 짝 블록이다(DS-D-0093 판정 11).
 
-제품 정본은 영상 편집기 인스펙터의 색 팝오버 `components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx:243-404`(통합 판 `54b62a8aa`)다.
-호출부는 `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:15399` 하나, 트리거는 인스펙터 줄의 16 칩
-(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx:659` · `:728` · `:755`)이다.
+제품 정본은 영상 편집기 인스펙터의 색 팝오버 `components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx@54b62a8a:243-404`(통합 판 `54b62a8aa`)다.
+호출부는 `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:15149` 하나, 트리거는 인스펙터 줄의 16 칩
+(`components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx:665` · `:728` · `:755`)이다.
 
 **있는 부품을 그대로 받는다.** 면은 `.louis-popover`(안쪽 6, LOUIS overlay 의 composite popover 로 띄운다), 닫기는 [Icon Button](icon-button.md) sm ghost +
 `icon/x`, 스포이드 글리프는 `icon/eyedropper`. 이 부품이 소유하는 것은 2차원 면 · 띠 둘 · 입력 줄 · 색 격자다. Slider 의 변형이 아니다 — 띠가 색 공간이고
@@ -196,14 +196,14 @@ Color Swatch + Text Field 다. 미리 정한 색조 중 하나를 고르는 섹�
 
 ## 제품에서 발견한 것
 
-1. **키보드로 조작할 수 없다.** 면 · 색조 · 알파가 `role="slider"` + `tabIndex={0}` 인데 키 처리가 없다(`ColorPopover.tsx:641-712`). 포커스는 가는데 값이 안 바뀐다.
-   면은 `aria-valuenow` 가 밝기 하나뿐이다(`ColorPopover.tsx:647`).
-2. **대화에 이름이 없고 열어도 포커스가 옮지 않는다**(`ColorPopover.tsx:626`). 트리거에 `aria-haspopup` · `aria-expanded` 가 없다(`ColorPopover.tsx:75-87`).
-3. **라이트 덮개가 상태를 이긴다** — 호버 테두리 · 입력 포커스 면이 라이트에서 서지 않는다(파일 머리 주석이 스스로 적었다, `ColorPopover.tsx:13-21`).
-4. **대비 미달** — 「이 페이지에서」 라벨 3.19 · 3.37(`ColorPopover.tsx:382`), `%` 입력 면 위 2.93 · 3.14(`ColorPopover.tsx:375`), 칸 경계 1.88 · 1.31
-   (`ColorPopover.tsx:402-403`), 표식 헤어라인 흰 바닥 2.23(`ColorPopover.tsx:297`).
-5. 면이 220 정사각이라 256 폭 띠 · 입력과 오른쪽 끝이 36 어긋난다(`ColorPopover.tsx:423`). 격자 칸이 1fr 열 안에서 왼쪽에 붙는다(`ColorPopover.tsx:389`).
-6. 표식이 면 가장자리에서 잘린다(`overflow-hidden`, `ColorPopover.tsx:280`). 흰 겹이 `#fafafa` 라 채도 0 · 밝기 1 이 FFFFFF 가 아니다(`ColorPopover.tsx:286`).
-7. 색 칸 이름이 CSS 문자열이다(`ColorPopover.tsx:783`).
-8. 숫자 z-index `z-[10300]`(`ColorPopover.tsx:252`), 창 전역 캡처 리스너로 바깥 누름 · Esc 를 잡는다(`ColorPopover.tsx:511-534`).
-9. 칸 · 스포이드 호버에 `(hover: hover)` 가드가 없다(`ColorPopover.tsx:395` · `:330`).
+1. **키보드로 조작할 수 없다.** 면 · 색조 · 알파가 `role="slider"` + `tabIndex={0}` 인데 키 처리가 없다(`ColorPopover.tsx@54b62a8a:641-712`). 포커스는 가는데 값이 안 바뀐다.
+   면은 `aria-valuenow` 가 밝기 하나뿐이다(`ColorPopover.tsx@54b62a8a:647`).
+2. **대화에 이름이 없고 열어도 포커스가 옮지 않는다**(`ColorPopover.tsx:501`). 트리거에 `aria-haspopup` · `aria-expanded` 가 없다(`ColorPopover.tsx@54b62a8a:75-87`).
+3. **라이트 덮개가 상태를 이긴다** — 호버 테두리 · 입력 포커스 면이 라이트에서 서지 않는다(파일 머리 주석이 스스로 적었다, `ColorPopover.tsx@54b62a8a:13-21`).
+4. **대비 미달** — 「이 페이지에서」 라벨 3.19 · 3.37(`ColorPopover.tsx@54b62a8a:382`), `%` 입력 면 위 2.93 · 3.14(`ColorPopover.tsx@54b62a8a:375`), 칸 경계 1.88 · 1.31
+   (`ColorPopover.tsx@54b62a8a:402-403`), 표식 헤어라인 흰 바닥 2.23(`ColorPopover.tsx@54b62a8a:297`).
+5. 면이 220 정사각이라 256 폭 띠 · 입력과 오른쪽 끝이 36 어긋난다(`ColorPopover.tsx@54b62a8a:423`). 격자 칸이 1fr 열 안에서 왼쪽에 붙는다(`ColorPopover.tsx@54b62a8a:389`).
+6. 표식이 면 가장자리에서 잘린다(`overflow-hidden`, `ColorPopover.tsx@54b62a8a:280`). 흰 겹이 `#fafafa` 라 채도 0 · 밝기 1 이 FFFFFF 가 아니다(`ColorPopover.tsx@54b62a8a:286`).
+7. 색 칸 이름이 CSS 문자열이다(`ColorPopover.tsx@54b62a8a:783`).
+8. 숫자 z-index `z-[10300]`(`ColorPopover.tsx@54b62a8a:252`), 창 전역 캡처 리스너로 바깥 누름 · Esc 를 잡는다(`ColorPopover.tsx:347-372`).
+9. 칸 · 스포이드 호버에 `(hover: hover)` 가드가 없다(`ColorPopover.tsx@54b62a8a:395` · `:330`).

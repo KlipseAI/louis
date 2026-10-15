@@ -42,12 +42,12 @@ authority: normative
 | --- | --- | --- |
 | 아바타 한 변 | `28px` | `Gnb.tsx:1452` |
 | 링과 아바타 사이 | `2px` | `Gnb.tsx:1456` |
-| 링 두께 | `2px` | `Gnb.tsx:1457` |
-| 한 변 | `avatar + (gap + width) × 2` = **36** | `Gnb.tsx:1458` |
-| 반경 | `0` | `Gnb.tsx:1473` |
-| 면 | `transparent` | `Gnb.tsx:1474` |
-| 그림자 | `none` | `Gnb.tsx:1475` |
-| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1482` |
+| 링 두께 | `2px` | `Gnb.tsx:1458` |
+| 한 변 | `avatar + (gap + width) × 2` = **36** | `Gnb.tsx:1459` |
+| 반경 | `0` | `Gnb.tsx:1474` |
+| 면 | `transparent` | `Gnb.tsx:1475` |
+| 그림자 | `none` | `Gnb.tsx:1476` |
+| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1483` |
 
 **원장 자신이 이것을 이미 증명하고 있었다.** 열다섯 노드의 **직계 자식이 전부
 `Avatar/Size=md` 28×28 인스턴스다**(`byInstanceSet` 의 `Avatar: 15`). 즉 이 자리는 「대응이 없는
@@ -65,11 +65,11 @@ authority: normative
 | 축 | 값 | 좌표 |
 | --- | --- | --- |
 | 트랙 패딩 | `4px` | `myPageSceneStyles.ts:978` |
-| 트랙 반경 | `radius-control`(12) | `myPageSceneStyles.ts:979` |
-| 세그먼트 높이 | `28px` | `myPageSceneStyles.ts:942` |
-| 세그먼트 좌우 | `0 12px` | `myPageSceneStyles.ts:943` |
-| 세그먼트 반경 | `radius-control-sm`(8) | `myPageSceneStyles.ts:945` |
-| 썸 | `top: 4` · 높이 `28` · 반경 8 | `myPageSceneStyles.ts:960`·`989`·`990` |
+| 트랙 반경 | `radius-control`(12) | `myPageSceneStyles.ts:882` |
+| 세그먼트 높이 | `28px` | `myPageSceneStyles.ts:845` |
+| 세그먼트 좌우 | `0 12px` | `myPageSceneStyles.ts:846` |
+| 세그먼트 반경 | `radius-control-sm`(8) | `myPageSceneStyles.ts:848` |
+| 썸 | `top: 4` · 높이 `28` · 반경 8 | `myPageSceneStyles.ts:863`·`989`·`990` |
 | 트랙 높이 | `4 + 28 + 4` = **36** | 선언 없음(파생) |
 
 패딩 4 · 트랙 반경 12 · 세그먼트 반경 8 · 세그먼트 좌우 12 · 타이포 14 는 **LOUIS `lg` 와
@@ -260,14 +260,14 @@ Figma 도 같다 — `settings` 트랙만 세로가 hug 이고, 되읽기가 36 
 
 | 축 | 선언 | 좌표 |
 | --- | --- | --- |
-| 아바타 한 변 | `--profile-avatar-size` — **고른 값** | `Gnb.tsx:1470` |
-| 링과 아바타 사이 | `--profile-ring-gap` | `Gnb.tsx:1474` |
-| 링 두께 | `--profile-ring-width` | `Gnb.tsx:1475` |
-| 한 변 | `calc(아바타 + (간격 + 두께) × 2)` — **계산값** | `Gnb.tsx:1476`, 폭 · 높이가 그것을 읽는다(`:1478` · `:1479`) |
-| 반경 | `0` | `Gnb.tsx:1491` |
-| 면 | `transparent` | `Gnb.tsx:1492` |
-| 그림자 | `none` | `Gnb.tsx:1493` |
-| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1500` · `:1502` |
+| 아바타 한 변 | `--profile-avatar-size` — **고른 값** | `Gnb.tsx:1471` |
+| 링과 아바타 사이 | `--profile-ring-gap` | `Gnb.tsx:1475` |
+| 링 두께 | `--profile-ring-width` | `Gnb.tsx:1476` |
+| 한 변 | `calc(아바타 + (간격 + 두께) × 2)` — **계산값** | `Gnb.tsx:1477`, 폭 · 높이가 그것을 읽는다(`:1478` · `:1479`) |
+| 반경 | `0` | `Gnb.tsx:1492` |
+| 면 | `transparent` | `Gnb.tsx:1493` |
+| 그림자 | `none` | `Gnb.tsx:1494` |
+| 링 자신 | `::after` 의 conic-gradient, 반경은 알약 | `Gnb.tsx:1501` · `:1502` |
 
 그래서 §1 의 「36 은 그 아바타(28)에 링이 더한 8 이다」와 Decision 1 의 「`28 + (2 + 2) × 2 = 36`」은 이렇게 읽는다 —
 **한 변 = 아바타 + (간격 + 두께) × 2 이고, 수는 아바타 칸을 따른다.** 판정에 필요한 것은 식과 계약(반경 0 · 면 투명 ·
@@ -296,7 +296,7 @@ Figma 도 같다 — `settings` 트랙만 세로가 hug 이고, 되읽기가 36 
 
 ### 같은 이동이 상단 바의 높이를 함께 낮췄다
 
-바는 높이를 선언하지 않으므로(`Gnb.tsx:460` · `:483`) 그 높이도 링을 따르는 계산값이다(패딩 8 + 가장 큰 자식 + 패딩 8 +
+바는 높이를 선언하지 않으므로(`Gnb.tsx:461` · `:483`) 그 높이도 링을 따르는 계산값이다(패딩 8 + 가장 큰 자식 + 패딩 8 +
 헤어라인). Figma 셸 매처가 그 결과를 수로 물던 자리를 구조 판정으로 바꿨고, 앱 셸 러너 · 계획은 높이를 hug 하도록 다시
 지었다 — **라이브 적용 전이다.** 라이브 세트는 아직 높이를 FIXED 로 굳힌 옛 구조이고, 적용 여부는
 [Updates](../../updates/README.md) (131) 「라이브 적용 — 현황」이 갖는다.

@@ -11,8 +11,8 @@ summary: 달력에서 날짜를, 세 열에서 시각을 고릅니다. 면은 �
 날짜 모드는 달 머리 · 요일 · 6주 42칸이고, 시각 모드는 오전/오후 · 시 · 분 세 열이다. **면은 없다** — 팝오버로 띄우면
 [Menu / Popover](menu-popover.md) 의 composite 면에, 화면 안에 두면 소비처 카드에 놓인다. 값 하나를 한 열 목록에서 고르는 자리는 [Select](select.md)다.
 
-제품 정본은 `components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx:54-180`(통합 판 `54b62a8aa`) — 유튜브 노드 예약
-(`components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx:1497` · `:1510`)이 쓰고, 게시 흐름의 인라인 달력(`components/scenes/create/PublishFlow.tsx:347-406`)이
+제품 정본은 `components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx@54b62a8a:54-180`(통합 판 `54b62a8aa`) — 유튜브 노드 예약
+(`components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx:1500` · `:1510`)이 쓰고, 게시 흐름의 인라인 달력(`components/scenes/create/PublishFlow.tsx:437-473`)이
 같은 해부를 따로 그린다.
 
 **있는 부품을 그대로 받는다.** 면은 `.louis-popover[data-kind="composite-popover"]`(캔버스 안이면 `data-louis-scope="canvas"` — 라이트 흰색),
@@ -218,26 +218,26 @@ Tab 은 대화상자 안에서 돈다(이동 · 격자 한 자리 · 「오늘�
 
 ## 제품에서 발견한 것
 
-1. **모달이라고 말하지만 모달이 아니다.** `aria-modal={true}`(`components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx:390` · `:621`)인데 열 때
-   포커스가 들어가지 않고, 가두지 않고, 닫혀도 트리거로 돌아가지 않는다. Esc 는 문서 전체 `keydown` 으로 잡는다(`YoutubeSchedulePickers.tsx:329-331`).
+1. **모달이라고 말하지만 모달이 아니다.** `aria-modal={true}`(`components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx:424` · `:621`)인데 열 때
+   포커스가 들어가지 않고, 가두지 않고, 닫혀도 트리거로 돌아가지 않는다. Esc 는 문서 전체 `keydown` 으로 잡는다(`YoutubeSchedulePickers.tsx:273-275`).
    키보드 사용자는 Tab 으로 날짜 칸 42개를 하나씩 지나가야 한다(방향키가 없다).
-2. **날짜 칸 이름이 숫자뿐이다**(`YoutubeSchedulePickers.tsx:441`) — 「13」만 읽혀 무슨 달 무슨 요일인지 모른다. 요일 머리는 `span` 이라 열 머리로 이어지지 않는다
-   (`YoutubeSchedulePickers.tsx:418`).
-3. **시각 선택이 색으로만 말한다** — 항목이 `button` 인데 `aria-pressed` · `aria-selected` 가 없다(`YoutubeSchedulePickers.tsx:640-650` · `:662-674` · `:685-697`).
-   오전/오후 열은 이름이 없다(`YoutubeSchedulePickers.tsx:630-632`).
-4. **막힌 시각 항목이 눌릴 것처럼 보인다** — 비활성 규칙이 없어 호버 면 · `pointer` 가 그대로다(`YoutubeSchedulePickers.tsx:163-164`).
-5. **다크 시각 우물이 사라진다**(`gray-900` = 팝오버 면, 1.00, `YoutubeSchedulePickers.tsx:160`), **라이트 항목 호버가 우물에 녹는다**(`pg-100` / `pg-100`, 1.00,
-   `YoutubeSchedulePickers.tsx:170`).
-6. **선택 칸 면 대비 미달** — 1.77 · 2.57(`YoutubeSchedulePickers.tsx:92-94`), 시각 우물 위 1.31 · 2.57(`YoutubeSchedulePickers.tsx:173-176`).
-7. **요일 줄과 날짜 칸의 열이 어긋난다** — 열 사이 2 대 4(`YoutubeSchedulePickers.tsx:72` · `:79`).
-8. **높이 추정이 실제와 다르다** — 360 · 280(`YoutubeSchedulePickers.tsx:185` · `:187`) 대 실제 371 · 234. 위로 뒤집으면 날짜 팝오버가 앵커를 3px 덮고
-   시각 팝오버는 46px 뜬다(`YoutubeSchedulePickers.tsx:225-227`).
-9. 「선택 + 지난 날」의 다크 전용 호버 비대칭을 일부러 옮겼다(`YoutubeSchedulePickers.tsx:110-121`) — 원본 모듈 CSS 의 특이도 사고를 보존한 것이다.
+2. **날짜 칸 이름이 숫자뿐이다**(`YoutubeSchedulePickers.tsx:524`) — 「13」만 읽혀 무슨 달 무슨 요일인지 모른다. 요일 머리는 `span` 이라 열 머리로 이어지지 않는다
+   (`YoutubeSchedulePickers.tsx@54b62a8a:418`).
+3. **시각 선택이 색으로만 말한다** — 항목이 `button` 인데 `aria-pressed` · `aria-selected` 가 없다(`YoutubeSchedulePickers.tsx@54b62a8a:640-650` · `:662-674` · `:685-697`).
+   오전/오후 열은 이름이 없다(`YoutubeSchedulePickers.tsx@54b62a8a:630-632`).
+4. **막힌 시각 항목이 눌릴 것처럼 보인다** — 비활성 규칙이 없어 호버 면 · `pointer` 가 그대로다(`YoutubeSchedulePickers.tsx@54b62a8a:163-164`).
+5. **다크 시각 우물이 사라진다**(`gray-900` = 팝오버 면, 1.00, `YoutubeSchedulePickers.tsx@54b62a8a:160`), **라이트 항목 호버가 우물에 녹는다**(`pg-100` / `pg-100`, 1.00,
+   `YoutubeSchedulePickers.tsx@54b62a8a:170`).
+6. **선택 칸 면 대비 미달** — 1.77 · 2.57(`YoutubeSchedulePickers.tsx@54b62a8a:92-94`), 시각 우물 위 1.31 · 2.57(`YoutubeSchedulePickers.tsx@54b62a8a:173-176`).
+7. **요일 줄과 날짜 칸의 열이 어긋난다** — 열 사이 2 대 4(`YoutubeSchedulePickers.tsx@54b62a8a:72` · `:79`).
+8. **높이 추정이 실제와 다르다** — 360 · 280(`YoutubeSchedulePickers.tsx:94` · `:187`) 대 실제 371 · 234. 위로 뒤집으면 날짜 팝오버가 앵커를 3px 덮고
+   시각 팝오버는 46px 뜬다(`YoutubeSchedulePickers.tsx:134-136`).
+9. 「선택 + 지난 날」의 다크 전용 호버 비대칭을 일부러 옮겼다(`YoutubeSchedulePickers.tsx@54b62a8a:110-121`) — 원본 모듈 CSS 의 특이도 사고를 보존한 것이다.
    레시피는 선택이 이기는 한 규칙으로 접는다.
-10. 바닥의 `pt-4`(`YoutubeSchedulePickers.tsx:130`)는 구분선이 없는데 남은 여백이다.
-11. **게시 흐름 달력이 영어 고정이다** — 요일 `["Su",…]`(`components/scenes/create/PublishFlow.tsx:259`), 이동 이름 `"Previous month"` · `"Next month"`
-    (`PublishFlow.tsx:353` · `:363`), 달 이름은 브라우저 로캘(`PublishFlow.tsx:254`). 요일 대비 3.45(`PublishFlow.tsx:113`). **달을 넘기면 값이 바뀐다**
-    (`PublishFlow.tsx:244-252`) — 지난 달로 넘기면 지난 날이 예약값이 된다. 주 수가 5–6 으로 바뀌어 높이가 뛴다(`PublishFlow.tsx:235-238`).
-    시각 입력이 라이트 테마에서도 `color-scheme: dark` 다(`PublishFlow.tsx:69`).
-12. 예약 트리거의 자리표시 잉크가 32%(`components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx:544-547`)라 대비 미달이다 — 트리거는 `node-shell` `__field`
+10. 바닥의 `pt-4`(`YoutubeSchedulePickers.tsx@54b62a8a:130`)는 구분선이 없는데 남은 여백이다.
+11. **게시 흐름 달력이 영어 고정이다** — 요일 `["Su",…]`(`components/scenes/create/PublishFlow.tsx@54b62a8a:259`), 이동 이름 `"Previous month"` · `"Next month"`
+    (`PublishFlow.tsx@54b62a8a:353` · `:363`), 달 이름은 브라우저 로캘(`PublishFlow.tsx@54b62a8a:254`). 요일 대비 3.45(`PublishFlow.tsx@54b62a8a:113`). **달을 넘기면 값이 바뀐다**
+    (`PublishFlow.tsx:249-257`) — 지난 달로 넘기면 지난 날이 예약값이 된다. 주 수가 5–6 으로 바뀌어 높이가 뛴다(`PublishFlow.tsx:240-243`).
+    시각 입력이 라이트 테마에서도 `color-scheme: dark` 다(`PublishFlow.tsx:73`).
+12. 예약 트리거의 자리표시 잉크가 32%(`components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx:547-550`)라 대비 미달이다 — 트리거는 `node-shell` `__field`
     회차 몫이라 여기서 고치지 않고 그 회차에 넘긴다.

@@ -15,7 +15,7 @@ authority: normative
 
 원장의 `components/scenes/VideoEditProjectPicker.tsx#VideoEditProjectPickerContent` 가 `needed` 로 남아 있었다(통합 판 `54b62a8aa`). 영상 편집기 에셋 패널의
 「프로젝트에서 가져오기」 본문이다(`AssetPanel.tsx:1432`) — Finder 식 두 단계: 프로젝트 목록(폴더 글리프 · 이름 · 체브론 행) → 그 프로젝트의 영상 목록(체크박스 ·
-16:9 썸네일 · 종류 배지 또는 노드 아이콘 · 이름 행) + 아래 가져오기 버튼(`VideoEditProjectPicker.tsx:21-168`).
+16:9 썸네일 · 종류 배지 또는 노드 아이콘 · 이름 행) + 아래 가져오기 버튼(`VideoEditProjectPicker.tsx:21-161`).
 
 있는 것: 프로젝트 행은 [Selectable List Row](../../components/selectable-list-row.md) 의 이동 행(`data-layout="link"`)이 이미 「영상 편집기 프로젝트 피커가
 그 자리다」라고 적는다. 체크박스는 `louis-checkbox` 를 문다. 로딩은 [Skeleton](../../components/skeleton.md) 이 그릴 수 있다. 없는 것: 여럿 고르기 행(Selectable List

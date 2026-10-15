@@ -155,8 +155,8 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 (`profileTrigger`) 두께·간격·지름 식·색을 그대로 옮겼다.
 
 **기준 내용은 제품 프로필 아바타다.** 제품 프로필 트리거의 한 변은 아바타 + (링 간격 + 링 두께) × 2 로
-계산되고(`Gnb.tsx:1476`), 선언은 아바타 · 간격 · 두께 셋이다 — `--profile-avatar-size`를 `profileTrigger` 한 곳이
-24px로 갖는다(`Gnb.tsx:1470`, ≤480px 재고정도 24px `:1507`). 기록은 그 아바타를 `contentSize` 로, 식을 푼 지름을
+계산되고(`Gnb.tsx:1477`), 선언은 아바타 · 간격 · 두께 셋이다 — `--profile-avatar-size`를 `profileTrigger` 한 곳이
+24px로 갖는다(`Gnb.tsx:1471`, ≤480px 재고정도 24px `:1507`). 기록은 그 아바타를 `contentSize` 로, 식을 푼 지름을
 `size` 로 두고 이 문서는 지름을 수로 적지 않는다. 제품 앵커 `6f6282c1`(2026-09-14 소유자 요청)이 모든 페이지의
 프로필 버튼을 캔버스 에디터 헤더와 같은 크기로 맞추기 전에는 기본 아바타가 28이었고 ProjectHeader 슬롯만 24로 덮어
 썼다. 그래서 DS에서 그 모습을 내려면 [Avatar](avatar.md)의 `sm`(24)을 감싼다 — 기본 `md`(28)를 감싸면 지름도 두
@@ -204,7 +204,7 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
   hug 한다, [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 28번), 라이브 표본(`components.AppTopBar.geometry.topBar.parts.Trailing`)은
   아직 옛 링 크기다. 마스터를 옮길 때 AppTopBar 의 되읽기도 함께 다시 뜬다.
 
-- **양방향 링의 호 끝이 둥글지 않고 바탕 · 호 두께가 같다.** 제품은 SVG 호에 둥근 마개 · 바탕 1.2 / 호 1.6 이고(`ColorValueRing.tsx:60-83`),
+- **양방향 링의 호 끝이 둥글지 않고 바탕 · 호 두께가 같다.** 제품은 SVG 호에 둥근 마개 · 바탕 1.2 / 호 1.6 이고(`ColorValueRing.tsx@54b62a8a:60-83`),
   레시피는 conic 한 겹이라 마개가 각지고 두 겹이 `border-width-ring` 한 두께다(소유자 판정 9, 2026-10-13 기본값). 고른 바탕 38% 는 40% 칸으로 접는다.
 - **양(+) 호가 라이트에서 제품보다 짙다(DS-D-0084 §3)** — yellow-500 1.73:1 → `inspector-adjust-accent` yellow-700 3.57:1. 다크는 제품 값 그대로다.
 - **양방향 링의 `scale` 전이가 `motion-control-hover` 의 선언 property 밖이다.** `node-chrome-button` · `icon-button` 과 같은 방식이고, 전이는

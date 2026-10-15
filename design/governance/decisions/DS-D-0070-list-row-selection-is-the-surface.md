@@ -25,14 +25,14 @@ authority: normative
 
 | 자리 | 원문(제품 `6fbdac16`) | 파일:줄 |
 | --- | --- | --- |
-| 하이라이트 클립 목록 | `    "before:hidden text-inherit",` | `highlightSceneStyles.ts:162` |
+| 하이라이트 클립 목록 | `    "before:hidden text-inherit",` | `highlightSceneStyles.ts:122` |
 | 캔버스 레이어 패널 | ``   정본의 선택 표시(`aria-current` 면 + 선행 `::before` 3px 막대)는 쓰지 않는다: 이 목록의 선택은`` | `NodeLayersPanel.tsx:255` |
 
 명령은 `git grep -n "<원문의 한 조각>" 6fbdac16` 이고, 하이라이트 줄은 `migration/product.measured.json` 의
 「선택을 무엇으로 보이는가」 축이 전체 경로로 인용한다. 세 번째 자리인 프로젝트 영상 팝오버는 `aria-current` 를
 켜지 않아 표식이 설 일이 없다고 스스로 적는다. 그 파일은 제품 근거 잠금(`migration/product-evidence.lock.json`)
 밖이라 여기서 좌표로 인용하지 않는다 — 잠금은 앵커 재고정 때 다시 뽑는다. 레시피를 입은 자리는 이 셋이 전부다 —
-`git grep -n '"louis-selectable-list-row"' 6fbdac16` 이 `NodeLayersPanel.tsx:258`, `highlightSceneStyles.ts:161`,
+`git grep -n '"louis-selectable-list-row"' 6fbdac16` 이 `NodeLayersPanel.tsx:258`, `highlightSceneStyles.ts:121`,
 그리고 그 팝오버 한 곳을 낸다. 제품 `origin/dev` `a499aa89` 에서도 같은 셋이다.
 
 **옛 근거도 성립하지 않는다.** 다크 사다리가 바뀌어(`palette-gray-850` 폐지) 지금 `bg-inset` 은 `bg-canvas` 와 같은

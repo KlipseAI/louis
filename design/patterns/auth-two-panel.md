@@ -128,18 +128,18 @@ light · dark 모두 `#fafafa`로 같으므로 **렌더는 변하지 않는다.*
 **세로 간격이 세 배가 된다.** 좁은 폭의 촘촘한 리듬을 넓은 폭에 그대로 쓰면 폼이 뭉쳐 보인다.
 
 `--spacing: 2px` 격자라 `gap-12`는 **24px**이다. 8화면 중 7이 24px이고
-(`AuthStatusCard.tsx:26` · `(auth-brand)/signup/page.tsx:31` · `aws/signup/page.tsx:120`),
-`/login` 하나만 `gap-14` = **28px**이다(`login/page.tsx:34`).
+(`AuthStatusCard.tsx:26` · `(auth-brand)/signup/page.tsx:35` · `aws/signup/page.tsx:120`),
+`/login` 하나만 `gap-14` = **28px**이다(`login/page.tsx:40`).
 
 **하단 링크의 음수 마진은 그 28px 전용이다.** `/login`이
 `[@media(min-width:720px)]:mt-[-12px]`로 폼과 하단 링크를 당기는 것은 자기 카드 간격이 28px이기
 때문이고, 주석도 「데스크톱에선 카드 gap(28px)이 커서」라고 적는다
-(`login/page.tsx:154-159`). 24px인 나머지 일곱에는 그 보정이 없다 — **공용 규칙으로 옮기면
+(`login/page.tsx:75-80`). 24px인 나머지 일곱에는 그 보정이 없다 — **공용 규칙으로 옮기면
 안 된다.**
 
-제목 타입은 8화면이 전부 같다(`AuthStatusCard.tsx:89` · `login/page.tsx:302` · `(auth-brand)/signup/page.tsx:344` ·
+제목 타입은 8화면이 전부 같다(`AuthStatusCard.tsx:89` · `login/page.tsx:223` · `(auth-brand)/signup/page.tsx:196` ·
 `aws/signup/page.tsx:451`). 다만 **폼을 자기가 적는 셋만** 제목에 `letter-spacing: 0`을 덧대
-스케일의 자간을 지운다(`login/page.tsx:48` · `(auth-brand)/signup/page.tsx:44` · `aws/signup/page.tsx:134`) — 공용
+스케일의 자간을 지운다(`login/page.tsx:54` · `(auth-brand)/signup/page.tsx:44` · `aws/signup/page.tsx:134`) — 공용
 `AuthStatusCard`는 덧대지 않는다.
 복제 부채이지 이 패턴의 계약이 아니다.
 
@@ -170,18 +170,18 @@ light · dark 모두 `#fafafa`로 같으므로 **렌더는 변하지 않는다.*
 
 **좁은 폭 전용이다.** `≥720px`에서 숨는다 — 넓은 폭에서는 좌 패널의 브랜드 심볼이 그 역할을 한다.
 
-**Form card의 첫 자식이다**(`AuthStatusCard.tsx:73-80` · `login/page.tsx:292-299`). 그래서 아래
+**Form card의 첫 자식이다**(`AuthStatusCard.tsx:73-80` · `login/page.tsx:213-220`). 그래서 아래
 여백이 카드 세로 간격과 **합산된다** — 공용은 `mb-8`(16px) + 좁은 폭 카드 간격 8px = 실효
 **24px**이다(`AuthStatusCard.tsx:30`). `/login` · `/signup`은 `mb-12`(24px)이라 실효 32px이다
-(`login/page.tsx:38` · `(auth-brand)/signup/page.tsx:35`). `/aws/signup`에는 로고 링크가 아예 없다 —
+(`login/page.tsx:44` · `(auth-brand)/signup/page.tsx:39`). `/aws/signup`에는 로고 링크가 아예 없다 —
 파트너십 행이 그 자리를 쓴다.
 
 로고 높이도 갈린다 — 공용과 `/signup`은 `56`(`AuthStatusCard.tsx:77-78` ·
-`(auth-brand)/signup/page.tsx:339`), `/login`만 `72`다(`login/page.tsx:169`).
+`(auth-brand)/signup/page.tsx:191`), `/login`만 `72`다(`login/page.tsx:90`).
 
 `transition: opacity 180ms ease-in-out`, hover `0.84`는 공용 값이다(`AuthStatusCard.tsx:30`).
-`/signup`은 `180ms ease` · hover `0.8`이고(`(auth-brand)/signup/page.tsx:35`) `/login`은 전이도 hover도
-두지 않는다(`login/page.tsx:38`).
+`/signup`은 `180ms ease` · hover `0.8`이고(`(auth-brand)/signup/page.tsx:39`) `/login`은 전이도 hover도
+두지 않는다(`login/page.tsx:44`).
 
 **hover에 `@media (hover: hover)` 가드가 없다** — 터치 기기에서도 발동한다. 원본 모듈 CSS의
 맨 `:hover`를 보존한 결과다.

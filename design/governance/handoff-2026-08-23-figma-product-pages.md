@@ -166,7 +166,7 @@ authority: reference
 >   256.8×608.19)으로 바꿨고 계획은 그 측정을 그린다. 세트를 다섯으로 다시 짓기(upgrade-scene 러너)
 >   전까지 이 보드는 첫 적용에서 뺀다 — 아래 다음 순서 1.
 > - **archive 의 `Button primary「Start a new project」` 가 계획에서 빠지는 것은 제품 변경이다.** 그 버튼은
->   홈 배너 CTA 였고 제품 `AppHomeScene.tsx:232` 가 「CTA 버튼은 이 전환과 함께 사라진다」고 적는다
+>   홈 배너 CTA 였고 제품 `AppHomeScene.tsx:237` 가 「CTA 버튼은 이 전환과 함께 사라진다」고 적는다
 >   (배너가 DB 행으로 옮겨가며 링크 컬럼이 없다). 계획이 옳다.
 >
 > **2026-09-13 — 앵커 `6fbdac16`.** 검증 결과는 이 절이 아니라 그 회차 커밋 메시지와 명령이 낸다
@@ -1147,12 +1147,12 @@ Home에서 측정된 token-bound active paint를 제품의 공통 `isSidebarMenu
 - cards `29:19`, `29:24`, `29:29`, `29:34`, `29:39`: 각 309.6×309.6, 한 행 5열
 - fixed upload `134:588`: main의 ABSOLUTE child, x620/y908, 400×140
 - 제품 인용:
-  - `highlightSceneStyles.ts:881` `    "[display:grid]",`
-  - `highlightSceneStyles.ts:883` `    "[gap:12px]",`
-  - `highlightSceneStyles.ts:886` `    "min-[1800px]:[grid-template-columns:repeat(5,_1fr)]",`
-  - `highlightSceneStyles.ts:1098` `    "[width:100%]",`
-  - `highlightSceneStyles.ts:1100` `    "[margin:40px_auto_0]",`
-  - `highlightSceneStyles.ts:1101` `    "[padding-bottom:200px]",`
+  - `highlightSceneStyles.ts:829` `    "[display:grid]",`
+  - `highlightSceneStyles.ts:831` `    "[gap:12px]",`
+  - `highlightSceneStyles.ts:834` `    "min-[1800px]:[grid-template-columns:repeat(5,_1fr)]",`
+  - `highlightSceneStyles.ts:757` `    "[width:100%]",`
+  - `highlightSceneStyles.ts:1048` `    "[margin:40px_auto_0]",`
+  - `highlightSceneStyles.ts:1049` `    "[padding-bottom:200px]",`
 - screenshot QA에서 5개 카드가 한 행으로 정렬되고 fixed upload가 하단 중앙에 유지됨을 확인했다.
 - **미완료:** 이 Highlight 구조는 아직 전용 plan/renderer로 생성되지 않았다. 다음 에이전트는 현재 node IDs를
   기준으로 전용 generator를 만들거나 기존 product scene generator에 편입해야 한다. 라이브 Figma만 보고
@@ -1169,8 +1169,8 @@ button과 label viewport를 별도로 가진다.
 - 새 master `500:5344` · `Product/Gnb Collapsed Upgrade CTA`
 - rail 5 variants의 instance: `500:5347`, `500:5350`, `500:5353`, `500:5356`, `500:5359`
 - 기존 왜곡 instance는 숨김 처리했다.
-- 제품 인용은 `Gnb.tsx:1953-1959`(collapsed width/height/padding/gap)와
-  `Gnb.tsx:1993-1999`(collapsed label max-width/caption typography)다. 실측 당시 fixture 는
+- 제품 인용은 `Gnb.tsx:1954-1960`(collapsed width/height/padding/gap)와
+  `Gnb.tsx:1994-2000`(collapsed label max-width/caption typography)다. 실측 당시 fixture 는
   `a3ed8e03` 이었고, 좌표는 evidence lock 이 고정한 배포본 기준으로 옮겼다 — 값은 그대로다.
 - **미완료:** `scripts/measure-product-sidebar-states.mjs`의 `styleAxes`에는 font/line-height/letter-spacing/
   text-overflow/white-space를 추가했지만, 한도 인계 시점에 JSON 재측정과 sidebar-state builder/renderer 반영은
@@ -1206,7 +1206,7 @@ button과 label viewport를 별도로 가진다.
   dev server를 띄운다.
 - collapsed CTA 실측: 버튼 32×32 · radius 12 · padding-inline 10 · bg `rgb(241,241,243)` · text `rgb(23,27,34)`;
   라벨 span은 clip 12×18 viewport(x22/y1043) 안에서 Pretendard Medium 12/18 · ls −0.12 · text-overflow ellipsis ·
-  white-space nowrap. 근거: `Gnb.tsx:1956`(height 32), `:1945`(padding 0 10px), `:1984`(ellipsis), `:1985`(caption font).
+  white-space nowrap. 근거: `Gnb.tsx:1957`(height 32), `:1945`(padding 0 10px), `:1984`(ellipsis), `:1985`(caption font).
 - **2. 생성기 수정.** builder가 collapsed CTA의 **라벨 child**(`sidebar.0.2.0.0.0`)를 잡도록 했고
   `measurements.collapsed.upgrade.label = { rect, style, text }`를 plan에 넣었다. renderer는 이제 expanded CTA를
   `resize(32,32)`하지 않고 **전용 master `Product/Gnb Collapsed Upgrade CTA`를 find-or-create**해 그 인스턴스를 놓는다.
@@ -1261,16 +1261,16 @@ pinned `a3ed8e03` 소스를 워크플로(6 에이전트, 전원 refuted=false·h
 올바르다. 상세 계약과 인용은 세션 scratchpad `step5-source-contracts.md`에 있다. 핵심:
 
 - **`38:3` /nodecanvas?project= — 검증 완료, 변경 없음.** 공통 GNB 없음이 소스로 증명된다:
-  `nodecanvas/layout.tsx`(7행 `return children;`)은 passthrough, Gnb 사이드바는 `Gnb.tsx:3420-3423`에서 `!isCreateVariant`로
+  `nodecanvas/layout.tsx`(7행 `return children;`)은 passthrough, Gnb 사이드바는 `Gnb.tsx:3427-3430`에서 `!isCreateVariant`로
   꺼진다. 전면 캔버스(`CreateScene.tsx:620` `h-[100svh] overflow-hidden`, `:518` main `p-0`), 상단 고정
   ProjectHeader(`CreateScene.tsx:147` `fixed top-0 ... z-[1001] py-4 px-6`, 2열 그리드 `create/ProjectHeader.tsx`(57행)),
-  하단 중앙 떠 있는 toolbar + 우하단 zoom(`node-canvas-v2/index.tsx:507-508/513`). **라이브 `38:3`이 이와
+  하단 중앙 떠 있는 toolbar + 우하단 zoom(`node-canvas-v2/index.tsx@54b62a8a:507-508/513`). **라이브 `38:3`이 이와
   정확히 일치**(readback + 스크린샷 `step5-nodecanvas-38-3.png`: 브랜드 셸·프로필·레이어 패널 오버레이·
   하단 툴바·줌·노드 4). GNB/topbar 교체는 이 화면에 하면 안 된다.
 - **`220:3452` /highlight/[projectId] — 공통 GNB 셸, 손수 만든 셸을 교체해야 함.** 공통 GNB present:
   `HighlightProjectScene.tsx:2352-2355` `{!hideGnb && <Gnb currentPath="/highlight">}` (default hideGnb=false).
   editor rail 없음. body는 `margin-left:var(--app-gnb-sidebar-width)` + `margin-right:var(--app-gnb-main-inline-padding-end=12px)`.
-  top bar = GNB mainChromeTopBar(`Gnb.tsx:435-452`): toggle 32+breadcrumb `clipsBreadcrumb`(좌) | headerSlot 포털(중) |
+  top bar = GNB mainChromeTopBar(`Gnb.tsx:436-453`): toggle 32+breadcrumb `clipsBreadcrumb`(좌) | headerSlot 포털(중) |
   back button(arrow `d="M19 12H5M5 12L11 6M5 12L11 18"`, `:2374`)+프로필(우). 라이브 `220:3484` main card는
   x280 **w1852 오버플로**(정상은 1628 = 1920−280−12).
 - **`221:3234` /highlight/[projectId]/shorts/[shortId] — 공통 GNB 셸, 같은 처리.** shorts
@@ -1428,7 +1428,7 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
       옮기지 않고 `381:22` 의 크기 리터럴도 두며 기록만 한다**((149)) →
       (나) **허브 활성 행 면의 일회성 쓰기**(2026-09-15 적용 워크플로의 결정 — 러너 범위 밖, 세트 단계에서 한 번): 행 `I493:279;491:359;491:279`
       (`219:3403`) · `I493:556;491:553;491:479`(`29:3`) · `I493:2;491:109;491:23`(`219:2917`)의 `fills` override 를 `[]` 로(노드 삭제 · detach ·
-      resetOverrides 아님). 제품 light 활성 행은 면이 없다(`Gnb.tsx:604`). 쓰기 전후 그 행의 라벨 대비와 나머지 override 필드를 대조한다 →
+      resetOverrides 아님). 제품 light 활성 행은 면이 없다(`Gnb.tsx:605`). 쓰기 전후 그 행의 라벨 대비와 나머지 override 필드를 대조한다 →
       (다) **sidebar-states**((137) — 찾기 단계가 대상을 전부 찾아야 쓴다. 반환의 `railInstanceId` 477:4918 · `topBarId` 477:4999 ·
       `topBarInstanceId` 477:5015 · `bodyId` 479:4941 가 이 id 인지, 두 인스턴스 이름이 `… Composition …` 인지 본다) → (라) highlight-hub →
       (마) AppTopBar 템플릿 셋(`1040:13429` · `982:251` · `982:208`) 세로 HUG. **컬렉션 이전은 끝났다

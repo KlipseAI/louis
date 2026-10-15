@@ -87,7 +87,7 @@ summary: 정해진 범위 안에서 값 하나를 고릅니다.
 
 ## 눈금자 — `data-variant="ruler"`
 
-**지시선이 가운데에 고정되고 눈금이 흐르는** 슬라이더다(비디오 편집기 색 보정, `components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx:253-313`,
+**지시선이 가운데에 고정되고 눈금이 흐르는** 슬라이더다(비디오 편집기 색 보정, `components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx@54b62a8a:253-313`,
 소비처 `ClipColorControls.tsx:180 · :248`). 자를 잡아 끄는 상대 드래그라 네이티브 range 가 아니라 `role="slider"` 요소이고(:8-18),
 기본값 자리는 눈금과 함께 움직이는 점이라 가운데에서 그 점까지가 조정량이다.
 
@@ -275,7 +275,7 @@ Segmented Control이 밀도가 낮은 칸에서 같은 `typography-caption-mediu
 - **범위(두 손잡이) 선택이 없다.** 제품에 0벌이라 이번 범위가 아니다.
 - **`ruler` 의 지시선이 라이트에서 제품보다 짙다(DS-D-0084 §3).** 제품 `accent-yellow-500` 은 라이트 #fafafa 위 1.73:1 로 그래픽 3:1 에
   미달한다. `inspector-adjust-accent` 가 라이트를 yellow-700(3.57:1)으로 올리고 다크는 제품 값 그대로다(소유자 판정 9, 2026-10-13 기본값).
-- **`ruler` 의 눈금 잉크를 시맨틱 칸으로 접었다.** 제품 22% · 34%(`ColorRulerSlider.tsx:287-297`)를 가장 가까운 `gray-000-alpha-20` · `-32` 로 쓴다.
+- **`ruler` 의 눈금 잉크를 시맨틱 칸으로 접었다.** 제품 22% · 34%(`ColorRulerSlider.tsx@54b62a8a:287-297`)를 가장 가까운 `gray-000-alpha-20` · `-32` 로 쓴다.
 - **`ruler` 에 React 표면이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `Size=lg, Variant=ruler` × `State`(Default · Disabled, Figma 가 희소 세트를
   받지 않아 `Size=lg` 가 붙는다)와 눈금 하위 컴포넌트 `SliderRulerTicks`(큰 눈금 16 을 기록 `slider-ruler-ticks` 와 실브라우저 시험이 잰다).
   기록 `slider.lg/ruler` 의 쌓기 간격 4 · 이름 12 는 실브라우저 시험(`packages/react/test/slider.browser.test.tsx`)이 문서 마크업으로 잰다.

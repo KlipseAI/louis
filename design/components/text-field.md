@@ -128,7 +128,7 @@ CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `Sta
 
 ## 여러 줄 판 — `data-multiline="true"`
 
-본문(textarea)에 첨부 썸네일 줄과 툴바가 붙는 입력이다(문의 본문, `app/inquiry/InquiryClient.tsx:183-198 · :625-720`).
+본문(textarea)에 첨부 썸네일 줄과 툴바가 붙는 입력이다(문의 본문, `app/inquiry/InquiryClient.tsx@54b62a8a:183-198 · :625-720`).
 상자는 한 줄 판과 같은 면 · 반경 · 헤어라인이고, 안에서 위에서 아래로 본문 → 첨부 줄 → 툴바가 선다. 파일을 끌어다 놓으면
 **상자 전체**가 받는다.
 
@@ -396,7 +396,7 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
   그대로 둔다 — 강제 색 링의 자리이고, 줄이면 형제 칸 격자와 계약 `frameWidth` 가 함께 움직인다.
 - **맨 Textarea 가 없다.** 여러 줄 판(`data-multiline`)은 첨부 · 툴바가 붙는 문의 본문 하나를 옮긴 것이다(DS-D-0084).
   제품의 다른 여러 줄 입력(캔버스 프롬프트 계열 최소 5벌)은 같은 박스 구조로 확장할 수 있으나 이번 범위가 아니다.
-- **여러 줄 판의 끄는 중 표현이 제품과 다르다.** 제품은 바깥 2px outline 2 띄움(`app/inquiry/InquiryClient.tsx:186-187`)이고
+- **여러 줄 판의 끄는 중 표현이 제품과 다르다.** 제품은 바깥 2px outline 2 띄움(`app/inquiry/InquiryClient.tsx@54b62a8a:186-187`)이고
   레시피는 Drop Zone 과 같은 안쪽 링이다 — 바깥 outline 은 이웃 칸 위로 넘쳐 그려지고, 같은 「여기에 놓인다」를 두 모양으로 말하게 된다.
   첨부 지우기도 제품 28 원 · 칸 밖 6 · inverse 면(:192-193)에서 Media Slot 의 22 원 · 안쪽 5 · 미디어 스크림으로 접힌다
   (DS-D-0084 소유자 판정 8, 2026-10-13 기본값).
@@ -405,7 +405,7 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
   (`packages/react/test/text-field.browser.test.tsx`)이 문서 마크업 조립(본문 · 첨부 한 칸 · 툴바)으로 잰다.
 - **여러 줄 본문은 border-box 다(2026-10-13 고침).** 실브라우저 시험이 본문 `.louis-text-field__control` 이 content-box 로 서서
   `min-block-size: 200px` 에 여백 16 × 2 가 더해진 232 를 만드는 것을 찾았다(상자 372 대 Figma 340). 제품 `min-h-[200px]`
-  (`app/inquiry/InquiryClient.tsx:185`)는 Tailwind preflight 의 border-box 아래 값이고 레시피는 전역 reset 을 기대하지 않으므로
+  (`app/inquiry/InquiryClient.tsx@54b62a8a:185`)는 Tailwind preflight 의 border-box 아래 값이고 레시피는 전역 reset 을 기대하지 않으므로
   ([DS-D-0004](../governance/decisions/DS-D-0004-css-authoring.md)) 여러 줄 본문에 `box-sizing: border-box` 를 선언해 340 으로 맞췄다.
 - **`sm`에서 라벨(14)이 값(12)보다 크다.** 값은 실측으로 내려갔고 라벨은 재지 못해 비례대로
   남았다. 도구 줄의 `sm` 필드는 보통 시각 라벨 없이 `aria-label`로 서므로 지금은 부딪히지

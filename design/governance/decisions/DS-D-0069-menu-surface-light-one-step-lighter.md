@@ -23,7 +23,7 @@ surface 는 LOUIS 정본을 직접 소비한다」고 적고, 2026-09-22 전수(
 | 길 | 소비처 |
 | --- | --- |
 | `.louis-popover` 레시피(`menu-popover.css` — `background: var(--louis-color-bg-menu)`) | CustomDropdown(언어 · 정렬 · 모델 · 관리자 선택 · 편집기 드롭다운), 언어 선택, 새로 만들기 메뉴, 분석 계정 메뉴, 편집기 · 하이라이트 기록 메뉴, 캔버스 우클릭 · 노드 더보기 · 확대 메뉴, 노드 메타 드롭다운(이미지 · 영상 모델 · BGM · TTS · 편집 · 글 · 유튜브) |
-| 제품이 같은 토큰을 직접 선언(`[background:var(--louis-color-bg-menu)]`) | 앱 셸 프로필 팝오버 · 프로젝트 드롭다운(`Gnb.tsx:1362` · `:1520`) |
+| 제품이 같은 토큰을 직접 선언(`[background:var(--louis-color-bg-menu)]`) | 앱 셸 프로필 팝오버 · 프로젝트 드롭다운(`Gnb.tsx:1363` · `:1520`) |
 
 라이트 값은 `palette-gray-050`(#ebecee, L\* 93.36)이다. 회색 사다리에서 한 칸 위는 `palette-gray-025`
 (#f2f3f5, L\* 95.81)이고 그 위가 `palette-gray-000`(#fafafa)이다. 이 토큰은 전에도 소유자 재보정으로 한 칸
@@ -59,10 +59,10 @@ surface 는 LOUIS 정본을 직접 소비한다」고 적고, 2026-09-22 전수(
 
   | 자리 | 무엇 | 바뀌는 것 |
   | --- | --- | --- |
-  | `VideoEditScene.tsx:332` · `highlightSceneStyles.ts:568` | 더보기 버튼 hover 면 | 아래 면이 pg-050 이라 hover 가 그보다 한 칸 밝게 보인다 — 여전히 보인다 |
+  | `VideoEditScene.tsx:308` · `highlightSceneStyles.ts:516` | 더보기 버튼 hover 면 | 아래 면이 pg-050 이라 hover 가 그보다 한 칸 밝게 보인다 — 여전히 보인다 |
   | 대시보드 성과 탭의 로딩 스켈레톤 | 토글 트랙 | 카드 면(`bg-canvas`)과 같아져 헤어라인만 남는다 |
-  | `nc/index.tsx:488` · 하단 툴바 · 확대 알약 | 미니맵 · 플로팅 셸 · 알약 | 캔버스 pg-100 위라 대비가 커진다 |
-  | `inspectorPrimitives.tsx:38` | 편집기 지표 행 | 판 면(`bg-inset` pg-050)과 같아 안 보이던 행이 한 칸 밝게 보인다 |
+  | `nc/index.tsx@54b62a8a:488` · 하단 툴바 · 확대 알약 | 미니맵 · 플로팅 셸 · 알약 | 캔버스 pg-100 위라 대비가 커진다 |
+  | `inspectorPrimitives.tsx@54b62a8a:38` | 편집기 지표 행 | 판 면(`bg-inset` pg-050)과 같아 안 보이던 행이 한 칸 밝게 보인다 |
   | 메뉴 안 선택 행(pg-100 · pg-200) | 면 위의 채움 | 대비가 커진다 |
   | 프로필 크레딧 카드(pg-100) | 면 위의 채움 | 소유자가 한 칸 따라 올리라고 했다(2026-09-22) — 제품 PR 에서 라이트 pg-050. 면과의 한 칸 간격이 그대로다 |
 

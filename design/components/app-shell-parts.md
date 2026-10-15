@@ -93,9 +93,9 @@ summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 **4px을 따로 지어내지 않는다.** Specification의 행 좌우 여백 4px과 **같은 식에서 나온 같은 값**이다.
 두 자리가 한 식을 공유하므로 한쪽만 8로 두면 구획 라벨이 아이콘 시작선에서 밀려난다.
 
-근거: `Gnb.tsx:819-824`(라벨) · `Gnb.tsx:826-833`(행) · `Gnb.tsx:4588-4599`(마크업) ·
-`globals.css:97`·`:105`(두 인셋 변수) · `globals.css:316-318`(caption-12) ·
-`Gnb.tsx:2064`(앱 셸 라이트 램프) · `globals.css:33`.
+근거: `Gnb.tsx:820-825`(라벨) · `Gnb.tsx:827-834`(행) · `Gnb.tsx:4589-4600`(마크업) ·
+`globals.css@54b62a8a:97`·`:105`(두 인셋 변수) · `globals.css:323-325`(caption-12) ·
+`Gnb.tsx:2065`(앱 셸 라이트 램프) · `globals.css:33`.
 
 ## Properties
 
@@ -119,7 +119,7 @@ AppTopBar 는 **판(surface) 하나**를 갖는다 — 속성 없음(앱 셸 본
 ## 캔버스 판 — `data-surface="canvas"`
 
 2026-10-13, [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md). 정본은 제품 통합 판 `54b62a8a`
-`components/scenes/create/ProjectHeader.tsx`(노드 캔버스 상단 바, 자리는 `components/scenes/CreateScene.tsx:133-134`).
+`components/scenes/create/ProjectHeader.tsx`(노드 캔버스 상단 바, 자리는 `components/scenes/CreateScene.tsx@54b62a8a:133-134`).
 
 캔버스 **위에** 떠 있는 상단 바다. 면이 없고, 위가 진하고 아래로 사라지는 흐림 띠(`progressive-blur-header`)와
 캔버스 바닥색 48% 틴트가 글자를 받친다. 높이 48(위아래 8 · 좌우 12), 앞 묶음 사이 4, 잉크 `fg-primary` 88%.
@@ -138,8 +138,8 @@ AppTopBar 는 **판(surface) 하나**를 갖는다 — 속성 없음(앱 셸 본
 
 | 부분 | 값 | 제품 |
 | --- | --- | --- |
-| 바 | 높이 48(파생) · 위아래 8 · 좌우 12 · 사이 4 · 잉크 `fg-primary` 88% | `CreateScene.tsx:134` `py-4 px-6` · `ProjectHeader.tsx:86` · `:323` |
-| 흐림 띠 | `::before` · `progressive-blur-header` · `-mask-header` · `bg-canvas` 48% → 0 | `ProjectHeader.tsx:42-62` |
+| 바 | 높이 48(파생) · 위아래 8 · 좌우 12 · 사이 4 · 잉크 `fg-primary` 88% | `CreateScene.tsx@54b62a8a:134` `py-4 px-6` · `ProjectHeader.tsx:92` · `:323` |
+| 흐림 띠 | `::before` · `progressive-blur-header` · `-mask-header` · `bg-canvas` 48% → 0 | `ProjectHeader.tsx:42-68` |
 | 홈 `__home` | 32 이상 · 왼쪽 6 · 호버 `accent-ghost-hover` · 누름 `accent-secondary-hover` + 0.95 | `:94-99` |
 | 제목 칸 `__title` | 최대 280 · body-md **regular** | `:182-185` · `:543` |
 | 제목 `__title-button` | 32 · 좌우 10 · 반경 12 · 말줄임 · 호버 `accent-ghost-hover` · 누름 `accent-secondary-hover` | `:210-218` |
@@ -151,7 +151,7 @@ AppTopBar 는 **판(surface) 하나**를 갖는다 — 속성 없음(앱 셸 본
 툴 버튼 · 구분선)은 `position: relative` 로 그 위에 칠한다 — 숫자 z-index 없이 문서 순서로 쌓인다.
 
 **흐림은 LOUIS 헤더 띠 값으로 접었다.** 제품은 카드 반경 10(`--louis-progressive-blur`)에 지역 곡선(40% 까지 불투명 · 60% 0.8 ·
-80% 0.4, `ProjectHeader.tsx:46-50`)을 쓴다. 같은 「화면 위에 고정된 띠」라 레시피는 `base.css` 가 이미 발행한
+80% 0.4, `ProjectHeader.tsx:52-56`)을 쓴다. 같은 「화면 위에 고정된 띠」라 레시피는 `base.css` 가 이미 발행한
 `--louis-progressive-blur-header`(12) · `--louis-progressive-blur-mask-header`(40% → 0 직선)를 읽고 두 번째 마스크 이름을 세우지
 않는다. 직선 곡선은 같은 자리에서 0.67 · 0.33 이다(Known deviations).
 
@@ -184,9 +184,9 @@ Current로 넘어갈 때 일어나는 변화가 하나 사라진다.
 hover에서 전경이 바뀔 때 값이 어긋난다.
 
 근거: 20×20은 이제 제품이 아니라 LOUIS `.louis-sidebar-nav-item__icon`(`icon-size-md` = 20px)이
-소유하고 제품은 그 클래스를 얹기만 한다(`Gnb.tsx:608-613`). 농도는 그대로 제품 선언이다 —
-`Gnb.tsx:615`(`currentColor`) · `:615`(`opacity:0.92`) · `:624`(활성에서 `1`) ·
-라벨 `Gnb.tsx:651-669`에 `opacity` 선언 0건.
+소유하고 제품은 그 클래스를 얹기만 한다(`Gnb.tsx:609-614`). 농도는 그대로 제품 선언이다 —
+`Gnb.tsx:616`(`currentColor`) · `:615`(`opacity:0.92`) · `:624`(활성에서 `1`) ·
+라벨 `Gnb.tsx:652-670`에 `opacity` 선언 0건.
 
 AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 자기 상태를 갖는다. 캔버스 판의 홈 · 제목은 자기 상태를 갖는다.
 
@@ -213,7 +213,7 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
   브레드크럼 구조를 소유하지 않는다.
 
 <!-- GENERATED:app-nav-labels START -->
-배포본 `54b62a8a` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
+배포본 `97d4950e` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
 
 | 라우트 | 한국어 | English | 경로로 유추 |
 | --- | --- | --- | --- |
@@ -274,9 +274,9 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 선택 축에 속하는지는 별개 축이고, 검색 행과 구획 라벨 행은 그 축 밖이다. 이 둘을 내비 항목으로 그리면
 활성 인디케이터가 갈 수 있는 자리가 둘 늘어난다.
 
-근거: `Gnb.tsx:2141-2162`(아이콘 대응과 행 배열) · `Gnb.tsx:2357-2358`·`Gnb.tsx:4583-4585`(숨김 필터) ·
-`Gnb.tsx:4544-4582`(검색 행. 주석이 「내비 항목이 아니므로 인디케이터 대상 아님」이라 적는다) ·
-`Gnb.tsx:4552-4560` · `app-paths.ts:6`·`:32-37` · `middleware.ts:183` · 라벨 `ko.ts:1317`·`en.ts:1326`.
+근거: `Gnb.tsx:2142-2163`(아이콘 대응과 행 배열) · `Gnb.tsx:2346-2347`·`Gnb.tsx:4584-4586`(숨김 필터) ·
+`Gnb.tsx:4545-4583`(검색 행. 주석이 「내비 항목이 아니므로 인디케이터 대상 아님」이라 적는다) ·
+`Gnb.tsx:4553-4561` · `app-paths.ts:6`·`:32-37` · `middleware.ts:183` · 라벨 `ko.ts:1356`·`en.ts:1371`.
 
 ## 복합 내비 행
 
@@ -393,9 +393,9 @@ CTA**를 갖는다. 바닥 자리는 하나이고 화면에 따라 "홈"이 되�
 `--app-gnb-sidebar-logo-symbol-w: 28px`이고 제품 주석이 「큐브 그림체보다 넓을 수 있음」을 명시한다.
 23.72(그림) ≠ 28(자리)을 구분해 그린다 — 한 값으로 뭉치면 접힌 레일에서 로고가 아이콘 열과 어긋난다.
 
-근거: `Gnb.tsx:2325`(`SIDEBAR_LOGO_H = 28`) · `Gnb.tsx:2326`·`brandLogoMetrics.ts:1-4`·`:10-12`(폭 산출) ·
-`Gnb.tsx:2517`·`Gnb.tsx:4377`(렌더) · `globals.css:110`·`:118`·`:121` ·
-`Gnb.tsx:1906`(접힘 정렬 폭 소비) · `Gnb.tsx:1821-1835`(크롭, 특히 `:1817`·`:1820`·`:1821`).
+근거: `Gnb.tsx:2314`(`SIDEBAR_LOGO_H = 28`) · `Gnb.tsx:2315`·`brandLogoMetrics.ts:1-4`·`:10-12`(폭 산출) ·
+`Gnb.tsx:2506`·`Gnb.tsx:4377`(렌더) · `globals.css@54b62a8a:110`·`:118`·`:121` ·
+`Gnb.tsx:1907`(접힘 정렬 폭 소비) · `Gnb.tsx:1822-1836`(크롭, 특히 `:1817`·`:1820`·`:1821`).
 
 **CTA에는 아이콘이 없고 색은 반전 solid pill이다.** 처음에는 plus 글리프와 브랜드 파랑, 다음에는
 mint 16%로 고쳤는데 셋 다 배포본에 없는 것이었다. 마크업은 라벨 `<span>` 하나뿐이고, 면과 글자는
@@ -452,9 +452,9 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 레일 패딩 | 12px 사방 | `space-control-md` — 배포본 실측(**하단도 12다**) |
 | 상단 바 높이 | 40px — **아래 각주** | `layout-app-shell-top-bar-height` |
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
-| 상단 바 선행 슬롯 | **선언 없음** — 담은 사이드바 토글을 hug 한다. 토글이 높이를 선언한다(`Gnb.tsx:386` `[height:32px]`) | `IconButton` md가 들어가는 자리 — 수는 `figma/components.measured.json` 의 `icon-button.sizes.md.height` 한 곳이 갖는다 |
-| 상단 바 후행 슬롯 | **선언 없음** — 담은 링을 hug 한다. 한 변은 아바타(`Gnb.tsx:1470`) + (링 간격 `:1474` + 링 두께 `:1475`) × 2(`:1476`)로 계산된다 | `ProgressRing`이 아바타를 감싼 크기 — 수는 `figma/components.measured.json` 의 `progress-ring.sizes.base.size` 한 곳이 갖는다 |
-| CTA 버튼 높이 | **최소** 40px — 실효 높이는 세로 패딩 10 + 라벨 줄 높이 + 세로 패딩 10 과 최소 중 큰 쪽이고, `body-sm` 한 줄이면 합이 최소를 넘는다(측정은 `figma/product-components.plan.json` 의 `component.upgradeCta.variants[].rect`). 기록 칸과 Figma variant 는 최소값이다 — 아래 Known deviations → 접힘 32px(제품 선언 `Gnb.tsx:1986` `[height:32px]`) | `layout-control-height-lg`(`min-block-size`) → `-md` |
+| 상단 바 선행 슬롯 | **선언 없음** — 담은 사이드바 토글을 hug 한다. 토글이 높이를 선언한다(`Gnb.tsx:387` `[height:32px]`) | `IconButton` md가 들어가는 자리 — 수는 `figma/components.measured.json` 의 `icon-button.sizes.md.height` 한 곳이 갖는다 |
+| 상단 바 후행 슬롯 | **선언 없음** — 담은 링을 hug 한다. 한 변은 아바타(`Gnb.tsx:1471`) + (링 간격 `:1474` + 링 두께 `:1475`) × 2(`:1476`)로 계산된다 | `ProgressRing`이 아바타를 감싼 크기 — 수는 `figma/components.measured.json` 의 `progress-ring.sizes.base.size` 한 곳이 갖는다 |
+| CTA 버튼 높이 | **최소** 40px — 실효 높이는 세로 패딩 10 + 라벨 줄 높이 + 세로 패딩 10 과 최소 중 큰 쪽이고, `body-sm` 한 줄이면 합이 최소를 넘는다(측정은 `figma/product-components.plan.json` 의 `component.upgradeCta.variants[].rect`). 기록 칸과 Figma variant 는 최소값이다 — 아래 Known deviations → 접힘 32px(제품 선언 `Gnb.tsx:1987` `[height:32px]`) | `layout-control-height-lg`(`min-block-size`) → `-md` |
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
 | CTA 면 · 글자 | 반전 solid | `background-upgrade` · `foreground-upgrade` |
@@ -470,8 +470,8 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 캔버스 판 흐림 | 반경 12 · 40% → 0 직선 | `progressive-blur-header` · `progressive-blur-mask-header` |
 
 **상단 바 40px은 DS 계약이지 제품 실측이 아니다(2026-08-21 조립 검증).** 제품의 카드 안(in-panel)
-바는 **높이를 선언하지 않는다** — `Gnb.tsx:460` 이 레시피의 하한을 `[min-block-size:0]` 으로 끄고
-`Gnb.tsx:483` 이 세로 패딩 8을 준다. 그래서 바의 높이는 **세로 패딩 8 + 가장 큰 자식(프로필 링) + 세로
+바는 **높이를 선언하지 않는다** — `Gnb.tsx:461` 이 레시피의 하한을 `[min-block-size:0]` 으로 끄고
+`Gnb.tsx:484` 이 세로 패딩 8을 준다. 그래서 바의 높이는 **세로 패딩 8 + 가장 큰 자식(프로필 링) + 세로
 패딩 8 + 아래 헤어라인**으로 계산되고, 가장 큰 자식이 바뀌면 바도 따라 바뀐다(제품 `6f6282c1` 이 프로필
 버튼을 줄이자 함께 낮아졌다). 이 문서는 그 결과를 수로 적지 않는다 — 측정값은
 `figma/product-app-shell.plan.json` 의 `component.variants[].rect` 가 갖고, 그 생성기가 측정이 이 식으로
@@ -490,15 +490,15 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 
 **행 간격과 아이콘–라벨 간격은 다른 축이다.** 표의 「행 간격 8px · 배포본은 10이다」 행은
 2026-08-30까지 아이콘–라벨 축(`.louis-sidebar-nav-item`의 `gap`)의 값과 편차 문구를 축 이름만
-바꾼 채 달고 있었다. **목록의 행 간격은 4px이다** — 배포본 `Gnb.tsx:734`의 `[gap:4px]`이고
-(≤719px도 `Gnb.tsx:721`에서 같은 4px), 브라우저 실측
+바꾼 채 달고 있었다. **목록의 행 간격은 4px이다** — 배포본 `Gnb.tsx:735`의 `[gap:4px]`이고
+(≤719px도 `Gnb.tsx:722`에서 같은 4px), 브라우저 실측
 `migration/product.sidebar-states.json`의 `sidebar.0.1.0`(목록 `ul`)이 `gap: 4px`다. 같은
 스냅샷에서 아이콘–라벨을 감싸는 `sidebar.0.1.0.0.0.0.0`이 `gap: 10px`으로 따로 잡힌다. 두 축을
 한 행에 묶어 두면 4를 8로 조립하게 된다.
 
 **레일 패딩은 사방 12px이고 하단도 12다.** 배포본에서 레일은 `gnb-wrapper`와
-`gnb-wrapperSidebar`를 함께 달고(`Gnb.tsx:4083`), 단축 `padding: 12px 24px`(`Gnb.tsx:2039`)가
-먼저 네 변을 정한 뒤 `wrapperSidebar`가 위·좌·우만 다시 선언한다(`Gnb.tsx:2054-2056`).
+`gnb-wrapperSidebar`를 함께 달고(`Gnb.tsx:4084`), 단축 `padding: 12px 24px`(`Gnb.tsx:2040`)가
+먼저 네 변을 정한 뒤 `wrapperSidebar`가 위·좌·우만 다시 선언한다(`Gnb.tsx:2055-2057`).
 **하단만 다시 선언되지 않는다** — 그래서 클래스 목록만 훑으면 「하단 0」으로 읽히는데, 단축이
 이미 12를 넣어 두었으므로 실제 값은 12다. 브라우저 실측이 그것을 확인한다 —
 `migration/product.sidebar-states.json`의 `sidebar` 노드가 `paddingTop`·`Right`·`Bottom`·`Left`
@@ -547,8 +547,8 @@ badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 �
 배치는 `flex-shrink: 0` · 사이드바 안에서 `margin-left: auto`로 행 끝에 붙고 · 접힘에서 `display: none`과
 `aria-hidden`이다.
 
-근거: `Gnb.tsx:184-196`(칩) · `Gnb.tsx:4780-4788`(하이라이트 행에서만 렌더) · `globals.css:316-318` ·
-`Gnb.tsx:2064`·`:2069` · `globals.css:33` · 문구 `ko.ts:1301`·`en.ts:1310`.
+근거: `Gnb.tsx:185-197`(칩) · `Gnb.tsx:4781-4789`(하이라이트 행에서만 렌더) · `globals.css:323-325` ·
+`Gnb.tsx:2065`·`:2069` · `globals.css:33` · 문구 `ko.ts:1340`·`en.ts:1355`.
 
 **상단 바 좌우 여백 16px은 카드 안 변종에 맞지 않는다.** 본문 카드 안에 놓이는 상단 바는 카드 안쪽
 인셋을 음수 좌우 마진으로 상쇄해 **카드 모서리까지 풀블리드**하고, 자기 좌우 패딩은
@@ -560,7 +560,7 @@ badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 �
 | `width` | `calc(100% + var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) + var(--mainchrome-bleed-right, var(--app-gnb-main-inline-padding)))` |
 | `margin-left` / `margin-right` | 각 bleed 변수의 음수 |
 | `padding` | `8px var(--mainchrome-pad-x)` → **8px 8px** |
-| divider | `border-bottom: var(--louis-border-width-hairline)`(`Gnb.tsx:497`) — 풀블리드 폭 전체를 가로지르고, **border 라 그 두께만큼 레이아웃 높이에 더해진다.** 그래서 바 높이 식의 마지막 항이 헤어라인이다. DS 레시피의 `data-divider`는 방향성 inset 헤어라인(box-shadow)이라 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) — 제품 화면을 그리는 Figma 세트는 선을 레이아웃에 포함한다 |
+| divider | `border-bottom: var(--louis-border-width-hairline)`(`Gnb.tsx:498`) — 풀블리드 폭 전체를 가로지르고, **border 라 그 두께만큼 레이아웃 높이에 더해진다.** 그래서 바 높이 식의 마지막 항이 헤어라인이다. DS 레시피의 `data-divider`는 방향성 inset 헤어라인(box-shadow)이라 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) — 제품 화면을 그리는 Figma 세트는 선을 레이아웃에 포함한다 |
 
 bleed 폴백은 좌우 모두 `--app-gnb-main-inline-padding`(16px)이고 짝 토큰
 `--app-gnb-main-inline-padding-end`는 12px이다. 앱 셸 본문 카드 두 곳은 자기 카드의 좌우 패딩과 **같은
@@ -587,8 +587,8 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 `layout-app-shell-content-inset`은 본문 인셋이고 카드 안 상단 바의 8px은 다른 축이다 — 이 편차를 계약
 으로 승격하려면 별도 semantic token이 필요하다.
 
-근거: `Gnb.tsx:459`·`:462`-`:465`·`:467`·`:469`·`:475`·`:476` ·
-`globals.css:99`·`:108`·`:365-371` · `appHomeSceneStyles.ts:793`·`:805` ·
+근거: `Gnb.tsx:460`·`:462`-`:465`·`:467`·`:469`·`:475`·`:476` ·
+`globals.css@54b62a8a:99`·`:108`·`:365-371` · `appHomeSceneStyles.ts:781`·`:805` ·
 `myPageSceneStyles.ts:58`·`:59`·`:60` · 반례 `mypage/topup/success/page.tsx:60-62`·`:63`·`:64`·`:66`.
 
 ## Effects
@@ -602,8 +602,8 @@ bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배
 안쪽 링이 흰색 8%, 다크는 검정 8%로 뒤집힌다.
 
 **드롭은 `0 1px 2px` 검정이고 알파가 테마마다 다르다 — 라이트 4% · 다크 12%다.** 2026-08-30까지
-`elevation-upgrade`의 라이트 알파가 6%였는데 배포본에 6%는 없다(`Gnb.tsx:1979` 라이트 4% ·
-`Gnb.tsx:1984` 다크 12%). 6은 기록된 편차가 아니라 실측 오차였고, 토큰을 4%로 내려 맞췄다.
+`elevation-upgrade`의 라이트 알파가 6%였는데 배포본에 6%는 없다(`Gnb.tsx:1980` 라이트 4% ·
+`Gnb.tsx:1985` 다크 12%). 6은 기록된 편차가 아니라 실측 오차였고, 토큰을 4%로 내려 맞췄다.
 **제품 화면은 이 수정으로 움직이지 않는다** — 배포본은 두 테마 모두 utilities 레이어에서 같은
 축을 다시 선언해 컴포넌트 레이어의 이 값을 덮는다. 움직이는 것은 LOUIS 자신의 소비처
 (`packages/css/src/component/app-shell.css`의 `.louis-sidebar-cta__button`)와 Figma effect
@@ -625,7 +625,7 @@ style이다.
 
   | 변수 | 식 | 폴백 | 소비처 |
   | --- | --- | --- | --- |
-  | `--mainchrome-divider-progress` | `scrollTop <= 0 ? 0 : min(1, scrollTop / 12)` | 없음 | 경계선 (`Gnb.tsx:470` · `473`) |
+  | `--mainchrome-divider-progress` | `scrollTop <= 0 ? 0 : min(1, scrollTop / 12)` | 없음 | 경계선 (`Gnb.tsx:471` · `473`) |
   | `--header-progress` | `clamp(0, scrollTop / 120, 1)` | `0` | 아래 참조 |
 
   **12px에서 경계선이 완전히 나타난다.** 0에서만 0이고 그 위는 즉시 램프에 올라탄다 —
@@ -634,7 +634,7 @@ style이다.
   **`--mainchrome-divider-progress`의 폴백은 「없음」이 아니라 `1`이다(위 표 정정).** 소비처가
   `var(--mainchrome-divider-progress, 1)`로 읽으므로 **진행값을 주입하지 않는 화면은 스크롤 0에서도
   경계선이 100%로 그려진다.** 진행값을 주입하는 것은 훅을 부르는 세 화면뿐이다
-  (`AppHomeScene.tsx:221` · `HighlightScene.tsx:184` · `NodeCanvasHomeScene.tsx:727`).
+  (`AppHomeScene.tsx:221` · `HighlightScene.tsx:184` · `NodeCanvasHomeScene.tsx:679`).
 
   그래서 Properties의 `divider` 기본 `false`와 Acceptance test 8은 **제품 기본과 반대다.** Figma로
   옮길 때 그 세 화면 밖의 기본 프레임은 **경계선 있음**으로 그린다 — `divider`를 끈 상태를 기본으로
@@ -643,9 +643,9 @@ style이다.
   | AppTopBar 경계선 | 값 | 근거 |
   | --- | --- | --- |
   | 주입 있음 · `scrollTop = 0` | 경계선 없음(알파 0%) | `useMainChromeHeaderScrollProgress.ts:34-37` |
-  | 주입 있음 · `scrollTop ≥ 12px` | 100% — 라이트 `--palette-gray-200`, 그 밖 `rgb(var(--gray-000-rgb) / 8%)`를 `color-mix`로 보간 | `Gnb.tsx:470` · `:473` |
+  | 주입 있음 · `scrollTop ≥ 12px` | 100% — 라이트 `--palette-gray-200`, 그 밖 `rgb(var(--gray-000-rgb) / 8%)`를 `color-mix`로 보간 | `Gnb.tsx:471` · `:473` |
   | 주입 **없음**(그 밖의 화면) | 정지 상태에서도 100% | 폴백 `1` |
-  | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:471` |
+  | 전환 | `border-bottom-color 120ms ease` | `Gnb.tsx:472` |
 
   **이 표는 `Gnb.tsx`가 소유한 스크롤 진행률 구현을 그대로 인용한 것이라 LOUIS 소스가 손댈 수 없다.**
   LOUIS 자체 `data-divider` 레시피는 이제 `border-bottom`이 아니라 방향성 inset 헤어라인
@@ -686,17 +686,17 @@ style이다.
 - **compact 드로어의 layer 자리가 사다리에 없다.** 제품의 드로어(1400)와 scrim(1399)은 프로필
   popover(1100)보다 위인데 DS 사다리는 `sticky < popover`다. 드로어는 composition의 일부이며 그때
   판정한다.
-- **아이콘–라벨 간격이 8과 10으로 갈린다.** 배포본은 10이고(`Gnb.tsx:636`의
+- **아이콘–라벨 간격이 8과 10으로 갈린다.** 배포본은 10이고(`Gnb.tsx:637`의
   `gnb-menuLinkInner` `gap:10px`) 레시피 `.louis-sidebar-nav-item`은 `space-control-sm` 8을 쓴다.
   10은 DS 간격 계단(4·8·12·16)에 없고 SelectableListRow와 같은 판단을 한다 — 한 컴포넌트를 위해
   계단을 늘리지 않는다. 위 Specification의 「아래 편차」가 가리키는 것이 이 항목이다. **목록의 행
   간격(4px)과 헷갈리지 않는다** — 그 축은 편차가 아니라 제품과 같다.
 - **레일이 면을 갖는지가 갈린다.** 레시피 `.louis-app-shell__rail`은
   `background-color: var(--louis-color-bg-surface)`를 칠하는데, 배포본의 데스크톱 레일은
-  **투명하다**(`Gnb.tsx:2040` `[background:transparent]`, 브라우저 실측
+  **투명하다**(`Gnb.tsx:2041` `[background:transparent]`, 브라우저 실측
   `migration/product.sidebar-states.json`의 `sidebar` 노드 `backgroundColor: rgba(0, 0, 0, 0)`).
   제품에서 레일은 셸 바닥 위에 그대로 얹히고 밝은 면은 본문 카드 쪽이며, 면을 칠하는 선언은
-  ≤719px 드로어에만 있다(`Gnb.tsx:2099-2100`). **값을 지금 걷어내지 않는 이유가 있다** — 레시피의
+  ≤719px 드로어에만 있다(`Gnb.tsx:2100-2101`). **값을 지금 걷어내지 않는 이유가 있다** — 레시피의
   ≤719px 블록에는 면 선언이 따로 없어서 base에서 빼면 드로어가 scrim 위에서 비친다. 드로어 면을
   제품처럼 칠하려면 라이트에서 `#eeeef1`이 필요한데 그 값에 이름이 없다(아래). 그 토큰이 서는 날
   base의 면을 걷고 드로어 블록으로 옮긴다.
@@ -707,7 +707,7 @@ style이다.
   「드로어 면 토큰이 서면 옮긴다」는 닫는 길이 더는 제품과 맞지 않는다 — DS compact 드로어 composition(아직 없음)을 지을 때
   블러 표면으로 판정한다.
 - **펼친 CTA 의 높이가 코드 · 제품과 기록 · Figma 사이에서 갈린다.** 코드(`.louis-sidebar-cta__button`)와
-  제품(`Gnb.tsx:1973-1974` 가 같은 클래스를 문다)은 높이를 **최소** 40 으로만 두고 세로 패딩 10 · 10 과 라벨 줄 높이
+  제품(`Gnb.tsx:1974-1975` 가 같은 클래스를 문다)은 높이를 **최소** 40 으로만 두고 세로 패딩 10 · 10 과 라벨 줄 높이
   (`typography-body-sm-medium`, 150%)로 계산하므로, 라벨 한 줄에서 합이 최소를 넘어 버튼이 그 합이 된다(제품 측정은
   `figma/product-components.plan.json` 의 `component.upgradeCta.variants[].rect`). 그런데 기록
   `sidebar-cta.sizes.false.height` 는 최소값 40 을 높이로 적고, Figma `SidebarCta` 의 `Collapsed=false` variant 는
@@ -725,11 +725,11 @@ style이다.
   면을 변수 없이 raw hex로 그린다. 선택지는 둘이다 — primitive를 세우거나, `.louis-app-shell`의 면을 `bg-canvas`가 아닌 셸
   전용 역할 토큰으로 가르거나. **어느 쪽도 토큰 계약을 바꾸므로 소유자 판정이 남아 있다.**
 - **캔버스 판의 흐림 곡선 · 반경이 제품과 다르다.** 제품은 카드 반경 10 에 지역 곡선(60% 0.8 · 80% 0.4,
-  `ProjectHeader.tsx:46-50`)이고 레시피는 헤더 띠 값(12 · 40% → 0 직선, 같은 자리에서 0.67 · 0.33)이다. 새 마스크 이름을 세우지
+  `ProjectHeader.tsx:52-56`)이고 레시피는 헤더 띠 값(12 · 40% → 0 직선, 같은 자리에서 0.67 · 0.33)이다. 새 마스크 이름을 세우지
   않고 LOUIS 헤더 띠로 접었다(DS-D-0084 소유자 판정 6).
-- **캔버스 판의 누름 면이 다크에서 옅다** — 제목 · 홈의 제품 누름은 다크 20% · 라이트 12%(`ProjectHeader.tsx:216-217`)이고 레시피는
+- **캔버스 판의 누름 면이 다크에서 옅다** — 제목 · 홈의 제품 누름은 다크 20% · 라이트 12%(`ProjectHeader.tsx:222-223`)이고 레시피는
   `accent-secondary-hover` 12% 한 칸이다. 홈 버튼 누름의 `filter: saturate brightness` 는 받지 않는다.
-- **제품 제목은 `<span onClick>` 이라 키보드로 이름을 바꿀 수 없다**(`ProjectHeader.tsx:541-554`). 레시피는 `<button>`
+- **제품 제목은 `<span onClick>` 이라 키보드로 이름을 바꿀 수 없다**(`ProjectHeader.tsx:547-560`). 레시피는 `<button>`
   (`__title-button`)을 계약으로 둔다.
 - **캔버스 판의 React 표면이 없다.** `AppTopBar` 는 나머지 속성을 루트에 펼치므로 `data-surface="canvas"` 를 넘길 수는 있지만,
   홈 · 제목 버튼 · 편집 입력은 prop 이 아니라 클래스 마크업이다. 판의 기하(위아래 8 · 좌우 12 · 사이 4 · 높이 48 파생)는 2026-10-14 부터

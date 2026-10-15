@@ -2,7 +2,7 @@
   "$schema": "./_schema.json",
   "area": "nodecanvas",
   "mode": "session",
-  "authoredAgainst": "76b6cf154ab2",
+  "authoredAgainst": "97d4950e153d",
   "description": "노드캔버스 편집기(/nodecanvas?project=)의 상호작용 · 응답 · 시드로만 서는 상태. 설계서 4-7절 표가 출발점이고 통합 앵커 76b6cf15 코드로 확인했다. 시드가 필요한 레시피는 새 프로젝트 id 를 열고(scripts/lib/state-seeds/nodecanvas.mjs — 캔버스 하나에 노드 3개 이하), 시드가 필요 없는 레시피는 기준 화면의 문서(fixture-seeds.mjs canvasDocument: seed-text → seed-image → seed-video)를 그대로 쓴다. 설계서 표의 pricing(PricingModal)은 앵커에 여는 길이 없어 넣지 않았다 — 유일한 진입점인 모델 메뉴의 가격($) 단추가 주석 처리돼 있다(VideoModelMenu.tsx:491). IgAreaChartBlock 도 넣지 않았다 — 분석 모달이 그리는 YoutubeVideoAnalyticsView 는 그 정의를 쓰지 않는 다른 그림이다.",
   "recipes": [
     {
@@ -18,9 +18,9 @@
       "cite": [
         { "path": "apps/web/app/api/projects/[projectId]/route.ts", "line": 177, "expect": ".eq(\"id\", projectId)" },
         { "path": "apps/web/app/api/canvas/[projectId]/route.ts", "line": 303, "expect": ".select(\"id, document, updated_at\")" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx", "line": 1569, "expect": "const youtubeOutVisualReady = videoOutputsReady({" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6936, "expect": "sourceHandle: \"youtube-out\"," },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7014, "expect": "sourceHandle: \"instagram-out\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx", "line": 1581, "expect": "const youtubeOutVisualReady = videoOutputsReady({" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6615, "expect": "sourceHandle: \"youtube-out\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6693, "expect": "sourceHandle: \"instagram-out\"," },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/hooks/useCanvasPersistence.ts", "line": 111, "expect": "\"connectedChannelTitle\"," },
         { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 122, "expect": "fetch(\"/api/auth/youtube/me\"" },
         { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 146, "expect": "result.youtubeAccount.channel_id" },
@@ -36,8 +36,8 @@
         { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 28, "expect": "export const SHOWCASE_VIDEO_URL" },
         { "path": "apps/web/app/lib/storage/buckets.ts", "line": 62, "expect": "videos: { legacyBucket: \"generated-videos\", visibility: \"signed\" }," },
         { "path": "apps/web/app/lib/storage/serving.ts", "line": 52, "expect": "if (!ref) return { url: value, outcome: \"passthrough\" };" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2263, "expect": "scheduledUploadCheckbox: \"Schedule upload\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2278, "expect": "uploadButton: \"Post to Instagram\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2440, "expect": "scheduledUploadCheckbox: \"Schedule upload\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2455, "expect": "uploadButton: \"Post to Instagram\"" }
       ],
       "clock": "2026-01-15T03:00:00.000Z",
       "api": [
@@ -68,14 +68,14 @@
         "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleDatePopover"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1379, "expect": "? t.scheduledUploadCheckbox" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1438, "expect": "aria-label={t.scheduleDateLabel}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1504, "expect": "ariaLabel={t.schedulePickerDateAria}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 389, "expect": "role=\"dialog\"" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 458, "expect": "{todayLabel}" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2263, "expect": "scheduledUploadCheckbox: \"Schedule upload\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2245, "expect": "scheduleDateLabel: \"Date\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2256, "expect": "schedulePickerDateAria: \"Choose schedule date\"" }
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1382, "expect": "? t.scheduledUploadCheckbox" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1441, "expect": "aria-label={t.scheduleDateLabel}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1507, "expect": "ariaLabel={t.schedulePickerDateAria}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 423, "expect": "role=\"dialog\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 545, "expect": "{todayLabel}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2440, "expect": "scheduledUploadCheckbox: \"Schedule upload\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2420, "expect": "scheduleDateLabel: \"Date\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2433, "expect": "schedulePickerDateAria: \"Choose schedule date\"" }
       ],
       "clock": "2026-01-15T03:00:00.000Z",
       "api": [
@@ -110,12 +110,12 @@
         "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleTimePopover"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1468, "expect": "aria-label={t.scheduleTimeLabel}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1518, "expect": "ariaLabel={t.schedulePickerTimeAria}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 620, "expect": "role=\"dialog\"" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 656, "expect": "{hourColLabel}" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2249, "expect": "scheduleTimeLabel: \"Time\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2257, "expect": "schedulePickerTimeAria: \"Choose schedule time\"" }
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1471, "expect": "aria-label={t.scheduleTimeLabel}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1521, "expect": "ariaLabel={t.schedulePickerTimeAria}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 805, "expect": "role=\"dialog\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 860, "expect": "{hourColLabel}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2424, "expect": "scheduleTimeLabel: \"Time\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2434, "expect": "schedulePickerTimeAria: \"Choose schedule time\"" }
       ],
       "clock": "2026-01-15T03:00:00.000Z",
       "api": [
@@ -151,15 +151,15 @@
         "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx#BgmNode"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 708, "expect": "fetch(`/api/tts/voices?language=" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 710, "expect": "if (json.ok && json.data?.voices)" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 814, "expect": "fetchVoices(data.language ?? \"ko-KR\")" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 1251, "expect": "? data.voiceName || tTts.voiceLoadingLabel" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 709, "expect": "fetch(`/api/tts/voices?language=" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 711, "expect": "if (json.ok && json.data?.voices)" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 815, "expect": "fetchVoices(data.language ?? \"ko-KR\")" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 1252, "expect": "? data.voiceName || tTts.voiceLoadingLabel" },
         { "path": "apps/web/app/api/tts/voices/route.ts", "line": 45, "expect": "return NextResponse.json({ ok: true, data: { voices: voicesWithPreview } });" },
         { "path": "apps/web/app/lib/providers/tts/google/index.ts", "line": 95, "expect": "name: formatVoiceName(v.name)," },
         { "path": "apps/web/app/lib/providers/tts/types.ts", "line": 6, "expect": "export interface TtsVoice" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 1082, "expect": "id=\"text\"" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6456, "expect": "provider: \"elevenlabs\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 1083, "expect": "id=\"text\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6135, "expect": "provider: \"elevenlabs\"," },
         { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 385, "expect": "en: \"en-US-Chirp3-HD-Kore\"" },
         { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 400, "expect": "voiceName: \"Kore (Chirp3 HD)\"" },
         { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 143, "expect": "const SCRIPT_INPUT_EN" },
@@ -186,17 +186,17 @@
         "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx#NodePromptResizeHandle"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx", "line": 197, "expect": "const label = sectionName.trim().length ? sectionName : t.addSectionTitle;" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx", "line": 198, "expect": "const label = sectionName.trim().length ? sectionName : t.addSectionTitle;" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx", "line": 23, "expect": "\"rgba(59, 130, 246, 0.16)\", // blue" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/lib/sectionHelpers.ts", "line": 17, "expect": "return `Section ${String(max + 1).padStart(2, \"0\")}`;" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/constants.ts", "line": 19, "expect": "export const SECTION_DEFAULT_WIDTH = 880;" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/constants.ts", "line": 20, "expect": "export const SECTION_DEFAULT_HEIGHT = 560;" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6389, "expect": "data: { width, height, name: nextSectionName(nodesRef.current) }," },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx", "line": 1086, "expect": "{hasSources ? tEdit.sourceNotReady : tEdit.noSourceVideos}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx", "line": 1980, "expect": "promptResize.showHandle" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx", "line": 73, "expect": "role=\"separator\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 5920, "expect": "data: { width, height, name: nextSectionName(nodesRef.current) }," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx", "line": 1092, "expect": "{hasSources ? tEdit.sourceNotReady : tEdit.noSourceVideos}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx", "line": 2030, "expect": "promptResize.showHandle" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx", "line": 34, "expect": "role=\"separator\"" },
         { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 92, "expect": "const TEXT_OUTPUT_EN" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2194, "expect": "noSourceVideos: \"No videos connected." }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2370, "expect": "noSourceVideos: \"No videos connected." }
       ],
       "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#sectionEditCanvas" },
       "steps": [
@@ -215,11 +215,11 @@
         "apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx#YoutubeVideoAnalyticsView"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 818, "expect": "const uploadDone = youtubeUploadDone({" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1616, "expect": "idleLabel={t.analyzeButton}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7746, "expect": "fetch(\"/api/youtube/videos/check\"" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7789, "expect": "if (!hasCurrentYoutubeIdentity || channelMismatch) return;" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7799, "expect": "platform: \"youtube\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 821, "expect": "const uploadDone = youtubeUploadDone({" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1619, "expect": "idleLabel={t.analyzeButton}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7430, "expect": "fetch(\"/api/youtube/videos/check\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7473, "expect": "if (!hasCurrentYoutubeIdentity || channelMismatch) return;" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7483, "expect": "platform: \"youtube\"," },
         { "path": "apps/web/app/api/youtube/videos/check/route.ts", "line": 78, "expect": "return NextResponse.json({ ok: true, existing, deleted });" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx", "line": 477, "expect": "`/api/youtube/analytics/video/header?videoId=" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx", "line": 536, "expect": "`/api/youtube/analytics/video?${params.toString()}`" },
@@ -245,8 +245,8 @@
         { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 604, "expect": "ageGroup: ag.replace(\"age\", \"\")," },
         { "path": "apps/web/app/api/youtube/analytics/video/retention/route.ts", "line": 59, "expect": "totalSegmentImpressions: toNumber(parsed.totalSegmentImpressions)," },
         { "path": "apps/web/app/api/youtube/analytics/video/retention/route.ts", "line": 72, "expect": "retention: items.length > 0 ? \"ok\" : \"empty\"," },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3674, "expect": "avgViewDuration: \"Avg. view duration\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3672, "expect": "subscribersGained: \"Subscribers gained\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3967, "expect": "avgViewDuration: \"Avg. view duration\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3965, "expect": "subscribersGained: \"Subscribers gained\"" }
       ],
       "clock": "2026-01-15T03:00:00.000Z",
       "api": [
@@ -284,10 +284,10 @@
         "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx#VideoModelMenu"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx", "line": 2294, "expect": "<span className={META_MODEL_LABEL}>{model.label}</span>" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts", "line": 223, "expect": "label: \"Seedance 2.0 Mini\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx", "line": 2327, "expect": "<span className={META_MODEL_LABEL}>{model.label}</span>" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts", "line": 228, "expect": "label: \"Seedance 2.0 Mini\"," },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx", "line": 485, "expect": "placeholder={copy.searchPlaceholder}" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1916, "expect": "searchPlaceholder: \"Search all models.\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2067, "expect": "searchPlaceholder: \"Search all models.\"" }
       ],
       "steps": [
         { "click": { "role": "button", "name": "Seedance 2.0 Mini", "exact": true } },
@@ -306,18 +306,18 @@
         "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#CropModalInner"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 11872, "expect": "onNodeContextMenu={staticInSection ? undefined : handleNodeContextMenu}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 1742, "expect": "x: event.clientX," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 11783, "expect": "onNodeContextMenu={staticInSection ? undefined : handleNodeContextMenu}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 1777, "expect": "x: event.clientX," },
         { "path": "apps/web/app/lib/storage/buckets.ts", "line": 54, "expect": "images: { legacyBucket: \"project-assets\", visibility: \"cdn\" }," },
         { "path": "apps/web/app/lib/storage/urls.ts", "line": 295, "expect": "return `${requirePublicCdnBase()}/${ref.key}`;" },
         { "path": "apps/web/app/lib/storage/serving.ts", "line": 52, "expect": "if (!ref) return { url: value, outcome: \"passthrough\" };" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7886, "expect": "const handleRequestImageEdit = useCallback" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7570, "expect": "const handleRequestImageEdit = useCallback" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx", "line": 286, "expect": "onEditImage?.(menu.node);" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx", "line": 293, "expect": "{messages.create.nodeCanvas.nodeContextMenu.editImage}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 961, "expect": "export function ImageEditModal({" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 798, "expect": "{tEdit.tabSticker}" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1809, "expect": "editImage: \"Edit image\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1784, "expect": "tabSticker: \"Sticker\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 889, "expect": "export function ImageEditModal({" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 728, "expect": "label: tEdit.tabSticker" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1953, "expect": "editImage: \"Edit image\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1928, "expect": "tabSticker: \"Sticker\"" },
         { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 26, "expect": "export const SHOWCASE_IMAGE_URL" },
         { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 113, "expect": "const IMAGE_PROMPT_EN" }
       ],
@@ -350,12 +350,12 @@
       ],
       "cite": [
         { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx", "line": 286, "expect": "onEditImage?.(menu.node);" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 798, "expect": "{tEdit.tabSticker}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx", "line": 174, "expect": "<span className={FIELD_LABEL}>{t.rotation}</span>" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 728, "expect": "label: tEdit.tabSticker" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx", "line": 147, "expect": "<span className={FIELD_LABEL}>{t.rotation}</span>" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/lib/imageEdit/stickerAssets.ts", "line": 26, "expect": "labelKey: \"grid\"," },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1787, "expect": "paletteTitle: \"Stickers\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1790, "expect": "rotation: \"Rotation\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1805, "expect": "grid: \"Grid\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1931, "expect": "paletteTitle: \"Stickers\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1934, "expect": "rotation: \"Rotation\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1949, "expect": "grid: \"Grid\"" }
       ],
       "supabase": {
         "module": "scripts/lib/state-seeds/nodecanvas.mjs#imageEditCanvas",
@@ -388,11 +388,11 @@
         "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx#ExampleGallery"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 883, "expect": "{stickerEnabled && examplesOpen && (" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx", "line": 156, "expect": "{t.examplesButton}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx", "line": 81, "expect": "aria-label={t.examplesClose}" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1798, "expect": "examplesButton: \"Usage examples\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1800, "expect": "examplesClose: \"Close examples\"" }
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 801, "expect": "{stickerEnabled && examplesOpen && (" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx", "line": 129, "expect": "{t.examplesButton}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx", "line": 73, "expect": "aria-label={t.examplesClose}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1942, "expect": "examplesButton: \"Usage examples\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1944, "expect": "examplesClose: \"Close examples\"" }
       ],
       "supabase": {
         "module": "scripts/lib/state-seeds/nodecanvas.mjs#imageEditCanvas",
@@ -425,19 +425,19 @@
         "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx#PromptVariantCompareModal"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 975, "expect": "const res = await fetch(\"/api/prompt/assist\"" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 992, "expect": "const list: PromptVariant[] = Array.isArray(json.data?.variants)" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1007, "expect": "if (list.length >= 2) {" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 683, "expect": "onClick={() => onOpenCompare?.()}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1108, "expect": ": llmPromptGenerateLabel" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1319, "expect": "open={compareOpen && variants.length > 0}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 976, "expect": "const res = await fetch(\"/api/prompt/assist\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 993, "expect": "const list: PromptVariant[] = Array.isArray(json.data?.variants)" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1008, "expect": "if (list.length >= 2) {" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 684, "expect": "onClick={() => onOpenCompare?.()}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1109, "expect": ": llmPromptGenerateLabel" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1320, "expect": "open={compareOpen && variants.length > 0}" },
         { "path": "apps/web/app/api/prompt/assist/route.ts", "line": 536, "expect": "variants," },
         { "path": "apps/web/app/api/prompt/assist/route.ts", "line": 539, "expect": "charCount: variants[0]!.prompt.length," },
         { "path": "apps/web/app/api/prompt/assist/route.ts", "line": 44, "expect": "if (!value) return \"gemini-3.5-flash-lite\";" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx", "line": 190, "expect": "aria-labelledby=\"prompt-variant-compare-title\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2039, "expect": "llmPromptGenerateImage: \"Generate AI image prompt\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2051, "expect": "llmVariantPick: \"Tap to compare and choose\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2053, "expect": "llmVariantCompareTitle: \"Compare prompts\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx", "line": 123, "expect": "aria-labelledby=\"prompt-variant-compare-title\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2190, "expect": "llmPromptGenerateImage: \"Generate AI image prompt\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2202, "expect": "llmVariantPick: \"Tap to compare and choose\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2204, "expect": "llmVariantCompareTitle: \"Compare prompts\"" },
         { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 90, "expect": "const TEXT_INPUT_EN" }
       ],
       "api": [
@@ -467,7 +467,7 @@
         { "path": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx", "line": 147, "expect": "onPointerEnter={() => setHovered(true)}" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx", "line": 25, "expect": "const LABEL_WRAP_VISIBLE = \"opacity-100 pointer-events-auto\";" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx", "line": 165, "expect": "aria-label={messages.create.nodeCanvas.edgeDeleteAria}" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1824, "expect": "edgeDeleteAria: \"Delete connection\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1968, "expect": "edgeDeleteAria: \"Delete connection\"" }
       ],
       "steps": [
         { "hover": { "css": ".react-flow__edge[data-id=\"edge-seed-text-seed-image-text\"] > path.cursor-pointer" } },
@@ -491,10 +491,10 @@
       ],
       "cite": [
         { "path": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx", "line": 343, "expect": "{t.heading}" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 12004, "expect": "{emptyStateShown ? (" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2404, "expect": "heading: \"Start with your first node\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2405, "expect": "imageLabel: \"Create image\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2406, "expect": "videoLabel: \"Create video\"" }
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 11946, "expect": "{emptyStateShown && !assistantOpen ? (" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2645, "expect": "heading: \"Start with your first node\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2646, "expect": "imageLabel: \"Create image\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2647, "expect": "videoLabel: \"Create video\"" }
       ],
       "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#emptyCanvas" },
       "steps": [
@@ -512,8 +512,8 @@
         "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx#SmartGuideOverlay"
       ],
       "cite": [
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 11981, "expect": "<SmartGuideOverlay guides={activeGuides} />" },
-        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx", "line": 31, "expect": "<filter id=\"guideGlow\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 11895, "expect": "<SmartGuideOverlay guides={activeGuides} />" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx", "line": 24, "expect": "<svg className=\"louis-canvas-guide\"" },
         { "path": "apps/web/components/scenes/create/node-canvas-v2/lib/useSmartGuideSnapping.ts", "line": 21, "expect": "const DEFAULT_SNAP_THRESHOLD = 6;" }
       ],
       "steps": [

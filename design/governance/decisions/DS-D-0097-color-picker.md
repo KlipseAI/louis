@@ -15,8 +15,8 @@ authority: normative
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `color-picker` 가 있다(B2 #39 · #40). 제품의 색 고르기는
 영상 편집기 인스펙터의 색 팝오버다(`components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx`, 통합 판 `54b62a8aa`, 호출부
-`VideoEditModal.tsx:15399`). 채도 · 밝기 면(2차원) · 색조 띠 · 알파 띠 · 스포이드 · 헥스 · 알파 입력 · 「이 페이지에서」 색 격자가 한 판이고, 상수 열여덟으로 그린다
-(`ColorPopover.tsx:243-404`). 트리거는 인스펙터 줄의 16 칩(`ColorSwatchButton`, `:29-89`)이다.
+`VideoEditModal.tsx:15149`). 채도 · 밝기 면(2차원) · 색조 띠 · 알파 띠 · 스포이드 · 헥스 · 알파 입력 · 「이 페이지에서」 색 격자가 한 판이고, 상수 열여덟으로 그린다
+(`ColorPopover.tsx@54b62a8a:243-404`). 트리거는 인스펙터 줄의 16 칩(`ColorSwatchButton`, `:29-89`)이다.
 
 LOUIS 에 가장 가까운 것은 [Slider](../../components/slider.md)(막대 하나 · 채움 하나)와 [Color Swatch](../../components/color-swatch.md)(색 값 하나의 칩)다.
 slider 는 2차원 면을 담지 못하고, 색 공간 그라디언트 · 체크무늬 · 「지금 색」으로 칠하는 손잡이는 어느 레시피에도 없다. 면(`.louis-popover`)은 제품도 이미 문다.

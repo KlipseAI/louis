@@ -2,7 +2,7 @@
   "$schema": "./_schema.json",
   "area": "vem-audio",
   "mode": "session",
-  "authoredAgainst": "54b62a8a",
+  "authoredAgainst": "97d4950e153d",
   "description": "비디오 편집기(/videoeditor/[projectId])의 패널 상태 하나(panel.audio)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 비디오 편집기(/videoeditor/[projectId])의 패널 상태를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). videoeditor 영역의 같은 상태 레시피는 데스크톱 전용이고 인용이 앵커 54b62a8a 와 어긋나 있으며 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다. 모바일(≤719)은 같은 aside.vem-propertiesPanel · div.vem-assets-panel 을 아래 시트로 쓰고, 고르기만으로는 시트가 열리지 않아(VideoEditModal 「Properties」 · 「Adjust」 · 「Assets」 단추가 시트를 연다) stepsByContext 로 그 단추를 누른다. 닫힌 시트는 translateY 로 화면 밖에 있을 뿐 DOM 에 남아 글자 assert 만으로는 열림을 증명하지 못한다 — 모바일의 마지막 waitFor 는 data-vem-sheet-open 이 선 시트다. CompositionInspector 는 넣지 않았다 — 앵커에서 selId 를 \"__composition__\" 으로 두는 코드가 없어(VideoEditModal.tsx 15065 비교 한 곳뿐) 여는 길이 없다. 【2026-10-15 R2 상태】 측정 실패 — 데스크톱 단계 #3 waitFor 「Delete audio clip」 30초 시간 초과(.vem-audio-clip 클릭 뒤 오디오 인스펙터가 서지 않았다, 원인 미확인 — videoeditor 영역의 같은 레시피도 앵커 54b62a8a 에서 잰 적이 없다). 보드 자리는 지웠다.",
   "recipes": [
     {
@@ -61,12 +61,12 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
-          "line": 1810,
+          "line": 1800,
           "expect": "sourceType: \"tts\" | \"bgm\";"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts",
-          "line": 1835,
+          "line": 1825,
           "expect": "export interface AudioTrack {"
         },
         {
@@ -81,7 +81,7 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 14654,
+          "line": 14397,
           "expect": "className={`${VEM_CLASS.audioClip}"
         },
         {
@@ -91,12 +91,12 @@
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 9944,
+          "line": 9751,
           "expect": "setSelectedAudioClipId(clip.id);"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 15059,
+          "line": 14809,
           "expect": "<AudioClipInspector"
         },
         {
@@ -111,37 +111,37 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 3012,
+          "line": 3149,
           "expect": "deleteAudioClipAria: \"Delete audio clip\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts",
-          "line": 231,
-          "expect": "\"vem-mobile-timeline-audio-clip\","
+          "line": 25,
+          "expect": "clip: \"louis-timeline__clip\","
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 11780,
+          "line": 11522,
           "expect": "label: vem.mobileTabProperties,"
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 14976,
+          "line": 14719,
           "expect": "mobileSheet === \"properties\" ? \"\" : undefined"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2972,
+          "line": 3109,
           "expect": "mobileTabProperties: \"Properties\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 3381,
+          "line": 3285,
           "expect": "\"vem-propertiesPanel\","
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 1511,
+          "line": 1457,
           "expect": "\"vem-mobile-tab-bar\","
         }
       ],
@@ -159,7 +159,7 @@
           "waitFor": {
             "css": ".vem-audio-clip"
           },
-          "description": "가로챈 state 의 오디오 클립(데스크톱 타임라인 전용 훅 클래스 — 모바일은 vem-mobile-timeline-audio-clip)"
+          "description": "가로챈 state 의 오디오 클립(데스크톱 타임라인 전용 훅 클래스 — 모바일은 .louis-timeline__clip[data-tone=audio])"
         },
         {
           "click": {
@@ -180,13 +180,13 @@
         "mobile-402x874": [
           {
             "waitFor": {
-              "css": ".vem-mobile-timeline-audio-clip"
+              "css": ".louis-timeline__clip[data-tone=\"audio\"]"
             },
             "description": "가로챈 state 의 오디오 클립(모바일 레인)"
           },
           {
             "click": {
-              "css": ".vem-mobile-timeline-audio-clip"
+              "css": ".louis-timeline__clip[data-tone=\"audio\"]"
             },
             "description": "오디오 클립 → onSelectAudioClip(선택만)"
           },

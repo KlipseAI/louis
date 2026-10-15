@@ -78,7 +78,7 @@ NodeShell (세로, 간격 4, 폭 400)
 14인데, 행이 32인 것은 [Node Chrome Button](node-chrome-button.md) 셋이 32이기 때문이다.
 액션을 지우면 헤더가 16으로 주저앉는다.
 
-**도움말 단추는 2026-10-07 에 생긴 셋째 칸이고 조건부다.** 제품 `NodeHeaderActions.tsx:104`
+**도움말 단추는 2026-10-07 에 생긴 셋째 칸이고 조건부다.** 제품 `NodeHeaderActions.tsx:109`
 (`chore/landing-dead-walkthrough` @d040dce15)의 `NodeHelpAction` 이 모든 노드 머리 맨 **앞**에
 `BUTTON_NEUTRAL` — 다운로드와 같은 중립 톤 — 로 붙는다. 노드 종류를 노드 파일마다 넘기지 않고
 캔버스 저장소에서 읽으므로 노드 파일 아홉을 고치지 않고 한 곳에서 붙는다. 그리는 조건은 둘이고
@@ -140,7 +140,7 @@ NodeShell (세로, 간격 4, 폭 400)
 | 편집 모드 | (기본) | `node-edit-chip-surface` — 라이트 `violet-alpha/08` · 다크 `/16` | `node-edit-chip-foreground` — 라이트 `violet-700` · 다크 `violet-300` | 8.78 · 5.61 |
 | 재편집 필요 | `data-tone="warning"` | `bg-warning` | `fg-warning` | 10.83 |
 
-색은 제품 값이 아니다. 제품 편집 모드는 Tailwind 보라 리터럴이고(`ImageNode.tsx:227-228`), `node-edit-accent` 를 같은 색 16%
+색은 제품 값이 아니다. 제품 편집 모드는 Tailwind 보라 리터럴이고(`ImageNode.tsx:230-231`), `node-edit-accent` 를 같은 색 16%
 위에 얹으면 다크에서 3.00:1 이다. 재편집 필요는 제품 `yellow-600` on `yellow-200` 이 1.94:1 이다.
 [DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md). **Figma 부품은 아직 없다.**
 
@@ -448,7 +448,7 @@ YouTube · Instagram 게시 노드 본문 맨 위의 「어느 채널로 올리�
 1. **카드 테두리는 캔버스 토큰이다.** 카드 면은 2026-10-01 부터 두 테마 모두 `color/bg-surface` 와
    같은 값이다(다크 `palette-gray-900`, 라이트 `palette-gray-000` — 제품 `nodeShellStyles.ts` 의
    `NODE_CARD_SURFACE`). 테두리는 제품이 다크 `palette-gray-700` · 라이트 흰색이고(통합 판 `54b62a8aa`
-   `node-canvas-v2/index.tsx:441-442`) 그 쌍을 가진 공용 세만틱이 없어, 2026-10-08
+   `node-canvas-v2/index.tsx@54b62a8a:441-442`) 그 쌍을 가진 공용 세만틱이 없어, 2026-10-08
    [DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md) 로 캔버스 전용
    `color-node-card-stroke`(라이트 `static/white` · 다크 `palette-gray-700`)를 세우고 레시피가 그것을 읽는다. 노드 셸은
    캔버스 밖에 서지 않으므로 범위 규칙 없이 바로 읽는다. Figma `NodeShell` 의 `Selected=false` 일곱 변형 Card 테두리도
@@ -487,7 +487,7 @@ YouTube · Instagram 게시 노드 본문 맨 위의 「어느 채널로 올리�
 3. **제목 잉크도 쌍이 없다.** 제품은 다크 `palette-gray-500` · 라이트 `palette-gray-700` 인데
    `color/fg-secondary` 는 라이트가 정확히 같고 다크가 한 단 밝다(`palette-gray-300`).
 
-   **2026-10-07 확인 — 제품 다크가 한 단 올라 `palette-gray-400` 이다**(`NodeHeaderActions.tsx:50`,
+   **2026-10-07 확인 — 제품 다크가 한 단 올라 `palette-gray-400` 이다**(`NodeHeaderActions.tsx:53`,
    헤더 액션 셋 모두. 제목과 같은 클래스를 쓰도록 맞췄고 `theme.test.ts` 가 둘을 대조한다 — 제품 주석이
    「다크 제목이 pg-500 에서 pg-400 으로 한 단 올라갈 때(2026-09-11)」라고 적는다). 위 `pg-500` 은
    그 전의 값이다. `fg-secondary`(다크 `pg-300`)와의 차이는 두 단에서 한 단으로 줄었다. 레시피 값은

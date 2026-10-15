@@ -31,33 +31,33 @@ DS-D-0050 의 실측은 앵커 `ae8fd627` 기준이고, 그 사이 제품이 회
 
 | 벌 | 정본 채택 | 반경 | 밑줄 | 아래 여백 | 초점 표시 |
 | --- | --- | ---: | --- | ---: | --- |
-| 앱 홈 `appHomeSceneStyles.ts:341` | `"louis-project-card-rename",` | **2** (`:344`) | 없음 | 0 | 1px 아웃라인 + 2px 띄움 (`:345`·`:346`) |
-| 캔버스 홈 `NodeCanvasHomeScene.tsx:409` | `"louis-project-card-rename",` | **2** (`:405`) | 없음 | 0 | 같음 (`:406`·`:407`) |
-| 하이라이트 허브 `highlightSceneStyles.ts:1040` | **얹지 않는다** (`:1037`) | 0 | `:1046` | 2 (`:1049`) | 없음 |
-| 비디오 에디터 허브 `VideoEditScene.tsx:402` | 얹지 않는다 | 0 | `:404` | 2 (`:406`) | 없음 |
+| 앱 홈 `appHomeSceneStyles.ts:328` | `"louis-project-card-rename",` | **2** (`:344`) | 없음 | 0 | 1px 아웃라인 + 2px 띄움 (`:345`·`:346`) |
+| 캔버스 홈 `NodeCanvasHomeScene.tsx:360` | `"louis-project-card-rename",` | **2** (`:405`) | 없음 | 0 | 같음 (`:406`·`:407`) |
+| 하이라이트 허브 `highlightSceneStyles.ts:796` | **얹지 않는다** (`:1037`) | 0 | `:1046` | 2 (`:1049`) | 없음 |
+| 비디오 에디터 허브 `VideoEditScene.tsx@54b62a8a:402` | 얹지 않는다 | 0 | `:404` | 2 (`:406`) | 없음 |
 
 낱말 그대로의 선언 — `git show 5a67d692:<경로>` 로 재확인한다.
 
 ```
-highlightSceneStyles.ts:1046     "[border-bottom:1px_solid_var(--palette-gray-400)]",
-highlightSceneStyles.ts:1049     "[padding:0_0_2px]",
-highlightSceneStyles.ts:1052     "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
-VideoEditScene.tsx:405           "[border-bottom:1px_solid_var(--palette-gray-400)]",
-VideoEditScene.tsx:407           "pt-0 pr-0 pb-1 pl-0",
+highlightSceneStyles.ts:994     "[border-bottom:1px_solid_var(--palette-gray-400)]",
+highlightSceneStyles.ts:997     "[padding:0_0_2px]",
+highlightSceneStyles.ts:1000     "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
+VideoEditScene.tsx@54b62a8a:405           "[border-bottom:1px_solid_var(--palette-gray-400)]",
+VideoEditScene.tsx:399           "pt-0 pr-0 pb-1 pl-0",
 VideoEditScene.tsx:410           "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
-appHomeSceneStyles.ts:344        "[border-radius:2px]",
-NodeCanvasHomeScene.tsx:410      "[outline:none] rounded-2",
+appHomeSceneStyles.ts:331        "[border-radius:2px]",
+NodeCanvasHomeScene.tsx:361      "[outline:none] rounded-2",
 ```
 
-`VideoEditScene.tsx:407` 의 `pb-1` 은 제품의 `--spacing: 2px` 격자에서 **2px** 다 —
-`highlightSceneStyles.ts:1049` 의 `padding: 0 0 2px` 와 같은 값이고, 그래서 두 벌이 갈리지 않는다.
+`VideoEditScene.tsx:399` 의 `pb-1` 은 제품의 `--spacing: 2px` 격자에서 **2px** 다 —
+`highlightSceneStyles.ts:997` 의 `padding: 0 0 2px` 와 같은 값이고, 그래서 두 벌이 갈리지 않는다.
 `VideoEditScene.tsx` 는 단축을 롱핸드로 푼 것만 다르며, 그 사유가 그 파일 주석에 적혀 있다 —
 「`border: none` 뒤의 `border-bottom` 단축을 롱핸드로 풀어 정렬 의존을 없앤다」.
 
 **값은 움직이지 않았다.** 밑줄 색은 여전히 라이트 `palette-gray-400` · 다크 `gray-500` 이고,
 그 둘은 LOUIS 원시값으로 각각 `palette-gray/400`(139 142 147) · `palette-gray/500`(114 117 123)
 이다. 제품이 그 이름을 LOUIS 에서 그대로 물고 있기 때문이다 — `globals.css:33` 이
-`--palette-gray-400: var(--louis-color-palette-gray-400);` 이고, 다크 스코프의 `globals.css:682`
+`--palette-gray-400: var(--louis-color-palette-gray-400);` 이고, 다크 스코프의 `globals.css:700`
 가 `--gray-500: var(--palette-gray-500);` 다. **채널 단위로 같다.**
 
 ## Decision

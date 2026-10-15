@@ -15,7 +15,7 @@ authority: normative
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `lightbox` 가 있다. 제품 두 화면이 그림
 크게 보기를 각자 들고 있고 값이 이미 갈렸다 — 만들기 화면(`components/scenes/create/ImageLightbox.tsx`)은 스크림 72% · 층 1400 · 창 반경 16 ·
-닫기가 창 안, 크리에이티브 미디어(`components/creative-media/CreativeMediaClient.tsx:1039-1060`)는 원시 검정 88% · 층 100 · 그림 반경 12 · 닫기가
+닫기가 창 안, 크리에이티브 미디어(`components/creative-media/CreativeMediaClient.tsx:1045-1083`)는 원시 검정 88% · 층 100 · 그림 반경 12 · 닫기가
 화면 구석이다(통합 판 `54b62a8aa`).
 
 첫 사본은 부채가 다섯이다.

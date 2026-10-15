@@ -28,8 +28,8 @@ authority: normative
 
 | 표 | 행에 붙은 속성 | 표가 놓인 바닥 |
 | --- | --- | --- |
-| 구독 화면 크레딧 사용 이력 | `SubscriptionScene.tsx:1403` | 메인 카드(`myPageSceneStyles.ts:73`) — `globals.css:1576`·`1584` 두 테마 `bg-surface` |
-| 분석 콘텐츠 표 | `ContentTable.tsx@3e3765a9:474` — 원격에 없는 작업 브랜치 | 안쪽 패널(`ContentTable.tsx:43`) — `YoutubeAnalyticsScene.tsx:658` `bg-surface` |
+| 구독 화면 크레딧 사용 이력 | `SubscriptionScene.tsx:1403` | 메인 카드(`myPageSceneStyles.ts:73`) — `globals.css:1611`·`1584` 두 테마 `bg-surface` |
+| 분석 콘텐츠 표 | `ContentTable.tsx@3e3765a9:474` — 원격에 없는 작업 브랜치 | 안쪽 패널(`ContentTable.tsx:43`) — `YoutubeAnalyticsScene.tsx:659` `bg-surface` |
 
 낱말 그대로의 선언이다. 앵커 `6fbdac16` 의 줄은 `git show 6fbdac16:<경로>`, 분석 표의 행
 속성은 `git show 3e3765a9:<경로>` 로 재확인한다.
@@ -39,15 +39,15 @@ SubscriptionScene.tsx:1330        <table className={styles.creditHistoryTable}>
 SubscriptionScene.tsx:1403        data-interactive={href ? "true" : undefined}
 myPageSceneStyles.ts:73           "appMainCardChromeSurface",
 myPageSceneStyles.ts:313          "louis-table",
-globals.css:1576                  background-color: var(--louis-color-bg-surface);
-globals.css:1584                  background-color: var(--louis-color-bg-surface);
+globals.css:1611                  background-color: var(--louis-color-bg-surface);
+globals.css:1619                  background-color: var(--louis-color-bg-surface);
 ContentTable.tsx:43               "p-3 rounded-10 bg-[var(--dashboard-inner-panel-bg)]",
 ContentTable.tsx:61               const TABLE = "louis-table";
-YoutubeAnalyticsScene.tsx:658     "[--dashboard-inner-panel-bg:var(--louis-color-bg-surface)]",
+YoutubeAnalyticsScene.tsx:659     "[--dashboard-inner-panel-bg:var(--louis-color-bg-surface)]",
 ContentTable.tsx@3e3765a9:474     data-interactive={onRowClick ? "true" : undefined}
 ```
 
-`globals.css:1576` 은 `html[data-theme="light"] .appMainCardChromeSurface` 블록(`:1573`),
+`globals.css:1611` 은 `html[data-theme="light"] .appMainCardChromeSurface` 블록(`:1573`),
 `:1584` 는 `html[data-theme="dark"]` 블록(`:1583`) 안이다.
 
 ## Decision

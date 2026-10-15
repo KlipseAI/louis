@@ -227,7 +227,7 @@ const PROBES = [
   // `.louis-tooltip` 이 이어받았다 — 소비처 6곳(ChromeTooltip.tsx:85 · ComposerBar.tsx:60 ·
   // useAnalyticsBarTooltip.tsx:25 · analytics/shared.tsx:445 · YoutubeVideoAnalyticsView.tsx:870 ·
   // mypage/upgrade/page.tsx:605). 그런데 **제품이 소유한 두 번째 툴팁이 아직 살아 있다** —
-  // `globals.css:1403` 의 `[data-tooltip]::after` 규칙이고 노드 핸들 다섯 파일이 쓴다.
+  // `globals.css:1438` 의 `[data-tooltip]::after` 규칙이고 노드 핸들 다섯 파일이 쓴다.
   // 한 벌만 재고 "제품 툴팁은 이렇다"고 적으면 그 갈림이 게이트 밖에 남는다(경쟁 정의 원칙).
   {
     id: "tooltip",
@@ -241,7 +241,7 @@ const PROBES = [
     // (globals.css:1411). 위 탐침에서 borderTopWidth 를 뺀 것은 축을 버린 것이 아니라
     // **실제 소유자에게 옮긴 것**이다.
     id: "tooltip-product",
-    source: "globals.css:1403 [data-tooltip]::after — 노드 핸들 다섯 파일이 쓰는 제품 소유 툴팁",
+    source: "globals.css:1438 [data-tooltip]::after — 노드 핸들 다섯 파일이 쓰는 제품 소유 툴팁",
     html: `<span data-tooltip="저장"></span>`,
     read: [
       "::after:paddingTop", "::after:paddingLeft", "::after:borderTopLeftRadius",
@@ -320,12 +320,13 @@ const PROBES = [
   // `dialog-action` 은 없어졌다. 제품이 `61ef0db1` 에서 대화상자의 확인 버튼을 LOUIS `Button`
   // 컴포넌트로 옮기면서 `modalConfirm` 클래스 상수 자체가 사라졌다 — 이제 그 자리를 재는 것은
   // 위의 `button-*` 탐침이다. 대조하던 EXPECT 행은 원래 없었다(높이·반경 둘 다 미대조였다).
-  {
-    id: "input-box",
-    source: "myPageSceneStyles.ts modalAuthInputBox + modalAuthInputBoxSingle",
-    from: ["myPage", "modalAuthInputBox", "modalAuthInputBoxSingle"],
-    read: ["paddingTop", "paddingLeft", "borderTopWidth", "borderTopLeftRadius"],
-  },
+  // **`input-box` 탐침은 걷었다(2026-10-15, 앵커 54b62a8a → 운영 main 97d4950e, DS-D-0117).**
+  // 마이페이지 인증 모달의 `modalAuthInputBox` · `modalAuthInputBoxSingle` 이 운영 판에서 사라졌다 — 제품
+  // `bcb314ba0`(「인증 입력 칸 · 약관 동의 상자 · 설정 스켈레톤을 LOUIS 기본으로 돌린다」)가 입력 칸을
+  // LOUIS `.louis-text-field[data-label-behavior="floating"]`(`components/auth/AuthFloatingField.tsx`)로 옮겼고,
+  // 같은 파일에 남은 것은 칸 묶음의 폭 `modalAuthInputGroup` 하나다(myPageSceneStyles.ts:424-427 주석).
+  // `empty-state-actions` 와 같은 사정이다 — 측정 대상이 사라진 것이 아니라 제품이 LOUIS 정본을 물어
+  // 잴 필요가 없어진 자리다.
   {
     id: "empty-state",
     source: "appHomeSceneStyles.ts emptyState",
@@ -395,7 +396,7 @@ const PROBES = [
   // 그전 탐침은 브라우저 기본 13px 을 재고 있었다.
   {
     id: "checkbox",
-    source: "VideoEditProjectPicker.tsx:493 외 다수가 소비하는 LOUIS 정본 .louis-checkbox__control",
+    source: "VideoEditProjectPicker.tsx:491 외 다수가 소비하는 LOUIS 정본 .louis-checkbox__control",
     html: `<input type="checkbox" class="louis-checkbox__control" />`,
     read: ["width", "height", "borderTopLeftRadius"],
   },
@@ -792,7 +793,7 @@ const PROBES = [
   // **제품이 앱 홈 배너에서 화살표를 지웠다.** 2026-09-03 앵커 재고정(`ae8fd627` →
   // `5a67d692`)에서 `appHomeSceneStyles.ts` 의 `bannerArrowButton` 상수가 사라진 것이 드러났고,
   // 같은 파일 `bannerControls` 의 주석이 그 사실을 적는다 — 「이 화면은 화살표를 그리지 않으므로
-  // 기본 배치를 그대로 받는다」. 소비처(`AppHomeScene.tsx:950-969`)도 점만 그린다.
+  // 기본 배치를 그대로 받는다」. 소비처(`AppHomeScene.tsx:976-995`)도 점만 그린다.
   //
   // 둘을 남겨 두면 `extractClassList` 가 「상수를 찾지 못했습니다」로 **던져서** 이 측정기가
   // 통째로 죽는다. 그러면 이 파일이 이미 잡고 있던 축 26건의 어긋남이 그 예외 뒤로 가려진다 —
@@ -1429,7 +1430,7 @@ const PROBES = [
   // 기록에 없다. 없는 것을 있는 척 적지 않으려고 사실을 여기 적어 둔다.
   {
     id: "landing-header-blur-product",
-    source: "landing/navigation/Gnb.tsx:100-105 HEADER_BLUR — 헤더 뒤 고정 120px 점진 흐림 판. 값은 LOUIS 두 토큰이 갖고 제품은 소비만 한다",
+    source: "landing/navigation/Gnb.tsx:101-106 HEADER_BLUR — 헤더 뒤 고정 120px 점진 흐림 판. 값은 LOUIS 두 토큰이 갖고 제품은 소비만 한다",
     from: ["landingGnb", "HEADER_BLUR"],
     tag: "div",
     // 마스크는 표준과 `-webkit-` 두 줄이 같은 값을 선언한다. 계산값은 한 줄만 읽는다 —
@@ -1449,7 +1450,7 @@ const PROBES = [
   },
   {
     id: "landing-header-wrapper-product",
-    source: "landing/navigation/Gnb.tsx:107-112 WRAPPER — position:fixed 투명 껍데기. 패딩만 갖는다",
+    source: "landing/navigation/Gnb.tsx:108-113 WRAPPER — position:fixed 투명 껍데기. 패딩만 갖는다",
     from: ["landingGnb", "WRAPPER"],
     tag: "header",
     // `w-full` 은 읽지 않는다. fixed 요소의 컨테이닝 블록은 뷰포트라 host 폭과 무관하게
@@ -1469,7 +1470,7 @@ const PROBES = [
   },
   {
     id: "landing-header-rail-product",
-    source: "landing/navigation/Gnb.tsx:115-119 NAV — 3열 그리드 레일(톤 수식자 NAV_LIGHT/NAV_BLACK 은 상호배타라 뺐다)",
+    source: "landing/navigation/Gnb.tsx:116-120 NAV — 3열 그리드 레일(톤 수식자 NAV_LIGHT/NAV_BLACK 은 상호배타라 뺐다)",
     from: ["landingGnb", "NAV"],
     tag: "nav",
     // `grid-template-columns` 는 읽지 않는다. 계산값이 `1fr auto 1fr` 이 아니라 host 폭을 나눈
@@ -1488,7 +1489,7 @@ const PROBES = [
   },
   {
     id: "landing-header-menu-product",
-    source: "landing/navigation/Gnb.tsx:159-162 MENU — 가운데 앵커 메뉴 열(ul)",
+    source: "landing/navigation/Gnb.tsx:160-163 MENU — 가운데 앵커 메뉴 열(ul)",
     from: ["landingGnb", "MENU"],
     // **`ul` 이다.** 제품 마크업(:758)이 `<ul>` 에 이 상수를 건다. `div` 로 재면 `@layer base`
     // 의 전역 목록 리셋과의 만남이 사라져 `list-style` · 여백이 제품에 없는 값으로 잡힌다 —
@@ -1529,14 +1530,14 @@ const PROBES = [
   },
   {
     id: "landing-header-actions-product",
-    source: "landing/navigation/Gnb.tsx:325 ACTIONS — 우측 액션 열(LanguageSelector compact + 상단 CTA + 햄버거)",
+    source: "landing/navigation/Gnb.tsx:326 ACTIONS — 우측 액션 열(LanguageSelector compact + 상단 CTA + 햄버거)",
     from: ["landingGnb", "ACTIONS"],
     tag: "div",
     read: ["columnGap", "rowGap", "justifySelf", "display", "alignItems"],
   },
   {
     id: "landing-mobile-menu-product",
-    source: "landing/navigation/Gnb.tsx:382-386 MOBILE_MENU — 풀스크린 메뉴의 껍데기(열림/닫힘 수식자는 상호배타라 뺐다)",
+    source: "landing/navigation/Gnb.tsx:383-387 MOBILE_MENU — 풀스크린 메뉴의 껍데기(열림/닫힘 수식자는 상호배타라 뺐다)",
     from: ["landingGnb", "MOBILE_MENU"],
     tag: "div",
     // **여기 `display` 는 `none` 으로 잡힌다. 그것이 데스크톱 폭에서의 제품 값이다.**
@@ -1806,16 +1807,11 @@ const PROBES = [
   // ── 2026-10-08 LOUIS Figma 세트를 통합 판(76b6cf15, DS-D-0079) 제품 렌더와 잇는다 ──
   // 그날 세운 세트 가운데 **등록된 제품 파일(scripts/lib/product-files.mjs)에 소비처 상수가 있는 것**만 여기 선다.
   // 나머지(record-card · bare-button · node-composer)는 소비처 파일이 명부 밖이라 `$noProductRender` 에 근거와 함께 있다.
-  {
-    id: "text-link-user-product",
-    // 어드민 표 칸의 이메일(AdminUserLink). text-link 레시피의 출처 셋(USER_LINK · RECEIPT · BACK_LINK) 중
-    // 등록 파일(`admin`)에 있는 하나다. `louis-focus-ring` 은 초점 고리라 기하 축이 아니다.
-    source: "admin/AdminSection.tsx:1127 USER_LINK — 표 칸의 이메일을 누르면 사용자 상세가 열리는 글자 링크(button)",
-    from: ["admin", "USER_LINK"],
-    tag: "button",
-    text: "user@example.com",
-    read: ["paddingTop", "paddingLeft", "textUnderlineOffset"],
-  },
+  // **`text-link-user-product` 탐침은 걷었다(2026-10-15, 앵커 54b62a8a → 운영 main 97d4950e, DS-D-0117).**
+  // 어드민 표 칸의 이메일 링크 `USER_LINK` 는 작업 브랜치 feat/admin-ops-review 의 것이었고 운영 판
+  // `AdminSection.tsx` 에는 그 상수도 `AdminUserLink` 도 없다(`git grep USER_LINK 97d4950e -- apps/web` 0건).
+  // 배포되지 않은 화면을 재지 않는다(DS-D-0117 Decision 3). text-link 레시피의 출처 기록은
+  // figma/components.measured.json 의 `$note` 가 브랜치 커밋으로 갖고 있다.
   // 시작 카드의 이름. 크기 기준선(카드 폭 240)은 카드 자신의 `@container/card` 가 정하므로 카드 상수를 조상으로
   // 세우고 host 폭으로 카드 폭을 고른다 — 200 이면 sm(여백 14 · 이름 14), 360 이면 md(여백 18 · 이름 16).
   {
@@ -1842,7 +1838,7 @@ const PROBES = [
   // 세우면 넓은 뷰포트(1440)에서 `display:none` 이라 박스가 없으므로, 같은 블록 박스를 내는 div 로 잰다.
   {
     id: "dialog-sheet-grabber-bar-product",
-    source: "videoEditParts/vemClass.ts:1597 mobileSheetGrabberBar — 편집 모달 모바일 시트 손잡이의 막대(MobileSheetGrabber.tsx:71)",
+    source: "videoEditParts/vemClass.ts:1543 mobileSheetGrabberBar — 편집 모달 모바일 시트 손잡이의 막대(MobileSheetGrabber.tsx:71)",
     from: ["vem", "mobileSheetGrabberBar"],
     tag: "div",
     read: ["width", "height", "borderTopLeftRadius"],
@@ -1982,10 +1978,9 @@ const EXPECT = [
   // 인증 모달의 `modalAuthInputBox` 이고 라벨이 박스 **밖 위**에 앉는다 — floating(라벨이
   // 박스 안에서 떠오르는 벌)이 아니다. floating 칸은 높이 53 처럼 라벨 행을 품은 값을 갖는데
   // 제품의 이 자리에는 그 행이 없다.
-  ["input-box", "paddingLeft", ["input", "sizes", "lg/stacked", "paddingInline"], "same"],
-  ["input-box", "borderTopLeftRadius", ["input", "sizes", "lg/stacked", "radius"], "same"],
-  ["input-box", "borderTopWidth", ["input", "sizes", "lg/stacked", "borderWidth"], "deviates",
-    "제품 1px, DS 0.5px. hairline 결정이다."],
+  //
+  // **세 행은 2026-10-15 에 탐침과 함께 걷었다**(운영 main 97d4950e — 제품이 그 칸을 LOUIS text-field 로
+  // 옮겼다. 탐침 자리의 주석). 위 기록은 lg/stacked 대조가 어디서 왔는지 남기려고 둔다.
 
   ["empty-state", "paddingTop", ["empty-state", "sizes", "base", "paddingBlock"], "same"],
   ["empty-state", "rowGap", ["empty-state", "sizes", "base", "gap"], "same"],
@@ -2467,9 +2462,7 @@ const EXPECT = [
   ["landing-menu-link-black-product", "paddingLeft", ["gnb-menu-item", "sizes", "light/Default", "paddingInline"], "same"],
   ["landing-menu-link-black-product", "borderTopLeftRadius", ["gnb-menu-item", "sizes", "light/Default", "radius"], "same"],
   // ── 2026-10-08 LOUIS Figma 세트 ↔ 통합 판(76b6cf15) 제품 렌더 ──
-  ["text-link-user-product", "paddingTop", ["text-link", "sizes", "hover/Default", "paddingBlock"], "same"],
-  ["text-link-user-product", "paddingLeft", ["text-link", "sizes", "hover/Default", "paddingInline"], "same"],
-  ["text-link-user-product", "textUnderlineOffset", ["text-link", "sizes", "hover/Default", "underlineOffset"], "same"],
+  // `text-link-user-product` 세 행은 2026-10-15 에 탐침과 함께 걷었다(탐침 자리의 주석).
   ...[["sm", "start-card-label-sm-product"], ["md", "start-card-label-md-product"]].flatMap(([size, probe]) => [
     [probe, "paddingTop", ["start-card", "sizes", size, "labelPadding"], "same"],
     [probe, "paddingLeft", ["start-card", "sizes", size, "labelPadding"], "same"],

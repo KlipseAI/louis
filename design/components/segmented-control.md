@@ -124,7 +124,7 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 ## 미끄러지는 알약 — `__thumb`
 
 고른 칸이 면을 칠하는 대신 **트랙 안의 알약 하나**가 고른 칸 아래로 미끄러진다. 제품은 `SegmentedThumb` 하나가 그리고
-17파일이 쓴다(통합 판 `54b62a8aa` `SegmentedThumb.tsx:240` 트랙 · `:246` 칸 · `:271-279` 알약 · `:283` 면).
+17파일이 쓴다(통합 판 `54b62a8aa` `SegmentedThumb.tsx:239` 트랙 · `:246` 칸 · `:271-279` 알약 · `:283` 면).
 
 마크업은 트랙의 칸들보다 **앞에** 알약을 둔다. 칸은 이미 `position: relative` 라 글자가 문서 순서로 알약 위에 칠해진다 —
 z-index 없음. 알약이 서면(`:has(> __thumb)`) 트랙이 `position: relative` 가 되고 고른 칸은 면을 끈다. 글자색과 강제 색
@@ -256,10 +256,10 @@ xs는 10 − 3 = 7. 중첩한 모서리가 어긋나지 않는다. lg·md의 두
 
 **노드 카드 안 8px 인셋 박스는 파생식을 따르지 않는다.** 제품의 노드 카드는 바깥 24px · 테두리
 2px · 경계에 닿는 면 22px(`--node-outer-radius` · `--node-inner-radius`,
-`node-canvas-v2/index.tsx:314-318`)까지 첫째 식을 지키지만, 그 안에서 8px 인셋된 박스는 기하
+`node-canvas-v2/index.tsx:324-328`)까지 첫째 식을 지키지만, 그 안에서 8px 인셋된 박스는 기하
 동심값 22 − 8 = 14px이 아니라 `--node-input-radius` **16px**을 쓴다. 한 자리의 사고가 아니다 —
-프롬프트 입력 셸(사방 8px 인셋, `nodes/ImageNode.tsx:389-391`)과 오디오 결과 카드(부모 미디어
-밴드가 8px 인셋 `nodes/BgmNode.tsx:139`, 반경 `nodes/BgmNode.tsx:401`)가 같은 16px이다. 노드
+프롬프트 입력 셸(사방 8px 인셋, `nodes/ImageNode.tsx:394-396`)과 오디오 결과 카드(부모 미디어
+밴드가 8px 인셋 `nodes/BgmNode.tsx:140`, 반경 `nodes/BgmNode.tsx:402`)가 같은 16px이다. 노드
 계열 전체의 관용이다.
 
 **이 값을 14px로 "고치지" 않는다.** 제품은 인셋 박스가 카드 곡률을 따라가는 것보다 입력·결과

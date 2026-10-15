@@ -23,7 +23,7 @@ summary: 노드 캔버스 바닥에 지름 2 점을 24 격자로 깝니다.
 
 - 노드 캔버스 · 그 목업(랜딩 데모 · 정적 스냅샷) · Figma 캔버스 보드의 바닥.
 - 쓰지 말아야 할 때: 차트 뒤 점 바닥. 그것은 [Chart Card](chart-card.md) 의 `data-floor="dots"` 다(격자 18 · 다른 잉크 · 줌을 따르지 않는다).
-- 쓰지 말아야 할 때: 어두운 랜딩 면 위 20% 점(`node-canvas-v2/index.tsx:542`). 테마를 따르지 않는 다른 칸이다(DS-D-0084 판정 11).
+- 쓰지 말아야 할 때: 어두운 랜딩 면 위 20% 점(`node-canvas-v2/index.tsx:551`). 테마를 따르지 않는 다른 칸이다(DS-D-0084 판정 11).
 
 ## Anatomy
 
@@ -76,8 +76,8 @@ Figma 타일 `CanvasDots` 에는 속성이 없다. 라이트 · 다크는 `Klips
 
 | Part/state | Token or recipe | 구현 근거 |
 | --- | --- | --- |
-| 면 | `color-bg-canvas` | 제품 `--canvas-bg`(`node-canvas-v2/index.tsx:504`) |
-| 점 색 | `color-canvas-dot` | 제품 `--canvas-dot`(`node-canvas-v2/index.tsx:505` · `:530`, DS-D-0082) |
+| 면 | `color-bg-canvas` | 제품 `--canvas-bg`(`node-canvas-v2/index.tsx:522`) |
+| 점 색 | `color-canvas-dot` | 제품 `--canvas-dot`(`node-canvas-v2/index.tsx:523` · `:530`, DS-D-0082) |
 | 격자 | 24 | `CanvasBackground.tsx:5` `DEFAULT_CANVAS_DOT_GAP` |
 | 점 지름 | 2(반지름 1) | `CanvasBackground.tsx:6` `DEFAULT_CANVAS_DOT_SIZE` |
 

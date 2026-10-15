@@ -11,12 +11,12 @@ summary: 노드 카드의 메타 값을 알약 하나로 보여 주고 눌러서
 드롭다운을 연다.
 
 **제품 정본은 `--node-chrome-btn-*` 계열이다** — 높이 32 · 좌우 패딩 10 · 반경 12 · 사이 간격 4,
-다크 면 `palette-gray-600`, 라이트 면 `palette-gray-100`(`globals.css:536-542` · 라이트 덮어쓰기 `:568`).
+다크 면 `palette-gray-600`, 라이트 면 `palette-gray-100`(`globals.css:551-557` · 라이트 덮어쓰기 `:568`).
 그 값을 그대로 채택했다. **바꾼 것은 경계 하나였고, 제품이 따라왔다** — 제품은 한때
 `--node-chrome-btn-border`로 진짜 `border`(다크 gray-700 · 라이트 gray-150 0.5px)를 그렸고 LOUIS는
 generic inset 헤어라인을 택했다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
 배포본 `74a7303b`에는 **그 토큰이 없다** — 소비처가 `[box-shadow:var(--louis-hairline-inset)]`을
-직접 쓰고(`ImageNode.tsx:645`), 이름은 제품 게이트의 legacy 목록에 올라 되살리면 실패한다. 두 쪽이
+직접 쓰고(`ImageNode.tsx:650`), 이름은 제품 게이트의 legacy 목록에 올라 되살리면 실패한다. 두 쪽이
 같은 해를 쓰므로 이 축은 더 이상 편차가 아니다. LOUIS 토큰에 `-border` 대응 항목이 없는 것은 그대로다.
 
 **한 벌이 아니라 네 벌이었다.** 메타 알약을 그리는 파일은 `nodes/VideoNode.tsx` ·
@@ -155,7 +155,7 @@ React prop이 아니라 **DOM 계약**이다. 소비처가 요소와 속성으�
 보이지 않는다. 제품이 이 버그를 피하려고 고른 `palette-gray-400`(다크 2.27:1)을 칩 전용 토큰으로
 승격했다. 이관 전 제품 주석이 그 판단 과정을 남겨 두었다 — 면보다 **밝은 쪽**으로 가서 활성과
 같은 방향을 유지하고, 한 톤 아래 `gray-500`은 여전히 흐려서 한 단계 더 올렸다는
-것(`nodes/VideoNode.tsx:626-645`).
+것(`nodes/VideoNode.tsx:628-647`).
 
 ## Interaction and responsive behavior
 
@@ -253,7 +253,7 @@ Known deviations.
 
 제품은 알약을 두 곳에서 다른 면으로 쓴다. 캔버스(`node-canvas-v2`) 밖 — `/inquiry` 첨부 버튼 같은
 자리 — 는 위 표의 기본 면을 그대로 쓰고, **캔버스 셸 안에서만** 면과 호버 면을 덮는다
-(2026-10-07, 제품 `origin/dev` `node-canvas-v2/index.tsx:492-522` · `:533`). 덮는 근거는 노드 카드가
+(2026-10-07, 제품 `origin/dev` `node-canvas-v2/index.tsx:510-562` · `:533`). 덮는 근거는 노드 카드가
 캔버스 바닥 위에서 한 칸 떠 있는 사다리를 알약이 따라가야 한다는 것이고, 제품 주석이 **토큰 자체를 고치지
 않고 캔버스에서 덮는 이유**를 적어 두었다 — 같은 알약을 캔버스 밖 화면도 쓰므로 토큰을 옮기면 무관한
 화면이 함께 바뀐다. 그래서 `color-node-chip-surface` 의 값은 **그대로 두고**, 캔버스 몫을 별도 토큰으로
@@ -265,7 +265,7 @@ Known deviations.
 | `color-canvas-chip-surface-hover` | `palette-gray-025` | `palette-gray-600` | 라이트 `pg-050` → `pg-025`(`64f475e05`), 다크는 기본 면 `pg-700` 에서 한 칸 위 |
 
 제품은 캔버스 셸이 `--louis-color-node-chip-surface` 와 `--louis-color-node-chip-surface-hover` 를 이 두 칸으로
-덮는다(통합 판 `54b62a8aa` `node-canvas-v2/index.tsx:488-489` 라이트 · `:517-518` 다크). **2026-10-08 부터 레시피가
+덮는다(통합 판 `54b62a8aa` `node-canvas-v2/index.tsx@54b62a8a:488-489` 라이트 · `:517-518` 다크). **2026-10-08 부터 레시피가
 캔버스 토큰을 직접 읽는다**([DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)) —
 `node-chip.css` 의 범위 규칙이 두 자리에서 면과 호버 면을 갈아 읽는다.
 
@@ -276,7 +276,7 @@ Known deviations.
 
 두 선택자 모두 `:where()` 라 특이도가 기본 규칙과 같고(면 0-1-0 · 호버 0-2-0) 뒤에 놓여 순서로 이긴다. forced-colors
 블록보다 앞이라 강제 색의 치환을 이기지 않는다. 같은 칸을 노드 크롬 버튼(모델 알약 · 게시물 열기)이 읽으므로
-`color/node/chrome-btn-bg` 도 같은 날 라이트 `palette-gray-000` · 다크 `palette-gray-700` 으로 옮겼다(`index.tsx:490`).
+`color/node/chrome-btn-bg` 도 같은 날 라이트 `palette-gray-000` · 다크 `palette-gray-700` 으로 옮겼다(`index.tsx@54b62a8a:490`).
 Figma 는 2026-10-09 에 둘로 갈랐다. `NodeComposer` `2872:1726` 안의 칩 인스턴스 둘은 노드 셸 안이라 언제나 캔버스 알약이므로
 칠을 `color/canvas-chip-surface` 로 덮었다. `NodeChip` `776:843` 세트 자체는 `color/node-chip-surface(-hover)` 그대로다 — 위
 「캔버스 안의 면」대로 같은 알약이 캔버스 밖(`/inquiry` 첨부 버튼)에도 서고, 세트에는 범위를 나타내는 변형 축도 속성도 없어

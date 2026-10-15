@@ -47,7 +47,7 @@ Figma 를 projection 으로 정하고, 값이 갈리면 LOUIS 가 제품 외관�
 
 **그 규칙이 여기서 답을 줄 수 없다.** 제품에 연한 danger 버튼이 **없기 때문이다.** 앵커
 `ae8fd627` 에서 `variant="danger"` 는 열여섯 자리이고 전부 꽉 찬 danger 다. 제품 `Button.tsx@ae8fd627:3`
-의 타입에 그 값 자체가 없다. 가장 가까운 알파 빨강 면은 `Gnb.tsx:1175-1177` 의
+의 타입에 그 값 자체가 없다. 가장 가까운 알파 빨강 면은 `Gnb.tsx:1176-1178` 의
 `profileMenuItemDanger` 인데 **버튼이 아니라 메뉴 항목**이고 8% 라 사다리도 다르며, LOUIS 는 이미
 `accent-menu-danger-hover` 로 그 자리를 덮고 있다. 나머지 red-alpha 면은 전부 배지·상태칩·배너로
 클릭 대상이 아니다.

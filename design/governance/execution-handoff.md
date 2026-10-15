@@ -1232,8 +1232,8 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 Open question 3 의 전제(라이트에서 비활성 핸들이 `{ramp}-900` 이라 거의 검정이 된다)는 **토큰
 값으로는 맞지만 제품 화면으로는 틀렸다.** 제품은 라이트에서 disabled 토큰을 읽지 않는다 — 활성
 토큰(`--node-handle-bg-{channel}` 200 면 · `--node-handle-icon-{channel}`)에
-`brightness(0.78) saturate(0.95)` 필터를 건다(`NodeSideButtons.tsx:182-214` ·
-`VideoNode.tsx:317-350` · `EditNode.tsx:203-230`, 제품 토큰 주석 `globals.css:501-502`).
+`brightness(0.78) saturate(0.95)` 필터를 건다(`NodeSideButtons.tsx:183-215` ·
+`VideoNode.tsx:319-352` · `EditNode.tsx:204-231`, 제품 토큰 주석 `globals.css:516-517`).
 LOUIS 레시피는 필터를 옮기지 않고 두 테마 모두 disabled 토큰을 읽으며, 그 차이를
 [Node Side Handle](../components/node-side-handle.md) Known deviations 1이 편차로 적는다.
 
@@ -1262,7 +1262,7 @@ LOUIS 레시피는 필터를 옮기지 않고 두 테마 모두 disabled 토큰�
 **sky 는 대상이 사라졌다 (2026-09-13 확인).** 2026-08-26 에 색 패밀리를 정리하면서 sky 9단을
 blue 로 접었다 — LOUIS `80791e9` 와 제품 `fec3c3b3` 이 같은 작업이다
 ([figma-sync](figma-sync.md) 「색 팔레트 — 여섯에서 여섯으로」). 앵커 `6fbdac16` 의 비디오 노드
-생성 중 아이콘·캡션은 `--primary-*`(= LOUIS blue)를 읽고(`VideoNode.tsx:245` · `VideoNode.tsx:267-268`),
+생성 중 아이콘·캡션은 `--primary-*`(= LOUIS blue)를 읽고(`VideoNode.tsx:247` · `VideoNode.tsx:267-268`),
 `accent-sky-` 는 주석에만 남았다. 그래서 「sky 램프를 세운다」는 할 일이 아니다 —
 [Color & Theme](../foundations/color-theme.md) 의 매체별 accent 절을 같은 날 고쳤다.
 **남은 것은 editor 범주색이다.**
@@ -1336,7 +1336,7 @@ property 이름 · 바인딩 **개수** · 기하 요약뿐이고 노드 트리�
 > **앱 셸 램프는 그 뒤 대상이 사라졌다(2026-09-13 확인).** 제품이 `--palette-gray-200` 과
 > `--palette-gray-200-rgb` 를 LOUIS 토큰의 별칭으로 바꿨다(`globals.css:49` · `globals.css:66`)
 > — 두 경로가 같은 원천을 읽으므로 G 238/239 어긋남이 생길 자리가 없고, 앱 셸의 `body:has(...)`
-> 재매핑도 걷혔다(`Gnb.tsx:1391-1396` 주석, 앵커에서 `#eeeef1` 은 그 주석에만 남았다). 아래
+> 재매핑도 걷혔다(`Gnb.tsx:1392-1397` 주석, 앵커에서 `#eeeef1` 은 그 주석에만 남았다). 아래
 > 「G 를 238 로 확정」과 blocker 2 는 그날의 기록이다. LOUIS 의 `color-palette-gray-200` 은 회색
 > 램프 재구성을 거쳐 지금 `#c1c3c6` 이다.
 

@@ -14,7 +14,7 @@ authority: normative
 ## Context
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `canvas-section` 이 있다. 노드 캔버스에는 노드가 아닌
-「영역」이 하나 있다 — 노드들을 감싸는 배경 프레임이고(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:184-191`, 통합 판 `54b62a8aa`), 이름은
+「영역」이 하나 있다 — 노드들을 감싸는 배경 프레임이고(`components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx:185-192`, 통합 판 `54b62a8aa`), 이름은
 프레임 바깥 위에 얹히며 색조를 고를 수 있다. 섹션을 옮기면 캔버스가 안의 노드를 함께 옮긴다.
 
 LOUIS 에 이 조형(반투명 면 · 안쪽 경계 · 바깥 위 제목 · 색조)을 가진 부품이 없다. [Node Shell](../../components/node-shell.md) 은 400 폭 · 반경 24 ·

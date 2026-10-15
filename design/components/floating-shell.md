@@ -120,7 +120,7 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 | 축 | 값 | 출처 |
 | --- | --- | --- |
 | 크기 | `1 × 22` | `w-px h-11` |
-| 좌우 여백 | 셸 안 `2` · 상단 바 `0` | `Toolbar.tsx:100` `mx-1` · `ProjectHeader.tsx:176` `m-0` |
+| 좌우 여백 | 셸 안 `2` · 상단 바 `0` | `Toolbar.tsx:100` `mx-1` · `ProjectHeader.tsx:182` `m-0` |
 | 칠 | 0 → mid 22% → peak 50% → mid 78% → 0 | `floating-divider-mid` · `-peak` |
 
 **PillTrigger** — 문구와 캐럿 한 줄.
@@ -137,7 +137,7 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 
 ## compact — 캔버스 하단 바
 
-2026-10-07, 제품 `feat/canvas-mobile-ux` `Toolbar.tsx:203` · `index.tsx`(TOOLBAR_ROW) @3923caf7. 앱 셸이
+2026-10-07, 제품 `feat/canvas-mobile-ux` `Toolbar.tsx:219` · `index.tsx`(TOOLBAR_ROW) @3923caf7. 앱 셸이
 compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 캔버스 하단 툴바가 이 셸의 40 조각판으로
 바뀐다. 셸의 재료는 하나도 갈리지 않는다.
 
@@ -171,7 +171,7 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 
 2026-10-13, [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md). 정본은 제품 통합 판 `54b62a8a`
 `components/scenes/create/node-canvas-v2/components/Toolbar.tsx:49-97`(캔버스 하단 툴바)과
-`components/scenes/create/ProjectHeader.tsx:225-282`(캔버스 상단 바의 저장 · 도움말 · 영상 버튼) — 두 파일이 같은
+`components/scenes/create/ProjectHeader.tsx:231-288`(캔버스 상단 바의 저장 · 도움말 · 영상 버튼) — 두 파일이 같은
 버튼을 따로 든다.
 
 셸 안 조각 자리(32 · 반경 12)를 버튼으로 채운다. 면 없이 서고 호버에 8% 틴트, 켜지면(`aria-pressed` · `aria-expanded`)
@@ -197,9 +197,9 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 | 비활성 | 투명 | `fg-disabled` |
 
 **켜짐은 `aria-pressed` 와 `aria-expanded` 둘 다 받는다.** 툴바의 모드 버튼(선택 · 이동)은 토글이고 추가 버튼(글 · 그림 · 소리)은
-메뉴를 연다. 제품은 둘을 같은 `TOOLBAR_BUTTON_ACTIVE` 로 칠한다(`Toolbar.tsx:272` · `:308`). 켜짐 면은 다크 12% · 라이트 8%,
+메뉴를 연다. 제품은 둘을 같은 `TOOLBAR_BUTTON_ACTIVE` 로 칠한다(`Toolbar.tsx:292` · `:308`). 켜짐 면은 다크 12% · 라이트 8%,
 켜짐 호버는 다크 16% · 라이트 12% 다 — 두 테마의 알파가 달라 기존 시맨틱에 맞는 칸이 없어 `color-floating-item-selected` ·
-`-selected-hover` 를 세웠다. 라이트 켜짐 호버는 `ProjectHeader.tsx:279` 의 12% 를 고른다 — `Toolbar.tsx:76-80` 의 8% 는 원본 CSS
+`-selected-hover` 를 세웠다. 라이트 켜짐 호버는 `ProjectHeader.tsx:285` 의 12% 를 고른다 — `Toolbar.tsx:76-80` 의 8% 는 원본 CSS
 순서에 진 선언을 옮긴 것이라 호버가 보이지 않는다.
 
 **IconButton ghost 를 끼우지 않는다.** 갈리는 값이 다섯이다 — 호버 면(`bg-inset` 대 8% 틴트) · 켜짐 면 · 누름(0.98 대 0.95) ·
@@ -216,7 +216,7 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 
 조각 묶음 사이의 세로 1 × 22. 위아래 끝이 사라지는 그라디언트(0 → mid → peak → mid → 0, 정지점 0 · 22 · 50 · 78 · 100 %)라
 셸의 곡률 안에서 선이 끊겨 보이지 않는다. 셸 안에서는 좌우 2 를 더 띄워(`Toolbar.tsx:100` `mx-1`) 셸 간격 4 와 합쳐 양쪽이
-6 이 되고, 상단 바에서는 0 이다(`ProjectHeader.tsx:176` `m-0`). 장식이라 `aria-hidden` 이다.
+6 이 되고, 상단 바에서는 0 이다(`ProjectHeader.tsx:182` `m-0`). 장식이라 `aria-hidden` 이다.
 
 | 정지점 | 라이트 | 다크 |
 | --- | --- | --- |
@@ -303,7 +303,7 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 `palette-gray-900`, [DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)).
 라이트에서 노드 카드가 `palette-gray-000` 으로 올라와 앱 메뉴 면(`palette-gray-025`)보다 밝아졌고, 카드 위에 뜨는
 크롬은 카드보다 한 칸 밝아야 한다. 제품은 캔버스 셸이 `bg-menu` 를 흰색으로 덮는다(통합 판 `54b62a8aa`
-`node-canvas-v2/canvasMenuSurface.ts:14-15` · `index.tsx:492`). 이 재료는 캔버스 밖(덱 화면의 언어 전환)에도 서므로
+`node-canvas-v2/canvasMenuSurface.ts:14-15` · `index.tsx:510`). 이 재료는 캔버스 밖(덱 화면의 언어 전환)에도 서므로
 기본 면은 그대로 두고 범위 안에서만 갈아 읽는다.
 
 - **범위**: `data-louis-scope="canvas"` 를 단 조상, 또는 그 속성을 단 셸 · 트리거 자신(`body` 로 포털되는 조각).
@@ -379,7 +379,7 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
    출처가 다르다.
 4. **툴 버튼의 쉼 잉크 · 비활성 · 전이가 제품과 다르다.** 제품 쉼은 다크 pg-200 · 라이트 pg-800(`Toolbar.tsx:63` · `:67`)이고
    레시피는 `fg-secondary` 다(다크 유리 면 위 7.24:1 · 라이트 8.67:1 로 둘 다 충분하다). 상단 바 버튼의 비활성은 제품이
-   불투명도 0.56(`ProjectHeader.tsx:231`)이고 레시피는 `fg-disabled` 다. 전이는 제품 120ms 가 `motion-control-hover`(160ms)로
+   불투명도 0.56(`ProjectHeader.tsx:237`)이고 레시피는 `fg-disabled` 다. 전이는 제품 120ms 가 `motion-control-hover`(160ms)로
    접힌다. Figma 의 셸 `Item 1~3` 은 아직 `NodeChromeButton` 자리 표시다 — `FloatingShellItem` 이 서면 바꾼다.
 5. **`transform: translateZ(0)` 를 Figma 가 담지 못한다.** 제품은 세 자리 모두에 그것을 함께
    적는다. 합성 레이어로 올려 배경 흐림이 안정적으로 걸리게 하는 선언이고, iOS 의 중첩 스크롤에서

@@ -171,7 +171,7 @@ Figma 에 두지 않았고 계약도 비웠다. 값은 `figma/components.measure
 **바닥의 점 격자.** 간격 24 · 점 2 이고 색은 `color-canvas-dot` 이 이미 갖는다.
 컴포넌트가 아니라 **패턴 채움**이라 component set 으로 세우지 않는다. 그 변수의 라이트 값은
 2026-10-08 에 제품과 맞췄다 — `palette-gray-600` 28%(원시 `palette-gray-600-alpha/28` 신설), 다크는 그대로
-`static-white-alpha/16` 이다. 근거는 제품 통합 판 `54b62a8aa` `node-canvas-v2/index.tsx:530`
+`static-white-alpha/16` 이다. 근거는 제품 통합 판 `54b62a8aa` `node-canvas-v2/index.tsx:536`
 ([DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)).
 
 **정렬 스냅 가이드.** [Canvas Guide](./canvas-guide.md)가 갖는다(2026-10-13, DS-D-0084). 제품의 이름 없는 리터럴

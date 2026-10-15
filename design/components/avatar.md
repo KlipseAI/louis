@@ -10,15 +10,15 @@ summary: 사람을 나타내는 작은 원형 표식입니다.
 사람을 나타내는 작은 원형 표식이다.
 
 **제품은 이제 이 레시피의 박스를 문다(제품 앵커 `6f6282c1` 기준).** 프로필 아바타 박스 `profileImage`가
-`.louis-avatar`를 달고(`Gnb.tsx:1053-1055`) 크기만 `--profile-avatar-size`로 덮으며(`:1056-1057`) 면은
+`.louis-avatar`를 달고(`Gnb.tsx:1054-1056`) 크기만 `--profile-avatar-size`로 덮으며(`:1056-1057`) 면은
 투명으로 둔다(`:1058`). 기본 아바타 `UserCircleDefaultAvatar.tsx`는 **자기 크기를 갖지 않는 폴백 슬롯**이다
 — `louis-avatar__fallback`에 제품 색 유틸리티만 얹고(`UserCircleDefaultAvatar.tsx:20-26`) SVG는 `currentColor` ·
 `aria-hidden`이다. 이 문서가 예전에 적은 「공용 구현이 부분만 있다 — 기본 아바타 SVG 하나(28×28)만 분리돼 있고
 본체는 셸 파일에 인라인」은 그 뒤 제품이 루트의 `w-14 h-14`를 걷고 박스를 LOUIS로 넘기면서 낡았다
-(`Gnb.tsx:1042-1045`의 주석이 그 경위를 적는다). 크기 24·28은 제품의 `--profile-avatar-size`가 두 값이던 때
+(`Gnb.tsx:1043-1046`의 주석이 그 경위를 적는다). 크기 24·28은 제품의 `--profile-avatar-size`가 두 값이던 때
 (기본 28 · ProjectHeader 슬롯 24) 그대로 옮겼다. 40(`lg`)은 설정 화면의 프로필 사진 칸이다 — 제품이 `.louis-avatar` 를 물고
 크기만 `[width:40px]` · `[height:40px]` 로 덮는다(`myPageSceneStyles.ts settingsAvatarFigure`). **`--profile-avatar-size` 는 이제 한 값이다** — `profileTrigger` 한 곳이
-24px로 갖고(`Gnb.tsx:1470`) 슬롯의 덮어쓰기는 걷혔다. 그래서 프로필 트리거에 맞는 칸은 `sm`이다(아래 Known
+24px로 갖고(`Gnb.tsx:1471`) 슬롯의 덮어쓰기는 걷혔다. 그래서 프로필 트리거에 맞는 칸은 `sm`이다(아래 Known
 deviations). 판정은 [`product.measured.json`](../../migration/product.measured.json)이 갖는다.
 
 ## Availability
@@ -131,7 +131,7 @@ deviations). 판정은 [`product.measured.json`](../../migration/product.measure
   계약은 [DS-D-0022](../governance/decisions/DS-D-0022-determinate-progress-a11y.md)가 소유한다.
   Avatar 는 링을 감싸지 않는다.
 - **기본 `md`(28)가 제품 프로필 트리거와 다르다.** 제품 앵커 `6f6282c1`이 모든 페이지의 프로필
-  버튼을 캔버스 에디터 헤더와 같은 크기로 맞추면서 아바타가 24 한 값이 됐다(`Gnb.tsx:1470`, 그 전 기본
+  버튼을 캔버스 에디터 헤더와 같은 크기로 맞추면서 아바타가 24 한 값이 됐다(`Gnb.tsx:1471`, 그 전 기본
   28). `--profile-avatar-size`에서 옮겨 온 두 칸 중 지금 프로필 트리거에 남은 것은 `sm`뿐이다. 기본을
   `sm`으로 옮기면 크기를 적지 않은 모든 소비처가 줄어드는 breaking이라 앵커 이동에서 하지 않는다 —
   프로필 트리거를 그릴 때는 `size="sm"`을 주고 [Progress](progress.md)의 `ProgressRing`으로 감싼다 — 지름은
@@ -147,9 +147,9 @@ deviations). 판정은 [`product.measured.json`](../../migration/product.measure
   78%(40 안의 31.2)로 덮는다(`myPageSceneStyles.ts settingsAvatarFigure` · `settingsAvatarFigureDefault`). 그래서 보드는 그 자리를
   인스턴스로 바꾸지 않는다 — 판정은 `scripts/lib/figma-component-substitution.mjs` 의 제외 목록(`avatar-settings`)이 갖는다.
 - **이니셜 폴백이 없다.** 제품에는 1벌 있다(앵커 `6f6282c1`) — 관리자 사용자 상세 머리의 아바타가 `.louis-avatar`
-  루트에 이름 첫 글자를 직접 담는다. 레시피는 `AdminClient.tsx:255-265`(크기 · 글자 크기 · 관리자 전용 면과 글자색을
-  호출부가 덮는다), 글자는 `AdminClient.tsx:1083`(사용자 이름 첫 글자를 대문자로, 없으면 「?」), 렌더는
-  `AdminClient.tsx:1576` 이다. 제품 주석이 「이니셜 글자가 곧 폴백이라 별도 슬롯 없이 루트에 담는다」고 적는다.
+  루트에 이름 첫 글자를 직접 담는다. 레시피는 `AdminClient.tsx:263-273`(크기 · 글자 크기 · 관리자 전용 면과 글자색을
+  호출부가 덮는다), 글자는 `AdminClient.tsx@54b62a8a:1083`(사용자 이름 첫 글자를 대문자로, 없으면 「?」), 렌더는
+  `AdminClient.tsx:1640` 이다. 제품 주석이 「이니셜 글자가 곧 폴백이라 별도 슬롯 없이 루트에 담는다」고 적는다.
   소비처가 내부 관리자 화면 한 곳이라 이번 범위가 아니다 — DS `Avatar` 는 `children` 을 받지 않으므로 그 자리는
   컴포넌트가 아니라 레시피 클래스를 직접 문다.
 - **그룹(겹친 아바타)이 없다.** 제품에 0벌이다.

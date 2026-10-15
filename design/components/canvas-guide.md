@@ -10,8 +10,8 @@ summary: 캔버스에서 끄는 노드가 다른 노드와 줄이 맞을 때 그
 노드를 끄는 동안, 가장자리나 가운데가 다른 노드와 맞는 순간에만 나타나는 가는 선이다(`.louis-canvas-guide`,
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)). 놓으면 사라진다.
 노드를 잇는 선은 [Canvas Edge](canvas-edge.md)이고, 바닥의 점 격자는 패턴 채움(`color-canvas-dot`)이다.
-제품 정본은 `SmartGuideOverlay.tsx:13-66`(통합 판 `54b62a8aa`)이고, 캔버스 변환 층(`ViewportPortal`) 안에서 그린다
-(`node-canvas-v2/index.tsx:12147-12149`).
+제품 정본은 `SmartGuideOverlay.tsx:20-48`(통합 판 `54b62a8aa`)이고, 캔버스 변환 층(`ViewportPortal`) 안에서 그린다
+(`node-canvas-v2/index.tsx:11894-11896`).
 
 ```html
 <!-- 캔버스 변환 층의 마지막 자식 -->
@@ -76,12 +76,12 @@ summary: 캔버스에서 끄는 노드가 다른 노드와 줄이 맞을 때 그
 ## Known deviations
 
 1. **제품 리터럴 `#ff2d55` 를 새 원시로 세우지 않았다.** 라이트 바닥 위 3.28 로 그래픽 3:1 은 넘지만 램프 밖 색이다.
-   제품 주석의 「핑크/마젠타」(`SmartGuideOverlay.tsx:39`) 의도대로 `pink-600` · `pink-500` 으로 접었다(DS-D-0084 「작은 새 부품」 판단 13).
+   제품 주석의 「핑크/마젠타」(`SmartGuideOverlay.tsx@54b62a8a:39`) 의도대로 `pink-600` · `pink-500` 으로 접었다(DS-D-0084 「작은 새 부품」 판단 13).
 2. **두께를 화면 1px 로 고정했다.** 제품은 캔버스 좌표 1 이라 줌 50% 에서 0.5px 로 흐려진다(판단 14). 전선(Canvas Edge)은 반대로 캔버스 두께를 따른다 —
    전선은 그림이고 이것은 계기다.
 
 ## 제품에서 발견한 것
 
-- 빛 필터(`guideGlow`, `SmartGuideOverlay.tsx:30-34`)가 정의만 있고 어느 선도 쓰지 않는다 — 옮기지 않는다.
-- 함수 주석(`SmartGuideOverlay.tsx:11`)은 「분홍/하늘색 대시」라 적지만 구현은 분홍 실선 한 색이다.
-- 숫자 z-index 1000(`SmartGuideOverlay.tsx:25`) — 레시피는 칠 순서로 둔다.
+- 빛 필터(`guideGlow`, `SmartGuideOverlay.tsx@54b62a8a:30-34`)가 정의만 있고 어느 선도 쓰지 않는다 — 옮기지 않는다.
+- 함수 주석(`SmartGuideOverlay.tsx@54b62a8a:11`)은 「분홍/하늘색 대시」라 적지만 구현은 분홍 실선 한 색이다.
+- 숫자 z-index 1000(`SmartGuideOverlay.tsx@54b62a8a:25`) — 레시피는 칠 순서로 둔다.

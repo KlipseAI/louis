@@ -89,7 +89,7 @@ authority: normative
 
 **2e 제목 옆 칩.** Badge 변형이 아니라 node-shell 부품이다 — 높이가 헤더에 묶이고 기하(1/6 · 반경 10 · caption medium ·
 글리프 10)가 배지와 축 하나로 접히지 않는다. 색은 제품 값을 옮기지 않았다. 제품 편집 모드는 Tailwind 보라 리터럴
-(`ImageNode.tsx:227-228`)이고, 덱이 그 자리에 `node-edit-accent` 를 같은 색 16% 위에 얹으면 다크에서 3.00:1 이다.
+(`ImageNode.tsx:230-231`)이고, 덱이 그 자리에 `node-edit-accent` 를 같은 색 16% 위에 얹으면 다크에서 3.00:1 이다.
 component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 적응 쌍을 세웠다.
 
 | 이름 | light | dark | 대비 |
@@ -100,7 +100,7 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 `violet-alpha` 는 `violet-500` 바탕의 새 primitive 다(08 · 16 두 칸). 「재편집 필요」(`data-tone="warning"`)는 제품
 `yellow-600` on `yellow-200` 이 1.94:1 이라 status 쌍 `bg-warning` · `fg-warning` 으로 간다.
 
-**3e 목록 머리.** 하이라이트 허브(`HSS:381-402`)와 노드 캔버스 허브(`NodeCanvasHomeScene.tsx:220-232`)가 같은 배치를
+**3e 목록 머리.** 하이라이트 허브(`HSS:381-402`)와 노드 캔버스 허브(`NodeCanvasHomeScene.tsx@54b62a8a:220-232`)가 같은 배치를
 각자 그린다. 기존 세 단(20 · 36 · 12, 아래쪽 정렬, 719 접힘)과 크기 · 정렬 · 접힘이 모두 달라 네 번째 단 `list` 를 연다:
 가운데 정렬, 사이 16, 제목 body-md-medium, 719 이하에서도 한 줄. 제목 안 개수는 `__count`(왼쪽 6, `fg-tertiary`).
 제품 제목 잉크 `palette-gray-800/200` 과 개수 `palette-gray-500` 은 역할이 없어 `fg-primary` · `fg-tertiary` 로 간다
@@ -138,13 +138,13 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 | 1b | `HSS:236,346` · `AHS:266-270` | 표본 결과를 `data-ink` 로 띠에 단다(`HS:1479`) |
 | 1c | `HSS:198,199,203` | 더보기 면 · 글리프 · hover 덮어쓰기를 지워 `media-control-*` 를 받는다. 앵커 `top/right 8` 은 남는다 |
 | 2d-4 | YouTube 폼 입력 상자 | `.louis-node-shell__field` 로 |
-| 2e | `ImageNode.tsx:225-229` · `EditNode.tsx:549-552` | `louis-node-shell__title-chip`(+ `data-tone="warning"`) |
-| 2f | `analytics/shared.tsx:71` | 축 라벨 `var(--dashboard-muted-color)` → `var(--louis-color-fg-tertiary)` — 두 테마 모두 픽셀이 같다 |
-| 3a | `analytics/OverviewTab.tsx:99-141` | 상수를 `louis-chart-card`(`data-chart="area"`) · `__header` · `__panel` · `__metric` 으로. `KpiCard.tsx:24` 가 이미 그렇다 |
-| 3b | `analytics/ContentTable.tsx:178-201,698` | 일부 공개 → `louis-badge` warning, 비공개 · 초안 → neutral. 공개는 배지가 아니라 caption `fg-secondary` 글자(`badge.md` 「목록 · 표에서는 예외만 배지」) |
+| 2e | `ImageNode.tsx:228-232` · `EditNode.tsx:550-553` | `louis-node-shell__title-chip`(+ `data-tone="warning"`) |
+| 2f | `analytics/shared.tsx@54b62a8a:71` | 축 라벨 `var(--dashboard-muted-color)` → `var(--louis-color-fg-tertiary)` — 두 테마 모두 픽셀이 같다 |
+| 3a | `analytics/OverviewTab.tsx@54b62a8a:99-141` | 상수를 `louis-chart-card`(`data-chart="area"`) · `__header` · `__panel` · `__metric` 으로. `KpiCard.tsx:25` 가 이미 그렇다 |
+| 3b | `analytics/ContentTable.tsx@54b62a8a:178-201,698` | 일부 공개 → `louis-badge` warning, 비공개 · 초안 → neutral. 공개는 배지가 아니라 caption `fg-secondary` 글자(`badge.md` 「목록 · 표에서는 예외만 배지」) |
 | 3c | `HSS:1404-1405` | 핀을 올린 뒤 placeholder 잉크 덮어쓰기를 지운다. 폭(`HSS:1403`)은 호출부 몫이라 남는다 |
-| 3d | `HSS:1623-1626` · `HighlightStudioBoard.tsx:623` | 죽은 `[&::before]:[content:none]` 를 지운다 — LOUIS 는 핀 이전에 표식을 걷었다(DS-D-0070) |
-| 3e | `HSS:381-402` · `NodeCanvasHomeScene.tsx:220-232` | `louis-section-header` `data-level="list"` + `__count` |
+| 3d | `HSS:1623-1626` · `HighlightStudioBoard.tsx@54b62a8a:623` | 죽은 `[&::before]:[content:none]` 를 지운다 — LOUIS 는 핀 이전에 표식을 걷었다(DS-D-0070) |
+| 3e | `HSS:381-402` · `NodeCanvasHomeScene.tsx@54b62a8a:220-232` | `louis-section-header` `data-level="list"` + `__count` |
 | 4b | `SegmentedToggle` 117-121 | 잠금 덮어쓰기를 지운다 |
 | 4d | KpiCard · OverviewTab · Instagram · AdminSection 의 delta 8% 덮어쓰기 | 지운다 |
 | 4c | KpiCard 480px 숨김 | 양보 규칙이 서면 지운다 |
@@ -159,7 +159,7 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 - 2c 후보 카드: 소비처 하나. 선택이 아니라 비교 모달을 여는 버튼이라 choice-card 도 아니다.
 - 2d-2 소스 썸네일 줄: 노드 썸네일이 세 크기(28 · 32 · 76×52)로 갈려 node-shell 판정 9 로 접는다. 그 판정이 기다리던
   면 토큰은 DS-D-0082 의 `static-pure-black-alpha-*` 로 풀렸다.
-- 2d-3 「편집」 버튼: LOUIS 에 그라디언트 토큰 형식이 없고, 제품 `globals.css:550` 이 승격하지 않는다고 적는다.
+- 2d-3 「편집」 버튼: LOUIS 에 그라디언트 토큰 형식이 없고, 제품 `globals.css:565` 이 승격하지 않는다고 적는다.
   덧붙여 그 주석의 「하나를 공유」는 사실과 다르다 — 넷(EditNode · InstagramNode · YoutubeNode · CreativeMediaClient)이
   인라인으로 복사한다. 제품에 알릴 일이다.
 - 2d-4 채널 줄 · 예약 버튼: 아바타 32 와 버튼 28 은 LOUIS 사다리(아바타 24 · 28 · 40, 버튼 24 · 32 · 40)에 없다.

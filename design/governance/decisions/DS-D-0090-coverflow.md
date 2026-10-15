@@ -17,10 +17,10 @@ authority: normative
 캐러셀은 제품 한 파일에만 있다 — `components/templates/TemplateResultCarousel.tsx`(247줄, 통합 판 `54b62a8aa`), 소비처는 `app/templates/[slug]/page.tsx`
 하나(218줄). 가운데 카드는 정면, 옆 카드는 뒤로 물러나 기울어 「더 있다」를 보인다.
 
-카드 배치 식(옆 52% · 뒤 140 · 34° · 8% 작게, 하한 70%)이 JS 인라인 `transform` 이라(`components/templates/TemplateResultCarousel.tsx:169`) 클래스만으로는
+카드 배치 식(옆 52% · 뒤 140 · 34° · 8% 작게, 하한 70%)이 JS 인라인 `transform` 이라(`components/templates/TemplateResultCarousel.tsx@54b62a8a:169`) 클래스만으로는
 카드가 한 점에 겹친다. 무대의 `preserve-3d` 는 같은 요소의 `overflow: hidden`(묶음 속성)에 접혀 아무 일도 하지 않고, 겹 순서를 숫자 z-index
-`100 − abs` 가 정한다(`components/templates/TemplateResultCarousel.tsx:170`). 대비 · 접근성 부채도 있다 — 쉬는 점 잉크 20%(바닥 위 라이트 1.60 · 다크 1.64),
-호버 점 40%(2.83 · 3.55), 활성 점을 호버하면 파랑을 잃는 특이도 사고를 이식 때 「보존」했다(`components/templates/TemplateResultCarousel.tsx:22-24`),
+`100 − abs` 가 정한다(`components/templates/TemplateResultCarousel.tsx@54b62a8a:170`). 대비 · 접근성 부채도 있다 — 쉬는 점 잉크 20%(바닥 위 라이트 1.60 · 다크 1.64),
+호버 점 40%(2.83 · 3.55), 활성 점을 호버하면 파랑을 잃는 특이도 사고를 이식 때 「보존」했다(`components/templates/TemplateResultCarousel.tsx@54b62a8a:22-24`),
 카드 라벨은 검정 56% 위라 흰 사진 위 4.73 으로 사진에 흔들리고, 이동 글리프가 글자 `‹` · `›` 다.
 
 있는 부품으로 대 봤다. [Banner Carousel](../../components/banner-carousel.md) 은 사진 배너가 **한 장씩 겹쳐 사라지고**(면 = 사진, `color-media-*`),

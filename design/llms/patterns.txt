@@ -128,17 +128,17 @@ Known deviations.
 | 축 | 값 |
 | --- | --- |
 | 아이콘 박스 | `64px` |
-| 아이콘 색 | 매체별 accent — Image `--accent-green-500`(`ImageNode.tsx:332`) · Video `--primary-500`(`VideoNode.tsx:240`) · Text `--accent-yellow-500`(`TextNode.tsx:321`) · Edit `--accent-violet-500`(`EditNode.tsx:375`) |
+| 아이콘 색 | 매체별 accent — Image `--accent-green-500`(`ImageNode.tsx:337`) · Video `--primary-500`(`VideoNode.tsx:242`) · Text `--accent-yellow-500`(`TextNode.tsx:322`) · Edit `--accent-violet-500`(`EditNode.tsx:376`) |
 | 셸 | `flex column` · 가운데 정렬 · `gap: 4px` · `width/height: 100%` · `min-height: 120px` |
 | 셸 기타 | `overflow: hidden` · `pointer-events: none` |
-| 캡션 | 아이콘 **다음에 오는 i18n 단계 라벨** — `type-body-14-medium` · 매체 accent(Image 는 다크 `--accent-green-100` / 라이트 `--accent-green-700`, `ImageNode.tsx:351-352`) |
+| 캡션 | 아이콘 **다음에 오는 i18n 단계 라벨** — `type-body-14-medium` · 매체 accent(Image 는 다크 `--accent-green-100` / 라이트 `--accent-green-700`, `ImageNode.tsx:356-357`) |
 | 시맨틱 | **`role="status"` · `aria-live="polite"`** |
 
 **읽히는 것은 캡션이다.** 셸이 `role="status"`·`aria-live="polite"` 를 갖는데 그 안에서 텍스트를
-가진 자식은 캡션 하나뿐이다 — 아이콘은 `aria-hidden` 이다(`ImageNode.tsx:731-749`). 시맨틱만 계약하고
+가진 자식은 캡션 하나뿐이다 — 아이콘은 `aria-hidden` 이다(`ImageNode.tsx:748-766`). 시맨틱만 계약하고
 캡션을 계약하지 않으면 **읽어 줄 문장이 없는 live region** 이 된다. Image 셸은 아이콘과 캡션 둘이
 전부이고, Edit 셸은 같은 두 자식에 진행 채움과 `role="progressbar"` 가 더 붙는다
-(`EditNode.tsx:568-593`).
+(`EditNode.tsx:569-594`).
 
 모션은 **2단이고 이어 붙는다.**
 
@@ -165,7 +165,7 @@ Known deviations.
 **판정이 필요하다.** loop에 `transform` 축과 overshoot recipe를 추가할지, 이 표현을 제품 전용으로
 둘지. 정하지 않으면 화면을 조립할 때마다 곡선을 지어내게 된다.
 
-근거: `nodes/ImageNode.tsx:328-334` · `keyframes.css:410`·`:422`.
+근거: `nodes/ImageNode.tsx:333-339` · `keyframes.css:410`·`:422`.
 
 #### 시간과 피드백
 
@@ -274,27 +274,27 @@ Spinner와 Skeleton 모두 반복이 **1회로 끝난다**(DS-D-0016 — loop는
 
 | keyframe | 좌표 | 소비처 |
 | --- | --- | --- |
-| `archiveLoadingSweep` | `keyframes.css:497-500` | `NodeCanvasHomeScene.tsx:160` · `VideoEditScene.tsx:166` · `EditorProjectWorkspace.tsx:151` · `appHomeSceneStyles.ts:154` |
-| `archiveLoadingMoreShimmer` | `keyframes.css:503-506` | `NodeCanvasHomeScene.tsx:225` (더 불러오기) |
-| `projectLoadingSweep` | `keyframes.css:661-664` | `components/scenes/CreateScene.tsx:141` |
-| `statusLoadingSweep` | `keyframes.css:772-779` | `mypage/upgrade/billing-success/page.tsx:95` · `mypage/upgrade/billing-change-success/page.tsx:93` · `mypage/topup/success/page.tsx:95` |
+| `archiveLoadingSweep` | `keyframes.css:473-476` | `NodeCanvasHomeScene.tsx:161` · `VideoEditScene.tsx:165` · `EditorProjectWorkspace.tsx:151` · `appHomeSceneStyles.ts:154` |
+| `archiveLoadingMoreShimmer` | `keyframes.css:479-482` | `NodeCanvasHomeScene.tsx@54b62a8a:225` (더 불러오기) |
+| `projectLoadingSweep` | `keyframes.css:631-634` | `components/scenes/CreateScene.tsx:201` |
+| `statusLoadingSweep` | `keyframes.css:742-749` | `mypage/upgrade/billing-success/page.tsx:95` · `mypage/upgrade/billing-change-success/page.tsx:93` · `mypage/topup/success/page.tsx:95` |
 
 네 벌의 본문은 `from { background-position: 0% 50% }` → `to { background-position: -100% 50% }` 로
 같다. **네 이름을 네 개의 다른 흐름으로 보고 Figma에 각각 만들면 틀린다. 하나다.**
 
-**레시피.** 목록 첫 로딩(`components/scenes/NodeCanvasHomeScene.tsx:151-162`) 기준이며 나머지
+**레시피.** 목록 첫 로딩(`components/scenes/NodeCanvasHomeScene.tsx:152-163`) 기준이며 나머지
 소비처가 같은 값을 복제한다.
 
 | 축 | 값 | 근거 |
 | --- | --- | --- |
-| 컨테이너 최소 높이 | **480px** | `NodeCanvasHomeScene.tsx:154` |
+| 컨테이너 최소 높이 | **480px** | `NodeCanvasHomeScene.tsx:155` |
 | 컨테이너 패딩 | **80px 0** (`py-40 px-0`, `--spacing: 2px`) | 같은 줄 |
 | 컨테이너 정렬 | `flex items-center justify-center` | 같은 줄 |
-| 라벨 타이포 | **`type-heading-28-medium`** | `NodeCanvasHomeScene.tsx:1322` |
+| 라벨 타이포 | **`type-heading-28-medium`** | `NodeCanvasHomeScene.tsx:1274` |
 | 라벨 표시 | `inline-block` · `color: transparent` | `NodeCanvasHomeScene.tsx:157` |
 | 배경 크기 · 시작 위치 | `200% 100%` · `0% 50%` | `NodeCanvasHomeScene.tsx:157` |
-| 클립 | `background-clip: text` + `-webkit-background-clip: text` | `NodeCanvasHomeScene.tsx:158` |
-| 흐름 | **`2.2s` · `linear` · `infinite`** | `NodeCanvasHomeScene.tsx:160` |
+| 클립 | `background-clip: text` + `-webkit-background-clip: text` | `NodeCanvasHomeScene.tsx:159` |
+| 흐름 | **`2.2s` · `linear` · `infinite`** | `NodeCanvasHomeScene.tsx:161` |
 
 그라디언트는 9정지점이고 **전부 한 색의 알파 변주다** — 면 색을 고르지 않는다는 Skeleton의 판정과
 같은 자리다(`NodeCanvasHomeScene.tsx:156`).
@@ -313,11 +313,11 @@ linear-gradient(90deg,
 
 **색 축은 자리마다 하나만 다르다.** 첫 로딩 시머는 다크 표면을 전제로 `--gray-000-rgb` 하나만 쓴다.
 「더 불러오기」 시머만 라이트에서 `--palette-gray-900-rgb` 를 쓰고 `html[data-theme=dark]` 에서
-`--palette-gray-000-rgb` 로 갈아끼운다(`NodeCanvasHomeScene.tsx:221`, `NodeCanvasHomeScene.tsx:223`).
+`--palette-gray-000-rgb` 로 갈아끼운다(`NodeCanvasHomeScene.tsx@54b62a8a:221`, `NodeCanvasHomeScene.tsx@54b62a8a:223`).
 둘을 한 색으로 합치면 라이트 테마에서 더 불러오기 문구가 배경에 묻힌다.
 
 **reduced-motion에서 그라디언트가 남는다.** 제품은 애니메이션만 끄고 그라디언트는 그대로 둔다 —
-`NodeCanvasHomeScene.tsx:161` 와 `VideoEditScene.tsx:167` 은 미디어 쿼리로, 결제 상태 화면은
+`NodeCanvasHomeScene.tsx:162` 와 `VideoEditScene.tsx:166` 은 미디어 쿼리로, 결제 상태 화면은
 `motion-reduce:animate-none` 으로 같은 결과를 낸다(`mypage/upgrade/billing-success/page.tsx:95`).
 글자가 계속 `color: transparent` 이므로 정지한 그라디언트가 글자를 그린다. 위 「reduced-motion」의
 **1회로 끝난다**와 다르다 — 시머 텍스트는 1회를 돌지 않고 **0프레임에서 멈추고**, 그 자리에서 글자가
@@ -325,7 +325,7 @@ linear-gradient(90deg,
 필요하다.
 
 **자리표시가 읽힌다.** `<section aria-live="polite">` 안의 `<span role="status" aria-label={…}>`
-구조다(`NodeCanvasHomeScene.tsx:1320-1324`). 영역 구조는 위 「누가 로딩을 알리는가」와 같지만
+구조다(`NodeCanvasHomeScene.tsx:1272-1276`). 영역 구조는 위 「누가 로딩을 알리는가」와 같지만
 **자리표시가 `aria-hidden` 이 아니라 읽히는 텍스트**라는 점이 Skeleton과 다르다. 시머 텍스트에
 「자리표시는 장식이다」를 그대로 적용하면 로딩 문구가 통째로 사라진다. 결제 상태 화면은 더 나아가
 **로딩 동안 제목·설명·오류·메타·액션을 렌더하지 않고 이 단어 하나만 남긴다**
@@ -486,11 +486,11 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 | Token | 지배하는 자리 | 근거 |
 | --- | --- | --- |
-| `layout-app-shell-sidebar-width` | 펼침 레일 폭 | `globals.css:181` — `min(240px, calc(100vw - 120px))`이고 최소폭이 960px이라 데스크톱에서는 상수 240. 제품이 `bc3e6fa3`(2026-09-14)에 280 → 240 으로 줄였고(소유자 지정 — 캔버스 레이어 패널 폭과 같다) **토큰도 2026-09-16 에 240 으로 옮겼다** — [DS-D-0064](../governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md) |
-| `layout-app-shell-sidebar-collapsed` | 접힘 레일 폭 | `globals.css:354-356` — `2 × 레일 패딩 + 메뉴 히트 폭` |
-| `layout-app-shell-content-reserve` | 본문에 **남겨 두는** 최소 공간 | `globals.css:117`의 빼는 값. **레일 폭이 아니다** — 이름 함정의 전말은 [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md) |
-| `layout-app-shell-content-inset` | 본문 좌우 안쪽 여백 | `globals.css:155` — 제품이 데스크톱에서 이 토큰을 그대로 받는다. ≤719px 의 `6px` 은 `:428` 이 덮는 값이라 단일 토큰이 담지 못한다([DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)) |
-| `layout-app-shell-sidebar-padding` | 레일 좌우 패딩 | `globals.css:153` |
+| `layout-app-shell-sidebar-width` | 펼침 레일 폭 | `globals.css:188` — `min(240px, calc(100vw - 120px))`이고 최소폭이 960px이라 데스크톱에서는 상수 240. 제품이 `bc3e6fa3`(2026-09-14)에 280 → 240 으로 줄였고(소유자 지정 — 캔버스 레이어 패널 폭과 같다) **토큰도 2026-09-16 에 240 으로 옮겼다** — [DS-D-0064](../governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md) |
+| `layout-app-shell-sidebar-collapsed` | 접힘 레일 폭 | `globals.css:363-365` — `2 × 레일 패딩 + 메뉴 히트 폭` |
+| `layout-app-shell-content-reserve` | 본문에 **남겨 두는** 최소 공간 | `globals.css:122`의 빼는 값. **레일 폭이 아니다** — 이름 함정의 전말은 [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md) |
+| `layout-app-shell-content-inset` | 본문 좌우 안쪽 여백 | `globals.css:162` — 제품이 데스크톱에서 이 토큰을 그대로 받는다. ≤719px 의 `6px` 은 `:428` 이 덮는 값이라 단일 토큰이 담지 못한다([DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)) |
+| `layout-app-shell-sidebar-padding` | 레일 좌우 패딩 | `globals.css:160` |
 | `layout-app-shell-outer-gap` | 카드 바깥 여백 | 아래 「부분만 대응한다」 참조. 값은 2026-09-16 에 12 → 8 로 옮겼다 — [DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md) |
 | `layout-app-shell-top-bar-height` | 상단 크롬 행 높이 | 세 후보 중 이것을 고른 근거는 [App Shell Parts](../components/app-shell-parts.md) |
 | `layout-app-shell-brand-mark-height` | 브랜드 마크 레일 | 같은 문서 |
@@ -502,8 +502,8 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 `--app-gnb-main-inline-padding-end`와 `--app-gnb-rail-padding-bottom`은 LOUIS에 **이름까지 같은
 거울 토큰이 이미 있고** 값도 데스크톱 값(둘 다 `8px`)과 같다. 제품이 받지
 않는 이유는 이 두 축이 ≤719px에서 각각 `6px` · `0px`로 갈라지는데 LOUIS 토큰은 단일값이라 그
-관계를 담지 못하기 때문이고, 제품이 바로 그 이유를 주석으로 적어 둔다(`globals.css:130` · `163`).
-「제품 잔류」 주석 자체는 다섯 곳(`globals.css:124` · `130` · `163` · `170` · `176`)이지만
+관계를 담지 못하기 때문이고, 제품이 바로 그 이유를 주석으로 적어 둔다(`globals.css:135` · `163`).
+「제품 잔류」 주석 자체는 다섯 곳(`globals.css:129` · `130` · `163` · `170` · `176`)이지만
 반응형 분기를 이유로 드는 것은 이 둘뿐이다 — 나머지 셋은 정렬 관계 · JS 상수 짝 ·
 제품 연출 좌표라는 다른 이유다. 옮기는 쪽에서 **지어내지 말고 제품을 인용한다.**
 
@@ -514,7 +514,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 **두 줄은 예외다 — 제품이 실제로 LOUIS에서 값을 받는다.** `--app-shell-min-width`는
 `var(--louis-app-shell-min-width)`(960px)이고, 드로어가 쓰는 `--app-gnb-sidebar-padding-x`는
-`var(--louis-layout-app-shell-sidebar-padding)`이다(`globals.css:189` · `153`). 그래도 표에 남는
+`var(--louis-layout-app-shell-sidebar-padding)`이다(`globals.css:196` · `153`). 그래도 표에 남는
 이유는 둘이 서로 다르다. `--app-shell-min-width`는 **≤719px에 아예 적용되지 않는다** — 선언은
 `:189`이고 적용은 `@media (min-width: 720px)` 안 `:446`뿐이라 compact 쪽 거동이 토큰 바깥이다.
 드로어 패딩은 반응형이 아니다 — `--app-gnb-sidebar-padding-x`는 폭 조건 없이 `:root`에 선언돼
@@ -529,24 +529,24 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 | 제품 변수 | 데스크톱 | ≤719px | 근거 |
 | --- | --- | --- | --- |
-| `--app-gnb-safe-top` | `max(8px, env(safe-area-inset-top, 0px))` | 동일 | `globals.css:100` — 제품 `094c336b`(2026-09-09)가 12 → 8. LOUIS 에 동명 토큰이 **없다** |
-| `--app-gnb-main-inline-padding-end` | `8px` | `6px` | `globals.css:164` · `429` — LOUIS에 동명 거울 토큰 `app-gnb-main-inline-padding-end`(8px, [tokens.css](../../packages/tokens/generated/tokens.css))가 있으나 제품이 받지 않는다 |
-| `--app-gnb-rail-padding-bottom` | `8px` | `0px` | `globals.css:131` · `430` — LOUIS에 동명 거울 토큰 `app-gnb-rail-padding-bottom`(8px, [tokens.css](../../packages/tokens/generated/tokens.css))가 있으나 제품이 받지 않는다 |
-| `--app-shell-min-width` | `960px` — **LOUIS `app-shell-min-width` 를 받는다** | 미적용 | `globals.css:189` · 적용 `446` |
-| 레일 폭 (compact) | — | `0px` | `globals.css:438` |
-| 드로어 폭 | — | `min(240px, 100vw - 40px)` — 제품 `bc3e6fa3`(2026-09-15 앵커 `2c6bdacf`)가 280 → 240 | `Gnb.tsx:2053-2054` |
-| 드로어 좌우 패딩 | — | `--app-gnb-sidebar-padding-x` = `12px` — **LOUIS `layout-app-shell-sidebar-padding` 을 받는다** | `Gnb.tsx:2076-2077` · `globals.css:153` |
-| 드로어 면 (라이트) | — | `--palette-gray-200` (앱 셸 재매핑 후 `#eeeef1`) | `Gnb.tsx:2087` |
-| 드로어 면 (다크) | — | `--app-page-bg` | `Gnb.tsx:2088` |
-| 드로어 전환 | — | `transform 320ms cubic-bezier(0.4, 0, 0.2, 1)` | `Gnb.tsx:2080` |
+| `--app-gnb-safe-top` | `max(8px, env(safe-area-inset-top, 0px))` | 동일 | `globals.css@54b62a8a:100` — 제품 `094c336b`(2026-09-09)가 12 → 8. LOUIS 에 동명 토큰이 **없다** |
+| `--app-gnb-main-inline-padding-end` | `8px` | `6px` | `globals.css:171` · `429` — LOUIS에 동명 거울 토큰 `app-gnb-main-inline-padding-end`(8px, [tokens.css](../../packages/tokens/generated/tokens.css))가 있으나 제품이 받지 않는다 |
+| `--app-gnb-rail-padding-bottom` | `8px` | `0px` | `globals.css:136` · `430` — LOUIS에 동명 거울 토큰 `app-gnb-rail-padding-bottom`(8px, [tokens.css](../../packages/tokens/generated/tokens.css))가 있으나 제품이 받지 않는다 |
+| `--app-shell-min-width` | `960px` — **LOUIS `app-shell-min-width` 를 받는다** | 미적용 | `globals.css:196` · 적용 `446` |
+| 레일 폭 (compact) | — | `0px` | `globals.css:453` |
+| 드로어 폭 | — | `min(240px, 100vw - 40px)` — 제품 `bc3e6fa3`(2026-09-15 앵커 `2c6bdacf`)가 280 → 240 | `Gnb.tsx:2054-2055` |
+| 드로어 좌우 패딩 | — | `--app-gnb-sidebar-padding-x` = `12px` — **LOUIS `layout-app-shell-sidebar-padding` 을 받는다** | `Gnb.tsx:2077-2078` · `globals.css:160` |
+| 드로어 면 (라이트) | — | `--palette-gray-200` (앱 셸 재매핑 후 `#eeeef1`) | `Gnb.tsx:2088` |
+| 드로어 면 (다크) | — | `--app-page-bg` | `Gnb.tsx:2089` |
+| 드로어 전환 | — | `transform 320ms cubic-bezier(0.4, 0, 0.2, 1)` | `Gnb.tsx:2081` |
 
-| 드로어 스크림 면 | — | `rgba(0, 0, 0, 0.4)` — 테마 불변 | `Gnb.tsx:1920` |
-| 드로어 스크림 등장 | — | `mobileMenuFadeIn 200ms ease forwards` (opacity 0 → 1), `motion-reduce`는 `animation: none` | `Gnb.tsx:1922-1923` · `keyframes.css:893-901` |
-| 드로어 패널 두 끝 | — | 닫힘 `translateX(-100%)` → 열림 `translateX(0)`, 열린 상태 `box-shadow: none` | `Gnb.tsx:2079` · `2075-2076` |
-| 셸 높이 (뷰포트) | `var(--app-shell-vh, 100dvh)` — 토큰이 아니라 런타임 주입 | 동일 | `AppHomeScene.tsx:267` · 소비 `appHomeSceneStyles.ts:831-832` · `AdminClient.tsx:55` |
+| 드로어 스크림 면 | — | `rgba(0, 0, 0, 0.4)` — 테마 불변 | `Gnb.tsx:1921` |
+| 드로어 스크림 등장 | — | `mobileMenuFadeIn 200ms ease forwards` (opacity 0 → 1), `motion-reduce`는 `animation: none` | `Gnb.tsx:1923-1924` · `keyframes.css:863-871` |
+| 드로어 패널 두 끝 | — | 닫힘 `translateX(-100%)` → 열림 `translateX(0)`, 열린 상태 `box-shadow: none` | `Gnb.tsx:2080` · `2075-2076` |
+| 셸 높이 (뷰포트) | `var(--app-shell-vh, 100dvh)` — 토큰이 아니라 런타임 주입 | 동일 | `AppHomeScene.tsx:272` · 소비 `appHomeSceneStyles.ts:819-820` · `AdminClient.tsx:55` |
 | `--mainchrome-bleed-left` / `-right` | 선언하는 요소가 **자기 좌우 패딩과 같은 값**으로 정한다 — 형태 B `<main>`은 `16px` / `12px`, 결제 결과 카드는 `24px` / `24px` | 형태 B `<main>`은 `16px` / `16px`, 결제 결과 카드는 `0px` / `0px` | `myPageSceneStyles.ts:58-59` → `64-65` · `billing-success/page.tsx:60` → `57`·`58` |
-| Create 노드 뷰 헤더 상하 인셋 | `8px` — `py-4` 리터럴, safe-area 참조 없음 | 동일 | `CreateScene.tsx:146-147` |
-| Create 노드 뷰 헤더 좌우 인셋 | `12px` — `px-6` 리터럴 | 동일 | `CreateScene.tsx:146-147` |
+| Create 노드 뷰 헤더 상하 인셋 | `8px` — `py-4` 리터럴, safe-area 참조 없음 | 동일 | `CreateScene.tsx:206-207` |
+| Create 노드 뷰 헤더 좌우 인셋 | `12px` — `px-6` 리터럴 | 동일 | `CreateScene.tsx:206-207` |
 
 **`outer-gap`은 부분만 대응한다.** 제품에는 8px 관계가 셋(상·우·하) 있고 셋이 서로 다른 변수를
 갖는다. compact에서 상단만 유지되고 우측은 6으로, 하단은 0으로 갈라지므로 **하나의 토큰으로
@@ -560,17 +560,17 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 | 씬 루트 | 데스크톱 | ≤719px | 근거 |
 | --- | --- | --- | --- |
-| 형태 A — AppHome | 상 `--app-gnb-safe-top` · 좌 `0` · 우 `--app-gnb-main-inline-padding-end` · 하 `--app-gnb-rail-padding-bottom` | 상·우·하 **모두 `0`** | `appHomeSceneStyles.ts:846-849` → `857-859` |
-| 형태 A — Admin | 동일 | 상·우·하 **모두 `0`** | `AdminClient.tsx:57-58` → `45-47` |
-| 형태 A — NodeCanvasHome | 동일 | 상·우·하 **모두 `0`** | `NodeCanvasHomeScene.tsx:97-98` → `103` |
-| 형태 A — 분석 2씬 | 동일 | 상·우·하 **모두 `0`** | `InstagramAnalyticsScene.tsx:277-278` → `284-286` · `YoutubeAnalyticsScene.tsx:743-744` → `750-752` |
-| 형태 B — 페이지 루트 | 상 `--app-gnb-safe-top` · 하 `--app-gnb-rail-padding-bottom`, 좌우 padding 없음 (패널이 `margin`으로 벌린다) | 상·하 `0`, 패널 `margin-right: 0` | `myPageSceneStyles.ts:495-496` → `524-525` · `74` → `90` |
+| 형태 A — AppHome | 상 `--app-gnb-safe-top` · 좌 `0` · 우 `--app-gnb-main-inline-padding-end` · 하 `--app-gnb-rail-padding-bottom` | 상·우·하 **모두 `0`** | `appHomeSceneStyles.ts:834-837` → `857-859` |
+| 형태 A — Admin | 동일 | 상·우·하 **모두 `0`** | `AdminClient.tsx:58-59` → `45-47` |
+| 형태 A — NodeCanvasHome | 동일 | 상·우·하 **모두 `0`** | `NodeCanvasHomeScene.tsx:98-99` → `103` |
+| 형태 A — 분석 2씬 | 동일 | 상·우·하 **모두 `0`** | `InstagramAnalyticsScene.tsx:278-279` → `284-286` · `YoutubeAnalyticsScene.tsx:744-745` → `750-752` |
+| 형태 B — 페이지 루트 | 상 `--app-gnb-safe-top` · 하 `--app-gnb-rail-padding-bottom`, 좌우 padding 없음 (패널이 `margin`으로 벌린다) | 상·하 `0`, 패널 `margin-right: 0` | `myPageSceneStyles.ts@54b62a8a:495-496` → `524-525` · `74` → `90` |
 
 **그래서 compact의 16px은 카드 바깥이 아니라 카드 안쪽으로 간다.** compact에서
 `--app-gnb-main-inline-padding-end`를 읽는 자리는 전부 카드 안쪽이다 — 카드와 `<main>`의 안쪽
-패딩(`appHomeSceneStyles.ts:766` · `myPageSceneStyles.ts:66` · `NodeCanvasHomeScene.tsx:129` ·
-`AdminClient.tsx:98`), 카드 안 본문 컬럼(`InstagramAnalyticsScene.tsx:320`), 패널 안 상단
-바(`Gnb.tsx:477`)다. **모바일 시안에 카드 바깥 여백을 그리면 틀린다 — 카드가 화면 폭 전체다.**
+패딩(`appHomeSceneStyles.ts:754` · `myPageSceneStyles.ts:66` · `NodeCanvasHomeScene.tsx:130` ·
+`AdminClient.tsx:99`), 카드 안 본문 컬럼(`InstagramAnalyticsScene.tsx:321`), 패널 안 상단
+바(`Gnb.tsx:478`)다. **모바일 시안에 카드 바깥 여백을 그리면 틀린다 — 카드가 화면 폭 전체다.**
 
 **드로어의 면은 페이지 배경이 아니다(2026-08-21 실측).** compact에서 드로어는 먼저
 `--app-page-bg`를 깔지만 곧바로 테마별 규칙이 덮는데, **라이트만 `--palette-gray-200`으로
@@ -580,13 +580,13 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 **드로어 스크림은 dialog scrim과 다른 값이다.** 드로어 스크림은 `rgba(0, 0, 0, 0.4)`로 테마와
 무관하게 고정이고, [Dialog](../components/dialog.md)의 `color-dim-modal`(라이트 56% · 다크 72%)과
 갈린다. **56%/72%로 대신 그리면 뒤 화면이 한 단계 어둡게 나온다.** 적층도 DS 사다리 밖이다 —
-드로어 `z-index: 1400` · 스크림 `1399`(`Gnb.tsx:2073` · `1904`)로 프로필 popover(1100)보다 위이며,
+드로어 `z-index: 1400` · 스크림 `1399`(`Gnb.tsx:2074` · `1904`)로 프로필 popover(1100)보다 위이며,
 그 이탈은 [App Shell Parts](../components/app-shell-parts.md)의 Known deviations가 기록한다.
 
 **셸 높이는 토큰이 아니라 런타임 주입이다.** `--app-shell-vh`는 CSS 어디에도 정의가 없다.
 `AppHomeScene`이 마운트될 때 `Math.round(visualViewport.height ?? innerHeight)`를 px로
 `documentElement`에 쓰고 언마운트에서 지운다 — `resize`와 `visualViewport.resize` 두 이벤트로
-갱신한다(`AppHomeScene.tsx:263-277`, 주입 `241` · 정리 `249`). 존재 이유는 iOS Safari 등에서
+갱신한다(`AppHomeScene.tsx:268-282`, 주입 `241` · 정리 `249`). 존재 이유는 iOS Safari 등에서
 `100dvh`가 실제 가시 높이와 어긋나 고정 높이 셸 아래에 흰 여백이 생기는 것을 막는 것이다. CSS는
 언제나 `var(--app-shell-vh, 100dvh)`로 읽으므로 **JS 미실행·하이드레이션 전에는 `100dvh`가 남는다.**
 **모바일 프레임 높이를 `100dvh` 상수로 굳히면 제품과 어긋나고, 그 어긋남을 잡아 주는 장치가 없다** —
@@ -594,7 +594,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 **bleed 두 개는 패널 안 상단 크롬을 카드 패딩 밖으로 되돌린다.** 크롬 바는
 `width: calc(100% + 좌 + 우)`와 좌우 `calc(-1 * 같은 값)` margin으로 감싼 요소의 좌우 패딩을 정확히
-상쇄해 **카드 전체 폭으로 번진다**(`Gnb.tsx:464-466`). 그래서 값은 언제나 **감싼 요소의 좌우 패딩과
+상쇄해 **카드 전체 폭으로 번진다**(`Gnb.tsx:465-467`). 그래서 값은 언제나 **감싼 요소의 좌우 패딩과
 같게** 선언된다 — 형태 B의 `<main>`은 `16px`/`12px`(`myPageSceneStyles.ts:58-59`, 그 패딩 `60`),
 결제 결과 카드는 `24px`/`24px`(`billing-success/page.tsx:60`, 그 패딩 `63`)이다. ≤719px에서 형태 B는
 `16px`/`16px`로 함께 바뀌고(`myPageSceneStyles.ts:64-65`, 그 패딩 `66`), 결제 결과 카드는 둘 다 `0`이
@@ -604,7 +604,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 **Create 노드 뷰 상단 헤더는 이 인셋 규약 밖이다.** 이 헤더는 `fixed top-0 left-0 right-0`에
 `py-4 px-6` 리터럴을 쓰고 `env(safe-area-inset-*)`도 `--app-gnb-main-inline-padding-end`도 참조하지
-않는다(`CreateScene.tsx:146-147`, 소비 `673`). `--spacing`이 `2px`이므로 상하 **8px** · 좌우
+않는다(`CreateScene.tsx:206-207`, 소비 `673`). `--spacing`이 `2px`이므로 상하 **8px** · 좌우
 **12px**이고, 이 헤더에는 719px 분기가 없어 compact에서도 12px 그대로다. **위 표의
 `--app-gnb-safe-top`을 따라 상하 12px + safe-area로 그리면 실제 8px과 어긋난다.** 좌우 12px은 우연이
 아니다 — 배포본 주석이 「좌우 12px 은 레이어 패널·툴바·줌과 같은 시작선, 상하는 8px」이라고 직접
@@ -619,13 +619,13 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 | 축 | 값 | 근거 |
 | --- | --- | --- |
-| 반경 | `16px` | `globals.css:1334` · `1340` |
-| 프레임 | `var(--louis-hairline-inset)` — **0.5px 헤어라인 한 겹, 안쪽(`inset`)**. 글래스 5겹도 `--dropdown-frame`도 폐지됐다 | `globals.css:1430` · `1341` |
-| 면 (라이트) | `--palette-gray-100` | `globals.css:1338-1340` · `1345-1347` |
-| 면 (다크) | `--palette-gray-800` | `globals.css:1342-1344` · `1349-1351` |
-| 스크롤 헤더 슬롯 | `position: sticky; top: 0; z-index: 5` — 하단 페이드(10)보다 **아래**다 | `appHomeSceneStyles.ts:743-751`(sticky·top·z-index는 `751-753`) · `InstagramAnalyticsScene.tsx:336` |
-| 하단 페이드 | `::before` `z-index: 10` — `linear-gradient(to top, 면색 100% 0%, 56% 50%, 20% 80%, 0% 100%) bottom / 100% 20px no-repeat` | `globals.css:1362-1369`(공통) · `1362-1371`(라이트) · `1373-1382`(다크) |
-| 클리핑 | `overflow: hidden` | `globals.css:1333` · `1339` |
+| 반경 | `16px` | `globals.css:1369` · `1340` |
+| 프레임 | `var(--louis-hairline-inset)` — **0.5px 헤어라인 한 겹, 안쪽(`inset`)**. 글래스 5겹도 `--dropdown-frame`도 폐지됐다 | `globals.css:1465` · `1341` |
+| 면 (라이트) | `--palette-gray-100` | `globals.css:1373-1375` · `1345-1347` |
+| 면 (다크) | `--palette-gray-800` | `globals.css:1377-1379` · `1349-1351` |
+| 스크롤 헤더 슬롯 | `position: sticky; top: 0; z-index: 5` — 하단 페이드(10)보다 **아래**다 | `appHomeSceneStyles.ts:731-739`(sticky·top·z-index는 `751-753`) · `InstagramAnalyticsScene.tsx:337` |
+| 하단 페이드 | `::before` `z-index: 10` — `linear-gradient(to top, 면색 100% 0%, 56% 50%, 20% 80%, 0% 100%) bottom / 100% 20px no-repeat` | `globals.css:1397-1404`(공통) · `1362-1371`(라이트) · `1373-1382`(다크) |
+| 클리핑 | `overflow: hidden` | `globals.css:1368` · `1339` |
 
 **베벨 링(`::after`)은 제품에서 제거됐다.** 이전 판은 이 카드가 프레임 5겹 + 베벨 링 4겹 = 9겹을
 갖는다고 적었다. 지금은 **프레임 한 겹뿐**이고, 남은 `::after` 선언은 `≤719px`에서 그 층을
@@ -659,16 +659,16 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 [`base.css:29-30`](../../packages/css/src/base.css)에 있다.
 
 **≤719px에서는 프레임과 베벨 링이 통째로 사라진다.** `border-radius: 0` · `box-shadow: none` ·
-`overflow: visible`이 되고 `::before`/`::after`가 `display: none`이다(`globals.css:1433-1446`). 형태 B의
+`overflow: visible`이 되고 `::before`/`::after`가 `display: none`이다(`globals.css:1468-1481`). 형태 B의
 `::before`는 전역이 아니라 씬이 끈다(`myPageSceneStyles.ts:94`). **모바일 시안에 카드 프레임을 그리면
 틀린다.**
 
 ###### 하단 페이드의 출처가 형태마다 다르다
 
-형태 A는 전역 `.appMainCardChrome::before`(`globals.css:1362-1391`)가 준다. 형태 B에는 **그 전역
+형태 A는 전역 `.appMainCardChrome::before`(`globals.css:1397-1426`)가 준다. 형태 B에는 **그 전역
 `::before`가 없고** 씬이 자기 `::before`에 상단·하단 두 배경 레이어를 함께 선언한다 —
 `myPageSceneStyles.ts:88`(라이트) · `89`(다크). **출처만이 아니라 값도 갈라져 있다** — 하단
-페이드의 가운데 두 스톱이 형태 A는 `56% 50%` · `20% 80%`(`globals.css:1375-1376` 라이트 ·
+페이드의 가운데 두 스톱이 형태 A는 `56% 50%` · `20% 80%`(`globals.css:1410-1411` 라이트 ·
 `1377-1378` 다크)인데 형태 B는 아직 `53% 50%` · `19% 80%`다. **형태 B를 「전역 클래스만 붙이면
 된다」로 읽으면 페이드가 통째로 빠지고, 형태 B를 전역 값으로 그리면 스톱이 어긋난다.**
 
@@ -698,31 +698,31 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | | 형태 A | 형태 B |
 | --- | --- | --- |
 | 크롬 클래스 | `appMainCardChrome` | `appMainCardChromeSurface` |
-| 정의 | `appHomeSceneStyles.ts:755` (`mainWithAppSidebar`) | `myPageSceneStyles.ts:69` (`contentWithAppSidebarPanel`) |
+| 정의 | `appHomeSceneStyles.ts:743` (`mainWithAppSidebar`) | `myPageSceneStyles.ts:69` (`contentWithAppSidebarPanel`) |
 | 카드가 걸리는 요소 | `<main>` 자신 | `<main>` 바깥의 패널 div |
-| 사이드바 자리를 비우는 요소 | 씬 루트 (`appHomeSceneStyles.ts:843`) | 패널 div 자신 |
+| 사이드바 자리를 비우는 요소 | 씬 루트 (`appHomeSceneStyles.ts:831`) | 패널 div 자신 |
 | 접힘 전환 대상 | `margin-left` **와** `width` (`appHomeSceneStyles.ts:850`) | `margin-left` **만** (`myPageSceneStyles.ts:76`) |
 | 카드 자체의 margin | 네 방향 0 | 좌·우만 값이 있고 상·하 0 |
 | `<main>` 안쪽 패딩 (≥720px) | `0 16px` | `0 12px 20px 16px` |
 | `<main>` 안쪽 패딩 (≤719px) | `0 16px` | `0 16px` |
 | 스크롤 루트 | `<main>` 바깥의 뷰포트 div | `<main>` 자신 |
 
-| `<main>` 안쪽 패딩 — 분석 2씬 예외 | `0` — 카드는 패딩 0이고 인셋을 자식이 갖는다 (`InstagramAnalyticsScene.tsx:299` · `YoutubeAnalyticsScene.tsx:773`, 본문 컬럼 좌우 `--app-gnb-main-inline-padding`은 `InstagramAnalyticsScene.tsx:319`·`320` · `YoutubeAnalyticsScene.tsx:806`·`807`) | 해당 없음 |
-| `<main>` 하단 패딩 (≤780px) | 카드에는 **없다** — `0`. 옛 모듈 CSS의 `160px`은 카드가 **아닌** `<main>`에만 남았다 (`appHomeSceneStyles.ts:739`는 `:not(.tw-ah-067)` 조건, `NodeCanvasHomeScene.tsx:114`는 `MAIN_EMBEDDED`). 카드 쪽 선언은 `NodeCanvasHomeScene.tsx:128` · `AdminClient.tsx:97`의 `pb-0` | 해당 없음 |
+| `<main>` 안쪽 패딩 — 분석 2씬 예외 | `0` — 카드는 패딩 0이고 인셋을 자식이 갖는다 (`InstagramAnalyticsScene.tsx:300` · `YoutubeAnalyticsScene.tsx:774`, 본문 컬럼 좌우 `--app-gnb-main-inline-padding`은 `InstagramAnalyticsScene.tsx:320`·`320` · `YoutubeAnalyticsScene.tsx:807`·`807`) | 해당 없음 |
+| `<main>` 하단 패딩 (≤780px) | 카드에는 **없다** — `0`. 옛 모듈 CSS의 `160px`은 카드가 **아닌** `<main>`에만 남았다 (`appHomeSceneStyles.ts:727`는 `:not(.tw-ah-067)` 조건, `NodeCanvasHomeScene.tsx:115`는 `MAIN_EMBEDDED`). 카드 쪽 선언은 `NodeCanvasHomeScene.tsx:129` · `AdminClient.tsx:97`의 `pb-0` | 해당 없음 |
 
 **형태 B의 아래쪽 20px은 `pb-10`이다.** 제품이 Tailwind의 `--spacing`을 `2px`로 재정의했기
 때문에(`tailwind.css:153`) `pb-10` = 20px이지 40px이 아니다. **Tailwind 기본값(4px 격자)으로
 환산하면 두 배로 나온다.** 실측값: `--app-gnb-main-inline-padding` 16px(≤719px는 6px) ·
-`--app-gnb-main-inline-padding-end` 8px(≤719px는 6px) — `globals.css:155`·`164`·`428`·`429`.
+`--app-gnb-main-inline-padding-end` 8px(≤719px는 6px) — `globals.css:162`·`164`·`428`·`429`.
 
 **≤780px의 160px은 카드로 옮겨오지 않았다.** 옛 모듈 CSS에서는 `.main`의
 `padding-bottom: 160px`이 `.mainWithAppSidebar`의 padding 단축보다 소스 뒤에 있어 이겼고, 그래서
 모바일 카드 하단이 0이 아니라 160px이었다. **배포본은 그 승자를 옮기지 않았다** — 이미 제거된
 플로팅 CTA 자리의 잔재이고 스크롤 루트 **바깥**이라 스크롤해도 사라지지 않는 죽은 여백이 되기
-때문이며, 배포본이 그 판단을 주석에 직접 적는다(`NodeCanvasHomeScene.tsx:120-124` ·
-`AdminClient.tsx:87-90`). 남은 160px은 카드가 아닌 `<main>` 쪽뿐이다 —
-`appHomeSceneStyles.ts:739`는 `:not(.tw-ah-067)`(= `mainWithAppSidebar`가 아닐 때)로 걸러지고,
-`NodeCanvasHomeScene.tsx:114`는 랜딩 데모 임베드용 `MAIN_EMBEDDED`다. **모바일 시안에 카드 하단
+때문이며, 배포본이 그 판단을 주석에 직접 적는다(`NodeCanvasHomeScene.tsx:121-125` ·
+`AdminClient.tsx:88-91`). 남은 160px은 카드가 아닌 `<main>` 쪽뿐이다 —
+`appHomeSceneStyles.ts:727`는 `:not(.tw-ah-067)`(= `mainWithAppSidebar`가 아닐 때)로 걸러지고,
+`NodeCanvasHomeScene.tsx:115`는 랜딩 데모 임베드용 `MAIN_EMBEDDED`다. **모바일 시안에 카드 하단
 160px을 그리면 틀린다** — 형태 A 카드의 ≤780px 하단 패딩은 `0`이다.
 
 전환 곡선은 양쪽 모두 `320ms cubic-bezier(0.4, 0, 0.2, 1)`로 같다 — 위 표의
@@ -924,7 +924,7 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 모�
 「Get started」가 두 줄로 꺾였다. `MENU` · `MENU_LINK` 의 `max-width:959px` 변형이 갖는다
 (제품 `feat/landing-hero-scroll` `b0d4777f2`).
 
-근거: `landing/navigation/Gnb.tsx:108-113`(헤더) · `:115-119`(레일) · `:148-151`(로고) ·
+근거: `landing/navigation/Gnb.tsx:109-114`(헤더) · `:115-119`(레일) · `:148-151`(로고) ·
 `:159-162`(메뉴) · `:164-172`(메뉴 링크) · `:325`(3열 액션) · `:334-338`(상단 CTA) ·
 `:346-352`(햄버거) · `tailwind.css:162`(간격 기준). LanguageSelector compact 의 기하는 제품
 `LanguageSelector` 의 `TRIGGER`(높이 32) + `TRIGGER_COMPACT`(`padding: 0 8px` · `rounded-12`) +
@@ -956,7 +956,7 @@ Landing Shell은 로그인 전 마케팅 화면의 껍데기다 — 홈 · 모�
 **배너 캐러셀의 값을 여기 쓰지 마라.** 그쪽은 `blur(22px) saturate(125%)`에 5스톱 마스크라 흐림이
 두 배 가깝게 짙고 감쇠 곡선이 다르다.
 
-근거: `landing/navigation/Gnb.tsx:101-106`(상수) · `:737`(소비처) · LOUIS `packages/css/src/base.css`(두 토큰).
+근거: `landing/navigation/Gnb.tsx:102-107`(상수) · `:737`(소비처) · LOUIS `packages/css/src/base.css`(두 토큰).
 **z-index 999는 작업 브랜치의 값이다**(`:118-124` `HEADER_BLUR`). `origin/dev` 판은 1000이었고 시트가 없었다.
 
 **한때 스크림이 깔려 있었다.** 제품 `66baeb6f`(2026-08-27)가 대비를 벌려고 페이지 바닥색 88%
@@ -972,7 +972,7 @@ Tone inversion 이 그 자리다.
 프레임 단위로 잰 값을 적는다) 그것을 우리 헤더 위에 옮긴 것이다 — 우리 패널은 헤더 **아래**에서
 시작하므로 토스의 상단 패딩 104는 쓰지 않고 헤더 높이를 뺀 40을 쓴다.
 
-출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:351-410`(@`26d093f6a` 시트 구조 · @`45f0ffad6`
+출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:352-411`(@`26d093f6a` 시트 구조 · @`45f0ffad6`
 항목 간격 · @`d2c5f8dd0` blur plate 연장).
 
 ##### 구조
@@ -1108,7 +1108,7 @@ Tone inversion 이 그 자리다.
 바닥(#fafafa)에서 약 **3.3:1**(제품 주석 3.27 · 이 문서의 계산 3.31)이라 14px 본문 기준 AA(4.5)에 못 미친다 —
 비활성 컨트롤이 아니라 **누를 수 있는 내비게이션 링크**라 면제 대상이 아니다. `.65`는 **5.28:1**이고 활성(1.00)과의
 간격도 남는다. 어두운 면 위(흰 잉크)는 `.70`에서 이미 9.57:1이라 손대지 않는다 — **두 톤의 불투명도가 다른 것이
-맞다.** 근거: `landing/navigation/Gnb.tsx:189-198`. (이 절의 앞선 판이 적은 3.23 · 5.11 은 바닥이 #f1f1f3 이던
+맞다.** 근거: `landing/navigation/Gnb.tsx:190-199`. (이 절의 앞선 판이 적은 3.23 · 5.11 은 바닥이 #f1f1f3 이던
 시절의 값이다 — 결론은 같다.)
 
 **헤더 안에서 `--gray-000`을 팔레트 값으로 되돌린다.** 시맨틱 램프는 테마에서 뒤집히는데 랜딩 헤더는
@@ -1125,7 +1125,7 @@ LOUIS `.louis-menu-trigger` 는 자기 색을 `color: var(--louis-color-fg-prima
    변수를 테마 범위에서만 선언하고 트리거 자신에는 선언하지 않으므로 겨룰 규칙이 없다.
 2. **nav 가 아니라 트리거에 건다.** nav 에 걸면 그 안의 다른 LOUIS 요소(언어 드롭다운 항목 등)까지 같은 색을
    물려받는다. 드롭다운은 트리거의 형제라 트리거에 건 값은 내려가지 않는다. 앰배서더 브랜치는 아직 nav 에 건다
-   (`NAV_ON_DARK_SURFACE`, `Gnb.tsx:141`) — 두 브랜치가 갈라져 있다.
+   (`NAV_ON_DARK_SURFACE`, `Gnb.tsx:142`) — 두 브랜치가 갈라져 있다.
 3. **셀렉터는 클래스(`.louis-menu-trigger`)로 집는다.** 오른쪽 버튼 둘이 모두 그 클래스인데 **테마 버튼에는
    `aria-haspopup` 이 없다**(언어 선택기만 목록을 연다). 속성으로 집으면 언어만 밝아지고 테마 아이콘은 검정으로 남는다.
 4. **어두운 면 톤은 라이트 테마에서만 의미가 있다.** 다크 테마에서는 그 변수의 값이 이미 그 톤이므로 붙이지 않는다
@@ -1136,9 +1136,9 @@ LOUIS `.louis-menu-trigger` 는 자기 색을 `color: var(--louis-color-fg-prima
 (`fg-primary` 가 라이트에서 흰색이다). 대안은 `.louis-menu-trigger` 에 「면의 밝기」 입력(`data-surface` 또는 전용 변수)을
 열어 시맨틱 변수를 덮지 않아도 되게 하는 것이다. 정하기 전까지 위 다섯 규칙이 계약이다.
 
-근거: 2026-10-07, 제품 `feat/ambassador-links` `Gnb.tsx:141,527-590`(@`77522e3c1` · `6a106db62` · `cbc5b4cb9`) ·
-`feat/landing-hero-scroll` `Gnb.tsx:185-206`(@`79425db2d`) · `:831-835`(톤 결정) · `landing/system/navTone.ts`
-(@`ab8f0bca1` · `d1136262d` · `5bc42e986`) · 이 절의 폐기된 앞선 판은 `Gnb.tsx:87-104` · `:653-657`(옛 줄 좌표).
+근거: 2026-10-07, 제품 `feat/ambassador-links` `Gnb.tsx:142,527-590`(@`77522e3c1` · `6a106db62` · `cbc5b4cb9`) ·
+`feat/landing-hero-scroll` `Gnb.tsx:186-207`(@`79425db2d`) · `:831-835`(톤 결정) · `landing/system/navTone.ts`
+(@`ab8f0bca1` · `d1136262d` · `5bc42e986`) · 이 절의 폐기된 앞선 판은 `Gnb.tsx:88-105` · `:653-657`(옛 줄 좌표).
 
 #### Actions
 
@@ -1161,7 +1161,7 @@ LOUIS Button `primary` `md`(높이 32 · 안쪽 12)를 그대로 쓰되 **헤더
 고정 팔레트 변형을 Button 에 둘지. 지금 있는 `variant="inverse"`(인증 플로우 제출 CTA)는 **테마를 따라** 뒤집히는
 다른 축이라 그 자리를 대신하지 못한다 — 헤더의 톤은 테마와 무관하게 정해진다(위 Tone inversion).
 
-출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:495-508`.
+출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:496-509`.
 
 ##### 페이지별 주 행동 슬롯 — `primaryAction`
 
@@ -1177,7 +1177,7 @@ primaryAction?: { label: string; onClick: () => void }
   인증 상태와 무관하다(앰배서더는 「지원하기」로 지원서를 연다).
 - 슬롯은 행동만 바꾼다 — 면 · 크기 · 톤 반전은 위 표 그대로다.
 
-출처: 2026-10-07, 제품 `feat/ambassador-links` `Gnb.tsx:538-540,1066-1078,1221-1228`(@`6dcf59011` 계열).
+출처: 2026-10-07, 제품 `feat/ambassador-links` `Gnb.tsx:539-541,1066-1078,1221-1228`(@`6dcf59011` 계열).
 
 ##### 언어 · 테마 트리거
 
@@ -1215,10 +1215,10 @@ nav의 배경 층에 갇힌다.**
 blur plate 가 **1000** 이었다 — 패널이 헤더 위에 떴다. 시트가 헤더 유리 위로 오면서 순서가
 **헤더 1001 > 시트 1000 > blur plate 999** 로 바뀌었다. 아래 근거 줄 좌표는 옛 판이다.
 
-근거: `landing/navigation/Gnb.tsx:870`(드롭다운 패널의 인라인 `zIndex: 2000` — 옛 판) · `:223`(같은 패널의
+근거: `landing/navigation/Gnb.tsx:882`(드롭다운 패널의 인라인 `zIndex: 2000` — 옛 판) · `:223`(같은 패널의
 클래스 `z-20` — 인라인이 이긴다) · `:108`(헤더 1001) · `:101`(blur plate 1000 — 옛 판) · `:116`(`<nav>`의
 `relative` + `z-2`) · `:382-386`(풀스크린 메뉴 `fixed inset-0 z-[-1]`). 작업 브랜치 판: `feat/landing-hero-scroll`
-`Gnb.tsx:119`(blur plate `z-[999]`) · `:142`(헤더 `z-[1001]`) · `:1443`(시트 인라인 `zIndex: 1000`).
+`Gnb.tsx:120`(blur plate `z-[999]`) · `:142`(헤더 `z-[1001]`) · `:1443`(시트 인라인 `zIndex: 1000`).
 
 #### Fullscreen menu
 
@@ -1285,7 +1285,7 @@ Apple 도 2단계를 1단계와 같은 원점에 `absolute` 로 겹친다. 높�
 **판정 필요 — 이 값들을 모션 토큰으로 둘지.** 거리 8 · 지연 160 · 길이 240 · 곡선 `0.4, 0, 0.6, 1` 이 제품 상수(`MOBILE_MENU_*`)와
 키프레임에 흩어져 있다. 지금은 제품 인용으로만 적는다.
 
-출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:553-687`(@`1a04d2b55`) · `keyframes.css:1157`.
+출처: 2026-10-07, 제품 `feat/landing-hero-scroll` `Gnb.tsx:554-688`(@`1a04d2b55`) · `keyframes.css:1126`.
 
 #### Footer
 
@@ -1391,14 +1391,14 @@ Apple 도 2단계를 1단계와 같은 원점에 `absolute` 로 겹친다. 높�
 
 | 축 | 값 | 근거 |
 | --- | --- | --- |
-| blur plate 높이 | `120px` | `landing/navigation/Gnb.tsx:102` |
+| blur plate 높이 | `120px` | `landing/navigation/Gnb.tsx:103` |
 | blur plate 흐림 | `blur(12px)` | `:102` — **소비처다.** 값은 아래 |
 | blur plate 마스크 | 2스톱 `40% → 100%` | `:103-104` — **소비처다.** 값은 아래 |
 | 헤더 패딩 | `12px 12px 12px 20px` (≤450px `12px 16px`) | `:109` · `:111` |
 | 톤 전환 길이 | `320ms ease` | `:117` |
 | 시트 blur plate 틴트 · 높이 식 | `56%` · `시트 바닥 ÷ 0.4` · `300ms / 130ms` | `:131-139` |
 | 시트 패딩 · 열 폭 · 항목 간격 | `40/160/48` · `calc((100% − 72px)/4)` · `4px` | `:388-406` |
-| 모바일 메뉴 드릴 | `8px` · `160ms 지연` · `240ms` · `cubic-bezier(0.4,0,0.6,1)` | `keyframes.css:1157` · `Gnb.tsx:149-153` |
+| 모바일 메뉴 드릴 | `8px` · `160ms 지연` · `240ms` · `cubic-bezier(0.4,0,0.6,1)` | `keyframes.css:1126` · `Gnb.tsx:150-154` |
 | 푸터 전부 | 위 Footer 절의 표 | `TimelineFooter.tsx` |
 
 **흐림과 마스크 두 줄은 2026-08-30에 닫혔다.** 그날 이 자리가 자기 이름을 얻었다 —
@@ -1589,18 +1589,18 @@ light · dark 모두 `#fafafa`로 같으므로 **렌더는 변하지 않는다.*
 **세로 간격이 세 배가 된다.** 좁은 폭의 촘촘한 리듬을 넓은 폭에 그대로 쓰면 폼이 뭉쳐 보인다.
 
 `--spacing: 2px` 격자라 `gap-12`는 **24px**이다. 8화면 중 7이 24px이고
-(`AuthStatusCard.tsx:26` · `(auth-brand)/signup/page.tsx:31` · `aws/signup/page.tsx:120`),
-`/login` 하나만 `gap-14` = **28px**이다(`login/page.tsx:34`).
+(`AuthStatusCard.tsx:26` · `(auth-brand)/signup/page.tsx:35` · `aws/signup/page.tsx:120`),
+`/login` 하나만 `gap-14` = **28px**이다(`login/page.tsx:40`).
 
 **하단 링크의 음수 마진은 그 28px 전용이다.** `/login`이
 `[@media(min-width:720px)]:mt-[-12px]`로 폼과 하단 링크를 당기는 것은 자기 카드 간격이 28px이기
 때문이고, 주석도 「데스크톱에선 카드 gap(28px)이 커서」라고 적는다
-(`login/page.tsx:154-159`). 24px인 나머지 일곱에는 그 보정이 없다 — **공용 규칙으로 옮기면
+(`login/page.tsx:75-80`). 24px인 나머지 일곱에는 그 보정이 없다 — **공용 규칙으로 옮기면
 안 된다.**
 
-제목 타입은 8화면이 전부 같다(`AuthStatusCard.tsx:89` · `login/page.tsx:302` · `(auth-brand)/signup/page.tsx:344` ·
+제목 타입은 8화면이 전부 같다(`AuthStatusCard.tsx:89` · `login/page.tsx:223` · `(auth-brand)/signup/page.tsx:196` ·
 `aws/signup/page.tsx:451`). 다만 **폼을 자기가 적는 셋만** 제목에 `letter-spacing: 0`을 덧대
-스케일의 자간을 지운다(`login/page.tsx:48` · `(auth-brand)/signup/page.tsx:44` · `aws/signup/page.tsx:134`) — 공용
+스케일의 자간을 지운다(`login/page.tsx:54` · `(auth-brand)/signup/page.tsx:44` · `aws/signup/page.tsx:134`) — 공용
 `AuthStatusCard`는 덧대지 않는다.
 복제 부채이지 이 패턴의 계약이 아니다.
 
@@ -1631,18 +1631,18 @@ light · dark 모두 `#fafafa`로 같으므로 **렌더는 변하지 않는다.*
 
 **좁은 폭 전용이다.** `≥720px`에서 숨는다 — 넓은 폭에서는 좌 패널의 브랜드 심볼이 그 역할을 한다.
 
-**Form card의 첫 자식이다**(`AuthStatusCard.tsx:73-80` · `login/page.tsx:292-299`). 그래서 아래
+**Form card의 첫 자식이다**(`AuthStatusCard.tsx:73-80` · `login/page.tsx:213-220`). 그래서 아래
 여백이 카드 세로 간격과 **합산된다** — 공용은 `mb-8`(16px) + 좁은 폭 카드 간격 8px = 실효
 **24px**이다(`AuthStatusCard.tsx:30`). `/login` · `/signup`은 `mb-12`(24px)이라 실효 32px이다
-(`login/page.tsx:38` · `(auth-brand)/signup/page.tsx:35`). `/aws/signup`에는 로고 링크가 아예 없다 —
+(`login/page.tsx:44` · `(auth-brand)/signup/page.tsx:39`). `/aws/signup`에는 로고 링크가 아예 없다 —
 파트너십 행이 그 자리를 쓴다.
 
 로고 높이도 갈린다 — 공용과 `/signup`은 `56`(`AuthStatusCard.tsx:77-78` ·
-`(auth-brand)/signup/page.tsx:339`), `/login`만 `72`다(`login/page.tsx:169`).
+`(auth-brand)/signup/page.tsx:191`), `/login`만 `72`다(`login/page.tsx:90`).
 
 `transition: opacity 180ms ease-in-out`, hover `0.84`는 공용 값이다(`AuthStatusCard.tsx:30`).
-`/signup`은 `180ms ease` · hover `0.8`이고(`(auth-brand)/signup/page.tsx:35`) `/login`은 전이도 hover도
-두지 않는다(`login/page.tsx:38`).
+`/signup`은 `180ms ease` · hover `0.8`이고(`(auth-brand)/signup/page.tsx:39`) `/login`은 전이도 hover도
+두지 않는다(`login/page.tsx:44`).
 
 **hover에 `@media (hover: hover)` 가드가 없다** — 터치 기기에서도 발동한다. 원본 모듈 CSS의
 맨 `:hover`를 보존한 결과다.
@@ -2421,7 +2421,7 @@ compact recipe가 assets 진입점을 생략하면 문서 순서나 숨은 impli
 ###### 캔버스 하단 바 (노드 캔버스의 compact)
 
 노드 캔버스 편집기는 위 규칙을 **하단 바 한 줄 + 아래 시트**로 푼다. 2026-10-07, 제품
-`feat/canvas-mobile-ux` `Toolbar.tsx:203` · `index.tsx`(`TOOLBAR_ROW`) @3923caf7. 앱 셸이 compact 로 들어가는
+`feat/canvas-mobile-ux` `Toolbar.tsx:219` · `index.tsx`(`TOOLBAR_ROW`) @3923caf7. 앱 셸이 compact 로 들어가는
 `≤719px` 에서 켜진다.
 
 | 칸 | 순서 | 동작 |
@@ -2471,15 +2471,15 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 
 | CSS variable | 해결값 | 지배하는 자리 |
 | --- | --- | --- |
-| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:483` |
-| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:484` |
-| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:492` |
+| `--node-side-handle-size` | `28px` | 사이드 버튼·핸들 한 변 — `globals.css:498` |
+| `--node-side-handle-radius` | `8px` | 그 크롬의 모서리 — `globals.css:495` |
+| `--node-side-gap` | `10px` | 카드 패딩 박스 ↔ 컨트롤 열 **수평** 간격 — `globals.css:507` |
 | `--node-side-stack-gap` | `8px` | 같은 열 컨트롤끼리 **세로** 간격 — `globals.css:494` |
-| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:495` |
-| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:496` |
-| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:497` |
+| `--node-side-ctrl` | `var(--node-side-handle-size, 28px)` | 레일 계산이 참조하는 한 변 — `globals.css:510` |
+| `--node-side-leading-offset` | `calc(gap + ctrl)` = **38px** | 카드 왼쪽 테두리 ↔ 좌 레일 바깥선 — `globals.css:511` |
+| `--node-handle-outbound-slot` | `calc(100% + gap)` | 우 출력 `left:`·좌 레일 `right:` 공통식 — `globals.css:512` |
 
-규범 주석은 `globals.css:486-491`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
+규범 주석은 `globals.css:501-506`에 있다. 캔버스 셸이 같은 이름으로 덮어쓸 수 있게 열어 두었으나 현재
 재정의하는 곳은 없다.
 
 ##### 레일 배치
@@ -2566,8 +2566,8 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 [DS-D-0010](../governance/decisions/DS-D-0010-token-coverage.md)의 선택 액센트 절이 소유한다.
 **한 색으로 옮기면 일곱 중 여섯이 틀린다.**
 
-근거: `components/scenes/create/node-canvas-v2/index.tsx:353-365` ·
-`globals.css:655`(다크 램프 `--gray-800-rgb`)·`:56`(`--palette-gray-800-rgb`) ·
+근거: `components/scenes/create/node-canvas-v2/index.tsx:367-379` ·
+`globals.css:673`(다크 램프 `--gray-800-rgb`)·`:56`(`--palette-gray-800-rgb`) ·
 `:48`(라이트 `--palette-gray-100-rgb`)·`:30`(`--palette-gray-100`).
 
 ##### 같은 숫자가 CSS 밖에 두 벌 더 있다
@@ -2597,7 +2597,7 @@ compact 호환 경계는 [Responsive Layout](../foundations/responsive-layout.md
 남겨 두었다. 배포본 `74a7303b`에 **그 토큰은 선언이 하나도 없다.** 지금은 전환을 토큰으로 두지
 않는다는 것 자체가 규범이고, 제품 주석이 그것을 직접 적는다 — 「전환은 토큰이 아니라 소비처
 유틸리티에 직접 적는다 — 셸은 `filter/color/border-color 0.13s ease`, 아이콘 스케일만
-`transform 0.1s ease`」(`globals.css:429-430`).
+`transform 0.1s ease`」(`globals.css:444-445`).
 
 **그래서 승격할 전환 토큰이 없다.** 사이드 컨트롤의 전환 사양은 소비처 유틸리티에서 읽는다.
 
@@ -2709,7 +2709,7 @@ Figma 변형은 아직 없다. 위 표의 값은 제품 `CanvasHelpPanel.tsx` �
 
 캔버스 작업 면의 채움이다(레시피 `packages/css/src/pattern/editor-workspace.css`). 지름 2 점 · 24 격자 · `color-canvas-dot`(다크 #fafafa 16% ·
 라이트 pg-600 28%) 위 `bg-canvas`. 정본은 제품 `components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx:5-6 · :15-20`(xyflow
-`<Background variant=Dots gap=24 size=2>`)이고 색은 `--canvas-dot`(`node-canvas-v2/index.tsx:505` · `:530`)과 바이트가 같다(DS-D-0082).
+`<Background variant=Dots gap=24 size=2>`)이고 색은 `--canvas-dot`(`node-canvas-v2/index.tsx:523` · `:530`)과 바이트가 같다(DS-D-0082).
 
 점은 **캔버스 좌표**에 박혀 있다 — 줌하면 격자와 점이 함께 커지고, 끌면 함께 흐른다. 살아 있는 캔버스는 `--louis-canvas-dots-scale` ·
 `-x` · `-y` 를 넣고, 목업 · 정적 데모는 클래스만 붙인다. 노드 캔버스 자체는 xyflow 바닥(SVG 패턴)을 같은 값으로 그린다 — 이 클래스는
@@ -2725,7 +2725,7 @@ Figma 변형은 아직 없다. 위 표의 값은 제품 `CanvasHelpPanel.tsx` �
 강제 색에서는 점을 걷고 면만 남긴다. [Chart Card](../components/chart-card.md) 의 점 바닥(`data-floor="dots"`)과 같은 기법이고 격자 ·
 잉크 · 줌 추종만 다르다.
 
-**랜딩 정적 임베드의 20% 점은 이 칸이 아니다.** 어두운 랜딩 면 위 `palette-gray-000` 20%(`node-canvas-v2/index.tsx:542`)라 테마를 따르는
+**랜딩 정적 임베드의 20% 점은 이 칸이 아니다.** 어두운 랜딩 면 위 `palette-gray-000` 20%(`node-canvas-v2/index.tsx:551`)라 테마를 따르는
 캔버스 점과 다른 칸이다. 새 이름(`color-canvas-dot-on-media`)을 세우지 않고 랜딩 회차로 미룬다(DS-D-0084 소유자 판정 11, 2026-10-13 기본값).
 
 #### Overlay and portal contract

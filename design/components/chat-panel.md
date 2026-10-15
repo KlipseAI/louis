@@ -14,7 +14,7 @@ summary: 접힌 알약이 대화 창으로 자라, 지금 보고 있는 것을 �
 
 제품 정본은 하이라이트 판의 「AI 클립 수정」이다 — `components/scenes/highlight/ClipRefinementWidget.tsx`(셸 `:447-461`, 머리 `:462-557`, 본문 `:558-567`,
 대화 `:148-293`)와 `components/scenes/highlightSceneStyles.ts`(셸 `:795-926`, 머리 `:657-793`, 본문 `:589-655`, 대화 · 독 `:445-587` · `:928-1082`),
-keyframe `app/keyframes.css:911-958`(통합 판 `54b62a8aa`).
+keyframe `app/keyframes.css:881-928`(통합 판 `54b62a8aa`).
 
 **안의 조작은 있는 부품을 그대로 앉힌다.** 보내기 · 적용 · 취소는 [Button](button.md), 보내기의 스피너 라벨은
 [Inline Loading Label](inline-loading-label.md), 투명도는 [Slider](slider.md), 닫기는 [Icon Button](icon-button.md) `ghost`, 생각 중 글자는
@@ -198,9 +198,9 @@ keyframe `app/keyframes.css:911-958`(통합 판 `54b62a8aa`).
 ## Migration and changelog
 
 - **제품에서 발견한 것.** 비대화(`hideHeader=false`) 갈래와 라이트 말풍선 갈래는 부르는 곳이 없는 죽은 코드다(`components/scenes/HighlightProjectScene.tsx:2532`).
-  잠김 버튼은 위젯 갈래가 없어 라이트 테마에서 어두운 창 위에 라이트 잉크를 칠한다 — 글 3.74 · 점선이 면과 같은 색(`components/scenes/highlightSceneStyles.ts:1053-1072`).
-  입력칸 placeholder 는 입력 줄 위 4.09 다(`components/scenes/highlightSceneStyles.ts:928-940`). 슬라이더 토큰 덮기 셋(`components/scenes/highlightSceneStyles.ts:779-783`)은
-  다크 스코프가 없어서 생겼다. 닫힌 본문의 `inert` 는 칩 · 입력칸이 탭에 잡히던 결함을 막은 것이다(`components/scenes/highlight/ClipRefinementWidget.tsx:558-563`).
+  잠김 버튼은 위젯 갈래가 없어 라이트 테마에서 어두운 창 위에 라이트 잉크를 칠한다 — 글 3.74 · 점선이 면과 같은 색(`components/scenes/highlightSceneStyles.ts:1001-1020`).
+  입력칸 placeholder 는 입력 줄 위 4.09 다(`components/scenes/highlightSceneStyles.ts:876-888`). 슬라이더 토큰 덮기 셋(`components/scenes/highlightSceneStyles.ts:727-731`)은
+  다크 스코프가 없어서 생겼다. 닫힌 본문의 `inert` 는 칩 · 입력칸이 탭에 잡히던 결함을 막은 것이다(`components/scenes/highlight/ClipRefinementWidget.tsx:582-587`).
 - **고쳐 올린 값**(DS-D-0084 3항) — placeholder `palette-gray-400` 4.09 → `fg-secondary` 5.63, 잠김 라이트 결함 → 다크 스코프 `fg-tertiary` 5.25 ·
   점선 `gray-000-alpha-16`, 슬라이더 덮기 셋 제거.
 - 2026-10-14 섰다 — [DS-D-0094](../governance/decisions/DS-D-0094-chat-panel.md).

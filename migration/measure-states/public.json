@@ -2,7 +2,7 @@
   "$schema": "./_schema.json",
   "area": "public",
   "mode": "public-seeded",
-  "authoredAgainst": "76b6cf154ab2",
+  "authoredAgainst": "97d4950e153d",
   "description": "공개 인덱스 두 화면(/blog · /templates)의 카드 상태. 둘 다 서버 컴포넌트가 가짜 Supabase 의 표를 읽어 그리므로(브라우저 /api 호출 없음) api 가로채기 없이 supabase.tables 의 extendBase 로 FIXTURE_PUBLIC_SEEDS 의 한 행 뒤에 한 행씩 더한다. 공개 시드 모드에는 /blog · /templates 기준 화면이 없어서(PUBLIC_SEEDED_ROUTES 는 상세 둘뿐) base 대신 pattern 을 쓴다.",
   "recipes": [
     {
@@ -12,19 +12,19 @@
       "reducedMotion": true,
       "surfaces": ["apps/web/app/blog/page.tsx#BlogPage"],
       "cite": [
-        { "path": "apps/web/app/blog/page.tsx", "line": 198, "expect": "await getPublishedPosts()" },
-        { "path": "apps/web/app/blog/page.tsx", "line": 201, "expect": "posts.length === 0" },
-        { "path": "apps/web/app/blog/page.tsx", "line": 232, "expect": "p.excerpt ?" },
-        { "path": "apps/web/app/blog/page.tsx", "line": 242, "expect": "p.cover_image_url ?" },
-        { "path": "apps/web/app/blog/page.tsx", "line": 169, "expect": "\"line-clamp-2\"" },
+        { "path": "apps/web/app/blog/page.tsx", "line": 100, "expect": "await getPublishedPosts()" },
+        { "path": "apps/web/app/blog/page.tsx", "line": 103, "expect": "posts.length === 0" },
+        { "path": "apps/web/app/blog/page.tsx", "line": 132, "expect": "p.excerpt ?" },
+        { "path": "apps/web/app/blog/page.tsx", "line": 143, "expect": "p.cover_image_url ?" },
+        { "path": "apps/web/app/blog/page.tsx", "line": 133, "expect": "<p className=\"louis-content-card__description\">" },
         { "path": "apps/web/app/lib/blog/publicBlog.ts", "line": 11, "expect": "servingUrlOrNull(row.cover_image_url)" },
         { "path": "apps/web/app/lib/blog/publicBlog.ts", "line": 15, "expect": "id, slug, title, excerpt, cover_image_url, published, published_at" },
         { "path": "apps/web/app/lib/blog/publicBlog.ts", "line": 25, "expect": ".from(\"blog_posts\")" },
         { "path": "apps/web/app/lib/blog/publicBlog.ts", "line": 27, "expect": ".eq(\"published\", true)" },
         { "path": "apps/web/app/lib/blog/publicBlog.ts", "line": 28, "expect": ".order(\"published_at\", { ascending: false })" },
         { "path": "apps/web/app/lib/storage/urls.ts", "line": 283, "expect": "if (/^https?:\\/\\//i.test(trimmed)) return trimmed;" },
-        { "path": "apps/web/app/globals.css", "line": 2047, "expect": "@media (prefers-reduced-motion: no-preference) {" },
-        { "path": "apps/web/app/globals.css", "line": 2069, "expect": "[data-page-root][data-reveal-ready] [data-reveal]:not(.is-visible) {" }
+        { "path": "apps/web/app/globals.css", "line": 2082, "expect": "@media (prefers-reduced-motion: no-preference) {" },
+        { "path": "apps/web/app/globals.css", "line": 2103, "expect": "[data-page-root][data-reveal-ready] [data-reveal]:not(.is-visible) {" }
       ],
       "supabase": {
         "tables": {
@@ -54,7 +54,7 @@
         { "waitFor": { "role": "heading", "name": "Fixture post title", "exact": true } }
       ],
       "assert": { "text": ["Placeholder post with cover", "Fixture post title"] },
-      "contentNote": "지어낸 것은 제목 · 발췌 · 슬러그 · 날짜뿐이다. 발췌는 line-clamp-2(page.tsx:169) 말줄임 상태를 재려고 데스크톱 본문 폭(약 776px)에서도 세 줄을 넘게 일부러 길게 썼다. 날짜는 시간대가 바뀌어도 같은 날로 찍히게 정오 근처(03:00Z)로 둔다. 커버는 같은 출처 예시(/image-edit/examples/example-2.jpg)를 쓸 수 없다 — publicBlog.ts:11 의 servingUrlOrNull 이 http(s) 절대 URL 만 그대로 두고(urls.ts:283) 그 밖의 값은 스토리지 키로 풀다 못 풀면 null 이 된다(측정 dev 서버에는 NEXT_PUBLIC_CDN_BASE_URL 이 없어 키도 null). 그래서 절대 URL(.invalid 예약 도메인)을 넣어 img 갈래(page.tsx:242)를 세운다. 측정기의 바깥 요청 차단으로 그림 픽셀은 비고, 커버 상자(320×16:9 · rounded-12 · overflow-hidden)와 img 의 기하 · 스타일만 잰다. reducedMotion 은 머리말의 data-reveal 이 settle 스크롤 뒤 opacity 0 으로 빠지지 않게(globals.css:2047 · 2069) — 도착 상태는 같다."
+      "contentNote": "지어낸 것은 제목 · 발췌 · 슬러그 · 날짜뿐이다. 발췌는 LOUIS content-card 설명 칸(page.tsx:133, 운영 판 97d4950e)의 말줄임 상태를 재려고 데스크톱 본문 폭(약 776px)에서도 세 줄을 넘게 일부러 길게 썼다. 날짜는 시간대가 바뀌어도 같은 날로 찍히게 정오 근처(03:00Z)로 둔다. 커버는 같은 출처 예시(/image-edit/examples/example-2.jpg)를 쓸 수 없다 — publicBlog.ts:11 의 servingUrlOrNull 이 http(s) 절대 URL 만 그대로 두고(urls.ts:283) 그 밖의 값은 스토리지 키로 풀다 못 풀면 null 이 된다(측정 dev 서버에는 NEXT_PUBLIC_CDN_BASE_URL 이 없어 키도 null). 그래서 절대 URL(.invalid 예약 도메인)을 넣어 img 갈래(page.tsx:242)를 세운다. 측정기의 바깥 요청 차단으로 그림 픽셀은 비고, 커버 상자(320×16:9 · rounded-12 · overflow-hidden)와 img 의 기하 · 스타일만 잰다. reducedMotion 은 머리말의 data-reveal 이 settle 스크롤 뒤 opacity 0 으로 빠지지 않게(globals.css:2047 · 2069) — 도착 상태는 같다."
     },
     {
       "id": "/templates seeded",
@@ -63,17 +63,17 @@
       "reducedMotion": true,
       "surfaces": ["apps/web/app/templates/page.tsx#TemplatesPage"],
       "cite": [
-        { "path": "apps/web/app/templates/page.tsx", "line": 163, "expect": "templates.length === 0" },
-        { "path": "apps/web/app/templates/page.tsx", "line": 170, "expect": "coverOf(t.media)" },
-        { "path": "apps/web/app/templates/page.tsx", "line": 177, "expect": "data-reveal" },
-        { "path": "apps/web/app/templates/page.tsx", "line": 179, "expect": "{cover ? (" },
-        { "path": "apps/web/app/templates/page.tsx", "line": 200, "expect": "mediaCount > 0" },
+        { "path": "apps/web/app/templates/page.tsx", "line": 112, "expect": "templates.length === 0" },
+        { "path": "apps/web/app/templates/page.tsx", "line": 119, "expect": "coverOf(t.media)" },
+        { "path": "apps/web/app/templates/page.tsx", "line": 127, "expect": "data-reveal" },
+        { "path": "apps/web/app/templates/page.tsx", "line": 129, "expect": "{cover ? (" },
+        { "path": "apps/web/app/templates/page.tsx", "line": 148, "expect": "mediaCount > 0" },
         { "path": "apps/web/app/lib/templates/publicTemplates.ts", "line": 7, "expect": "id, slug, title, description, media, published, published_at, sort_order, created_at" },
         { "path": "apps/web/app/lib/templates/publicTemplates.ts", "line": 20, "expect": "servingUrlOrNull(item.url) ?? item.url" },
         { "path": "apps/web/app/lib/templates/publicTemplates.ts", "line": 49, "expect": ".from(\"templates\")" },
         { "path": "apps/web/app/lib/templates/publicTemplates.ts", "line": 52, "expect": ".order(\"sort_order\", { ascending: true })" },
         { "path": "apps/web/app/lib/templates/publicTemplates.ts", "line": 53, "expect": ".order(\"created_at\", { ascending: false })" },
-        { "path": "apps/web/app/globals.css", "line": 2069, "expect": "[data-page-root][data-reveal-ready] [data-reveal]:not(.is-visible) {" }
+        { "path": "apps/web/app/globals.css", "line": 2103, "expect": "[data-page-root][data-reveal-ready] [data-reveal]:not(.is-visible) {" }
       ],
       "supabase": {
         "tables": {

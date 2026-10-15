@@ -2,7 +2,7 @@
   "$schema": "./_schema.json",
   "area": "vem-settings",
   "mode": "session",
-  "authoredAgainst": "54b62a8a",
+  "authoredAgainst": "97d4950e153d",
   "description": "비디오 편집기(/videoeditor/[projectId])의 패널 상태 하나(panel.settings)를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). 측정기는 뷰포트를 바깥 고리로 돌고 원장을 끝에 한 번 쓰므로, 레시피 하나를 한 영역에 두어 데스크톱 · 모바일 한 쌍이 먼저 끝나 원장이 서게 했다(부하가 높은 밤에 화면 하나가 10 ~ 20분 걸렸다). 공통 배경: 비디오 편집기(/videoeditor/[projectId])의 패널 상태를 데스크톱 · 모바일 화면 보드로 세우는 영역(R2 2026-10-15, DS-D-0098 화면 대응). videoeditor 영역의 같은 상태 레시피는 데스크톱 전용이고 인용이 앵커 54b62a8a 와 어긋나 있으며 다른 작업이 원장을 다시 재고 있어 고치지 않고, 상태 이름을 panel.* 로 바꿔 새 영역에 둔다. 모바일(≤719)은 같은 aside.vem-propertiesPanel · div.vem-assets-panel 을 아래 시트로 쓰고, 고르기만으로는 시트가 열리지 않아(VideoEditModal 「Properties」 · 「Adjust」 · 「Assets」 단추가 시트를 연다) stepsByContext 로 그 단추를 누른다. 닫힌 시트는 translateY 로 화면 밖에 있을 뿐 DOM 에 남아 글자 assert 만으로는 열림을 증명하지 못한다 — 모바일의 마지막 waitFor 는 data-vem-sheet-open 이 선 시트다. CompositionInspector 는 넣지 않았다 — 앵커에서 selId 를 \"__composition__\" 으로 두는 코드가 없어(VideoEditModal.tsx 15065 비교 한 곳뿐) 여는 길이 없다.",
   "recipes": [
     {
@@ -44,27 +44,27 @@
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2707,
+          "line": 2844,
           "expect": "menuLabel: \"Editor settings\""
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2709,
+          "line": 2846,
           "expect": "snapLabel: \"Magnetic snapping\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx",
-          "line": 11716,
+          "line": 11458,
           "expect": "label: vem.mobileTabAssets,"
         },
         {
           "path": "apps/web/components/landing/system/messages/en.ts",
-          "line": 2942,
+          "line": 3079,
           "expect": "mobileTabAssets: \"Assets\""
         },
         {
           "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-          "line": 1511,
+          "line": 1457,
           "expect": "\"vem-mobile-tab-bar\","
         }
       ],

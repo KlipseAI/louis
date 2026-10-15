@@ -14,7 +14,7 @@ authority: normative
 ## Context
 
 원장의 `app/admin/AdAttributionPanel.tsx#GroupDrawer` 가 `needed`(oneoff)로 남아 있었다(통합 판 `54b62a8aa`). 광고 성과 표의 줄을 펼치면 그 아래
-`colSpan 6` 칸에 서는 계정 목록 판이다 — 올린 면(`ADMIN_SURFACE` = `bg-raised` + 헤어라인, `AdminSection.tsx:69-70`) · 반경 16 · 여백 16 · 간격 12(`:95`),
+`colSpan 6` 칸에 서는 계정 목록 판이다 — 올린 면(`ADMIN_SURFACE` = `bg-raised` + 헤어라인, `AdminSection.tsx:67-68`) · 반경 16 · 여백 16 · 간격 12(`:95`),
 머리 줄(제목 14 Medium + 「광고 ID」 12 tertiary + 복사 IconButton, `:506-514`), 두 번째 `louis-table`(`:517`), 「더 보기」 secondary Button(`:562`).
 
 있는 것 — 안의 Table · Button · IconButton 은 정본이 있다. 없는 것 — **올린 면 + 머리 줄 + 표를 묶는 판.** [Record Card](../../components/record-card.md)

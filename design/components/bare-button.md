@@ -15,7 +15,7 @@ LOUIS 레시피는 `packages/css/src/component/bare-button.css`(2026-10-07)다. 
 ## 왜 있는가 — 층 순서 사고
 
 제품 목록 행 제목이 같은 상수를 **네 파일에 복제**했다(`BannerManagement.tsx@b57cd1f95:128` · `ModelManagement.tsx@b57cd1f95:75` ·
-`TemplateManagement.tsx:158` · `CaptionTemplateManagement.tsx:82`, `feat/admin-ops-review` @ce9af3491).
+`TemplateManagement.tsx@54b62a8a:158` · `CaptionTemplateManagement.tsx:81`, `feat/admin-ops-review` @ce9af3491).
 `block max-w-full p-0 m-0 border-0 bg-transparent text-left cursor-pointer rounded-4` 에 `[font:inherit]` 속기가 함께
 있었고, 그 임의 속성이 **유틸리티 층**에서 `type-body-14-medium` 을 이겨 목록 행 제목이 14px 500 이 아니라 부모의
 16px 400 이 됐다. 문의 · 블로그는 14px 600 인데 배너 · 모델 카드 · 리소스 템플릿은 16px 400 이었다 — 같은 목록 제목이
@@ -89,6 +89,6 @@ component set `BareButton`(2026-10-08, DS · Components 「1 · 액션」 TextLi
 
 ## 출처
 
-2026-10-07, 제품 `feat/admin-ops-review` `BannerManagement.tsx@0b25d15a3:128` · `ModelManagement.tsx@0b25d15a3:75` · `TemplateManagement.tsx:158` ·
-`CaptionTemplateManagement.tsx:82` @ce9af3491(커밋 본문 「행 제목이 … 16px 400 이었다」),
+2026-10-07, 제품 `feat/admin-ops-review` `BannerManagement.tsx@0b25d15a3:128` · `ModelManagement.tsx@0b25d15a3:75` · `TemplateManagement.tsx@54b62a8a:158` ·
+`CaptionTemplateManagement.tsx:81` @ce9af3491(커밋 본문 「행 제목이 … 16px 400 이었다」),
 `feat/ambassador-links` `AmbassadorManagement.tsx@2ceec4ed3:93` @7273a964e.

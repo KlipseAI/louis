@@ -2,7 +2,7 @@
   "$schema": "./_schema.json",
   "area": "admin",
   "mode": "session",
-  "authoredAgainst": "76b6cf154ab2",
+  "authoredAgainst": "97d4950e153d",
   "description": "어드민(/admin)의 탭 · 하위 탭 · 펼침 · 대화상자 상태. 세션 모드의 기준 화면 /admin 을 물려받는다. 어드민 탭은 ?view= 로 첫 렌더에 열리고(page.tsx · useAdminNavigation.ts), 하위 탭 · 펼친 행 · 대화상자는 메모리 상태라 클릭한다. 어드민 데이터는 모두 브라우저 fetch 라 /api 가로채기로만 답하고 Supabase 오버레이는 쓰지 않는다. 측정 로캘은 en(측정기 facen-language 쿠키)이라 어드민 사전도 영어(admin-en.ts)다 — 앵커 a4125565 원장의 한국어 라벨과 다르다. 사용자 상세(?user=)는 덮을 표면이 없어 레시피를 두지 않았다(통합 판에서 PlanBadge · AdminStatTile 은 상세에 쓰이지 않는다).",
   "recipes": [
     {
@@ -27,22 +27,22 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 892,
+          "line": 972,
           "expect": "`/api/admin/users?limit="
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 406,
+          "line": 432,
           "expect": "type UsersListResponse"
         },
         {
           "path": "apps/web/app/api/admin/users/route.ts",
-          "line": 437,
+          "line": 430,
           "expect": "nextOffset: offset + users.length"
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1738,
+          "line": 1847,
           "expect": "<PlanBadge status="
         }
       ],
@@ -98,17 +98,17 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 892,
+          "line": 972,
           "expect": "`/api/admin/users?limit="
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1761,
+          "line": 1870,
           "expect": "title={copy.users.loading}"
         },
         {
           "path": "apps/web/app/admin/AdminSection.tsx",
-          "line": 940,
+          "line": 935,
           "expect": "<LoadingWord>{title}</LoadingWord>"
         }
       ],
@@ -158,27 +158,27 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1467,
+          "line": 1500,
           "expect": "{activeTab === \"metrics\""
         },
         {
           "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
-          "line": 229,
+          "line": 228,
           "expect": "const now = new Date();"
         },
         {
           "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
-          "line": 359,
+          "line": 358,
           "expect": "params.set(\"segmentKey\", segmentKey)"
         },
         {
           "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
-          "line": 370,
+          "line": 369,
           "expect": "`/api/admin/product-metrics?"
         },
         {
           "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
-          "line": 194,
+          "line": 193,
           "expect": "type ProductMetricsData"
         },
         {
@@ -188,7 +188,7 @@
         },
         {
           "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
-          "line": 709,
+          "line": 708,
           "expect": "deltaTone={card.tone}"
         }
       ],
@@ -245,17 +245,17 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1475,
+          "line": 1508,
           "expect": "{activeTab === \"usage\" && <UsageByModelDashboard"
         },
         {
           "path": "apps/web/app/admin/UsageByModelDashboard.tsx",
-          "line": 112,
-          "expect": "useAdminViewState<Period>(\"usage.period\", \"30d\")"
+          "line": 111,
+          "expect": "useState<Period>(\"30d\")"
         },
         {
           "path": "apps/web/app/admin/UsageByModelDashboard.tsx",
-          "line": 125,
+          "line": 124,
           "expect": "`/api/admin/usage-by-model?period="
         },
         {
@@ -299,7 +299,7 @@
       "id": "/admin refunds",
       "base": "/admin",
       "url": "/admin?view=refunds",
-      "description": "청약철회 — 상태가 다른 신청 카드 셋(대기 · 완료 · 반려). 사이드바 건수 요청(useSidebarCounts)도 같은 경로라 같은 본문을 받는다.",
+      "description": "청약철회 — 상태가 다른 신청 카드 셋(대기 · 완료 · 반려).",
       "contentNote": "금액 29,900 · 9,900 원과 크레딧 수는 지어낸 내용. 신청 시각은 clock 기준 2시간 전 · 2일 전 · 13일 전(7일부터 날짜 표기).",
       "surfaces": [
         "apps/web/app/admin/RefundManagement.tsx#RefundManagement"
@@ -317,28 +317,23 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1463,
+          "line": 1496,
           "expect": "{activeTab === \"refunds\" && ("
         },
         {
           "path": "apps/web/app/admin/RefundManagement.tsx",
-          "line": 253,
+          "line": 242,
           "expect": "fetch(\"/api/admin/refund-requests\")"
         },
         {
           "path": "apps/web/app/admin/RefundManagement.tsx",
-          "line": 27,
+          "line": 24,
           "expect": "type RefundRequest"
         },
         {
           "path": "apps/web/app/api/admin/refund-requests/route.ts",
           "line": 57,
           "expect": "return NextResponse.json({ ok: true, data });"
-        },
-        {
-          "path": "apps/web/app/admin/useSidebarCounts.ts",
-          "line": 37,
-          "expect": "fetch(\"/api/admin/refund-requests\")"
         }
       ],
       "clock": "2026-01-15T09:00:00.000Z",
@@ -392,7 +387,7 @@
         },
         {
           "path": "apps/web/app/admin/RefundManagement.tsx",
-          "line": 253,
+          "line": 242,
           "expect": "fetch(\"/api/admin/refund-requests\")"
         },
         {
@@ -402,12 +397,12 @@
         },
         {
           "path": "apps/web/app/admin/RefundManagement.tsx",
-          "line": 524,
+          "line": 509,
           "expect": "action: \"complete\","
         },
         {
           "path": "apps/web/app/admin/RefundManagement.tsx",
-          "line": 562,
+          "line": 546,
           "expect": "role=\"dialog\""
         }
       ],
@@ -484,32 +479,27 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1460,
+          "line": 1493,
           "expect": "{activeTab === \"inquiries\" && ("
         },
         {
           "path": "apps/web/app/admin/InquiryManagement.tsx",
-          "line": 235,
+          "line": 233,
           "expect": ": \"/api/admin/inquiries\","
         },
         {
           "path": "apps/web/app/admin/InquiryManagement.tsx",
-          "line": 28,
+          "line": 26,
           "expect": "type Inquiry = {"
         },
         {
           "path": "apps/web/app/api/admin/inquiries/route.ts",
-          "line": 75,
+          "line": 52,
           "expect": "return NextResponse.json({ ok: true, data: withSignedUrls });"
         },
         {
-          "path": "apps/web/app/admin/useSidebarCounts.ts",
-          "line": 26,
-          "expect": "fetch(\"/api/admin/inquiries\")"
-        },
-        {
           "path": "apps/web/app/admin/InquiryManagement.tsx",
-          "line": 419,
+          "line": 417,
           "expect": "copy.inquiries.attachments"
         }
       ],
@@ -577,22 +567,22 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1469,
+          "line": 1502,
           "expect": "{activeTab === \"coupons\" && <CouponManagement"
         },
         {
           "path": "apps/web/app/admin/CouponManagement.tsx",
-          "line": 411,
+          "line": 435,
           "expect": "fetch(\"/api/admin/coupons\")"
         },
         {
           "path": "apps/web/app/admin/CouponManagement.tsx",
-          "line": 38,
+          "line": 36,
           "expect": "interface CouponCampaign"
         },
         {
           "path": "apps/web/app/api/admin/coupons/route.ts",
-          "line": 88,
+          "line": 135,
           "expect": "return NextResponse.json({ ok: true, data });"
         }
       ],
@@ -646,32 +636,32 @@
         },
         {
           "path": "apps/web/app/admin/CouponManagement.tsx",
-          "line": 411,
+          "line": 435,
           "expect": "fetch(\"/api/admin/coupons\")"
         },
         {
           "path": "apps/web/app/api/admin/coupons/route.ts",
-          "line": 88,
+          "line": 135,
           "expect": "return NextResponse.json({ ok: true, data });"
         },
         {
           "path": "apps/web/app/admin/CouponManagement.tsx",
-          "line": 1620,
+          "line": 1964,
           "expect": "openBatchPanel(campaign, \"codes\")"
         },
         {
           "path": "apps/web/app/admin/CouponManagement.tsx",
-          "line": 521,
+          "line": 568,
           "expect": "/codes?page=${page}&usedOnly="
         },
         {
           "path": "apps/web/app/admin/CouponManagement.tsx",
-          "line": 67,
+          "line": 70,
           "expect": "interface CouponCodeRow"
         },
         {
           "path": "apps/web/app/api/admin/coupons/[id]/codes/route.ts",
-          "line": 135,
+          "line": 138,
           "expect": "pageSize: PAGE_SIZE"
         }
       ],
@@ -751,22 +741,22 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1470,
+          "line": 1503,
           "expect": "{activeTab === \"banners\" && <ContentManagement"
         },
         {
           "path": "apps/web/app/admin/ContentManagement.tsx",
           "line": 28,
-          "expect": "useAdminViewState<ContentTab>(\"banners.tab\", \"banners\")"
+          "expect": "useState<ContentTab>(\"banners\")"
         },
         {
           "path": "apps/web/app/admin/BannerManagement.tsx",
-          "line": 195,
+          "line": 203,
           "expect": "fetch(\"/api/admin/banners\")"
         },
         {
           "path": "apps/web/app/admin/BannerManagement.tsx",
-          "line": 50,
+          "line": 56,
           "expect": "interface Banner"
         },
         {
@@ -827,7 +817,7 @@
         {
           "path": "apps/web/app/admin/ContentManagement.tsx",
           "line": 28,
-          "expect": "useAdminViewState<ContentTab>(\"banners.tab\", \"banners\")"
+          "expect": "useState<ContentTab>(\"banners\")"
         },
         {
           "path": "apps/web/app/admin/ContentManagement.tsx",
@@ -836,12 +826,12 @@
         },
         {
           "path": "apps/web/app/admin/ModelManagement.tsx",
-          "line": 156,
+          "line": 160,
           "expect": "fetch(\"/api/admin/models\")"
         },
         {
           "path": "apps/web/app/admin/ModelManagement.tsx",
-          "line": 56,
+          "line": 61,
           "expect": "interface Model {"
         },
         {
@@ -1013,12 +1003,12 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1473,
+          "line": 1506,
           "expect": "{activeTab === \"templates\" && <TemplateManagement"
         },
         {
           "path": "apps/web/app/admin/TemplateManagement.tsx",
-          "line": 337,
+          "line": 389,
           "expect": "fetch(\"/api/admin/templates\")"
         },
         {
@@ -1081,17 +1071,17 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1471,
+          "line": 1504,
           "expect": "{activeTab === \"captions\" && <CaptionTemplateManagement"
         },
         {
           "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-          "line": 518,
+          "line": 544,
           "expect": "fetch(\"/api/admin/caption-templates\")"
         },
         {
           "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-          "line": 224,
+          "line": 261,
           "expect": "interface CaptionTemplate {"
         },
         {
@@ -1149,12 +1139,12 @@
         },
         {
           "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-          "line": 518,
+          "line": 544,
           "expect": "fetch(\"/api/admin/caption-templates\")"
         },
         {
           "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-          "line": 564,
+          "line": 590,
           "expect": "const openCreate = () =>"
         },
         {
@@ -1164,7 +1154,7 @@
         },
         {
           "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-          "line": 1200,
+          "line": 1227,
           "expect": "<ColorSwatchRow value={form.letterbox_color}"
         }
       ],
@@ -1229,17 +1219,17 @@
         },
         {
           "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-          "line": 564,
+          "line": 590,
           "expect": "const openCreate = () =>"
         },
         {
           "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-          "line": 1169,
+          "line": 1196,
           "expect": "label={copy.captions.settings}"
         },
         {
           "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
-          "line": 1246,
+          "line": 1273,
           "expect": "<ColorSwatchRow value={form.title_font_color}"
         }
       ],
@@ -1318,12 +1308,12 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1472,
+          "line": 1505,
           "expect": "{activeTab === \"blog\" && <BlogManagement"
         },
         {
           "path": "apps/web/app/admin/BlogManagement.tsx",
-          "line": 210,
+          "line": 209,
           "expect": "fetch(\"/api/admin/blog\")"
         },
         {
@@ -1385,22 +1375,22 @@
         },
         {
           "path": "apps/web/app/admin/BlogManagement.tsx",
-          "line": 210,
+          "line": 209,
           "expect": "fetch(\"/api/admin/blog\")"
         },
         {
           "path": "apps/web/app/admin/BlogManagement.tsx",
-          "line": 230,
+          "line": 229,
           "expect": "setEditingId(\"new\");"
         },
         {
           "path": "apps/web/app/admin/BlogManagement.tsx",
-          "line": 405,
+          "line": 402,
           "expect": "{editingId === \"new\" ? copy.blog.newPost"
         },
         {
           "path": "apps/web/app/admin/BlogManagement.tsx",
-          "line": 440,
+          "line": 437,
           "expect": "placeholder={copy.blog.titlePlaceholder}"
         }
       ],
@@ -1461,32 +1451,32 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1474,
+          "line": 1507,
           "expect": "{activeTab === \"jobs\" && <JobMonitor"
         },
         {
           "path": "apps/web/app/admin/JobMonitor.tsx",
-          "line": 449,
-          "expect": "useAdminViewState(\"jobs.period\", \"48\")"
+          "line": 431,
+          "expect": "useState(\"48\")"
         },
         {
           "path": "apps/web/app/admin/JobMonitor.tsx",
-          "line": 540,
+          "line": 522,
           "expect": "`/api/admin/job-monitor?"
         },
         {
           "path": "apps/web/app/admin/JobMonitor.tsx",
-          "line": 155,
+          "line": 150,
           "expect": "type JobMonitorResponse"
         },
         {
           "path": "apps/web/app/api/admin/job-monitor/route.ts",
-          "line": 534,
+          "line": 518,
           "expect": "jobs: await Promise.all(jobs.map(resolveJob))"
         },
         {
           "path": "apps/web/app/admin/JobMonitor.tsx",
-          "line": 790,
+          "line": 771,
           "expect": "{isExpanded && <JobDetail"
         }
       ],
@@ -1556,12 +1546,12 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1468,
+          "line": 1501,
           "expect": "{activeTab === \"payments\" && <PaymentManagement"
         },
         {
           "path": "apps/web/app/admin/PaymentManagement.tsx",
-          "line": 292,
+          "line": 300,
           "expect": "fetch(`/api/admin/payments?"
         },
         {
@@ -1619,7 +1609,7 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1476,
+          "line": 1509,
           "expect": "{activeTab === \"roles\" && <AdminRoleManagement"
         },
         {
@@ -1665,7 +1655,7 @@
       "id": "/admin ambassador",
       "base": "/admin",
       "url": "/admin?view=ambassador",
-      "description": "앰버서더 — 기본 하위 탭 「Applications」에 지원서 카드 셋(접수 · 검토 중 · 반려)이 접힌 채 선다.",
+      "description": "앰버서더 — 지원서 카드 셋(접수 · 검토 중 · 반려)이 접힌 채 선다.",
       "contentNote": "상태 키 · 플랫폼 키 · 형식 키는 제품 상수(lib/ambassador/review.ts · application.ts), 이름 · 이메일 · 채널 · 수는 지어낸 내용. 채널 주소는 example.invalid.",
       "surfaces": [
         "apps/web/app/admin/AmbassadorApplications.tsx#AmbassadorApplications"
@@ -1683,22 +1673,17 @@
         },
         {
           "path": "apps/web/app/admin/AdminClient.tsx",
-          "line": 1466,
-          "expect": "{activeTab === \"ambassador\" && <AmbassadorAdmin"
-        },
-        {
-          "path": "apps/web/app/admin/AmbassadorAdmin.tsx",
-          "line": 25,
-          "expect": "useState<AmbassadorTab>(\"applications\")"
+          "line": 1499,
+          "expect": "{activeTab === \"ambassador\" && <AmbassadorApplications />}"
         },
         {
           "path": "apps/web/app/admin/AmbassadorApplications.tsx",
-          "line": 570,
+          "line": 390,
           "expect": "`/api/admin/ambassador-applications?${params.toString()}`"
         },
         {
           "path": "apps/web/app/admin/AmbassadorApplications.tsx",
-          "line": 296,
+          "line": 278,
           "expect": "type ListResponse = {"
         }
       ],
@@ -1727,91 +1712,6 @@
       "board": {
         "desktop": "3521:229",
         "mobile": "3521:230"
-      }
-    },
-    {
-      "id": "/admin ambassador.links",
-      "base": "/admin",
-      "url": "/admin?view=ambassador",
-      "description": "하위 탭 「Links and results」를 눌러 앰버서더 셋(지금 앰버서더 둘 · 해제된 사람 하나)의 링크와 성과 표를 세운다. 하위 탭은 메모리 상태라 클릭한다.",
-      "contentNote": "기간 키 · 혜택 꼴은 제품 상수(lib/ambassador/periods.ts · benefits.ts), 이름 · 이메일 · 코드 · 수는 지어낸 내용. /api/plans(혜택 편집 창 드롭다운 전용)는 가로채지 않는다.",
-      "surfaces": [
-        "apps/web/app/admin/AmbassadorManagement.tsx#AmbassadorManagement"
-      ],
-      "cite": [
-        {
-          "path": "apps/web/app/admin/page.tsx",
-          "line": 28,
-          "expect": "initialView={typeof view"
-        },
-        {
-          "path": "apps/web/app/admin/useAdminNavigation.ts",
-          "line": 18,
-          "expect": "resolveAdminView(initialView"
-        },
-        {
-          "path": "apps/web/app/admin/AmbassadorAdmin.tsx",
-          "line": 36,
-          "expect": "id={`ambassador-tab-${t.id}`}"
-        },
-        {
-          "path": "apps/web/app/admin/AmbassadorManagement.tsx",
-          "line": 177,
-          "expect": "fetch(`/api/admin/ambassadors?${params.toString()}`"
-        },
-        {
-          "path": "apps/web/app/admin/AmbassadorManagement.tsx",
-          "line": 55,
-          "expect": "type AmbassadorPayload ="
-        }
-      ],
-      "clock": "2026-01-15T09:00:00.000Z",
-      "api": [
-        {
-          "method": "GET",
-          "path": "/api/admin/ambassadors",
-          "jsonFile": "data/admin/ambassadors.json"
-        },
-        {
-          "method": "GET",
-          "path": "/api/admin/ambassador-applications",
-          "jsonFile": "data/admin/ambassador-applications.json",
-          "description": "기본 하위 탭이 먼저 마운트되며 부른다 — 서버로 보내지 않게 같은 본문으로 답한다."
-        }
-      ],
-      "steps": [
-        {
-          "waitFor": {
-            "role": "tab",
-            "name": "Links and results"
-          }
-        },
-        {
-          "click": {
-            "role": "tab",
-            "name": "Links and results"
-          },
-          "expectResponse": {
-            "method": "GET",
-            "path": "/api/admin/ambassadors"
-          }
-        },
-        {
-          "waitFor": {
-            "text": "Placeholder ambassador A",
-            "exact": true
-          }
-        }
-      ],
-      "assert": {
-        "text": [
-          "Placeholder ambassador A"
-        ],
-        "apiHit": "all"
-      },
-      "board": {
-        "desktop": "3521:231",
-        "mobile": "3521:232"
       }
     }
   ]

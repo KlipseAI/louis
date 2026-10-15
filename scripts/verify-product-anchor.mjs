@@ -301,11 +301,17 @@ const TAMPERS = [
   },
   {
     label: "통합 판의 result 가 앵커와 달라진 것 — 입력 핀은 결과로 판정해야 한다",
+    // 입력 핀도 함께 심는다 — 통합 판 파일을 거둔 뒤(DS-D-0117, 2026-10-15)에는 입력 핀이 0 이라 result 만 바꿔서는
+    // 규칙이 돌 자리가 없고, 이 canary 가 파일의 유무에 기대 영구히 빨개진다.
     run: () =>
-      compare(anchor.commit, pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE, FIXTURE, {
-        present: true,
-        result: "d".repeat(40),
-      }).found,
+      compare(
+        anchor.commit,
+        [...pins, { file: INTEGRATION_FILE, path: "/base/commit", key: "commit", value: "b".repeat(40) }],
+        DECLARED_HISTORICAL_PINS,
+        KNOWN_STALE,
+        FIXTURE,
+        { present: true, result: "d".repeat(40) },
+      ).found,
   },
   {
     label: "통합 판 파일의 입력 필드가 아닌 자리에 핀이 생긴 것 — 파일 면제가 아니라 필드 규칙이어야 한다",

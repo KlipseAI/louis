@@ -10,7 +10,7 @@ summary: 영상 위에 한 줄 공지를 띄웁니다. 목적지가 있으면 �
 히어로 영상 위의 한 줄 공지다 — 점 · (있으면) 로고 · 문구(`.louis-notice-pill`,
 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)). 면은 영상 위 유리라 두 테마에서 같다.
 페이지 면 위의 상태 라벨은 [Badge](badge.md)이고, 페이지 위의 알림 문단은 [Alert](alert.md)다.
-제품 정본은 `HeroNotice.tsx:41-91`(통합 판 `54b62a8aa`) — 랜딩 히어로(`Hero.tsx:305` · `:309` · `:314`)와 어드민 랜딩 편집의
+제품 정본은 `HeroNotice.tsx@54b62a8a:41-91`(통합 판 `54b62a8aa`) — 랜딩 히어로(`Hero.tsx@54b62a8a:305` · `:309` · `:314`)와 어드민 랜딩 편집의
 미리보기(`LandingManagement.tsx:336-337`)가 같은 정의를 쓴다.
 
 ```html
@@ -37,8 +37,8 @@ summary: 영상 위에 한 줄 공지를 띄웁니다. 목적지가 있으면 �
 | 로고 | 높이 16 · 최대 폭 48 · `contain` · 뒤 6 |
 | 링크일 때 | 커서 · 호버 스크림 72%(호버 기기만, `motion-control-hover`) |
 
-**간격은 요소마다 오른쪽에 든다**(`gap` 없음) — 로고가 있든 없든 점 뒤 10 · 로고 뒤 6 이 그대로 읽힌다(`HeroNotice.tsx:38-40`).
-**Button 을 빌리지 않는다** — 44 히트가 높이 32 를 밀어내고, 누를 수 없는 공지에 누름 신호가 붙는다(`HeroNotice.tsx:14-15` · `:62-65`).
+**간격은 요소마다 오른쪽에 든다**(`gap` 없음) — 로고가 있든 없든 점 뒤 10 · 로고 뒤 6 이 그대로 읽힌다(`HeroNotice.tsx@54b62a8a:38-40`).
+**Button 을 빌리지 않는다** — 44 히트가 높이 32 를 밀어내고, 누를 수 없는 공지에 누름 신호가 붙는다(`HeroNotice.tsx@54b62a8a:14-15` · `:62-65`).
 
 ## Availability
 
@@ -92,5 +92,5 @@ summary: 영상 위에 한 줄 공지를 띄웁니다. 목적지가 있으면 �
 
 ## 제품에서 발견한 것
 
-- 호버가 `@media (hover: hover)` 밖이다(`HeroNotice.tsx:72`).
+- 호버가 `@media (hover: hover)` 밖이다(`HeroNotice.tsx@54b62a8a:72`).
 - 문구가 맨 글자라 길면 높이 32 를 넘쳐 줄이 바뀐다. 레시피는 `__text` 로 감싸 한 줄에서 자른다.

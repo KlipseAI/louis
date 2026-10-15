@@ -14,8 +14,8 @@ summary: 같은 화면 안에서 보이는 뷰를 바꿉니다.
 
 | 무리 | 벌 | 자리 |
 | --- | ---: | --- |
-| 높이 28 · 좌우 12 · pill | 4 | `YoutubeAnalyticsScene.tsx:959-967` · `InstagramAnalyticsScene.tsx:409-417` · 아카이브 영상 분석 뷰(`YoutubeVideoAnalyticsView.tsx`) · 랜딩 데모 스냅숏(`StaticAnalyticsDemo.tsx`) |
-| 높이 28 · 인셋 0 | 3 | `InquiryClient.tsx:211-227`(폼 카테고리 칩) · 캔버스 가이드 모달(`NodeCanvasGuideModal.tsx`) · 영상 모델 필터 칩(`VideoModelMenu.tsx`) |
+| 높이 28 · 좌우 12 · pill | 4 | `YoutubeAnalyticsScene.tsx:960-968` · `InstagramAnalyticsScene.tsx:410-418` · 아카이브 영상 분석 뷰(`YoutubeVideoAnalyticsView.tsx`) · 랜딩 데모 스냅숏(`StaticAnalyticsDemo.tsx`) |
+| 높이 28 · 인셋 0 | 3 | `InquiryClient.tsx:208-224`(폼 카테고리 칩) · 캔버스 가이드 모달(`NodeCanvasGuideModal.tsx`) · 영상 모델 필터 칩(`VideoModelMenu.tsx`) |
 
 **YouTube와 Instagram 두 벌은 빈 줄 하나를 빼면 바이트 단위로 같다.** 아카이브 뷰는 `rounded-full`
 대신 `rounded-[999px]`로 적었을 뿐 계산값이 같다.
@@ -155,7 +155,7 @@ option이 생긴다. `bar` 는 그 일곱 벌 밖의 어드민 서브탭이 실�
 
 **쓰는 자리:** 화면 머리 아래, 같은 화면의 하위 묶음을 바꾸는 줄. 화면 전환 · 대시보드 탭은 기본 · underline 이다.
 
-출처는 제품 통합 판 `app/admin/contentListStyles.ts:171-174`(소비처 `AmbassadorAdmin.tsx:30` · `ContentManagement.tsx:33`)다.
+출처는 제품 통합 판 `app/admin/contentListStyles.ts:184-187`(소비처 `AmbassadorAdmin.tsx@54b62a8a:30` · `ContentManagement.tsx:33`)다.
 줄 밑선은 제품이 이미 `--louis-hairline` 토큰을 바이트 단위로 같게 적고 있었다. **막대는 box-shadow 가 아니라 테두리다** — 제품이
 `border-b-2` 로 높이 47 을 만들고, 강제 색 모드에서도 남는다. 쉬는 탭도 투명 막대를 가져 고를 때 높이가 2px 튀지 않는다.
 전환은 잉크 · 막대 색이라 `motion-tab-select`(opacity 전용)가 아니라 `motion-control-hover` 를 쓴다.

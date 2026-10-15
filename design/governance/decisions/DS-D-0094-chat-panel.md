@@ -15,8 +15,8 @@ authority: normative
 
 [DS-D-0084](DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `chat-panel` 이 있다. 하이라이트 판의 「AI 클립 수정」
 (`components/scenes/highlight/ClipRefinementWidget.tsx`, 통합 판 `54b62a8aa`)은 화면 구석에 접힌 알약으로 쉬다가 누르면 **같은 요소 그대로** 대화 창으로
-자란다 — 알약 단추가 창의 머리가 되고 그 아래 기록 · 제안 · 입력 줄이 열린다. 제품 상수 서른넷(`components/scenes/highlightSceneStyles.ts:445-1082`)과
-keyframe 넷(`app/keyframes.css:911-958`)으로 그려진다. 그려지는 자리는 판 무대 하나이고(`components/scenes/highlight/HighlightStudioBoard.tsx:1514`),
+자란다 — 알약 단추가 창의 머리가 되고 그 아래 기록 · 제안 · 입력 줄이 열린다. 제품 상수 서른넷(`components/scenes/highlightSceneStyles.ts:393-398`)과
+keyframe 넷(`app/keyframes.css:881-928`)으로 그려진다. 그려지는 자리는 판 무대 하나이고(`components/scenes/highlight/HighlightStudioBoard.tsx:1514`),
 부르는 곳은 실제 장면과 개발 미리보기 둘이다.
 
 LOUIS 에 대응이 없다. 떠 있는 부품 넷 — [Dialog](../../components/dialog.md)(가운데 모달 · 스크림 · 포커스 가둠) · [Floating Shell](../../components/floating-shell.md)

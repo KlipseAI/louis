@@ -48,8 +48,8 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 | 있었던 이름 | 마지막으로 존재하던 좌표 | 지금 그 자리 |
 | --- | --- | --- |
-| `--dropdown-frame` | `globals.css@2b59479f:63` | `var(--louis-hairline-inset)` — `globals.css:1430` · `1341` |
-| `--dropdown-ambient-shadow` | `globals.css@2b59479f:67` | `var(--louis-elevation-menu)` — `globals.css:520` |
+| `--dropdown-frame` | `globals.css@2b59479f:63` | `var(--louis-hairline-inset)` — `globals.css:1465` · `1341` |
+| `--dropdown-ambient-shadow` | `globals.css@2b59479f:67` | `var(--louis-elevation-menu)` — `globals.css:535` |
 | `--dropdown-frame-on-dark` | `globals.css@5ffc4431:61` | **없다.** 헤어라인 한 벌로 합쳐졌고 이름 자체가 제품 게이트의 legacy 목록에 올랐다 |
 
 지금 발행되는 값은 LOUIS 토큰이다.
@@ -82,7 +82,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 앰비언트 그림자는 **헤어라인에 넣지 않는다.** 헤어라인은 카드·패널·버튼까지 제품 66개 파일 163곳이
 공유하므로 그림자를 섞으면 전부에 번진다. 필요한 표면에서만 앞에 조합한다 —
-`box-shadow: var(--louis-elevation-menu), var(--louis-hairline-inset)`(`globals.css:520`).
+`box-shadow: var(--louis-elevation-menu), var(--louis-hairline-inset)`(`globals.css:535`).
 
 ### 글래스 5겹과 베벨은 제품에서 제거됐다
 
@@ -98,7 +98,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 > 글래스(검정 링 + 좌우 엣지 + 흰 림 5겹)를 걷어냈다 — **디자인 시스템이 글래스 섀도우 개념을 두지 않는다.**
 
-**제품에 남은 글래스 주석은 값보다 낡았다.** `globals.css:516-518`는 `--node-meta-dropdown-shadow`를
+**제품에 남은 글래스 주석은 값보다 낡았다.** `globals.css:531-533`는 `--node-meta-dropdown-shadow`를
 아직도 「글래스 프레임 그림자 — 외곽 드롭 + 검정 ring/좌우 엣지 + 상하 흰 림 inset」이라 설명하지만, 바로
 아래 값(`:525-526`)은 이미 `var(--louis-elevation-menu), var(--louis-hairline-inset)` **두 겹**이다.
 
@@ -111,7 +111,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
   배포본 `df414c24` 의 `Button.tsx` 는 68줄이고 `.louis-button` 을 소비하기만 한다. 좌표를 커밋에 묶어
   두는 것은 그 선언이 실재했던 자리를 잃지 않기 위해서다
 - 앱 메인 카드의 `::after` 베벨 링. 카드는 이제 `border-radius: 16px` + `var(--louis-hairline-inset)`
-  뿐이다(`globals.css:1330-1335`·`:1421-1431`). 그 자리를 잡고 있던 `--dropdown-frame`은 지금 제품에 없다
+  뿐이다(`globals.css:1365-1370`·`:1421-1431`). 그 자리를 잡고 있던 `--dropdown-frame`은 지금 제품에 없다
 - 비디오 에디터의 헤더 버튼·타임라인 표면이 쓰던 베벨 (`videoEditParts/vemClass.ts`)
 
 **이 자리를 5겹으로 되돌리지 마라.** 옛 문서나 `origin/main`을 근거로 다시 그리면 폐지된 개념이 살아난다 —
@@ -124,8 +124,8 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 | 소비처 | 좌표 |
 | --- | --- |
-| 노드 사이드 버튼 | `node-canvas-v2/nodes/NodeSideButtons.tsx:147-148` |
-| 비디오 에디터 `confirmBtn`(내보내기) | `videoEditParts/vemClass.ts:804-805` (선언은 `:505`) |
+| 노드 사이드 버튼 | `node-canvas-v2/nodes/NodeSideButtons.tsx:148-149` |
+| 비디오 에디터 `confirmBtn`(내보내기) | `videoEditParts/vemClass.ts@54b62a8a:804-805` (선언은 `:505`) |
 
 Button 주석이 「이너섀도우는 **노드 사이드 버튼에만** 남는다」고 적지만 `confirmBtn`이 같은 층을 자기
 클래스에 직접 들고 있다 — **주석보다 값이 정본이다.**

@@ -80,6 +80,14 @@ const PRODUCT_CLEANUP_CANDIDATES = {
     "(`var(--louis-color-bg-*)` · `bg-bg-*`)으로 바꿀 후보다. 바꾸는 일은 제품 PR 몫이다.",
   entries: [
     {
+      // 2026-10-16 앵커를 운영 main 97d4950e 로 옮기며(DS-D-0117) 새로 잡혔다. 소유자 지시로 근본 수정을 제품 PR 로 냈다 —
+      // KlipseAI/klipse-web#379(추천 목록을 LOUIS 메뉴 정본 `.louis-popover` 로). 그 PR 이 배포되고 앵커가 따라가면 0 으로 돌아온다.
+      file: "apps/web/app/admin/AdminEmailSuggestInput.tsx",
+      was: 0,
+      now: 1,
+      sites: ["12 [light] bg-palette-gray-050 (SUGGEST_LIST) = bg-inset — klipse-web#379"],
+    },
+    {
       file: "apps/web/app/admin/ModelManagement.tsx",
       was: 0,
       now: 1,

@@ -25,6 +25,17 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-16 (299) — 팔레트 사다리 빨강을 풀었다: 캔버스 바닥은 면제, 관리자 추천 목록은 제품 PR 로
+
+- **무엇이 빨강이었나** — 앵커를 운영 main 97d4950e 로 옮기자 `check-palette-ladder-collision` 이 제품 코드에서 사다리 이름 대신 같은 값의
+  원색 팔레트를 칠한 자리 넷을 새로 잡았다(`AdminEmailSuggestInput.tsx` 1 · `CreateScene.tsx` 2 → 3).
+- **캔버스 뒤 바닥은 면제** — `NODE_CANVAS_DOCK_FLOOR` 의 라이트 순백은 값이 `bg-raised` 와 같지만, 캔버스가 카드로 줄면 드러나는 바닥을
+  가장 밝게 · 가장 어둡게 두기로 한 소유자 결정(2026-10-14)이다. 사다리 밖이 의도라 `migration/palette-ladder-exemptions.json` 첫 항목으로 사유와 함께 옮겼다.
+- **관리자 이메일 추천 목록 · 캔버스의 죽은 랜딩 데모 배경은 제품 PR** — KlipseAI/klipse-web#379: 추천 목록 면 · 항목을 LOUIS 메뉴 정본
+  (`.louis-popover` · `.louis-menu__item`)으로 올리고, 호출부가 없는 임베드 랜딩 데모 갈래의 `--gray-900` 두 줄을 걷는다. 그 PR 이 배포되고 앵커가 따라갈
+  때까지 `AdminEmailSuggestInput.tsx` 1 은 기준선에 잠그고 제품 정리 후보(`PRODUCT_CLEANUP_CANDIDATES`)에 PR 과 함께 적었다.
+- 알아 둘 것 — 임베드 데모 사슬 전체(CreateScene · AppHomeScene · NodeCanvasHomeScene · Gnb · 컨트롤러, 약 170곳) 정리는 제품 쪽 후속이다.
+
 ## 2026-10-16 (298) — 조립 규칙 15조의 41 ~ 51 과 마지막 판정: needed 10 → 7, 화면 대응 78 → 81
 
 - **늘림 규칙(새 보드 · 남은 모바일)** — 15조의 41(가운데 정렬 inline 글자 FILL) · 42(세로 쌓기의 `margin-inline: auto`) · 43(`calc(var(--x) * 1%)` 폭) ·
